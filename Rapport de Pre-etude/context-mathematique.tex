@@ -15,7 +15,7 @@
 		$r_t = \log\left(\frac{V_t}{V_{t-1}}\right)$
 
 
-	\section{Particularités des séries financières}
+	\section{Particularités statistiques des séries financières}
 
 		La modélisation des séries financières est particulièrement complexe car celles-ci ont des comportements atypiques.
 
@@ -30,7 +30,7 @@
 		De plus, les queues de distributions des rendements sont épaisses. Cela signifie que les valeurs extrêmes ont une probabilité non négligeable d'apparaître. Cela est donc plus compliqué à modéliser : les rendements ne suivent pas une loi normale par exemple.
 		Un autre effet qui peut compliquer la modélisation est l'effet de levier. Cet effet correspond au fait qu'une même variation des cours n'aura pas la même conséquence, suivant qu'elle soit positive ou négative. En effet, une baisse des cours entrainera une instabilité plus importante qu'une variation positive de même amplitude. L'influence de la variation des rendements n'est donc pas symétrique.
 		Enfin, une certaine saisonnalité des rendements est parfois observée. En effet, suivant la période de l'année ou suivant le jour, ils seront plus ou moins volatiles.
-		Il n'existe pas à ce jour de modèle permettant de modéliser l'ensemble de ces particularités. Mais comme celles-ci n'ont pas toutes la même importance, des modèles plus simples permettent de modéliser correctement l'évolution des rendements financiers.
+		Il n'existe pas à ce jour de modèle permettant de modéliser l'ensemble de ces particularités. Mais comme celles-ci n'ont pas toutes la même importance, des modèles plus simples permettent de modéliser correctement l'évolution des rendements financiers. 
 
 
 	\section{Modèle GARCH}
@@ -100,16 +100,17 @@
 			La modélisation GARCH nous permet ainsi de modéliser l'évolution des rendements. Il nous faut maintenant lier ces rendements à la VaR.
 			Par définition, on a :
 			\[\alpha = \mathrm{P}(VaR_{t,h}(\alpha)\textless (V_t - V_{t+h})) si V_{t+h} < V_t. Sinon, VaR_{t+h} = 0\]
+			Cela exprime bien le fait que la probabilité que la valeur de la perte ($V_t - V_{t+h}$) dépasse la VaR vaut $\alpha$.
+			
+			Si on développe cette expression on obtient : 
+\begin{align}
+\alpha &= \mathrm{P}(VaR_{t,h}(\alpha)\textless -(V_{t+h} - V_t))\\
+			&= \mathrm{P}\left(\frac{-VaR_{t,h}(\alpha)}{V_t}\textgreater\frac{(V_{t+h} - V_t)}{V_t}\right)\\
+			&= \mathrm{P}\left(1-\frac{VaR_{t,h}(\alpha)}{V_t}\textgreater\frac{V_{t+h}}{V_{t+h-1}}*\frac{V_{t+h-1}}{V_{t+h-2}}*...*\frac{V_{t+1}}{V_{t}}\right)\\
+			&= \mathrm{P}\left(\log (1-\frac{VaR_{t,h}(\alpha)}{V_t})\textgreater r_{t+h}+r_{t+h-1}+r_{t+h-2}+...+r_{t+1}\right)
+\end{align}
 
-			Cela exprime bien le fait que la probabilité que la valeur de la perte ($V_t - V_{t+h}$) dépasse la VaR vaut $\alpha$. En partant de cette définition, on arrive à montrer que $VaR_{t+h}(\alpha) = 1 - exp{(q_{t}(h,\alpha))}*V_{t}$, avec $q_{t}(h,\alpha)$ le quantile d'ordre $\alpha$ de $r_{t+h}+r_{t+h-1}+r_{t+h-2}+...+r_{t+1}$. On voit donc ici que la VaR est caluclée à partir de rendements futurs et donc encore non observés. Il est donc nécessaire d'estimer ces rendements, ce qui rend le calcul de la VaR difficile.
-
-			%\begin{align}
-			%\alpha &= \mathrm{P}(VaR_{t,h}(\alpha)\textless -(V_{t+h} - V_t))\\
-			%&= \mathrm{P}\left(\frac{-VaR_{t,h}(\alpha)}{V_t}\textgreater\frac{(V_{t+h} - %V_t)}{V_t}\right)\\
-			%&= \mathrm{P}\left(1-\frac{VaR_{t,h}(\alpha)}{V_t}\textgreater\frac{V_{t+h}}{V_{t+h-1}}*\frac{V_{t+h-1}}{V_{t+h-2}}*...*\frac{V_{t+1}}{V_{t}}\right)\\
-			%&= \mathrm{P}\left(\log (1-\frac{VaR_{t,h}(\alpha)}{V_t})\textgreater r_{t+h}+r_{t+h-1}+r_{t+h-2}+...+r_{t+1}\right)
-			%\end{align}
-
+			On arrive donc à montrer que $VaR_{t+h}(\alpha) = 1 - exp{(q_{t}(h,\alpha))}*V_{t}$, avec $q_{t}(h,\alpha)$ le quantile d'ordre $\alpha$ de $r_{t+h}+r_{t+h-1}+r_{t+h-2}+...+r_{t+1}$. On voit donc ici que la VaR est caluclée à partir de rendements futurs et donc encore non observés. Il est donc nécessaire d'estimer ces rendements à l'aide d'un modèle GARCH bien ajusté aux données observées.
 	
 	\section{Calcul de la Value at Risk}
 
