@@ -2,7 +2,7 @@
 
 	\section{Introduction}
 
-	L’introduction de l’obligation pour les banques de se prémunir contre d’éventuelles pertes financières a naturellement entraîné l’utilisation de différents concepts mathématiques. En effet, pour les banques, l’enjeu est d’immobiliser le minimum de ressources financières, tout en garantissant un niveau de risque satisfaisant. Il est donc naturel que des notions de statistiques et de probabilités soient introduites afin quantifier le risque. Contextees notions sont présentées par la suite.
+	L’introduction de l’obligation pour les banques de se prémunir contre d’éventuelles pertes financières a naturellement entraîné l’utilisation de différents concepts mathématiques. En effet, pour les banques, l’enjeu est d’immobiliser le minimum de ressources financières, tout en garantissant un niveau de risque satisfaisant. Il est donc naturel que des notions de statistiques et de probabilités soient introduites afin quantifier le risque. Ces notions sont présentées par la suite.
 
 
 	\section{Définitions}
@@ -10,7 +10,7 @@
 		Pour pouvoir quantifier le risque, il faut tout d’abord modéliser les variations des valeurs boursières. Pour cela, on utilise des séries temporelles. Une série temporelle est une suite de valeurs numériques représentant l'évolution d'une quantité au cours du temps. La valeur de $x$ à l’instant $t$ sera ainsi notée $x_t$. L’introduction de la notion de temps doit être accompagnée de la définition d’une unité de temps. Dans notre cas, l’unité de temps est le jour. Si nous sommes à l’instant $t$, $t-1$ correspond à la veille et $t+1$ au lendemain.
 
 		Pour estimer les risques financiers, différentes techniques existent. L'une des plus utilisées actuellement est la Value-at-Risk (VaR). Elle permet de mesurer les risques associés à un \gls{portefeuille}.
-		Plus précisement, elle permet d'estimer la perte maximale associée à un portefeuille pour un niveau de confiance et un horizon de temps donnés. Elle peut être calculée selon plusieurs méthodes. Nous en présentons trois par la suite.\\
+		Plus précisément, elle permet d'estimer la perte maximale associée à un portefeuille pour un niveau de confiance et un horizon de temps donnés. Elle peut être calculée selon plusieurs méthodes. Nous en présentons trois par la suite.\\
 		On définit $V_t$ comme le prix de vente du \gls{portefeuille} à l'instant t. Le log-rendement correspond au logarithme du rapport de deux prix de vente successifs :
 		$r_t = \log\left(\frac{V_t}{V_{t-1}}\right)$
 
@@ -91,7 +91,7 @@
 			%&=\omega*\underbrace{\mathbb{E}(\sigma_{t-1}^{2})}_{>0}+\alpha*\underbrace{\mathbb{E}(\sigma_{t-1}^4)}_{>0}+\beta*\underbrace{\mathbb{E}(\sigma_{t-1}^4)}_{>0}
 			%&>0
 			%\end{align}
-			Pour vérifier cela, on calcule, à partir des données collectées, la covariance empirique des rendements au carrés et on vérifie sa positivité.
+			Pour vérifier cela, on calcule, à partir des données collectées, la covariance empirique des rendements au carré et on vérifie sa positivité.
 
 			Toutes ces différentes conditions sont basées sur des résultats théoriques et elles peuvent également être vérifiées en traçant différents graphiques.
 
@@ -112,7 +112,7 @@
 			&= \mathrm{P}\left(\log (1-\frac{VaR_{t,h}(\alpha)}{V_t})\textgreater r_{t+h}+r_{t+h-1}+r_{t+h-2}+...+r_{t+1}\right)
 \end{align}
 
-			On arrive donc à montrer que $VaR_{t+h}(\alpha) = 1 - exp{(q_{t}(h,\alpha))}*V_{t}$, avec $q_{t}(h,\alpha)$ le quantile d'ordre $\alpha$ de $r_{t+h}+r_{t+h-1}+r_{t+h-2}+...+r_{t+1}$. On voit donc ici que la VaR est caluclée à partir de rendements futurs et donc encore non observés. Il est donc nécessaire d'estimer ces rendements à l'aide d'un modèle GARCH bien ajusté aux données observées.
+			On arrive donc à montrer que $VaR_{t+h}(\alpha) = 1 - exp{(q_{t}(h,\alpha))}*V_{t}$, avec $q_{t}(h,\alpha)$ le quantile d'ordre $\alpha$ de $r_{t+h}+r_{t+h-1}+r_{t+h-2}+...+r_{t+1}$. On voit donc ici que la VaR est calculée à partir de rendements futurs et donc encore non observés. Il est donc nécessaire d'estimer ces rendements à l'aide d'un modèle GARCH bien ajusté aux données observées.
 	
 	\section{Calcul de la Value at Risk}
 
@@ -129,11 +129,11 @@
 
 			L'avantage de cette méthode simplifiée est que le calcul de la VaR est direct. Ce modèle, bien qu'il ne soit pas le plus fiable, est néanmoins très utilisé, grâce à sa simplicité.
 
-			Contrairement au modèle GARCH, la valeur de l'unique coefficient $\lambda$ n'est pas calculée avec les données précédentes. En effet, il est souvent fixée à une valeur, obtenue par expérience, de $0.94$.
+			Contrairement au modèle GARCH, la valeur de l'unique coefficient $\lambda$ n'est pas calculée avec les données précédentes. En effet, il est souvent fixé à une valeur, obtenue par expérience, de $0.94$.
 
 
 		\subsection{Par la méthode bootstrap}
 		\label{subsubsection:methode-bootstrap}
 			En dehors des deux méthodes précédentes, le calcul de la VaR ne peut se faire de façon directe. En effet, comme précisé plus haut, le calcul de la VaR dépend d'un quantile d'une loi inconnue\footnote{La loi de la somme des rendements n'est pas connue à priori}. Comme ce quantile ne peut être déterminé de façon théorique, il doit être estimé. Cette estimation est réalisée par la méthode \textit{bootstrap}. Cette méthode consiste à générer un grand nombre scénarios et à calculer la somme des rendements pour chacun d'entre eux. Ainsi, on obtient un nombre assez important de sommes de rendements. Comme ces sommes suivent la loi inconnue que l'on cherche pour calculer la VaR, on peut les utiliser pour obtenir le quantile qui nous intéresse (soit directement, soit en cherchant à estimer la fonction de densité).
 
-			Cependant, pour que la loi obtenue par les scénarios soit pertinente, ces scénarios sont générés à partir de données déjà observées. De ce fait, la première étape du \textit{bootstrap} consiste à calculer les résidus $\eta_t$ sur des données observées. Ensuite, on réalise un tirage avec remise entre les différents résidus pour générer les scénarios. Lorsque l'on a tiré aléatoirement un résidu, on peut calculer le rendement associé ainsi que la volatilité à l'étape suivante. En répétant ces étapes, on obtient donc différents scénarios(TODO : image scenario).
+			Cependant, pour que la loi obtenue par les scénarios soit pertinente, ces scénarios sont générés à partir de données déjà observées. De ce fait, la première étape du \textit{bootstrap} consiste à calculer les résidus $\eta_t$ sur des données observées. Ensuite, on réalise un tirage avec remise entre les différents résidus pour générer les scénarios. Lorsque l'on a tiré aléatoirement un résidu, on peut calculer le rendement associé ainsi que la volatilité à l'étape suivante. En répétant ces étapes, on obtient donc différents scénarios.
