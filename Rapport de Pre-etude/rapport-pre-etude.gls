@@ -1,0 +1,6 @@
+\glossarysection[\glossarytoctitle]{\glossarytitle}\glossarypreamble
+\begin{theglossary}\glossaryheader
+\glsgroupheading{P}\relax \glsresetentrylist %
+\glossaryentryfield{portefeuille}{\glsnamefont{portefeuille}}{Un portefeuille est une composition de plusieurs actifs financiers (actions, obligations, matières premières, etc)}{\relax }{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{5}}}%
+\end{theglossary}\glossarypostamble
