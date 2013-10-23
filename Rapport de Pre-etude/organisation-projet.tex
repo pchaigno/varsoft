@@ -18,7 +18,7 @@
 \subsection{Interfaçage avec R}
 	Nous allons avoir besoin du logiciel R pour effectuer certains calculs, notamment pour effectuer la modélisation GARCH. Cette dernière peut être assez compliquée à calculer et R permet de le faire beaucoup plus simplement. L’autre solution serait de réécrire l’algorithme avec le langage que nous utiliserons.
 
-	Pour exécuter du code R depuis un autre langage plusieurs solutions s’offrent à nous. La première pourrait être de réaliser un exécutable à partir du script R. Le programme pourrait ensuite être appelé comme n’importe quel autre programme. Cependant comme R est un langage interprété, réaliser un exécutable qui soit indépendant du logiciel R à partir d’un script se révèle assez compliqué. La commande R CMD LINK permet cependant de le faire d’après la documentation R (TODO Ajouter a la biblio : http://stat.ethz.ch/R-manual/R-devel/library/utils/html/LINK.html).
+	Pour exécuter du code R depuis un autre langage plusieurs solutions s’offrent à nous. La première pourrait être de réaliser un exécutable à partir du script R. Le programme pourrait ensuite être appelé comme n’importe quel autre programme. Cependant comme R est un langage interprété, réaliser un exécutable qui soit indépendant du logiciel R à partir d’un script se révèle assez compliqué. La commande R CMD LINK permet cependant de le faire d’après la documentation R \cite{website:R-LINK}.
 
 	Un seconde solution serait d’appeler R en ligne de commande depuis notre programme C++ pour interpréter le script R. Cette solution nécessite cependant d’installer le logiciel R.
 
