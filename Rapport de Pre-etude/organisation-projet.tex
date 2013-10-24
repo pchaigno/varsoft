@@ -7,30 +7,30 @@
 
 
 \subsection{Interfaçage avec Excel}
-	De nombreuses fonctionnalités de notre logiciel sont celles d'un simple logiciel tableur. Nous devons entre autres importer des données, les afficher sous formes de tableaux et de graphes ainsi que les exporter et être capable de travailler sur les tableaux facilement. Toutes ces fonctionnalités sont supportées par des logiciels tels qu'Excel ou OpenOffice Calc.
-	Parce que les salles de marchés en sont largement équipées, nous avons choisis d'utiliser Excel. Notre logiciel implémentera donc toutes les fonctionnalités ci-dessus en s'appuyant sur le tableur de Microsoft.
+	De nombreuses fonctionnalités de notre logiciel sont celles d'un simple logiciel tableur. Nous devons entre autres importer des données, les présenter sous formes de tableaux et de graphes ainsi que les exporter et être capable de travailler sur les tableaux facilement. Toutes ces fonctionnalités sont supportées par des logiciels tels qu'Excel ou OpenOffice Calc.
+	Parce que les salles de marchés en sont largement équipées, nous avons choisi d'utiliser Excel. Notre logiciel implémentera donc toutes les fonctionnalités ci-dessus en s'appuyant sur le tableur de Microsoft.
 
 
 \subsection{Choix du langage}
-	Le choix du langage que nous utiliserons pour développer le logiciel est déterminé par notre besoin précédent. Comme nous avons choisi d'utiliser Excel, nous allons devoir utiliser la plateforme de développement de Microsoft, Visual Studio. L'intégration d'Excel peut se faire en C\# et C++. Nous avons choisi de développer en C++ car nous y auront été formés d'ici là.
+	Le langage que nous utiliserons pour développer le logiciel est déterminé par notre besoin précédent. Comme nous avons choisi d'utiliser Excel, nous allons devoir utiliser la plate-forme de développement de Microsoft, Visual Studio. L'intégration d'Excel peut se faire en C\# et C++. Nous avons choisi de développer en C++ car nous y serons formés durant les prochains mois.
 
 
 \subsection{Interfaçage avec R}
-	Nous allons avoir besoin du logiciel R pour effectuer certains calculs, notamment pour effectuer la modélisation GARCH. Cette dernière peut être assez compliquée à calculer et R permet de le faire beaucoup plus simplement. L'autre solution serait de réécrire l'algorithme avec le langage que nous utiliserons.
+	Nous aurons besoin du logiciel R pour effectuer certains calculs, notamment pour effectuer la modélisation GARCH. Cette dernière peut être assez compliquée à calculer et R permet de le faire beaucoup plus simplement. L'autre solution serait de réécrire l'algorithme avec le langage que nous utilisons.
 
 	Pour exécuter du code R depuis un autre langage plusieurs solutions s'offrent à nous. La première pourrait être de réaliser un exécutable à partir du script R. Le programme pourrait ensuite être appelé comme n'importe quel autre programme. Cependant comme R est un langage interprété, réaliser un exécutable qui soit indépendant du logiciel R à partir d'un script se révèle assez compliqué. La commande R CMD LINK permet cependant de le faire d'après la documentation R \cite{website:R-LINK}.
 
 	Une seconde solution serait d'appeler R en ligne de commande depuis notre programme C++ pour interpréter le script R. Cette solution nécessite cependant d'installer le logiciel R.
 
-	Comme R est un langage interprété, une troisième solution existe. Celle-ci consiste à exécuter le code R directement depuis notre code C++. Différents package existent pour cela. Plusieurs d'entre eux - notamment StatConnector et RDCOMServer - utilisent le mécanisme (D)COM de Windows pour communiquer entre des applications \cite{website:R-under-Windows}.
+	Comme R est un langage interprété, une troisième solution existe. Celle-ci consiste à exécuter le code R directement depuis notre code C++. Différents packages existent pour cela. Plusieurs d'entre eux - notamment StatConnector et RDCOMServer - utilisent le mécanisme (D)COM de Windows pour communiquer entre des applications \cite{website:R-under-Windows}.
 
 	Les deux dernières solutions nécessitent d'installer le logiciel R sur l'ordinateur du client. La dernière solution est la plus communément utilisée et donc la plus documentée. 
 
 
 \subsection{Git, la gestion de versions}
-	Nous développerons à l'aide du logiciel de gestion de versions décentralisé Git. Le choix se pose essentiellement entre Git et Apache Subversion (SVN). Nous avons choisis d'utiliser Git premièrement parce que nous y avons été formés. De plus, Git nous laissera plus de liberté de mouvement pour effectuer notre suivi en local sans forcément avoir à directement soumettre les modifications au serveur.
+	Nous développerons à l'aide du logiciel de gestion de versions décentralisé Git. Le choix se pose essentiellement entre Git et Apache Subversion (SVN). Nous avons choisi d'utiliser Git premièrement parce que nous y avons été formés. De plus, parce que Git nous laissera plus de liberté de mouvement pour effectuer notre suivi en local sans forcément avoir à directement soumettre les modifications au serveur.
 
-	Nous n'utiliserons cependant pas complètement le côté décentralisé de Git puisque nous nous appuierons sur un serveur GitHub ou Bitbucket \footnote{En fonction de si on veut que notre code source soit visible ou non du public}.
+	Nous n'utiliserons cependant pas complètement le côté décentralisé de Git puisque nous nous appuierons sur un serveur GitHub ou Bitbucket \footnote{En fonction de notre volonté que notre code source soit privé ou pas}.
 
 
 \section{Planning et répartitions}
@@ -38,7 +38,7 @@
 \subsection{Planning du projet}
 	Le projet se déroulant sur plusieurs mois, il est nécessaire de pouvoir organiser les tâches de manière efficace afin d'anticiper les éventuels problèmes et donc leurs solutions. Comme prévu dans le déroulement du projet, nous allons utiliser le logiciel Microsoft Project pour la planification et la gestion de projet.
 
-	L'utilisation de cet outil a plusieurs objectifs. D'une part nous allons pouvoir identifier de manière efficace les zones problématiques de notre planification. Cela nous permettra de tester différentes possibilités d'organisations, ainsi que de visualiser efficacement les changements que l'on doit appliquer à notre planification. D'autre part, MS Project est largement répandu dans le monde de l'entreprise.  Acquérir de l'expérience sur ce logiciel dans le cadre de notre formation est donc une excellente opportunité.
+	L'utilisation de cet outil a plusieurs objectifs. D'une part nous allons pouvoir identifier de manière efficace les zones problématiques de notre planification. Cela nous permettra de tester différentes possibilités d'organisations, ainsi que de visualiser efficacement les changements que l'on doit appliquer à notre planification. D'autre part, MS Project est largement répandu dans le monde de l'entreprise. Acquérir de l'expérience sur ce logiciel dans le cadre de notre formation est donc une excellente opportunité.
 
 
 \subsection{Répartition du travail}
@@ -59,15 +59,15 @@
 
 
 	\subsection{Les licences libres}
-		Les trois licences décrites par la suite ont été choisies parce qu'elles représentent très bien la diversité des licences libres. De plus, elles sont très utilisées dans le monde du logiciel libre.
+		Les trois licences décrites par la suite ont été choisies parce qu'elles représentent très bien la diversité des licences libres. De plus, elles sont fréquemment utilisées dans le monde du logiciel libre.
 
 	\monparagraph{Licence General Public License}
-		La licence General Public License (GPL) est sans doute la plus connue de toutes les licences libres \nocite{website:licenceGPL}. Elle a pour principes :
+		La licence General Public License (GPL) est la plus connue de toutes les licences libres \nocite{website:licenceGPL}. Elle a pour principes :
 		\begin{itemize}
 			\item la liberté d'exécuter le logiciel, pour n'importe quel usage; 
 			\item la liberté d'étudier le fonctionnement d'un programme et de l'adapter à ses besoins, ce qui passe par l'accès aux codes sources;
 			\item la liberté de redistribuer des copies;
-			\item la liberté d'améliorer le programme et de rendre publiques les modifications afin que l'ensemble de la communauté en bénéficie.
+			\item la liberté d'améliorer le programme et de rendre publics les modifications afin que l'ensemble de la communauté en bénéficie.
 		\end{itemize}
 
 	L'utilisateur a le droit de modifier le code source uniquement s'il le redistribue sous la même licence GPL (principe du copyleft).
@@ -106,6 +106,6 @@
 
 
 	\subsection{Le choix de la licence}
-		La licence retenue pour ce projet est la LGPL. La GPL n'a pas été choisie car celle-ci est trop restrictive. En effet, l'utilisation d'un code sous licence GPL force l'utilisation de cette licence sur l'ensemble du logiciel. La LGPL n'a pas cet inconvénient : le code source de ce projet pourra être réutilisé dans un logiciel propriétaire sous réserve de publier les modifications apportées sous LGPL. Enfin, la licence BSD n'a pas non plus été retenue car elle n'oblige pas la diffusion du code modifié.
+		La licence retenue pour ce projet est la LGPL. La GPL n'a pas été choisie car trop restrictive. En effet, l'utilisation d'un code sous licence GPL force l'utilisation de cette licence sur l'ensemble du logiciel. La LGPL n'a pas cet inconvénient : le code source de ce projet pourra être réutilisé dans un logiciel propriétaire sous réserve de publier les modifications apportées sous LGPL. Enfin, la licence BSD n'a pas non plus été retenue car elle n'oblige pas la diffusion du code modifié.
 
-		Pour valider la licence il faut mettre un entête dans chacun des fichiers sources. La documentation devra mentionner la licence. De plus un fichier nommé LICENCE devra apparaitre dans un fichier de la distribution, il contiendra le texte de la licence. Enfin, un lien dans l'interface devra amener vers un rappel de licence et le texte de la licence. En annexe \ref{licence}, figure un modèle d'en-tête de licence.
+		Pour valider la licence il faut mettre un entête dans chacun des fichiers sources. La documentation devra mentionner la licence. De plus un fichier nommé LICENCE devra apparaître dans un fichier de la distribution, il contiendra le texte de la licence. Enfin, un lien dans l'interface devra amener vers un rappel de licence et le texte de la licence. En annexe \ref{licence}, figure un modèle d'en-tête de licence.

@@ -10,12 +10,12 @@
 		\monparagraph{Les formats de fichiers}
 		Trois formats de fichiers sont très utilisés dans le domaine de la finance et ils devront par conséquent être pris en charge par l'application :
 		\begin{itemize}
-			\item Le format texte brut
-			\item Le format CSV
-			\item Le format Excel : son importation nécessitera d'utiliser des API fournies par Microsoft.
+			\item le format texte brut;
+			\item le format CSV;
+			\item le format Excel : son importation nécessitera d'utiliser des API fournies par Microsoft.
 		\end{itemize}
 
-		Le format CSV sera le plus simple à importer puisqu'il est standardisé. En effet, les colonnes sont séparées par des virgules, des points-virgules, etc; et, chaque n-uplet de valeurs occupe une ligne.
+		Le format CSV sera le plus simple à importer puisqu'il est standardisé. En effet, les colonnes sont séparées par des virgules, des points-virgules, et chaque n-uplet de valeurs occupe une ligne.
 
 		\monparagraph{Problèmes liés aux formats de données}
 		Une fois les données lues, le module d'importation devra choisir les variables utiles aux calculs et enlever celles inutiles. Par exemple, les données proposées par Yahoo Finance donnent des informations sur les volumes d'actions échangés. Or, cette information n'est pas utile pour les calculs. C'est pourquoi ce module devra sélectionner si possible automatiquement les colonnes utiles, ou proposer à l'utilisateur de les sélectionner à la main. 
@@ -26,10 +26,10 @@
 	\subsection{Exportation des données}
 		Le logiciel offrira différentes options en termes d'exportation et de sauvegarde :
 		\begin{itemize}
-			\item Exporter les données brutes obtenues lors de l'importation en différents formats : texte brut, CSV et Excel
-			\item Exporter les portefeuilles d'actifs constitués (cf. \ref{subsubsection:portefeuilles}) dans ces mêmes formats
-			\item Fournir un document récapitulant les résulats liés à un calcul
-			\item Sauvegarder une session \footnote{L'ensemble des portefeuilles en cours d'utilisation, les calculs effectués...}.
+			\item exporter les données brutes obtenues lors de l'importation en différents formats : texte brut, CSV et Excel;
+			\item exporter les portefeuilles d'actifs constitués (cf. \ref{subsubsection:portefeuilles}) dans ces mêmes formats;
+			\item fournir un document récapitulant les résulats liés à un calcul;
+			\item sauvegarder une session \footnote{L'ensemble des portefeuilles en cours d'utilisation, les calculs effectués...}.
 		\end{itemize}
 
 
@@ -63,10 +63,10 @@
 		Après importation des données, l'utilisateur doit pouvoir appliquer des opérations mathématiques sur les données.
 		Il doit par exemple pouvoir effectuer des calculs de :
 		\begin{itemize}
-			\item Moyenne
-			\item Variance
-			\item Kurtosis
-			\item Valeurs extrêmes.
+			\item moyenne;
+			\item variance;
+			\item kurtosis;
+			\item valeurs extrêmes.
 		\end{itemize}
 		Toutes ces valeurs seront calculées et affichées en même temps.
 
