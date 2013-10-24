@@ -13,6 +13,11 @@
 	\section{Add-ins Excel}
 
 		De nombreux éditeurs tels que \textit{FEA}, \textit{Hoadley}, \textit{Palisade}, \textit{PortofolioScience} ou encore \textit{VoseSoftware} proposent des logiciels d’évaluation de risques financiers intégrés à \textit{Excel}. Ces logiciels sont assez similaires et diffèrent principalement du point du vue du nombre de fonctionnalités, des méthodes de calcul de la VaR et de leur intégration dans \textit{Excel} \footnote{Ils exploitent plus ou moins bien le \gls{ruban} ou ils utilisent des fenêtres supplémentaires}. Dans tous les cas, nous nous sommes focalisés sur les fonctionnalités plutôt que sur l’interface étant donné que notre solution n’a pas pour objectif de s’intégrer à \textit{Excel}.
+		\nocite{website:FEA}
+		\nocite{website:Hoadley}
+		\nocite{website:Palisade}
+		\nocite{website:PortofolioScience}
+		\nocite{website:VoseSoftware}
 
 		Parmi les éditeurs cités, nous avons choisi de présenter la solution développée par \textit{Portofolio Science}. Elle propose la composition de portefeuilles et un calcul direct de la VaR selon les méthodes suivantes :
 		\begin{itemize}
@@ -39,6 +44,7 @@
 			\item BetaVaR
 			\item Component VaR % [TODO] (meilleure traduction peut etre, je n’en ai pas trouvé)
 		\end{itemize}
+		\nocite{website:Rho-Works}
 
 		Le logiciel offre un onglet par méthode de calcul. Chaque onglet présente une vue graphique relative à la méthode utilisée. On voit ici la distribution des rendements historiques avec en rouge les 5\% plus faibles.
 
@@ -52,5 +58,7 @@
 		Bien qu’il soit probable que l’interface de notre logiciel soit différente, le logiciel ici présenté semble le plus proche de notre solution en terme de fonctionnalités, aux méthodes de calcul de la VaR près. % [TODO]: c’est pas sûr ça
 
 		Certains éditeurs ont mis l’accent sur la performance des calculs. C’est le cas de \textit{Quartetfs} qui publie le logiciel \textit{ActivePivot} capable d’un calcul très rapide de la VaR pour un usage en temps réel. Son utilisation se fait à travers une interface web. Il est aussi possible de calculer une VaR marginale, d’analyser les queues de distribution et d’effectuer des simulations de scénarios de stress. Cependant, une telle solution ne correspond pas véritablement à notre besoin : on ne souhaite pas vouloir calculer la VaR pour un usage en temps réel car le modèle de GARCH est mieux adapté pour des prévisions quotidiennes.	Dans la même catégorie, \textit{Mors Software} propose l’add-on \textit{Mors VaR} à ses logiciels existants \textit{Mors liquidity management} et \textit{MORS treasury and trading solutions} pour un calcul performant de la VaR (historique et Monte Carlo). Il possède une fonctionnalité de backtesting. Cependant, l’add-on est une fois de plus orienté vers la performance et ne correspond donc pas au besoin de notre client.
+		\nocite{website:Quartetfs}
+		\nocite{website:MorsSoftware}
 
 		Parmi les logiciels présentés, il n’en existe finalement aucun capable de calculer directement la VaR selon la méthode GARCH. Un seul est gratuit et aucun n’est libre. Il est probable que les acteurs de la finance intéressés par l’utilisation d’une telle méthode fassent développer des solutions sur mesure.
