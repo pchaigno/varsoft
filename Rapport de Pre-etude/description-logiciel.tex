@@ -8,17 +8,17 @@
 		Le module d’importation transformera automatiquement les informations issues de ces sources en des données utilisables par le logiciel. Plusieurs types de sources existent : les sites web comme Yahoo Finance ou Bloomberg, ou encore des logiciels comme DataStream. Cette abondance de sources implique un problème : aucune de ces bases de données utilisent le même standard pour stocker l’information. Dans la suite, les formats de fichiers utilisables et les possibilités offertes en terme d’importation seront présentés.
 
 		\monparagraph{Les formats de fichiers}
-		Trois formats de fichiers sont très utilisés dans le domaine de la finance et ils devront par conséquence être pris en charge par l’application :
+		Trois formats de fichiers sont très utilisés dans le domaine de la finance et ils devront par conséquent être pris en charge par l’application :
 		\begin{itemize}
 			\item le format texte brut;
 			\item le format CSV;
 			\item le format Excel : son importation nécessitera d’utiliser des API fournies par Microsoft.
 		\end{itemize}
 
-		Le format CSV sera le plus simple à importer puisqu’il est standardisé. En effet, les colonnes sont séparées par des virgules, des points-virgules, etc. Et, chaque n-uplet de valeurs occupe une ligne.
+		Le format CSV sera le plus simple à importer puisqu’il est standardisé. En effet, les colonnes sont séparées par des virgules, des points-virgules, etc; et, chaque n-uplet de valeurs occupe une ligne.
 
 		\monparagraph{Problèmes liés aux formats de données}
-		Une fois les données lues, le module d’importation devra choisir les variables utiles aux calculs et enlever celles inutiles. Par exemple, les données proposées par Yahoo Finance donnent des informations sur les volumes d’actions échangés or cette information n’est pas utile pour les calculs. C’est pourquoi, ce module devra selectionner si possible automatiquement les colonnes utiles ou proposer à l’utilisateur de les sélectionner à la main. 
+		Une fois les données lues, le module d’importation devra choisir les variables utiles aux calculs et enlever celles inutiles. Par exemple, les données proposées par Yahoo Finance donnent des informations sur les volumes d’actions échangés. Or, cette information n’est pas utile pour les calculs. C’est pourquoi ce module devra sélectionner si possible automatiquement les colonnes utiles, ou proposer à l’utilisateur de les sélectionner à la main. 
 
 		La date peut aussi poser problème. En effet, elle peut être au format français (jj-mm-aaaa), anglais (mm-jj-aaaa) ou international (aaaa-mm-jj). Le logiciel devra donc prendre en charge ces différents formats de dates.
 
@@ -55,7 +55,7 @@
 
 		\monparagraph{Affichage des portefeuilles}
 		La liste des portefeuilles créés sera en permanence présente sur l’écran de l’utilisateur, via une barre verticale à gauche de celui-ci.
-		Regroupés si besoin en liste dépliante, il suffit de cliquer sur le portefeuille que l’on désire, pour ques les données qu’il contient s’affichent à l’écran, accompagné des différents résultats des calculs effectués dessus. 
+		Regroupés si besoin en liste dépliante, il suffit de cliquer sur le portefeuille que l’on désire, pour que les données qu’il contient s’affichent à l’écran, accompagné des différents résultats des calculs effectués sur celles-ci. 
 
 
 
@@ -75,7 +75,7 @@
 	\subsection{Algorithmes et interprétations}
 		Le but de notre logiciel est de permettre de calculer la Value-at-Risk. Nous voulons donc simplifier l’obtention de cette information pour l’utilisateur. L’algorithme permettant d'établir la modélisation GARCH nous sera fourni en langage R. Les autres algorithmes découlent directement des formules mathématiques vues précédemment.
 
-		Nous allons proposer le calcul de la Value-at-Risk suivant trois méthodes. A chaque fois les calculs pourront être faits sur l’ensemble des données ou seulement sur celles sélectionnées. Pour chaque méthode, un niveau de risque pourra être entré.
+		Nous allons proposer le calcul de la Value-at-Risk suivant trois méthodes. A chaque fois les calculs pourront être faits sur l’ensemble des données ou seulement sur celles sélectionnées. Pour chaque méthode, un niveau de risque pourra être choisi.
 
 		La première méthode passe par une modélisation GARCH (cf. \ref{subsubsection:modele-garch}). Parce que cette dernière peut prendre du temps à calculer, nous offrirons la possibilité de la réaliser sans continuer directement avec un calcul de la Value-at-Risk. Dans ce cas, la modélisation sera conservée dans les résultats et la Value-at-Risk pourra être calculée depuis cette dernière par la suite. Avant le calcul de la modélisation, nous donnerons à l’utilisateur la possibilité de préciser le nombre d’éléments prélevés pour le \textit{bootstrap} (cf. \ref{subsubsection:methode-bootstrap}) et donc, sa précision.
 
@@ -111,7 +111,7 @@
 
 		Pour tester un modèle particulier, on détermine d’abord les paramètres du modèle sur une durée de test. On enregistre ensuite le nombre de fois où la perte a été supérieure à la prévision. Il est ainsi possible de déterminer quelle méthode de calcul de la VaR a fourni les meilleurs résultats pour un ensemble d’actifs et une durée donnés.
 
-		Par exemple, pour tester l’exactitude du modèle GARCH à l’horizon d’un jour, on commence par déterminer les paramètres du modèle sur une période donnée. On regarde ensuite si la perte effective de l’actif a été ou non supérieure à la VaR. On répète ensuite ce processus sur une durée determinée par l’utilisateur. L’horizon de temps peut bien évidemment être changé, le principe reste le même. A la fin du backtesting, on obtient le nombre de jours où la perte a été effectivement supérieure à la VaR. Ce nombre peut être par exemple de 5 pour une durée totale de test de 100 jours. L’utilisateur peut ainsi estimer la fiabilité du modèle. Il peut également effectuer un choix parmi les méthodes de calcul de la VaR par comparaison des résultats obtenus.
+		Par exemple, pour tester l’exactitude du modèle GARCH à l’horizon d’un jour, on commence par déterminer les paramètres du modèle sur une période donnée. On regarde ensuite si la perte effective de l’actif a été ou non supérieure à la VaR. On répète ensuite ce processus sur une durée determinée par l’utilisateur. L’horizon de temps peut bien évidemment être changé, le principe reste le même. A la fin du backtesting, on obtient le nombre de jours où la perte a été effectivement supérieure à la VaR. Ce nombre peut être par exemple de 5 pour une durée totale de test de 100 jours. L’utilisateur peut ainsi estimer la fiabilité du modèle. Il peut alors choisir la méthode de calcul de la VaR la plus adaptée à ses données en analysant les résultats obtenus.
 
 
 
