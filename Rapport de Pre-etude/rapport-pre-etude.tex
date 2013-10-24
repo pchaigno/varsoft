@@ -1,4 +1,5 @@
-\documentclass[a4paper,12pt,titlepage]{report}
+\documentclass[a4paper,12pt,titlepage,french]{report}
+\usepackage[french]{babel}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage[utf8]{inputenc}
@@ -9,12 +10,13 @@
 \usepackage[colorlinks=true,linkcolor=black]{hyperref}
 \usepackage{array}
 \usepackage{todonotes}
-\usepackage[french]{babel}
 \usepackage[nonumberlist]{glossaries}
 \usepackage{url}
 \makeglossaries
 
 \newcommand\monparagraph[1]{\paragraph{#1}~\par}
+\renewcommand{\appendixtocname}{Annexes} 
+\renewcommand{\appendixpagename}{Annexes} 
 
 
 %\begin{titlepage}
@@ -66,7 +68,7 @@ Hamdi \textsc{Raissi} - Quentin \textsc{Giai Gianetto} \endgraf\medskip
 \input{organisation-projet.tex}
 
 
-\printglossary
+\printglossaries
 
 
 \input{annexes.tex}
