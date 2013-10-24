@@ -5,6 +5,5 @@
 *.out
 *.ist
 *.blg
-*.glo
 *.dvi
 *.ps
