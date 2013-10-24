@@ -11,7 +11,7 @@
 \glsgroupheading{P}\relax \glsresetentrylist %
 \glossaryentryfield{portefeuille}{\glsnamefont{portefeuille}}{Un portefeuille est une composition de plusieurs actifs financiers (actions, obligations, matières premières, etc)}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{5}}}%
-\glossaryentryfield{produit_derive}{\glsnamefont{produit dérivé}}{Il s'agit de contrats entre deux parties, un acheteur et un vendeur, qui fixent des flux financiers futurs fondés sur ceux d'un actif sous-jacent, réel ou théorique, généralement financier}{\relax }{\glossaryentrynumbers{\relax 
+\glossaryentryfield{produit_derive}{\glsnamefont{produit dérivé}}{Il s'agit d'un contrat entre deux parties, un acheteur et un vendeur, qui fixe des flux financiers futurs fondés sur ceux d'un actif sous-jacent, réel ou théorique, généralement financier}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{3}}}\glsgroupskip
 \glsgroupheading{R}\relax \glsresetentrylist %
 \glossaryentryfield{ruban}{\glsnamefont{ruban}}{Le ruban est une interface utilisateur graphique basée sur le principe des widgets, composée d'un bandeau qui regroupe toutes les fonctions du logiciel. L'utilisateur peut trouver en un seul endroit toutes les fonctionnalités, avec des rubans adaptés au contexte des données}{\relax }{\glossaryentrynumbers{\relax 
