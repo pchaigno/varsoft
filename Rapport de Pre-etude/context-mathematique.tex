@@ -124,7 +124,7 @@
 
 		\subsection{Par la méthode RiskMetrics}
 		\label{subsubsection:methode-riskmetrics}
-			L'une des méthodes les plus utilisées pour estimer la VaR est la méthode RiskMetrics. Elle correspond à un modèle GARCH particulier. En effet, avec RiskMetrics, la valeur de la variance est calculée uniquement par rapport aux données obtenues au temps $t-1$, dans notre cas la veille. De plus, la somme des coefficients $\alpha$ et $\beta$ est égale à 1. Enfin, le terme constant de variance ($\omega$) est nul. On a donc le modèle suivant :
+			L'une des méthodes les plus utilisées pour estimer la VaR est la méthode RiskMetrics. Elle correspond à un modèle GARCH particulier. En effet, avec RiskMetrics, la valeur de la variance est calculée uniquement par rapport aux données obtenues au temps $t-1$, dans notre cas la veille. De plus, la somme des coefficients $\alpha$ et $\beta$ est égale à 1. Enfin, le terme constant de variance $\omega$ est nul. On a donc le modèle suivant :
 			\[r_t = \sigma_t\eta_t , \eta_t~iid(0,1)\]
 			\[\sigma_t^2 = (1-\lambda)*r_{t-1}^2+\lambda*\sigma_{t-1}^2\]
 

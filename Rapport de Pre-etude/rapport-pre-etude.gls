@@ -1,7 +1,7 @@
 \glossarysection[\glossarytoctitle]{\glossarytitle}\glossarypreamble
 \begin{theglossary}\glossaryheader
 \glsgroupheading{B}\relax \glsresetentrylist %
-\glossaryentryfield{backtesting}{\glsnamefont{backtesting}}{Le backtesting ou test rétro-actif de validité consiste à tester la pertinence d'une modélisation ou d'une stratégie en s'appuyant sur un large ensemble de données historiques réelles}{\relax }{\glossaryentrynumbers{\relax 
+\glossaryentryfield{backtesting}{\glsnamefont{backtesting}}{Le backtesting ou test rétroactif de validité consiste à tester la pertinence d'une modélisation ou d'une stratégie en s'appuyant sur un large ensemble de données historiques réelles}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{4}}}\glsgroupskip
 \glsgroupheading{D}\relax \glsresetentrylist %
 \glossaryentryfield{drawdown}{\glsnamefont{drawdown}}{Le maximum Drawdown signifie la perte maximale historique qu'aurait subi un investisseur malchanceux s'il avait acheté au plus haut et revendu au plus bas durant un temps déterminé}{\relax }{\glossaryentrynumbers{\relax 
