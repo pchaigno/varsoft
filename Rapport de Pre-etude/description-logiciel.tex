@@ -3,65 +3,65 @@
 \section{Fonctionnalités}
 
 	\subsection{Importation des données}
-		Le principal objectif du logiciel sera de réaliser des calculs de risques sur des portefeuilles d’actifs. Il devra donc permettre à l’utilisateur d’importer des données de manière transparente depuis différentes sources. L’importation pourra être réalisée grâce à un menu ou à un “drag and drop”. 
+		Le principal objectif du logiciel sera de réaliser des calculs de risques sur des portefeuilles d'actifs. Il devra donc permettre à l'utilisateur d'importer des données de manière transparente depuis différentes sources. L'importation pourra être réalisée grâce à un menu ou à un “drag and drop”. 
 
-		Le module d’importation transformera automatiquement les informations issues de ces sources en des données utilisables par le logiciel. Plusieurs types de sources existent : les sites web comme Yahoo Finance ou Bloomberg, ou encore des logiciels comme DataStream. Cette abondance de sources implique un problème : aucune de ces bases de données utilisent le même standard pour stocker l’information. Dans la suite, les formats de fichiers utilisables et les possibilités offertes en terme d’importation seront présentés.
+		Le module d'importation transformera automatiquement les informations issues de ces sources en des données utilisables par le logiciel. Plusieurs types de sources existent : les sites web comme Yahoo Finance ou Bloomberg, ou encore des logiciels comme DataStream. Cette abondance de sources implique un problème : aucune de ces bases de données utilisent le même standard pour stocker l'information. Dans la suite, les formats de fichiers utilisables et les possibilités offertes en terme d'importation seront présentés.
 
 		\monparagraph{Les formats de fichiers}
-		Trois formats de fichiers sont très utilisés dans le domaine de la finance et ils devront par conséquent être pris en charge par l’application :
+		Trois formats de fichiers sont très utilisés dans le domaine de la finance et ils devront par conséquent être pris en charge par l'application :
 		\begin{itemize}
 			\item le format texte brut;
 			\item le format CSV;
-			\item le format Excel : son importation nécessitera d’utiliser des API fournies par Microsoft.
+			\item le format Excel : son importation nécessitera d'utiliser des API fournies par Microsoft.
 		\end{itemize}
 
-		Le format CSV sera le plus simple à importer puisqu’il est standardisé. En effet, les colonnes sont séparées par des virgules, des points-virgules, etc; et, chaque n-uplet de valeurs occupe une ligne.
+		Le format CSV sera le plus simple à importer puisqu'il est standardisé. En effet, les colonnes sont séparées par des virgules, des points-virgules, etc; et, chaque n-uplet de valeurs occupe une ligne.
 
 		\monparagraph{Problèmes liés aux formats de données}
-		Une fois les données lues, le module d’importation devra choisir les variables utiles aux calculs et enlever celles inutiles. Par exemple, les données proposées par Yahoo Finance donnent des informations sur les volumes d’actions échangés. Or, cette information n’est pas utile pour les calculs. C’est pourquoi ce module devra sélectionner si possible automatiquement les colonnes utiles, ou proposer à l’utilisateur de les sélectionner à la main. 
+		Une fois les données lues, le module d'importation devra choisir les variables utiles aux calculs et enlever celles inutiles. Par exemple, les données proposées par Yahoo Finance donnent des informations sur les volumes d'actions échangés. Or, cette information n'est pas utile pour les calculs. C'est pourquoi ce module devra sélectionner si possible automatiquement les colonnes utiles, ou proposer à l'utilisateur de les sélectionner à la main. 
 
 		La date peut aussi poser problème. En effet, elle peut être au format français (jj-mm-aaaa), anglais (mm-jj-aaaa) ou international (aaaa-mm-jj). Le logiciel devra donc prendre en charge ces différents formats de dates.
 
 
 	\subsection{Exportation des données}
-		Le logiciel offrira différentes options en terme d’exportation et de sauvegarde :
+		Le logiciel offrira différentes options en terme d'exportation et de sauvegarde :
 		\begin{itemize}
-			\item exporter les données brutes obtenues lors de l’importation en différents formats : texte brut, CSV et Excel;
-			\item exporter les portefeuilles d’actifs constitués (cf. \ref{subsubsection:portefeuilles}) dans ces mêmes formats;
+			\item exporter les données brutes obtenues lors de l'importation en différents formats : texte brut, CSV et Excel;
+			\item exporter les portefeuilles d'actifs constitués (cf. \ref{subsubsection:portefeuilles}) dans ces mêmes formats;
 			\item fournir un document récapitulant les résulats liés à un calcul;
-			\item sauvegarder une session \footnote{L’ensemble des portefeuilles en cours d’utilisation, les calculs effectués...}.
+			\item sauvegarder une session \footnote{L'ensemble des portefeuilles en cours d'utilisation, les calculs effectués...}.
 		\end{itemize}
 
 
 	\subsection{Gestion des portefeuilles}
 	\label{subsubsection:portefeuilles}
 
-		La gestion de portefeuilles ou d’actifs, consiste à construire un ensemble de titres boursiers dont il faudra faire fructifier la valeur au cours du temps. Les actifs que nous aurons seront les données importées via l’outil d’importation, par exemple les données du CAC 40.
+		La gestion de portefeuilles ou d'actifs, consiste à construire un ensemble de titres boursiers dont il faudra faire fructifier la valeur au cours du temps. Les actifs que nous aurons seront les données importées via l'outil d'importation, par exemple les données du CAC 40.
 		Pour faire fructifier un portefeuille, le gestionnaire doit limiter les risques qui sont liés aux actions, tout en pariant sur une montée de leur cours. Pour ces raisons, notre logiciel permettra une utilisation directe des différents modèles sur les portefeuilles constitués.
 
 		\monparagraph{Constitution des portefeuilles}
 
-		Pour créer un portefeuille, il est nécessaire d’importer des données via l’outil d’importation. Ces données peuvent représenter diverses entreprises et/ou différentes places boursières. 
+		Pour créer un portefeuille, il est nécessaire d'importer des données via l'outil d'importation. Ces données peuvent représenter diverses entreprises et/ou différentes places boursières. 
 
-		Dès lors que les données seront importées, il suffira de sélectionner celles que l’utilisateur désire, puis de les insérer dans un portefeuille existant ou un nouveau.
+		Dès lors que les données seront importées, il suffira de sélectionner celles que l'utilisateur désire, puis de les insérer dans un portefeuille existant ou un nouveau.
 
 		Pour créer un nouveau portefeuille, nous avons pensé à plusieurs options :
 		\begin{itemize}
-			\item On peut imaginer la présence d’un bouton “Ajout” sur lequel il suffit de cliquer pour afficher une fenêtre permettant de personnaliser le portefeuille allant être créé : intitulé, date, etc.
-			\item Un second bouton permettant d’insérer les données dans un portefeuille existant; une fenêtre devra alors apparaître pour laisser le choix à l’utilisateur du portefeuille destinataire des données sélectionnées.
-			\item Un clic droit sur les données sélectionnées pourra aussi permettre la création d’un nouveau portefeuille ainsi que l’insertion des données dans un portefeuille existant. Ceci donnera accès aux mêmes fenêtres de paramétrages que les boutons d’action.
-			\item Le déplacement de données de portefeuilles vers d’autres portefeuilles se fera par un simple glisser-déposer de la source jusqu’à la destination. 
+			\item On peut imaginer la présence d'un bouton “Ajout” sur lequel il suffit de cliquer pour afficher une fenêtre permettant de personnaliser le portefeuille allant être créé : intitulé, date, etc.
+			\item Un second bouton permettant d'insérer les données dans un portefeuille existant; une fenêtre devra alors apparaître pour laisser le choix à l'utilisateur du portefeuille destinataire des données sélectionnées.
+			\item Un clic droit sur les données sélectionnées pourra aussi permettre la création d'un nouveau portefeuille ainsi que l'insertion des données dans un portefeuille existant. Ceci donnera accès aux mêmes fenêtres de paramétrages que les boutons d'action.
+			\item Le déplacement de données de portefeuilles vers d'autres portefeuilles se fera par un simple glisser-déposer de la source jusqu'à la destination. 
 		\end{itemize}
 
 		\monparagraph{Affichage des portefeuilles}
-		La liste des portefeuilles créés sera en permanence présente sur l’écran de l’utilisateur, via une barre verticale à gauche de celui-ci.
-		Regroupés si besoin en liste dépliante, il suffit de cliquer sur le portefeuille que l’on désire, pour que les données qu’il contient s’affichent à l’écran, accompagné des différents résultats des calculs effectués sur celles-ci. 
+		La liste des portefeuilles créés sera en permanence présente sur l'écran de l'utilisateur, via une barre verticale à gauche de celui-ci.
+		Regroupés si besoin en liste dépliante, il suffit de cliquer sur le portefeuille que l'on désire, pour que les données qu'il contient s'affichent à l'écran, accompagné des différents résultats des calculs effectués sur celles-ci. 
 
 
 
-	\subsection{Application d’opérations sur les données}
+	\subsection{Application d'opérations sur les données}
 
-		Après importation des données, l’utilisateur doit pouvoir appliquer des opérations mathématiques sur les données.
+		Après importation des données, l'utilisateur doit pouvoir appliquer des opérations mathématiques sur les données.
 		Il doit par exemple pouvoir effectuer des calculs de :
 		\begin{itemize}
 			\item moyenne;
@@ -73,29 +73,29 @@
 
 
 	\subsection{Algorithmes et interprétations}
-		Le but de notre logiciel est de permettre de calculer la Value-at-Risk. Nous voulons donc simplifier l’obtention de cette information pour l’utilisateur. L’algorithme permettant d'établir la modélisation GARCH nous sera fourni en langage R. Les autres algorithmes découlent directement des formules mathématiques vues précédemment.
+		Le but de notre logiciel est de permettre de calculer la Value-at-Risk. Nous voulons donc simplifier l'obtention de cette information pour l'utilisateur. L'algorithme permettant d'établir la modélisation GARCH nous sera fourni en langage R. Les autres algorithmes découlent directement des formules mathématiques vues précédemment.
 
-		Nous allons proposer le calcul de la Value-at-Risk suivant trois méthodes. A chaque fois les calculs pourront être faits sur l’ensemble des données ou seulement sur celles sélectionnées. Pour chaque méthode, un niveau de risque pourra être choisi.
+		Nous allons proposer le calcul de la Value-at-Risk suivant trois méthodes. A chaque fois les calculs pourront être faits sur l'ensemble des données ou seulement sur celles sélectionnées. Pour chaque méthode, un niveau de risque pourra être choisi.
 
-		La première méthode passe par une modélisation GARCH (cf. \ref{subsubsection:modele-garch}). Parce que cette dernière peut prendre du temps à calculer, nous offrirons la possibilité de la réaliser sans continuer directement avec un calcul de la Value-at-Risk. Dans ce cas, la modélisation sera conservée dans les résultats et la Value-at-Risk pourra être calculée depuis cette dernière par la suite. Avant le calcul de la modélisation, nous donnerons à l’utilisateur la possibilité de préciser le nombre d’éléments prélevés pour le \textit{bootstrap} (cf. \ref{subsubsection:methode-bootstrap}) et donc, sa précision.
+		La première méthode passe par une modélisation GARCH (cf. \ref{subsubsection:modele-garch}). Parce que cette dernière peut prendre du temps à calculer, nous offrirons la possibilité de la réaliser sans continuer directement avec un calcul de la Value-at-Risk. Dans ce cas, la modélisation sera conservée dans les résultats et la Value-at-Risk pourra être calculée depuis cette dernière par la suite. Avant le calcul de la modélisation, nous donnerons à l'utilisateur la possibilité de préciser le nombre d'éléments prélevés pour le \textit{bootstrap} (cf. \ref{subsubsection:methode-bootstrap}) et donc, sa précision.
 
 		Les deux autres méthodes utilisent respectivement le modèle Riskmetrics (cf. \ref{subsubsection:methode-riskmetrics}) et la méthode historique (cf. \ref{subsubsection:methode-historique}). A chaque fois, seul le niveau de risque sera demandé.
 
-		Deux tests seront proposés pour vérifier la validité de la modélisation GARCH : un test de corrélation des données simple et à l’ordre deux (cf. \ref{subsubsection:condition-garch}). Ces deux tests seront proposés avant le calcul de la modélisation mais pourront aussi être faits, via le menu, indépendemment de la modélisation.
+		Deux tests seront proposés pour vérifier la validité de la modélisation GARCH : un test de corrélation des données simple et à l'ordre deux (cf. \ref{subsubsection:condition-garch}). Ces deux tests seront proposés avant le calcul de la modélisation mais pourront aussi être faits, via le menu, indépendemment de la modélisation.
 
-		Enfin, pour chaque option saisie par l’utilisateur, la valeur par défaut pourra être modifiée. L’idée est ici de permettre à l’utilisateur d’aller plus vite la fois suivante. Par exemple, si l’utilisateur ne veut jamais effectuer les tests de corrélation avant de calculer la modélisation GARCH, il pourra choisir de mettre les deux cases à cocher pour les deux tests par défaut à “décochées”.
+		Enfin, pour chaque option saisie par l'utilisateur, la valeur par défaut pourra être modifiée. L'idée est ici de permettre à l'utilisateur d'aller plus vite la fois suivante. Par exemple, si l'utilisateur ne veut jamais effectuer les tests de corrélation avant de calculer la modélisation GARCH, il pourra choisir de mettre les deux cases à cocher pour les deux tests par défaut à “décochées”.
 
 
 	\subsection{Affichage des données et des résultats} 
-		Dans notre projet nous allons distinguer deux types d’affichage. En effet, il y a d’une part l’affichage des données, et d’autre part l’affichage des résultats.
+		Dans notre projet nous allons distinguer deux types d'affichage. En effet, il y a d'une part l'affichage des données, et d'autre part l'affichage des résultats.
 
-		L’affichage des données doit permettre de représenter au mieux les différents portefeuilles importés. Pour rappel, ces portefeuilles seront créés par l’intermédiaire de liste de données. L’idée la plus naturelle est donc d’afficher les portefeuilles à l’aide de tableaux quadrillés. Dans le but d’améliorer l’ergonomie générale du logiciel, plusieurs fonctionnalités permettant de manipuler les colonnes et les lignes du tableau seront implémentées. Il faudra par exemple pouvoir modifier directement les données contenues dans le tableau. Il devra également être possible de faire passer une colonne du quadrillage associé à une liste de données, dans un autre quadrillage de manière simple, en harmonisant les données. Pour faire cela, l’utilisation du “glisser-déposer” est une solution envisagée.
+		L'affichage des données doit permettre de représenter au mieux les différents portefeuilles importés. Pour rappel, ces portefeuilles seront créés par l'intermédiaire de liste de données. L'idée la plus naturelle est donc d'afficher les portefeuilles à l'aide de tableaux quadrillés. Dans le but d'améliorer l'ergonomie générale du logiciel, plusieurs fonctionnalités permettant de manipuler les colonnes et les lignes du tableau seront implémentées. Il faudra par exemple pouvoir modifier directement les données contenues dans le tableau. Il devra également être possible de faire passer une colonne du quadrillage associé à une liste de données, dans un autre quadrillage de manière simple, en harmonisant les données. Pour faire cela, l'utilisation du “glisser-déposer” est une solution envisagée.
 
-		Un autre aspect important de l’affichage concerne la présentation des résultats. L’objectif est d’offrir à l’utilisateur le plus de souplesse possible. Sur l’ensemble des graphiques on laissera donc à l’utilisateur la possibilité d’afficher plusieurs courbes s’il le souhaite, ou encore de sélectionner les couleurs s’il le souhaite.
+		Un autre aspect important de l'affichage concerne la présentation des résultats. L'objectif est d'offrir à l'utilisateur le plus de souplesse possible. Sur l'ensemble des graphiques on laissera donc à l'utilisateur la possibilité d'afficher plusieurs courbes s'il le souhaite, ou encore de sélectionner les couleurs s'il le souhaite.
 
-		Le logiciel proposera aussi la création d’un histogramme à partir des données d’une colonne.
+		Le logiciel proposera aussi la création d'un histogramme à partir des données d'une colonne.
 
-		Nous avons également souhaité proposer un affichage sous forme de textes des différents résultats calculés. Dans la partie affichage des résultats l’utilisateur aura donc accès à un rapport récapitulant l’ensemble des résultats calculés par les différents algorithmes.
+		Nous avons également souhaité proposer un affichage sous forme de textes des différents résultats calculés. Dans la partie affichage des résultats l'utilisateur aura donc accès à un rapport récapitulant l'ensemble des résultats calculés par les différents algorithmes.
 
 		Le client a souhaité que le logiciel puisse fournir une matrice de corrélation. Ce type de représentation des données est très utile car il permet de déterminer très rapidement la tendance globale du marché.
 
@@ -107,11 +107,11 @@
 
 
 	\subsection{Vérification en backtesting}
-		Le backtesting consiste à évaluer l’exactitude d’un modèle de calcul de la Value-at-Risk en se basant sur des données historiques. Il permet ainsi la comparaison des différentes méthodes d’évaluation de la VaR pour un ensemble d’actifs et une période donnés.
+		Le backtesting consiste à évaluer l'exactitude d'un modèle de calcul de la Value-at-Risk en se basant sur des données historiques. Il permet ainsi la comparaison des différentes méthodes d'évaluation de la VaR pour un ensemble d'actifs et une période donnés.
 
-		Pour tester un modèle particulier, on détermine d’abord les paramètres du modèle sur une durée de test. On enregistre ensuite le nombre de fois où la perte a été supérieure à la prévision. Il est ainsi possible de déterminer quelle méthode de calcul de la VaR a fourni les meilleurs résultats pour un ensemble d’actifs et une durée donnés.
+		Pour tester un modèle particulier, on détermine d'abord les paramètres du modèle sur une durée de test. On enregistre ensuite le nombre de fois où la perte a été supérieure à la prévision. Il est ainsi possible de déterminer quelle méthode de calcul de la VaR a fourni les meilleurs résultats pour un ensemble d'actifs et une durée donnés.
 
-		Par exemple, pour tester l’exactitude du modèle GARCH à l’horizon d’un jour, on commence par déterminer les paramètres du modèle sur une période donnée. On regarde ensuite si la perte effective de l’actif a été ou non supérieure à la VaR. On répète ensuite ce processus sur une durée determinée par l’utilisateur. L’horizon de temps peut bien évidemment être changé, le principe reste le même. A la fin du backtesting, on obtient le nombre de jours où la perte a été effectivement supérieure à la VaR. Ce nombre peut être par exemple de 5 pour une durée totale de test de 100 jours. L’utilisateur peut ainsi estimer la fiabilité du modèle. Il peut alors choisir la méthode de calcul de la VaR la plus adaptée à ses données en analysant les résultats obtenus.
+		Par exemple, pour tester l'exactitude du modèle GARCH à l'horizon d'un jour, on commence par déterminer les paramètres du modèle sur une période donnée. On regarde ensuite si la perte effective de l'actif a été ou non supérieure à la VaR. On répète ensuite ce processus sur une durée determinée par l'utilisateur. L'horizon de temps peut bien évidemment être changé, le principe reste le même. A la fin du backtesting, on obtient le nombre de jours où la perte a été effectivement supérieure à la VaR. Ce nombre peut être par exemple de 5 pour une durée totale de test de 100 jours. L'utilisateur peut ainsi estimer la fiabilité du modèle. Il peut alors choisir la méthode de calcul de la VaR la plus adaptée à ses données en analysant les résultats obtenus.
 
 
 
@@ -122,7 +122,7 @@
 		\caption{Interface graphique : onglet données}
 		\label{interface}
 		\begin{enumerate}
-			\item Barre d’outils pour un accès rapide aux fonctionnalités les plus utilisées.
+			\item Barre d'outils pour un accès rapide aux fonctionnalités les plus utilisées.
 			\item Volet de selection des portefeuilles
 			\item Affichage des données dans une grille 
 		\end{enumerate}
