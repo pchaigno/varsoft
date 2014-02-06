@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="310d6934-28f9-4503-a8ff-ab7985b2cf00" name="ReportFactory" linkedPackageId="1f35840c-c8f6-4c9f-adb7-dd04f9f31ad6" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <packagedElements>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="2ddf5d1a-10be-4909-bec5-4d5e57c9b398" name="Report" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="62d05b71-2ce5-45d0-8b4c-2908e4e81531" />
+        <ownedAttributes>
+          <property Id="45d6c3e4-d9c5-4867-8f13-598af2d18ffd" name="pdfPath" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="09a702e2-ac6f-46b2-8cff-5248dc0fbab8" />
+          </property>
+          <property Id="bbc0669e-68c1-40b7-bc1c-0ff9757f2941" name="docxPath" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="2ef8e596-6d58-4ec1-bd14-9da3e8202356" />
+          </property>
+        </ownedAttributes>
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="05964142-ad99-4432-8bee-04e49d69e20f" name="ReportFactoryImpl" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="adf7defa-9892-4111-83c1-faebe5f3998b" />
+        <suppliersInternal>
+          <interfaceRealization Id="34003383-094a-4c2d-9abc-f889655b6980">
+            <interfaceMoniker Id="75079431-0487-43a3-a045-363b4cecf7e1" LastKnownName="ReportFactory" />
+            <elementDefinition Id="24e4193a-f4fe-49d7-bb96-ba1a4de1f2b5" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <ownedOperationsInternal>
+          <operation Id="aa974301-c00f-4151-86f3-50671bc20628" name="StatisticsReportFactory" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="ce12e87e-3519-4b3c-acb9-4cebfde16074" />
+          </operation>
+          <operation Id="9d9be319-f846-4679-a5d0-cacbb980f383" name="getStatisticsReport" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="9e28b3a1-be8e-4361-a2c5-28a64e151ced" />
+          </operation>
+          <operation Id="f9a90b40-0784-49f6-8d9e-42961554d608" name="getVaRCalculationReport" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="a2b1819d-a9b9-4d20-b1ef-cd0eebdd7beb" />
+          </operation>
+          <operation Id="709c9b6b-aaf4-41f0-ada2-8264a1765e44" name="getBacktestingReport" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="62c23abe-80de-4c36-8a8d-4b19627dd9e9" />
+          </operation>
+          <operation Id="813f9dbc-b963-4f4d-874f-63715c5dd3b2" name="getCorrelationMatrixReport" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="f1bd19f6-1673-40c7-9422-274871705cbe" />
+          </operation>
+          <operation Id="231e0b2b-99ba-4034-b525-8f790735203a" name="getGarchModelisatonReport" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="ef03c080-e34b-4533-9736-0fa3dfefaade" />
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="75079431-0487-43a3-a045-363b4cecf7e1" name="ReportFactory" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="0e505a9e-23c1-474c-b612-8965a963d7f6" />
+        <ownedOperations>
+          <operation Id="9dace5fe-9448-4bf7-8e63-e8be5a146760" name="getStatisticsReport" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="fdb68a35-081e-4348-817b-2f04020a3bc1" />
+          </operation>
+          <operation Id="fc148af9-a59e-457b-ac2e-46003a47f9d1" name="getVaRCalculationReport" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="50446855-6aa6-4657-a555-9147cbdfaeac" />
+          </operation>
+          <operation Id="044ae4f7-280f-4f5c-812c-d008c7e106f7" name="getBacktestingReport" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="19c618ab-6e2d-472a-8faa-28b72e955dc6" />
+          </operation>
+          <operation Id="a65b7623-bb4c-4658-ba26-da63a27b03db" name="getCorrelationMatrixReport" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="9684e6b0-7fc2-47bb-9573-5f21eb94edf2" />
+          </operation>
+          <operation Id="67c9a8e3-fbe2-471c-b6ad-dc7db01495c7" name="getGarchModelisatonReport" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="182ca443-e2b9-4917-beab-042d7934c14f" />
+          </operation>
+        </ownedOperations>
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="f7c6d4ce-ada0-4e54-aa99-a059a4b8bac3" name="StatisticsReport" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="519676e9-c424-4577-a12f-3125b6082dc3" />
+        <suppliersInternal>
+          <interfaceRealization Id="6fc58239-fee9-4505-a37c-b4a265aefdc8">
+            <interfaceMoniker Id="2ddf5d1a-10be-4909-bec5-4d5e57c9b398" LastKnownName="Report" />
+            <elementDefinition Id="f83ae69c-8e56-43a6-b7fa-0af39a02121c" />
+          </interfaceRealization>
+        </suppliersInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="b6f33105-bd9b-407a-a979-1263c017df5c" name="GarchModelisationReport" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="1d32b94f-7f57-4446-bfbe-4b4678912578" />
+        <suppliersInternal>
+          <interfaceRealization Id="a30753ff-a6c7-47f3-9bbd-d1602bf0c6ea">
+            <interfaceMoniker Id="2ddf5d1a-10be-4909-bec5-4d5e57c9b398" LastKnownName="Report" />
+            <elementDefinition Id="03af4701-d4cc-47fa-aa88-e21a79699c1a" />
+          </interfaceRealization>
+        </suppliersInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="3b158886-68ab-4a99-9058-71d36378cb57" name="VaRCalculationReport" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="65038229-3dec-4cad-b344-21bb70dd66c6" />
+        <suppliersInternal>
+          <interfaceRealization Id="c62c19c3-5d65-40e8-9db1-bc6a1ef20e67">
+            <interfaceMoniker Id="2ddf5d1a-10be-4909-bec5-4d5e57c9b398" LastKnownName="Report" />
+            <elementDefinition Id="5765ad17-6e31-442c-88a6-876bc021907d" />
+          </interfaceRealization>
+        </suppliersInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="fee7b4cf-152a-464b-bae3-454dd64af0bb" name="CorrelationMatrixReport" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="d6b6efa7-c890-4e8e-827a-6e6dc68f4763" />
+        <suppliersInternal>
+          <interfaceRealization Id="e28e82d8-4c29-4d92-ae07-41a7a238a3d8">
+            <interfaceMoniker Id="2ddf5d1a-10be-4909-bec5-4d5e57c9b398" LastKnownName="Report" />
+            <elementDefinition Id="c0b392b2-9842-4295-a791-cf43ef23bfa6" />
+          </interfaceRealization>
+        </suppliersInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="920dbbfe-4b2a-4b16-90cf-628fc5081ca4" name="BacktestingReport" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="ddaaed84-6c74-4927-8772-f0b17aa0bf4f" />
+        <suppliersInternal>
+          <interfaceRealization Id="14bd5f3b-0778-43fb-b38b-055d04e35af2">
+            <interfaceMoniker Id="2ddf5d1a-10be-4909-bec5-4d5e57c9b398" LastKnownName="Report" />
+            <elementDefinition Id="89fba32b-cf79-439b-ac28-0462fa0f3274" />
+          </interfaceRealization>
+        </suppliersInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+  </packagedElements>
+  <package Id="1f35840c-c8f6-4c9f-adb7-dd04f9f31ad6" name="ProjetVaR">
+    <elementDefinition Id="8c3a5ad3-9382-4dc6-85a7-c21d40c4e45d" />
+    <profileInstances>
+      <packageHasProfileInstances Id="484e3b37-715e-4b7f-9d1b-b940903e92fa">
+        <profileInstance Id="c7fa117b-eeee-4820-adb8-3871bdbbe1ce" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="520a03e0-aab1-40ed-985a-8576a9976097">
+        <profileInstance Id="d6270815-e3c9-4895-adb7-cf7d54dec154" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
+  </package>
+</logicalClassDesignerModel>
