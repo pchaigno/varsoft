@@ -1,4 +1,4 @@
-\documentclass[a4paper]{report}
+\documentclass[a4paper,titlepage,french]{report}
 \usepackage[T1]{fontenc}
 \usepackage[french]{babel}
 \usepackage[utf8x]{inputenc}
@@ -11,6 +11,7 @@
 \usepackage{verbatim}
 \usepackage{fmtcount}
 \usepackage{array}
+\usepackage{url}
 \usepackage[toc,page]{appendix} 
 \renewcommand{\arraystretch}{1.25}
 
@@ -183,8 +184,8 @@ Le nombre d'informations sauvegardées dans la base de données restera toujours
 La table dont la taille sera la plus importante sera vraisemblablement \textit{Actifs}.
 Cependant le nombre d'actifs devraient rarement dépasser le millier.
 De plus, nous n'avons pas besoin de gérer d'accès concurrentiels à la base de données.
-% TODO Add reference to SQLite documentation.
-Nous pouvons donc utiliser le SGBD SQLite qui a l'avantage de ne pas nécessiter de serveur.
+
+Nous pouvons donc utiliser le SGBD SQLite qui a l'avantage de ne pas nécessiter de serveur \cite{website:SQLite}.
 De plus, toute la base de données sera contenue dans un unique fichier et les accès en lecture comme en écriture seront beaucoup plus rapides qu'avec un SGBD traditionnel.
 
 
@@ -248,7 +249,6 @@ L'horizon de temps sera quant à lui passé en argument de la méthode de calcul
 
 \subsection{Génération des rapports}
 
-% TODO Add references to the two librairies' documentations.
 Les rapports seront générés aux formats PDF et DOCX.
 L'opération pourra donc prendre un peu de temps.
 Cette génération sera effectuée par une classe \textit{ReportsFactory}.
@@ -295,15 +295,14 @@ La figure \ref{fig:diagramme-classes-interface-bdd} présente les deux classes d
 
 
 \subsubsection{Appel des scripts R}
-% TODO Add reference to R
-% TODO Add reference to Rinclude
 
-Certains calculs seront réalisés par des scripts R.
+Certains calculs seront réalisés par des scripts R \cite{website:R}.
 En effet ce langage est très bien adapté pour les calculs statistiques.
 \`A cet effet nous utiliserons la classe utilitaire décrite en figure \ref{fig:diagramme-classes-interface-r}. Elle permettra de calculer le modèle GARCH et d'effectuer les tests de corrélation.
 
-Les appels aux scripts R seront effectués en utilisant la librarie \textit{RInclude}. Cette dernière est bien documentée et permet simplement d'exécuter du code R dans du code C++.
+Les appels aux scripts R seront effectués en utilisant la librarie \textit{RInside} \cite{website:RInside}. Cette dernière est bien documentée et permet simplement d'exécuter du code R dans du code C++.
 
+% TODO Reduce size of figure.
 \begin{figure}
   	\center
   	\includegraphics[width=1\textwidth]{diagramme-classes-interface-r.png}
@@ -315,7 +314,7 @@ Les appels aux scripts R seront effectués en utilisant la librarie \textit{RInc
 \subsubsection{Génération des rapports}
 %TODO vérifier la possibilité de conversion DOCX PDF
 
-Pour la génération des rapports PDF et DOCX, nous nous appuyerons sur des librairies externes (libopc pour les DOCX et libharu pour les PDF).
+Pour la génération des rapports PDF et DOCX, nous nous appuyerons sur des librairies externes (libopc \cite{website:libopc} pour les DOCX et libharu \cite{website:libharu} pour les PDF).
 Nous n'utiliserons qu'un petit ensemble des possibilités offertes par ces librairies pour réaliser des opérations très similaires pour tous les types de rapports.
 
 Pour cette raison la manipulation de ces librairies sera réalisée par deux classes permettant d'effectuer les opérations nécessaires.
@@ -491,5 +490,10 @@ Lors de cette phase de conception nous avons été confrontés à un certain nom
 Ce travail est nécessaire pour la phase suivante.
 En effet, nous allons maintenant pouvoir commencer le développement de notre logiciel.
 Grâce à cette étape préliminaire nous allons avancer plus rapidement et sereinement; nous avons maintenant une vue précise du travail à effectuer.
+
+
+\bibliographystyle{unsrt}
+\bibliography{biblio}
+
 
 \end{document}
