@@ -37,7 +37,7 @@ Hamdi \bsc{Raissi} - Quentin \bsc{Giai Gianetto}}
 \thispagestyle{empty}
 \newpage
 
-
+% TODO Add Introduction to the table.
 \tableofcontents
 \newpage
 
@@ -48,11 +48,13 @@ Hamdi \bsc{Raissi} - Quentin \bsc{Giai Gianetto}}
 % TODO Classes and sequence diagrams are not coherent.
 % TODO Justify a bit more the use of all patterns.
 % TODO Explain in a line the patterns.
+% TODO Check number of hours for report generations in GANTT.
 
 
 \chapter*{Introduction}
 
-Dans les salles de marchés, les traders achètent et vendent des actions et obligations, à longueur de journée, pour le compte de grandes banques ou investisseurs toujours à la recherche d’un maximum de profits pour des pertes minimales.
+Dans les salles de marchés, les traders achètent et vendent des actions et obligations, pour le compte de grandes banques ou investisseurs toujours à la recherche d’un maximum de profits pour des pertes minimales.
+% TODO Hamdi: Mal dit : il s'agit plus de quantifier les risques de pertes pour prévoir des montants adéquats pour couvrir les pertes éventuelles.
 Les financiers sont intéressés par le montant maximal qu'ils peuvent perdre pour un portefeuille d'actifs donné.
 En connaissant ce montant, leurs prévisions n’en seront que plus fiables et permettront peut-être d’éviter de mauvais placements.
 
@@ -81,7 +83,7 @@ L'utilisateur de notre application aura besoin d'un ensemble d'outils pour gére
 \item le backtesting.
 \end{itemize}
  
-Ces derniers on des dépendances respectives diverses. Par exemple, le backesting utilise des fonctions du second pôle.
+Ces derniers ont des dépendances respectives diverses. Par exemple, le backesting utilise des fonctions du second pôle.
 En effet, son but est de comparer les différentes méthodes de calcul de la Value-at-Risk.
 Ces deux derniers modules devront stocker des résultats dans le portefeuille associé.
 Ces différentes interactions sont bien visibles à la figure \ref{fig:usecase}.
@@ -106,11 +108,11 @@ Ensuite l'utilisateur pourra sélectionner les données qu'il souhaite pour les 
 \section{Calcul de la Value-at-Risk}
 
 Le calcul de la Value-at-Risk est la fonctionnalité centrale de ce logiciel. Comme dit précedemment, elle s'effectue sur un portefeuille donné.
-De plus, le calcul de la Value-at-Risk se caractérise par la méthode utilisée (historique, Riskmetrics ou selon un modèle Garch), un niveau de risque et un horizon de temps.
+De plus, le calcul de la Value-at-Risk se caractérise par la méthode utilisée (historique, Riskmetrics ou selon un modèle GARCH), un niveau de risque et un horizon de temps.
 Il sera donc possible de calculer la Value-at-Risk selon les différentes méthodes et selon les paramètres précedemment décrits sur chacun des portefeuilles créés.
 Les résultats seront alors affichés dans un rapport. Néanmoins, proposer un simple calcul de Value-at-Risk n'est pas suffisant pour permettre une prise de décision.
 Il faut aussi s'assurer que le calcul est fiable.
-Pour cela, l'utilisateur pour effectuer du backesting.
+Pour cela, l'utilisateur peut effectuer du backesting.
 
 
 \section{Backtesting}
@@ -232,9 +234,9 @@ Notre logiciel proposera trois méthodes\footnote{La méthode historique, la mé
 Nous utiliserons un patron de conception \textit{Stratégie} (présenté en figure \ref{fig:diagramme-classes-var-strategy}) pour modéliser ces méthodes.
 
 Les trois stratégies prennent en entrée un portefeuille, un niveau de risque et un horizon de temps.
-Cependant, la méthode avec modélisation GARCH prend aussi en entrée le modèle de GARCH.
-En effet, nous avons choisi d'externaliser le calcul du modèle GARCH pour faciliter d'autres opérations (voir Backtesting avec modèle GARCH en \ref{backtesting-modele-garch}).
-La stratégie avec modélisation GARCH pourra donc être instanciée avec différents modèles de GARCH.
+Cependant, la méthode avec modélisation GARCH prend aussi en entrée le modèle GARCH.
+En effet, nous avons choisi d'externaliser l'estimation du modèle GARCH pour faciliter d'autres opérations (voir Backtesting avec modèle GARCH en \ref{backtesting-modele-garch}).
+La stratégie avec modélisation GARCH pourra donc être instanciée avec différents modèles GARCH.
 
 Toutes les stratégies seront instanciées pour un certain portefeuille et un certain niveau de risque.
 L'horizon de temps sera quant à lui passé en argument de la méthode de calcul, toujours pour faciliter le backtesting.
@@ -284,7 +286,7 @@ Nous aurons quatre situations d'accès au fichier SQLite :
 	Si de nouveaux actifs sont créés par la suite \textit{AssetsFactory} les chargera uniquement lorsqu'un portefeuille en aura besoin à l'aide de la méthode \textit{buildAsset}.
 \end{itemize}
 
-La figure \ref{fig:diagramme-classes-interface-bdd} présente les deux classes de sauvegarde et de restoration des sessions. Ces deux classes hériteront d'un classe \textit{SQLiteManager} mettant à disposition des méthodes générales d'accès à la base de données.
+La figure \ref{fig:diagramme-classes-interface-bdd} présente les deux classes de sauvegarde et de restoration des sessions. Ces deux classes hériteront d'une classe \textit{SQLiteManager} mettant à disposition des méthodes générales d'accès à la base de données.
 
 \begin{figure}
   	\center
@@ -298,7 +300,8 @@ La figure \ref{fig:diagramme-classes-interface-bdd} présente les deux classes d
 
 Certains calculs seront réalisés par des scripts R \cite{website:R}.
 En effet ce langage est très bien adapté pour les calculs statistiques.
-\`A cet effet nous utiliserons la classe utilitaire décrite en figure \ref{fig:diagramme-classes-interface-r}. Elle permettra de calculer le modèle GARCH et d'effectuer les tests de corrélation.
+\`A cet effet nous utiliserons la classe utilitaire décrite en figure \ref{fig:diagramme-classes-interface-r}.
+Elle permettra d'estimer le modèle GARCH et d'effectuer les tests de corrélation.
 
 Les appels aux scripts R seront effectués en utilisant la librarie \textit{RInside} \cite{website:RInside}. Cette dernière est bien documentée et permet simplement d'exécuter du code R dans du code C++.
 
@@ -443,20 +446,20 @@ L'objectif est ici d'assurer la plus grande couverture de code pour éviter tout
 
 \subsubsection{Calcul du modèle GARCH}
 
-Le calcul du modèle GARCH fait parti de nos algorithme un peu délicat, notamment pour le tester.
+L'estimation du modèle GARCH fait partie de nos algorithmes un peu délicat, notamment pour le tester.
 Nous utiliserons donc un test un peu particulier.
 Nous générerons tout d'abord, à l'aide de R, un ensemble de données à partir d'un modèle GARCH théorique.
 Nous aurons ainsi l'assurance que ces données suivent notre modèle GARCH.
-Nous pourrons donc ensuite calculer un modèle GARCH qui sera comparé au modèle théorique.
+Nous pourrons donc ensuite estimer un modèle GARCH qui sera comparé au modèle théorique.
 
 \subsubsection{Calcul de la Value-at-Risk à partir d'un modèle GARCH}
 
 Le second algorithme délicat à tester est celui calculant la Value-at-Risk à partir d'une modélisation GARCH.
 De même, pour tester ce dernier nous effectuerons du backtesting avec des données générées depuis un modèle GARCH théorique.
-L'algorithme de backtesting \footnote{Voir \ref{backtesting-modele-garch} pour des explications sur le fonctionnement de l'algorithme.} devrait donc retourner une valeur comprise dans un interval connu. 
-En effet, cet interval est celui d'un théorème central limite avec pour paramètre le risque pris lors du calcul de la Value-at-Risk.
+L'algorithme de backtesting \footnote{Voir \ref{backtesting-modele-garch} pour des explications sur le fonctionnement de l'algorithme.} devrait donc retourner une valeur comprise dans un intervalle connu. 
+En effet, cet intervalle est celui d'un théorème central limite avec pour paramètre le risque pris lors du calcul de la Value-at-Risk.
 
-Ce deuxième test empirique dépend à la fois du calcul du modèle GARCH et de l'algorithme de Backtesting. Pour cette raison nous avons choisi de tester le premier calcul indépendamment. Le second calcul est relativement simple et pourra être l'objet d'un test unitaire \footnote{En passant en paramètre une classe anonyme dérivée de \textit{VarAlgorithm} dont nous définierons la valeur de retour.}.
+Ce deuxième test empirique dépend à la fois du calcul du modèle GARCH et de l'algorithme de Backtesting. Pour cette raison nous avons choisi de tester le premier calcul indépendamment. Le second calcul est relativement simple et pourra être l'objet d'un test unitaire \footnote{En passant en paramètre une classe anonyme dérivée de \textit{VarAlgorithm} dont nous définirons la valeur de retour.}.
 
 
 \subsection{Tests fonctionnels}
@@ -482,7 +485,7 @@ Parmi celles-ci, la gestion de portefeuilles, le calcul de la Value-at-Risk ains
 Nous avons également présenté l'architecture générale du programme soulignant en particulier l'utilisation du module externe R pour les calculs avancées.
 
 Nous avons ensuite détaillé la modélisation de la base de données nécessaire au stockage des informations importées ou générées afin que l'utilisateur retrouve d'une utilisation à l'autre ses portefeuilles et les rapports associés.
-Nous avons poursuivi avec la présentation de notre modélisation à l'aide de diagrammes de classes ainsi que que quelques diagrammes de séquence afin de préciser les intéractions les plus complexes entre les objets.
+Nous avons poursuivi avec la présentation de notre modélisation à l'aide de diagrammes de classes ainsi que que quelques diagrammes de séquence afin de préciser les interactions les plus complexes entre les objets.
 En particulier, le calcul de la Value-at-Risk basée sur un modèle GARCH ou encore le backtesting ont bénéficié de cette dernière modélisation.
 Enfin nous avons abordé la modélisation de notre interface graphique ainsi que l'organisation de nos tests.
 
