@@ -37,7 +37,6 @@ Hamdi \bsc{Raissi} - Ivan \bsc{Le Plumey} \\ Quentin \bsc{Giai Gianetto}}
 \thispagestyle{empty}
 \newpage
 
-% TODO Add Introduction to the table.
 \tableofcontents
 \newpage
 
@@ -48,7 +47,6 @@ Hamdi \bsc{Raissi} - Ivan \bsc{Le Plumey} \\ Quentin \bsc{Giai Gianetto}}
 % TODO Classes and sequence diagrams are not coherent.
 % TODO Justify a bit more the use of all patterns.
 % TODO Explain in a line the patterns.
-% TODO Check number of hours for report generations in GANTT.
 
 
 \addcontentsline{toc}{chapter}{Introduction}
@@ -324,17 +322,17 @@ Les appels aux scripts R seront effectués en utilisant la bibliothèque \textit
 
 
 \subsubsection{Génération des rapports}
-%TODO vérifier la possibilité de conversion DOCX PDF
 
-Pour la génération des rapports PDF et DOCX, nous nous appuierons sur des bibliothèques externes (libopc \cite{website:libopc} pour les DOCX et libHaru \cite{website:libHaru} pour les PDF).
-Nous n'utiliserons qu'un petit ensemble des possibilités offertes par ces bibliothèques pour réaliser des opérations très similaires pour tous les types de rapports.
+Pour la génération des rapports au format DOCX, nous nous appuierons sur la bibliothèque externe libopc \cite{website:libopc}.
+Les rapports aux formats PDF seront ensuite générés depuis leurs homologues au format DOCX.
 
-Pour cette raison la manipulation de ces bibliothèques sera réalisée par deux classes permettant d'effectuer les opérations nécessaires.
-Nous aurons, par exemple, besoin d'une méthode \textit{addChart} pour ajouter un graphique dans un rapport et cela quel que soit le type du rapport.
+Pour anticiper les ajouts futurs d'autres formats de rapports, toutes les opérations de génération seront regroupées dans une interface.
+Les classes s'occupant de la génération des différents formats en hériteront.
+Nous aurons, par exemple, une méthode \textit{addChart} dans l'interface pour ajouter un graphique dans un rapport.
 
-Ces deux classes sont présentés à la figure \ref{fig:diagramme-classes-interface-report}.
-Cette organisation est celle d'un patron de conception \textit{Monteur} où les appels des méthodes de construction sont effectués par les classes héritant de \textit{ReportFactory}.
+Cette organisation, présentée à la figure \ref{fig:diagramme-classes-interface-report}, est celle d'un patron de conception \textit{Monteur} où les appels des méthodes de construction sont effectués par les classes héritant de \textit{ReportFactory}.
 
+% TODO Remove PDF class from diagram.
 \begin{figure}
   	\center
   	\includegraphics[width=0.7\textwidth]{diagramme-classes-interface-report.png}
