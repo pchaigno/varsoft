@@ -103,7 +103,9 @@ Ces trois grands pôles sont détaillés dans les parties suivantes.
 
 La première étape dans toute gestion de portefeuille est la création.
 Pour cela, il faut commencer par importer des actifs stockés dans des fichiers de type CSV comme ceux fournis par Yahoo Finance par exemple.
-Ensuite l'utilisateur pourra sélectionner les données qu'il souhaite pour les ajouter dans un nouveau portefeuille. Il affectera alors une pondération (nombre d'actions de cet actif). Par exemple, la figure \ref{fig:csvexample} ci-dessous correspond au contenu d'un actif au format CSV provenant de Yahoo Finance. Nous utiliserons seulement les colonnes \textit{Date} et \textit{Close}.
+Ensuite l'utilisateur pourra sélectionner les données qu'il souhaite pour les ajouter dans un nouveau portefeuille. Il affectera alors une pondération (nombre d'actions de cet actif).
+Par exemple, la figure \ref{fig:csvexample} correspond au contenu d'un actif au format CSV provenant de Yahoo Finance.
+Nous utiliserons seulement les colonnes \textit{Date} et \textit{Close}.
 
 \begin{figure}[h]
   \center
@@ -417,9 +419,8 @@ La figure \ref{fig:diagramme-sequence-backtesting-garch} détaille ces opératio
 
 \section{Interface graphique}
 
-% TODO On explique pas vraiment pk on a choisis cette architecture ?
 Nous avons décidé d'utiliser l'architecture Modèle-Vue-Contrôleur (MVC) pour notre logiciel car étudiée en cours et très documentée.
-Cette architecture sépare les données, la présentation et les traitements.
+Cette architecture sépare les données, la présentation et les traitements facilitant ainsi toutes évolutions du logiciel.
 Qt permet de réaliser des logiciels avec ce type d'architecture avec des outils comme QtDesigner pour concevoir graphiquement une fenêtre, donc sans écrire une seul ligne de code.
 La figure \ref{fig:diagramme-mvc} présente un schéma de cette architecture.
 
