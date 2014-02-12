@@ -6,9 +6,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    model = new ModelVaR();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete model;
 }

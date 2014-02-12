@@ -1,24 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow" >
-  <property name="geometry" >
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>713</width>
+    <height>425</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QMenuBar" name="menuBar" />
-  <widget class="QToolBar" name="mainToolBar" />
-  <widget class="QWidget" name="centralWidget" />
-  <widget class="QStatusBar" name="statusBar" />
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QTreeWidget" name="treeWidget">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <column>
+       <property name="text">
+        <string>Portefeuilles</string>
+       </property>
+      </column>
+      <item>
+       <property name="text">
+        <string>Nouvel élément</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Nouvel élément</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>Nouveau sous-élément</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Nouvel élément</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Nouvel élément</string>
+        </property>
+       </item>
+      </item>
+      <item>
+       <property name="text">
+        <string>Nouvel élément</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Nouvel élément</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>Données</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QTableWidget" name="tableWidget">
+          <row>
+           <property name="text">
+            <string>Nouvelle ligne</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>Nouvelle ligne</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>Nouvelle ligne</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>Nouvelle ligne</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>Nouvelle ligne</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>Nouvelle ligne</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>Nouvelle ligne</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>Nouvelle ligne</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>Nouvelle ligne</string>
+           </property>
+          </row>
+          <column>
+           <property name="text">
+            <string>Nouvelle colonne</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Nouvelle colonne</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Nouvelle colonne</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Nouvelle colonne</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Nouvelle colonne</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Nouvelle colonne</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Nouvelle colonne</string>
+           </property>
+          </column>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>Rapports et Graphiques</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <layout class="QGridLayout" name="gridLayout"/>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>713</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFichier">
+    <property name="title">
+     <string>Fichier</string>
+    </property>
+    <addaction name="actionOuvrir"/>
+    <addaction name="actionSauvegarder"/>
+    <addaction name="actionSauvegarder_sous"/>
+    <addaction name="separator"/>
+    <addaction name="actionImport"/>
+    <addaction name="actionExport"/>
+   </widget>
+   <addaction name="menuFichier"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionOuvrir">
+   <property name="text">
+    <string>Ouvrir</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionSauvegarder">
+   <property name="text">
+    <string>Sauvegarder</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionSauvegarder_sous">
+   <property name="text">
+    <string>Sauvegarder sous ...</string>
+   </property>
+  </action>
+  <action name="actionImport">
+   <property name="text">
+    <string>Import</string>
+   </property>
+  </action>
+  <action name="actionExport">
+   <property name="text">
+    <string>Export</string>
+   </property>
+  </action>
  </widget>
- <layoutDefault spacing="6" margin="11" />
- <pixmapfunction></pixmapfunction>
+ <layoutdefault spacing="6" margin="11"/>
  <resources/>
  <connections/>
 </ui>
