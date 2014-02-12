@@ -1,129 +1,115 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<componentModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" xmlns:dm10="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" dslVersion="1.0.0.0" Id="d08658f4-62f9-4382-8d9d-777ccf971409" name="ProjetVaR" linkedPackageId="64afa7c2-0bbb-4978-b67e-924f6cb43c79" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ComponentDesigner">
-  <profileInstances>
-    <packageHasProfileInstances Id="4f2f9854-32d9-4eb9-92bd-1dad546dfa22">
-      <profileInstance Id="927fdd5b-bdbc-42c3-a89d-64e7fcc1a6b4" name="StandardProfileL2">
-        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
-      </profileInstance>
-      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
-    </packageHasProfileInstances>
-    <packageHasProfileInstances Id="2b0c571e-dc80-45c1-ba94-7f8fd9bd2779">
-      <profileInstance Id="d485aa44-431b-4f9a-ae44-73a3bef80eb0" name="StandardProfileL3">
-        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
-      </profileInstance>
-      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
-    </packageHasProfileInstances>
-  </profileInstances>
+<componentModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" dslVersion="1.0.0.0" Id="d08658f4-62f9-4382-8d9d-777ccf971409" name="ProjetVaR" linkedPackageId="3928474e-8abe-467e-b697-c3fe5c61b3b1" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ComponentDesigner">
   <packagedElements>
     <componentModelHasComponents>
-      <component Id="d471eeeb-a9f9-4a85-ae36-af49bf45f7a0" name="Qt" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="83043634-a49a-484e-bc2a-dc3d878d7949" />
+      <component Id="8a56b8ff-299f-4bf2-9c5d-2f0e6350ebe2" name="Qt" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="2b9d0cd2-4b97-495d-9902-5a891c3543d3" />
       </component>
     </componentModelHasComponents>
     <componentModelHasComponents>
-      <component Id="c5879786-5c0b-4499-858a-b6f8b69a406d" name="Graphiques" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="4a110ea7-3e51-498c-9cc4-eb29768616a1" />
+      <component Id="7d4c0ef9-608c-4099-9ab7-171aa6097058" name="Graphiques" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="d046838b-96df-46c9-a786-623cf392c910" />
         <suppliersInternal>
-          <dependency Id="ec851ae8-13cd-4e52-92e1-cde035b8fb41">
-            <componentMoniker Id="d471eeeb-a9f9-4a85-ae36-af49bf45f7a0" LastKnownName="Qt" />
-            <elementDefinition Id="2f627073-3bbf-4ba9-b9e0-f2da1f2f944c" />
+          <dependency Id="9f74b1f8-dd1f-423a-9a82-68006c305802">
+            <componentMoniker Id="8a56b8ff-299f-4bf2-9c5d-2f0e6350ebe2" LastKnownName="Qt" />
+            <elementDefinition Id="bd4edc9f-9b48-40f4-a37a-e6a3f9ea3e87" />
           </dependency>
-          <dependency Id="236c2f4e-d40f-4e51-9d76-5615f423d3b3">
-            <componentMoniker Id="0476b5d4-231d-4f51-a604-ec7851656a92" LastKnownName="R" />
-            <elementDefinition Id="345608c9-e6b9-49ca-88d8-2d351d6bd7a7" />
+          <dependency Id="d40ba8a0-3244-4b90-aa5b-693a661d9ab6">
+            <componentMoniker Id="2dfe9736-c21e-4ca3-acf1-60426e504b37" LastKnownName="R" />
+            <elementDefinition Id="efad0fb2-e19a-4190-8d3b-53142109be49" />
           </dependency>
-          <dependency Id="723e8d41-55be-4afd-87cb-e96640c4c400">
-            <componentMoniker Id="e724aba2-574f-4a94-9761-3adc0bd5403f" LastKnownName="Données" />
-            <elementDefinition Id="cc82f22a-8f3c-4e7b-a245-6f8a2aed99bd" />
+          <dependency Id="98341d4f-f6f8-4330-93d4-39d2061a6631">
+            <componentMoniker Id="30e97b20-cd09-4240-b554-d991f7e5b588" LastKnownName="Données" />
+            <elementDefinition Id="8410b0c8-49ca-49ec-a7d4-5b8308e385ef" />
           </dependency>
         </suppliersInternal>
       </component>
     </componentModelHasComponents>
     <componentModelHasComponents>
-      <component Id="0476b5d4-231d-4f51-a604-ec7851656a92" name="R" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="4177eb92-a978-468e-a796-15e83d5c2368" />
+      <component Id="2dfe9736-c21e-4ca3-acf1-60426e504b37" name="R" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="54bc1899-89f4-409b-97bb-a552e64eda67" />
       </component>
     </componentModelHasComponents>
     <componentModelHasComponents>
-      <component Id="4d44d369-e4f1-4358-8075-57b4a4ecee88" name="Calculs" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="efee153f-b603-4102-b46d-fd47c78e7681" />
+      <component Id="3453d635-933d-4baf-8711-db22259fe589" name="Calculs" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="b79db899-f1bc-44e0-8d3b-0ecaef1b2c7c" />
         <suppliersInternal>
-          <dependency Id="6131c492-e185-44af-887e-2fac8d54f0c8">
-            <componentMoniker Id="0476b5d4-231d-4f51-a604-ec7851656a92" LastKnownName="R" />
-            <elementDefinition Id="9627ddc5-8198-4e05-8acc-6dfe4e880b49" />
+          <dependency Id="07bd4971-cb1a-49e8-b0cc-0f314866f7ff">
+            <componentMoniker Id="2dfe9736-c21e-4ca3-acf1-60426e504b37" LastKnownName="R" />
+            <elementDefinition Id="8b2e61e1-0405-4e96-850c-c9a160f0a804" />
           </dependency>
-          <dependency Id="67c3b74f-1e15-420f-ad01-be209fe7a522">
-            <componentMoniker Id="e724aba2-574f-4a94-9761-3adc0bd5403f" LastKnownName="Données" />
-            <elementDefinition Id="47d4207a-d129-492c-8e98-78842a49d0b9" />
+          <dependency Id="462043ab-e9c1-4f4c-ab0e-cba660fd14dc">
+            <componentMoniker Id="30e97b20-cd09-4240-b554-d991f7e5b588" LastKnownName="Données" />
+            <elementDefinition Id="dced6e19-ca8b-4de8-9be6-db0f1870e4a6" />
           </dependency>
         </suppliersInternal>
       </component>
     </componentModelHasComponents>
     <componentModelHasComponents>
-      <component Id="99904dec-99ab-401e-90b8-bf33bb18c533" name="Rapports" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="da00ed2f-b494-4223-96e3-2fea9c7398df" />
+      <component Id="7cebfded-6d60-420b-8089-3437354aa3db" name="Rapports" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="a4880777-e18f-40e3-b86b-177e29c2fd24" />
         <suppliersInternal>
-          <dependency Id="db8a3a1e-0df1-4cc4-aafb-e6663859922d">
-            <componentMoniker Id="4d44d369-e4f1-4358-8075-57b4a4ecee88" LastKnownName="Calculs" />
-            <elementDefinition Id="269a2a88-a4af-4db6-8f5f-664ab6c2b8ab" />
+          <dependency Id="6889da83-977a-4285-85a4-df25b21914d6">
+            <componentMoniker Id="3453d635-933d-4baf-8711-db22259fe589" LastKnownName="Calculs" />
+            <elementDefinition Id="fab603a0-83ff-4a06-ac35-beb124b2e19f" />
           </dependency>
-          <dependency Id="9f01103d-ac53-499b-935f-06bd700c7bbb">
-            <componentMoniker Id="c5879786-5c0b-4499-858a-b6f8b69a406d" LastKnownName="Graphiques" />
-            <elementDefinition Id="5d4ddb0a-2ec5-4a82-a719-4e72daec222c" />
+          <dependency Id="12edf5b5-5e42-42c5-9b80-cfb53ae7f469">
+            <componentMoniker Id="7d4c0ef9-608c-4099-9ab7-171aa6097058" LastKnownName="Graphiques" />
+            <elementDefinition Id="fd611c93-8e5b-44c3-9193-da006f5dafa9" />
           </dependency>
         </suppliersInternal>
       </component>
     </componentModelHasComponents>
     <componentModelHasComponents>
-      <component Id="e724aba2-574f-4a94-9761-3adc0bd5403f" name="Données" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="c270e581-b583-4fd2-b638-b199e0c737f4" />
+      <component Id="30e97b20-cd09-4240-b554-d991f7e5b588" name="Données" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="fba5cbab-7ea8-4933-8779-9f792aefee37" />
         <ownedAttributesInternal>
-          <part Id="7bb65276-ee16-47d7-8a57-35bb3464141c" name="Actifs" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Composite" isComposite="true">
-            <elementDefinition Id="903c69a2-1ed3-4929-9634-f12a93774eef" />
+          <part Id="bd9c37b1-ec8b-4a4d-946d-0156d4b4cf3a" name="Actifs" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Composite" isComposite="true">
+            <elementDefinition Id="cf69c156-8ba8-4964-a10a-f4587d8c1078" />
             <type_NamedElement>
-              <componentMoniker Id="fe3b0390-1062-40e1-acfa-43afaa231837" LastKnownName="Component1" />
+              <componentMoniker Id="e7e92810-e8f0-4b06-89e0-2cb9b9659b10" LastKnownName="Component1" />
             </type_NamedElement>
           </part>
-          <part Id="06408097-1fff-4b0c-897c-654aa8d47fd4" name="Portefeuilles" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Composite" isComposite="true">
-            <elementDefinition Id="08157e4f-3575-4536-a596-74b90a824bb4" />
+          <part Id="e6b8704c-a333-4568-8cac-2b50c6b230e8" name="Portefeuilles" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Composite" isComposite="true">
+            <elementDefinition Id="a8ff3462-bdef-4540-858e-08cf83a39811" />
             <type_NamedElement>
-              <componentMoniker Id="12f45973-33d5-45d7-8eb6-3c5867a571d3" LastKnownName="Component2" />
+              <componentMoniker Id="ad3632f9-24ba-4734-854b-6f2b999e84d1" LastKnownName="Component2" />
             </type_NamedElement>
           </part>
         </ownedAttributesInternal>
       </component>
     </componentModelHasComponents>
     <componentModelHasComponents>
-      <component Id="fe3b0390-1062-40e1-acfa-43afaa231837" name="Component1" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="6f6d7a6e-f8bd-49c7-b151-1a4be14aff0e" />
+      <component Id="e7e92810-e8f0-4b06-89e0-2cb9b9659b10" name="Component1" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="cdd38f06-bad7-47ab-868e-f573bb18b792" />
       </component>
     </componentModelHasComponents>
     <componentModelHasComponents>
-      <component Id="12f45973-33d5-45d7-8eb6-3c5867a571d3" name="Component2" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="5d352b4e-d065-4a62-ad61-70cb31a4ba34" />
+      <component Id="ad3632f9-24ba-4734-854b-6f2b999e84d1" name="Component2" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="47381da0-bcfd-42c5-9a4e-71b4221ce69b" />
       </component>
     </componentModelHasComponents>
     <componentModelHasComponents>
-      <component Id="fabdcbeb-fe31-4fcb-bf4c-8866204067c1" name="GUI" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="9b6a48c5-8d92-4b21-9220-2c91b3dc0aab" />
+      <component Id="c4046796-556d-462a-a2f0-362f44e885be" name="GUI" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="ec725e25-b0a2-4c80-8cb7-58a28ba58c5b" />
         <suppliersInternal>
-          <dependency Id="03c83380-93c7-422c-a3e5-21ca881b15cd">
-            <componentMoniker Id="e724aba2-574f-4a94-9761-3adc0bd5403f" LastKnownName="Données" />
-            <elementDefinition Id="261f2e5a-ea52-48df-839c-c34c59122eb8" />
+          <dependency Id="b8bf94b0-fe96-4130-b697-96c44342f451">
+            <componentMoniker Id="30e97b20-cd09-4240-b554-d991f7e5b588" LastKnownName="Données" />
+            <elementDefinition Id="8fc11e0f-5f16-4501-855f-9892a3d6a8ef" />
           </dependency>
-          <dependency Id="2113f6c7-b5dd-4885-9a44-5863b356dee8">
-            <componentMoniker Id="99904dec-99ab-401e-90b8-bf33bb18c533" LastKnownName="Rapports" />
-            <elementDefinition Id="412182ca-dcba-4155-9da5-83e7d79d3929" />
+          <dependency Id="9caafa9d-e890-44f6-83d7-00c5ecf02c0c">
+            <componentMoniker Id="7cebfded-6d60-420b-8089-3437354aa3db" LastKnownName="Rapports" />
+            <elementDefinition Id="8c5fd609-e1c1-4a23-9761-d361ee2a4fe2" />
           </dependency>
-          <dependency Id="70cdf4ae-99fe-4f9c-89f6-50bd0a8b9545">
-            <componentMoniker Id="d471eeeb-a9f9-4a85-ae36-af49bf45f7a0" LastKnownName="Qt" />
-            <elementDefinition Id="2387af1d-63db-4c1f-ab8d-034a2607d29e" />
+          <dependency Id="d431b07e-e5a2-4e83-9355-f82cccda20a8">
+            <componentMoniker Id="8a56b8ff-299f-4bf2-9c5d-2f0e6350ebe2" LastKnownName="Qt" />
+            <elementDefinition Id="6c62ce33-f3bb-48e5-adf8-594405afe66e" />
           </dependency>
         </suppliersInternal>
       </component>
     </componentModelHasComponents>
   </packagedElements>
-  <package Id="64afa7c2-0bbb-4978-b67e-924f6cb43c79" name="ProjetVaR">
-    <elementDefinition Id="8c3a5ad3-9382-4dc6-85a7-c21d40c4e45d" />
+  <package Id="3928474e-8abe-467e-b697-c3fe5c61b3b1" name="Modélisation">
+    <elementDefinition Id="6748ac93-17b7-47ba-bdb0-a21deeb096c6" />
   </package>
 </componentModel>

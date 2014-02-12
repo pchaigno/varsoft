@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams"
+<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ComponentDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner"
   dslVersion="1.0.0.0"
   Id="6748ac93-17b7-47ba-bdb0-a21deeb096c6"
   name="Modélisation" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
@@ -55,20 +55,6 @@
       <body>saveAssets is only usefull if the database file is new.</body>
     </comment>
   </ownedCommentsInternal>
-  <profileInstances>
-    <packageHasProfileInstances
-      Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b">
-      <profileInstance
-        Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791"
-        name="StandardProfileL2" />
-    </packageHasProfileInstances>
-    <packageHasProfileInstances
-      Id="29349502-908c-4fda-9054-c48619c59ed0">
-      <profileInstance
-        Id="532ea607-fb19-44b8-8502-3351b05452be"
-        name="StandardProfileL3" />
-    </packageHasProfileInstances>
-  </profileInstances>
   <packagedElements>
     <packageHasNamedElement>
       <class
@@ -3797,6 +3783,925 @@
           </operation>
         </ownedOperationsInternal>
       </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <interaction
+        Id="0f051b62-3b7a-4571-bc91-c80dcd780406"
+        name="BacktestingVarGarch"
+        collapseFragmentsFlag="false"
+        isActiveClass="false"
+        isAbstract="false"
+        isLeaf="false"
+        isReentrant="false">
+        <fragments>
+          <behaviorExecutionSpecification
+            Id="b8b2ce68-bdf8-47e9-8d88-f46ff979e15c"
+            name="BehaviorExecutionSpecification12">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="c5aab5df-961d-4fd7-a896-ab66b21ab5d5"
+                LastKnownName="r : ProjetVaR::R"
+                LastKnownLocation="Modelisation.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="4f78530f-7be5-4b07-ae37-af940c1170f3"
+                LastKnownName="ExecutionOccurrenceSpecification24"
+                LastKnownLocation="Modelisation.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="a3bfb7d1-e278-49b5-9f79-3d9626868b85"
+                LastKnownName="ExecutionOccurrenceSpecification23"
+                LastKnownLocation="Modelisation.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="45398781-f413-40e2-a1a0-a9cd42f4c22e"
+                LastKnownName="MessageOccurrenceSpecification38"
+                LastKnownLocation="Modelisation.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="7d2c2b7f-39a1-4d90-a04c-bf60966e49ae"
+                LastKnownName="MessageOccurrenceSpecification39"
+                LastKnownLocation="Modelisation.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="a3bfb7d1-e278-49b5-9f79-3d9626868b85"
+            name="ExecutionOccurrenceSpecification23">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="1039a2bf-7345-44fe-9715-d422bdf5d2ff"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Modelisation.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="c5aab5df-961d-4fd7-a896-ab66b21ab5d5"
+                LastKnownName="r : ProjetVaR::R"
+                LastKnownLocation="Modelisation.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="487b7746-0391-426b-a1cd-c4a2b2f8fbd0"
+            name="MessageOccurrenceSpecification37">
+            <covered>
+              <lifelineMoniker
+                Id="63f5f33d-d619-4f3f-80f7-2fc9216c61bb"
+                LastKnownName="backtesting : ProjetVaR::Backtesting"
+                LastKnownLocation="Modelisation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="45398781-f413-40e2-a1a0-a9cd42f4c22e"
+            name="MessageOccurrenceSpecification38">
+            <covered>
+              <lifelineMoniker
+                Id="c5aab5df-961d-4fd7-a896-ab66b21ab5d5"
+                LastKnownName="r : ProjetVaR::R"
+                LastKnownLocation="Modelisation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="7d2c2b7f-39a1-4d90-a04c-bf60966e49ae"
+            name="MessageOccurrenceSpecification39">
+            <covered>
+              <lifelineMoniker
+                Id="c5aab5df-961d-4fd7-a896-ab66b21ab5d5"
+                LastKnownName="r : ProjetVaR::R"
+                LastKnownLocation="Modelisation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="ddba2632-8ae5-4ad9-995a-359677847758"
+            name="MessageOccurrenceSpecification40">
+            <covered>
+              <lifelineMoniker
+                Id="63f5f33d-d619-4f3f-80f7-2fc9216c61bb"
+                LastKnownName="backtesting : ProjetVaR::Backtesting"
+                LastKnownLocation="Modelisation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification
+            Id="4f78530f-7be5-4b07-ae37-af940c1170f3"
+            name="ExecutionOccurrenceSpecification24">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="ad601f59-e47e-4c7d-bb7f-0965cf3445db"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Modelisation.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="c5aab5df-961d-4fd7-a896-ab66b21ab5d5"
+                LastKnownName="r : ProjetVaR::R"
+                LastKnownLocation="Modelisation.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <combinedFragment
+            Id="aa599f1c-c510-4db2-afc9-24e7ec6a4c85"
+            name="CombinedFragment1"
+            interactionOperator="Loop">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="63f5f33d-d619-4f3f-80f7-2fc9216c61bb"
+                LastKnownName="backtesting : ProjetVaR::Backtesting"
+                LastKnownLocation="Modelisation.uml" />
+              <lifelineMoniker
+                Id="def64067-66df-4aa1-ade1-33fbdc2c3c18"
+                LastKnownName="vaRGarch : ProjetVaR::VaRGarch"
+                LastKnownLocation="Modelisation.uml" />
+            </coveredLifelines>
+            <operands>
+              <interactionOperand
+                Id="254b9f73-9fa9-4e45-b658-34a75a424059"
+                name="InteractionOperand1">
+                <coveredLifelines>
+                  <lifelineMoniker
+                    Id="63f5f33d-d619-4f3f-80f7-2fc9216c61bb"
+                    LastKnownName="backtesting : ProjetVaR::Backtesting"
+                    LastKnownLocation="Modelisation.uml" />
+                  <lifelineMoniker
+                    Id="def64067-66df-4aa1-ade1-33fbdc2c3c18"
+                    LastKnownName="vaRGarch : ProjetVaR::VaRGarch"
+                    LastKnownLocation="Modelisation.uml" />
+                </coveredLifelines>
+                <guard>
+                  <interactionConstraint
+                    Id="c93d0ed3-db3a-4ebe-a861-b417a98fca20">
+                    <maxInt>
+                      <literalString
+                        Id="82346684-048c-47f6-9a15-9123f2fc8b0c"
+                        name="LiteralString1"
+                        value="backtestPeriod" />
+                    </maxInt>
+                    <minInt>
+                      <literalString
+                        Id="16f9982e-c543-4594-9bac-159d27df74d3"
+                        name="LiteralString2"
+                        value="backtestPeriod" />
+                    </minInt>
+                  </interactionConstraint>
+                </guard>
+                <operandOccurrenceSpecifications>
+                  <operandOccurrenceSpecificationMoniker
+                    Id="d4e0c05d-1677-4a1f-a70a-34dc76360852"
+                    LastKnownName="OperandOccurrenceSpecification1"
+                    LastKnownLocation="Modelisation.uml" />
+                  <operandOccurrenceSpecificationMoniker
+                    Id="d5377dd5-9d8f-44a8-8fee-ee556ea9fa81"
+                    LastKnownName="OperandOccurrenceSpecification2"
+                    LastKnownLocation="Modelisation.uml" />
+                  <operandOccurrenceSpecificationMoniker
+                    Id="26950e04-5cb0-4f9a-8e11-93aced804e3e"
+                    LastKnownName="OperandOccurrenceSpecification3"
+                    LastKnownLocation="Modelisation.uml" />
+                  <operandOccurrenceSpecificationMoniker
+                    Id="d4f8ce41-abc7-49de-ab36-4c92f72844ef"
+                    LastKnownName="OperandOccurrenceSpecification4"
+                    LastKnownLocation="Modelisation.uml" />
+                </operandOccurrenceSpecifications>
+              </interactionOperand>
+            </operands>
+          </combinedFragment>
+          <operandOccurrenceSpecification
+            Id="26950e04-5cb0-4f9a-8e11-93aced804e3e"
+            name="OperandOccurrenceSpecification3">
+            <covered>
+              <lifelineMoniker
+                Id="def64067-66df-4aa1-ade1-33fbdc2c3c18"
+                LastKnownName="vaRGarch : ProjetVaR::VaRGarch"
+                LastKnownLocation="Modelisation.uml" />
+            </covered>
+          </operandOccurrenceSpecification>
+          <operandOccurrenceSpecification
+            Id="d4e0c05d-1677-4a1f-a70a-34dc76360852"
+            name="OperandOccurrenceSpecification1">
+            <covered>
+              <lifelineMoniker
+                Id="63f5f33d-d619-4f3f-80f7-2fc9216c61bb"
+                LastKnownName="backtesting : ProjetVaR::Backtesting"
+                LastKnownLocation="Modelisation.uml" />
+            </covered>
+          </operandOccurrenceSpecification>
+          <behaviorExecutionSpecification
+            Id="1005ea60-79e3-48da-bf01-d0b9583e3861"
+            name="BehaviorExecutionSpecification11">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="def64067-66df-4aa1-ade1-33fbdc2c3c18"
+                LastKnownName="vaRGarch : ProjetVaR::VaRGarch"
+                LastKnownLocation="Modelisation.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="8cc632ef-d632-46aa-a096-0f6bdde1c3b1"
+                LastKnownName="ExecutionOccurrenceSpecification22"
+                LastKnownLocation="Modelisation.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="18c156a0-57a5-4c34-9ddb-a963c02d9529"
+                LastKnownName="ExecutionOccurrenceSpecification21"
+                LastKnownLocation="Modelisation.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="5aa21181-3feb-4397-abfb-4155d87d5ee9"
+                LastKnownName="MessageOccurrenceSpecification34"
+                LastKnownLocation="Modelisation.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="ce18247a-7575-4cd0-8e23-0246bf806bd9"
+                LastKnownName="MessageOccurrenceSpecification41"
+                LastKnownLocation="Modelisation.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="d625c43f-b4f3-4a53-a7b0-b3ad95fd7db9"
+                LastKnownName="ExecutionOccurrenceSpecification25"
+                LastKnownLocation="Modelisation.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="6dd70eee-bf91-4d1f-8ae3-ac9789a63f6f"
+                LastKnownName="ExecutionOccurrenceSpecification26"
+                LastKnownLocation="Modelisation.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="f8b3bf06-e50a-4bc1-9e49-e91d75bbaab5"
+                LastKnownName="MessageOccurrenceSpecification35"
+                LastKnownLocation="Modelisation.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="18c156a0-57a5-4c34-9ddb-a963c02d9529"
+            name="ExecutionOccurrenceSpecification21">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="9f3f137a-7d3e-4859-b056-158afa381a44"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Modelisation.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="def64067-66df-4aa1-ade1-33fbdc2c3c18"
+                LastKnownName="vaRGarch : ProjetVaR::VaRGarch"
+                LastKnownLocation="Modelisation.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="0cd728b3-b018-4d68-9009-4a7915a6d257"
+            name="MessageOccurrenceSpecification33">
+            <covered>
+              <lifelineMoniker
+                Id="63f5f33d-d619-4f3f-80f7-2fc9216c61bb"
+                LastKnownName="backtesting : ProjetVaR::Backtesting"
+                LastKnownLocation="Modelisation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="5aa21181-3feb-4397-abfb-4155d87d5ee9"
+            name="MessageOccurrenceSpecification34">
+            <covered>
+              <lifelineMoniker
+                Id="def64067-66df-4aa1-ade1-33fbdc2c3c18"
+                LastKnownName="vaRGarch : ProjetVaR::VaRGarch"
+                LastKnownLocation="Modelisation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="ce18247a-7575-4cd0-8e23-0246bf806bd9"
+            name="MessageOccurrenceSpecification41">
+            <covered>
+              <lifelineMoniker
+                Id="def64067-66df-4aa1-ade1-33fbdc2c3c18"
+                LastKnownName="vaRGarch : ProjetVaR::VaRGarch"
+                LastKnownLocation="Modelisation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <behaviorExecutionSpecification
+            Id="9b0c8d76-00ea-40ea-847a-ba99b3ada616"
+            name="BehaviorExecutionSpecification13">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="def64067-66df-4aa1-ade1-33fbdc2c3c18"
+                LastKnownName="vaRGarch : ProjetVaR::VaRGarch"
+                LastKnownLocation="Modelisation.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="6dd70eee-bf91-4d1f-8ae3-ac9789a63f6f"
+                LastKnownName="ExecutionOccurrenceSpecification26"
+                LastKnownLocation="Modelisation.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="d625c43f-b4f3-4a53-a7b0-b3ad95fd7db9"
+                LastKnownName="ExecutionOccurrenceSpecification25"
+                LastKnownLocation="Modelisation.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="f6a8aaf8-abe3-41e1-9934-ef0a634e5c14"
+                LastKnownName="MessageOccurrenceSpecification42"
+                LastKnownLocation="Modelisation.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="d625c43f-b4f3-4a53-a7b0-b3ad95fd7db9"
+            name="ExecutionOccurrenceSpecification25">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="1e177153-126d-45dd-adfe-fb3d9b571407"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Modelisation.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="def64067-66df-4aa1-ade1-33fbdc2c3c18"
+                LastKnownName="vaRGarch : ProjetVaR::VaRGarch"
+                LastKnownLocation="Modelisation.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="f6a8aaf8-abe3-41e1-9934-ef0a634e5c14"
+            name="MessageOccurrenceSpecification42">
+            <covered>
+              <lifelineMoniker
+                Id="def64067-66df-4aa1-ade1-33fbdc2c3c18"
+                LastKnownName="vaRGarch : ProjetVaR::VaRGarch"
+                LastKnownLocation="Modelisation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification
+            Id="6dd70eee-bf91-4d1f-8ae3-ac9789a63f6f"
+            name="ExecutionOccurrenceSpecification26">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="2176d931-0fb4-4261-8f46-b37db91dca9d"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Modelisation.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="def64067-66df-4aa1-ade1-33fbdc2c3c18"
+                LastKnownName="vaRGarch : ProjetVaR::VaRGarch"
+                LastKnownLocation="Modelisation.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="f8b3bf06-e50a-4bc1-9e49-e91d75bbaab5"
+            name="MessageOccurrenceSpecification35">
+            <covered>
+              <lifelineMoniker
+                Id="def64067-66df-4aa1-ade1-33fbdc2c3c18"
+                LastKnownName="vaRGarch : ProjetVaR::VaRGarch"
+                LastKnownLocation="Modelisation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="ac533184-c814-4d42-98b9-b4799fe8e9eb"
+            name="MessageOccurrenceSpecification36">
+            <covered>
+              <lifelineMoniker
+                Id="63f5f33d-d619-4f3f-80f7-2fc9216c61bb"
+                LastKnownName="backtesting : ProjetVaR::Backtesting"
+                LastKnownLocation="Modelisation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification
+            Id="8cc632ef-d632-46aa-a096-0f6bdde1c3b1"
+            name="ExecutionOccurrenceSpecification22">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="b7b26ada-fc3d-47ca-b9cd-9e0c5141afe9"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Modelisation.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="def64067-66df-4aa1-ade1-33fbdc2c3c18"
+                LastKnownName="vaRGarch : ProjetVaR::VaRGarch"
+                LastKnownLocation="Modelisation.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <operandOccurrenceSpecification
+            Id="d5377dd5-9d8f-44a8-8fee-ee556ea9fa81"
+            name="OperandOccurrenceSpecification2">
+            <covered>
+              <lifelineMoniker
+                Id="63f5f33d-d619-4f3f-80f7-2fc9216c61bb"
+                LastKnownName="backtesting : ProjetVaR::Backtesting"
+                LastKnownLocation="Modelisation.uml" />
+            </covered>
+          </operandOccurrenceSpecification>
+          <operandOccurrenceSpecification
+            Id="d4f8ce41-abc7-49de-ab36-4c92f72844ef"
+            name="OperandOccurrenceSpecification4">
+            <covered>
+              <lifelineMoniker
+                Id="def64067-66df-4aa1-ade1-33fbdc2c3c18"
+                LastKnownName="vaRGarch : ProjetVaR::VaRGarch"
+                LastKnownLocation="Modelisation.uml" />
+            </covered>
+          </operandOccurrenceSpecification>
+        </fragments>
+        <lifelines>
+          <lifeline
+            Id="63f5f33d-d619-4f3f-80f7-2fc9216c61bb"
+            name="backtesting : ProjetVaR::Backtesting"
+            isActor="false"
+            lifelineDisplayName="backtesting : ProjetVaR::Backtesting">
+            <represents>
+              <propertyMoniker
+                Id="9366fa7c-9bea-404f-8326-dd1450e569a2"
+                LastKnownLocation="Modelisation.uml" />
+            </represents>
+            <topLevelOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="487b7746-0391-426b-a1cd-c4a2b2f8fbd0"
+                LastKnownName="MessageOccurrenceSpecification37"
+                LastKnownLocation="Modelisation.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="ddba2632-8ae5-4ad9-995a-359677847758"
+                LastKnownName="MessageOccurrenceSpecification40"
+                LastKnownLocation="Modelisation.uml" />
+              <operandOccurrenceSpecificationMoniker
+                Id="d4e0c05d-1677-4a1f-a70a-34dc76360852"
+                LastKnownName="OperandOccurrenceSpecification1"
+                LastKnownLocation="Modelisation.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="0cd728b3-b018-4d68-9009-4a7915a6d257"
+                LastKnownName="MessageOccurrenceSpecification33"
+                LastKnownLocation="Modelisation.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="ac533184-c814-4d42-98b9-b4799fe8e9eb"
+                LastKnownName="MessageOccurrenceSpecification36"
+                LastKnownLocation="Modelisation.uml" />
+              <operandOccurrenceSpecificationMoniker
+                Id="d5377dd5-9d8f-44a8-8fee-ee556ea9fa81"
+                LastKnownName="OperandOccurrenceSpecification2"
+                LastKnownLocation="Modelisation.uml" />
+            </topLevelOccurrences>
+          </lifeline>
+          <lifeline
+            Id="def64067-66df-4aa1-ade1-33fbdc2c3c18"
+            name="vaRGarch : ProjetVaR::VaRGarch"
+            isActor="false"
+            lifelineDisplayName="vaRGarch : ProjetVaR::VaRGarch">
+            <represents>
+              <propertyMoniker
+                Id="a0391795-7903-4baf-a373-0da1dde55983"
+                LastKnownLocation="Modelisation.uml" />
+            </represents>
+            <topLevelOccurrences>
+              <operandOccurrenceSpecificationMoniker
+                Id="26950e04-5cb0-4f9a-8e11-93aced804e3e"
+                LastKnownName="OperandOccurrenceSpecification3"
+                LastKnownLocation="Modelisation.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="18c156a0-57a5-4c34-9ddb-a963c02d9529"
+                LastKnownName="ExecutionOccurrenceSpecification21"
+                LastKnownLocation="Modelisation.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="8cc632ef-d632-46aa-a096-0f6bdde1c3b1"
+                LastKnownName="ExecutionOccurrenceSpecification22"
+                LastKnownLocation="Modelisation.uml" />
+              <operandOccurrenceSpecificationMoniker
+                Id="d4f8ce41-abc7-49de-ab36-4c92f72844ef"
+                LastKnownName="OperandOccurrenceSpecification4"
+                LastKnownLocation="Modelisation.uml" />
+            </topLevelOccurrences>
+          </lifeline>
+          <lifeline
+            Id="c5aab5df-961d-4fd7-a896-ab66b21ab5d5"
+            name="r : ProjetVaR::R"
+            isActor="false"
+            lifelineDisplayName="r : ProjetVaR::R">
+            <represents>
+              <propertyMoniker
+                Id="b38a2d01-a983-4f75-b0a7-3b243a999504"
+                LastKnownLocation="Modelisation.uml" />
+            </represents>
+            <topLevelOccurrences>
+              <executionOccurrenceSpecificationMoniker
+                Id="a3bfb7d1-e278-49b5-9f79-3d9626868b85"
+                LastKnownName="ExecutionOccurrenceSpecification23"
+                LastKnownLocation="Modelisation.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="4f78530f-7be5-4b07-ae37-af940c1170f3"
+                LastKnownName="ExecutionOccurrenceSpecification24"
+                LastKnownLocation="Modelisation.uml" />
+            </topLevelOccurrences>
+          </lifeline>
+        </lifelines>
+        <messages>
+          <message
+            Id="2844348b-f217-4baf-9819-7860d45e535f"
+            name="getGarchModel(data)"
+            messageKind="Complete"
+            messageSort="SynchCall"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="487b7746-0391-426b-a1cd-c4a2b2f8fbd0"
+                LastKnownName="MessageOccurrenceSpecification37"
+                LastKnownLocation="Modelisation.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="45398781-f413-40e2-a1a0-a9cd42f4c22e"
+                LastKnownName="MessageOccurrenceSpecification38"
+                LastKnownLocation="Modelisation.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="55138627-d992-4196-beb6-f0cb035845a9"
+            name="&lt;&lt;garchModel&gt;&gt;"
+            messageKind="Complete"
+            messageSort="Reply"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="7d2c2b7f-39a1-4d90-a04c-bf60966e49ae"
+                LastKnownName="MessageOccurrenceSpecification39"
+                LastKnownLocation="Modelisation.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="ddba2632-8ae5-4ad9-995a-359677847758"
+                LastKnownName="MessageOccurrenceSpecification40"
+                LastKnownLocation="Modelisation.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="4575ad7d-abfc-4a62-8fe6-9cd763dd4d6b"
+            name="VaRGarch(data, risk, timeHorizon, garchModel)"
+            messageKind="Complete"
+            messageSort="SynchCall"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="0cd728b3-b018-4d68-9009-4a7915a6d257"
+                LastKnownName="MessageOccurrenceSpecification33"
+                LastKnownLocation="Modelisation.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="5aa21181-3feb-4397-abfb-4155d87d5ee9"
+                LastKnownName="MessageOccurrenceSpecification34"
+                LastKnownLocation="Modelisation.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="0ac3918d-9fb0-4e1b-ace3-b71f12839eaa"
+            name="execute()"
+            messageKind="Complete"
+            messageSort="SynchCall"
+            createSelfMessage="true">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="ce18247a-7575-4cd0-8e23-0246bf806bd9"
+                LastKnownName="MessageOccurrenceSpecification41"
+                LastKnownLocation="Modelisation.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="f6a8aaf8-abe3-41e1-9934-ef0a634e5c14"
+                LastKnownName="MessageOccurrenceSpecification42"
+                LastKnownLocation="Modelisation.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="602afb61-387a-4d28-90af-3f58e4f611b2"
+            name="&lt;&lt;VaR&gt;&gt;"
+            messageKind="Complete"
+            messageSort="Reply"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="f8b3bf06-e50a-4bc1-9e49-e91d75bbaab5"
+                LastKnownName="MessageOccurrenceSpecification35"
+                LastKnownLocation="Modelisation.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="ac533184-c814-4d42-98b9-b4799fe8e9eb"
+                LastKnownName="MessageOccurrenceSpecification36"
+                LastKnownLocation="Modelisation.uml" />
+            </receiveEvent>
+          </message>
+        </messages>
+        <ownedAttributesInternal>
+          <property
+            Id="a0391795-7903-4baf-a373-0da1dde55983"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="0466f584-ddf7-46b7-8e74-7c70b9bbdf1b"
+                LastKnownName="ProjetVaR::VaRGarch"
+                LastKnownLocation="Modelisation.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="b38a2d01-a983-4f75-b0a7-3b243a999504"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="e15282e7-ff45-4695-b493-3e75901a2dfa"
+                LastKnownName="ProjetVaR::R"
+                LastKnownLocation="Modelisation.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="9366fa7c-9bea-404f-8326-dd1450e569a2"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="08610b6e-70ba-4657-8be3-f16994bb99c4"
+                LastKnownName="ProjetVaR::Backtesting"
+                LastKnownLocation="Modelisation.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+      </interaction>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="0466f584-ddf7-46b7-8e74-7c70b9bbdf1b"
+        name="ProjetVaR::VaRGarch" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="e15282e7-ff45-4695-b493-3e75901a2dfa"
+        name="ProjetVaR::R" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="08610b6e-70ba-4657-8be3-f16994bb99c4"
+        name="ProjetVaR::Backtesting" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="1039a2bf-7345-44fe-9715-d422bdf5d2ff"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="ad601f59-e47e-4c7d-bb7f-0965cf3445db"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="9f3f137a-7d3e-4859-b056-158afa381a44"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="b7b26ada-fc3d-47ca-b9cd-9e0c5141afe9"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="1e177153-126d-45dd-adfe-fb3d9b571407"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="2176d931-0fb4-4261-8f46-b37db91dca9d"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <component
+        Id="2b9d0cd2-4b97-495d-9902-5a891c3543d3"
+        name="Qt"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <component
+        Id="d046838b-96df-46c9-a786-623cf392c910"
+        name="Graphiques"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <suppliersInternal>
+          <dependency
+            Id="bd4edc9f-9b48-40f4-a37a-e6a3f9ea3e87">
+            <componentMoniker
+              Id="2b9d0cd2-4b97-495d-9902-5a891c3543d3"
+              LastKnownName="Qt"
+              LastKnownLocation="Modelisation.uml" />
+          </dependency>
+          <dependency
+            Id="efad0fb2-e19a-4190-8d3b-53142109be49">
+            <componentMoniker
+              Id="54bc1899-89f4-409b-97bb-a552e64eda67"
+              LastKnownName="R"
+              LastKnownLocation="Modelisation.uml" />
+          </dependency>
+          <dependency
+            Id="8410b0c8-49ca-49ec-a7d4-5b8308e385ef">
+            <componentMoniker
+              Id="fba5cbab-7ea8-4933-8779-9f792aefee37"
+              LastKnownName="Données"
+              LastKnownLocation="Modelisation.uml" />
+          </dependency>
+        </suppliersInternal>
+      </component>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <component
+        Id="54bc1899-89f4-409b-97bb-a552e64eda67"
+        name="R"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <component
+        Id="b79db899-f1bc-44e0-8d3b-0ecaef1b2c7c"
+        name="Calculs"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <suppliersInternal>
+          <dependency
+            Id="8b2e61e1-0405-4e96-850c-c9a160f0a804">
+            <componentMoniker
+              Id="54bc1899-89f4-409b-97bb-a552e64eda67"
+              LastKnownName="R"
+              LastKnownLocation="Modelisation.uml" />
+          </dependency>
+          <dependency
+            Id="dced6e19-ca8b-4de8-9be6-db0f1870e4a6">
+            <componentMoniker
+              Id="fba5cbab-7ea8-4933-8779-9f792aefee37"
+              LastKnownName="Données"
+              LastKnownLocation="Modelisation.uml" />
+          </dependency>
+        </suppliersInternal>
+      </component>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <component
+        Id="a4880777-e18f-40e3-b86b-177e29c2fd24"
+        name="Rapports"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <suppliersInternal>
+          <dependency
+            Id="fab603a0-83ff-4a06-ac35-beb124b2e19f">
+            <componentMoniker
+              Id="b79db899-f1bc-44e0-8d3b-0ecaef1b2c7c"
+              LastKnownName="Calculs"
+              LastKnownLocation="Modelisation.uml" />
+          </dependency>
+          <dependency
+            Id="fd611c93-8e5b-44c3-9193-da006f5dafa9">
+            <componentMoniker
+              Id="d046838b-96df-46c9-a786-623cf392c910"
+              LastKnownName="Graphiques"
+              LastKnownLocation="Modelisation.uml" />
+          </dependency>
+        </suppliersInternal>
+      </component>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <component
+        Id="fba5cbab-7ea8-4933-8779-9f792aefee37"
+        name="Données"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <ownedAttributesInternal>
+          <part
+            Id="cf69c156-8ba8-4964-a10a-f4587d8c1078"
+            name="Actifs"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="Composite"
+            isComposite="true">
+            <type_NamedElement>
+              <componentMoniker
+                Id="cdd38f06-bad7-47ab-868e-f573bb18b792"
+                LastKnownName="Component1"
+                LastKnownLocation="Modelisation.uml" />
+            </type_NamedElement>
+          </part>
+          <part
+            Id="a8ff3462-bdef-4540-858e-08cf83a39811"
+            name="Portefeuilles"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="Composite"
+            isComposite="true">
+            <type_NamedElement>
+              <componentMoniker
+                Id="47381da0-bcfd-42c5-9a4e-71b4221ce69b"
+                LastKnownName="Component2"
+                LastKnownLocation="Modelisation.uml" />
+            </type_NamedElement>
+          </part>
+        </ownedAttributesInternal>
+      </component>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <component
+        Id="cdd38f06-bad7-47ab-868e-f573bb18b792"
+        name="Component1"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <component
+        Id="47381da0-bcfd-42c5-9a4e-71b4221ce69b"
+        name="Component2"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <component
+        Id="ec725e25-b0a2-4c80-8cb7-58a28ba58c5b"
+        name="GUI"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <suppliersInternal>
+          <dependency
+            Id="8fc11e0f-5f16-4501-855f-9892a3d6a8ef">
+            <componentMoniker
+              Id="fba5cbab-7ea8-4933-8779-9f792aefee37"
+              LastKnownName="Données"
+              LastKnownLocation="Modelisation.uml" />
+          </dependency>
+          <dependency
+            Id="8c5fd609-e1c1-4a23-9761-d361ee2a4fe2">
+            <componentMoniker
+              Id="a4880777-e18f-40e3-b86b-177e29c2fd24"
+              LastKnownName="Rapports"
+              LastKnownLocation="Modelisation.uml" />
+          </dependency>
+          <dependency
+            Id="6c62ce33-f3bb-48e5-adf8-594405afe66e">
+            <componentMoniker
+              Id="2b9d0cd2-4b97-495d-9902-5a891c3543d3"
+              LastKnownName="Qt"
+              LastKnownLocation="Modelisation.uml" />
+          </dependency>
+        </suppliersInternal>
+      </component>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <component
+        Id="a8e99c53-7886-45d1-8317-8ed037f40a6c"
+        name="Component1"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <component
+        Id="fc0a520c-bfd0-4a31-81a8-a81645ab3cdf"
+        name="Component2"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
     </packageHasNamedElement>
   </packagedElements>
   <primitiveType

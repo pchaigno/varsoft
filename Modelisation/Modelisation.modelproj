@@ -22,7 +22,21 @@
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\ArchitectureTools\Microsoft.VisualStudio.TeamArchitect.ModelingProject.targets" Condition="'$(VSToolsPath)' != ''" />
   <ItemGroup>
+    <Content Include="ProjetVaR.componentdiagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ProjetVaR.componentdiagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>ProjetVaR.componentdiagram</DependentUpon>
+    </Content>
     <Folder Include="ModelDefinition\" />
+    <Content Include="BacktestingVarGarch.sequencediagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="BacktestingVarGarch.sequencediagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>BacktestingVarGarch.sequencediagram</DependentUpon>
+    </Content>
     <Content Include="global.classdiagram">
       <SubType>Content</SubType>
     </Content>
