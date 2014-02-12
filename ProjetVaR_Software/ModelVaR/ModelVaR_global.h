@@ -1,0 +1,12 @@
+#ifndef MODELVAR_GLOBAL_H
+#define MODELVAR_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(MODELVAR_LIBRARY)
+#  define MODELVARSHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define MODELVARSHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // MODELVAR_GLOBAL_H
