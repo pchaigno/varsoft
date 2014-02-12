@@ -44,7 +44,7 @@ Hamdi \bsc{Raissi} - Quentin \bsc{Giai Gianetto}}
 \listoffigures
 \newpage
 
-
+% TODO Change portefolio to portfolio in diagrams.
 % TODO Classes and sequence diagrams are not coherent.
 % TODO Justify a bit more the use of all patterns.
 % TODO Explain in a line the patterns.
@@ -53,23 +53,23 @@ Hamdi \bsc{Raissi} - Quentin \bsc{Giai Gianetto}}
 
 \chapter*{Introduction}
 
-Dans les salles de marchés, les traders achètent et vendent des actions et obligations, pour le compte de grandes banques ou investisseurs toujours à la recherche d’un maximum de profits pour des pertes minimales.
+Dans les salles de marchés, les traders achètent et vendent des actions et obligations, pour le compte de grandes banques ou investisseurs toujours à la recherche d'un maximum de profits pour des pertes minimales.
 % TODO Hamdi: Mal dit : il s'agit plus de quantifier les risques de pertes pour prévoir des montants adéquats pour couvrir les pertes éventuelles.
 Les financiers sont intéressés par le montant maximal qu'ils peuvent perdre pour un portefeuille d'actifs donné.
-En connaissant ce montant, leurs prévisions n’en seront que plus fiables et permettront peut-être d’éviter de mauvais placements.
+En connaissant ce montant, leurs prévisions n'en seront que plus fiables et permettront peut-être d'éviter de mauvais placements.
 
-C’est précisément ce que notre logiciel permettra de faire : calculer la Value-at-Risk par diverses méthodes statistiques.
-Néanmoins, un unique calcul de la Value-at-Risk n’est pas suffisant pour permettre de bonnes prévisions.
-Pour cette raison, notre programme aura l’avantage de proposer un ensemble de tests, comparaisons, tableaux récapitulatifs et même de la comparaison de méthodes statistiques par backtesting.
-Avec cette multitude d’outils, les financiers seront en mesure de travailler sur leurs portefeuilles aisément, au moyen d’outils de manipulations des actifs, mais aussi d’une interface intuitive et ergonomique, pensée pour ne montrer que l’essentiel et être facile d’utilisation.
+C'est précisément ce que notre logiciel permettra de faire : calculer la Value-at-Risk par diverses méthodes statistiques.
+Néanmoins, un unique calcul de la Value-at-Risk n'est pas suffisant pour permettre de bonnes prévisions.
+Pour cette raison, notre programme aura l'avantage de proposer un ensemble de tests, comparaisons, tableaux récapitulatifs et même de la comparaison de méthodes statistiques par backtesting.
+Avec cette multitude d'outils, les financiers seront en mesure de travailler sur leurs portefeuilles aisément, au moyen d'outils de manipulations des actifs, mais aussi d'une interface intuitive et ergonomique, pensée pour ne montrer que l'essentiel et être facile d'utilisation.
 
-Le rapport de spécifications fonctionnelles détaillait de manière très précise nos choix d’implémentation pour ce projet.
+Le rapport de spécifications fonctionnelles détaillait de manière très précise nos choix d'implémentation pour ce projet.
 Nous devons maintenant détailler nos choix techniques ainsi que nos décisions de modélisation.
 Dans un premier temps, nous allons rappeler les principales fonctionnalités de notre logiciel.
-Puis nous décrirons l’architecture globale du logiciel ainsi que les interactions entre les différents modules.
+Puis nous décrirons l'architecture globale du logiciel ainsi que les interactions entre les différents modules.
 
 Dans un deuxième temps, nous décrirons à partir de diagrammes de classes et de séquences nos différents choix de conception.
-\`A partir desquels, nous détaillerons nos choix d'implémentations et d'interfacage.
+\`A partir desquels, nous détaillerons nos choix d'implémentations et d'interfaçage.
 
 
 \chapter{Rappel des spécifications}
@@ -83,7 +83,7 @@ L'utilisateur de notre application aura besoin d'un ensemble d'outils pour gére
 \item le backtesting.
 \end{itemize}
  
-Ces derniers ont des dépendances respectives diverses. Par exemple, le backesting utilise des fonctions du second pôle.
+Ces derniers ont des dépendances respectives diverses. Par exemple, le backtesting utilise des fonctions du second pôle.
 En effet, son but est de comparer les différentes méthodes de calcul de la Value-at-Risk.
 Ces deux derniers modules devront stocker des résultats dans le portefeuille associé.
 Ces différentes interactions sont bien visibles à la figure \ref{fig:usecase}.
@@ -107,20 +107,20 @@ Ensuite l'utilisateur pourra sélectionner les données qu'il souhaite pour les 
 
 \section{Calcul de la Value-at-Risk}
 
-Le calcul de la Value-at-Risk est la fonctionnalité centrale de ce logiciel. Comme dit précedemment, elle s'effectue sur un portefeuille donné.
+Le calcul de la Value-at-Risk est la fonctionnalité centrale de ce logiciel. Comme dit précédemment, elle s'effectue sur un portefeuille donné.
 De plus, le calcul de la Value-at-Risk se caractérise par la méthode utilisée (historique, Riskmetrics ou selon un modèle GARCH), un niveau de risque et un horizon de temps.
-Il sera donc possible de calculer la Value-at-Risk selon les différentes méthodes et selon les paramètres précedemment décrits sur chacun des portefeuilles créés.
+Il sera donc possible de calculer la Value-at-Risk selon les différentes méthodes et selon les paramètres précédemment décrits sur chacun des portefeuilles créés.
 Les résultats seront alors affichés dans un rapport. Néanmoins, proposer un simple calcul de Value-at-Risk n'est pas suffisant pour permettre une prise de décision.
 Il faut aussi s'assurer que le calcul est fiable.
-Pour cela, l'utilisateur peut effectuer du backesting.
+Pour cela, l'utilisateur pourra effectuer du backtesting.
 
 
 \section{Backtesting}
 
-Lorsque l’utilisateur souhaite faire du backtesting, il doit choisir le portefeuille sur lequel l’effectuer, la ou les méthodes de calcul de la Value-at-Risk (historique, Riskmetrics ou GARCH), la période de test, le risque et l’horizon de temps.
-
 Le backtesting permet d'évaluer et de comparer les différentes méthodes de calcul de la Value-at-Risk.
 L'ensemble des résultats générés seront disponibles dans un rapport associé au portefeuille.
+
+Lorsque l'utilisateur souhaite faire du backtesting, il doit choisir le portefeuille sur lequel l'effectuer, la ou les méthodes de calcul de la Value-at-Risk (historique, Riskmetrics ou GARCH), la période de test, le risque et l'horizon de temps.
 
 
 \section{Diagramme de composants}
@@ -151,7 +151,7 @@ Un portefeuille est composé d'un nombre variable d'actifs avec diverses pondér
 Tous les rapports sont associés à un portefeuille.
 
 De plus, un portefeuille sera amené à évoluer.
-Des actifs pourront par exemple être ajoutés, contituant ainsi un nouveau portefeuille dérivant du premier.
+Des actifs pourront par exemple être ajoutés, constituant ainsi un nouveau portefeuille dérivant du premier.
 Comme nous souhaitons conserver l'historique de ces évolutions nous garderons une référence vers le portefeuille d'origine dans le nouveau portefeuille.
 
 Enfin, les valeurs des actifs seront conservées dans les fichiers CSV et XSL importés. 
@@ -160,7 +160,7 @@ L'entité \textit{Actifs} contient aussi l'intervalle de temps sur lequel est d�
 De même que pour les actifs, l'entité \textit{Rapports} contiendra uniquement des références vers les fichiers générés.
 
 La figure \ref{fig:modele-entite-association} présente le modèle entité-association de notre base de données.
-Nous en déduisont directement ses tables dans la figure \ref{fig:base-donnees}.
+Nous en déduisons directement ses tables dans la figure \ref{fig:base-donnees}.
 Il apparaît clairement que l'unique association ne pouvant être intégrée dans une entité est \textit{Composé de}.
 Cette dernière constituera donc la table Pondérations pour faire le lien entre les portefeuilles et les actifs les constituant.
 Le champ \textit{parent} de \textit{Portefeuilles} sera nul pour représenter l'absence de parent.
@@ -205,6 +205,7 @@ La modélisation sous forme de classes des données en figure \ref{fig:diagramme
 
 De plus, un portefeuille dispose de deux méthodes pour calculer son intervalle de définition à partir de ceux de ses actifs.
 
+% TODO Change name of getFirstDate...
 \begin{figure}
   	\center
   	\includegraphics[width=1\textwidth]{diagramme-classes-donnees.png}
@@ -270,7 +271,7 @@ Les informations pour la génération seront passées à la fabrique lors de son
 \subsection{Composants externes}
 
 Notre logiciel utilisera des composants externes pour répondre à certains besoins.
-Nous utiliserons la librarie SQLite pour la base de données, des scripts R pour les calculs statistiques complexes et deux libraries pour la génération des rapports.
+Nous utiliserons la bibliothèque SQLite pour la base de données, des scripts R pour les calculs statistiques complexes et deux bibliothèques pour la génération des rapports.
 
 \subsubsection{Interface avec la base de données}
 
@@ -286,7 +287,7 @@ Nous aurons quatre situations d'accès au fichier SQLite :
 	Si de nouveaux actifs sont créés par la suite \textit{AssetsFactory} les chargera uniquement lorsqu'un portefeuille en aura besoin à l'aide de la méthode \textit{buildAsset}.
 \end{itemize}
 
-La figure \ref{fig:diagramme-classes-interface-bdd} présente les deux classes de sauvegarde et de restoration des sessions. Ces deux classes hériteront d'une classe \textit{SQLiteManager} mettant à disposition des méthodes générales d'accès à la base de données.
+La figure \ref{fig:diagramme-classes-interface-bdd} présente les deux classes de sauvegarde et de restauration des sessions. Ces deux classes hériteront d'une classe \textit{SQLiteManager} mettant à disposition des méthodes générales d'accès à la base de données.
 
 \begin{figure}
   	\center
@@ -303,7 +304,7 @@ En effet ce langage est très bien adapté pour les calculs statistiques.
 \`A cet effet nous utiliserons la classe utilitaire décrite en figure \ref{fig:diagramme-classes-interface-r}.
 Elle permettra d'estimer le modèle GARCH et d'effectuer les tests de corrélation.
 
-Les appels aux scripts R seront effectués en utilisant la librarie \textit{RInside} \cite{website:RInside}. Cette dernière est bien documentée et permet simplement d'exécuter du code R dans du code C++.
+Les appels aux scripts R seront effectués en utilisant la bibliothèque \textit{RInside} \cite{website:RInside}. Cette dernière est bien documentée et permet simplement d'exécuter du code R dans du code C++.
 
 % TODO Reduce size of figure.
 \begin{figure}
@@ -317,10 +318,10 @@ Les appels aux scripts R seront effectués en utilisant la librarie \textit{RIns
 \subsubsection{Génération des rapports}
 %TODO vérifier la possibilité de conversion DOCX PDF
 
-Pour la génération des rapports PDF et DOCX, nous nous appuyerons sur des librairies externes (libopc \cite{website:libopc} pour les DOCX et libharu \cite{website:libharu} pour les PDF).
-Nous n'utiliserons qu'un petit ensemble des possibilités offertes par ces librairies pour réaliser des opérations très similaires pour tous les types de rapports.
+Pour la génération des rapports PDF et DOCX, nous nous appuierons sur des bibliothèques externes (libopc \cite{website:libopc} pour les DOCX et libHaru \cite{website:libHaru} pour les PDF).
+Nous n'utiliserons qu'un petit ensemble des possibilités offertes par ces bibliothèques pour réaliser des opérations très similaires pour tous les types de rapports.
 
-Pour cette raison la manipulation de ces librairies sera réalisée par deux classes permettant d'effectuer les opérations nécessaires.
+Pour cette raison la manipulation de ces bibliothèques sera réalisée par deux classes permettant d'effectuer les opérations nécessaires.
 Nous aurons, par exemple, besoin d'une méthode \textit{addChart} pour ajouter un graphique dans un rapport et cela quel que soit le type du rapport.
 
 Ces deux classes sont présentés à la figure \ref{fig:diagramme-classes-interface-report}.
@@ -329,7 +330,7 @@ Cette organisation est celle d'un patron de conception \textit{Monteur} où les 
 \begin{figure}
   	\center
   	\includegraphics[width=1\textwidth]{diagramme-classes-interface-report.png}
-  	\caption{Diagramme de classes interfaces avec les librairies pour la génération des rapports}
+  	\caption{Diagramme de classes interfaces avec les bibliothèques pour la génération des rapports}
   	\label{fig:diagramme-classes-interface-report}
 \end{figure}
 
@@ -348,7 +349,7 @@ Nous utiliserons pour cela le patron de conception \textit{Monteur} décrit au n
 
 \subsection{Importation et exportation de portefeuilles}
 
-Les fonctionalités d'importation et d'exportation doivent permettre à un utilisateur d'exporter un ou plusieurs portefeuilles de sa session courante pour les importer dans une autre session.
+Les fonctionnalités d'importation et d'exportation doivent permettre à un utilisateur d'exporter un ou plusieurs portefeuilles de sa session courante pour les importer dans une autre session.
 L'importation doit pouvoir être réalisée sur un autre ordinateur disposant du logiciel.
 De plus, l'utilisateur n'a pas besoin d'être capable de modifier le fichier d'export sans utiliser le logiciel.
 
@@ -371,7 +372,7 @@ La figure \ref{fig:diagramme-sequence-creation-portefeuille} présente le diagra
 
 \begin{figure}
   	\center
-  	\includegraphics[width=1\textwidth]{diagSeqPortefolio.png}
+  	\includegraphics[width=1\textwidth]{diagSeqPortfolio.png}
   	\caption{Diagramme de séquence de la création d'un portefeuille}
     \label{fig:diagramme-sequence-creation-portefeuille}
 \end{figure}
@@ -379,7 +380,7 @@ La figure \ref{fig:diagramme-sequence-creation-portefeuille} présente le diagra
 
 \subsection{Calcul de la Value-at-Risk avec modèle GARCH}
 
-Le calcul de la Value-at-Risk selon un modèle Garch nécessite dans un premier temps l'élaboration du modèle en lui-même.
+Le calcul de la Value-at-Risk avec un modèle GARCH nécessite dans un premier temps l'élaboration du modèle en lui-même.
 Ce dernier s'obtient par la méthode \textit{getGarchModel} qui prend le portefeuille en paramètre.
 Cette modélisation est ensuite utilisée par la classe \textit{VaRGarch} pour effectuer le calcul de la Value-at-Risk.
 La figure \ref{fig:diagramme-sequence-var-garch} détaille ces opérations.
@@ -411,17 +412,16 @@ La figure \ref{fig:diagramme-sequence-backtesting-garch} détaille ces opératio
 \section{Interface graphique}
 
 % TODO On explique pas vraiment pk on a choisis cette architecture ?
-Nous avons décidé d’utiliser l'architecture Modèle-Vue-Contrôleur (MVC) pour notre logiciel car étudiée en cours et très documentée.
+Nous avons décidé d'utiliser l'architecture Modèle-Vue-Contrôleur (MVC) pour notre logiciel car étudiée en cours et très documentée.
 Cette architecture sépare les données, la présentation et les traitements.
-Qt permet de réaliser des logiciels avec ce type d’architecture avec des outils comme QtDesigner pour concevoir graphiquement une fenêtre, donc sans écrire une seul ligne de code.
+Qt permet de réaliser des logiciels avec ce type d'architecture avec des outils comme QtDesigner pour concevoir graphiquement une fenêtre, donc sans écrire une seul ligne de code.
 La figure \ref{fig:diagramme-mvc} présente un schéma de cette architecture.
 
-QtDesigner permet de créer les vues de l’application qui sont ensuite enregistrées dans plusieurs fichiers.
+QtDesigner permet de créer les vues de l'application qui sont ensuite enregistrées dans plusieurs fichiers.
 Il suffit ensuite de les charger dans le contrôleur.
 L'aspect graphique est donc complètement dissocié du code.
-Pour les différents graphiques que l'application devra afficher nous avons décider de prendre QtCharts. C'est une extension de Qt pour gérer plusieurs types de graphique et qui s'utilise avec les modèles de données de Qt.
 
-QtCore est la bibliothèque C++ de Qt qui contient des modèles de données pour les widgets Qt et des fonctionnalités de base qui ne concernent pas les interfaces graphiques. Elle sera utilisée dans le modèle de notre application pour les notifications de changement à la vue grâce au système de signaux/slots. Notre modèle contiendra les données (Actifs, Portefeuilles, Rapports) vues dans les paragraphes précédents. Ces données seront dans une bibliothèque statique (ex: model.lib) pour une maintenance plus facile.
+QtCore est la bibliothèque C++ de Qt qui contient des modèles de données pour les widgets Qt et des fonctionnalités de base qui ne concernent pas les interfaces graphiques. Elle sera utilisée dans le modèle de notre application pour les notifications de changement à la vue grâce au système de signaux/slots. Notre modèle contiendra les données (Actifs, Portefeuilles, Rapports) vues dans les paragraphes précédents. Ces données seront dans une bibliothèque statique (par exemple model.lib) pour une maintenance plus facile.
 
 Nous aurons ainsi un projet C++/QtCore pour le modèle et un projet C++/Qt pour le contrôleur. Les fichiers avec les vues pourront être créés et stockés dans le projet du contrôleur.
 
@@ -444,7 +444,7 @@ L'objectif est ici d'assurer la plus grande couverture de code pour éviter tout
 
 \subsection{Tests empiriques}
 
-\subsubsection{Calcul du modèle GARCH}
+\subsubsection{Estimation du modèle GARCH}
 
 L'estimation du modèle GARCH fait partie de nos algorithmes un peu délicat, notamment pour le tester.
 Nous utiliserons donc un test un peu particulier.
