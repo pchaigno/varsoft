@@ -36,6 +36,13 @@
       <SubType>Content</SubType>
       <DependentUpon>ProjetVaR.componentdiagram</DependentUpon>
     </Content>
+    <Content Include="VaRGarchCalcul.sequencediagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="VaRGarchCalcul.sequencediagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>VaRGarchCalcul.sequencediagram</DependentUpon>
+    </Content>
     <Folder Include="ModelDefinition\" />
     <Content Include="BacktestingVarGarch.sequencediagram">
       <SubType>Content</SubType>
