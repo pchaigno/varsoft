@@ -18,3 +18,10 @@ SOURCES += main.cpp\
 HEADERS  += MainWindow.h
 
 FORMS    += MainWindow.ui
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../ModelVaR/release/ -lModelVaR
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../ModelVaR/debug/ -lModelVaR
+else:unix: LIBS += -L$$OUT_PWD/../ModelVaR/ -lModelVaR
+
+INCLUDEPATH += $$PWD/../ModelVaR
+DEPENDPATH += $$PWD/../ModelVaR

@@ -102,8 +102,14 @@ Ces trois grands pôles sont détaillés dans les parties suivantes.
 
 La première étape dans toute gestion de portefeuille est la création.
 Pour cela, il faut commencer par importer des actifs stockés dans des fichiers de type CSV comme ceux fournis par Yahoo Finance par exemple.
-Ensuite l'utilisateur pourra sélectionner les données qu'il souhaite pour les ajouter dans un nouveau portefeuille. Il affectera alors une pondération (nombre d'actions de cet actif).
+Ensuite l'utilisateur pourra sélectionner les données qu'il souhaite pour les ajouter dans un nouveau portefeuille. Il affectera alors une pondération (nombre d'actions de cet actif). Par exemple, la figure \ref{fig:csvexample} ci-dessous correspond au contenu d'un actif au format CSV provenant de Yahoo Finance. Nous utiliserons seulement les colonnes \textit{Date} et \textit{Close}.
 
+\begin{figure}[h]
+  \center
+    \includegraphics[scale=0.5]{yahoo-dax-csv-example.png}
+    \caption{Extrait d'un actif au format CSV}
+  \label{fig:csvexample}
+\end{figure}
 
 \section{Calcul de la Value-at-Risk}
 
