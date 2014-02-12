@@ -12,3 +12,4 @@
 *.pdf
 *.*~
 Thumbs.db
+.DS_Store
