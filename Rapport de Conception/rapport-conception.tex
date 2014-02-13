@@ -45,10 +45,7 @@ Hamdi \bsc{Raissi} - Ivan \bsc{Le Plumey} \\ Quentin \bsc{Giai Gianetto}}
 \newpage
 
 % TODO Change identifiant in BDD to id_stuff.
-% TODO Add links in table of contents.
 % TODO Classes and sequence diagrams are not coherent.
-% TODO Justify a bit more the use of all patterns.
-% TODO Explain in a line the patterns.
 
 
 \addcontentsline{toc}{chapter}{Introduction}
@@ -225,7 +222,9 @@ De plus, un portefeuille dispose de deux méthodes (\textit{retrieveFirstDate} e
 Un même actif peut participer à la constitution de plusieurs portefeuilles.
 Il pourra donc être référencé dans plusieurs objets.
 Pour éviter toute duplication, nous utiliserons un patron de conception \textit{Poids-Mouche} présenté en figure \ref{fig:diagramme-classes-flyweight}.
-Nous aurons donc une \textit{Fabrique} d'actifs qui conservera une référence vers tous les actifs instanciés. Cette dernière est aussi un \textit{Singleton}.
+Nous aurons donc une \textit{Fabrique} d'actifs qui conservera une référence vers tous les actifs instanciés.
+Elle sera la seule classe autorisée à instancier de nouveaux actifs.
+Cette dernière sera aussi un \textit{Singleton} car elle ne devra être instanciée qu'un fois.
 
 \begin{figure}
   	\center
@@ -263,7 +262,7 @@ L'opération pourra donc prendre un peu de temps.
 Cette génération sera effectuée par une classe \textit{ReportsFactory}.
 
 Les différents types de rapports nécessitent des informations différentes pour leur génération.
-Nous utiliserons donc le patron de conception \textit{Fabrique} présenté en figure \ref{fig:diagramme-classes-reports-factory}.
+Nous utiliserons le patron de conception \textit{Fabrique} présenté en figure \ref{fig:diagramme-classes-reports-factory}.
 Les informations pour la génération seront passées à la fabrique lors de son instanciation.
 
 \begin{figure}
@@ -277,7 +276,7 @@ Les informations pour la génération seront passées à la fabrique lors de son
 \subsection{Composants externes}
 
 Notre logiciel utilisera des composants externes pour répondre à certains besoins.
-Nous utiliserons la bibliothèque SQLite pour la base de données, des scripts R pour les calculs statistiques complexes et deux bibliothèques pour la génération des rapports.
+Nous utiliserons la bibliothèque SQLite pour la base de données, des scripts R pour les calculs statistiques complexes et une bibliothèque pour la génération des rapports.
 
 \subsubsection{Interface avec la base de données}
 
@@ -306,11 +305,11 @@ La figure \ref{fig:diagramme-classes-interface-bdd} présente les deux classes d
 \subsubsection{Appel des scripts R}
 
 Certains calculs seront réalisés par des scripts R \cite{website:R}.
-En effet ce langage est très bien adapté pour les calculs statistiques.
+Ce langage est particulièrement bien adapté aux calculs statistiques.
 \`A cet effet nous utiliserons la classe utilitaire décrite en figure \ref{fig:diagramme-classes-interface-r}.
 Elle permettra d'estimer le modèle GARCH et d'effectuer les tests de corrélation.
 
-Les appels aux scripts R seront effectués en utilisant la bibliothèque \textit{RInside} \cite{website:RInside}. Cette dernière est bien documentée et permet simplement d'exécuter du code R dans du code C++.
+Les appels aux scripts R seront effectués en utilisant la bibliothèque \textit{RInside} \cite{website:RInside}. Cette dernière est bien documentée et permet d'exécuter du code R dans du code C++.
 
 \begin{figure}
   	\center
@@ -330,6 +329,7 @@ Les classes s'occupant de la génération des différents formats en hériteront
 Nous aurons, par exemple, une méthode \textit{addChart} dans l'interface pour ajouter un graphique dans un rapport.
 
 Cette organisation, présentée à la figure \ref{fig:diagramme-classes-interface-report}, est celle d'un patron de conception \textit{Monteur} où les appels des méthodes de construction sont effectués par les classes héritant de \textit{ReportFactory}.
+Ce patron de conception est utilisé pour la création d'objet complexe, comme les rapports dans notre cas.
 
 \begin{figure}
   	\center
@@ -342,7 +342,7 @@ Cette organisation, présentée à la figure \ref{fig:diagramme-classes-interfac
 \subsubsection{Génération des graphiques}
 
 Nous génèrerons les graphiques intégrés aux rapports à l'aide de QCustomPlot.
-La création de graphiques aurait aussi été possible avec R mais QCustomPlot nous permettra une plus grande maîtrise leur aspect.
+La création de graphiques aurait aussi pu être effectuée avec R mais QCustomPlot nous permettra une plus grande maîtrise de l'aspect visuel.
 QCustomPlot est habituellement utilisé pour afficher les graphiques créés.
 Dans notre cas, nous nous contenterons de les sauvegarder sous forme de fichiers sans les afficher.
 Ainsi, ils pourront être utilisés lors de la compilation des rapports.
@@ -361,7 +361,7 @@ Les fonctionnalités d'importation et d'exportation doivent permettre à un util
 L'importation doit pouvoir être réalisée sur un autre ordinateur disposant du logiciel.
 De plus, l'utilisateur n'a pas besoin d'être capable de modifier le fichier d'export sans utiliser le logiciel.
 
-Nous utiliserons pour cela un processus de sérialisation vers un fichier binaire.
+Nous utiliserons donc pour cela un processus de sérialisation vers un fichier binaire.
 L'utilisateur pourra choisir d'exporter les rapports associés à un portefeuille ou seulement le portefeuille lui-même.
 Les actifs composant un portefeuille seront nécessairement exportés avec ce dernier.
 Nous aurons donc divers types d'objets à sérialiser.
