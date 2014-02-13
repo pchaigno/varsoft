@@ -1,79 +1,108 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<componentModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" dslVersion="1.0.0.0" Id="d08658f4-62f9-4382-8d9d-777ccf971409" name="ProjetVaR" linkedPackageId="3928474e-8abe-467e-b697-c3fe5c61b3b1" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ComponentDesigner">
+<componentModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="d08658f4-62f9-4382-8d9d-777ccf971409" name="ProjetVaR" linkedPackageId="3928474e-8abe-467e-b697-c3fe5c61b3b1" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ComponentDesigner">
   <packagedElements>
     <componentModelHasComponents>
-      <component Id="8a56b8ff-299f-4bf2-9c5d-2f0e6350ebe2" name="Qt" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="2b9d0cd2-4b97-495d-9902-5a891c3543d3" />
-      </component>
-    </componentModelHasComponents>
-    <componentModelHasComponents>
-      <component Id="7d4c0ef9-608c-4099-9ab7-171aa6097058" name="Graphiques" isAbstract="false" isLeaf="false" isActiveClass="false">
+      <component Id="7d4c0ef9-608c-4099-9ab7-171aa6097058" name="Interface Base de données" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="d046838b-96df-46c9-a786-623cf392c910" />
         <suppliersInternal>
-          <dependency Id="9f74b1f8-dd1f-423a-9a82-68006c305802">
-            <componentMoniker Id="8a56b8ff-299f-4bf2-9c5d-2f0e6350ebe2" LastKnownName="Qt" />
-            <elementDefinition Id="bd4edc9f-9b48-40f4-a37a-e6a3f9ea3e87" />
+          <dependency Id="cb9e70db-784c-4a16-81fc-8fdc89648590">
+            <componentMoniker Id="d9e69c32-7926-4625-96ea-d418ccb8031a" LastKnownName="Base de données" />
+            <elementDefinition Id="5f6aa2cb-07c8-45de-a478-abb2f5cff440" />
           </dependency>
-          <dependency Id="d40ba8a0-3244-4b90-aa5b-693a661d9ab6">
-            <componentMoniker Id="2dfe9736-c21e-4ca3-acf1-60426e504b37" LastKnownName="R" />
-            <elementDefinition Id="efad0fb2-e19a-4190-8d3b-53142109be49" />
-          </dependency>
-          <dependency Id="98341d4f-f6f8-4330-93d4-39d2061a6631">
-            <componentMoniker Id="30e97b20-cd09-4240-b554-d991f7e5b588" LastKnownName="Données" />
-            <elementDefinition Id="8410b0c8-49ca-49ec-a7d4-5b8308e385ef" />
+          <dependency Id="79815da9-1170-44ef-ba2a-01c7b791e96e">
+            <componentMoniker Id="2dfe9736-c21e-4ca3-acf1-60426e504b37" LastKnownName="Coeur" />
+            <elementDefinition Id="5760b00b-5341-4d2b-869a-884aba1ff732" />
           </dependency>
         </suppliersInternal>
       </component>
     </componentModelHasComponents>
     <componentModelHasComponents>
-      <component Id="2dfe9736-c21e-4ca3-acf1-60426e504b37" name="R" isAbstract="false" isLeaf="false" isActiveClass="false">
+      <component Id="2dfe9736-c21e-4ca3-acf1-60426e504b37" name="Coeur" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="54bc1899-89f4-409b-97bb-a552e64eda67" />
+        <ownedAttributesInternal>
+          <part Id="90338c60-ef31-463f-89f6-8fdba72acc0b" name="Portefeuilles" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Composite" isComposite="true">
+            <elementDefinition Id="f3997eac-8039-4582-8545-db010520ff24" />
+            <type_NamedElement>
+              <componentMoniker Id="67151657-a929-4fd4-86dd-709547fa020a" LastKnownName="Component4" />
+            </type_NamedElement>
+          </part>
+          <part Id="77ce7e85-741d-429a-82a0-81976fd52239" name="Actifs" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Composite" isComposite="true">
+            <elementDefinition Id="54de0721-87fc-48a9-8b1c-b94d19f1190b" />
+            <type_NamedElement>
+              <componentMoniker Id="777124b7-30dd-4e96-8a30-f23d9e931af6" LastKnownName="Component5" />
+            </type_NamedElement>
+          </part>
+          <part Id="1385421d-7d36-4440-93d4-7da043f9ed2c" name="Rapports" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Composite" isComposite="true">
+            <elementDefinition Id="3a7bdf4e-d78a-410a-91a1-5acddf0002be" />
+            <type_NamedElement>
+              <componentMoniker Id="5d55e852-304c-4311-8a70-856720608650" LastKnownName="Component6" />
+            </type_NamedElement>
+          </part>
+        </ownedAttributesInternal>
       </component>
     </componentModelHasComponents>
     <componentModelHasComponents>
-      <component Id="3453d635-933d-4baf-8711-db22259fe589" name="Calculs" isAbstract="false" isLeaf="false" isActiveClass="false">
+      <component Id="3453d635-933d-4baf-8711-db22259fe589" name="Interface graphique" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="b79db899-f1bc-44e0-8d3b-0ecaef1b2c7c" />
         <suppliersInternal>
-          <dependency Id="07bd4971-cb1a-49e8-b0cc-0f314866f7ff">
-            <componentMoniker Id="2dfe9736-c21e-4ca3-acf1-60426e504b37" LastKnownName="R" />
-            <elementDefinition Id="8b2e61e1-0405-4e96-850c-c9a160f0a804" />
+          <dependency Id="9f056349-0f65-40f0-a274-b32a5566cbc6">
+            <componentMoniker Id="30e97b20-cd09-4240-b554-d991f7e5b588" LastKnownName="Calculs" />
+            <elementDefinition Id="7b329959-02ae-4b7d-b15a-0c3b7688d8cf" />
           </dependency>
-          <dependency Id="462043ab-e9c1-4f4c-ab0e-cba660fd14dc">
-            <componentMoniker Id="30e97b20-cd09-4240-b554-d991f7e5b588" LastKnownName="Données" />
-            <elementDefinition Id="dced6e19-ca8b-4de8-9be6-db0f1870e4a6" />
+          <dependency Id="79366a95-aa7a-41bf-ab81-580243c3e5a5">
+            <componentMoniker Id="7cebfded-6d60-420b-8089-3437354aa3db" LastKnownName="Génération des rapports" />
+            <elementDefinition Id="85c80bb0-f6c1-41e4-8df6-a80277890b25" />
+          </dependency>
+          <dependency Id="82ce9b65-b59e-4e20-b0bd-913eeed8f2b1">
+            <componentMoniker Id="7d4c0ef9-608c-4099-9ab7-171aa6097058" LastKnownName="Interface Base de données" />
+            <elementDefinition Id="b8832c44-cb6d-4df3-9a70-11e78ffdddfd" />
           </dependency>
         </suppliersInternal>
       </component>
     </componentModelHasComponents>
     <componentModelHasComponents>
-      <component Id="7cebfded-6d60-420b-8089-3437354aa3db" name="Rapports" isAbstract="false" isLeaf="false" isActiveClass="false">
+      <component Id="7cebfded-6d60-420b-8089-3437354aa3db" name="Génération des rapports" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="a4880777-e18f-40e3-b86b-177e29c2fd24" />
         <suppliersInternal>
-          <dependency Id="6889da83-977a-4285-85a4-df25b21914d6">
-            <componentMoniker Id="3453d635-933d-4baf-8711-db22259fe589" LastKnownName="Calculs" />
-            <elementDefinition Id="fab603a0-83ff-4a06-ac35-beb124b2e19f" />
+          <dependency Id="868989fa-a275-48b7-9815-1e7d38bf7a1f">
+            <componentMoniker Id="0c0ece34-ee03-4258-919d-3eb25b25c907" LastKnownName="Bibliothèque pour la génération de DOCX" />
+            <elementDefinition Id="72f4aac5-9d60-472b-b67e-46876751dbe7" />
           </dependency>
-          <dependency Id="12edf5b5-5e42-42c5-9b80-cfb53ae7f469">
-            <componentMoniker Id="7d4c0ef9-608c-4099-9ab7-171aa6097058" LastKnownName="Graphiques" />
-            <elementDefinition Id="fd611c93-8e5b-44c3-9193-da006f5dafa9" />
+          <dependency Id="8c0edb3e-56c8-47c0-886b-f7f05deb9486">
+            <componentMoniker Id="2dfe9736-c21e-4ca3-acf1-60426e504b37" LastKnownName="Coeur" />
+            <elementDefinition Id="2d8b220a-ec20-479a-bbf3-83cbb7fac99d" />
           </dependency>
         </suppliersInternal>
       </component>
     </componentModelHasComponents>
     <componentModelHasComponents>
-      <component Id="30e97b20-cd09-4240-b554-d991f7e5b588" name="Données" isAbstract="false" isLeaf="false" isActiveClass="false">
+      <component Id="30e97b20-cd09-4240-b554-d991f7e5b588" name="Calculs" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="fba5cbab-7ea8-4933-8779-9f792aefee37" />
+        <suppliersInternal>
+          <dependency Id="15588089-8589-45cf-a2ca-f67508c976bf">
+            <componentMoniker Id="d3802b70-7d87-4b95-8f52-16d468f20dd2" LastKnownName="Interface R" />
+            <elementDefinition Id="38663f90-7242-4346-93cd-deb6f3f5bb59" />
+          </dependency>
+          <dependency Id="49b07647-62f9-4bde-bbea-795542b0b8c6">
+            <componentMoniker Id="2dfe9736-c21e-4ca3-acf1-60426e504b37" LastKnownName="Coeur" />
+            <elementDefinition Id="f04c060a-00aa-4846-855f-0f0b31f75837" />
+          </dependency>
+          <dependency Id="5a03c1cc-67b3-4d4e-832c-6e1ad3620983">
+            <componentMoniker Id="7cebfded-6d60-420b-8089-3437354aa3db" LastKnownName="Génération des rapports" />
+            <elementDefinition Id="1141bb75-66d9-48ed-b333-53dafe3a51a3" />
+          </dependency>
+        </suppliersInternal>
         <ownedAttributesInternal>
-          <part Id="bd9c37b1-ec8b-4a4d-946d-0156d4b4cf3a" name="Actifs" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Composite" isComposite="true">
+          <part Id="bd9c37b1-ec8b-4a4d-946d-0156d4b4cf3a" name="Estimation du modèle GARCH" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Composite" isComposite="true">
             <elementDefinition Id="cf69c156-8ba8-4964-a10a-f4587d8c1078" />
             <type_NamedElement>
               <componentMoniker Id="e7e92810-e8f0-4b06-89e0-2cb9b9659b10" LastKnownName="Component1" />
             </type_NamedElement>
           </part>
-          <part Id="e6b8704c-a333-4568-8cac-2b50c6b230e8" name="Portefeuilles" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Composite" isComposite="true">
-            <elementDefinition Id="a8ff3462-bdef-4540-858e-08cf83a39811" />
+          <part Id="74822c4b-a375-4e65-9101-527623afd22a" name="Calcul de la Value-at-Risk" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Composite" isComposite="true">
+            <elementDefinition Id="848276c6-58ef-456e-bea0-0460c31adf74" />
             <type_NamedElement>
-              <componentMoniker Id="ad3632f9-24ba-4734-854b-6f2b999e84d1" LastKnownName="Component2" />
+              <componentMoniker Id="c4db0f3d-82ae-4868-9ad0-7a0a7288d58b" LastKnownName="Component3" />
             </type_NamedElement>
           </part>
         </ownedAttributesInternal>
@@ -85,25 +114,47 @@
       </component>
     </componentModelHasComponents>
     <componentModelHasComponents>
-      <component Id="ad3632f9-24ba-4734-854b-6f2b999e84d1" name="Component2" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="47381da0-bcfd-42c5-9a4e-71b4221ce69b" />
+      <component Id="c4db0f3d-82ae-4868-9ad0-7a0a7288d58b" name="Component3" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="92788c65-a247-4dfa-be78-405ca1997416" />
       </component>
     </componentModelHasComponents>
     <componentModelHasComponents>
-      <component Id="c4046796-556d-462a-a2f0-362f44e885be" name="GUI" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="ec725e25-b0a2-4c80-8cb7-58a28ba58c5b" />
+      <component Id="67151657-a929-4fd4-86dd-709547fa020a" name="Component4" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="7a27c562-633e-4def-9350-9802611d7539" />
+      </component>
+    </componentModelHasComponents>
+    <componentModelHasComponents>
+      <component Id="777124b7-30dd-4e96-8a30-f23d9e931af6" name="Component5" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="d2c37852-1f69-4833-914e-73404feff501" />
+      </component>
+    </componentModelHasComponents>
+    <componentModelHasComponents>
+      <component Id="5d55e852-304c-4311-8a70-856720608650" name="Component6" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="58a45dc2-abf5-46c5-b984-993d403698e7" />
+      </component>
+    </componentModelHasComponents>
+    <componentModelHasComponents>
+      <component Id="d9e69c32-7926-4625-96ea-d418ccb8031a" name="Base de données" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="122e3e72-9e90-4be9-bd49-4fe51ad6856c" />
+      </component>
+    </componentModelHasComponents>
+    <componentModelHasComponents>
+      <component Id="0c0ece34-ee03-4258-919d-3eb25b25c907" name="Bibliothèque pour la génération de DOCX" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="fd35bb87-94f2-4f40-987e-f5f8d272a959" />
+      </component>
+    </componentModelHasComponents>
+    <componentModelHasComponents>
+      <component Id="27970dee-c881-49a9-81d1-5642f68b57fd" name="R" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="18066438-5f41-47be-94ed-1f0c8a586e60" />
+      </component>
+    </componentModelHasComponents>
+    <componentModelHasComponents>
+      <component Id="d3802b70-7d87-4b95-8f52-16d468f20dd2" name="Interface R" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="e7ff2096-38bc-4b36-9852-7b1e079c5ab7" />
         <suppliersInternal>
-          <dependency Id="b8bf94b0-fe96-4130-b697-96c44342f451">
-            <componentMoniker Id="30e97b20-cd09-4240-b554-d991f7e5b588" LastKnownName="Données" />
-            <elementDefinition Id="8fc11e0f-5f16-4501-855f-9892a3d6a8ef" />
-          </dependency>
-          <dependency Id="9caafa9d-e890-44f6-83d7-00c5ecf02c0c">
-            <componentMoniker Id="7cebfded-6d60-420b-8089-3437354aa3db" LastKnownName="Rapports" />
-            <elementDefinition Id="8c5fd609-e1c1-4a23-9761-d361ee2a4fe2" />
-          </dependency>
-          <dependency Id="d431b07e-e5a2-4e83-9355-f82cccda20a8">
-            <componentMoniker Id="8a56b8ff-299f-4bf2-9c5d-2f0e6350ebe2" LastKnownName="Qt" />
-            <elementDefinition Id="6c62ce33-f3bb-48e5-adf8-594405afe66e" />
+          <dependency Id="8e4dcb87-5409-42e3-b577-21b9da720cda">
+            <componentMoniker Id="27970dee-c881-49a9-81d1-5642f68b57fd" LastKnownName="R" />
+            <elementDefinition Id="864dc54a-e26b-4d50-86d3-f44a5fc1f67d" />
           </dependency>
         </suppliersInternal>
       </component>

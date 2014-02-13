@@ -130,7 +130,10 @@ Lorsque l'utilisateur souhaite faire du backtesting, il doit choisir le portefeu
 
 \section{Diagramme de composants}
 
-La figure \ref{fig:diagramme-composants} présente le diagramme des composants internes de notre logiciel.
+La figure \ref{fig:diagramme-composants} présente le diagramme de composants de notre logiciel.
+Nous avons 4 grands composants internes qui sont l'interface graphique, le c\oe{}ur (modélisation des objets de base), le module de calculs et celui pour la génération des rapports.
+Pour chacun des 3 composants externes que nous seront amenés à utiliser (la bibliothèque de génération des DOCX, R et la base de données), un composant interne s'occupe de l'interfaçage.
+
 Nous avons réalisé les diagrammes de classes des différents composants séparément dans un premier temps.
 Les diagrammes de séquences nous ont ensuite permis d'établir les liens entre nos divers composants.
 

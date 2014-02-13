@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ComponentDesigner"
   dslVersion="1.0.0.0"
   Id="6748ac93-17b7-47ba-bdb0-a21deeb096c6"
   name="Modélisation" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
@@ -4543,30 +4543,23 @@
     <packageHasNamedElement>
       <component
         Id="d046838b-96df-46c9-a786-623cf392c910"
-        name="Graphiques"
+        name="Interface Base de données"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
         <suppliersInternal>
           <dependency
-            Id="bd4edc9f-9b48-40f4-a37a-e6a3f9ea3e87">
+            Id="5f6aa2cb-07c8-45de-a478-abb2f5cff440">
             <componentMoniker
-              Id="2b9d0cd2-4b97-495d-9902-5a891c3543d3"
-              LastKnownName="Qt"
+              Id="122e3e72-9e90-4be9-bd49-4fe51ad6856c"
+              LastKnownName="Base de données"
               LastKnownLocation="Modelisation.uml" />
           </dependency>
           <dependency
-            Id="efad0fb2-e19a-4190-8d3b-53142109be49">
+            Id="5760b00b-5341-4d2b-869a-884aba1ff732">
             <componentMoniker
               Id="54bc1899-89f4-409b-97bb-a552e64eda67"
-              LastKnownName="R"
-              LastKnownLocation="Modelisation.uml" />
-          </dependency>
-          <dependency
-            Id="8410b0c8-49ca-49ec-a7d4-5b8308e385ef">
-            <componentMoniker
-              Id="fba5cbab-7ea8-4933-8779-9f792aefee37"
-              LastKnownName="Données"
+              LastKnownName="Coeur"
               LastKnownLocation="Modelisation.uml" />
           </dependency>
         </suppliersInternal>
@@ -4575,31 +4568,92 @@
     <packageHasNamedElement>
       <component
         Id="54bc1899-89f4-409b-97bb-a552e64eda67"
-        name="R"
+        name="Coeur"
         isAbstract="false"
         isLeaf="false"
-        isActiveClass="false" />
+        isActiveClass="false">
+        <ownedAttributesInternal>
+          <part
+            Id="f3997eac-8039-4582-8545-db010520ff24"
+            name="Portefeuilles"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="Composite"
+            isComposite="true">
+            <type_NamedElement>
+              <componentMoniker
+                Id="7a27c562-633e-4def-9350-9802611d7539"
+                LastKnownName="Component4"
+                LastKnownLocation="Modelisation.uml" />
+            </type_NamedElement>
+          </part>
+          <part
+            Id="54de0721-87fc-48a9-8b1c-b94d19f1190b"
+            name="Actifs"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="Composite"
+            isComposite="true">
+            <type_NamedElement>
+              <componentMoniker
+                Id="d2c37852-1f69-4833-914e-73404feff501"
+                LastKnownName="Component5"
+                LastKnownLocation="Modelisation.uml" />
+            </type_NamedElement>
+          </part>
+          <part
+            Id="3a7bdf4e-d78a-410a-91a1-5acddf0002be"
+            name="Rapports"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="Composite"
+            isComposite="true">
+            <type_NamedElement>
+              <componentMoniker
+                Id="58a45dc2-abf5-46c5-b984-993d403698e7"
+                LastKnownName="Component6"
+                LastKnownLocation="Modelisation.uml" />
+            </type_NamedElement>
+          </part>
+        </ownedAttributesInternal>
+      </component>
     </packageHasNamedElement>
     <packageHasNamedElement>
       <component
         Id="b79db899-f1bc-44e0-8d3b-0ecaef1b2c7c"
-        name="Calculs"
+        name="Interface graphique"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
         <suppliersInternal>
           <dependency
-            Id="8b2e61e1-0405-4e96-850c-c9a160f0a804">
+            Id="7b329959-02ae-4b7d-b15a-0c3b7688d8cf">
             <componentMoniker
-              Id="54bc1899-89f4-409b-97bb-a552e64eda67"
-              LastKnownName="R"
+              Id="fba5cbab-7ea8-4933-8779-9f792aefee37"
+              LastKnownName="Calculs"
               LastKnownLocation="Modelisation.uml" />
           </dependency>
           <dependency
-            Id="dced6e19-ca8b-4de8-9be6-db0f1870e4a6">
+            Id="85c80bb0-f6c1-41e4-8df6-a80277890b25">
             <componentMoniker
-              Id="fba5cbab-7ea8-4933-8779-9f792aefee37"
-              LastKnownName="Données"
+              Id="a4880777-e18f-40e3-b86b-177e29c2fd24"
+              LastKnownName="Génération des rapports"
+              LastKnownLocation="Modelisation.uml" />
+          </dependency>
+          <dependency
+            Id="b8832c44-cb6d-4df3-9a70-11e78ffdddfd">
+            <componentMoniker
+              Id="d046838b-96df-46c9-a786-623cf392c910"
+              LastKnownName="Interface Base de données"
               LastKnownLocation="Modelisation.uml" />
           </dependency>
         </suppliersInternal>
@@ -4608,23 +4662,23 @@
     <packageHasNamedElement>
       <component
         Id="a4880777-e18f-40e3-b86b-177e29c2fd24"
-        name="Rapports"
+        name="Génération des rapports"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
         <suppliersInternal>
           <dependency
-            Id="fab603a0-83ff-4a06-ac35-beb124b2e19f">
+            Id="72f4aac5-9d60-472b-b67e-46876751dbe7">
             <componentMoniker
-              Id="b79db899-f1bc-44e0-8d3b-0ecaef1b2c7c"
-              LastKnownName="Calculs"
+              Id="fd35bb87-94f2-4f40-987e-f5f8d272a959"
+              LastKnownName="Bibliothèque pour la génération de DOCX"
               LastKnownLocation="Modelisation.uml" />
           </dependency>
           <dependency
-            Id="fd611c93-8e5b-44c3-9193-da006f5dafa9">
+            Id="2d8b220a-ec20-479a-bbf3-83cbb7fac99d">
             <componentMoniker
-              Id="d046838b-96df-46c9-a786-623cf392c910"
-              LastKnownName="Graphiques"
+              Id="54bc1899-89f4-409b-97bb-a552e64eda67"
+              LastKnownName="Coeur"
               LastKnownLocation="Modelisation.uml" />
           </dependency>
         </suppliersInternal>
@@ -4633,14 +4687,37 @@
     <packageHasNamedElement>
       <component
         Id="fba5cbab-7ea8-4933-8779-9f792aefee37"
-        name="Données"
+        name="Calculs"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
+        <suppliersInternal>
+          <dependency
+            Id="38663f90-7242-4346-93cd-deb6f3f5bb59">
+            <componentMoniker
+              Id="e7ff2096-38bc-4b36-9852-7b1e079c5ab7"
+              LastKnownName="Interface R"
+              LastKnownLocation="Modelisation.uml" />
+          </dependency>
+          <dependency
+            Id="f04c060a-00aa-4846-855f-0f0b31f75837">
+            <componentMoniker
+              Id="54bc1899-89f4-409b-97bb-a552e64eda67"
+              LastKnownName="Coeur"
+              LastKnownLocation="Modelisation.uml" />
+          </dependency>
+          <dependency
+            Id="1141bb75-66d9-48ed-b333-53dafe3a51a3">
+            <componentMoniker
+              Id="a4880777-e18f-40e3-b86b-177e29c2fd24"
+              LastKnownName="Génération des rapports"
+              LastKnownLocation="Modelisation.uml" />
+          </dependency>
+        </suppliersInternal>
         <ownedAttributesInternal>
           <part
             Id="cf69c156-8ba8-4964-a10a-f4587d8c1078"
-            name="Actifs"
+            name="Estimation du modèle GARCH"
             isLeaf="false"
             isStatic="false"
             isReadOnly="false"
@@ -4656,8 +4733,8 @@
             </type_NamedElement>
           </part>
           <part
-            Id="a8ff3462-bdef-4540-858e-08cf83a39811"
-            name="Portefeuilles"
+            Id="848276c6-58ef-456e-bea0-0460c31adf74"
+            name="Calcul de la Value-at-Risk"
             isLeaf="false"
             isStatic="false"
             isReadOnly="false"
@@ -4667,8 +4744,8 @@
             isComposite="true">
             <type_NamedElement>
               <componentMoniker
-                Id="47381da0-bcfd-42c5-9a4e-71b4221ce69b"
-                LastKnownName="Component2"
+                Id="92788c65-a247-4dfa-be78-405ca1997416"
+                LastKnownName="Component3"
                 LastKnownLocation="Modelisation.uml" />
             </type_NamedElement>
           </part>
@@ -4697,31 +4774,7 @@
         name="GUI"
         isAbstract="false"
         isLeaf="false"
-        isActiveClass="false">
-        <suppliersInternal>
-          <dependency
-            Id="8fc11e0f-5f16-4501-855f-9892a3d6a8ef">
-            <componentMoniker
-              Id="fba5cbab-7ea8-4933-8779-9f792aefee37"
-              LastKnownName="Données"
-              LastKnownLocation="Modelisation.uml" />
-          </dependency>
-          <dependency
-            Id="8c5fd609-e1c1-4a23-9761-d361ee2a4fe2">
-            <componentMoniker
-              Id="a4880777-e18f-40e3-b86b-177e29c2fd24"
-              LastKnownName="Rapports"
-              LastKnownLocation="Modelisation.uml" />
-          </dependency>
-          <dependency
-            Id="6c62ce33-f3bb-48e5-adf8-594405afe66e">
-            <componentMoniker
-              Id="2b9d0cd2-4b97-495d-9902-5a891c3543d3"
-              LastKnownName="Qt"
-              LastKnownLocation="Modelisation.uml" />
-          </dependency>
-        </suppliersInternal>
-      </component>
+        isActiveClass="false" />
     </packageHasNamedElement>
     <packageHasNamedElement>
       <component
@@ -6406,7 +6459,7 @@
             <coveredLifelines>
               <lifelineMoniker
                 Id="0efb28c4-67b5-4916-a4b7-f44ca2ee58de"
-                LastKnownName=": R"
+                LastKnownName=": Coeur"
                 LastKnownLocation="Modelisation.uml" />
             </coveredLifelines>
             <finish>
@@ -6446,7 +6499,7 @@
             <covered>
               <lifelineMoniker
                 Id="0efb28c4-67b5-4916-a4b7-f44ca2ee58de"
-                LastKnownName=": R"
+                LastKnownName=": Coeur"
                 LastKnownLocation="Modelisation.uml" />
             </covered>
           </executionOccurrenceSpecification>
@@ -6466,7 +6519,7 @@
             <covered>
               <lifelineMoniker
                 Id="0efb28c4-67b5-4916-a4b7-f44ca2ee58de"
-                LastKnownName=": R"
+                LastKnownName=": Coeur"
                 LastKnownLocation="Modelisation.uml" />
             </covered>
           </messageOccurrenceSpecification>
@@ -6476,7 +6529,7 @@
             <covered>
               <lifelineMoniker
                 Id="0efb28c4-67b5-4916-a4b7-f44ca2ee58de"
-                LastKnownName=": R"
+                LastKnownName=": Coeur"
                 LastKnownLocation="Modelisation.uml" />
             </covered>
           </messageOccurrenceSpecification>
@@ -6504,7 +6557,7 @@
             <covered>
               <lifelineMoniker
                 Id="0efb28c4-67b5-4916-a4b7-f44ca2ee58de"
-                LastKnownName=": R"
+                LastKnownName=": Coeur"
                 LastKnownLocation="Modelisation.uml" />
             </covered>
           </executionOccurrenceSpecification>
@@ -6814,9 +6867,9 @@
           </lifeline>
           <lifeline
             Id="0efb28c4-67b5-4916-a4b7-f44ca2ee58de"
-            name=": R"
+            name=": Coeur"
             isActor="false"
-            lifelineDisplayName=": R">
+            lifelineDisplayName=": Coeur">
             <represents>
               <propertyMoniker
                 Id="8240c256-e021-4ca9-9928-1e8d9dfbbff2"
@@ -7025,7 +7078,7 @@
             <type_NamedElement>
               <componentMoniker
                 Id="54bc1899-89f4-409b-97bb-a552e64eda67"
-                LastKnownName="R"
+                LastKnownName="Coeur"
                 LastKnownLocation="Modelisation.uml" />
             </type_NamedElement>
           </property>
@@ -7076,6 +7129,80 @@
       <undefinedType
         Id="5058cc7c-ee31-46c4-b510-4363f86d6c02"
         name="vector&lt;Portfolio&gt;" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <component
+        Id="92788c65-a247-4dfa-be78-405ca1997416"
+        name="Component3"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <component
+        Id="7a27c562-633e-4def-9350-9802611d7539"
+        name="Component4"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <component
+        Id="d2c37852-1f69-4833-914e-73404feff501"
+        name="Component5"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <component
+        Id="58a45dc2-abf5-46c5-b984-993d403698e7"
+        name="Component6"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <component
+        Id="122e3e72-9e90-4be9-bd49-4fe51ad6856c"
+        name="Base de données"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <component
+        Id="fd35bb87-94f2-4f40-987e-f5f8d272a959"
+        name="Bibliothèque pour la génération de DOCX"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <component
+        Id="18066438-5f41-47be-94ed-1f0c8a586e60"
+        name="R"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <component
+        Id="e7ff2096-38bc-4b36-9852-7b1e079c5ab7"
+        name="Interface R"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <suppliersInternal>
+          <dependency
+            Id="864dc54a-e26b-4d50-86d3-f44a5fc1f67d">
+            <componentMoniker
+              Id="18066438-5f41-47be-94ed-1f0c8a586e60"
+              LastKnownName="R"
+              LastKnownLocation="Modelisation.uml" />
+          </dependency>
+        </suppliersInternal>
+      </component>
     </packageHasNamedElement>
   </packagedElements>
   <primitiveType
