@@ -49,7 +49,7 @@ Hamdi \bsc{Raissi} - Ivan \bsc{Le Plumey} \\ Quentin \bsc{Giai Gianetto}}
 \chapter*{Introduction}
 
 Dans les salles de marchés, les traders achètent et vendent des actions et obligations, pour le compte de grandes banques ou investisseurs toujours à la recherche d'un maximum de profits pour des pertes minimales.
-Il est intéressant pour les financiers de quantifier les risques de pertes, afin de prévoir des montants adéquats pour couvrir ces pertes éventuelles.
+Pour les financiers, il est intéressant de quantifier les risques de pertes, afin de prévoir des montants adéquats pour couvrir ces pertes éventuelles.
 En connaissant ces montants, leurs prévisions n'en seront que plus fiables et permettront peut-être d'éviter de mauvais placements.
 
 C'est précisément ce que notre logiciel permettra de faire : calculer la Value-at-Risk par diverses méthodes statistiques.
@@ -59,7 +59,7 @@ Avec cette multitude d'outils, les financiers seront en mesure de travailler sur
 
 Le rapport de spécifications fonctionnelles détaillait de manière très précise nos choix d'implémentation pour ce projet.
 Nous devons maintenant détailler nos choix techniques ainsi que nos décisions de modélisation.
-Dans un premier temps, nous allons rappeler les principales fonctionnalités de notre logiciel.
+Dans un premier temps, nous rappelerons les principales fonctionnalités de notre logiciel.
 Puis nous décrirons l'architecture globale du logiciel ainsi que les interactions entre les différents modules.
 
 Dans un deuxième temps, nous décrirons à partir de diagrammes de classes et de séquences nos différents choix de conception.
@@ -94,7 +94,7 @@ Ces trois grands pôles sont détaillés dans les parties suivantes.
 
 \section{Gestion de portefeuille}
 
-La première étape dans toute gestion de portefeuille est la création.
+La première étape dans toute gestion de portefeuille est leur création.
 Pour cela, il faut commencer par importer des actifs stockés dans des fichiers de type CSV comme ceux fournis par Yahoo Finance par exemple.
 Ensuite l'utilisateur pourra sélectionner les données qu'il souhaite pour les ajouter dans un nouveau portefeuille. Il affectera alors une pondération (nombre d'actions s'il s'agit d'une action par exemple).
 La figure \ref{fig:csvexample} illustre la description d'un actif au format CSV et provenant de Yahoo Finance.
