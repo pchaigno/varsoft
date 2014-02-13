@@ -187,11 +187,11 @@ Le champ \textit{parent} de \textit{Portefeuilles} sera nul pour représenter l'
 
 Le nombre d'informations sauvegardées dans la base de données restera toujours raisonnable.
 La table dont la taille sera la plus importante sera vraisemblablement \textit{Actifs}.
-Cependant le nombre d'actifs devraient rarement dépasser le millier.
+Cependant, le nombre d'actifs devrait rarement dépasser le millier.
 De plus, nous n'avons pas besoin de gérer d'accès concurrentiels à la base de données.
 
 Nous pouvons donc utiliser le SGBD SQLite qui a l'avantage de ne pas nécessiter de serveur \cite{website:SQLite}.
-De plus, toute la base de données sera contenue dans un unique fichier et les accès en lecture comme en écriture seront beaucoup plus rapides qu'avec un SGBD traditionnel.
+De plus, toute la base de données sera contenue dans un unique fichier, les accès en lecture comme en écriture seront beaucoup plus rapides qu'avec un SGBD traditionnel.
 
 
 \section{Diagrammes de classes}
@@ -201,7 +201,7 @@ Nous commençons par la modélisation des données de base. Nous abordons ensuit
 La suite des modélisations explique les composants nécessaires à la génération des rapports en passant par les interfaces avec quelques modules externes.
 Nous finissons avec le chargement de session et la fonctionnalité d'importation/exportation de portefeuilles.
 
-Dans les diagrammes de classes suivants les accesseurs n'ont pas été intégrés pour ne pas alourdir la représentation.
+Dans les diagrammes de classes suivants, les accesseurs n'ont pas été intégrés pour ne pas alourdir la représentation.
 
 
 \subsection{Modélisation des portefeuilles}
