@@ -53,7 +53,7 @@ Hamdi \bsc{Raissi} - Ivan \bsc{Le Plumey} \\ Quentin \bsc{Giai Gianetto}}
 \chapter*{Introduction}
 
 Dans les salles de marchés, les traders achètent et vendent des actions et obligations, pour le compte de grandes banques ou investisseurs toujours à la recherche d'un maximum de profits pour des pertes minimales.
-Il est intéressant pour les financiers de quantifier les risques de pertes, afin prévoir des montants adéquats pour couvrir ces pertes éventuelles.
+Il est intéressant pour les financiers de quantifier les risques de pertes, afin de prévoir des montants adéquats pour couvrir ces pertes éventuelles.
 En connaissant ces montants, leurs prévisions n'en seront que plus fiables et permettront peut-être d'éviter de mauvais placements.
 
 C'est précisément ce que notre logiciel permettra de faire : calculer la Value-at-Risk par diverses méthodes statistiques.
@@ -100,8 +100,8 @@ Ces trois grands pôles sont détaillés dans les parties suivantes.
 
 La première étape dans toute gestion de portefeuille est la création.
 Pour cela, il faut commencer par importer des actifs stockés dans des fichiers de type CSV comme ceux fournis par Yahoo Finance par exemple.
-Ensuite l'utilisateur pourra sélectionner les données qu'il souhaite pour les ajouter dans un nouveau portefeuille. Il affectera alors une pondération (nombre d'actions de cet actif).
-Par exemple, la figure \ref{fig:csvexample} correspond au contenu d'un actif au format CSV provenant de Yahoo Finance.
+Ensuite l'utilisateur pourra sélectionner les données qu'il souhaite pour les ajouter dans un nouveau portefeuille. Il affectera alors une pondération (nombre d'actions s'il s'agit d'une action par exemple).
+La figure \ref{fig:csvexample} illustre la description d'un actif au format CSV et provenant de Yahoo Finance.
 Nous utiliserons seulement les colonnes \textit{Date} et \textit{Close}.
 
 \begin{figure}[h]
@@ -117,7 +117,7 @@ Le calcul de la Value-at-Risk est la fonctionnalité centrale de ce logiciel. Co
 De plus, le calcul de la Value-at-Risk se caractérise par la méthode utilisée (historique, Riskmetrics ou selon un modèle GARCH), un niveau de risque et un horizon de temps.
 Il sera donc possible de calculer la Value-at-Risk selon les différentes méthodes et selon les paramètres précédemment décrits sur chacun des portefeuilles créés.
 Les résultats seront alors affichés dans un rapport. Néanmoins, proposer un simple calcul de Value-at-Risk n'est pas suffisant pour permettre une prise de décision.
-Il faut aussi s'assurer que le calcul est fiable.
+Il faut aussi s'assurer que la méthode de calcul de la Value-at-Risk est adaptée au comportement des actifs.
 Pour cela, l'utilisateur pourra effectuer du backtesting.
 
 
