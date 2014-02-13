@@ -49,7 +49,7 @@ Hamdi \bsc{Raissi} - Ivan \bsc{Le Plumey} \\ Quentin \bsc{Giai Gianetto}}
 \chapter*{Introduction}
 
 Dans les salles de marchés, les traders achètent et vendent des actions et obligations, pour le compte de grandes banques ou investisseurs toujours à la recherche d'un maximum de profits pour des pertes minimales.
-Il est intéressant pour les financiers de quantifier les risques de pertes, afin de prévoir des montants adéquats pour couvrir ces pertes éventuelles.
+Pour les financiers, il est intéressant de quantifier les risques de pertes, afin de prévoir des montants adéquats pour couvrir ces pertes éventuelles.
 En connaissant ces montants, leurs prévisions n'en seront que plus fiables et permettront peut-être d'éviter de mauvais placements.
 
 C'est précisément ce que notre logiciel permettra de faire : calculer la Value-at-Risk par diverses méthodes statistiques.
@@ -59,7 +59,7 @@ Avec cette multitude d'outils, les financiers seront en mesure de travailler sur
 
 Le rapport de spécifications fonctionnelles détaillait de manière très précise nos choix d'implémentation pour ce projet.
 Nous devons maintenant détailler nos choix techniques ainsi que nos décisions de modélisation.
-Dans un premier temps, nous allons rappeler les principales fonctionnalités de notre logiciel.
+Dans un premier temps, nous rappelerons les principales fonctionnalités de notre logiciel.
 Puis nous décrirons l'architecture globale du logiciel ainsi que les interactions entre les différents modules.
 
 Dans un deuxième temps, nous décrirons à partir de diagrammes de classes et de séquences nos différents choix de conception.
@@ -94,7 +94,7 @@ Ces trois grands pôles sont détaillés dans les parties suivantes.
 
 \section{Gestion de portefeuille}
 
-La première étape dans toute gestion de portefeuille est la création.
+La première étape dans toute gestion de portefeuille est leur création.
 Pour cela, il faut commencer par importer des actifs stockés dans des fichiers de type CSV comme ceux fournis par Yahoo Finance par exemple.
 Ensuite l'utilisateur pourra sélectionner les données qu'il souhaite pour les ajouter dans un nouveau portefeuille. Il affectera alors une pondération (nombre d'actions s'il s'agit d'une action par exemple).
 La figure \ref{fig:csvexample} illustre la description d'un actif au format CSV et provenant de Yahoo Finance.
@@ -187,11 +187,11 @@ Le champ \textit{parent} de \textit{Portefeuilles} sera nul pour représenter l'
 
 Le nombre d'informations sauvegardées dans la base de données restera toujours raisonnable.
 La table dont la taille sera la plus importante sera vraisemblablement \textit{Actifs}.
-Cependant le nombre d'actifs devraient rarement dépasser le millier.
+Cependant, le nombre d'actifs devrait rarement dépasser le millier.
 De plus, nous n'avons pas besoin de gérer d'accès concurrentiels à la base de données.
 
 Nous pouvons donc utiliser le SGBD SQLite qui a l'avantage de ne pas nécessiter de serveur \cite{website:SQLite}.
-De plus, toute la base de données sera contenue dans un unique fichier et les accès en lecture comme en écriture seront beaucoup plus rapides qu'avec un SGBD traditionnel.
+De plus, toute la base de données sera contenue dans un unique fichier, les accès en lecture comme en écriture seront beaucoup plus rapides qu'avec un SGBD traditionnel.
 
 
 \section{Diagrammes de classes}
@@ -201,7 +201,7 @@ Nous commençons par la modélisation des données de base. Nous abordons ensuit
 La suite des modélisations explique les composants nécessaires à la génération des rapports en passant par les interfaces avec quelques modules externes.
 Nous finissons avec le chargement de session et la fonctionnalité d'importation/exportation de portefeuilles.
 
-Dans les diagrammes de classes suivants les accesseurs n'ont pas été intégrés pour ne pas alourdir la représentation.
+Dans les diagrammes de classes suivants, les accesseurs n'ont pas été intégrés pour ne pas alourdir la représentation.
 
 
 \subsection{Modélisation des portefeuilles}
@@ -327,10 +327,10 @@ Les rapports aux formats PDF seront ensuite générés depuis leurs homologues a
 
 Pour anticiper les ajouts futurs d'autres formats de rapports, toutes les opérations de génération seront regroupées dans une interface.
 Les classes s'occupant de la génération des différents formats en hériteront.
-Nous aurons, par exemple, une méthode \textit{addChart} dans l'interface pour ajouter un graphique dans un rapport.
+Nous aurons par exemple, une méthode \textit{addChart} dans l'interface pour ajouter un graphique dans un rapport.
 
 Cette organisation, présentée à la figure \ref{fig:diagramme-classes-interface-report}, est celle d'un patron de conception \textit{Monteur} où les appels des méthodes de construction sont effectués par les classes héritant de \textit{ReportFactory}.
-Ce patron de conception est utilisé pour la création d'objet complexe, comme les rapports dans notre cas.
+Ce patron de conception est utilisé pour la création d'objets complexes, comme les rapports dans notre cas.
 
 \begin{figure}
   	\center
@@ -423,7 +423,7 @@ La figure \ref{fig:diagramme-sequence-backtesting-garch} détaille ces opératio
 \section{Interface graphique}
 
 Nous avons décidé d'utiliser l'architecture Modèle-Vue-Contrôleur (MVC) pour notre logiciel car étudiée en cours et très documentée.
-Cette architecture sépare les données, la présentation et les traitements facilitant ainsi toutes évolutions du logiciel.
+Cette architecture sépare les données, la présentation et les traitements facilitant ainsi toute évolution du logiciel.
 Qt permet de réaliser des logiciels avec ce type d'architecture avec des outils comme QtDesigner pour concevoir graphiquement une fenêtre, donc sans écrire une seul ligne de code.
 La figure \ref{fig:diagramme-mvc} présente un schéma de cette architecture.
 
