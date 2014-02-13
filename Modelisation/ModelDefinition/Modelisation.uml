@@ -2104,6 +2104,39 @@
             isAbstract="false"
             concurrency="Sequential"
             isQuery="false" />
+          <operation
+            Id="8c87630f-6c8e-4467-b8cb-7a81036d3ea3"
+            name="convertToPDF"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="afa52d31-caf6-4371-bcca-5758c1fc0691"
+            name="DocXGenerator"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="35758a2e-f57a-465c-83f4-cd92c1d599d0"
+                  name="location"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="0dcd1b06-0a2b-4698-9710-6b254fc5953e"
+                      LastKnownName="string"
+                      LastKnownLocation="Modelisation.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
         </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>

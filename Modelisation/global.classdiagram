@@ -832,69 +832,6 @@
       </class>
     </logicalClassDesignerModelHasTypes>
     <logicalClassDesignerModelHasTypes>
-      <class Id="c1110a4c-d4db-4823-90bb-1f739beea216" name="PdfGenerator" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="02ee30f8-d5c9-4ac2-a421-411289eb09d8" />
-        <suppliersInternal>
-          <interfaceRealization Id="986f67fd-519f-4772-a799-d1f83696d86a">
-            <interfaceMoniker Id="89b3b869-2219-436f-a423-d03e5d3c6aa4" LastKnownName="ReportGenerator" />
-            <elementDefinition Id="32a1406d-4356-434e-bd2f-d8dbbf00af34" />
-          </interfaceRealization>
-        </suppliersInternal>
-        <ownedAttributesInternal>
-          <property Id="5431b075-804a-47e1-834e-9940fb52c4ef" name="pdfHandler" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="40d441b9-ed97-4e9e-ac8e-9db2c2323231" />
-            <type_NamedElement>
-              <referencedTypeMoniker Id="f2dcb889-17a1-4bac-aaee-2b390d73e2fc" LastKnownName="LibHaruHandler" />
-            </type_NamedElement>
-          </property>
-        </ownedAttributesInternal>
-        <ownedOperationsInternal>
-          <operation Id="710d9dd9-c16a-4876-9b2a-7c97512d0f77" name="openReport" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="db46786f-4d72-4349-ba0c-b0e6bdfc3a81" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="c599e427-bfe1-4503-a2b7-b482c6a2a0b0" name="filename" direction="In" isUnique="false">
-                  <elementDefinition Id="09f231bd-838e-444a-ae4d-5dae2bdda0e3" />
-                  <type_NamedElement>
-                    <referencedTypeMoniker Id="0dc2bf59-c33d-42fc-8e1f-0aabb3755615" LastKnownName="string" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation Id="5467f4fe-ca14-4c0c-87b8-6bd18874feb2" name="addChart" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="923538cf-ffce-4f3c-add1-257c3208e0a2" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="3b7443da-92bb-4158-8438-b0d6892a5abc" name="pathToChart" direction="In" isUnique="false">
-                  <elementDefinition Id="bbdafba0-9d3f-40d3-b682-70b0ebc7db72" />
-                  <type_NamedElement>
-                    <referencedTypeMoniker Id="0dc2bf59-c33d-42fc-8e1f-0aabb3755615" LastKnownName="string" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation Id="576dae28-9bc1-4d63-aa58-d41823e7711c" name="addTitle" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="95849d46-770a-4abb-9f16-745c6d52e22b" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="8a72a4e7-0fd1-4439-b162-7e209c231e2c" name="title" direction="In" isUnique="false">
-                  <elementDefinition Id="58ea549d-2560-46eb-83c9-03d4e49f3b56" />
-                  <type_NamedElement>
-                    <referencedTypeMoniker Id="0dc2bf59-c33d-42fc-8e1f-0aabb3755615" LastKnownName="string" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation Id="45f38a03-296a-4529-b07a-e537c21da859" name="generate" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="c806d523-1ace-4af5-b28a-cce7c54bf4fd" />
-          </operation>
-        </ownedOperationsInternal>
-      </class>
-    </logicalClassDesignerModelHasTypes>
-    <logicalClassDesignerModelHasTypes>
       <class Id="88dedd27-0d4b-40dd-a6af-69efd32b0c6c" name="DocXGenerator" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="f570f214-887f-4dc3-9349-14c2be06938e" />
         <suppliersInternal>
@@ -953,6 +890,22 @@
           </operation>
           <operation Id="adf353f6-955e-4c79-a43e-4525276598de" name="generate" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
             <elementDefinition Id="28ad7441-c00d-4f07-9b32-500dc14a1181" />
+          </operation>
+          <operation Id="b54575aa-9e5d-4e42-8c41-5b11f4bf6b50" name="convertToPDF" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="8c87630f-6c8e-4467-b8cb-7a81036d3ea3" />
+          </operation>
+          <operation Id="301ce533-f507-4586-8daa-3e6cfd7198d3" name="DocXGenerator" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="afa52d31-caf6-4371-bcca-5758c1fc0691" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="5e6dcac8-fc3a-428e-add5-6fbf6ff1f3f4" name="location" direction="In" isUnique="false">
+                  <elementDefinition Id="35758a2e-f57a-465c-83f4-cd92c1d599d0" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="0dc2bf59-c33d-42fc-8e1f-0aabb3755615" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
           </operation>
         </ownedOperationsInternal>
       </class>
@@ -1108,11 +1061,6 @@
     <packageHasNamedElement>
       <referencedType Id="0dc2bf59-c33d-42fc-8e1f-0aabb3755615" name="string" isAbstract="false" isLeaf="false" cachedFullName="string">
         <elementDefinition Id="0dcd1b06-0a2b-4698-9710-6b254fc5953e" />
-      </referencedType>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <referencedType Id="f2dcb889-17a1-4bac-aaee-2b390d73e2fc" name="LibHaruHandler" isAbstract="false" isLeaf="false" cachedFullName="LibHaruHandler">
-        <elementDefinition Id="97a78aad-159b-4693-ab7f-749cf9069cb9" />
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
