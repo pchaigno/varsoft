@@ -327,10 +327,10 @@ Les rapports aux formats PDF seront ensuite générés depuis leurs homologues a
 
 Pour anticiper les ajouts futurs d'autres formats de rapports, toutes les opérations de génération seront regroupées dans une interface.
 Les classes s'occupant de la génération des différents formats en hériteront.
-Nous aurons, par exemple, une méthode \textit{addChart} dans l'interface pour ajouter un graphique dans un rapport.
+Nous aurons par exemple, une méthode \textit{addChart} dans l'interface pour ajouter un graphique dans un rapport.
 
 Cette organisation, présentée à la figure \ref{fig:diagramme-classes-interface-report}, est celle d'un patron de conception \textit{Monteur} où les appels des méthodes de construction sont effectués par les classes héritant de \textit{ReportFactory}.
-Ce patron de conception est utilisé pour la création d'objet complexe, comme les rapports dans notre cas.
+Ce patron de conception est utilisé pour la création d'objets complexes, comme les rapports dans notre cas.
 
 \begin{figure}
   	\center
