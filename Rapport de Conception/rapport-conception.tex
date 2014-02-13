@@ -43,6 +43,8 @@ Hamdi \bsc{Raissi} - Ivan \bsc{Le Plumey} \\ Quentin \bsc{Giai Gianetto}}
 \listoffigures
 \newpage
 
+% TODO Change identifiant in BDD to id_stuff.
+% TODO Add links in table of contents.
 % TODO Classes and sequence diagrams are not coherent.
 % TODO Justify a bit more the use of all patterns.
 % TODO Explain in a line the patterns.
@@ -200,16 +202,15 @@ De plus, toute la base de données sera contenue dans un unique fichier et les a
 Cette partie détaille la modélisation pour les différents composants de notre logiciel.
 Nous commençons par la modélisation des données de base. Nous abordons ensuite le problème de l'instanciation des actifs.
 La suite des modélisations explique les composants nécessaires à la génération des rapports en passant par les interfaces avec quelques modules externes.
-Enfin, nous finissons avec le chargement de session et la fonctionnalité d'importation/exportation de portefeuilles.
+Nous finissons avec le chargement de session et la fonctionnalité d'importation/exportation de portefeuilles.
 
 
 \subsection{Modélisation des portefeuilles}
 
 La modélisation sous forme de classes des données en figure \ref{fig:diagramme-classes-donnees} est analogue à celle pour la base de données. Un portefeuille contient des références vers ses rapports et ses actifs. Les divers attributs présents dans la base de données sont aussi présents ici.
 
-De plus, un portefeuille dispose de deux méthodes pour calculer son intervalle de définition à partir de ceux de ses actifs.
+De plus, un portefeuille dispose de deux méthodes (\textit{retrieveFirstDate} et \textit{retrieveLastDate}) pour calculer son intervalle de définition à partir de ceux de ses actifs.
 
-% TODO Change name of getFirstDate...
 \begin{figure}
   	\center
   	\includegraphics[width=1\textwidth]{diagramme-classes-donnees.png}

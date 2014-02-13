@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ComponentDesigner"
+<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
   dslVersion="1.0.0.0"
   Id="6748ac93-17b7-47ba-bdb0-a21deeb096c6"
   name="Modélisation" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
@@ -425,7 +425,7 @@
         <ownedOperationsInternal>
           <operation
             Id="19698bf4-5cbd-4590-8e5d-6b05410e2ce5"
-            name="getFirstDate"
+            name="retrieveFirstDate"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
@@ -435,7 +435,8 @@
               <operationHasOwnedParameters>
                 <parameter
                   Id="15896661-9c0a-47d8-8f1d-b5fcd246359a"
-                  direction="Return">
+                  direction="Return"
+                  isUnique="false">
                   <type_NamedElement>
                     <undefinedTypeMoniker
                       Id="dd4d55b7-64c6-434a-b31a-b2b1fbe52beb"
@@ -448,7 +449,7 @@
           </operation>
           <operation
             Id="e063f88a-4716-4407-a9e5-17953319e1b9"
-            name="getLastDate"
+            name="retrieveLastDate"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
@@ -458,7 +459,8 @@
               <operationHasOwnedParameters>
                 <parameter
                   Id="b70870ac-24fc-4ead-a949-8dddc0829e45"
-                  direction="Return">
+                  direction="Return"
+                  isUnique="false">
                   <type_NamedElement>
                     <undefinedTypeMoniker
                       Id="dd4d55b7-64c6-434a-b31a-b2b1fbe52beb"

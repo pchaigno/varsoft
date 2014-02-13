@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ComponentDesigner" dslVersion="1.0.0.0" Id="50e73900-5436-4033-a40f-f292ea65f1d9" name="global" linkedPackageId="35a700fb-1363-4295-be77-d9c17d41f540" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="50e73900-5436-4033-a40f-f292ea65f1d9" name="global" linkedPackageId="35a700fb-1363-4295-be77-d9c17d41f540" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
   <ownedCommentsInternal>
     <comment Id="40659b50-9aa5-4600-9237-9fd2aa21ba84">
       <elementDefinition Id="59c6f8a9-260d-4ffe-8ba7-532f0f651f08" />
@@ -171,11 +171,11 @@
           </property>
         </ownedAttributesInternal>
         <ownedOperationsInternal>
-          <operation Id="7327e6d8-558e-40c4-802c-18264c23aff9" name="getFirstDate" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+          <operation Id="7327e6d8-558e-40c4-802c-18264c23aff9" name="retrieveFirstDate" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
             <elementDefinition Id="19698bf4-5cbd-4590-8e5d-6b05410e2ce5" />
             <ownedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="6bb5ee2b-44a3-48f8-a1c3-1e49a2dfa1fd" direction="Return">
+                <parameter Id="6bb5ee2b-44a3-48f8-a1c3-1e49a2dfa1fd" direction="Return" isUnique="false">
                   <elementDefinition Id="15896661-9c0a-47d8-8f1d-b5fcd246359a" />
                   <type_NamedElement>
                     <referencedTypeMoniker Id="7eb9d1e9-88ae-4229-9b99-12e62a3d9a88" LastKnownName="Date" />
@@ -184,11 +184,11 @@
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
-          <operation Id="7f681079-a789-4344-9132-970ed6fecf9b" name="getLastDate" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+          <operation Id="7f681079-a789-4344-9132-970ed6fecf9b" name="retrieveLastDate" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
             <elementDefinition Id="e063f88a-4716-4407-a9e5-17953319e1b9" />
             <ownedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="f0ba4f45-e0e8-4ef3-9dcd-6b11a6fed3c6" direction="Return">
+                <parameter Id="f0ba4f45-e0e8-4ef3-9dcd-6b11a6fed3c6" direction="Return" isUnique="false">
                   <elementDefinition Id="b70870ac-24fc-4ead-a949-8dddc0829e45" />
                   <type_NamedElement>
                     <referencedTypeMoniker Id="43e3725c-21e1-4e35-81f2-31a32a2bc749" LastKnownName="Date" />
