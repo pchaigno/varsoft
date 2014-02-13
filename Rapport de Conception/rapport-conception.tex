@@ -199,7 +199,7 @@ De plus, toute la base de données sera contenue dans un unique fichier et les a
 
 Cette partie détaille la modélisation pour les différents composants de notre logiciel.
 Nous commençons par la modélisation des données de base. Nous abordons ensuite le problème de l'instanciation des actifs.
-La suite des modélisations expliquent les composants nécessaires à la génération des rapports en passant par les interfaces avec quelques modules externes.
+La suite des modélisations explique les composants nécessaires à la génération des rapports en passant par les interfaces avec quelques modules externes.
 Enfin, nous finissons avec le chargement de session et la fonctionnalité d'importation/exportation de portefeuilles.
 
 
@@ -222,7 +222,7 @@ De plus, un portefeuille dispose de deux méthodes pour calculer son intervalle 
 
 Un même actif peut participer à la constitution de plusieurs portefeuilles.
 Il pourra donc être référencé dans plusieurs objets.
-Pour éviter toute duplication nous utiliserons un patron de conception \textit{Poids-Mouche} présenté en figure \ref{fig:diagramme-classes-flyweight}.
+Pour éviter toute duplication, nous utiliserons un patron de conception \textit{Poids-Mouche} présenté en figure \ref{fig:diagramme-classes-flyweight}.
 Nous aurons donc une \textit{Fabrique} d'actifs qui conservera une référence vers tous les actifs instanciés. Cette dernière est aussi un \textit{Singleton}.
 
 \begin{figure}
@@ -372,7 +372,7 @@ Nous utiliserons la classe \textit{QVariant} de Qt à cet effet.
 
 \subsection{Création d'un portefeuille}
 Un portefeuille peut être créé à partir de zéro ou en modifiant un autre portefeuille.
-Dans les deux cas l'utilisateur doit choisir les actifs à ajouter (et/ou à supprimer dans le second cas).
+Dans les deux cas, l'utilisateur doit choisir les actifs à ajouter (et/ou à supprimer dans le second cas).
 
 La figure \ref{fig:diagramme-sequence-creation-portefeuille} présente le diagramme de séquence de cette création.
 % TODO Add a few comments on the conclusion from this diagram maybe?
@@ -443,7 +443,7 @@ Nous aurons ainsi un projet C++/QtCore pour le modèle et un projet C++/Qt pour 
 
 \subsection{Tests unitaires}
 
-Nous écrirons ces tests au fur et à mesure du développement de notre logiciel, si possible avant même d'écrire le code à tester.
+Nous écrirons ces tests au fûr et à mesure du développement de notre logiciel, si possible avant même d'écrire le code à tester.
 Toute unité de code \footnote{Dans notre contexte, une unité de code sera vraisemblablement une méthode comme nous ferons de la programmation orientée objet.} non-triviale pouvant être testée avec des tests unitaires devra l'être.
 L'objectif est ici d'assurer la plus grande couverture de code pour éviter toute régression.
 
@@ -481,17 +481,17 @@ De plus, elle a peu d'intérêt d'un point de vue régression puisque l'interfac
 Enfin cette dernière sera amenée à changer suite aux retours du client.
 Avec des tests automatisés, toute modification de l'interface obligerait à modifier les tests.
 
-Nous testerons donc cette partie manuellement au fur et à mesure de son développement et entièrement à la toute fin du projet.
+Nous testerons donc cette partie manuellement au fûr et à mesure de son développement et entièrement à la toute fin du projet.
 
 
 \chapter*{Conclusion}
 
-Dans ce document, nous avons commencé par rappeler les fonctionnalités du logiciel définies lors de la phase de spécification à l'aide de  diagrammes de cas d'utilisation.
+Dans ce document, nous avons commencé par rappeler les fonctionnalités du logiciel définies lors de la phase de spécification à l'aide de diagrammes de cas d'utilisation.
 Parmi celles-ci, la gestion de portefeuilles, le calcul de la Value-at-Risk ainsi que la génération de rapports occupent une place centrale.
-Nous avons également présenté l'architecture générale du programme soulignant en particulier l'utilisation du module externe R pour les calculs avancées.
+Nous avons également présenté l'architecture générale du programme soulignant en particulier l'utilisation du module externe R pour les calculs avancés.
 
 Nous avons ensuite détaillé la modélisation de la base de données nécessaire au stockage des informations importées ou générées afin que l'utilisateur retrouve d'une utilisation à l'autre ses portefeuilles et les rapports associés.
-Nous avons poursuivi avec la présentation de notre modélisation à l'aide de diagrammes de classes ainsi que que quelques diagrammes de séquence afin de préciser les interactions les plus complexes entre les objets.
+Nous avons poursuivi avec la présentation de notre modélisation à l'aide de diagrammes de classes ainsi que quelques diagrammes de séquence afin de préciser les interactions les plus complexes entre les objets.
 En particulier, le calcul de la Value-at-Risk basée sur un modèle GARCH ou encore le backtesting ont bénéficié de cette dernière modélisation.
 Enfin nous avons abordé la modélisation de notre interface graphique ainsi que l'organisation de nos tests.
 
