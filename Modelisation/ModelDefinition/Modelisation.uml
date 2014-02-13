@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ComponentDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner"
+<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ComponentDesigner"
   dslVersion="1.0.0.0"
   Id="6748ac93-17b7-47ba-bdb0-a21deeb096c6"
   name="Modélisation" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
@@ -145,7 +145,7 @@
     <packageHasNamedElement>
       <class
         Id="13d45301-19e5-413e-bba7-fc81f84a3395"
-        name="Portefolio"
+        name="Portfolio"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
@@ -352,7 +352,7 @@
             isAbstract="false">
             <classMoniker
               Id="13d45301-19e5-413e-bba7-fc81f84a3395"
-              LastKnownName="Portefolio"
+              LastKnownName="Portfolio"
               LastKnownLocation="Modelisation.uml" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
@@ -804,21 +804,21 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="55288c26-0e76-4f1f-a1fb-02f2dcfbc771"
-                  name="portefolio"
+                  Id="5fa82698-be85-465f-a995-ce5bd5179955"
+                  name="portfolio"
                   direction="In"
                   isUnique="false">
                   <type_NamedElement>
                     <classMoniker
                       Id="13d45301-19e5-413e-bba7-fc81f84a3395"
-                      LastKnownName="Portefolio"
+                      LastKnownName="Portfolio"
                       LastKnownLocation="Modelisation.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="61777e75-6716-40b1-b8d4-dc0f3a57dcbc"
+                  Id="addeb695-afe4-446d-8880-004c8da63836"
                   name="risk"
                   direction="In"
                   isUnique="false">
@@ -911,21 +911,21 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="e35b910a-1160-46cf-ace6-8d2fa5f510fd"
-                  name="portefolio"
+                  Id="c8f2610a-496f-443e-844e-aa6ecff2622c"
+                  name="portfolio"
                   direction="In"
                   isUnique="false">
                   <type_NamedElement>
                     <classMoniker
                       Id="13d45301-19e5-413e-bba7-fc81f84a3395"
-                      LastKnownName="Portefolio"
+                      LastKnownName="Portfolio"
                       LastKnownLocation="Modelisation.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="7cdf5cf2-76c5-450b-b05a-25fca1493150"
+                  Id="66da343e-73ae-4f8e-b450-093b10f2c41f"
                   name="risk"
                   direction="In"
                   isUnique="false">
@@ -1039,21 +1039,21 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="9e7357b8-a45a-454f-9055-6548e5051e4f"
-                  name="portefolio"
+                  Id="ada02566-93e6-4cc1-8dcd-8526fd3fb3f9"
+                  name="portfolio"
                   direction="In"
                   isUnique="false">
                   <type_NamedElement>
                     <classMoniker
                       Id="13d45301-19e5-413e-bba7-fc81f84a3395"
-                      LastKnownName="Portefolio"
+                      LastKnownName="Portfolio"
                       LastKnownLocation="Modelisation.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="7ccdebb4-9026-447d-9730-143b017f45d1"
+                  Id="ecfb3b0a-445e-4519-b814-9e7a884a5997"
                   name="risk"
                   direction="In"
                   isUnique="false">
@@ -1067,7 +1067,7 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="15ced82b-8934-4cf7-8f04-3c9fd43aa17e"
+                  Id="92a763b8-f3fc-48c3-aaa1-c2c94d7867a8"
                   name="garchModel"
                   direction="In"
                   isUnique="false">
@@ -1116,14 +1116,14 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="dc440d16-538d-4728-b5b2-54705359e9ea"
-                  name="portefolio"
+                  Id="a45ff051-5a01-4338-a39b-b249679ef6f4"
+                  name="portfolio"
                   direction="In"
                   isUnique="false">
                   <type_NamedElement>
                     <classMoniker
                       Id="13d45301-19e5-413e-bba7-fc81f84a3395"
-                      LastKnownName="Portefolio"
+                      LastKnownName="Portfolio"
                       LastKnownLocation="Modelisation.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -1154,14 +1154,14 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="9eb179c1-e7e1-464f-a473-12c6c7e5ebb8"
-                  name="portefolio"
+                  Id="aae140b6-d6e1-4949-9b5d-fd3df1261d4a"
+                  name="portfolio"
                   direction="In"
                   isUnique="false">
                   <type_NamedElement>
                     <classMoniker
                       Id="13d45301-19e5-413e-bba7-fc81f84a3395"
-                      LastKnownName="Portefolio"
+                      LastKnownName="Portfolio"
                       LastKnownLocation="Modelisation.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -1179,20 +1179,6 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="373f0833-4ad1-4a18-a569-8d60c01a0117"
-                  name="portefolio"
-                  direction="In"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <classMoniker
-                      Id="13d45301-19e5-413e-bba7-fc81f84a3395"
-                      LastKnownName="Portefolio"
-                      LastKnownLocation="Modelisation.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
                   Id="5f3b4338-74ea-4614-a909-cebf01fb7b7b"
                   direction="Return"
                   isUnique="false">
@@ -1200,6 +1186,20 @@
                     <undefinedTypeMoniker
                       Id="d246e609-36c3-46a5-b57d-8fcc35125667"
                       LastKnownName="boolean"
+                      LastKnownLocation="Modelisation.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="d300868a-8365-40bf-b104-5299187371b7"
+                  name="portfolio"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="13d45301-19e5-413e-bba7-fc81f84a3395"
+                      LastKnownName="Portfolio"
                       LastKnownLocation="Modelisation.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -1219,7 +1219,7 @@
         <ownedAttributesInternal>
           <property
             Id="a0f05e14-a8cb-45db-8378-7f5898769025"
-            name="portefolio"
+            name="portfolio"
             visibility="Private"
             isLeaf="false"
             isStatic="false"
@@ -1232,7 +1232,7 @@
             <type_NamedElement>
               <classMoniker
                 Id="13d45301-19e5-413e-bba7-fc81f84a3395"
-                LastKnownName="Portefolio"
+                LastKnownName="Portfolio"
                 LastKnownLocation="Modelisation.uml" />
             </type_NamedElement>
           </property>
@@ -1258,14 +1258,14 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="9ddd8a98-bec4-40fa-8f6d-a916ea5d4be2"
-                  name="portefolio"
+                  Id="8cef5684-ea46-4910-afa9-77429f128a29"
+                  name="portfolio"
                   direction="In"
                   isUnique="false">
                   <type_NamedElement>
                     <classMoniker
                       Id="13d45301-19e5-413e-bba7-fc81f84a3395"
-                      LastKnownName="Portefolio"
+                      LastKnownName="Portfolio"
                       LastKnownLocation="Modelisation.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -1625,7 +1625,7 @@
         <ownedAttributesInternal>
           <property
             Id="fe23586c-068c-4285-adcc-c8346b186d83"
-            name="portefolio"
+            name="portfolio"
             visibility="Protected"
             isLeaf="false"
             isStatic="false"
@@ -1638,7 +1638,7 @@
             <type_NamedElement>
               <classMoniker
                 Id="13d45301-19e5-413e-bba7-fc81f84a3395"
-                LastKnownName="Portefolio"
+                LastKnownName="Portfolio"
                 LastKnownLocation="Modelisation.uml" />
             </type_NamedElement>
           </property>
@@ -1712,21 +1712,21 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="ee2c4229-1be1-4a24-be30-5e063cc5fc8f"
-                  name="portefolio"
+                  Id="804fdb68-1082-4ed1-bd2a-1c9ed620cd99"
+                  name="portfolio"
                   direction="In"
                   isUnique="false">
                   <type_NamedElement>
                     <classMoniker
                       Id="13d45301-19e5-413e-bba7-fc81f84a3395"
-                      LastKnownName="Portefolio"
+                      LastKnownName="Portfolio"
                       LastKnownLocation="Modelisation.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="91308a91-343c-4688-9873-2ae8511e09d2"
+                  Id="fd0b4753-f01a-4358-825a-c306f9dc99d3"
                   name="risk"
                   direction="In"
                   isUnique="false">
@@ -2145,11 +2145,12 @@
               <operationHasOwnedParameters>
                 <parameter
                   Id="a33810ad-c26d-49ca-b8c6-a483e03678f8"
-                  direction="Return">
+                  direction="Return"
+                  isUnique="false">
                   <type_NamedElement>
                     <undefinedTypeMoniker
-                      Id="c2365dda-9bbc-4548-97da-882abd14c50b"
-                      LastKnownName="vector&lt;Portefolio&gt;"
+                      Id="5058cc7c-ee31-46c4-b510-4363f86d6c02"
+                      LastKnownName="vector&lt;Portfolio&gt;"
                       LastKnownLocation="Modelisation.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -2168,20 +2169,6 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="1f5ef754-4031-4ed3-974f-bbd879ae4116"
-                  name="portefolio"
-                  direction="In"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <classMoniker
-                      Id="13d45301-19e5-413e-bba7-fc81f84a3395"
-                      LastKnownName="Portefolio"
-                      LastKnownLocation="Modelisation.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
                   Id="62610335-3f58-4f6b-b44f-8710b471bd40"
                   direction="Return"
                   isUnique="false">
@@ -2189,6 +2176,20 @@
                     <undefinedTypeMoniker
                       Id="b8d7fa63-46e3-42dc-9173-bc076cafc0d2"
                       LastKnownName="vector&lt;Report&gt;"
+                      LastKnownLocation="Modelisation.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="355e5760-30da-4a9d-8ae8-f7132b86890a"
+                  name="portfolio"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="13d45301-19e5-413e-bba7-fc81f84a3395"
+                      LastKnownName="Portfolio"
                       LastKnownLocation="Modelisation.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -2221,7 +2222,7 @@
           </operation>
           <operation
             Id="f41aba50-fe95-41e1-97d6-f67146ccaefe"
-            name="buildPortefolios"
+            name="buildPortfolios"
             visibility="Private"
             isLeaf="false"
             isStatic="true"
@@ -2236,8 +2237,8 @@
                   isUnique="false">
                   <type_NamedElement>
                     <undefinedTypeMoniker
-                      Id="c2365dda-9bbc-4548-97da-882abd14c50b"
-                      LastKnownName="vector&lt;Portefolio&gt;"
+                      Id="5058cc7c-ee31-46c4-b510-4363f86d6c02"
+                      LastKnownName="vector&lt;Portfolio&gt;"
                       LastKnownLocation="Modelisation.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -2452,14 +2453,14 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="5b17686d-da4d-48ae-a649-611f50991496"
-                  name="portefolios"
+                  Id="609c9301-8351-432e-a078-cfc2e413bd16"
+                  name="portfolios"
                   direction="In"
                   isUnique="false">
                   <type_NamedElement>
                     <undefinedTypeMoniker
-                      Id="c2365dda-9bbc-4548-97da-882abd14c50b"
-                      LastKnownName="vector&lt;Portefolio&gt;"
+                      Id="5058cc7c-ee31-46c4-b510-4363f86d6c02"
+                      LastKnownName="vector&lt;Portfolio&gt;"
                       LastKnownLocation="Modelisation.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -2468,7 +2469,7 @@
           </operation>
           <operation
             Id="76bdd438-ff6e-43d8-b7ed-b848c9fa894b"
-            name="savePortefolios"
+            name="savePortfolios"
             visibility="Private"
             isLeaf="false"
             isStatic="true"
@@ -2478,14 +2479,14 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="73b78195-9e91-4cba-9f62-1102c8789ef7"
-                  name="portefolios"
+                  Id="389ec265-e0f4-4e35-95b3-4b3e895dd5e9"
+                  name="portfolios"
                   direction="In"
                   isUnique="false">
                   <type_NamedElement>
                     <undefinedTypeMoniker
-                      Id="c2365dda-9bbc-4548-97da-882abd14c50b"
-                      LastKnownName="vector&lt;Portefolio&gt;"
+                      Id="5058cc7c-ee31-46c4-b510-4363f86d6c02"
+                      LastKnownName="vector&lt;Portfolio&gt;"
                       LastKnownLocation="Modelisation.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -2504,21 +2505,21 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="cf10e8e1-899f-4c02-8d23-441f5bb414f1"
-                  name="portefolio"
+                  Id="a702dec3-7e3c-44d2-8e63-dbd1bb43102e"
+                  name="portfolio"
                   direction="In"
                   isUnique="false">
                   <type_NamedElement>
                     <classMoniker
                       Id="13d45301-19e5-413e-bba7-fc81f84a3395"
-                      LastKnownName="Portefolio"
+                      LastKnownName="Portfolio"
                       LastKnownLocation="Modelisation.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="16321376-78e0-41b4-9dd1-531196abbf3d"
+                  Id="7cb62ea5-14b9-44d1-bc0b-f8ad4b541312"
                   name="reports"
                   direction="In"
                   isUnique="false">
@@ -2544,21 +2545,21 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="9a9711e1-9c76-4e45-9399-b1a1dfd089b5"
-                  name="portefolio"
+                  Id="83add99e-b4e4-4e16-b805-486e3ebc8b16"
+                  name="portfolio"
                   direction="In"
                   isUnique="false">
                   <type_NamedElement>
                     <classMoniker
                       Id="13d45301-19e5-413e-bba7-fc81f84a3395"
-                      LastKnownName="Portefolio"
+                      LastKnownName="Portfolio"
                       LastKnownLocation="Modelisation.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="1e7c534b-f129-43f4-b290-4962560ac4c5"
+                  Id="06c94a35-b583-4f43-b767-cf3454a44382"
                   name="assets"
                   direction="In"
                   isUnique="false">
@@ -3005,7 +3006,7 @@
                   <type_NamedElement>
                     <classMoniker
                       Id="13d45301-19e5-413e-bba7-fc81f84a3395"
-                      LastKnownName="Portefolio"
+                      LastKnownName="Portfolio"
                       LastKnownLocation="Modelisation.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -3103,7 +3104,7 @@
                   <type_NamedElement>
                     <classMoniker
                       Id="13d45301-19e5-413e-bba7-fc81f84a3395"
-                      LastKnownName="Portefolio"
+                      LastKnownName="Portfolio"
                       LastKnownLocation="Modelisation.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -3222,7 +3223,7 @@
                   <type_NamedElement>
                     <classMoniker
                       Id="13d45301-19e5-413e-bba7-fc81f84a3395"
-                      LastKnownName="Portefolio"
+                      LastKnownName="Portfolio"
                       LastKnownLocation="Modelisation.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -3283,7 +3284,7 @@
             <type_NamedElement>
               <classMoniker
                 Id="13d45301-19e5-413e-bba7-fc81f84a3395"
-                LastKnownName="Portefolio"
+                LastKnownName="Portfolio"
                 LastKnownLocation="Modelisation.uml" />
             </type_NamedElement>
           </property>
@@ -3313,7 +3314,7 @@
             <type_NamedElement>
               <classMoniker
                 Id="13d45301-19e5-413e-bba7-fc81f84a3395"
-                LastKnownName="Portefolio"
+                LastKnownName="Portfolio"
                 LastKnownLocation="Modelisation.uml" />
             </type_NamedElement>
           </property>
@@ -3394,7 +3395,7 @@
                   <type_NamedElement>
                     <classMoniker
                       Id="13d45301-19e5-413e-bba7-fc81f84a3395"
-                      LastKnownName="Portefolio"
+                      LastKnownName="Portfolio"
                       LastKnownLocation="Modelisation.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -3497,7 +3498,7 @@
                   <type_NamedElement>
                     <classMoniker
                       Id="13d45301-19e5-413e-bba7-fc81f84a3395"
-                      LastKnownName="Portefolio"
+                      LastKnownName="Portfolio"
                       LastKnownLocation="Modelisation.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -3720,7 +3721,7 @@
                   <type_NamedElement>
                     <classMoniker
                       Id="13d45301-19e5-413e-bba7-fc81f84a3395"
-                      LastKnownName="Portefolio"
+                      LastKnownName="Portfolio"
                       LastKnownLocation="Modelisation.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -3760,7 +3761,7 @@
                   <type_NamedElement>
                     <classMoniker
                       Id="13d45301-19e5-413e-bba7-fc81f84a3395"
-                      LastKnownName="Portefolio"
+                      LastKnownName="Portfolio"
                       LastKnownLocation="Modelisation.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -7035,6 +7036,11 @@
       <executionEvent
         Id="e4d5b73d-8a66-486e-8522-225180ae74b5"
         name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="5058cc7c-ee31-46c4-b510-4363f86d6c02"
+        name="vector&lt;Portfolio&gt;" />
     </packageHasNamedElement>
   </packagedElements>
   <primitiveType

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="50e73900-5436-4033-a40f-f292ea65f1d9" name="global" linkedPackageId="35a700fb-1363-4295-be77-d9c17d41f540" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ComponentDesigner" dslVersion="1.0.0.0" Id="50e73900-5436-4033-a40f-f292ea65f1d9" name="global" linkedPackageId="35a700fb-1363-4295-be77-d9c17d41f540" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
   <ownedCommentsInternal>
     <comment Id="40659b50-9aa5-4600-9237-9fd2aa21ba84">
       <elementDefinition Id="59c6f8a9-260d-4ffe-8ba7-532f0f651f08" />
@@ -63,7 +63,7 @@
       </class>
     </logicalClassDesignerModelHasTypes>
     <logicalClassDesignerModelHasTypes>
-      <class Id="11cdf83f-4052-42df-bb59-692ee8ea6cf5" name="Portefolio" isAbstract="false" isLeaf="false" isActiveClass="false">
+      <class Id="11cdf83f-4052-42df-bb59-692ee8ea6cf5" name="Portfolio" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="13d45301-19e5-413e-bba7-fc81f84a3395" />
         <targetEnds>
           <association Id="f627f2ee-fe27-43fa-8e84-7eeccc4bde6a" isDerived="false" sourceEndRoleName="" targetEndRoleName="assets" isLeaf="false" isAbstract="false">
@@ -129,7 +129,7 @@
             <elementDefinition Id="74169228-4f2c-4d69-88af-cb6f7f54b75f" />
           </association>
           <association Id="873503f3-0654-4ccf-bf11-ecae80dc7b7a" isDerived="false" sourceEndRoleName="" targetEndRoleName="parent" isLeaf="false" isAbstract="false">
-            <classMoniker Id="11cdf83f-4052-42df-bb59-692ee8ea6cf5" LastKnownName="Portefolio" />
+            <classMoniker Id="11cdf83f-4052-42df-bb59-692ee8ea6cf5" LastKnownName="Portfolio" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
                 <memberEnd Id="ff12e230-ff05-4b5c-9ea5-b39f534223df" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
@@ -317,16 +317,16 @@
             <elementDefinition Id="43d374b1-6016-411d-ad9b-f825cb92a812" />
             <ownedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="746a69ab-5c7d-408e-b3a1-9ad9a32d33bf" name="portefolio" direction="In" isUnique="false">
-                  <elementDefinition Id="55288c26-0e76-4f1f-a1fb-02f2dcfbc771" />
+                <parameter Id="e1140179-29a6-45c5-927f-00692aa4c401" name="portfolio" direction="In" isUnique="false">
+                  <elementDefinition Id="5fa82698-be85-465f-a995-ce5bd5179955" />
                   <type_NamedElement>
-                    <referencedTypeMoniker Id="11e09b61-cf91-4340-b2ab-6aa8093fedcb" LastKnownName="Portefolio" />
+                    <referencedTypeMoniker Id="11e09b61-cf91-4340-b2ab-6aa8093fedcb" LastKnownName="Portfolio" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="f4a5164e-5b44-4943-8a6e-1480088d6571" name="risk" direction="In" isUnique="false">
-                  <elementDefinition Id="61777e75-6716-40b1-b8d4-dc0f3a57dcbc" />
+                <parameter Id="2c7d96fb-e514-4f99-80fb-9b48959b4e11" name="risk" direction="In" isUnique="false">
+                  <elementDefinition Id="addeb695-afe4-446d-8880-004c8da63836" />
                   <type_NamedElement>
                     <referencedTypeMoniker Id="e31c3092-17da-4cb0-8390-2c6bb4a46506" LastKnownName="double" />
                   </type_NamedElement>
@@ -372,16 +372,16 @@
             <elementDefinition Id="986f9400-5d91-4111-896d-23256cc3fea2" />
             <ownedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="8879403d-f852-47e0-8893-f882a3b97f22" name="portefolio" direction="In" isUnique="false">
-                  <elementDefinition Id="e35b910a-1160-46cf-ace6-8d2fa5f510fd" />
+                <parameter Id="80cb1258-a138-44f8-b451-5eb6e3e0936f" name="portfolio" direction="In" isUnique="false">
+                  <elementDefinition Id="c8f2610a-496f-443e-844e-aa6ecff2622c" />
                   <type_NamedElement>
-                    <referencedTypeMoniker Id="11e09b61-cf91-4340-b2ab-6aa8093fedcb" LastKnownName="Portefolio" />
+                    <referencedTypeMoniker Id="11e09b61-cf91-4340-b2ab-6aa8093fedcb" LastKnownName="Portfolio" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="4ebbfde1-ff3f-4706-8c24-e0f83efc087c" name="risk" direction="In" isUnique="false">
-                  <elementDefinition Id="7cdf5cf2-76c5-450b-b05a-25fca1493150" />
+                <parameter Id="d0cd01ec-ff12-450a-9758-9e9750fd0ef2" name="risk" direction="In" isUnique="false">
+                  <elementDefinition Id="66da343e-73ae-4f8e-b450-093b10f2c41f" />
                   <type_NamedElement>
                     <referencedTypeMoniker Id="e31c3092-17da-4cb0-8390-2c6bb4a46506" LastKnownName="double" />
                   </type_NamedElement>
@@ -435,24 +435,24 @@
             <elementDefinition Id="a8b1d629-e114-4425-8724-2cbec33d0322" />
             <ownedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="39380d12-1923-4e0a-bd99-b3cb444ee867" name="portefolio" direction="In" isUnique="false">
-                  <elementDefinition Id="9e7357b8-a45a-454f-9055-6548e5051e4f" />
+                <parameter Id="eeeb06d9-e436-491a-8d70-52f264dd0f96" name="portfolio" direction="In" isUnique="false">
+                  <elementDefinition Id="ada02566-93e6-4cc1-8dcd-8526fd3fb3f9" />
                   <type_NamedElement>
-                    <referencedTypeMoniker Id="11e09b61-cf91-4340-b2ab-6aa8093fedcb" LastKnownName="Portefolio" />
+                    <referencedTypeMoniker Id="11e09b61-cf91-4340-b2ab-6aa8093fedcb" LastKnownName="Portfolio" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="05936948-b553-4dbf-ad22-c24c8bbe417d" name="risk" direction="In" isUnique="false">
-                  <elementDefinition Id="7ccdebb4-9026-447d-9730-143b017f45d1" />
+                <parameter Id="c6afcab6-810d-4dee-bd2a-53c972ff5a85" name="risk" direction="In" isUnique="false">
+                  <elementDefinition Id="ecfb3b0a-445e-4519-b814-9e7a884a5997" />
                   <type_NamedElement>
                     <referencedTypeMoniker Id="728da807-de6f-4df6-9290-58c010ea5619" LastKnownName="Double" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="1af33f6a-a707-495b-ad0b-9aedcfdd20af" name="garchModel" direction="In" isUnique="false">
-                  <elementDefinition Id="15ced82b-8934-4cf7-8f04-3c9fd43aa17e" />
+                <parameter Id="d14d37ab-814e-4594-8f43-728a200de7bd" name="garchModel" direction="In" isUnique="false">
+                  <elementDefinition Id="92a763b8-f3fc-48c3-aaa1-c2c94d7867a8" />
                   <type_NamedElement>
                     <referencedTypeMoniker Id="ec1275c4-6ccb-49ec-9dba-a8ea0eb3b8ab" LastKnownName="GarchModel" />
                   </type_NamedElement>
@@ -479,10 +479,10 @@
                 </parameter>
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="f76b6eac-36de-4e22-88b6-bd07e1ac39bd" name="portefolio" direction="In" isUnique="false">
-                  <elementDefinition Id="dc440d16-538d-4728-b5b2-54705359e9ea" />
+                <parameter Id="8e0dc48f-7f56-4b9f-8bde-3f8136479f2b" name="portfolio" direction="In" isUnique="false">
+                  <elementDefinition Id="a45ff051-5a01-4338-a39b-b249679ef6f4" />
                   <type_NamedElement>
-                    <referencedTypeMoniker Id="11e09b61-cf91-4340-b2ab-6aa8093fedcb" LastKnownName="Portefolio" />
+                    <referencedTypeMoniker Id="11e09b61-cf91-4340-b2ab-6aa8093fedcb" LastKnownName="Portfolio" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -500,10 +500,10 @@
                 </parameter>
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="2682d6e6-9dab-4448-b188-776391a7f3a4" name="portefolio" direction="In" isUnique="false">
-                  <elementDefinition Id="9eb179c1-e7e1-464f-a473-12c6c7e5ebb8" />
+                <parameter Id="56da1aad-5783-48d7-b6fb-664ad8d6fbe3" name="portfolio" direction="In" isUnique="false">
+                  <elementDefinition Id="aae140b6-d6e1-4949-9b5d-fd3df1261d4a" />
                   <type_NamedElement>
-                    <referencedTypeMoniker Id="11e09b61-cf91-4340-b2ab-6aa8093fedcb" LastKnownName="Portefolio" />
+                    <referencedTypeMoniker Id="11e09b61-cf91-4340-b2ab-6aa8093fedcb" LastKnownName="Portfolio" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -513,18 +513,18 @@
             <elementDefinition Id="24390ca3-0843-4995-be8c-4e2b48485089" />
             <ownedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="191dd50f-ddaf-406d-9d67-ac3a4970dc4f" name="portefolio" direction="In" isUnique="false">
-                  <elementDefinition Id="373f0833-4ad1-4a18-a569-8d60c01a0117" />
-                  <type_NamedElement>
-                    <referencedTypeMoniker Id="11e09b61-cf91-4340-b2ab-6aa8093fedcb" LastKnownName="Portefolio" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
                 <parameter Id="3f214d1f-dc6d-4043-b411-a437a828545c" direction="Return" isUnique="false">
                   <elementDefinition Id="5f3b4338-74ea-4614-a909-cebf01fb7b7b" />
                   <type_NamedElement>
                     <referencedTypeMoniker Id="b6c82cd8-2282-4dc1-89dd-47eaa60aa317" LastKnownName="boolean" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="9d8adb0e-d4e3-46cd-8a95-8e0b0b3d4daf" name="portfolio" direction="In" isUnique="false">
+                  <elementDefinition Id="d300868a-8365-40bf-b104-5299187371b7" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="11e09b61-cf91-4340-b2ab-6aa8093fedcb" LastKnownName="Portfolio" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -537,10 +537,10 @@
       <class Id="712c8b33-7144-4487-b3fc-e3bfbbbd412e" name="GarchModel" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="5e32c552-0e69-4a75-813e-25095b0fbc4d" />
         <ownedAttributesInternal>
-          <property Id="8381b94d-2fca-450b-9b11-5c21aabe6019" name="portefolio" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+          <property Id="8381b94d-2fca-450b-9b11-5c21aabe6019" name="portfolio" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
             <elementDefinition Id="a0f05e14-a8cb-45db-8378-7f5898769025" />
             <type_NamedElement>
-              <referencedTypeMoniker Id="8230b0c9-f185-4fa4-b39e-aa3e32ac66b8" LastKnownName="Portefolio" />
+              <referencedTypeMoniker Id="1e3aa9a8-9873-4835-ac8d-25df7460af28" LastKnownName="Portfolio" />
             </type_NamedElement>
           </property>
         </ownedAttributesInternal>
@@ -554,10 +554,10 @@
             <elementDefinition Id="bc51cdf1-20a2-40f3-b290-4ff51799e3e6" />
             <ownedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="cada9ad7-b7d7-4402-99a4-ea47105439db" name="portefolio" direction="In" isUnique="false">
-                  <elementDefinition Id="9ddd8a98-bec4-40fa-8f6d-a916ea5d4be2" />
+                <parameter Id="5fcf98ad-de69-49ea-8c0d-eaf52aba99f6" name="portfolio" direction="In" isUnique="false">
+                  <elementDefinition Id="8cef5684-ea46-4910-afa9-77429f128a29" />
                   <type_NamedElement>
-                    <referencedTypeMoniker Id="11e09b61-cf91-4340-b2ab-6aa8093fedcb" LastKnownName="Portefolio" />
+                    <referencedTypeMoniker Id="11e09b61-cf91-4340-b2ab-6aa8093fedcb" LastKnownName="Portfolio" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -679,7 +679,7 @@
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <referencedType Id="11e09b61-cf91-4340-b2ab-6aa8093fedcb" name="Portefolio" isAbstract="false" isLeaf="false" cachedFullName="Modélisation::Portefolio">
+      <referencedType Id="11e09b61-cf91-4340-b2ab-6aa8093fedcb" name="Portfolio" isAbstract="false" isLeaf="false" cachedFullName="Modélisation::Portfolio">
         <elementDefinition Id="13d45301-19e5-413e-bba7-fc81f84a3395" />
       </referencedType>
     </packageHasNamedElement>
@@ -692,10 +692,10 @@
       <class Id="2053f505-659a-4d85-aa06-d695a82ccc3b" name="VaRAlgorithm" isAbstract="true" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="4f855fed-044f-49d7-a498-b24a0b12ddf1" />
         <ownedAttributesInternal>
-          <property Id="5b1e6eff-635e-4d45-95ef-65627db0c0b3" name="portefolio" visibility="Protected" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+          <property Id="5b1e6eff-635e-4d45-95ef-65627db0c0b3" name="portfolio" visibility="Protected" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
             <elementDefinition Id="fe23586c-068c-4285-adcc-c8346b186d83" />
             <type_NamedElement>
-              <referencedTypeMoniker Id="11e09b61-cf91-4340-b2ab-6aa8093fedcb" LastKnownName="Portefolio" />
+              <referencedTypeMoniker Id="15422fa4-f2e3-4ac7-a671-2129c607506f" LastKnownName="Portfolio" />
             </type_NamedElement>
           </property>
           <property Id="a25d8510-625c-4917-9ed3-bc225fe05cd0" name="risk" visibility="Protected" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
@@ -731,16 +731,16 @@
             <elementDefinition Id="bb63d870-c1e6-4e2f-94c5-e9bdfd7d5e53" />
             <ownedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="124713dc-1498-41ca-91c0-98a096e8f1c0" name="portefolio" direction="In" isUnique="false">
-                  <elementDefinition Id="ee2c4229-1be1-4a24-be30-5e063cc5fc8f" />
+                <parameter Id="aeeac085-002e-475b-a138-58a7d46ac0c4" name="portfolio" direction="In" isUnique="false">
+                  <elementDefinition Id="804fdb68-1082-4ed1-bd2a-1c9ed620cd99" />
                   <type_NamedElement>
-                    <referencedTypeMoniker Id="11e09b61-cf91-4340-b2ab-6aa8093fedcb" LastKnownName="Portefolio" />
+                    <referencedTypeMoniker Id="11e09b61-cf91-4340-b2ab-6aa8093fedcb" LastKnownName="Portfolio" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="5052274f-3c78-45b4-873a-4f3165658dc3" name="risk" direction="In" isUnique="false">
-                  <elementDefinition Id="91308a91-343c-4688-9873-2ae8511e09d2" />
+                <parameter Id="d9b7552d-6879-46ad-80b0-9b5050dc5ef1" name="risk" direction="In" isUnique="false">
+                  <elementDefinition Id="fd0b4753-f01a-4358-825a-c306f9dc99d3" />
                   <type_NamedElement>
                     <referencedTypeMoniker Id="e31c3092-17da-4cb0-8390-2c6bb4a46506" LastKnownName="double" />
                   </type_NamedElement>
@@ -976,10 +976,10 @@
             <elementDefinition Id="642e1e96-0be6-492e-87cd-31cbdd0cd1c3" />
             <ownedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="587c9757-9bdf-4018-8caf-30813950cc57" direction="Return">
+                <parameter Id="587c9757-9bdf-4018-8caf-30813950cc57" direction="Return" isUnique="false">
                   <elementDefinition Id="a33810ad-c26d-49ca-b8c6-a483e03678f8" />
                   <type_NamedElement>
-                    <referencedTypeMoniker Id="4669adb5-8be2-41cb-af61-776d70e359e3" LastKnownName="vector&lt;Portefolio&gt;" />
+                    <referencedTypeMoniker Id="e3d01bf2-5006-4bb3-864c-e2b9e098118a" LastKnownName="vector&lt;Portfolio&gt;" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -989,18 +989,18 @@
             <elementDefinition Id="9c266c8f-4842-4ed5-be4e-63023a0383d2" />
             <ownedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="e5fc2943-82e0-4307-acfb-89b03b0bdbb7" name="portefolio" direction="In" isUnique="false">
-                  <elementDefinition Id="1f5ef754-4031-4ed3-974f-bbd879ae4116" />
-                  <type_NamedElement>
-                    <referencedTypeMoniker Id="11e09b61-cf91-4340-b2ab-6aa8093fedcb" LastKnownName="Portefolio" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
                 <parameter Id="b0f75f46-283c-49a7-9f16-ec2c05e6840b" direction="Return" isUnique="false">
                   <elementDefinition Id="62610335-3f58-4f6b-b44f-8710b471bd40" />
                   <type_NamedElement>
                     <referencedTypeMoniker Id="29077617-6664-431d-a9b4-a64b325ed990" LastKnownName="vector&lt;Report&gt;" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="34a43e61-2ebe-4caa-9430-1104df87b1d1" name="portfolio" direction="In" isUnique="false">
+                  <elementDefinition Id="355e5760-30da-4a9d-8ae8-f7132b86890a" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="11e09b61-cf91-4340-b2ab-6aa8093fedcb" LastKnownName="Portfolio" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -1019,14 +1019,14 @@
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
-          <operation Id="0bf797bd-9234-4478-b9fd-fdee985c3649" name="buildPortefolios" visibility="Private" isLeaf="false" isStatic="true" isAbstract="false" concurrency="Sequential" isQuery="false">
+          <operation Id="0bf797bd-9234-4478-b9fd-fdee985c3649" name="buildPortfolios" visibility="Private" isLeaf="false" isStatic="true" isAbstract="false" concurrency="Sequential" isQuery="false">
             <elementDefinition Id="f41aba50-fe95-41e1-97d6-f67146ccaefe" />
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter Id="8f03c898-2be1-4a07-9107-6d00ff10df7f" direction="Return" isUnique="false">
                   <elementDefinition Id="6f0bdff1-5c1b-47ae-ba63-dc71c427a01a" />
                   <type_NamedElement>
-                    <referencedTypeMoniker Id="4669adb5-8be2-41cb-af61-776d70e359e3" LastKnownName="vector&lt;Portefolio&gt;" />
+                    <referencedTypeMoniker Id="e3d01bf2-5006-4bb3-864c-e2b9e098118a" LastKnownName="vector&lt;Portfolio&gt;" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -1111,11 +1111,6 @@
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <referencedType Id="8230b0c9-f185-4fa4-b39e-aa3e32ac66b8" name="Portefolio" isAbstract="false" isLeaf="false" cachedFullName="Modélisation::Portefolio">
-        <elementDefinition Id="13d45301-19e5-413e-bba7-fc81f84a3395" />
-      </referencedType>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
       <referencedType Id="f2dcb889-17a1-4bac-aaee-2b390d73e2fc" name="LibHaruHandler" isAbstract="false" isLeaf="false" cachedFullName="LibHaruHandler">
         <elementDefinition Id="97a78aad-159b-4693-ab7f-749cf9069cb9" />
       </referencedType>
@@ -1157,23 +1152,23 @@
             <elementDefinition Id="694c2ade-663d-43ad-b2c0-df8b8e32c4b5" />
             <ownedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="93e06eb4-726a-4581-99b5-6fd3b3be25b2" name="portefolios" direction="In" isUnique="false">
-                  <elementDefinition Id="5b17686d-da4d-48ae-a649-611f50991496" />
+                <parameter Id="6bddb068-4ed5-4534-875a-255210d4999f" name="portfolios" direction="In" isUnique="false">
+                  <elementDefinition Id="609c9301-8351-432e-a078-cfc2e413bd16" />
                   <type_NamedElement>
-                    <referencedTypeMoniker Id="4669adb5-8be2-41cb-af61-776d70e359e3" LastKnownName="vector&lt;Portefolio&gt;" />
+                    <referencedTypeMoniker Id="e3d01bf2-5006-4bb3-864c-e2b9e098118a" LastKnownName="vector&lt;Portfolio&gt;" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
-          <operation Id="38997436-536a-4fc9-92d9-74b1ed233c03" name="savePortefolios" visibility="Private" isLeaf="false" isStatic="true" isAbstract="false" concurrency="Sequential" isQuery="false">
+          <operation Id="38997436-536a-4fc9-92d9-74b1ed233c03" name="savePortfolios" visibility="Private" isLeaf="false" isStatic="true" isAbstract="false" concurrency="Sequential" isQuery="false">
             <elementDefinition Id="76bdd438-ff6e-43d8-b7ed-b848c9fa894b" />
             <ownedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="8058f0fa-b74c-4c65-9fc0-2fb1c5aed330" name="portefolios" direction="In" isUnique="false">
-                  <elementDefinition Id="73b78195-9e91-4cba-9f62-1102c8789ef7" />
+                <parameter Id="87924074-340d-4195-99c1-14f6a8925b92" name="portfolios" direction="In" isUnique="false">
+                  <elementDefinition Id="389ec265-e0f4-4e35-95b3-4b3e895dd5e9" />
                   <type_NamedElement>
-                    <referencedTypeMoniker Id="4669adb5-8be2-41cb-af61-776d70e359e3" LastKnownName="vector&lt;Portefolio&gt;" />
+                    <referencedTypeMoniker Id="e3d01bf2-5006-4bb3-864c-e2b9e098118a" LastKnownName="vector&lt;Portfolio&gt;" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -1183,16 +1178,16 @@
             <elementDefinition Id="19ac6339-65fa-4f6d-bd43-002b23f7c91e" />
             <ownedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="91548169-1f42-4eb8-976c-9a048e4a50a0" name="portefolio" direction="In" isUnique="false">
-                  <elementDefinition Id="cf10e8e1-899f-4c02-8d23-441f5bb414f1" />
+                <parameter Id="d4eda09e-2a27-47ff-941f-057348cd6b68" name="portfolio" direction="In" isUnique="false">
+                  <elementDefinition Id="a702dec3-7e3c-44d2-8e63-dbd1bb43102e" />
                   <type_NamedElement>
-                    <referencedTypeMoniker Id="11e09b61-cf91-4340-b2ab-6aa8093fedcb" LastKnownName="Portefolio" />
+                    <referencedTypeMoniker Id="11e09b61-cf91-4340-b2ab-6aa8093fedcb" LastKnownName="Portfolio" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="6c02add3-6d92-4812-a3cf-2a2070f8ca6e" name="reports" direction="In" isUnique="false">
-                  <elementDefinition Id="16321376-78e0-41b4-9dd1-531196abbf3d" />
+                <parameter Id="1e3cda7e-5c1c-4bfa-bbdc-e08d37d52117" name="reports" direction="In" isUnique="false">
+                  <elementDefinition Id="7cb62ea5-14b9-44d1-bc0b-f8ad4b541312" />
                   <type_NamedElement>
                     <referencedTypeMoniker Id="29077617-6664-431d-a9b4-a64b325ed990" LastKnownName="vector&lt;Report&gt;" />
                   </type_NamedElement>
@@ -1204,16 +1199,16 @@
             <elementDefinition Id="12dc4b09-7fec-44dc-9f26-18974a4b7df1" />
             <ownedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="08c38f27-55f0-43a2-97d7-6f843e261ddc" name="portefolio" direction="In" isUnique="false">
-                  <elementDefinition Id="9a9711e1-9c76-4e45-9399-b1a1dfd089b5" />
+                <parameter Id="d9ac0db4-b42e-43b8-8b2f-3d03049b4b14" name="portfolio" direction="In" isUnique="false">
+                  <elementDefinition Id="83add99e-b4e4-4e16-b805-486e3ebc8b16" />
                   <type_NamedElement>
-                    <referencedTypeMoniker Id="11e09b61-cf91-4340-b2ab-6aa8093fedcb" LastKnownName="Portefolio" />
+                    <referencedTypeMoniker Id="11e09b61-cf91-4340-b2ab-6aa8093fedcb" LastKnownName="Portfolio" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="29c93d1c-dd9d-4589-8d7c-c45276d04ca9" name="assets" direction="In" isUnique="false">
-                  <elementDefinition Id="1e7c534b-f129-43f4-b290-4962560ac4c5" />
+                <parameter Id="53aedd0d-a8b1-44b3-a278-1e3d64ebbd9e" name="assets" direction="In" isUnique="false">
+                  <elementDefinition Id="06c94a35-b583-4f43-b767-cf3454a44382" />
                   <type_NamedElement>
                     <referencedTypeMoniker Id="7b81aa57-a5ca-449a-9be3-3ae45301d44d" LastKnownName="vector&lt;Asset&gt;" />
                   </type_NamedElement>
@@ -1225,11 +1220,6 @@
       </class>
     </logicalClassDesignerModelHasTypes>
     <packageHasNamedElement>
-      <referencedType Id="4669adb5-8be2-41cb-af61-776d70e359e3" name="vector&lt;Portefolio&gt;" isAbstract="false" isLeaf="false" cachedFullName="vector&lt;Portefolio&gt;">
-        <elementDefinition Id="c2365dda-9bbc-4548-97da-882abd14c50b" />
-      </referencedType>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
       <referencedType Id="29077617-6664-431d-a9b4-a64b325ed990" name="vector&lt;Report&gt;" isAbstract="false" isLeaf="false" cachedFullName="vector&lt;Report&gt;">
         <elementDefinition Id="b8d7fa63-46e3-42dc-9173-bc076cafc0d2" />
       </referencedType>
@@ -1239,22 +1229,23 @@
         <elementDefinition Id="b0b07e8e-fa37-4fb6-a303-99216d252e9e" />
       </referencedType>
     </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="e3d01bf2-5006-4bb3-864c-e2b9e098118a" name="vector&lt;Portfolio&gt;" isAbstract="false" isLeaf="false" cachedFullName="vector&lt;Portfolio&gt;">
+        <elementDefinition Id="5058cc7c-ee31-46c4-b510-4363f86d6c02" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="15422fa4-f2e3-4ac7-a671-2129c607506f" name="Portfolio" isAbstract="false" isLeaf="false" cachedFullName="Modélisation::Portfolio">
+        <elementDefinition Id="13d45301-19e5-413e-bba7-fc81f84a3395" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="1e3aa9a8-9873-4835-ac8d-25df7460af28" name="Portfolio" isAbstract="false" isLeaf="false" cachedFullName="Modélisation::Portfolio">
+        <elementDefinition Id="13d45301-19e5-413e-bba7-fc81f84a3395" />
+      </referencedType>
+    </packageHasNamedElement>
   </packagedElements>
   <package Id="35a700fb-1363-4295-be77-d9c17d41f540" name="Modélisation">
     <elementDefinition Id="6748ac93-17b7-47ba-bdb0-a21deeb096c6" />
-    <profileInstances>
-      <packageHasProfileInstances Id="eb5886f7-0f09-4c66-a2e5-d8aede8dc23a">
-        <profileInstance Id="4d2845c8-ce89-40a9-ae78-17095e644781" name="StandardProfileL2">
-          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
-        </profileInstance>
-        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
-      </packageHasProfileInstances>
-      <packageHasProfileInstances Id="5c0452df-c39f-4658-84c8-30ad7261fd23">
-        <profileInstance Id="21573a94-3118-43eb-9151-3580fa1ca9c4" name="StandardProfileL3">
-          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
-        </profileInstance>
-        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
-      </packageHasProfileInstances>
-    </profileInstances>
   </package>
 </logicalClassDesignerModel>
