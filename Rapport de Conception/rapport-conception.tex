@@ -242,8 +242,8 @@ Nous utiliserons un patron de conception \textit{Stratégie} (présenté en figu
 
 Les trois stratégies prennent en entrée un portefeuille, un niveau de risque et un horizon de temps.
 Cependant, la méthode avec modélisation GARCH prend aussi en entrée le modèle GARCH.
-En effet, nous avons choisi d'externaliser l'estimation du modèle GARCH pour faciliter d'autres opérations (voir Backtesting avec modèle GARCH en \ref{backtesting-modele-garch}).
-La stratégie avec modélisation GARCH pourra donc être instanciée avec différents modèles GARCH.
+En effet, nous avons choisi d'externaliser l'estimation du modèle GARCH.
+Cela permettra de ne pas avoir à le calculer une nouvelle fois si on désire uniquement changer le risque de la stratégie.
 
 Toutes les stratégies seront instanciées pour un certain portefeuille et un certain niveau de risque.
 L'horizon de temps sera quant à lui passé en argument de la méthode de calcul, toujours pour faciliter le backtesting.
@@ -373,15 +373,15 @@ Nous utiliserons la classe \textit{QVariant} de Qt à cet effet.
 \section{\'Etudes de cas}
 
 \subsection{Création d'un portefeuille}
+
 Un portefeuille peut être créé à partir de zéro ou en modifiant un autre portefeuille.
 Dans les deux cas, l'utilisateur doit choisir les actifs à ajouter (et/ou à supprimer dans le second cas).
 
 La figure \ref{fig:diagramme-sequence-creation-portefeuille} présente le diagramme de séquence de cette création.
-% TODO Add a few comments on the conclusion from this diagram maybe?
 
 \begin{figure}
   	\center
-  	\includegraphics[width=1\textwidth]{diagSeqPortfolio.png}
+  	\includegraphics[width=1\textwidth]{diagramme-sequence-portfolio.png}
   	\caption{Diagramme de séquence de la création d'un portefeuille}
     \label{fig:diagramme-sequence-creation-portefeuille}
 \end{figure}
@@ -394,9 +394,11 @@ Ce dernier s'obtient par la méthode \textit{getGarchModel} qui prend le portefe
 Cette modélisation est ensuite utilisée par la classe \textit{VaRGarch} pour effectuer le calcul de la Value-at-Risk.
 La figure \ref{fig:diagramme-sequence-var-garch} détaille ces opérations.
 
+Nous pouvons remarquer que la classe utilitaire se charge d'instancier l'objet \textit{ModelGarch} après avoir fait appel au script R.
+
 \begin{figure}
   	\center
-  	\includegraphics[width=1\textwidth]{diagSeqGarch.png}
+  	\includegraphics[width=1\textwidth]{diagramme-sequence-vargarch.png}
   	\caption{Diagramme de séquence du calcul de la Value-at-Risk par GARCH}
     \label{fig:diagramme-sequence-var-garch}
 \end{figure}
@@ -405,14 +407,14 @@ La figure \ref{fig:diagramme-sequence-var-garch} détaille ces opérations.
 \subsection{Backtesting avec modèle GARCH}
 \label{backtesting-modele-garch}
 
-Un objet \textit{Backtesting} est instancié avec les attributs suivants : la classe de calcul de la Value-at-Risk, le portefeuille, la période de temps sur laquelle les tests doivent s'effectuer, le risque associé à la Value-at-Risk et son horizon de temps.
-Cet objet possède une méthode \textit{backtest} qui effectue le backtesting.
-Cette méthode fait un appel itératif au calcul de la Value-at-Risk selon la méthode correspondante sur chacun des jours de la période fixée.
+Un objet \textit{Backtesting} est instancié avec les attributs suivants : la classe de calcul de la Value-at-Risk, le portefeuille et la période de temps sur laquelle les tests doivent s'effectuer.
+Cet objet possède une méthode \textit{compute} qui effectue le backtesting.
+Cette dernière appelle la méthode de calcul de la Value-at-Risk pour chacun des jours de la période fixée.
 La figure \ref{fig:diagramme-sequence-backtesting-garch} détaille ces opérations.
 
 \begin{figure}
 	\center
-	\includegraphics[scale=0.8]{diagramme_sequence_backtesting.png}
+	\includegraphics[scale=0.8]{diagramme-sequence-backtesting.png}
     \caption{Diagramme de séquence du Backtesting avec méthode GARCH}
     \label{fig:diagramme-sequence-backtesting-garch}
 \end{figure}

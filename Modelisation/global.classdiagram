@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="50e73900-5436-4033-a40f-f292ea65f1d9" name="global" linkedPackageId="35a700fb-1363-4295-be77-d9c17d41f540" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" dslVersion="1.0.0.0" Id="50e73900-5436-4033-a40f-f292ea65f1d9" name="global" linkedPackageId="35a700fb-1363-4295-be77-d9c17d41f540" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
   <ownedCommentsInternal>
     <comment Id="40659b50-9aa5-4600-9237-9fd2aa21ba84">
       <elementDefinition Id="59c6f8a9-260d-4ffe-8ba7-532f0f651f08" />
@@ -554,10 +554,26 @@
             <elementDefinition Id="bc51cdf1-20a2-40f3-b290-4ff51799e3e6" />
             <ownedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="5fcf98ad-de69-49ea-8c0d-eaf52aba99f6" name="portfolio" direction="In" isUnique="false">
-                  <elementDefinition Id="8cef5684-ea46-4910-afa9-77429f128a29" />
+                <parameter Id="ffe73275-b26d-4751-a506-c2f7ae6776f8" name="portfolio" direction="In" isUnique="false">
+                  <elementDefinition Id="d80e727f-253a-479b-ae9f-7acb1048af1c" />
                   <type_NamedElement>
                     <referencedTypeMoniker Id="11e09b61-cf91-4340-b2ab-6aa8093fedcb" LastKnownName="Portfolio" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="6211ff0b-7520-46bd-96a1-5e64445776d6" name="varAlgo" direction="In" isUnique="false">
+                  <elementDefinition Id="d21709fa-9355-420b-9718-8b483aba710b" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="c1b2d977-7a23-406f-a50e-6b97c2553b88" LastKnownName="VaRAlgorithm" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="1541d7ac-e8b0-4927-8f57-19c5b18f2c20" name="backtestperiod" direction="In" isUnique="false">
+                  <elementDefinition Id="2eb195cc-42d1-4c4e-af28-d65bb0333ca4" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="60118f5b-c927-48b9-9652-9c1804f29de8" LastKnownName="Tuple&lt;Date&gt;" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -1190,6 +1206,16 @@
     <packageHasNamedElement>
       <referencedType Id="1e3aa9a8-9873-4835-ac8d-25df7460af28" name="Portfolio" isAbstract="false" isLeaf="false" cachedFullName="Modélisation::Portfolio">
         <elementDefinition Id="13d45301-19e5-413e-bba7-fc81f84a3395" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="c1b2d977-7a23-406f-a50e-6b97c2553b88" name="VaRAlgorithm" isAbstract="false" isLeaf="false" cachedFullName="Modélisation::VaRAlgorithm">
+        <elementDefinition Id="fbaf3722-a089-4b6f-a644-f73c74ccc699" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="60118f5b-c927-48b9-9652-9c1804f29de8" name="Tuple&lt;Date&gt;" isAbstract="false" isLeaf="false" cachedFullName="Tuple&lt;Date&gt;">
+        <elementDefinition Id="19df1b23-5c19-4e53-83a4-3804f53b703e" />
       </referencedType>
     </packageHasNamedElement>
   </packagedElements>

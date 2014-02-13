@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ComponentDesigner"
+<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner"
   dslVersion="1.0.0.0"
   Id="6748ac93-17b7-47ba-bdb0-a21deeb096c6"
   name="Modélisation" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
@@ -1260,7 +1260,7 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="8cef5684-ea46-4910-afa9-77429f128a29"
+                  Id="d80e727f-253a-479b-ae9f-7acb1048af1c"
                   name="portfolio"
                   direction="In"
                   isUnique="false">
@@ -1268,6 +1268,34 @@
                     <classMoniker
                       Id="13d45301-19e5-413e-bba7-fc81f84a3395"
                       LastKnownName="Portfolio"
+                      LastKnownLocation="Modelisation.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="d21709fa-9355-420b-9718-8b483aba710b"
+                  name="varAlgo"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="fbaf3722-a089-4b6f-a644-f73c74ccc699"
+                      LastKnownName="VaRAlgorithm"
+                      LastKnownLocation="Modelisation.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="2eb195cc-42d1-4c4e-af28-d65bb0333ca4"
+                  name="backtestperiod"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="19df1b23-5c19-4e53-83a4-3804f53b703e"
+                      LastKnownName="Tuple&lt;Date&gt;"
                       LastKnownLocation="Modelisation.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -3829,252 +3857,338 @@
         isAbstract="false"
         isLeaf="false"
         isReentrant="false">
+        <ownedCommentsInternal>
+          <comment
+            Id="b48615d6-bf4e-44b8-9016-df69504b113b">
+            <body>Calcul de la VaR.</body>
+            <annotatedElements>
+              <behaviorExecutionSpecificationMoniker
+                Id="accea89c-4c3c-40bd-9a8e-fdece514e702"
+                LastKnownName="BehaviorExecutionSpecification14"
+                LastKnownLocation="Modelisation.uml" />
+            </annotatedElements>
+          </comment>
+        </ownedCommentsInternal>
         <fragments>
           <behaviorExecutionSpecification
-            Id="b8b2ce68-bdf8-47e9-8d88-f46ff979e15c"
+            Id="7151623b-c828-4ffe-9269-803d666faf23"
             name="BehaviorExecutionSpecification12">
             <coveredLifelines>
               <lifelineMoniker
-                Id="c5aab5df-961d-4fd7-a896-ab66b21ab5d5"
-                LastKnownName="r : ProjetVaR::R"
+                Id="63f5f33d-d619-4f3f-80f7-2fc9216c61bb"
+                LastKnownName="backtesting : Backtesting"
                 LastKnownLocation="Modelisation.uml" />
             </coveredLifelines>
             <finish>
               <executionOccurrenceSpecificationMoniker
-                Id="4f78530f-7be5-4b07-ae37-af940c1170f3"
+                Id="bcd85d7d-ef50-4e01-8b96-e7b71504e559"
                 LastKnownName="ExecutionOccurrenceSpecification24"
                 LastKnownLocation="Modelisation.uml" />
             </finish>
             <start>
               <executionOccurrenceSpecificationMoniker
-                Id="a3bfb7d1-e278-49b5-9f79-3d9626868b85"
+                Id="783d6d7c-ba5f-4883-9435-f71004b9f176"
                 LastKnownName="ExecutionOccurrenceSpecification23"
                 LastKnownLocation="Modelisation.uml" />
             </start>
             <nestedOccurrences>
               <messageOccurrenceSpecificationMoniker
-                Id="45398781-f413-40e2-a1a0-a9cd42f4c22e"
+                Id="87c63ef2-5d60-4f84-9f63-7a3094da3417"
                 LastKnownName="MessageOccurrenceSpecification38"
                 LastKnownLocation="Modelisation.uml" />
               <messageOccurrenceSpecificationMoniker
-                Id="7d2c2b7f-39a1-4d90-a04c-bf60966e49ae"
+                Id="331d6792-42f5-4b79-9215-12013592b269"
                 LastKnownName="MessageOccurrenceSpecification39"
                 LastKnownLocation="Modelisation.uml" />
             </nestedOccurrences>
           </behaviorExecutionSpecification>
           <executionOccurrenceSpecification
-            Id="a3bfb7d1-e278-49b5-9f79-3d9626868b85"
+            Id="783d6d7c-ba5f-4883-9435-f71004b9f176"
             name="ExecutionOccurrenceSpecification23">
             <event>
               <executionOccurrenceSpecificationReferencesEvent>
                 <executionEventMoniker
-                  Id="1039a2bf-7345-44fe-9715-d422bdf5d2ff"
+                  Id="7cc12714-a293-46ab-aa39-15e7dac6aaab"
                   LastKnownName="ExecutionEvent"
                   LastKnownLocation="Modelisation.uml" />
               </executionOccurrenceSpecificationReferencesEvent>
             </event>
             <covered>
               <lifelineMoniker
-                Id="c5aab5df-961d-4fd7-a896-ab66b21ab5d5"
-                LastKnownName="r : ProjetVaR::R"
+                Id="63f5f33d-d619-4f3f-80f7-2fc9216c61bb"
+                LastKnownName="backtesting : Backtesting"
                 LastKnownLocation="Modelisation.uml" />
             </covered>
           </executionOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="487b7746-0391-426b-a1cd-c4a2b2f8fbd0"
-            name="MessageOccurrenceSpecification37">
-            <covered>
-              <lifelineMoniker
-                Id="63f5f33d-d619-4f3f-80f7-2fc9216c61bb"
-                LastKnownName="backtesting : ProjetVaR::Backtesting"
-                LastKnownLocation="Modelisation.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="45398781-f413-40e2-a1a0-a9cd42f4c22e"
+            Id="87c63ef2-5d60-4f84-9f63-7a3094da3417"
             name="MessageOccurrenceSpecification38">
             <covered>
               <lifelineMoniker
-                Id="c5aab5df-961d-4fd7-a896-ab66b21ab5d5"
-                LastKnownName="r : ProjetVaR::R"
+                Id="63f5f33d-d619-4f3f-80f7-2fc9216c61bb"
+                LastKnownName="backtesting : Backtesting"
                 LastKnownLocation="Modelisation.uml" />
             </covered>
           </messageOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="7d2c2b7f-39a1-4d90-a04c-bf60966e49ae"
-            name="MessageOccurrenceSpecification39">
+            Id="7005145b-3c22-419f-b9f4-0d745c0601bb"
+            name="MessageOccurrenceSpecification37">
             <covered>
               <lifelineMoniker
-                Id="c5aab5df-961d-4fd7-a896-ab66b21ab5d5"
-                LastKnownName="r : ProjetVaR::R"
+                Id="ca3af51b-e7da-41cf-b011-ee9e014d25c9"
+                LastKnownName="Context"
                 LastKnownLocation="Modelisation.uml" />
             </covered>
           </messageOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="ddba2632-8ae5-4ad9-995a-359677847758"
+            Id="e94fcb6d-72c5-4b85-9e64-6c0c20fabd7d"
             name="MessageOccurrenceSpecification40">
             <covered>
               <lifelineMoniker
+                Id="ca3af51b-e7da-41cf-b011-ee9e014d25c9"
+                LastKnownName="Context"
+                LastKnownLocation="Modelisation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="331d6792-42f5-4b79-9215-12013592b269"
+            name="MessageOccurrenceSpecification39">
+            <covered>
+              <lifelineMoniker
                 Id="63f5f33d-d619-4f3f-80f7-2fc9216c61bb"
-                LastKnownName="backtesting : ProjetVaR::Backtesting"
+                LastKnownName="backtesting : Backtesting"
                 LastKnownLocation="Modelisation.uml" />
             </covered>
           </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
-            Id="4f78530f-7be5-4b07-ae37-af940c1170f3"
+            Id="bcd85d7d-ef50-4e01-8b96-e7b71504e559"
             name="ExecutionOccurrenceSpecification24">
             <event>
               <executionOccurrenceSpecificationReferencesEvent>
                 <executionEventMoniker
-                  Id="ad601f59-e47e-4c7d-bb7f-0965cf3445db"
+                  Id="6ccab9b8-0e80-4aa0-be25-b7468d7d00d1"
                   LastKnownName="ExecutionEvent"
                   LastKnownLocation="Modelisation.uml" />
               </executionOccurrenceSpecificationReferencesEvent>
             </event>
             <covered>
               <lifelineMoniker
-                Id="c5aab5df-961d-4fd7-a896-ab66b21ab5d5"
-                LastKnownName="r : ProjetVaR::R"
+                Id="63f5f33d-d619-4f3f-80f7-2fc9216c61bb"
+                LastKnownName="backtesting : Backtesting"
                 LastKnownLocation="Modelisation.uml" />
             </covered>
           </executionOccurrenceSpecification>
+          <behaviorExecutionSpecification
+            Id="1ed35dfa-91fe-4cc9-89be-8543cc879a7d"
+            name="BehaviorExecutionSpecification13">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="63f5f33d-d619-4f3f-80f7-2fc9216c61bb"
+                LastKnownName="backtesting : Backtesting"
+                LastKnownLocation="Modelisation.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="a0dd5410-2207-41a8-b7cd-0549fa4d0577"
+                LastKnownName="ExecutionOccurrenceSpecification26"
+                LastKnownLocation="Modelisation.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="c66e2fed-3296-4bb1-8202-366d44303ee2"
+                LastKnownName="ExecutionOccurrenceSpecification25"
+                LastKnownLocation="Modelisation.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="9360e123-0ed5-4a22-8858-ac8d908916bb"
+                LastKnownName="MessageOccurrenceSpecification42"
+                LastKnownLocation="Modelisation.uml" />
+              <operandOccurrenceSpecificationMoniker
+                Id="ca80cb0b-582d-4c43-8cc3-3da602fb9c83"
+                LastKnownName="OperandOccurrenceSpecification17"
+                LastKnownLocation="Modelisation.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="b426d0d0-fd0e-476c-92ea-85791dc65d64"
+                LastKnownName="MessageOccurrenceSpecification45"
+                LastKnownLocation="Modelisation.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="d91805fa-b12c-41f0-992a-e2d12d83076b"
+                LastKnownName="MessageOccurrenceSpecification48"
+                LastKnownLocation="Modelisation.uml" />
+              <operandOccurrenceSpecificationMoniker
+                Id="c1861ff3-db2b-4bf6-9521-aaa71f7e37e3"
+                LastKnownName="OperandOccurrenceSpecification18"
+                LastKnownLocation="Modelisation.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="88b430df-782d-4139-8e13-6e895a999670"
+                LastKnownName="MessageOccurrenceSpecification43"
+                LastKnownLocation="Modelisation.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="c66e2fed-3296-4bb1-8202-366d44303ee2"
+            name="ExecutionOccurrenceSpecification25">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="4845711d-c4f5-4a6f-bc50-bc160119758b"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Modelisation.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="63f5f33d-d619-4f3f-80f7-2fc9216c61bb"
+                LastKnownName="backtesting : Backtesting"
+                LastKnownLocation="Modelisation.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="5a02d536-6297-4cd1-b268-6b0cae65a27b"
+            name="MessageOccurrenceSpecification41">
+            <covered>
+              <lifelineMoniker
+                Id="ca3af51b-e7da-41cf-b011-ee9e014d25c9"
+                LastKnownName="Context"
+                LastKnownLocation="Modelisation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="9360e123-0ed5-4a22-8858-ac8d908916bb"
+            name="MessageOccurrenceSpecification42">
+            <covered>
+              <lifelineMoniker
+                Id="63f5f33d-d619-4f3f-80f7-2fc9216c61bb"
+                LastKnownName="backtesting : Backtesting"
+                LastKnownLocation="Modelisation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
           <combinedFragment
-            Id="aa599f1c-c510-4db2-afc9-24e7ec6a4c85"
+            Id="7fc0708f-f5ae-4b64-94b8-a871eeaf7d2a"
             name="CombinedFragment1"
             interactionOperator="Loop">
             <coveredLifelines>
               <lifelineMoniker
                 Id="63f5f33d-d619-4f3f-80f7-2fc9216c61bb"
-                LastKnownName="backtesting : ProjetVaR::Backtesting"
+                LastKnownName="backtesting : Backtesting"
                 LastKnownLocation="Modelisation.uml" />
               <lifelineMoniker
                 Id="def64067-66df-4aa1-ade1-33fbdc2c3c18"
-                LastKnownName="vaRGarch : ProjetVaR::VaRGarch"
+                LastKnownName="vaRGarch : VaRGarch"
                 LastKnownLocation="Modelisation.uml" />
             </coveredLifelines>
             <operands>
               <interactionOperand
-                Id="254b9f73-9fa9-4e45-b658-34a75a424059"
+                Id="4affb236-4e31-42fd-b4ba-77b0d35bf3c0"
                 name="InteractionOperand1">
                 <coveredLifelines>
                   <lifelineMoniker
                     Id="63f5f33d-d619-4f3f-80f7-2fc9216c61bb"
-                    LastKnownName="backtesting : ProjetVaR::Backtesting"
+                    LastKnownName="backtesting : Backtesting"
                     LastKnownLocation="Modelisation.uml" />
                   <lifelineMoniker
                     Id="def64067-66df-4aa1-ade1-33fbdc2c3c18"
-                    LastKnownName="vaRGarch : ProjetVaR::VaRGarch"
+                    LastKnownName="vaRGarch : VaRGarch"
                     LastKnownLocation="Modelisation.uml" />
                 </coveredLifelines>
                 <guard>
                   <interactionConstraint
-                    Id="c93d0ed3-db3a-4ebe-a861-b417a98fca20">
+                    Id="f4627287-1a58-42f6-ba73-b31a40de26b5">
                     <maxInt>
                       <literalString
-                        Id="82346684-048c-47f6-9a15-9123f2fc8b0c"
+                        Id="239e4e06-9f62-498c-9f93-9687eb847020"
                         name="LiteralString1"
-                        value="backtestPeriod" />
+                        value="timeHorizon in backtestperiod" />
                     </maxInt>
                     <minInt>
                       <literalString
-                        Id="16f9982e-c543-4594-9bac-159d27df74d3"
+                        Id="ed34cdac-1176-421b-974c-bf8b24f28d7a"
                         name="LiteralString2"
-                        value="backtestPeriod" />
+                        value="timeHorizon in backtestperiod" />
                     </minInt>
                   </interactionConstraint>
                 </guard>
                 <operandOccurrenceSpecifications>
                   <operandOccurrenceSpecificationMoniker
-                    Id="d4e0c05d-1677-4a1f-a70a-34dc76360852"
-                    LastKnownName="OperandOccurrenceSpecification1"
+                    Id="8b97fc34-d647-4c87-bc85-6d0024d41e01"
+                    LastKnownName="OperandOccurrenceSpecification15"
                     LastKnownLocation="Modelisation.uml" />
                   <operandOccurrenceSpecificationMoniker
-                    Id="d5377dd5-9d8f-44a8-8fee-ee556ea9fa81"
-                    LastKnownName="OperandOccurrenceSpecification2"
+                    Id="9371bd49-dbb4-4650-aa61-879eb2ea320a"
+                    LastKnownName="OperandOccurrenceSpecification16"
                     LastKnownLocation="Modelisation.uml" />
                   <operandOccurrenceSpecificationMoniker
-                    Id="26950e04-5cb0-4f9a-8e11-93aced804e3e"
-                    LastKnownName="OperandOccurrenceSpecification3"
+                    Id="ca80cb0b-582d-4c43-8cc3-3da602fb9c83"
+                    LastKnownName="OperandOccurrenceSpecification17"
                     LastKnownLocation="Modelisation.uml" />
                   <operandOccurrenceSpecificationMoniker
-                    Id="d4f8ce41-abc7-49de-ab36-4c92f72844ef"
-                    LastKnownName="OperandOccurrenceSpecification4"
+                    Id="c1861ff3-db2b-4bf6-9521-aaa71f7e37e3"
+                    LastKnownName="OperandOccurrenceSpecification18"
                     LastKnownLocation="Modelisation.uml" />
                 </operandOccurrenceSpecifications>
               </interactionOperand>
             </operands>
           </combinedFragment>
           <operandOccurrenceSpecification
-            Id="26950e04-5cb0-4f9a-8e11-93aced804e3e"
-            name="OperandOccurrenceSpecification3">
+            Id="ca80cb0b-582d-4c43-8cc3-3da602fb9c83"
+            name="OperandOccurrenceSpecification17">
             <covered>
               <lifelineMoniker
-                Id="def64067-66df-4aa1-ade1-33fbdc2c3c18"
-                LastKnownName="vaRGarch : ProjetVaR::VaRGarch"
+                Id="63f5f33d-d619-4f3f-80f7-2fc9216c61bb"
+                LastKnownName="backtesting : Backtesting"
                 LastKnownLocation="Modelisation.uml" />
             </covered>
           </operandOccurrenceSpecification>
           <operandOccurrenceSpecification
-            Id="d4e0c05d-1677-4a1f-a70a-34dc76360852"
-            name="OperandOccurrenceSpecification1">
+            Id="8b97fc34-d647-4c87-bc85-6d0024d41e01"
+            name="OperandOccurrenceSpecification15">
             <covered>
               <lifelineMoniker
-                Id="63f5f33d-d619-4f3f-80f7-2fc9216c61bb"
-                LastKnownName="backtesting : ProjetVaR::Backtesting"
+                Id="def64067-66df-4aa1-ade1-33fbdc2c3c18"
+                LastKnownName="vaRGarch : VaRGarch"
                 LastKnownLocation="Modelisation.uml" />
             </covered>
           </operandOccurrenceSpecification>
           <behaviorExecutionSpecification
-            Id="1005ea60-79e3-48da-bf01-d0b9583e3861"
-            name="BehaviorExecutionSpecification11">
+            Id="accea89c-4c3c-40bd-9a8e-fdece514e702"
+            name="BehaviorExecutionSpecification14">
             <coveredLifelines>
               <lifelineMoniker
                 Id="def64067-66df-4aa1-ade1-33fbdc2c3c18"
-                LastKnownName="vaRGarch : ProjetVaR::VaRGarch"
+                LastKnownName="vaRGarch : VaRGarch"
                 LastKnownLocation="Modelisation.uml" />
             </coveredLifelines>
             <finish>
               <executionOccurrenceSpecificationMoniker
-                Id="8cc632ef-d632-46aa-a096-0f6bdde1c3b1"
-                LastKnownName="ExecutionOccurrenceSpecification22"
+                Id="09f4c501-d633-47fb-a589-e526eafc95c8"
+                LastKnownName="ExecutionOccurrenceSpecification28"
                 LastKnownLocation="Modelisation.uml" />
             </finish>
             <start>
               <executionOccurrenceSpecificationMoniker
-                Id="18c156a0-57a5-4c34-9ddb-a963c02d9529"
-                LastKnownName="ExecutionOccurrenceSpecification21"
+                Id="142dc26a-3f03-466d-b76f-32214892c6ac"
+                LastKnownName="ExecutionOccurrenceSpecification27"
                 LastKnownLocation="Modelisation.uml" />
             </start>
             <nestedOccurrences>
               <messageOccurrenceSpecificationMoniker
-                Id="5aa21181-3feb-4397-abfb-4155d87d5ee9"
-                LastKnownName="MessageOccurrenceSpecification34"
+                Id="51382c6e-dd8a-4f3d-a189-ee199fed3d6b"
+                LastKnownName="MessageOccurrenceSpecification46"
                 LastKnownLocation="Modelisation.uml" />
               <messageOccurrenceSpecificationMoniker
-                Id="ce18247a-7575-4cd0-8e23-0246bf806bd9"
-                LastKnownName="MessageOccurrenceSpecification41"
-                LastKnownLocation="Modelisation.uml" />
-              <executionOccurrenceSpecificationMoniker
-                Id="d625c43f-b4f3-4a53-a7b0-b3ad95fd7db9"
-                LastKnownName="ExecutionOccurrenceSpecification25"
-                LastKnownLocation="Modelisation.uml" />
-              <executionOccurrenceSpecificationMoniker
-                Id="6dd70eee-bf91-4d1f-8ae3-ac9789a63f6f"
-                LastKnownName="ExecutionOccurrenceSpecification26"
-                LastKnownLocation="Modelisation.uml" />
-              <messageOccurrenceSpecificationMoniker
-                Id="f8b3bf06-e50a-4bc1-9e49-e91d75bbaab5"
-                LastKnownName="MessageOccurrenceSpecification35"
+                Id="a5a6c3bd-a787-48ee-9f02-7ca99e46cb7b"
+                LastKnownName="MessageOccurrenceSpecification47"
                 LastKnownLocation="Modelisation.uml" />
             </nestedOccurrences>
           </behaviorExecutionSpecification>
           <executionOccurrenceSpecification
-            Id="18c156a0-57a5-4c34-9ddb-a963c02d9529"
-            name="ExecutionOccurrenceSpecification21">
+            Id="142dc26a-3f03-466d-b76f-32214892c6ac"
+            name="ExecutionOccurrenceSpecification27">
             <event>
               <executionOccurrenceSpecificationReferencesEvent>
                 <executionEventMoniker
-                  Id="9f3f137a-7d3e-4859-b056-158afa381a44"
+                  Id="667d4297-2a15-40e4-b4b6-d482c1968aec"
                   LastKnownName="ExecutionEvent"
                   LastKnownLocation="Modelisation.uml" />
               </executionOccurrenceSpecificationReferencesEvent>
@@ -4082,75 +4196,57 @@
             <covered>
               <lifelineMoniker
                 Id="def64067-66df-4aa1-ade1-33fbdc2c3c18"
-                LastKnownName="vaRGarch : ProjetVaR::VaRGarch"
+                LastKnownName="vaRGarch : VaRGarch"
                 LastKnownLocation="Modelisation.uml" />
             </covered>
           </executionOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="0cd728b3-b018-4d68-9009-4a7915a6d257"
-            name="MessageOccurrenceSpecification33">
+            Id="b426d0d0-fd0e-476c-92ea-85791dc65d64"
+            name="MessageOccurrenceSpecification45">
             <covered>
               <lifelineMoniker
                 Id="63f5f33d-d619-4f3f-80f7-2fc9216c61bb"
-                LastKnownName="backtesting : ProjetVaR::Backtesting"
+                LastKnownName="backtesting : Backtesting"
                 LastKnownLocation="Modelisation.uml" />
             </covered>
           </messageOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="5aa21181-3feb-4397-abfb-4155d87d5ee9"
-            name="MessageOccurrenceSpecification34">
+            Id="51382c6e-dd8a-4f3d-a189-ee199fed3d6b"
+            name="MessageOccurrenceSpecification46">
             <covered>
               <lifelineMoniker
                 Id="def64067-66df-4aa1-ade1-33fbdc2c3c18"
-                LastKnownName="vaRGarch : ProjetVaR::VaRGarch"
+                LastKnownName="vaRGarch : VaRGarch"
                 LastKnownLocation="Modelisation.uml" />
             </covered>
           </messageOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="ce18247a-7575-4cd0-8e23-0246bf806bd9"
-            name="MessageOccurrenceSpecification41">
+            Id="d91805fa-b12c-41f0-992a-e2d12d83076b"
+            name="MessageOccurrenceSpecification48">
             <covered>
               <lifelineMoniker
-                Id="def64067-66df-4aa1-ade1-33fbdc2c3c18"
-                LastKnownName="vaRGarch : ProjetVaR::VaRGarch"
+                Id="63f5f33d-d619-4f3f-80f7-2fc9216c61bb"
+                LastKnownName="backtesting : Backtesting"
                 LastKnownLocation="Modelisation.uml" />
             </covered>
           </messageOccurrenceSpecification>
-          <behaviorExecutionSpecification
-            Id="9b0c8d76-00ea-40ea-847a-ba99b3ada616"
-            name="BehaviorExecutionSpecification13">
-            <coveredLifelines>
+          <messageOccurrenceSpecification
+            Id="a5a6c3bd-a787-48ee-9f02-7ca99e46cb7b"
+            name="MessageOccurrenceSpecification47">
+            <covered>
               <lifelineMoniker
                 Id="def64067-66df-4aa1-ade1-33fbdc2c3c18"
-                LastKnownName="vaRGarch : ProjetVaR::VaRGarch"
+                LastKnownName="vaRGarch : VaRGarch"
                 LastKnownLocation="Modelisation.uml" />
-            </coveredLifelines>
-            <finish>
-              <executionOccurrenceSpecificationMoniker
-                Id="6dd70eee-bf91-4d1f-8ae3-ac9789a63f6f"
-                LastKnownName="ExecutionOccurrenceSpecification26"
-                LastKnownLocation="Modelisation.uml" />
-            </finish>
-            <start>
-              <executionOccurrenceSpecificationMoniker
-                Id="d625c43f-b4f3-4a53-a7b0-b3ad95fd7db9"
-                LastKnownName="ExecutionOccurrenceSpecification25"
-                LastKnownLocation="Modelisation.uml" />
-            </start>
-            <nestedOccurrences>
-              <messageOccurrenceSpecificationMoniker
-                Id="f6a8aaf8-abe3-41e1-9934-ef0a634e5c14"
-                LastKnownName="MessageOccurrenceSpecification42"
-                LastKnownLocation="Modelisation.uml" />
-            </nestedOccurrences>
-          </behaviorExecutionSpecification>
+            </covered>
+          </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
-            Id="d625c43f-b4f3-4a53-a7b0-b3ad95fd7db9"
-            name="ExecutionOccurrenceSpecification25">
+            Id="09f4c501-d633-47fb-a589-e526eafc95c8"
+            name="ExecutionOccurrenceSpecification28">
             <event>
               <executionOccurrenceSpecificationReferencesEvent>
                 <executionEventMoniker
-                  Id="1e177153-126d-45dd-adfe-fb3d9b571407"
+                  Id="a95f06ee-862b-4fa8-abc9-06340b6016c1"
                   LastKnownName="ExecutionEvent"
                   LastKnownLocation="Modelisation.uml" />
               </executionOccurrenceSpecificationReferencesEvent>
@@ -4158,140 +4254,128 @@
             <covered>
               <lifelineMoniker
                 Id="def64067-66df-4aa1-ade1-33fbdc2c3c18"
-                LastKnownName="vaRGarch : ProjetVaR::VaRGarch"
+                LastKnownName="vaRGarch : VaRGarch"
                 LastKnownLocation="Modelisation.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="f6a8aaf8-abe3-41e1-9934-ef0a634e5c14"
-            name="MessageOccurrenceSpecification42">
+          <operandOccurrenceSpecification
+            Id="c1861ff3-db2b-4bf6-9521-aaa71f7e37e3"
+            name="OperandOccurrenceSpecification18">
+            <covered>
+              <lifelineMoniker
+                Id="63f5f33d-d619-4f3f-80f7-2fc9216c61bb"
+                LastKnownName="backtesting : Backtesting"
+                LastKnownLocation="Modelisation.uml" />
+            </covered>
+          </operandOccurrenceSpecification>
+          <operandOccurrenceSpecification
+            Id="9371bd49-dbb4-4650-aa61-879eb2ea320a"
+            name="OperandOccurrenceSpecification16">
             <covered>
               <lifelineMoniker
                 Id="def64067-66df-4aa1-ade1-33fbdc2c3c18"
-                LastKnownName="vaRGarch : ProjetVaR::VaRGarch"
+                LastKnownName="vaRGarch : VaRGarch"
+                LastKnownLocation="Modelisation.uml" />
+            </covered>
+          </operandOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="9719b080-72bc-470a-9f95-1647511a3ca1"
+            name="MessageOccurrenceSpecification44">
+            <covered>
+              <lifelineMoniker
+                Id="ca3af51b-e7da-41cf-b011-ee9e014d25c9"
+                LastKnownName="Context"
+                LastKnownLocation="Modelisation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="88b430df-782d-4139-8e13-6e895a999670"
+            name="MessageOccurrenceSpecification43">
+            <covered>
+              <lifelineMoniker
+                Id="63f5f33d-d619-4f3f-80f7-2fc9216c61bb"
+                LastKnownName="backtesting : Backtesting"
                 LastKnownLocation="Modelisation.uml" />
             </covered>
           </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
-            Id="6dd70eee-bf91-4d1f-8ae3-ac9789a63f6f"
+            Id="a0dd5410-2207-41a8-b7cd-0549fa4d0577"
             name="ExecutionOccurrenceSpecification26">
             <event>
               <executionOccurrenceSpecificationReferencesEvent>
                 <executionEventMoniker
-                  Id="2176d931-0fb4-4261-8f46-b37db91dca9d"
+                  Id="7c4ac7d2-16e9-4ae6-a825-cb110dbc3605"
                   LastKnownName="ExecutionEvent"
                   LastKnownLocation="Modelisation.uml" />
               </executionOccurrenceSpecificationReferencesEvent>
             </event>
             <covered>
               <lifelineMoniker
-                Id="def64067-66df-4aa1-ade1-33fbdc2c3c18"
-                LastKnownName="vaRGarch : ProjetVaR::VaRGarch"
+                Id="63f5f33d-d619-4f3f-80f7-2fc9216c61bb"
+                LastKnownName="backtesting : Backtesting"
                 LastKnownLocation="Modelisation.uml" />
             </covered>
           </executionOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="f8b3bf06-e50a-4bc1-9e49-e91d75bbaab5"
-            name="MessageOccurrenceSpecification35">
-            <covered>
-              <lifelineMoniker
-                Id="def64067-66df-4aa1-ade1-33fbdc2c3c18"
-                LastKnownName="vaRGarch : ProjetVaR::VaRGarch"
-                LastKnownLocation="Modelisation.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="ac533184-c814-4d42-98b9-b4799fe8e9eb"
-            name="MessageOccurrenceSpecification36">
-            <covered>
-              <lifelineMoniker
-                Id="63f5f33d-d619-4f3f-80f7-2fc9216c61bb"
-                LastKnownName="backtesting : ProjetVaR::Backtesting"
-                LastKnownLocation="Modelisation.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <executionOccurrenceSpecification
-            Id="8cc632ef-d632-46aa-a096-0f6bdde1c3b1"
-            name="ExecutionOccurrenceSpecification22">
-            <event>
-              <executionOccurrenceSpecificationReferencesEvent>
-                <executionEventMoniker
-                  Id="b7b26ada-fc3d-47ca-b9cd-9e0c5141afe9"
-                  LastKnownName="ExecutionEvent"
-                  LastKnownLocation="Modelisation.uml" />
-              </executionOccurrenceSpecificationReferencesEvent>
-            </event>
-            <covered>
-              <lifelineMoniker
-                Id="def64067-66df-4aa1-ade1-33fbdc2c3c18"
-                LastKnownName="vaRGarch : ProjetVaR::VaRGarch"
-                LastKnownLocation="Modelisation.uml" />
-            </covered>
-          </executionOccurrenceSpecification>
-          <operandOccurrenceSpecification
-            Id="d5377dd5-9d8f-44a8-8fee-ee556ea9fa81"
-            name="OperandOccurrenceSpecification2">
-            <covered>
-              <lifelineMoniker
-                Id="63f5f33d-d619-4f3f-80f7-2fc9216c61bb"
-                LastKnownName="backtesting : ProjetVaR::Backtesting"
-                LastKnownLocation="Modelisation.uml" />
-            </covered>
-          </operandOccurrenceSpecification>
-          <operandOccurrenceSpecification
-            Id="d4f8ce41-abc7-49de-ab36-4c92f72844ef"
-            name="OperandOccurrenceSpecification4">
-            <covered>
-              <lifelineMoniker
-                Id="def64067-66df-4aa1-ade1-33fbdc2c3c18"
-                LastKnownName="vaRGarch : ProjetVaR::VaRGarch"
-                LastKnownLocation="Modelisation.uml" />
-            </covered>
-          </operandOccurrenceSpecification>
         </fragments>
         <lifelines>
           <lifeline
-            Id="63f5f33d-d619-4f3f-80f7-2fc9216c61bb"
-            name="backtesting : ProjetVaR::Backtesting"
+            Id="ca3af51b-e7da-41cf-b011-ee9e014d25c9"
+            name="Context"
             isActor="false"
-            lifelineDisplayName="backtesting : ProjetVaR::Backtesting">
+            lifelineDisplayName="Context">
+            <topLevelOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="7005145b-3c22-419f-b9f4-0d745c0601bb"
+                LastKnownName="MessageOccurrenceSpecification37"
+                LastKnownLocation="Modelisation.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="e94fcb6d-72c5-4b85-9e64-6c0c20fabd7d"
+                LastKnownName="MessageOccurrenceSpecification40"
+                LastKnownLocation="Modelisation.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="5a02d536-6297-4cd1-b268-6b0cae65a27b"
+                LastKnownName="MessageOccurrenceSpecification41"
+                LastKnownLocation="Modelisation.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="9719b080-72bc-470a-9f95-1647511a3ca1"
+                LastKnownName="MessageOccurrenceSpecification44"
+                LastKnownLocation="Modelisation.uml" />
+            </topLevelOccurrences>
+          </lifeline>
+          <lifeline
+            Id="63f5f33d-d619-4f3f-80f7-2fc9216c61bb"
+            name="backtesting : Backtesting"
+            isActor="false"
+            lifelineDisplayName="backtesting : Backtesting">
             <represents>
               <propertyMoniker
                 Id="9366fa7c-9bea-404f-8326-dd1450e569a2"
                 LastKnownLocation="Modelisation.uml" />
             </represents>
             <topLevelOccurrences>
-              <messageOccurrenceSpecificationMoniker
-                Id="487b7746-0391-426b-a1cd-c4a2b2f8fbd0"
-                LastKnownName="MessageOccurrenceSpecification37"
+              <executionOccurrenceSpecificationMoniker
+                Id="783d6d7c-ba5f-4883-9435-f71004b9f176"
+                LastKnownName="ExecutionOccurrenceSpecification23"
                 LastKnownLocation="Modelisation.uml" />
-              <messageOccurrenceSpecificationMoniker
-                Id="ddba2632-8ae5-4ad9-995a-359677847758"
-                LastKnownName="MessageOccurrenceSpecification40"
+              <executionOccurrenceSpecificationMoniker
+                Id="bcd85d7d-ef50-4e01-8b96-e7b71504e559"
+                LastKnownName="ExecutionOccurrenceSpecification24"
                 LastKnownLocation="Modelisation.uml" />
-              <operandOccurrenceSpecificationMoniker
-                Id="d4e0c05d-1677-4a1f-a70a-34dc76360852"
-                LastKnownName="OperandOccurrenceSpecification1"
+              <executionOccurrenceSpecificationMoniker
+                Id="c66e2fed-3296-4bb1-8202-366d44303ee2"
+                LastKnownName="ExecutionOccurrenceSpecification25"
                 LastKnownLocation="Modelisation.uml" />
-              <messageOccurrenceSpecificationMoniker
-                Id="0cd728b3-b018-4d68-9009-4a7915a6d257"
-                LastKnownName="MessageOccurrenceSpecification33"
-                LastKnownLocation="Modelisation.uml" />
-              <messageOccurrenceSpecificationMoniker
-                Id="ac533184-c814-4d42-98b9-b4799fe8e9eb"
-                LastKnownName="MessageOccurrenceSpecification36"
-                LastKnownLocation="Modelisation.uml" />
-              <operandOccurrenceSpecificationMoniker
-                Id="d5377dd5-9d8f-44a8-8fee-ee556ea9fa81"
-                LastKnownName="OperandOccurrenceSpecification2"
+              <executionOccurrenceSpecificationMoniker
+                Id="a0dd5410-2207-41a8-b7cd-0549fa4d0577"
+                LastKnownName="ExecutionOccurrenceSpecification26"
                 LastKnownLocation="Modelisation.uml" />
             </topLevelOccurrences>
           </lifeline>
           <lifeline
             Id="def64067-66df-4aa1-ade1-33fbdc2c3c18"
-            name="vaRGarch : ProjetVaR::VaRGarch"
+            name="vaRGarch : VaRGarch"
             isActor="false"
-            lifelineDisplayName="vaRGarch : ProjetVaR::VaRGarch">
+            lifelineDisplayName="vaRGarch : VaRGarch">
             <represents>
               <propertyMoniker
                 Id="a0391795-7903-4baf-a373-0da1dde55983"
@@ -4299,138 +4383,136 @@
             </represents>
             <topLevelOccurrences>
               <operandOccurrenceSpecificationMoniker
-                Id="26950e04-5cb0-4f9a-8e11-93aced804e3e"
-                LastKnownName="OperandOccurrenceSpecification3"
+                Id="8b97fc34-d647-4c87-bc85-6d0024d41e01"
+                LastKnownName="OperandOccurrenceSpecification15"
                 LastKnownLocation="Modelisation.uml" />
               <executionOccurrenceSpecificationMoniker
-                Id="18c156a0-57a5-4c34-9ddb-a963c02d9529"
-                LastKnownName="ExecutionOccurrenceSpecification21"
+                Id="142dc26a-3f03-466d-b76f-32214892c6ac"
+                LastKnownName="ExecutionOccurrenceSpecification27"
                 LastKnownLocation="Modelisation.uml" />
               <executionOccurrenceSpecificationMoniker
-                Id="8cc632ef-d632-46aa-a096-0f6bdde1c3b1"
-                LastKnownName="ExecutionOccurrenceSpecification22"
+                Id="09f4c501-d633-47fb-a589-e526eafc95c8"
+                LastKnownName="ExecutionOccurrenceSpecification28"
                 LastKnownLocation="Modelisation.uml" />
               <operandOccurrenceSpecificationMoniker
-                Id="d4f8ce41-abc7-49de-ab36-4c92f72844ef"
-                LastKnownName="OperandOccurrenceSpecification4"
-                LastKnownLocation="Modelisation.uml" />
-            </topLevelOccurrences>
-          </lifeline>
-          <lifeline
-            Id="c5aab5df-961d-4fd7-a896-ab66b21ab5d5"
-            name="r : ProjetVaR::R"
-            isActor="false"
-            lifelineDisplayName="r : ProjetVaR::R">
-            <represents>
-              <propertyMoniker
-                Id="b38a2d01-a983-4f75-b0a7-3b243a999504"
-                LastKnownLocation="Modelisation.uml" />
-            </represents>
-            <topLevelOccurrences>
-              <executionOccurrenceSpecificationMoniker
-                Id="a3bfb7d1-e278-49b5-9f79-3d9626868b85"
-                LastKnownName="ExecutionOccurrenceSpecification23"
-                LastKnownLocation="Modelisation.uml" />
-              <executionOccurrenceSpecificationMoniker
-                Id="4f78530f-7be5-4b07-ae37-af940c1170f3"
-                LastKnownName="ExecutionOccurrenceSpecification24"
+                Id="9371bd49-dbb4-4650-aa61-879eb2ea320a"
+                LastKnownName="OperandOccurrenceSpecification16"
                 LastKnownLocation="Modelisation.uml" />
             </topLevelOccurrences>
           </lifeline>
         </lifelines>
         <messages>
           <message
-            Id="2844348b-f217-4baf-9819-7860d45e535f"
-            name="getGarchModel(data)"
+            Id="39b45185-245f-4628-bb58-1703f88864f4"
+            name="Backtesting(portfolio, varAlgo, backtestperiod)"
             messageKind="Complete"
             messageSort="SynchCall"
             createSelfMessage="false">
             <sendEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="487b7746-0391-426b-a1cd-c4a2b2f8fbd0"
+                Id="7005145b-3c22-419f-b9f4-0d745c0601bb"
                 LastKnownName="MessageOccurrenceSpecification37"
                 LastKnownLocation="Modelisation.uml" />
             </sendEvent>
             <receiveEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="45398781-f413-40e2-a1a0-a9cd42f4c22e"
+                Id="87c63ef2-5d60-4f84-9f63-7a3094da3417"
                 LastKnownName="MessageOccurrenceSpecification38"
                 LastKnownLocation="Modelisation.uml" />
             </receiveEvent>
           </message>
           <message
-            Id="55138627-d992-4196-beb6-f0cb035845a9"
-            name="&lt;&lt;garchModel&gt;&gt;"
+            Id="bbd623d2-3be7-443f-acc4-08c09a8afa0c"
+            name="&lt;&lt;return backtesting&gt;&gt;"
             messageKind="Complete"
             messageSort="Reply"
             createSelfMessage="false">
             <sendEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="7d2c2b7f-39a1-4d90-a04c-bf60966e49ae"
+                Id="331d6792-42f5-4b79-9215-12013592b269"
                 LastKnownName="MessageOccurrenceSpecification39"
                 LastKnownLocation="Modelisation.uml" />
             </sendEvent>
             <receiveEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="ddba2632-8ae5-4ad9-995a-359677847758"
+                Id="e94fcb6d-72c5-4b85-9e64-6c0c20fabd7d"
                 LastKnownName="MessageOccurrenceSpecification40"
                 LastKnownLocation="Modelisation.uml" />
             </receiveEvent>
           </message>
           <message
-            Id="4575ad7d-abfc-4a62-8fe6-9cd763dd4d6b"
-            name="VaRGarch(data, risk, timeHorizon, garchModel)"
+            Id="306afbaf-d902-4e6b-9e2b-6084bda39e46"
+            name="compute()"
             messageKind="Complete"
             messageSort="SynchCall"
             createSelfMessage="false">
             <sendEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="0cd728b3-b018-4d68-9009-4a7915a6d257"
-                LastKnownName="MessageOccurrenceSpecification33"
-                LastKnownLocation="Modelisation.uml" />
-            </sendEvent>
-            <receiveEvent>
-              <messageOccurrenceSpecificationMoniker
-                Id="5aa21181-3feb-4397-abfb-4155d87d5ee9"
-                LastKnownName="MessageOccurrenceSpecification34"
-                LastKnownLocation="Modelisation.uml" />
-            </receiveEvent>
-          </message>
-          <message
-            Id="0ac3918d-9fb0-4e1b-ace3-b71f12839eaa"
-            name="execute()"
-            messageKind="Complete"
-            messageSort="SynchCall"
-            createSelfMessage="true">
-            <sendEvent>
-              <messageOccurrenceSpecificationMoniker
-                Id="ce18247a-7575-4cd0-8e23-0246bf806bd9"
+                Id="5a02d536-6297-4cd1-b268-6b0cae65a27b"
                 LastKnownName="MessageOccurrenceSpecification41"
                 LastKnownLocation="Modelisation.uml" />
             </sendEvent>
             <receiveEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="f6a8aaf8-abe3-41e1-9934-ef0a634e5c14"
+                Id="9360e123-0ed5-4a22-8858-ac8d908916bb"
                 LastKnownName="MessageOccurrenceSpecification42"
                 LastKnownLocation="Modelisation.uml" />
             </receiveEvent>
           </message>
           <message
-            Id="602afb61-387a-4d28-90af-3f58e4f611b2"
-            name="&lt;&lt;VaR&gt;&gt;"
+            Id="7ae0f51d-f9da-4ed8-9dfe-3c5fef02a7eb"
+            name="execute(timeHorizon)"
+            messageKind="Complete"
+            messageSort="SynchCall"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="b426d0d0-fd0e-476c-92ea-85791dc65d64"
+                LastKnownName="MessageOccurrenceSpecification45"
+                LastKnownLocation="Modelisation.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="51382c6e-dd8a-4f3d-a189-ee199fed3d6b"
+                LastKnownName="MessageOccurrenceSpecification46"
+                LastKnownLocation="Modelisation.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="d78b2712-8276-4964-9a6f-50c4f4157da1"
+            name="&lt;&lt;return VaR&gt;&gt;"
             messageKind="Complete"
             messageSort="Reply"
             createSelfMessage="false">
             <sendEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="f8b3bf06-e50a-4bc1-9e49-e91d75bbaab5"
-                LastKnownName="MessageOccurrenceSpecification35"
+                Id="a5a6c3bd-a787-48ee-9f02-7ca99e46cb7b"
+                LastKnownName="MessageOccurrenceSpecification47"
                 LastKnownLocation="Modelisation.uml" />
             </sendEvent>
             <receiveEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="ac533184-c814-4d42-98b9-b4799fe8e9eb"
-                LastKnownName="MessageOccurrenceSpecification36"
+                Id="d91805fa-b12c-41f0-992a-e2d12d83076b"
+                LastKnownName="MessageOccurrenceSpecification48"
+                LastKnownLocation="Modelisation.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="8262de38-2203-4f3b-86c5-3ff6e340322e"
+            name="&lt;&lt;return nombre VaR incorrectes&gt;&gt;"
+            messageKind="Complete"
+            messageSort="Reply"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="88b430df-782d-4139-8e13-6e895a999670"
+                LastKnownName="MessageOccurrenceSpecification43"
+                LastKnownLocation="Modelisation.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="9719b080-72bc-470a-9f95-1647511a3ca1"
+                LastKnownName="MessageOccurrenceSpecification44"
                 LastKnownLocation="Modelisation.uml" />
             </receiveEvent>
           </message>
@@ -4446,25 +4528,9 @@
             aggregation="None"
             isComposite="false">
             <type_NamedElement>
-              <undefinedTypeMoniker
-                Id="0466f584-ddf7-46b7-8e74-7c70b9bbdf1b"
-                LastKnownName="ProjetVaR::VaRGarch"
-                LastKnownLocation="Modelisation.uml" />
-            </type_NamedElement>
-          </property>
-          <property
-            Id="b38a2d01-a983-4f75-b0a7-3b243a999504"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <type_NamedElement>
-              <undefinedTypeMoniker
-                Id="e15282e7-ff45-4695-b493-3e75901a2dfa"
-                LastKnownName="ProjetVaR::R"
+              <classMoniker
+                Id="f1679085-dd3f-4487-bc19-a396b3b447d0"
+                LastKnownName="VaRGarch"
                 LastKnownLocation="Modelisation.uml" />
             </type_NamedElement>
           </property>
@@ -4478,9 +4544,25 @@
             aggregation="None"
             isComposite="false">
             <type_NamedElement>
-              <undefinedTypeMoniker
-                Id="08610b6e-70ba-4657-8be3-f16994bb99c4"
-                LastKnownName="ProjetVaR::Backtesting"
+              <classMoniker
+                Id="fbe09599-e665-41df-a410-b366b090aa26"
+                LastKnownName="Backtesting"
+                LastKnownLocation="Modelisation.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="1d55d653-6796-460a-8caf-52450cd401b4"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <classMoniker
+                Id="f6108416-ae0c-4cb7-b2c8-51d62c214cf8"
+                LastKnownName="RInterface"
                 LastKnownLocation="Modelisation.uml" />
             </type_NamedElement>
           </property>
@@ -4501,36 +4583,6 @@
       <undefinedType
         Id="08610b6e-70ba-4657-8be3-f16994bb99c4"
         name="ProjetVaR::Backtesting" />
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <executionEvent
-        Id="1039a2bf-7345-44fe-9715-d422bdf5d2ff"
-        name="ExecutionEvent" />
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <executionEvent
-        Id="ad601f59-e47e-4c7d-bb7f-0965cf3445db"
-        name="ExecutionEvent" />
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <executionEvent
-        Id="9f3f137a-7d3e-4859-b056-158afa381a44"
-        name="ExecutionEvent" />
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <executionEvent
-        Id="b7b26ada-fc3d-47ca-b9cd-9e0c5141afe9"
-        name="ExecutionEvent" />
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <executionEvent
-        Id="1e177153-126d-45dd-adfe-fb3d9b571407"
-        name="ExecutionEvent" />
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <executionEvent
-        Id="2176d931-0fb4-4261-8f46-b37db91dca9d"
-        name="ExecutionEvent" />
     </packageHasNamedElement>
     <packageHasNamedElement>
       <component
@@ -4804,7 +4856,7 @@
         <ownedCommentsInternal>
           <comment
             Id="4eaf4003-086e-46a5-97be-f932af2d5fae">
-            <body>Copie de tous les actifs du portefeuille pere dans le portefeuille fils</body>
+            <body>Copie de tous les actifs du portefeuille père dans le portefeuille fils.</body>
             <annotatedElements>
               <behaviorExecutionSpecificationMoniker
                 Id="e5436ee0-189b-4ed5-8161-4570677ac4f4"
@@ -4814,7 +4866,7 @@
           </comment>
           <comment
             Id="9a865776-e89d-4d6c-a456-f416d3789304">
-            <body>Ajout la liste des actifs a la liste actuelle</body>
+            <body>Ajout de la liste des actifs à la liste actuelle.</body>
             <annotatedElements>
               <behaviorExecutionSpecificationMoniker
                 Id="ddf5aebc-b2af-4e5e-ad7b-16288355f259"
@@ -5032,12 +5084,12 @@
             interactionOperator="Alt">
             <coveredLifelines>
               <lifelineMoniker
-                Id="c947e5bc-d37f-41fb-8c02-15d8705019ce"
-                LastKnownName="parent : Portfolio"
-                LastKnownLocation="Modelisation.uml" />
-              <lifelineMoniker
                 Id="d073496a-e9cd-4c41-bc2a-e00f4c680b49"
                 LastKnownName="portfolio : Portfolio"
+                LastKnownLocation="Modelisation.uml" />
+              <lifelineMoniker
+                Id="c947e5bc-d37f-41fb-8c02-15d8705019ce"
+                LastKnownName="parent : Portfolio"
                 LastKnownLocation="Modelisation.uml" />
             </coveredLifelines>
             <operands>
@@ -5046,12 +5098,12 @@
                 name="InteractionOperand1">
                 <coveredLifelines>
                   <lifelineMoniker
-                    Id="c947e5bc-d37f-41fb-8c02-15d8705019ce"
-                    LastKnownName="parent : Portfolio"
-                    LastKnownLocation="Modelisation.uml" />
-                  <lifelineMoniker
                     Id="d073496a-e9cd-4c41-bc2a-e00f4c680b49"
                     LastKnownName="portfolio : Portfolio"
+                    LastKnownLocation="Modelisation.uml" />
+                  <lifelineMoniker
+                    Id="c947e5bc-d37f-41fb-8c02-15d8705019ce"
+                    LastKnownName="parent : Portfolio"
                     LastKnownLocation="Modelisation.uml" />
                 </coveredLifelines>
                 <guard>
@@ -5083,12 +5135,12 @@
                 name="InteractionOperand2">
                 <coveredLifelines>
                   <lifelineMoniker
-                    Id="c947e5bc-d37f-41fb-8c02-15d8705019ce"
-                    LastKnownName="parent : Portfolio"
-                    LastKnownLocation="Modelisation.uml" />
-                  <lifelineMoniker
                     Id="d073496a-e9cd-4c41-bc2a-e00f4c680b49"
                     LastKnownName="portfolio : Portfolio"
+                    LastKnownLocation="Modelisation.uml" />
+                  <lifelineMoniker
+                    Id="c947e5bc-d37f-41fb-8c02-15d8705019ce"
+                    LastKnownName="parent : Portfolio"
                     LastKnownLocation="Modelisation.uml" />
                 </coveredLifelines>
                 <guard>
@@ -5481,7 +5533,7 @@
                 <guard>
                   <interactionConstraint
                     Id="797e5f50-ae64-4622-943c-dab1377ddc08"
-                    guardText="Tant que l'utilisateur selectionne des actifs">
+                    guardText="Tant que l'utilisateur sélectionne des actifs">
                     <maxInt>
                       <literalString
                         Id="3c4633a5-72be-49ff-a7bb-9e30648783c6"
@@ -6355,17 +6407,17 @@
         <ownedCommentsInternal>
           <comment
             Id="58ffc822-e29b-414c-a5a9-9d2bc33da52c">
-            <body>Calcul du modele GARCH dans R</body>
+            <body>Calcul du modèle GARCH dans R puis instanciation de l'objet modelGarch.</body>
             <annotatedElements>
               <behaviorExecutionSpecificationMoniker
-                Id="2f53c6d6-38b3-4f5d-97a8-c05771047817"
-                LastKnownName="BehaviorExecutionSpecification2"
+                Id="f83444dd-c279-4ca3-b04c-12f25d0ddaaf"
+                LastKnownName="BehaviorExecutionSpecification5"
                 LastKnownLocation="Modelisation.uml" />
             </annotatedElements>
           </comment>
           <comment
             Id="44b79918-2ed6-4c95-9589-cb7236a69d54">
-            <body>Calcul de la VaR</body>
+            <body>Calcul de la VaR.</body>
             <annotatedElements>
               <behaviorExecutionSpecificationMoniker
                 Id="f6a6bd2e-5079-444b-8a58-d03f097f10b4"
@@ -6376,204 +6428,194 @@
         </ownedCommentsInternal>
         <fragments>
           <behaviorExecutionSpecification
-            Id="54d27539-9bcb-4132-8c27-e46a134caeac"
-            name="BehaviorExecutionSpecification1">
+            Id="f83444dd-c279-4ca3-b04c-12f25d0ddaaf"
+            name="BehaviorExecutionSpecification5">
             <coveredLifelines>
               <lifelineMoniker
-                Id="b17b83c6-64ed-460b-92d5-0385dabcd5d0"
-                LastKnownName="modelGarch : ModelGarch"
+                Id="0efb28c4-67b5-4916-a4b7-f44ca2ee58de"
+                LastKnownName=": RInterface"
                 LastKnownLocation="Modelisation.uml" />
             </coveredLifelines>
             <finish>
               <executionOccurrenceSpecificationMoniker
-                Id="718f2229-e986-4b99-859d-6757347361d1"
-                LastKnownName="ExecutionOccurrenceSpecification2"
+                Id="1cc65890-143c-42d7-93c6-02b58fd39732"
+                LastKnownName="ExecutionOccurrenceSpecification10"
                 LastKnownLocation="Modelisation.uml" />
             </finish>
             <start>
               <executionOccurrenceSpecificationMoniker
-                Id="12290dee-714f-4811-8f44-1135b9d91f57"
-                LastKnownName="ExecutionOccurrenceSpecification1"
+                Id="abd72b95-89f4-41fe-a483-512637906836"
+                LastKnownName="ExecutionOccurrenceSpecification9"
                 LastKnownLocation="Modelisation.uml" />
             </start>
             <nestedOccurrences>
               <messageOccurrenceSpecificationMoniker
-                Id="40a80058-453e-4259-bc9a-0728a304ab9b"
-                LastKnownName="MessageOccurrenceSpecification2"
+                Id="f2c74302-6a52-4505-8010-3e0e49fa8d0f"
+                LastKnownName="MessageOccurrenceSpecification18"
                 LastKnownLocation="Modelisation.uml" />
               <messageOccurrenceSpecificationMoniker
-                Id="b4c21b6c-40f4-4bc8-a8c7-05be2f1cfd45"
-                LastKnownName="MessageOccurrenceSpecification5"
+                Id="0450ab55-9dfc-41ba-95b3-46b64d7ff29b"
+                LastKnownName="MessageOccurrenceSpecification21"
                 LastKnownLocation="Modelisation.uml" />
               <messageOccurrenceSpecificationMoniker
-                Id="750ccaa2-afbb-4ef7-ba83-24bcbbd2a96d"
-                LastKnownName="MessageOccurrenceSpecification8"
+                Id="76fabb47-5ab3-4253-acc8-f3a013acbe76"
+                LastKnownName="MessageOccurrenceSpecification24"
                 LastKnownLocation="Modelisation.uml" />
               <messageOccurrenceSpecificationMoniker
-                Id="d62ce96d-4ac2-46d6-95c8-305ef37d17b4"
-                LastKnownName="MessageOccurrenceSpecification3"
+                Id="c728938c-17bb-4be6-b1cf-00eadb7dc829"
+                LastKnownName="MessageOccurrenceSpecification19"
                 LastKnownLocation="Modelisation.uml" />
             </nestedOccurrences>
           </behaviorExecutionSpecification>
           <executionOccurrenceSpecification
-            Id="12290dee-714f-4811-8f44-1135b9d91f57"
-            name="ExecutionOccurrenceSpecification1">
+            Id="abd72b95-89f4-41fe-a483-512637906836"
+            name="ExecutionOccurrenceSpecification9">
             <event>
               <executionOccurrenceSpecificationReferencesEvent>
                 <executionEventMoniker
-                  Id="f79fc9e4-baab-44b1-9637-90d7a6dc652d"
+                  Id="f5454ec7-a8a6-4e66-8ea4-ade385d0b684"
                   LastKnownName="ExecutionEvent"
                   LastKnownLocation="Modelisation.uml" />
               </executionOccurrenceSpecificationReferencesEvent>
             </event>
             <covered>
               <lifelineMoniker
-                Id="b17b83c6-64ed-460b-92d5-0385dabcd5d0"
-                LastKnownName="modelGarch : ModelGarch"
+                Id="0efb28c4-67b5-4916-a4b7-f44ca2ee58de"
+                LastKnownName=": RInterface"
                 LastKnownLocation="Modelisation.uml" />
             </covered>
           </executionOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="ff37ea90-5d03-472e-85ca-007dfdc014f2"
-            name="MessageOccurrenceSpecification1">
+            Id="f2c74302-6a52-4505-8010-3e0e49fa8d0f"
+            name="MessageOccurrenceSpecification18">
             <covered>
               <lifelineMoniker
-                Id="17a7bdbb-d03f-48df-b3d8-71e22a7be50e"
-                LastKnownName="Context"
+                Id="0efb28c4-67b5-4916-a4b7-f44ca2ee58de"
+                LastKnownName=": RInterface"
                 LastKnownLocation="Modelisation.uml" />
             </covered>
           </messageOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="40a80058-453e-4259-bc9a-0728a304ab9b"
-            name="MessageOccurrenceSpecification2">
+            Id="6e963ed2-83f0-4ba3-bc88-950b21ae74f9"
+            name="MessageOccurrenceSpecification17">
             <covered>
               <lifelineMoniker
-                Id="b17b83c6-64ed-460b-92d5-0385dabcd5d0"
-                LastKnownName="modelGarch : ModelGarch"
+                Id="17a7bdbb-d03f-48df-b3d8-71e22a7be50e"
+                LastKnownName="Context"
                 LastKnownLocation="Modelisation.uml" />
             </covered>
           </messageOccurrenceSpecification>
           <behaviorExecutionSpecification
-            Id="2f53c6d6-38b3-4f5d-97a8-c05771047817"
-            name="BehaviorExecutionSpecification2">
+            Id="1f0e2671-63ed-47da-9e21-04bebc3bcc70"
+            name="BehaviorExecutionSpecification6">
             <coveredLifelines>
               <lifelineMoniker
-                Id="0efb28c4-67b5-4916-a4b7-f44ca2ee58de"
-                LastKnownName=": Coeur"
+                Id="b17b83c6-64ed-460b-92d5-0385dabcd5d0"
+                LastKnownName="garchModel : ModelGarch"
                 LastKnownLocation="Modelisation.uml" />
             </coveredLifelines>
             <finish>
               <executionOccurrenceSpecificationMoniker
-                Id="e4ca77fe-2dc7-4fd0-b05c-4262aeef4fbf"
-                LastKnownName="ExecutionOccurrenceSpecification4"
+                Id="45701711-cd68-4d7e-8ede-970b78a480eb"
+                LastKnownName="ExecutionOccurrenceSpecification12"
                 LastKnownLocation="Modelisation.uml" />
             </finish>
             <start>
               <executionOccurrenceSpecificationMoniker
-                Id="e9539855-2af3-480d-82a8-f7a10477a207"
-                LastKnownName="ExecutionOccurrenceSpecification3"
+                Id="fd000149-8f63-4980-8e92-2aabe3c8beea"
+                LastKnownName="ExecutionOccurrenceSpecification11"
                 LastKnownLocation="Modelisation.uml" />
             </start>
             <nestedOccurrences>
               <messageOccurrenceSpecificationMoniker
-                Id="02126722-67d2-4e5e-a0be-eec195d6a578"
-                LastKnownName="MessageOccurrenceSpecification6"
+                Id="ba4d606d-d1dd-4f1b-9e3c-5e78f82ceef4"
+                LastKnownName="MessageOccurrenceSpecification22"
                 LastKnownLocation="Modelisation.uml" />
               <messageOccurrenceSpecificationMoniker
-                Id="c3fb9605-a9cc-4b20-85a9-975bfd979129"
-                LastKnownName="MessageOccurrenceSpecification7"
+                Id="926c1bfd-9b47-47ae-b84f-2821590f3079"
+                LastKnownName="MessageOccurrenceSpecification23"
                 LastKnownLocation="Modelisation.uml" />
             </nestedOccurrences>
           </behaviorExecutionSpecification>
           <executionOccurrenceSpecification
-            Id="e9539855-2af3-480d-82a8-f7a10477a207"
-            name="ExecutionOccurrenceSpecification3">
+            Id="fd000149-8f63-4980-8e92-2aabe3c8beea"
+            name="ExecutionOccurrenceSpecification11">
             <event>
               <executionOccurrenceSpecificationReferencesEvent>
                 <executionEventMoniker
-                  Id="10227379-5399-427f-b485-b74bcef6a58c"
+                  Id="622ce5f2-6633-434e-a497-524a4f7c7a92"
                   LastKnownName="ExecutionEvent"
                   LastKnownLocation="Modelisation.uml" />
               </executionOccurrenceSpecificationReferencesEvent>
             </event>
             <covered>
               <lifelineMoniker
-                Id="0efb28c4-67b5-4916-a4b7-f44ca2ee58de"
-                LastKnownName=": Coeur"
+                Id="b17b83c6-64ed-460b-92d5-0385dabcd5d0"
+                LastKnownName="garchModel : ModelGarch"
                 LastKnownLocation="Modelisation.uml" />
             </covered>
           </executionOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="b4c21b6c-40f4-4bc8-a8c7-05be2f1cfd45"
-            name="MessageOccurrenceSpecification5">
+            Id="ba4d606d-d1dd-4f1b-9e3c-5e78f82ceef4"
+            name="MessageOccurrenceSpecification22">
             <covered>
               <lifelineMoniker
                 Id="b17b83c6-64ed-460b-92d5-0385dabcd5d0"
-                LastKnownName="modelGarch : ModelGarch"
+                LastKnownName="garchModel : ModelGarch"
                 LastKnownLocation="Modelisation.uml" />
             </covered>
           </messageOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="02126722-67d2-4e5e-a0be-eec195d6a578"
-            name="MessageOccurrenceSpecification6">
+            Id="0450ab55-9dfc-41ba-95b3-46b64d7ff29b"
+            name="MessageOccurrenceSpecification21">
             <covered>
               <lifelineMoniker
                 Id="0efb28c4-67b5-4916-a4b7-f44ca2ee58de"
-                LastKnownName=": Coeur"
+                LastKnownName=": RInterface"
                 LastKnownLocation="Modelisation.uml" />
             </covered>
           </messageOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="c3fb9605-a9cc-4b20-85a9-975bfd979129"
-            name="MessageOccurrenceSpecification7">
-            <covered>
-              <lifelineMoniker
-                Id="0efb28c4-67b5-4916-a4b7-f44ca2ee58de"
-                LastKnownName=": Coeur"
-                LastKnownLocation="Modelisation.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="750ccaa2-afbb-4ef7-ba83-24bcbbd2a96d"
-            name="MessageOccurrenceSpecification8">
+            Id="926c1bfd-9b47-47ae-b84f-2821590f3079"
+            name="MessageOccurrenceSpecification23">
             <covered>
               <lifelineMoniker
                 Id="b17b83c6-64ed-460b-92d5-0385dabcd5d0"
-                LastKnownName="modelGarch : ModelGarch"
+                LastKnownName="garchModel : ModelGarch"
+                LastKnownLocation="Modelisation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="76fabb47-5ab3-4253-acc8-f3a013acbe76"
+            name="MessageOccurrenceSpecification24">
+            <covered>
+              <lifelineMoniker
+                Id="0efb28c4-67b5-4916-a4b7-f44ca2ee58de"
+                LastKnownName=": RInterface"
                 LastKnownLocation="Modelisation.uml" />
             </covered>
           </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
-            Id="e4ca77fe-2dc7-4fd0-b05c-4262aeef4fbf"
-            name="ExecutionOccurrenceSpecification4">
+            Id="45701711-cd68-4d7e-8ede-970b78a480eb"
+            name="ExecutionOccurrenceSpecification12">
             <event>
               <executionOccurrenceSpecificationReferencesEvent>
                 <executionEventMoniker
-                  Id="c7fd2772-e2a7-4fce-a996-1333f687a879"
+                  Id="8100fa40-1758-4f13-8c2b-e46a46e7f32d"
                   LastKnownName="ExecutionEvent"
                   LastKnownLocation="Modelisation.uml" />
               </executionOccurrenceSpecificationReferencesEvent>
             </event>
             <covered>
               <lifelineMoniker
-                Id="0efb28c4-67b5-4916-a4b7-f44ca2ee58de"
-                LastKnownName=": Coeur"
+                Id="b17b83c6-64ed-460b-92d5-0385dabcd5d0"
+                LastKnownName="garchModel : ModelGarch"
                 LastKnownLocation="Modelisation.uml" />
             </covered>
           </executionOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="d62ce96d-4ac2-46d6-95c8-305ef37d17b4"
-            name="MessageOccurrenceSpecification3">
-            <covered>
-              <lifelineMoniker
-                Id="b17b83c6-64ed-460b-92d5-0385dabcd5d0"
-                LastKnownName="modelGarch : ModelGarch"
-                LastKnownLocation="Modelisation.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
-            Id="f665125a-31d2-4b1e-8265-339becf47ac7"
-            name="MessageOccurrenceSpecification4">
+            Id="181c9e0f-bcff-4f8e-b847-6448767a7d7f"
+            name="MessageOccurrenceSpecification20">
             <covered>
               <lifelineMoniker
                 Id="17a7bdbb-d03f-48df-b3d8-71e22a7be50e"
@@ -6581,21 +6623,31 @@
                 LastKnownLocation="Modelisation.uml" />
             </covered>
           </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="c728938c-17bb-4be6-b1cf-00eadb7dc829"
+            name="MessageOccurrenceSpecification19">
+            <covered>
+              <lifelineMoniker
+                Id="0efb28c4-67b5-4916-a4b7-f44ca2ee58de"
+                LastKnownName=": RInterface"
+                LastKnownLocation="Modelisation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
-            Id="718f2229-e986-4b99-859d-6757347361d1"
-            name="ExecutionOccurrenceSpecification2">
+            Id="1cc65890-143c-42d7-93c6-02b58fd39732"
+            name="ExecutionOccurrenceSpecification10">
             <event>
               <executionOccurrenceSpecificationReferencesEvent>
                 <executionEventMoniker
-                  Id="1742cd34-4940-406f-97df-d8d1f2fc923e"
+                  Id="5d93fad9-0b33-4456-88c9-f0f5ffaf7157"
                   LastKnownName="ExecutionEvent"
                   LastKnownLocation="Modelisation.uml" />
               </executionOccurrenceSpecificationReferencesEvent>
             </event>
             <covered>
               <lifelineMoniker
-                Id="b17b83c6-64ed-460b-92d5-0385dabcd5d0"
-                LastKnownName="modelGarch : ModelGarch"
+                Id="0efb28c4-67b5-4916-a4b7-f44ca2ee58de"
+                LastKnownName=": RInterface"
                 LastKnownLocation="Modelisation.uml" />
             </covered>
           </executionOccurrenceSpecification>
@@ -6670,22 +6722,22 @@
             </covered>
           </messageOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="ba3a5a8b-4ba5-422b-866c-3377ab1d3707"
-            name="MessageOccurrenceSpecification11">
-            <covered>
-              <lifelineMoniker
-                Id="85e14811-c5df-4e15-96ac-c8f125f3c5f9"
-                LastKnownName="varGarch : VarGarch"
-                LastKnownLocation="Modelisation.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
             Id="6af3fab8-d368-451c-b1d9-f623dfbd3e45"
             name="MessageOccurrenceSpecification12">
             <covered>
               <lifelineMoniker
                 Id="17a7bdbb-d03f-48df-b3d8-71e22a7be50e"
                 LastKnownName="Context"
+                LastKnownLocation="Modelisation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="ba3a5a8b-4ba5-422b-866c-3377ab1d3707"
+            name="MessageOccurrenceSpecification11">
+            <covered>
+              <lifelineMoniker
+                Id="85e14811-c5df-4e15-96ac-c8f125f3c5f9"
+                LastKnownName="varGarch : VarGarch"
                 LastKnownLocation="Modelisation.uml" />
             </covered>
           </messageOccurrenceSpecification>
@@ -6758,16 +6810,6 @@
             </covered>
           </executionOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="f68bc75c-24e4-410a-a1f6-0c457000e83d"
-            name="MessageOccurrenceSpecification13">
-            <covered>
-              <lifelineMoniker
-                Id="17a7bdbb-d03f-48df-b3d8-71e22a7be50e"
-                LastKnownName="Context"
-                LastKnownLocation="Modelisation.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
             Id="aecb4d31-60d0-4de1-b84a-0b99b7e2e9d8"
             name="MessageOccurrenceSpecification14">
             <covered>
@@ -6778,12 +6820,12 @@
             </covered>
           </messageOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="c24ed305-1951-426c-abe3-2d08958d041f"
-            name="MessageOccurrenceSpecification15">
+            Id="f68bc75c-24e4-410a-a1f6-0c457000e83d"
+            name="MessageOccurrenceSpecification13">
             <covered>
               <lifelineMoniker
-                Id="85e14811-c5df-4e15-96ac-c8f125f3c5f9"
-                LastKnownName="varGarch : VarGarch"
+                Id="17a7bdbb-d03f-48df-b3d8-71e22a7be50e"
+                LastKnownName="Context"
                 LastKnownLocation="Modelisation.uml" />
             </covered>
           </messageOccurrenceSpecification>
@@ -6794,6 +6836,16 @@
               <lifelineMoniker
                 Id="17a7bdbb-d03f-48df-b3d8-71e22a7be50e"
                 LastKnownName="Context"
+                LastKnownLocation="Modelisation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="c24ed305-1951-426c-abe3-2d08958d041f"
+            name="MessageOccurrenceSpecification15">
+            <covered>
+              <lifelineMoniker
+                Id="85e14811-c5df-4e15-96ac-c8f125f3c5f9"
+                LastKnownName="varGarch : VarGarch"
                 LastKnownLocation="Modelisation.uml" />
             </covered>
           </messageOccurrenceSpecification>
@@ -6824,12 +6876,12 @@
             lifelineDisplayName="Context">
             <topLevelOccurrences>
               <messageOccurrenceSpecificationMoniker
-                Id="ff37ea90-5d03-472e-85ca-007dfdc014f2"
-                LastKnownName="MessageOccurrenceSpecification1"
+                Id="6e963ed2-83f0-4ba3-bc88-950b21ae74f9"
+                LastKnownName="MessageOccurrenceSpecification17"
                 LastKnownLocation="Modelisation.uml" />
               <messageOccurrenceSpecificationMoniker
-                Id="f665125a-31d2-4b1e-8265-339becf47ac7"
-                LastKnownName="MessageOccurrenceSpecification4"
+                Id="181c9e0f-bcff-4f8e-b847-6448767a7d7f"
+                LastKnownName="MessageOccurrenceSpecification20"
                 LastKnownLocation="Modelisation.uml" />
               <messageOccurrenceSpecificationMoniker
                 Id="f50ac733-a7cd-4abb-97bc-4acd18d47ba1"
@@ -6850,26 +6902,10 @@
             </topLevelOccurrences>
           </lifeline>
           <lifeline
-            Id="b17b83c6-64ed-460b-92d5-0385dabcd5d0"
-            name="modelGarch : ModelGarch"
-            isActor="false"
-            lifelineDisplayName="modelGarch : ModelGarch">
-            <topLevelOccurrences>
-              <executionOccurrenceSpecificationMoniker
-                Id="12290dee-714f-4811-8f44-1135b9d91f57"
-                LastKnownName="ExecutionOccurrenceSpecification1"
-                LastKnownLocation="Modelisation.uml" />
-              <executionOccurrenceSpecificationMoniker
-                Id="718f2229-e986-4b99-859d-6757347361d1"
-                LastKnownName="ExecutionOccurrenceSpecification2"
-                LastKnownLocation="Modelisation.uml" />
-            </topLevelOccurrences>
-          </lifeline>
-          <lifeline
             Id="0efb28c4-67b5-4916-a4b7-f44ca2ee58de"
-            name=": Coeur"
+            name=": RInterface"
             isActor="false"
-            lifelineDisplayName=": Coeur">
+            lifelineDisplayName=": RInterface">
             <represents>
               <propertyMoniker
                 Id="8240c256-e021-4ca9-9928-1e8d9dfbbff2"
@@ -6877,12 +6913,28 @@
             </represents>
             <topLevelOccurrences>
               <executionOccurrenceSpecificationMoniker
-                Id="e9539855-2af3-480d-82a8-f7a10477a207"
-                LastKnownName="ExecutionOccurrenceSpecification3"
+                Id="abd72b95-89f4-41fe-a483-512637906836"
+                LastKnownName="ExecutionOccurrenceSpecification9"
                 LastKnownLocation="Modelisation.uml" />
               <executionOccurrenceSpecificationMoniker
-                Id="e4ca77fe-2dc7-4fd0-b05c-4262aeef4fbf"
-                LastKnownName="ExecutionOccurrenceSpecification4"
+                Id="1cc65890-143c-42d7-93c6-02b58fd39732"
+                LastKnownName="ExecutionOccurrenceSpecification10"
+                LastKnownLocation="Modelisation.uml" />
+            </topLevelOccurrences>
+          </lifeline>
+          <lifeline
+            Id="b17b83c6-64ed-460b-92d5-0385dabcd5d0"
+            name="garchModel : ModelGarch"
+            isActor="false"
+            lifelineDisplayName="garchModel : ModelGarch">
+            <topLevelOccurrences>
+              <executionOccurrenceSpecificationMoniker
+                Id="fd000149-8f63-4980-8e92-2aabe3c8beea"
+                LastKnownName="ExecutionOccurrenceSpecification11"
+                LastKnownLocation="Modelisation.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="45701711-cd68-4d7e-8ede-970b78a480eb"
+                LastKnownName="ExecutionOccurrenceSpecification12"
                 LastKnownLocation="Modelisation.uml" />
             </topLevelOccurrences>
           </lifeline>
@@ -6913,84 +6965,84 @@
         </lifelines>
         <messages>
           <message
-            Id="a00cea91-a614-4a2f-ab00-6580dc8bfe18"
-            name="&lt;&lt;create&gt;&gt; ModelGarch(data)"
+            Id="4ee13a31-6dd7-4af9-90cc-1a333d5ba199"
+            name="computeGarchModel(portfolio)"
             messageKind="Complete"
             messageSort="SynchCall"
             createSelfMessage="false">
             <sendEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="ff37ea90-5d03-472e-85ca-007dfdc014f2"
-                LastKnownName="MessageOccurrenceSpecification1"
+                Id="6e963ed2-83f0-4ba3-bc88-950b21ae74f9"
+                LastKnownName="MessageOccurrenceSpecification17"
                 LastKnownLocation="Modelisation.uml" />
             </sendEvent>
             <receiveEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="40a80058-453e-4259-bc9a-0728a304ab9b"
-                LastKnownName="MessageOccurrenceSpecification2"
+                Id="f2c74302-6a52-4505-8010-3e0e49fa8d0f"
+                LastKnownName="MessageOccurrenceSpecification18"
                 LastKnownLocation="Modelisation.uml" />
             </receiveEvent>
           </message>
           <message
-            Id="58ec3353-4074-461e-be4d-4a5f2ff8d2dc"
-            name="getGarchModel(data)"
+            Id="a22d7503-e5f6-4417-a124-335cff069dd2"
+            name="ModelGarch(parameters)"
             messageKind="Complete"
             messageSort="SynchCall"
             createSelfMessage="false">
             <sendEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="b4c21b6c-40f4-4bc8-a8c7-05be2f1cfd45"
-                LastKnownName="MessageOccurrenceSpecification5"
+                Id="0450ab55-9dfc-41ba-95b3-46b64d7ff29b"
+                LastKnownName="MessageOccurrenceSpecification21"
                 LastKnownLocation="Modelisation.uml" />
             </sendEvent>
             <receiveEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="02126722-67d2-4e5e-a0be-eec195d6a578"
-                LastKnownName="MessageOccurrenceSpecification6"
+                Id="ba4d606d-d1dd-4f1b-9e3c-5e78f82ceef4"
+                LastKnownName="MessageOccurrenceSpecification22"
                 LastKnownLocation="Modelisation.uml" />
             </receiveEvent>
           </message>
           <message
-            Id="d94cb4b6-38e6-4743-98d4-a157e3b5c52b"
-            name="&lt;&lt;return&gt;&gt;"
+            Id="6eb8319d-9738-441c-a98b-00ebcd8f34f8"
+            name="&lt;&lt;garchModel&gt;&gt;"
             messageKind="Complete"
             messageSort="Reply"
             createSelfMessage="false">
             <sendEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="c3fb9605-a9cc-4b20-85a9-975bfd979129"
-                LastKnownName="MessageOccurrenceSpecification7"
+                Id="926c1bfd-9b47-47ae-b84f-2821590f3079"
+                LastKnownName="MessageOccurrenceSpecification23"
                 LastKnownLocation="Modelisation.uml" />
             </sendEvent>
             <receiveEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="750ccaa2-afbb-4ef7-ba83-24bcbbd2a96d"
-                LastKnownName="MessageOccurrenceSpecification8"
+                Id="76fabb47-5ab3-4253-acc8-f3a013acbe76"
+                LastKnownName="MessageOccurrenceSpecification24"
                 LastKnownLocation="Modelisation.uml" />
             </receiveEvent>
           </message>
           <message
-            Id="09230005-0d9f-4b77-af1e-195645d81072"
-            name="&lt;&lt;return modelGarch&gt;&gt;"
+            Id="b2f5db48-d55e-458d-9de2-e9916151e514"
+            name="&lt;&lt;return garchModel&gt;&gt;"
             messageKind="Complete"
             messageSort="Reply"
             createSelfMessage="false">
             <sendEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="d62ce96d-4ac2-46d6-95c8-305ef37d17b4"
-                LastKnownName="MessageOccurrenceSpecification3"
+                Id="c728938c-17bb-4be6-b1cf-00eadb7dc829"
+                LastKnownName="MessageOccurrenceSpecification19"
                 LastKnownLocation="Modelisation.uml" />
             </sendEvent>
             <receiveEvent>
               <messageOccurrenceSpecificationMoniker
-                Id="f665125a-31d2-4b1e-8265-339becf47ac7"
-                LastKnownName="MessageOccurrenceSpecification4"
+                Id="181c9e0f-bcff-4f8e-b847-6448767a7d7f"
+                LastKnownName="MessageOccurrenceSpecification20"
                 LastKnownLocation="Modelisation.uml" />
             </receiveEvent>
           </message>
           <message
             Id="253680a0-b751-4da7-9fb6-7b3d3d38849b"
-            name="&lt;&lt;create&gt;&gt; VarGarch(model)"
+            name="&lt;&lt;create&gt;&gt; VarGarch(portfolio, risk, garchModel)"
             messageKind="Complete"
             messageSort="SynchCall"
             createSelfMessage="false">
@@ -7028,7 +7080,7 @@
           </message>
           <message
             Id="5a2b67e6-ad82-4d03-b9f6-70c3467c394d"
-            name="execute()"
+            name="execute(timeHorizon)"
             messageKind="Complete"
             messageSort="SynchCall"
             createSelfMessage="false">
@@ -7076,34 +7128,14 @@
             aggregation="None"
             isComposite="false">
             <type_NamedElement>
-              <componentMoniker
-                Id="54bc1899-89f4-409b-97bb-a552e64eda67"
-                LastKnownName="Coeur"
+              <classMoniker
+                Id="f6108416-ae0c-4cb7-b2c8-51d62c214cf8"
+                LastKnownName="RInterface"
                 LastKnownLocation="Modelisation.uml" />
             </type_NamedElement>
           </property>
         </ownedAttributesInternal>
       </interaction>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <executionEvent
-        Id="f79fc9e4-baab-44b1-9637-90d7a6dc652d"
-        name="ExecutionEvent" />
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <executionEvent
-        Id="1742cd34-4940-406f-97df-d8d1f2fc923e"
-        name="ExecutionEvent" />
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <executionEvent
-        Id="10227379-5399-427f-b485-b74bcef6a58c"
-        name="ExecutionEvent" />
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <executionEvent
-        Id="c7fd2772-e2a7-4fce-a996-1333f687a879"
-        name="ExecutionEvent" />
     </packageHasNamedElement>
     <packageHasNamedElement>
       <executionEvent
@@ -7203,6 +7235,66 @@
           </dependency>
         </suppliersInternal>
       </component>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="f5454ec7-a8a6-4e66-8ea4-ade385d0b684"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="5d93fad9-0b33-4456-88c9-f0f5ffaf7157"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="622ce5f2-6633-434e-a497-524a4f7c7a92"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="8100fa40-1758-4f13-8c2b-e46a46e7f32d"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="2aff455e-635e-41e2-9d12-2aafa031f7fa"
+        name="VarAlgorithm" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="7cc12714-a293-46ab-aa39-15e7dac6aaab"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="6ccab9b8-0e80-4aa0-be25-b7468d7d00d1"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="4845711d-c4f5-4a6f-bc50-bc160119758b"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="7c4ac7d2-16e9-4ae6-a825-cb110dbc3605"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="667d4297-2a15-40e4-b4b6-d482c1968aec"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="a95f06ee-862b-4fa8-abc9-06340b6016c1"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="19df1b23-5c19-4e53-83a4-3804f53b703e"
+        name="Tuple&lt;Date&gt;" />
     </packageHasNamedElement>
   </packagedElements>
   <primitiveType
