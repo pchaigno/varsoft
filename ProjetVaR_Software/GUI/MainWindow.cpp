@@ -10,14 +10,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(importCSV()));
-    model = new ModelVaR();
+	connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(importCSV()));
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui;
-    delete model;
+	delete ui;
 }
 
 void MainWindow::importCSV()

@@ -2,7 +2,6 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <ModelVaR.h>
 
 namespace Ui {
 class MainWindow;
@@ -19,8 +18,7 @@ public:
 private slots:
     void importCSV();
 private:
-    Ui::MainWindow *ui;
-    ModelVaR * model;
+	Ui::MainWindow *ui;
 };
 
 #endif // MAINWINDOW_H

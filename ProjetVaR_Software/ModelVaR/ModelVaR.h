@@ -6,7 +6,7 @@
 class MODELVARSHARED_EXPORT ModelVaR
 {
 public:
-    ModelVaR();
+	ModelVaR();
 };
 
 #endif // MODELVAR_H
