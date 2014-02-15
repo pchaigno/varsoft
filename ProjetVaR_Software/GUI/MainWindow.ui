@@ -14,57 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QHBoxLayout" name="horizontalLayout">
-    <item>
-     <widget class="QTreeWidget" name="treeWidget">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <column>
-       <property name="text">
-        <string>Portefeuilles</string>
-       </property>
-      </column>
-      <item>
-       <property name="text">
-        <string>Nouvel élément</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Nouvel élément</string>
-       </property>
-       <item>
-        <property name="text">
-         <string>Nouveau sous-élément</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Nouvel élément</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Nouvel élément</string>
-        </property>
-       </item>
-      </item>
-      <item>
-       <property name="text">
-        <string>Nouvel élément</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Nouvel élément</string>
-       </property>
-      </item>
-     </widget>
-    </item>
+   <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
@@ -77,6 +27,9 @@
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
          <widget class="QTableWidget" name="tableWidget">
+          <property name="showGrid">
+           <bool>true</bool>
+          </property>
           <row>
            <property name="text">
             <string>Nouvelle ligne</string>
@@ -173,6 +126,56 @@
       </widget>
      </widget>
     </item>
+    <item>
+     <widget class="QTreeWidget" name="treeWidget">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <column>
+       <property name="text">
+        <string>Portefeuilles</string>
+       </property>
+      </column>
+      <item>
+       <property name="text">
+        <string>Nouvel élément</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Nouvel élément</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>Nouveau sous-élément</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Nouvel élément</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Nouvel élément</string>
+        </property>
+       </item>
+      </item>
+      <item>
+       <property name="text">
+        <string>Nouvel élément</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Nouvel élément</string>
+       </property>
+      </item>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -181,7 +184,7 @@
      <x>0</x>
      <y>0</y>
      <width>713</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFichier">
