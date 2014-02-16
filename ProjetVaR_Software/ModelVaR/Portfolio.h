@@ -3,6 +3,7 @@
 #include <string>
 #include <map>
 #include "Asset.h"
+#include <climits>
 
 using namespace std;
 

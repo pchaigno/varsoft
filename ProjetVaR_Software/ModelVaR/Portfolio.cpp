@@ -47,7 +47,7 @@ void Portfolio::changeName(string name) {
  */
 time_t Portfolio::retrieveFirstDate() const {
 	time_t maxFirstDate = 0;
-	for(map<Asset*,int>::iterator it=this->assets.begin(); it!=this->assets.end(); ++it) {
+	for(map<Asset*,int>::const_iterator it=this->assets.begin(); it!=this->assets.end(); ++it) {
 		time_t firstDate = it->first->getFirstDate();
 		if(firstDate > maxFirstDate) {
 			maxFirstDate = firstDate;
@@ -64,7 +64,7 @@ time_t Portfolio::retrieveFirstDate() const {
  */
 time_t Portfolio::retrieveLastDate() const {
 	time_t minLastDate = INT_MAX;
-	for(map<Asset*,int>::iterator it=this->assets.begin(); it!=this->assets.end(); ++it) {
+	for(map<Asset*,int>::const_iterator it=this->assets.begin(); it!=this->assets.end(); ++it) {
 		time_t lastDate = it->first->getLastDate();
 		if(lastDate < minLastDate) {
 			minLastDate = lastDate;
