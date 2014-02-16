@@ -10,12 +10,26 @@
 using namespace std;
 
 class SessionBuilder: public SQLiteManager {
+private:
+	static SessionBuilder* instance;
+
 public:
-	static Asset buildAsset(string name);
-	static vector<Asset> buildAssets();
-	static vector<Portfolio> buildSession();
+	Asset buildAsset(string name);
+	vector<Asset> buildAssets();
+	vector<Portfolio> buildSession();
+	/**
+	 * @brief Accessor to the only instance of SessionBuilder.
+	 * @return The only instance of SessionBuilder.
+	 */
+	static SessionBuilder* getInstance() {
+		if(instance == NULL) {
+			instance = new SessionBuilder("session.db");
+		}
+		return instance;
+	}
 
 private:
-	static vector<Portfolio> buildPortfolios();
-	static vector<Report> buildReports();
+	SessionBuilder(string databaseFile);
+	vector<Portfolio> buildPortfolios();
+	vector<Report> buildReports();
 };

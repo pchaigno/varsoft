@@ -1,7 +1,18 @@
 #pragma once
 
+#include <string>
+
+using namespace std;
+
 class SQLiteManager {
-public:
+protected:
+	const string databaseFile;
+
+protected:
+	SQLiteManager(const string databaseFile);
+
+private:
 	// TODO Change returned object.
-	static void openConnection();
+	void openConnection();
+	void createDatabase();
 };

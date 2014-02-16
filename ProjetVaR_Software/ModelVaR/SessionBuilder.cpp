@@ -1,6 +1,14 @@
 #include "SessionBuilder.h"
 
 /**
+ * @brief Constructor
+ * @param databaseFile The location of the database file on the disk.
+ */
+SessionBuilder::SessionBuilder(string databaseFile): SQLiteManager(databaseFile) {
+
+}
+
+/**
  * @brief Retrieves an asset from the database.
  * @param name The name of the asset to retrieve.
  * @return The asset.

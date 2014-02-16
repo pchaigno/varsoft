@@ -1,6 +1,14 @@
 #include "SessionSaver.h"
 
 /**
+ * @brief Constructor
+ * @param databaseFile The location of the database file on the disk.
+ */
+SessionSaver::SessionSaver(string databaseFile): SQLiteManager(databaseFile) {
+
+}
+
+/**
  * @brief Save an asset in the database.
  * @param asset The asset to save.
  */

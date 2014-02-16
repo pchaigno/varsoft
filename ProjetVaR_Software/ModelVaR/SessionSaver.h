@@ -4,15 +4,32 @@
 #include "Portfolio.h"
 #include "Asset.h"
 #include "Report.h"
+#include <string>
 #include <vector>
 
+using namespace std;
+
 class SessionSaver: public SQLiteManager {
+private:
+	static SessionSaver* instance;
+
 public:
-	static void saveAsset(const Asset& asset);
-	static void saveSession(const vector<Portfolio>& portfolios);
+	void saveAsset(const Asset& asset);
+	void saveSession(const vector<Portfolio>& portfolios);
+	/**
+	 * @brief Accessor to the only instance of SessionSaver.
+	 * @return The only instance of SessionSaver.
+	 */
+	static SessionSaver* getInstance() {
+		if(instance == NULL) {
+			instance = new SessionSaver("session.db");
+		}
+		return instance;
+	}
 
 private:
-	static void saveAssets(const vector<Asset>& assets);
-	static void savePortfolios(const vector<Portfolio>& portfolios);
-	static void saveReports(const Portfolio& portfolio, const vector<Report>& reports);
+	SessionSaver(string databaseFile);
+	void saveAssets(const vector<Asset>& assets);
+	void savePortfolios(const vector<Portfolio>& portfolios);
+	void saveReports(const Portfolio& portfolio, const vector<Report>& reports);
 };
