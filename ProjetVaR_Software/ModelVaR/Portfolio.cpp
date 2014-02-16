@@ -1,16 +1,6 @@
 #include "Portfolio.h"
 
 /**
- * @brief Constructor by recopy.
- * @param portfolio The portfolio to copy.
- */
-/*Portfolio::Portfolio(const Portfolio& portfolio) {
-	this->name = portfolio.name;
-	this->assets = portfolio.assets;
-	this->parent = portfolio.parent;
-}*/
-
-/**
  * @brief Constructor with parent.
  * @param parent The older version of the portfolio.
  * @param name The name of the portfolio.
@@ -56,8 +46,14 @@ void Portfolio::changeName(string name) {
  * @return The first date defined for this portfolio.
  */
 time_t Portfolio::retrieveFirstDate() const {
-	// TODO
-	return 0;
+	time_t maxFirstDate = 0;
+	for(map<Asset*,int>::iterator it=this->assets.begin(); it!=this->assets.end(); ++it) {
+		time_t firstDate = it->first->getFirstDate();
+		if(firstDate > maxFirstDate) {
+			maxFirstDate = firstDate;
+		}
+	}
+	return maxFirstDate;
 }
 
 /**
@@ -67,18 +63,12 @@ time_t Portfolio::retrieveFirstDate() const {
  * @return The last date defined for this portfolio.
  */
 time_t Portfolio::retrieveLastDate() const {
-	// TODO
-	return 0;
+	time_t minLastDate = INT_MAX;
+	for(map<Asset*,int>::iterator it=this->assets.begin(); it!=this->assets.end(); ++it) {
+		time_t lastDate = it->first->getLastDate();
+		if(lastDate < minLastDate) {
+			minLastDate = lastDate;
+		}
+	}
+	return minLastDate;
 }
-
-/**
- * @brief Makes Portfolio assignable.
- * @param portfolio The portfolio to assign.
- * @return A reference to the current portfolio.
- */
-/*Portfolio& Portfolio::operator=(const Portfolio& portfolio) {
-	this->assets = portfolio.assets;
-	this->name = portfolio.name;
-	this->parent = portfolio.parent;
-	return *this;
-}*/
