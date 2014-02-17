@@ -1,9 +1,17 @@
-#include <RInside.h>
+class Rtest
+{
+	public:
+		// Rtest is a singleton because a RInside instance at a time is allowed
+		static Rtest & getInstance() {
+			static Rtest instance;
 
-class Rtest {
-private:
-	//RInside R;
-public:
-	std::vector<double> correlationCarre(int q, std::vector<double> residus);
+			return instance;
+		}
+
+		std::vector<double> correlationCarre(int q, std::vector<double> residus);
+
+	private:
+		RInside R;
+		Rtest() {};
 };
 

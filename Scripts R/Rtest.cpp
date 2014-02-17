@@ -1,9 +1,9 @@
 #include <RInside.h>
 #include "Rtest.h"
 
-std::vector<double> correlationCarre(int q, std::vector<double> residus) {
+std::vector<double> Rtest::correlationCarre(int q, std::vector<double> residus) {
 
-	RInside R;
+	//RInside R;
 	std::vector<double> result;
 	
 	R["q"] = q;
@@ -51,13 +51,15 @@ std::vector<double> correlationCarre(int q, std::vector<double> residus) {
 
 int main(int argc, char *argv[]) {
 
+	Rtest r = Rtest::getInstance();
+
 	std::vector<double> residus;
 	residus.push_back(1.0);
 	residus.push_back(2.0);
 	residus.push_back(3.0);
 
-	std::vector<double> test1 = correlationCarre(1, residus);
-	//std::vector<double> test2 = correlationCarre(2, residus);
+	std::vector<double> test1 = r.correlationCarre(1, residus);
+	std::vector<double> test2 = r.correlationCarre(2, residus);
 
    	//std::cout << test1.at(0) << " " << test1.at(1);
 
