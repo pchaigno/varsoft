@@ -5,22 +5,26 @@
  * @param parent The older version of the portfolio.
  * @param name The name of the portfolio.
  * @param assets The assets composing the portfolio.
+ * @param reports The reports of the portfolio.
  */
-Portfolio::Portfolio(Portfolio* parent, string name, map<Asset*, int>& assets) {
+Portfolio::Portfolio(Portfolio* parent, string name, map<Asset*, int>& assets, vector<Report>& reports) {
 	this->parent = parent;
 	this->name = name;
 	this->assets = assets;
+	this->reports = reports;
 }
 
 /**
  * @brief Constructor
  * @param name The name of the portfolio.
  * @param assets The assets composing the portfolio.
+ * @param reports The reports of the portfolio.
  */
-Portfolio::Portfolio(string name, map<Asset*, int>& assets) {
+Portfolio::Portfolio(string name, map<Asset*, int>& assets, vector<Report>& reports) {
 	this->parent = NULL;
 	this->name = name;
 	this->assets = assets;
+	this->reports = reports;
 }
 
 /**
@@ -29,6 +33,14 @@ Portfolio::Portfolio(string name, map<Asset*, int>& assets) {
  */
 string Portfolio::getName() const {
 	return this->name;
+}
+
+/**
+ * @brief Accessor to reports.
+ * @return The reports for this portfolio.
+ */
+vector<Report> Portfolio::getReports() const {
+	return this->reports;
 }
 
 /**
