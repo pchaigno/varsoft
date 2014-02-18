@@ -13,18 +13,13 @@ SQLiteManager::SQLiteManager(const string databaseFile): databaseFile(databaseFi
  * @return An SQLite handler.
  */
 void SQLiteManager::openConnection() {
-	/*sqlite3* db;
-	char* zErrMsg = 0;
+	sqlite3* db;
 	int rc;
-
-	rc = sqlite3_open("test.db", &db);
+	rc = sqlite3_open("session.db", &db);
 	if(rc) {
-		fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
-		exit(0);
-	} else {
-		fprintf(stderr, "Opened database successfully\n");
+		fprintf(stderr, "Can't open database.\n");
 	}
-	sqlite3_close(db);*/
+	sqlite3_close(db);
 }
 
 /**
