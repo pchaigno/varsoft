@@ -6,6 +6,9 @@
 #include "Asset.h"
 #include "Report.h"
 #include <vector>
+#include <map>
+#include "AssetsFactory.h"
+#include <ctime>
 
 using namespace std;
 
@@ -14,7 +17,7 @@ private:
 	static SessionBuilder* instance;
 
 public:
-	Asset buildAsset(string name);
+	Asset* buildAsset(string name);
 	vector<Asset> buildAssets();
 	vector<Portfolio> buildSession();
 	/**
@@ -31,5 +34,6 @@ public:
 private:
 	SessionBuilder(string databaseFile);
 	vector<Portfolio> buildPortfolios();
-	vector<Report> buildReports();
+	vector<Report> buildReports(sqlite3* db, int idPortfolio);
+	map<Asset*, int> buildPortfolioComposition(sqlite3* db, int idPortfolio);
 };

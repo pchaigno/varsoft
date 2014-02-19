@@ -40,7 +40,8 @@ SOURCES += \
     VaRReportFactory.cpp \
     GarchReportFactory.cpp \
     StatisticsReportFactory.cpp \
-    CorrelationReportFactory.cpp
+    CorrelationReportFactory.cpp \
+    IdAlreadyAttributedException.cpp
 
 HEADERS +=\
     Asset.h \
@@ -71,7 +72,8 @@ HEADERS +=\
     VaRReportFactory.h \
     GarchReportFactory.h \
     StatisticsReportFactory.h \
-    CorrelationReportFactory.h
+    CorrelationReportFactory.h \
+    IdAlreadyAttributedException.h
 
 unix:!symbian {
     maemo5 {

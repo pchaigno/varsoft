@@ -9,11 +9,15 @@ class SQLiteManager {
 protected:
 	const string databaseFile;
 
+public:
+	// TODO Any way to do it cleaner?
+	static string chars_to_string(const unsigned char* chars);
+
 protected:
 	SQLiteManager(const string databaseFile);
+	sqlite3* openConnection();
 
 private:
-	// TODO Change returned object.
-	void openConnection();
-	void createDatabase();
+	bool createDatabase();
+	bool createTable(sqlite3* db, string sqlQuery);
 };

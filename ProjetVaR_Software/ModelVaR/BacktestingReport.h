@@ -5,4 +5,5 @@
 class BacktestingReport: public Report {
 public:
 	BacktestingReport(string docxPath, string pdfPath);
+	virtual ReportType getType() const;
 };

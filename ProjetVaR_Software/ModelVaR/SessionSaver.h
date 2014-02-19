@@ -14,7 +14,7 @@ private:
 	static SessionSaver* instance;
 
 public:
-	void saveAsset(const Asset& asset);
+	bool saveAsset(Asset &asset);
 	void saveSession(const vector<Portfolio>& portfolios);
 	/**
 	 * @brief Accessor to the only instance of SessionSaver.
@@ -30,6 +30,6 @@ public:
 private:
 	SessionSaver(string databaseFile);
 	void saveAssets(const vector<Asset>& assets);
-	void savePortfolios(const vector<Portfolio>& portfolios);
+	void savePortfolios(const vector<Portfolio> &portfolios);
 	void saveReports(const Portfolio& portfolio, const vector<Report>& reports);
 };

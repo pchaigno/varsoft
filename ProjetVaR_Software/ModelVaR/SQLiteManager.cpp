@@ -12,32 +12,70 @@ SQLiteManager::SQLiteManager(const string databaseFile): databaseFile(databaseFi
  * @brief Open the connection to the database.
  * @return An SQLite handler.
  */
-void SQLiteManager::openConnection() {
+sqlite3* SQLiteManager::openConnection() {
 	sqlite3* db;
-	int rc;
-	rc = sqlite3_open("session.db", &db);
-	if(rc) {
-		fprintf(stderr, "Can't open database.\n");
+	if(sqlite3_open("session.db", &db)) {
+		return NULL;
 	}
-	sqlite3_close(db);
+	return db;
 }
 
 /**
  * @brief Creates the database.
+ * @return True if the database was successfully created.
  */
-void SQLiteManager::createDatabase() {
-	/*sql = "CREATE TABLE COMPANY("  \
-		"ID INT PRIMARY KEY     NOT NULL," \
-		"NAME           TEXT    NOT NULL," \
-		"AGE            INT     NOT NULL," \
-		"ADDRESS        CHAR(50)," \
-		"SALARY         REAL );";
-	rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
-	if(rc == SQLITE_OK) {
-		fprintf(stdout, "Table created successfully\n");
-	} else {
-		fprintf(stderr, "SQL error: %s\n", zErrMsg);
-		sqlite3_free(zErrMsg);
-	}
-	sqlite3_close(db);*/
+bool SQLiteManager::createDatabase() {
+	sqlite3* db = this->openConnection();
+	bool result = true;
+	string sqlAssets, sqlPortfolios, sqlReports, sqlWeights;
+	sqlAssets = "CREATE TABLE assets("  \
+		"id INT PRIMARY KEY NOT NULL," \
+		"name TEXT UNIQUE NOT NULL," \
+		"file TEXT UNIQUE NOT NULL," \
+		"origin TEXT," \
+		"first_date INTEGER," \
+		"last_date INTEGER);";
+	result &= createTable(db, sqlAssets);
+	sqlPortfolios = "CREATE TABLE portfolios("  \
+		"id INT PRIMARY KEY NOT NULL," \
+		"name TEXT UNIQUE NOT NULL," \
+		"parent INT REFERENCES portfolios(id));";
+	result &= createTable(db, sqlPortfolios);
+	sqlWeights = "CREATE TABLE weights("  \
+		"asset INT NOT NULL REFERENCES assets(id)," \
+		"portfolio INT NOT NULL REFERENCES portfolio(id)," \
+		"weight INT NOT NULL," \
+		"PRIMARY KEY(asset, portfolio);)";
+	result &= createTable(db, sqlWeights);
+	sqlReports = "CREATE TABLE reports("  \
+		"id INT PRIMARY KEY NOT NULL," \
+		"portfolio INT NOT NULL REFERENCES portfolios(id)," \
+		"pdf_file TEXT UNIQUE NOT NULL," \
+		"docx_file TEXT UNIQUE NOT NULL," \
+		"type INT NOT NULL);";
+	result &= this->createTable(db, sqlReports);
+	sqlite3_close(db);
+	return result;
+}
+
+/**
+ * @brief Creates a table with the SQL query given.
+ * Don't open nor close the connection to the database.
+ * @param db The database connection.
+ * @param sqlQuery The SQL query to create the table.
+ * @return True if the table was created successfully.
+ */
+bool createTable(sqlite3* db, string sqlQuery) {
+	char *zErrMsg = 0;
+	int result = sqlite3_exec(db, sqlQuery.c_str(), NULL, 0, &zErrMsg);
+	return result == SQLITE_OK;
+}
+
+/**
+ * @brief Convert a C SQLite string to a C++ string.
+ * @param chars The C SQLite string.
+ * @return The C++ string.
+ */
+static string chars_to_string(const unsigned char* chars) {
+	return string(reinterpret_cast<const char*>(chars));
 }

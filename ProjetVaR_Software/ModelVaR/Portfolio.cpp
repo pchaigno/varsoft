@@ -8,10 +8,7 @@
  * @param reports The reports of the portfolio.
  */
 Portfolio::Portfolio(Portfolio* parent, string name, map<Asset*, int>& assets, vector<Report>& reports) {
-	this->parent = parent;
-	this->name = name;
-	this->assets = assets;
-	this->reports = reports;
+	this->init(parent, -1, name, assets, reports);
 }
 
 /**
@@ -21,7 +18,43 @@ Portfolio::Portfolio(Portfolio* parent, string name, map<Asset*, int>& assets, v
  * @param reports The reports of the portfolio.
  */
 Portfolio::Portfolio(string name, map<Asset*, int>& assets, vector<Report>& reports) {
-	this->parent = NULL;
+	this->init(NULL, -1, name, assets, reports);
+}
+
+/**
+ * @brief Constructor with parent.
+ * @param parent The older version of the portfolio.
+ * @param id The id of the portfolio in the database.
+ * @param name The name of the portfolio.
+ * @param assets The assets composing the portfolio.
+ * @param reports The reports of the portfolio.
+ */
+Portfolio::Portfolio(Portfolio* parent, int id, string name, map<Asset*, int>& assets, vector<Report>& reports) {
+	this->init(parent, id, name, assets, reports);
+}
+
+/**
+ * @brief Constructor
+ * @param id The id of the portfolio in the database.
+ * @param name The name of the portfolio.
+ * @param assets The assets composing the portfolio.
+ * @param reports The reports of the portfolio.
+ */
+Portfolio::Portfolio(int id, string name, map<Asset*, int>& assets, vector<Report>& reports) {
+	this->init(NULL, id, name, assets, reports);
+}
+
+/**
+ * @brief Method called by all constructors to initiate the object.
+ * @param parent The older version of the portfolio.
+ * @param id The id of the portfolio in the database.
+ * @param name The name of the portfolio.
+ * @param assets The assets composing the portfolio.
+ * @param reports The reports of the portfolio.
+ */
+void Portfolio::init(Portfolio* parent, int id, string name, map<Asset*, int>& assets, vector<Report>& reports) {
+	this->parent = parent;
+	this->id = id;
 	this->name = name;
 	this->assets = assets;
 	this->reports = reports;
@@ -33,6 +66,37 @@ Portfolio::Portfolio(string name, map<Asset*, int>& assets, vector<Report>& repo
  */
 string Portfolio::getName() const {
 	return this->name;
+}
+
+/**
+ * @brief Accessor to id.
+ * @return The ID of the portfolio.
+ */
+int Portfolio::getId() const {
+	return this->id;
+}
+
+/**
+ * @brief Updates the portfolio's id.
+ * @param id The id.
+ * @throw IdAlreadyAttributedException If an id was already attributed.
+ */
+void Portfolio::setId(int id) {
+	if(this->id == -1) {
+		throw IdAlreadyAttributedException("An id has already been attributed to this portfolio.");
+	}
+	this->id = id;
+}
+
+/**
+ * @brief Accessor to the ID of the parent of this portfolio.
+ * @return The ID of the parent portfolio or -1 if there is no parent.
+ */
+int Portfolio::getParentId() const {
+	if(this->parent == NULL) {
+		return -1;
+	}
+	return this->parent->getId();
 }
 
 /**
