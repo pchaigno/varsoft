@@ -1,5 +1,4 @@
-#ifndef H_BACKTESTINGREPORT
-#define H_BACKTESTINGREPORT
+#pragma once
 
 #include <QString>
 #include "Report.h"
@@ -8,4 +7,3 @@ class BacktestingReport: public Report {
 public:
     BacktestingReport(QString docxPath, QString pdfPath);
 };
-#endif

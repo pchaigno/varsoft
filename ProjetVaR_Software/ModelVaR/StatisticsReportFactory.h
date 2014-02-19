@@ -1,5 +1,4 @@
-#ifndef H_STATISTICSREPORTFACTORY
-#define H_STATISTICSREPORTFACTORY
+#pragma once
 
 #include "ReportFactory.h"
 
@@ -8,5 +7,3 @@ public:
     StatisticsReportFactory(QString docxPath, QString pdfPath);
 	virtual DocxGenerator& generateDOCX();
 };
-
-#endif

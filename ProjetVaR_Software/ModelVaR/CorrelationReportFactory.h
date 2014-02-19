@@ -1,5 +1,4 @@
-#ifndef H_CORRELATIONREPORTFACTORY
-#define H_CORRELATIONREPORTFACTORY
+#pragma once
 
 #include "ReportFactory.h"
 #include <QString>
@@ -9,5 +8,3 @@ public:
     CorrelationReportFactory(QString docxPath, QString pdfPath);
 	virtual DocxGenerator& generateDOCX();
 };
-
-#endif

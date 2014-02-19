@@ -1,5 +1,4 @@
-#ifndef MODELVAR_GLOBAL_H
-#define MODELVAR_GLOBAL_H
+#pragma once
 
 #include <QtCore/qglobal.h>
 
@@ -8,5 +7,3 @@
 #else
 # define MODELVARSHARED_EXPORT Q_DECL_IMPORT
 #endif
-
-#endif // MODELVAR_GLOBAL_H

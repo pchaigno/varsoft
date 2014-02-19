@@ -1,11 +1,11 @@
-#ifndef H_SESSIONBUILDER
-#define H_SESSIONBUILDER
+#pragma once
 
 #include "SQLiteManager.h"
 #include <string>
 #include "Portfolio.h"
 #include "Asset.h"
 #include "Report.h"
+#include <QDateTime>
 #include <vector>
 
 
@@ -33,4 +33,3 @@ private:
     QVector<Portfolio> buildPortfolios();
     QVector<Report> buildReports();
 };
-#endif

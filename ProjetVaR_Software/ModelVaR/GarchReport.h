@@ -1,5 +1,4 @@
-#ifndef H_GARCHREPORT
-#define H_GARCHREPORT
+#pragma once
 
 #include "Report.h"
 #include <QString>
@@ -8,4 +7,3 @@ class GarchReport: public Report {
 public:
     GarchReport(QString docxPath, QString pdfPath);
 };
-#endif

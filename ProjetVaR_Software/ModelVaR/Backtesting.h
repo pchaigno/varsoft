@@ -1,19 +1,17 @@
-#ifndef H_BACKTESTING
-#define H_BACKTESTING
+#pragma once
 
 #include "Portfolio.h"
-#include <ctime>
 #include "VaRAlgorithm.h"
+#include <QDateTime>
 #include <tuple>
 
 class Backtesting {
 private:
 	const Portfolio& portfolio;
 	const VaRAlgorithm& varAlgo;
-	const tuple<time_t>& backtestperiod;
+	const QPair<QDateTime, QDateTime>& backtestperiod;
 
 public:
-	Backtesting(const Portfolio& portfolio, const VaRAlgorithm& varAlgo, const tuple<time_t>& backtestperiod);
+	Backtesting(const Portfolio& portfolio, const VaRAlgorithm& varAlgo, const QPair<QDateTime, QDateTime>& backtestperiod);
 	int compute() const;
 };
-#endif

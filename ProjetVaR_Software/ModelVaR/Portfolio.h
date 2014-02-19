@@ -1,5 +1,4 @@
-#ifndef H_PORTFOLIO
-#define H_PORTFOLIO
+#pragma once
 
 #include <QString>
 #include <QVector>
@@ -14,13 +13,13 @@ class Portfolio {
 private:
     QString name;
 	Portfolio* parent;
-    QMap<Asset*, int> assets;
+    QMap<Asset*, QDateTime> assets;
     QVector<Report> reports;
 
 public:
 	Portfolio(const Portfolio& portfolio);
-    Portfolio(Portfolio* parent, QString name, QMap<Asset*, int>& assets, QVector<Report>& reports);
-    Portfolio(QString name, QMap<Asset*, int>& assets, QVector<Report>& reports);
+    Portfolio(Portfolio* parent, QString name, QMap<Asset*, QDateTime>& assets, QVector<Report>& reports);
+    Portfolio(QString name, QMap<Asset*, QDateTime>& assets, QVector<Report>& reports);
 
     QString getName() const;
     QVector<Report> getReports() const;
@@ -31,4 +30,3 @@ public:
 
 	Portfolio& operator=(const Portfolio& portfolio);
 };
-#endif

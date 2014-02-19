@@ -1,8 +1,6 @@
-#ifndef H_GARCHMODEL
-#define H_GARCHMODEL
+#pragma once
 
 class GarchModel {
 public:
 	GarchModel();
 };
-#endif

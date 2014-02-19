@@ -1,5 +1,4 @@
-#ifndef H_RINTERFACE
-#define H_RINTERFACE
+#pragma once
 
 #include "Portfolio.h"
 #include "GarchModel.h"
@@ -10,4 +9,3 @@ public:
 	static bool checkSquareCorrelation(const Portfolio& portfolio);
 	static GarchModel computeGarchModel(const Portfolio& portfolio);
 };
-#endif

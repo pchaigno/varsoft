@@ -1,5 +1,4 @@
-#ifndef H_VARHISTORICAL
-#define H_VARHISTORICAL
+#pragma once
 
 #include "VaRAlgorithm.h"
 
@@ -8,5 +7,3 @@ public:
 	VaRHistorical(const Portfolio& portfolio, double risk);
     virtual double execute(QDateTime timeHorizon) const;
 };
-
-#endif

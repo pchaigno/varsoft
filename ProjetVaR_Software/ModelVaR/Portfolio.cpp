@@ -7,7 +7,7 @@
  * @param assets The assets composing the portfolio.
  * @param reports The reports of the portfolio.
  */
-Portfolio::Portfolio(Portfolio* parent, QString name, QMap<Asset*, int>& assets, QVector<Report>& reports) {
+Portfolio::Portfolio(Portfolio* parent, QString name, QMap<Asset*, QDateTime> &assets, QVector<Report>& reports) {
 	this->parent = parent;
 	this->name = name;
 	this->assets = assets;
@@ -20,7 +20,7 @@ Portfolio::Portfolio(Portfolio* parent, QString name, QMap<Asset*, int>& assets,
  * @param assets The assets composing the portfolio.
  * @param reports The reports of the portfolio.
  */
-Portfolio::Portfolio(QString name, QMap<Asset*, int>& assets, QVector<Report>& reports) {
+Portfolio::Portfolio(QString name, QMap<Asset*, QDateTime>& assets, QVector<Report>& reports) {
 	this->parent = NULL;
 	this->name = name;
 	this->assets = assets;
@@ -58,9 +58,10 @@ void Portfolio::changeName(QString name) {
  * @return The first date defined for this portfolio.
  */
 QDateTime Portfolio::retrieveFirstDate() const {
-    QDateTime maxFirstDate = 0;
-    for(QMap<Asset*,int>::const_iterator it=this->assets.begin(); it!=this->assets.end(); ++it) {
-        QDateTime firstDate = it->first->getFirstDate();
+    QDateTime maxFirstDate;
+    maxFirstDate.setTime_t(0);
+    for(QMap<Asset*, QDateTime>::const_iterator it=this->assets.begin(); it!=this->assets.end(); ++it) {
+        QDateTime firstDate = it.key()->getFirstDate();
 		if(firstDate > maxFirstDate) {
 			maxFirstDate = firstDate;
 		}
@@ -75,9 +76,10 @@ QDateTime Portfolio::retrieveFirstDate() const {
  * @return The last date defined for this portfolio.
  */
 QDateTime Portfolio::retrieveLastDate() const {
-    QDateTime minLastDate = INT_MAX;
-    for(QMap<Asset*,int>::const_iterator it=this->assets.begin(); it!=this->assets.end(); ++it) {
-        QDateTime lastDate = it->first->getLastDate();
+    QDateTime minLastDate;
+    minLastDate.setTime_t(INT_MAX);
+    for(QMap<Asset*, QDateTime>::const_iterator it=this->assets.begin(); it!=this->assets.end(); ++it) {
+        QDateTime lastDate = it.key()->getLastDate();
 		if(lastDate < minLastDate) {
 			minLastDate = lastDate;
 		}

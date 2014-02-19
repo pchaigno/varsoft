@@ -1,8 +1,6 @@
-#ifndef H_REPORTGENERATOR
-#define H_REPORTGENERATOR
+#pragma once
 
 class ReportGenerator {
 public:
 	virtual void generate() =0;
 };
-#endif

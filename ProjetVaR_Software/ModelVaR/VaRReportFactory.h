@@ -1,5 +1,4 @@
-#ifndef H_VARREPORTFACTORY
-#define H_VARREPORTFACTORY
+#pragma once
 
 #include "ReportFactory.h"
 
@@ -8,5 +7,3 @@ public:
     VaRReportFactory(QString docxPath, QString pdfPath);
 	virtual DocxGenerator& generateDOCX();
 };
-
-#endif

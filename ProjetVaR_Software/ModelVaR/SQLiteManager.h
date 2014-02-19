@@ -1,9 +1,6 @@
-#ifndef H_SQLITEMANAGER
-#define H_SQLITEMANAGER
+#pragma once
 
 #include <QString>
-#include "sqlite3.h"
-
 
 class SQLiteManager {
 protected:
@@ -17,4 +14,3 @@ private:
 	void openConnection();
 	void createDatabase();
 };
-#endif

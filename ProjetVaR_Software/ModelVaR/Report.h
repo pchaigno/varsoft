@@ -1,5 +1,4 @@
-#ifndef H_REPORT
-#define H_REPORT
+#pragma once
 
 #include <QString>
 
@@ -13,4 +12,3 @@ public:
     QString getDOCXPath() const;
     QString getPDFPath() const;
 };
-#endif

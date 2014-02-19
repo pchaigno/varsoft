@@ -1,5 +1,4 @@
-#ifndef H_DOCXGENERATOR
-#define H_DOCXGENERATOR
+#pragma once
 
 #include <QString>
 #include "ReportGenerator.h"
@@ -12,4 +11,3 @@ public:
 	virtual void generate();
 	void convertToPDF();
 };
-#endif

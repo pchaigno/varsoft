@@ -15,7 +15,9 @@ SessionBuilder::SessionBuilder(QString databaseFile): SQLiteManager(databaseFile
  */
 Asset SessionBuilder::buildAsset(QString name) {
 	// TODO
-	return Asset(name, "", 0, 0);
+	QDateTime firstDate;
+	QDateTime lastDate;
+	return Asset(name, "", firstDate, lastDate);
 }
 
 /**
