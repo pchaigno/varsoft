@@ -5,7 +5,8 @@
 #include "Portfolio.h"
 #include "Asset.h"
 #include "Report.h"
-#include "AssetsFactory.h"
+#include <QDateTime>
+#include <QVector>
 
 class SessionBuilder: public SQLiteManager {
 private:

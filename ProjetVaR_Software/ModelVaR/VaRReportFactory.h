@@ -5,6 +5,6 @@
 
 class VaRReportFactory: public ReportFactory {
 public:
-	VaRReportFactory(QString docxPath, QString pdfPath);
+	VaRReportFactory(QString docxFile, QString pdfFile);
 	virtual DocxGenerator& generateDOCX();
 };

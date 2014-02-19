@@ -13,11 +13,7 @@ SQLiteManager::SQLiteManager(const QString databaseFile): databaseFile(databaseF
  * @return An SQLite handler.
  */
 void SQLiteManager::openConnection() {
-	/*sqlite3* db;
-	if(sqlite3_open("session.db", &db)) {
-		return NULL;
-	}
-	return db;*/
+
 }
 
 /**

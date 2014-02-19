@@ -5,6 +5,6 @@
 
 class VaRReport: public Report {
 public:
-	VaRReport(QString docxPath, QString pdfPath);
+	VaRReport(QString docxFile, QString pdfFile);
 	virtual ReportType getType() const;
 };

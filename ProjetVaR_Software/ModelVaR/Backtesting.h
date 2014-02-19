@@ -3,6 +3,7 @@
 #include "Portfolio.h"
 #include "VaRAlgorithm.h"
 #include <QPair>
+#include <QDateTime>
 
 class Backtesting {
 private:

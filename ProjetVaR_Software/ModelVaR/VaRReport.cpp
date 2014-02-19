@@ -1,6 +1,6 @@
 #include "VaRReport.h"
 
-VaRReport::VaRReport(QString docxPath, QString pdfPath): Report(docxPath, pdfPath) {
+VaRReport::VaRReport(QString docxFile, QString pdfFile): Report(docxFile, pdfFile) {
 
 }
 

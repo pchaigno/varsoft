@@ -5,8 +5,8 @@
  * @param docxPath The location of the DOCX file on the disk.
  * @param pdfPath The location of the PDF file on the disk.
  */
-VaRReportFactory::VaRReportFactory(QString docxPath, QString pdfPath):
-	ReportFactory(docxPath, pdfPath) {
+VaRReportFactory::VaRReportFactory(QString docxFile, QString pdfFile):
+	ReportFactory(docxFile, pdfFile) {
 
 }
 

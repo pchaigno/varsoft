@@ -4,6 +4,6 @@
 
 class BacktestingReportFactory: public ReportFactory {
 public:
-	BacktestingReportFactory(QString docxPath, QString pdfPath);
+	BacktestingReportFactory(QString docxFile, QString pdfFile);
 	virtual DocxGenerator& generateDOCX();
 };

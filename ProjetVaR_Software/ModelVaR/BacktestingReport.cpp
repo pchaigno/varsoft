@@ -1,6 +1,6 @@
 #include "BacktestingReport.h"
 
-BacktestingReport::BacktestingReport(QString docxPath, QString pdfPath): Report(docxPath, pdfPath) {
+BacktestingReport::BacktestingReport(QString docxFile, QString pdfFile): Report(docxFile, pdfFile) {
 
 }
 

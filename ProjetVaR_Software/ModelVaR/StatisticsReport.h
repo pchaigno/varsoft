@@ -5,6 +5,6 @@
 
 class StatisticsReport: public Report {
 public:
-	StatisticsReport(QString docxPath, QString pdfPath);
+	StatisticsReport(QString docxFile, QString pdfFile);
 	virtual ReportType getType() const;
 };

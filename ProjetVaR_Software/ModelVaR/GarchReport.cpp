@@ -1,6 +1,6 @@
 #include "GarchReport.h"
 
-GarchReport::GarchReport(QString docxPath, QString pdfPath): Report(docxPath, pdfPath) {
+GarchReport::GarchReport(QString docxFile, QString pdfFile): Report(docxFile, pdfFile) {
 
 }
 
