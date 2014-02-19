@@ -4,7 +4,7 @@
  * @brief Constructor.
  * @param databaseFile The location of the database file on the disk.
  */
-SQLiteManager::SQLiteManager(const string databaseFile): databaseFile(databaseFile) {
+SQLiteManager::SQLiteManager(const QString databaseFile): databaseFile(databaseFile) {
 
 }
 
@@ -12,12 +12,12 @@ SQLiteManager::SQLiteManager(const string databaseFile): databaseFile(databaseFi
  * @brief Open the connection to the database.
  * @return An SQLite handler.
  */
-sqlite3* SQLiteManager::openConnection() {
-	sqlite3* db;
+void SQLiteManager::openConnection() {
+	/*sqlite3* db;
 	if(sqlite3_open("session.db", &db)) {
 		return NULL;
 	}
-	return db;
+	return db;*/
 }
 
 /**
@@ -25,7 +25,7 @@ sqlite3* SQLiteManager::openConnection() {
  * @return True if the database was successfully created.
  */
 bool SQLiteManager::createDatabase() {
-	sqlite3* db = this->openConnection();
+	/*sqlite3* db = this->openConnection();
 	bool result = true;
 	string sqlAssets, sqlPortfolios, sqlReports, sqlWeights;
 	sqlAssets = "CREATE TABLE assets("  \
@@ -55,7 +55,8 @@ bool SQLiteManager::createDatabase() {
 		"type INT NOT NULL);";
 	result &= this->createTable(db, sqlReports);
 	sqlite3_close(db);
-	return result;
+	return result;*/
+	return false;
 }
 
 /**
@@ -65,17 +66,9 @@ bool SQLiteManager::createDatabase() {
  * @param sqlQuery The SQL query to create the table.
  * @return True if the table was created successfully.
  */
-bool createTable(sqlite3* db, string sqlQuery) {
-	char *zErrMsg = 0;
+bool createTable(QString sqlQuery) {
+	/*char *zErrMsg = 0;
 	int result = sqlite3_exec(db, sqlQuery.c_str(), NULL, 0, &zErrMsg);
-	return result == SQLITE_OK;
-}
-
-/**
- * @brief Convert a C SQLite string to a C++ string.
- * @param chars The C SQLite string.
- * @return The C++ string.
- */
-static string chars_to_string(const unsigned char* chars) {
-	return string(reinterpret_cast<const char*>(chars));
+	return result == SQLITE_OK;*/
+	return false;
 }

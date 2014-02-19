@@ -1,23 +1,16 @@
 #pragma once
 
-#include <string>
-#include "sqlite3.h"
-
-using namespace std;
+#include <QString>
 
 class SQLiteManager {
 protected:
-	const string databaseFile;
-
-public:
-	// TODO Any way to do it cleaner?
-	static string chars_to_string(const unsigned char* chars);
+	const QString databaseFile;
 
 protected:
-	SQLiteManager(const string databaseFile);
-	sqlite3* openConnection();
+	SQLiteManager(const QString databaseFile);
+	void openConnection();
 
 private:
 	bool createDatabase();
-	bool createTable(sqlite3* db, string sqlQuery);
+	bool createTable(QString sqlQuery);
 };

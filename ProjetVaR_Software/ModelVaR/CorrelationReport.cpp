@@ -1,6 +1,6 @@
 #include "CorrelationReport.h"
 
-CorrelationReport::CorrelationReport(string docxPath, string pdfPath): Report(docxPath, pdfPath) {
+CorrelationReport::CorrelationReport(QString docxPath, QString pdfPath): Report(docxPath, pdfPath) {
 
 }
 

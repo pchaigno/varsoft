@@ -2,20 +2,18 @@
 
 #include "Report.h"
 #include "DocxGenerator.h"
-#include <string>
-
-using namespace std;
+#include <QString>
 
 class ReportFactory {
 protected:
 	DocxGenerator docxGenerator;
 
 private:
-	string docxPath;
-	string pdfPath;
+	QString docxPath;
+	QString pdfPath;
 
 public:
-	ReportFactory(string docxPath, string pdfPath);
+	ReportFactory(QString docxPath, QString pdfPath);
 	Report generateReport();
 	virtual DocxGenerator& generateDOCX() const =0;
 	void generatePDF();

@@ -1,16 +1,14 @@
 #pragma once
 
-#include <string>
+#include <QString>
 #include "Asset.h"
-
-using namespace std;
 
 class AssetsFactory {
 private:
 	static AssetsFactory* instance;
 
 public:
-	Asset* retrieveAsset(string name);
+	Asset* retrieveAsset(QString name);
 	static AssetsFactory* getInstance() {
 		if(instance == NULL) {
 			instance = new AssetsFactory();

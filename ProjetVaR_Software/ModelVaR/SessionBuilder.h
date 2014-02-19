@@ -1,25 +1,20 @@
 #pragma once
 
 #include "SQLiteManager.h"
-#include <string>
+#include <QString>
 #include "Portfolio.h"
 #include "Asset.h"
 #include "Report.h"
-#include <vector>
-#include <map>
 #include "AssetsFactory.h"
-#include <ctime>
-
-using namespace std;
 
 class SessionBuilder: public SQLiteManager {
 private:
 	static SessionBuilder* instance;
 
 public:
-	Asset* buildAsset(string name);
-	vector<Asset> buildAssets();
-	vector<Portfolio> buildSession();
+	Asset* buildAsset(QString name);
+	QVector<Asset> buildAssets();
+	QVector<Portfolio> buildSession();
 	/**
 	 * @brief Accessor to the only instance of SessionBuilder.
 	 * @return The only instance of SessionBuilder.
@@ -32,8 +27,8 @@ public:
 	}
 
 private:
-	SessionBuilder(string databaseFile);
-	vector<Portfolio> buildPortfolios();
-	vector<Report> buildReports(sqlite3* db, int idPortfolio);
-	map<Asset*, int> buildPortfolioComposition(sqlite3* db, int idPortfolio);
+	SessionBuilder(QString databaseFile);
+	QVector<Portfolio> buildPortfolios();
+	QVector<Report> buildReports(int idPortfolio);
+	QMap<Asset*, int> buildPortfolioComposition(int idPortfolio);
 };

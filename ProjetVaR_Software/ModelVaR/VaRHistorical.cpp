@@ -5,7 +5,7 @@ VaRHistorical::VaRHistorical(const Portfolio& portfolio, double risk):
 
 }
 
-double VaRHistorical::execute(time_t timeHorizon) const {
+double VaRHistorical::execute(QDateTime timeHorizon) const {
 	// TODO
 	return 0;
 }

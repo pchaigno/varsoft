@@ -4,7 +4,7 @@
  * @brief Constructor
  * @param databaseFile The location of the database file on the disk.
  */
-SessionSaver::SessionSaver(string databaseFile): SQLiteManager(databaseFile) {
+SessionSaver::SessionSaver(QString databaseFile): SQLiteManager(databaseFile) {
 
 }
 
@@ -14,7 +14,7 @@ SessionSaver::SessionSaver(string databaseFile): SQLiteManager(databaseFile) {
  * @return True if the asset was successfully saved.
  */
 bool SessionSaver::saveAsset(Asset& asset) {
-	sqlite3_stmt* preparedStmt;
+	/*sqlite3_stmt* preparedStmt;
 	sqlite3* db = this->openConnection();
 	string sqlQuery = "INSERT INTO assets(name, file, origin, first_date, last_date) VALUES(?, ?, ?, ?, ?);";
 	sqlite3_prepare_v2(db, sqlQuery.c_str(), -1, &preparedStmt, NULL);
@@ -25,24 +25,25 @@ bool SessionSaver::saveAsset(Asset& asset) {
 	sqlite3_bind_int(preparedStmt, 4, asset.getLastDate());
 	int result = sqlite3_step(preparedStmt);
 	asset.setId(sqlite3_last_insert_rowid(db));
-	return result == SQLITE_OK;
+	return result == SQLITE_OK;*/
+	return false;
 }
 
 /**
  * @brief Save an entire session in the database.
  * @param portfolios The portfolios of the session.
  */
-void SessionSaver::saveSession(const vector<Portfolio>& portfolios) {
+void SessionSaver::saveSession(const QVector<Portfolio>& portfolios) {
 	// TODO
-	this->savePortfolios(portfolios);
+	//this->savePortfolios(portfolios);
 }
 
 /**
  * @brief Save some assets in the database.
  * @param assets The assets to save.
  */
-void SessionSaver::saveAssets(const vector<Asset>& assets) {
-	sqlite3_stmt* preparedStmt;
+void SessionSaver::saveAssets(const QVector<Asset>& assets) {
+	/*sqlite3_stmt* preparedStmt;
 	sqlite3* db = this->openConnection();
 	string sqlQuery = "INSERT INTO assets(name, file, origin, first_date, last_date) VALUES(?, ?, ?, ?, ?);";
 	sqlite3_prepare_v2(db, sqlQuery.c_str(), -1, &preparedStmt, NULL);
@@ -56,15 +57,15 @@ void SessionSaver::saveAssets(const vector<Asset>& assets) {
 		sqlite3_step(preparedStmt);
 		asset.setId(sqlite3_last_insert_rowid(db));
 		sqlite3_reset(preparedStmt);
-	}
+	}*/
 }
 
 /**
  * @brief Save some portfolios in the database.
  * @param portfolios The portfolios to save.
  */
-void SessionSaver::savePortfolios(const vector<Portfolio>& portfolios) {
-	sqlite3_stmt* preparedStmt;
+void SessionSaver::savePortfolios(const QVector<Portfolio>& portfolios) {
+	/*sqlite3_stmt* preparedStmt;
 	sqlite3* db = this->openConnection();
 	string sqlQuery = "INSERT INTO portfolios(name, parent) VALUES(?, ?);";
 	sqlite3_prepare_v2(db, sqlQuery.c_str(), -1, &preparedStmt, NULL);
@@ -75,7 +76,7 @@ void SessionSaver::savePortfolios(const vector<Portfolio>& portfolios) {
 		sqlite3_step(preparedStmt);
 		portfolio.setId(sqlite3_last_insert_rowid(db));
 		sqlite3_reset(preparedStmt);
-	}
+	}*/
 }
 
 /**
@@ -83,8 +84,8 @@ void SessionSaver::savePortfolios(const vector<Portfolio>& portfolios) {
  * @param portfolio The porfolios owner of the reports.
  * @param reports The reports to save.
  */
-void SessionSaver::saveReports(const Portfolio& portfolio, const vector<Report>& reports) {
-	sqlite3_stmt* preparedStmt;
+void SessionSaver::saveReports(const Portfolio& portfolio, const QVector<Report>& reports) {
+	/*sqlite3_stmt* preparedStmt;
 	sqlite3* db = this->openConnection();
 	string sqlQuery = "INSERT INTO reports(portfolio, pdf_file, docx_file, type) VALUES(?, ?, ?, ?);";
 	sqlite3_prepare_v2(db, sqlQuery.c_str(), -1, &preparedStmt, NULL);
@@ -97,5 +98,5 @@ void SessionSaver::saveReports(const Portfolio& portfolio, const vector<Report>&
 		sqlite3_step(preparedStmt);
 		report.setId(sqlite3_last_insert_rowid(db));
 		sqlite3_reset(preparedStmt);
-	}
+	}*/
 }

@@ -1,15 +1,23 @@
 #pragma once
 
 #include <exception>
-#include <string>
+#include <QString>
 
-using namespace std;
-
-class IdAlreadyAttributedException: public exception {
-private:
-	string message;
-
+class IdAlreadyAttributedException: public std::exception
+{
 public:
-	IdAlreadyAttributedException(string message);
-	virtual const char* what() const throw();
+	IdAlreadyAttributedException(std::string msg) {
+		this->msg = msg;
+	}
+
+	virtual ~IdAlreadyAttributedException() throw() {
+
+	}
+
+	virtual const char * what() const throw() {
+		return this->msg.c_str();
+	}
+
+private:
+	std::string msg;
 };

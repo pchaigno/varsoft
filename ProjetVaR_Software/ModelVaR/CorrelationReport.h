@@ -4,6 +4,6 @@
 
 class CorrelationReport: public Report {
 public:
-	CorrelationReport(string docxPath, string pdfPath);
+	CorrelationReport(QString docxPath, QString pdfPath);
 	virtual ReportType getType() const;
 };

@@ -10,5 +10,5 @@ private:
 
 public:
 	VaRAlgorithm(const Portfolio& portfolio, double risk);
-	virtual double execute(time_t timeHorizon) const =0;
+	virtual double execute(QDateTime timeHorizon) const =0;
 };

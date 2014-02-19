@@ -4,6 +4,6 @@
 
 class BacktestingReport: public Report {
 public:
-	BacktestingReport(string docxPath, string pdfPath);
+	BacktestingReport(QString docxPath, QString pdfPath);
 	virtual ReportType getType() const;
 };

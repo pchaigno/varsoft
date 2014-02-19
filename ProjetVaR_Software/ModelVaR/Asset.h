@@ -1,31 +1,29 @@
 #pragma once
 
-#include <string>
-#include <ctime>
+#include <QString>
+#include <QDateTime>
 #include "IdAlreadyAttributedException.h"
-
-using namespace std;
 
 class Asset {
 private:
 	int id;
-	string file;
-	string name;
-	string origin;
-	time_t firstDate;
-	time_t lastDate;
+	QString file;
+	QString name;
+	QString origin;
+	QDateTime firstDate;
+	QDateTime lastDate;
 
 public:
-	Asset(string name, string file, string origin, time_t firstDate, time_t lastDate);
-	Asset(int id, string name, string file, string origin, time_t firstDate, time_t lastDate);
-	void init(int id, string name, string file, string origin, time_t firstDate, time_t lastDate);
+	Asset(QString name, QString file, QString origin, QDateTime firstDate, QDateTime lastDate);
+	Asset(int id, QString name, QString file, QString origin, QDateTime firstDate, QDateTime lastDate);
+	void init(int id, QString name, QString file, QString origin, QDateTime firstDate, QDateTime lastDate);
 
 	int getId() const;
 	void setId(int id);
-	string getFile() const;
-	string getName() const;
-	string getOrigin() const;
-	time_t getFirstDate() const;
-	time_t getLastDate() const;
-	void changeName(string name);
+	QString getFile() const;
+	QString getName() const;
+	QString getOrigin() const;
+	QDateTime getFirstDate() const;
+	QDateTime getLastDate() const;
+	void changeName(QString name);
 };

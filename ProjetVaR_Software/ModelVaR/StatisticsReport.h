@@ -1,9 +1,10 @@
 #pragma once
 
 #include "Report.h"
+#include <QString>
 
 class StatisticsReport: public Report {
 public:
-	StatisticsReport(string docxPath, string pdfPath);
+	StatisticsReport(QString docxPath, QString pdfPath);
 	virtual ReportType getType() const;
 };

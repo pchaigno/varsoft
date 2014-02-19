@@ -40,8 +40,7 @@ SOURCES += \
     VaRReportFactory.cpp \
     GarchReportFactory.cpp \
     StatisticsReportFactory.cpp \
-    CorrelationReportFactory.cpp \
-    IdAlreadyAttributedException.cpp
+    CorrelationReportFactory.cpp
 
 HEADERS +=\
     Asset.h \

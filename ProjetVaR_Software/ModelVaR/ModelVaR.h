@@ -1,5 +1,4 @@
-#ifndef MODELVAR_H
-#define MODELVAR_H
+#pragma once
 
 #include "ModelVaR_global.h"
 
@@ -8,5 +7,3 @@ class MODELVARSHARED_EXPORT ModelVaR
 public:
 	ModelVaR();
 };
-
-#endif // MODELVAR_H

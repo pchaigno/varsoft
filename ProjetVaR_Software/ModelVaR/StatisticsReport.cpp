@@ -1,6 +1,6 @@
 #include "StatisticsReport.h"
 
-StatisticsReport::StatisticsReport(string docxPath, string pdfPath): Report(docxPath, pdfPath) {
+StatisticsReport::StatisticsReport(QString docxPath, QString pdfPath): Report(docxPath, pdfPath) {
 
 }
 

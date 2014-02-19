@@ -1,9 +1,7 @@
 #pragma once
 
-#include <string>
+#include <QString>
 #include "IdAlreadyAttributedException.h"
-
-using namespace std;
 
 enum ReportType {
 	NONE = 0,
@@ -17,18 +15,18 @@ enum ReportType {
 class Report {
 private:
 	int id;
-	string docxFile;
-	string pdfFile;
+	QString docxFile;
+	QString pdfFile;
 
 public:
-	Report(string docxFile, string pdfFile);
-	Report(int id, string docxFile, string pdfFile);
-	void init(int id, string docxFile, string pdfFile);
+	Report(QString docxFile, QString pdfFile);
+	Report(int id, QString docxFile, QString pdfFile);
+	void init(int id, QString docxFile, QString pdfFile);
 
 	int getId() const;
 	void setId(int id);
-	string getDOCXFile() const;
-	string getPDFFile() const;
+	QString getDOCXFile() const;
+	QString getPDFFile() const;
 	// TODO Any way to make it abstract?
 	virtual ReportType getType() const;
 };

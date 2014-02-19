@@ -4,7 +4,7 @@
  * @brief Constructor
  * @param databaseFile The location of the database file on the disk.
  */
-SessionBuilder::SessionBuilder(string databaseFile): SQLiteManager(databaseFile) {
+SessionBuilder::SessionBuilder(QString databaseFile): SQLiteManager(databaseFile) {
 
 }
 
@@ -13,8 +13,8 @@ SessionBuilder::SessionBuilder(string databaseFile): SQLiteManager(databaseFile)
  * @param name The name of the asset to retrieve.
  * @return The asset.
  */
-Asset* SessionBuilder::buildAsset(string name) {
-	sqlite3_stmt* preparedStmt;
+Asset* SessionBuilder::buildAsset(QString name) {
+	/*sqlite3_stmt* preparedStmt;
 	sqlite3* db = this->openConnection();
 	string sqlQuery = "SELECT id, file, first_date, last_date FROM assets WHERE name = ?;";
 	sqlite3_prepare_v2(db, sqlQuery.c_str(), -1, &preparedStmt, NULL);
@@ -32,15 +32,16 @@ Asset* SessionBuilder::buildAsset(string name) {
 		asset = new Asset(id, name, file, origin, firstDate, lastDate);
 	}
 	sqlite3_close(db);
-	return asset;
+	return asset;*/
+	return NULL;
 }
 
 /**
  * @brief Retrieves all assets from the database.
  * @return The assets.
  */
-vector<Asset> SessionBuilder::buildAssets() {
-	sqlite3_stmt* preparedStmt;
+QVector<Asset> SessionBuilder::buildAssets() {
+	/*sqlite3_stmt* preparedStmt;
 	sqlite3* db = this->openConnection();
 	string sqlQuery = "SELECT id, name, file, origin, first_date, last_date FROM assets;";
 	sqlite3_prepare_v2(db, sqlQuery.c_str(), -1, &preparedStmt, NULL);
@@ -58,18 +59,20 @@ vector<Asset> SessionBuilder::buildAssets() {
 		assets.push_back(Asset(id, name, file, origin, firstDate, lastDate));
 	}
 	sqlite3_close(db);
-	return assets;
+	return assets;*/
+	return QVector<Asset>();
 }
 
 /**
  * @brief Retrieves a session from the database.
  * @return The portfolios of the session.
  */
-vector<Portfolio> SessionBuilder::buildSession() {
+QVector<Portfolio> SessionBuilder::buildSession() {
 	// Calls the AssetsFactory only to build the instance that will call buildAssets.
-	AssetsFactory::getInstance();
+	/*AssetsFactory::getInstance();
 	vector<Portfolio> portfolios = this->buildPortfolios();
-	return portfolios;
+	return portfolios;*/
+	return QVector<Portfolio>();
 }
 
 /**
@@ -79,8 +82,8 @@ vector<Portfolio> SessionBuilder::buildSession() {
  * @param idPortfolio The ID of the portfolio.
  * @return The reports.
  */
-vector<Report> SessionBuilder::buildReports(sqlite3* db, int idPortfolio) {
-	sqlite3_stmt* preparedStmt;
+QVector<Report> SessionBuilder::buildReports(int idPortfolio) {
+	/*sqlite3_stmt* preparedStmt;
 	string sqlQuery = "SELECT id, docx_file, pdf_file FROM reports WHERE portfolio = ?;";
 	sqlite3_prepare_v2(db, sqlQuery.c_str(), -1, &preparedStmt, NULL);
 	sqlite3_bind_int(preparedStmt, 0, idPortfolio);
@@ -93,16 +96,17 @@ vector<Report> SessionBuilder::buildReports(sqlite3* db, int idPortfolio) {
 		pdfFile = chars_to_string(sqlite3_column_text(preparedStmt, 2));
 		reports.push_back(Report(id, docxFile, pdfFile));
 	}
-	return reports;
+	return reports;*/
+	return QVector<Report>();
 }
 
 /**
  * @brief Retrieves all portfolios from the database.
  * @return The portfolios.
  */
-vector<Portfolio> SessionBuilder::buildPortfolios() {
+QVector<Portfolio> SessionBuilder::buildPortfolios() {
 	// TODO Should we have a mechanism to prevent the portfolios to be loop-linked?
-	sqlite3_stmt* preparedStmt;
+	/*sqlite3_stmt* preparedStmt;
 	sqlite3* db = this->openConnection();
 	string sqlQuery = "SELECT id, name, parent FROM portfolios ORDER BY parent ASC;";
 	sqlite3_prepare_v2(db, sqlQuery.c_str(), -1, &preparedStmt, NULL);
@@ -129,7 +133,8 @@ vector<Portfolio> SessionBuilder::buildPortfolios() {
 		portfoliosById[id] = &portfolio;
 	}
 	sqlite3_close(db);
-	return portfolios;
+	return portfolios;*/
+	return QVector<Portfolio>();
 }
 
 /**
@@ -137,8 +142,8 @@ vector<Portfolio> SessionBuilder::buildPortfolios() {
  * and from the AssetsFactory (for the assets).
  * @return The portfolio composition as a map.
  */
-map<Asset*, int> SessionBuilder::buildPortfolioComposition(sqlite3* db, int idPortfolio) {
-	sqlite3_stmt* preparedStmt;
+QMap<Asset*, int> SessionBuilder::buildPortfolioComposition(int idPortfolio) {
+	/*sqlite3_stmt* preparedStmt;
 	string sqlQuery = "SELECT name, weight FROM weights, assets WHERE portfolio = ?;";
 	sqlite3_prepare_v2(db, sqlQuery.c_str(), -1, &preparedStmt, NULL);
 	sqlite3_bind_int(preparedStmt, 0, idPortfolio);
@@ -152,5 +157,6 @@ map<Asset*, int> SessionBuilder::buildPortfolioComposition(sqlite3* db, int idPo
 		asset = AssetsFactory::getInstance()->retrieveAsset(assetName);
 		composition[asset] = weight;
 	}
-	return composition;
+	return composition;*/
+	return QMap<Asset*, int>();
 }

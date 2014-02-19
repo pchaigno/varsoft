@@ -1,9 +1,10 @@
 #pragma once
 
 #include "Report.h"
+#include <QString>
 
 class VaRReport: public Report {
 public:
-	VaRReport(string docxPath, string pdfPath);
+	VaRReport(QString docxPath, QString pdfPath);
 	virtual ReportType getType() const;
 };

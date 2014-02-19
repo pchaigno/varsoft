@@ -5,7 +5,7 @@
  * @param docxPath The location of the DOCX file on the disk.
  * @param pdfPath The location of the PDF file on the disk.
  */
-Report::Report(string docxFile, string pdfFile) {
+Report::Report(QString docxFile, QString pdfFile) {
 	this->init(-1, docxFile, pdfFile);
 }
 
@@ -15,7 +15,7 @@ Report::Report(string docxFile, string pdfFile) {
  * @param docxPath The location of the DOCX file on the disk.
  * @param pdfPath The location of the PDF file on the disk.
  */
-Report::Report(int id, string docxFile, string pdfFile) {
+Report::Report(int id, QString docxFile, QString pdfFile) {
 	this->init(id, docxFile, pdfFile);
 }
 
@@ -24,7 +24,7 @@ Report::Report(int id, string docxFile, string pdfFile) {
  * @param docxPath The location of the DOCX file on the disk.
  * @param pdfPath The location of the PDF file on the disk.
  */
-void Report::init(int id, string docxFile, string pdfFile) {
+void Report::init(int id, QString docxFile, QString pdfFile) {
 	this->id = id;
 	this->docxFile = docxFile;
 	this->pdfFile = pdfFile;
@@ -45,6 +45,7 @@ int Report::getId() const {
  */
 void Report::setId(int id) {
 	if(this->id == -1) {
+		// TODO Improve error message.
 		throw IdAlreadyAttributedException("An id has already been attributed to this report.");
 	}
 	this->id = id;
@@ -54,7 +55,7 @@ void Report::setId(int id) {
  * @brief Accessor to the DOCX file.
  * @return The location of the DOCX file on the disk.
  */
-string Report::getDOCXFile() const {
+QString Report::getDOCXFile() const {
 	return this->docxFile;
 }
 
@@ -62,7 +63,7 @@ string Report::getDOCXFile() const {
  * @brief Accessor to the PDF file.
  * @return The location of the PDF file on the disk.
  */
-string Report::getPDFFile() const {
+QString Report::getPDFFile() const {
 	return this->pdfFile;
 }
 

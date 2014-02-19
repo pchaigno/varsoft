@@ -1,9 +1,10 @@
 #pragma once
 
 #include "ReportFactory.h"
+#include <QString>
 
 class StatisticsReportFactory: public ReportFactory {
 public:
-	StatisticsReportFactory(string docxPath, string pdfPath);
+	StatisticsReportFactory(QString docxPath, QString pdfPath);
 	virtual DocxGenerator& generateDOCX();
 };

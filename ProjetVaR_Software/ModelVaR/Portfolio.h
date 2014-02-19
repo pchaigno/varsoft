@@ -1,40 +1,38 @@
 #pragma once
 
-#include <string>
-#include <vector>
+#include <QString>
+#include <QVector>
 #include "Report.h"
-#include <map>
+#include <QMap>
 #include "Asset.h"
+#include <QDateTime>
 #include "IdAlreadyAttributedException.h"
-#include <climits>
-
-using namespace std;
 
 class Portfolio {
 private:
 	int id;
-	string name;
+	QString name;
 	Portfolio* parent;
-	map<Asset*, int> assets;
-	vector<Report> reports;
+	QMap<Asset*, int> assets;
+	QVector<Report> reports;
 
 public:
 	Portfolio(const Portfolio& portfolio);
-	Portfolio(Portfolio* parent, string name, map<Asset*, int>& assets, vector<Report>& reports);
-	Portfolio(string name, map<Asset*, int>& assets, vector<Report>& reports);
-	Portfolio(Portfolio* parent, int id, string name, map<Asset*, int>& assets, vector<Report>& reports);
-	Portfolio(int id, string name, map<Asset*, int>& assets, vector<Report>& reports);
-	void init(Portfolio* parent, int id, string name, map<Asset*, int>& assets, vector<Report>& reports);
+	Portfolio(Portfolio* parent, QString name, QMap<Asset*, int>& assets, QVector<Report>& reports);
+	Portfolio(QString name, QMap<Asset*, int>& assets, QVector<Report>& reports);
+	Portfolio(Portfolio* parent, int id, QString name, QMap<Asset*, int>& assets, QVector<Report>& reports);
+	Portfolio(int id, QString name, QMap<Asset*, int>& assets, QVector<Report>& reports);
+	void init(Portfolio* parent, int id, QString name, QMap<Asset*, int>& assets, QVector<Report>& reports);
 
-	string getName() const;
+	QString getName() const;
 	int getId() const;
 	void setId(int id);
 	int getParentId() const;
-	vector<Report> getReports() const;
-	void changeName(string name);
+	QVector<Report> getReports() const;
+	void changeName(QString name);
 
-	time_t retrieveFirstDate() const;
-	time_t retrieveLastDate() const;
+	QDateTime retrieveFirstDate() const;
+	QDateTime retrieveLastDate() const;
 
 	Portfolio& operator=(const Portfolio& portfolio);
 };

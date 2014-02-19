@@ -7,7 +7,7 @@
  * @param assets The assets composing the portfolio.
  * @param reports The reports of the portfolio.
  */
-Portfolio::Portfolio(Portfolio* parent, string name, map<Asset*, int>& assets, vector<Report>& reports) {
+Portfolio::Portfolio(Portfolio* parent, QString name, QMap<Asset*, int>& assets, QVector<Report>& reports) {
 	this->init(parent, -1, name, assets, reports);
 }
 
@@ -17,7 +17,7 @@ Portfolio::Portfolio(Portfolio* parent, string name, map<Asset*, int>& assets, v
  * @param assets The assets composing the portfolio.
  * @param reports The reports of the portfolio.
  */
-Portfolio::Portfolio(string name, map<Asset*, int>& assets, vector<Report>& reports) {
+Portfolio::Portfolio(QString name, QMap<Asset*, int>& assets, QVector<Report>& reports) {
 	this->init(NULL, -1, name, assets, reports);
 }
 
@@ -29,7 +29,7 @@ Portfolio::Portfolio(string name, map<Asset*, int>& assets, vector<Report>& repo
  * @param assets The assets composing the portfolio.
  * @param reports The reports of the portfolio.
  */
-Portfolio::Portfolio(Portfolio* parent, int id, string name, map<Asset*, int>& assets, vector<Report>& reports) {
+Portfolio::Portfolio(Portfolio* parent, int id, QString name, QMap<Asset*, int>& assets, QVector<Report>& reports) {
 	this->init(parent, id, name, assets, reports);
 }
 
@@ -40,7 +40,7 @@ Portfolio::Portfolio(Portfolio* parent, int id, string name, map<Asset*, int>& a
  * @param assets The assets composing the portfolio.
  * @param reports The reports of the portfolio.
  */
-Portfolio::Portfolio(int id, string name, map<Asset*, int>& assets, vector<Report>& reports) {
+Portfolio::Portfolio(int id, QString name, QMap<Asset*, int>& assets, QVector<Report>& reports) {
 	this->init(NULL, id, name, assets, reports);
 }
 
@@ -52,7 +52,7 @@ Portfolio::Portfolio(int id, string name, map<Asset*, int>& assets, vector<Repor
  * @param assets The assets composing the portfolio.
  * @param reports The reports of the portfolio.
  */
-void Portfolio::init(Portfolio* parent, int id, string name, map<Asset*, int>& assets, vector<Report>& reports) {
+void Portfolio::init(Portfolio* parent, int id, QString name, QMap<Asset*, int>& assets, QVector<Report>& reports) {
 	this->parent = parent;
 	this->id = id;
 	this->name = name;
@@ -64,7 +64,7 @@ void Portfolio::init(Portfolio* parent, int id, string name, map<Asset*, int>& a
  * @brief Accessor to name.
  * @return The name of the portfolio.
  */
-string Portfolio::getName() const {
+QString Portfolio::getName() const {
 	return this->name;
 }
 
@@ -83,6 +83,7 @@ int Portfolio::getId() const {
  */
 void Portfolio::setId(int id) {
 	if(this->id == -1) {
+		// TODO Improve error message.
 		throw IdAlreadyAttributedException("An id has already been attributed to this portfolio.");
 	}
 	this->id = id;
@@ -103,7 +104,7 @@ int Portfolio::getParentId() const {
  * @brief Accessor to reports.
  * @return The reports for this portfolio.
  */
-vector<Report> Portfolio::getReports() const {
+QVector<Report> Portfolio::getReports() const {
 	return this->reports;
 }
 
@@ -111,7 +112,7 @@ vector<Report> Portfolio::getReports() const {
  * @brief Changes the name of the portfolio.
  * @param name The new name.
  */
-void Portfolio::changeName(string name) {
+void Portfolio::changeName(QString name) {
 	this->name = name;
 }
 
@@ -121,10 +122,11 @@ void Portfolio::changeName(string name) {
  * where every asset of the portfolio is defined.
  * @return The first date defined for this portfolio.
  */
-time_t Portfolio::retrieveFirstDate() const {
-	time_t maxFirstDate = 0;
-	for(map<Asset*,int>::const_iterator it=this->assets.begin(); it!=this->assets.end(); ++it) {
-		time_t firstDate = it->first->getFirstDate();
+QDateTime Portfolio::retrieveFirstDate() const {
+	QDateTime maxFirstDate;
+	maxFirstDate.setTime_t(0);
+	for(QMap<Asset*,int>::const_iterator it=this->assets.begin(); it!=this->assets.end(); ++it) {
+		QDateTime firstDate = it.key()->getFirstDate();
 		if(firstDate > maxFirstDate) {
 			maxFirstDate = firstDate;
 		}
@@ -138,10 +140,11 @@ time_t Portfolio::retrieveFirstDate() const {
  * where every asset of the portfolio is defined.
  * @return The last date defined for this portfolio.
  */
-time_t Portfolio::retrieveLastDate() const {
-	time_t minLastDate = INT_MAX;
-	for(map<Asset*,int>::const_iterator it=this->assets.begin(); it!=this->assets.end(); ++it) {
-		time_t lastDate = it->first->getLastDate();
+QDateTime Portfolio::retrieveLastDate() const {
+	QDateTime minLastDate;
+	minLastDate.setTime_t(INT_MAX);
+	for(QMap<Asset*,int>::const_iterator it=this->assets.begin(); it!=this->assets.end(); ++it) {
+		QDateTime lastDate = it.key()->getLastDate();
 		if(lastDate < minLastDate) {
 			minLastDate = lastDate;
 		}

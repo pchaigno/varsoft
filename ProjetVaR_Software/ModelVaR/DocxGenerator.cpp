@@ -4,7 +4,7 @@
  * @brief Constructor
  * @param location The path to the DOCX file to generate.
  */
-DocxGenerator::DocxGenerator(string location) {
+DocxGenerator::DocxGenerator(QString location) {
 	// TODO
 }
 
