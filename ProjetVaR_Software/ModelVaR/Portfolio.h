@@ -1,4 +1,5 @@
-#pragma once
+#ifndef H_PORTFOLIO
+#define H_PORTFOLIO
 
 #include <QString>
 #include <QVector>
@@ -30,3 +31,4 @@ public:
 
 	Portfolio& operator=(const Portfolio& portfolio);
 };
+#endif

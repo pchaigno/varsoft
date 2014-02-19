@@ -1,4 +1,5 @@
-#pragma once
+#ifndef H_ASSET
+#define H_ASSET
 
 #include <QString>
 #include <QDateTime>
@@ -18,3 +19,4 @@ public:
     QDateTime getLastDate() const;
     void changeName(QString name);
 };
+#endif

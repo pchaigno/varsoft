@@ -1,4 +1,5 @@
-#pragma once
+#ifndef H_ASSETSFACTORY
+#define H_ASSETSFACTORY
 
 #include <QString>
 #include "Asset.h"
@@ -19,3 +20,4 @@ public:
 private:
 	AssetsFactory();
 };
+#endif

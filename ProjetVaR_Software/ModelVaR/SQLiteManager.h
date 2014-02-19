@@ -1,4 +1,5 @@
-#pragma once
+#ifndef H_SQLITEMANAGER
+#define H_SQLITEMANAGER
 
 #include <QString>
 #include "sqlite3.h"
@@ -16,3 +17,4 @@ private:
 	void openConnection();
 	void createDatabase();
 };
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef H_GARCHREPORTFACTORY
+#define H_GARCHREPORTFACTORY
 
 #include "ReportFactory.h"
 
@@ -7,3 +8,4 @@ public:
     GarchReportFactory(QString docxPath, QString pdfPath);
 	virtual DocxGenerator& generateDOCX();
 };
+#endif

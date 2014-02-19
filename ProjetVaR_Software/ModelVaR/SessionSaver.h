@@ -1,4 +1,5 @@
-#pragma once
+#ifndef H_SESSIONSAVER
+#define H_SESSIONSAVER
 
 #include "SQLiteManager.h"
 #include "Portfolio.h"
@@ -30,3 +31,4 @@ private:
     void savePortfolios(const QVector<Portfolio>& portfolios);
     void saveReports(const Portfolio& portfolio, const QVector<Report>& reports);
 };
+#endif

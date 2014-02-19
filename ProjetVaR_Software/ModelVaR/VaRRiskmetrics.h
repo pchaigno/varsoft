@@ -1,4 +1,5 @@
-#pragma once
+#ifndef H_VARRISKMETRICS
+#define H_VARRISKMETRICS
 
 #include "VaRAlgorithm.h"
 
@@ -7,3 +8,5 @@ public:
 	VaRRiskmetrics(const Portfolio& portfolio, double risk);
     virtual double execute(QDateTime timeHorizon) const;
 };
+
+#endif

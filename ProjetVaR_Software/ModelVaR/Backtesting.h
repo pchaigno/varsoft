@@ -1,4 +1,5 @@
-#pragma once
+#ifndef H_BACKTESTING
+#define H_BACKTESTING
 
 #include "Portfolio.h"
 #include <ctime>
@@ -15,3 +16,4 @@ public:
 	Backtesting(const Portfolio& portfolio, const VaRAlgorithm& varAlgo, const tuple<time_t>& backtestperiod);
 	int compute() const;
 };
+#endif

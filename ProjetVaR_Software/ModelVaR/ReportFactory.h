@@ -1,4 +1,5 @@
-#pragma once
+#ifndef H_REPORTFACTORY
+#define H_REPORTFACTORY
 
 #include "Report.h"
 #include "DocxGenerator.h"
@@ -19,3 +20,4 @@ public:
 	virtual DocxGenerator& generateDOCX() const =0;
 	void generatePDF();
 };
+#endif

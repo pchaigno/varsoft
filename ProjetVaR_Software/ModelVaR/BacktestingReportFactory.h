@@ -1,4 +1,5 @@
-#pragma once
+#ifndef H_BACKTESTINGREPORTFACTORY
+#define H_BACKTESTINGREPORTFACTORY
 
 #include "ReportFactory.h"
 
@@ -7,3 +8,4 @@ public:
     BacktestingReportFactory(QString docxPath, QString pdfPath);
 	virtual DocxGenerator& generateDOCX();
 };
+#endif
