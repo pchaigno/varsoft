@@ -1,8 +1,9 @@
 #pragma once
 
+#include <QString>
 #include "Report.h"
 
 class CorrelationReport: public Report {
 public:
-	CorrelationReport(string docxPath, string pdfPath);
+    CorrelationReport(QString docxPath, QString pdfPath);
 };

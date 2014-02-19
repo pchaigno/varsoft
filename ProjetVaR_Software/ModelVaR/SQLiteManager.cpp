@@ -4,7 +4,7 @@
  * @brief Constructor.
  * @param databaseFile The location of the database file on the disk.
  */
-SQLiteManager::SQLiteManager(const string databaseFile): databaseFile(databaseFile) {
+SQLiteManager::SQLiteManager(const QString databaseFile): databaseFile(databaseFile) {
 
 }
 

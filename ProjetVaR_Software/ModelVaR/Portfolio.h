@@ -1,32 +1,32 @@
 #pragma once
 
-#include <string>
-#include <vector>
+#include <QString>
+#include <QVector>
 #include "Report.h"
-#include <map>
+#include <QMap>
 #include "Asset.h"
 #include <climits>
+#include <QDateTime>
 
-using namespace std;
 
 class Portfolio {
 private:
-	string name;
+    QString name;
 	Portfolio* parent;
-	map<Asset*, int> assets;
-	vector<Report> reports;
+    QMap<Asset*, int> assets;
+    QVector<Report> reports;
 
 public:
 	Portfolio(const Portfolio& portfolio);
-	Portfolio(Portfolio* parent, string name, map<Asset*, int>& assets, vector<Report>& reports);
-	Portfolio(string name, map<Asset*, int>& assets, vector<Report>& reports);
+    Portfolio(Portfolio* parent, QString name, QMap<Asset*, int>& assets, QVector<Report>& reports);
+    Portfolio(QString name, QMap<Asset*, int>& assets, QVector<Report>& reports);
 
-	string getName() const;
-	vector<Report> getReports() const;
-	void changeName(string name);
+    QString getName() const;
+    QVector<Report> getReports() const;
+    void changeName(QString name);
 
-	time_t retrieveFirstDate() const;
-	time_t retrieveLastDate() const;
+    QDateTime retrieveFirstDate() const;
+    QDateTime retrieveLastDate() const;
 
 	Portfolio& operator=(const Portfolio& portfolio);
 };

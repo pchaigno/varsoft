@@ -7,16 +7,15 @@
 #include "Report.h"
 #include <vector>
 
-using namespace std;
 
 class SessionBuilder: public SQLiteManager {
 private:
 	static SessionBuilder* instance;
 
 public:
-	Asset buildAsset(string name);
-	vector<Asset> buildAssets();
-	vector<Portfolio> buildSession();
+    Asset buildAsset(QString name);
+    QVector<Asset> buildAssets();
+    QVector<Portfolio> buildSession();
 	/**
 	 * @brief Accessor to the only instance of SessionBuilder.
 	 * @return The only instance of SessionBuilder.
@@ -29,7 +28,7 @@ public:
 	}
 
 private:
-	SessionBuilder(string databaseFile);
-	vector<Portfolio> buildPortfolios();
-	vector<Report> buildReports();
+    SessionBuilder(QString databaseFile);
+    QVector<Portfolio> buildPortfolios();
+    QVector<Report> buildReports();
 };

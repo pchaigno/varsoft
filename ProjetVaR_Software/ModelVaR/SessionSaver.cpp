@@ -4,7 +4,7 @@
  * @brief Constructor
  * @param databaseFile The location of the database file on the disk.
  */
-SessionSaver::SessionSaver(string databaseFile): SQLiteManager(databaseFile) {
+SessionSaver::SessionSaver(QString databaseFile): SQLiteManager(databaseFile) {
 
 }
 
@@ -20,7 +20,7 @@ void SessionSaver::saveAsset(const Asset& asset) {
  * @brief Save an entire session in the database.
  * @param portfolios The portfolios of the session.
  */
-void SessionSaver::saveSession(const vector<Portfolio>& portfolios) {
+void SessionSaver::saveSession(const QVector<Portfolio> &portfolios) {
 	// TODO
 }
 
@@ -28,7 +28,7 @@ void SessionSaver::saveSession(const vector<Portfolio>& portfolios) {
  * @brief Save some assets in the database.
  * @param assets The assets to save.
  */
-void SessionSaver::saveAssets(const vector<Asset>& assets) {
+void SessionSaver::saveAssets(const QVector<Asset> &assets) {
 	// TODO
 }
 
@@ -36,7 +36,7 @@ void SessionSaver::saveAssets(const vector<Asset>& assets) {
  * @brief Save some portfolios in the database.
  * @param portfolios The portfolios to save.
  */
-void SessionSaver::savePortfolios(const vector<Portfolio>& portfolios) {
+void SessionSaver::savePortfolios(const QVector<Portfolio>& portfolios) {
 	// TODO
 }
 
@@ -45,6 +45,6 @@ void SessionSaver::savePortfolios(const vector<Portfolio>& portfolios) {
  * @param portfolio The porfolios owner of the reports.
  * @param reports The reports to save.
  */
-void SessionSaver::saveReports(const Portfolio& portfolio, const vector<Report>& reports) {
+void SessionSaver::saveReports(const Portfolio& portfolio, const QVector<Report> &reports) {
 	// TODO
 }

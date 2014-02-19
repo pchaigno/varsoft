@@ -12,7 +12,7 @@ AssetsFactory::AssetsFactory() {
  * @param name The name of the asset to retrieve.
  * @return A pointer to the asset.
  */
-Asset* retrieveAsset(string name) {
+Asset* retrieveAsset(QString name) {
 	// TODO
 	return NULL;
 }

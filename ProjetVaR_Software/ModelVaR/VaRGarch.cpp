@@ -5,7 +5,7 @@ VaRGarch::VaRGarch(const Portfolio& portfolio, double risk, const GarchModel& ga
 
 }
 
-double VaRGarch::execute(time_t timeHorizon) const {
+double VaRGarch::execute(QDateTime timeHorizon) const {
 	// TODO
 	return (double)timeHorizon;
 }

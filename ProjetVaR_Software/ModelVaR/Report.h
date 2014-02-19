@@ -1,16 +1,14 @@
 #pragma once
 
-#include <string>
-
-using namespace std;
+#include <QString>
 
 class Report {
 private:
-	string docxPath;
-	string pdfPath;
+    QString docxPath;
+    QString pdfPath;
 
 public:
-	Report(string docxPath, string pdfPath);
-	string getDOCXPath() const;
-	string getPDFPath() const;
+    Report(QString docxPath, QString pdfPath);
+    QString getDOCXPath() const;
+    QString getPDFPath() const;
 };

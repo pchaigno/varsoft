@@ -5,7 +5,7 @@ VaRRiskmetrics::VaRRiskmetrics(const Portfolio& portfolio, double risk):
 
 }
 
-double VaRRiskmetrics::execute(time_t timeHorizon) const {
+double VaRRiskmetrics::execute(QDateTime timeHorizon) const {
 	// TODO
 	return 0;
 }

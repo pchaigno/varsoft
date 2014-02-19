@@ -5,7 +5,7 @@
  * @param docxPath The location of the DOCX file on the disk.
  * @param pdfPath The location of the PDF file on the disk.
  */
-Report::Report(string docxPath, string pdfPath) {
+Report::Report(QString docxPath, QString pdfPath) {
 	this->docxPath = docxPath;
 	this->pdfPath = pdfPath;
 }
@@ -14,7 +14,7 @@ Report::Report(string docxPath, string pdfPath) {
  * @brief Accessor to the DOCX path.
  * @return The location of the DOCX file on the disk.
  */
-string Report::getDOCXPath() const {
+QString Report::getDOCXPath() const {
 	return this->docxPath;
 }
 
@@ -22,6 +22,6 @@ string Report::getDOCXPath() const {
  * @brief Accessor to the PDF path.
  * @return The location of the PDF file on the disk.
  */
-string Report::getPDFPath() const {
+QString Report::getPDFPath() const {
 	return this->pdfPath;
 }

@@ -5,7 +5,7 @@
  * @param docxPath The location of the DOCX file on the disk.
  * @param pdfPath The location of the PDF file on the disk.
  */
-GarchReportFactory::GarchReportFactory(string docxPath, string pdfPath):
+GarchReportFactory::GarchReportFactory(QString docxPath, QString pdfPath):
 	ReportFactory(docxPath, pdfPath) {
 
 }

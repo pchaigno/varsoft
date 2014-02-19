@@ -4,5 +4,5 @@
 
 class VaRReport: public Report {
 public:
-	VaRReport(string docxPath, string pdfPath);
+    VaRReport(QString docxPath, QString pdfPath);
 };

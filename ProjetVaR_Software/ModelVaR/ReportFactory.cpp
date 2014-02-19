@@ -5,7 +5,7 @@
  * @param docxPath
  * @param pdfPath
  */
-ReportFactory::ReportFactory(string docxPath, string pdfPath):
+ReportFactory::ReportFactory(QString docxPath, QString pdfPath):
 	docxGenerator(DocxGenerator(docxPath)) {
 	this->docxPath = docxPath;
 	this->pdfPath = pdfPath;

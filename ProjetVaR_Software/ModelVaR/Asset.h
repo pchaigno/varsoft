@@ -1,22 +1,20 @@
 #pragma once
 
-#include <string>
-#include <ctime>
-
-using namespace std;
+#include <QString>
+#include <QDateTime>
 
 class Asset {
 private:
-	string file;
-	string name;
-	time_t firstDate;
-	time_t lastDate;
+    QString file;
+    QString name;
+    QDateTime firstDate;
+    QDateTime lastDate;
 
 public:
-	Asset(string name, string file, time_t firstDate, time_t lastDate);
-	string getFile() const;
-	string getName() const;
-	time_t getFirstDate() const;
-	time_t getLastDate() const;
-	void changeName(string name);
+    Asset(QString name, QString file, QDateTime firstDate, QDateTime lastDate);
+    QString getFile() const;
+    QString getName() const;
+    QDateTime getFirstDate() const;
+    QDateTime getLastDate() const;
+    void changeName(QString name);
 };

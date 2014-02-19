@@ -1,16 +1,15 @@
 #pragma once
 
-#include <string>
+#include <QString>
 #include "sqlite3.h"
 
-using namespace std;
 
 class SQLiteManager {
 protected:
-	const string databaseFile;
+    const QString databaseFile;
 
 protected:
-	SQLiteManager(const string databaseFile);
+    SQLiteManager(const QString databaseFile);
 
 private:
 	// TODO Change returned object.

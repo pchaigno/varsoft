@@ -4,7 +4,7 @@
  * @brief Constructor
  * @param databaseFile The location of the database file on the disk.
  */
-SessionBuilder::SessionBuilder(string databaseFile): SQLiteManager(databaseFile) {
+SessionBuilder::SessionBuilder(QString databaseFile): SQLiteManager(databaseFile) {
 
 }
 
@@ -13,7 +13,7 @@ SessionBuilder::SessionBuilder(string databaseFile): SQLiteManager(databaseFile)
  * @param name The name of the asset to retrieve.
  * @return The asset.
  */
-Asset SessionBuilder::buildAsset(string name) {
+Asset SessionBuilder::buildAsset(QString name) {
 	// TODO
 	return Asset(name, "", 0, 0);
 }
@@ -22,34 +22,34 @@ Asset SessionBuilder::buildAsset(string name) {
  * @brief Retrieves all assets from the database.
  * @return The assets.
  */
-vector<Asset> SessionBuilder::buildAssets() {
+QVector<Asset> SessionBuilder::buildAssets() {
 	// TODO
-	return vector<Asset>();
+    return QVector<Asset>();
 }
 
 /**
  * @brief Retrieves a session from the database.
  * @return The portfolios of the session.
  */
-vector<Portfolio> SessionBuilder::buildSession() {
+QVector<Portfolio> SessionBuilder::buildSession() {
 	// TODO
-	return vector<Portfolio>();
+    return QVector<Portfolio>();
 }
 
 /**
  * @brief Retrieves all reports from the database.
  * @return The reports.
  */
-vector<Report> SessionBuilder::buildReports() {
+QVector<Report> SessionBuilder::buildReports() {
 	// TODO
-	return vector<Report>();
+    return QVector<Report>();
 }
 
 /**
  * @brief Retrieves all portfolios from the database.
  * @return The portfolios.
  */
-vector<Portfolio> SessionBuilder::buildPortfolios() {
+QVector<Portfolio> SessionBuilder::buildPortfolios() {
 	// TODO
-	return vector<Portfolio>();
+    return QVector<Portfolio>();
 }

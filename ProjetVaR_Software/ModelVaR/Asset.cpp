@@ -7,7 +7,7 @@
  * @param firstDate The date of the first value defined.
  * @param lastDate The date of the last value defined.
  */
-Asset::Asset(string name, string file, time_t firstDate, time_t lastDate) {
+Asset::Asset(QString name, QString file, QDateTime firstDate, QDateTime lastDate) {
 	this->name = name;
 	this->file = file;
 	this->firstDate = firstDate;
@@ -18,7 +18,7 @@ Asset::Asset(string name, string file, time_t firstDate, time_t lastDate) {
  * @brief Accessor to file.
  * @return The file where are located the values.
  */
-string Asset::getFile() const {
+QString Asset::getFile() const {
 	return this->file;
 }
 
@@ -26,7 +26,7 @@ string Asset::getFile() const {
  * @brief Accessor to name.
  * @return The name of the asset.
  */
-string Asset::getName() const {
+QString Asset::getName() const {
 	return this->name;
 }
 
@@ -34,7 +34,7 @@ string Asset::getName() const {
  * @brief Accessor to the first date defined.
  * @return The date of the first value defined.
  */
-time_t Asset::getFirstDate() const {
+QDateTime Asset::getFirstDate() const {
 	return this->firstDate;
 }
 
@@ -42,7 +42,7 @@ time_t Asset::getFirstDate() const {
  * @brief Accessor to the last date defined.
  * @return The date of the last value defined.
  */
-time_t Asset::getLastDate() const {
+QDateTime Asset::getLastDate() const {
 	return this->lastDate;
 }
 
@@ -50,6 +50,6 @@ time_t Asset::getLastDate() const {
  * @brief Change the asset's name.
  * @param name The new name.
  */
-void Asset::changeName(string name) {
+void Asset::changeName(QString name) {
 	this->name = name;
 }

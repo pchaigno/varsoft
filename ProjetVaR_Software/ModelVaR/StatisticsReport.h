@@ -4,5 +4,5 @@
 
 class StatisticsReport: public Report {
 public:
-	StatisticsReport(string docxPath, string pdfPath);
+    StatisticsReport(QString docxPath, QString pdfPath);
 };
