@@ -19,7 +19,6 @@ MainWindow::~MainWindow()
 }
 
 //TODO Handle the import of differents source files ?
-//TODO Detects the differents fields to select Adjust Close one
 //TODO Add a screen to the select the range of data that sould be imported
 
 //TODO Sauvegarder dans un nouveau fichier les données importées(sélectionnées)
@@ -51,12 +50,14 @@ void MainWindow::importCSV()
        //TODO : Add rows automaticaly according to the file imported
        // Try to import with a file with a size lower or equals to 9*9
 
-       for (int x =1; x < rowOfData.size(); x++)
-       {
+		// x = 1 to avoid the first line with labels
+		// rowOfData.size()-1 to avoid a blank line a the end of the file
+		for (int x =1; x < rowOfData.size()-1; x++)
+		{
            rowData = rowOfData.at(x).split(",");
 
            //TODO : find the index of the column we want to import
-
+		/*
            for (int y = 0; y < rowData.size(); y++)
            {
                 /*
@@ -66,12 +67,13 @@ void MainWindow::importCSV()
                }
 
            */
-               qDebug() << rowData;
+			   qDebug() << rowData[6];
                //  ui->tableWidget->insertRow(indice);
                QTableWidgetItem* item = new QTableWidgetItem();
-               item->setText(rowData[y]);
-               ui->tableWidget->setItem(x-1,y,item);
-           }
-       }
+			   // the index of the interesting column is always the same for yahoo files
+			   item->setText(rowData[6]);
+			   ui->tableWidget->setItem(x-1,0,item);
+
+	   }
 }
 
