@@ -6,6 +6,7 @@
 #include "Report.h"
 #include <QVector>
 #include <QString>
+#include <QVariant>
 
 class SessionSaver: public SQLiteManager {
 private:
@@ -29,5 +30,5 @@ private:
     SessionSaver(QString databaseFile);
     void saveAssets(const QVector<Asset>& assets);
     void savePortfolios(const QVector<Portfolio>& portfolios);
-	void saveReports(const Portfolio& portfolio, const QVector<Report>& reports);
+	void saveReports(const Portfolio &portfolio, const QVector<Report>& reports);
 };

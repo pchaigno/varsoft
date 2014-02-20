@@ -7,15 +7,18 @@
 #include "Report.h"
 #include <QDateTime>
 #include <QVector>
+#include "AssetsFactory.h"
+#include <QVariant>
+
 
 class SessionBuilder: public SQLiteManager {
 private:
 	static SessionBuilder* instance;
 
 public:
-	Asset* buildAsset(QString name);
-	QVector<Asset> buildAssets();
-	QVector<Portfolio> buildSession();
+	Asset *buildAsset(QString name);
+    QVector<Asset> buildAssets();
+    QVector<Portfolio> buildSession();
 	/**
 	 * @brief Accessor to the only instance of SessionBuilder.
 	 * @return The only instance of SessionBuilder.
@@ -28,8 +31,8 @@ public:
 	}
 
 private:
-	SessionBuilder(QString databaseFile);
-	QVector<Portfolio> buildPortfolios();
+    SessionBuilder(QString databaseFile);
+    QVector<Portfolio> buildPortfolios();
 	QVector<Report> buildReports(int idPortfolio);
-	QMap<Asset*, int> buildPortfolioComposition(int idPortfolio);
+	QMap<Asset*, int> SessionBuilder::buildPortfolioComposition(int idPortfolio);
 };

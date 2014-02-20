@@ -19,6 +19,7 @@ private:
 	QString pdfFile;
 
 public:
+	Report();
 	Report(QString docxFile, QString pdfFile);
 	Report(int id, QString docxFile, QString pdfFile);
 	void init(int id, QString docxFile, QString pdfFile);

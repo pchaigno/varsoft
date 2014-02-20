@@ -1,6 +1,14 @@
 #include "Asset.h"
 
 /**
+ * @brief Empty constructor
+ * Should only be used by Qt containers.
+ */
+Asset::Asset() {
+
+}
+
+/**
  * @brief Constructor with default id.
  * @param name The name of the asset.
  * @param file The file where are located the values.

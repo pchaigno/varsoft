@@ -14,6 +14,7 @@ private:
 	QDateTime lastDate;
 
 public:
+	Asset();
 	Asset(QString name, QString file, QString origin, QDateTime firstDate, QDateTime lastDate);
 	Asset(int id, QString name, QString file, QString origin, QDateTime firstDate, QDateTime lastDate);
 	void init(int id, QString name, QString file, QString origin, QDateTime firstDate, QDateTime lastDate);

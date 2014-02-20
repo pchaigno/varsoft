@@ -1,16 +1,17 @@
 #pragma once
 
 #include <QString>
+#include <QSqlQuery>
+#include <QSqlDatabase>
 
 class SQLiteManager {
 protected:
-	const QString databaseFile;
+    const QString databaseFile;
+	QSqlDatabase db;
 
 protected:
 	SQLiteManager(const QString databaseFile);
-	void openConnection();
-
-private:
+	bool openConnection();
+	void closeConnection();
 	bool createDatabase();
-	bool createTable(QString sqlQuery);
 };

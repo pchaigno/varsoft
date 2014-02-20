@@ -12,59 +12,53 @@ SQLiteManager::SQLiteManager(const QString databaseFile): databaseFile(databaseF
  * @brief Open the connection to the database.
  * @return An SQLite handler.
  */
-void SQLiteManager::openConnection() {
+bool SQLiteManager::openConnection() {
+	this->db = QSqlDatabase::addDatabase("QSQLITE");
+	db.setDatabaseName(this->databaseFile);
+	return db.open();
+}
 
+/**
+ * @brief Close the connection to the database.
+ */
+void SQLiteManager::closeConnection() {
+	this->db.close();
 }
 
 /**
  * @brief Creates the database.
- * @return True if the database was successfully created.
+ * @return True if the database was created successfully.
  */
 bool SQLiteManager::createDatabase() {
-	/*sqlite3* db = this->openConnection();
+	this->openConnection();
+	QString sqlAssets, sqlPortfolios, sqlReports, sqlWeights;
 	bool result = true;
-	string sqlAssets, sqlPortfolios, sqlReports, sqlWeights;
-	sqlAssets = "CREATE TABLE assets("  \
-		"id INT PRIMARY KEY NOT NULL," \
-		"name TEXT UNIQUE NOT NULL," \
-		"file TEXT UNIQUE NOT NULL," \
-		"origin TEXT," \
-		"first_date INTEGER," \
+	QSqlQuery query;
+	sqlAssets = "CREATE TABLE assets("
+		"id INT PRIMARY KEY NOT NULL,"
+		"name TEXT UNIQUE NOT NULL,"
+		"file TEXT UNIQUE NOT NULL,"
+		"origin TEXT,"
+		"first_date INTEGER,"
 		"last_date INTEGER);";
-	result &= createTable(db, sqlAssets);
-	sqlPortfolios = "CREATE TABLE portfolios("  \
-		"id INT PRIMARY KEY NOT NULL," \
-		"name TEXT UNIQUE NOT NULL," \
+	result &= query.exec(sqlAssets);
+	sqlPortfolios = "CREATE TABLE portfolios("
+		"id INT PRIMARY KEY NOT NULL,"
+		"name TEXT UNIQUE NOT NULL,"
 		"parent INT REFERENCES portfolios(id));";
-	result &= createTable(db, sqlPortfolios);
-	sqlWeights = "CREATE TABLE weights("  \
-		"asset INT NOT NULL REFERENCES assets(id)," \
-		"portfolio INT NOT NULL REFERENCES portfolio(id)," \
-		"weight INT NOT NULL," \
+	result &= query.exec(sqlPortfolios);
+	sqlWeights = "CREATE TABLE weights("
+		"asset INT NOT NULL REFERENCES assets(id),"
+		"portfolio INT NOT NULL REFERENCES portfolio(id),"
+		"weight INT NOT NULL,"
 		"PRIMARY KEY(asset, portfolio);)";
-	result &= createTable(db, sqlWeights);
-	sqlReports = "CREATE TABLE reports("  \
-		"id INT PRIMARY KEY NOT NULL," \
-		"portfolio INT NOT NULL REFERENCES portfolios(id)," \
-		"pdf_file TEXT UNIQUE NOT NULL," \
-		"docx_file TEXT UNIQUE NOT NULL," \
+	result &= query.exec(sqlWeights);
+	sqlReports = "CREATE TABLE reports("
+		"id INT PRIMARY KEY NOT NULL,"
+		"portfolio INT NOT NULL REFERENCES portfolios(id),"
+		"pdf_file TEXT UNIQUE NOT NULL,"
+		"docx_file TEXT UNIQUE NOT NULL,"
 		"type INT NOT NULL);";
-	result &= this->createTable(db, sqlReports);
-	sqlite3_close(db);
-	return result;*/
-	return false;
-}
-
-/**
- * @brief Creates a table with the SQL query given.
- * Don't open nor close the connection to the database.
- * @param db The database connection.
- * @param sqlQuery The SQL query to create the table.
- * @return True if the table was created successfully.
- */
-bool createTable(QString sqlQuery) {
-	/*char *zErrMsg = 0;
-	int result = sqlite3_exec(db, sqlQuery.c_str(), NULL, 0, &zErrMsg);
-	return result == SQLITE_OK;*/
-	return false;
+	result &= query.exec(sqlReports);
+	return result;
 }

@@ -14,19 +14,17 @@ SessionSaver::SessionSaver(QString databaseFile): SQLiteManager(databaseFile) {
  * @return True if the asset was successfully saved.
  */
 bool SessionSaver::saveAsset(Asset& asset) {
-	/*sqlite3_stmt* preparedStmt;
-	sqlite3* db = this->openConnection();
-	string sqlQuery = "INSERT INTO assets(name, file, origin, first_date, last_date) VALUES(?, ?, ?, ?, ?);";
-	sqlite3_prepare_v2(db, sqlQuery.c_str(), -1, &preparedStmt, NULL);
-	sqlite3_bind_text(preparedStmt, 0, asset.getName().c_str(), -1, SQLITE_STATIC);
-	sqlite3_bind_text(preparedStmt, 1, asset.getFile().c_str(), -1, SQLITE_STATIC);
-	sqlite3_bind_text(preparedStmt, 2, asset.getOrigin().c_str(), -1, SQLITE_STATIC);
-	sqlite3_bind_int(preparedStmt, 3, asset.getFirstDate());
-	sqlite3_bind_int(preparedStmt, 4, asset.getLastDate());
-	int result = sqlite3_step(preparedStmt);
-	asset.setId(sqlite3_last_insert_rowid(db));
-	return result == SQLITE_OK;*/
-	return false;
+	this->openConnection();
+	QSqlQuery query;
+	query.prepare("INSERT INTO assets(name, file, origin, first_date, last_date) VALUES(:name, :file, :origin, :first_date, :last_date);");
+	query.bindValue(":name", asset.getFile());
+	query.bindValue(":file", asset.getName());
+	query.bindValue(":origin", asset.getOrigin());
+	query.bindValue(":first_date", asset.getFirstDate());
+	query.bindValue(":last_date", asset.getLastDate());
+	bool result = query.exec();
+	this->closeConnection();
+	return result;
 }
 
 /**
@@ -35,7 +33,7 @@ bool SessionSaver::saveAsset(Asset& asset) {
  */
 void SessionSaver::saveSession(const QVector<Portfolio>& portfolios) {
 	// TODO
-	//this->savePortfolios(portfolios);
+	this->savePortfolios(portfolios);
 }
 
 /**
@@ -43,21 +41,18 @@ void SessionSaver::saveSession(const QVector<Portfolio>& portfolios) {
  * @param assets The assets to save.
  */
 void SessionSaver::saveAssets(const QVector<Asset>& assets) {
-	/*sqlite3_stmt* preparedStmt;
-	sqlite3* db = this->openConnection();
-	string sqlQuery = "INSERT INTO assets(name, file, origin, first_date, last_date) VALUES(?, ?, ?, ?, ?);";
-	sqlite3_prepare_v2(db, sqlQuery.c_str(), -1, &preparedStmt, NULL);
-	for(vector<Asset>::const_iterator it=assets.begin(); it!=assets.end(); ++it) {
-		Asset asset = *it;
-		sqlite3_bind_text(preparedStmt, 0, asset.getName().c_str(), -1, SQLITE_STATIC);
-		sqlite3_bind_text(preparedStmt, 1, asset.getFile().c_str(), -1, SQLITE_STATIC);
-		sqlite3_bind_text(preparedStmt, 2, asset.getOrigin().c_str(), -1, SQLITE_STATIC);
-		sqlite3_bind_int(preparedStmt, 3, asset.getFirstDate());
-		sqlite3_bind_int(preparedStmt, 4, asset.getLastDate());
-		sqlite3_step(preparedStmt);
-		asset.setId(sqlite3_last_insert_rowid(db));
-		sqlite3_reset(preparedStmt);
-	}*/
+	this->openConnection();
+	QSqlQuery query;
+	query.prepare("INSERT INTO assets(name, file, origin, first_date, last_date) VALUES(:name, :file, :origin, :first_date, :last_date);");
+	for(QVector<Asset>::const_iterator asset=assets.begin(); asset!=assets.end(); ++asset) {
+		query.bindValue(":name", asset->getFile());
+		query.bindValue(":file", asset->getName());
+		query.bindValue(":origin", asset->getOrigin());
+		query.bindValue(":first_date", asset->getFirstDate());
+		query.bindValue(":last_date", asset->getLastDate());
+		query.execBatch();
+	}
+	this->closeConnection();
 }
 
 /**
@@ -65,18 +60,15 @@ void SessionSaver::saveAssets(const QVector<Asset>& assets) {
  * @param portfolios The portfolios to save.
  */
 void SessionSaver::savePortfolios(const QVector<Portfolio>& portfolios) {
-	/*sqlite3_stmt* preparedStmt;
-	sqlite3* db = this->openConnection();
-	string sqlQuery = "INSERT INTO portfolios(name, parent) VALUES(?, ?);";
-	sqlite3_prepare_v2(db, sqlQuery.c_str(), -1, &preparedStmt, NULL);
-	for(vector<Portfolio>::const_iterator it=portfolios.begin(); it!=portfolios.end(); ++it) {
-		Portfolio portfolio = *it;
-		sqlite3_bind_text(preparedStmt, 0, portfolio.getName().c_str(), -1, SQLITE_STATIC);
-		sqlite3_bind_int(preparedStmt, 1, portfolio.getParentId());
-		sqlite3_step(preparedStmt);
-		portfolio.setId(sqlite3_last_insert_rowid(db));
-		sqlite3_reset(preparedStmt);
-	}*/
+	this->openConnection();
+	QSqlQuery query;
+	query.prepare("INSERT INTO portfolios(name, parent) VALUES(:name, :parent);");
+	for(QVector<Portfolio>::const_iterator portfolio=portfolios.begin(); portfolio!=portfolios.end(); ++portfolio) {
+		query.bindValue(":name", portfolio->getName());
+		query.bindValue(":parent", portfolio->getParentId());
+		query.execBatch();
+	}
+	this->closeConnection();
 }
 
 /**
@@ -85,18 +77,15 @@ void SessionSaver::savePortfolios(const QVector<Portfolio>& portfolios) {
  * @param reports The reports to save.
  */
 void SessionSaver::saveReports(const Portfolio& portfolio, const QVector<Report>& reports) {
-	/*sqlite3_stmt* preparedStmt;
-	sqlite3* db = this->openConnection();
-	string sqlQuery = "INSERT INTO reports(portfolio, pdf_file, docx_file, type) VALUES(?, ?, ?, ?);";
-	sqlite3_prepare_v2(db, sqlQuery.c_str(), -1, &preparedStmt, NULL);
-	for(vector<Report>::const_iterator it=reports.begin(); it!=reports.end(); ++it) {
-		Report report = *it;
-		sqlite3_bind_int(preparedStmt, 0, portfolio.getId());
-		sqlite3_bind_text(preparedStmt, 1, report.getPDFFile().c_str(), -1, SQLITE_STATIC);
-		sqlite3_bind_text(preparedStmt, 2, report.getDOCXFile().c_str(), -1, SQLITE_STATIC);
-		sqlite3_bind_int(preparedStmt, 3, report.getType());
-		sqlite3_step(preparedStmt);
-		report.setId(sqlite3_last_insert_rowid(db));
-		sqlite3_reset(preparedStmt);
-	}*/
+	this->openConnection();
+	QSqlQuery query;
+	query.prepare("INSERT INTO reports(portfolio, pdf_file, docx_file, type) VALUES(:portfolio, :pdf_file, :docx_file, :type);");
+	for(QVector<Report>::const_iterator report=reports.begin(); report!=reports.end(); ++report) {
+		query.bindValue(":portfolio", portfolio.getId());
+		query.bindValue(":pdf_file", report->getPDFFile());
+		query.bindValue(":docx_file", report->getDOCXFile());
+		query.bindValue(":type", report->getType());
+		query.execBatch();
+	}
+	this->closeConnection();
 }

@@ -5,14 +5,11 @@
 
 class AssetsFactory {
 private:
-	static AssetsFactory* instance;
+	static AssetsFactory instance;
 
 public:
 	Asset* retrieveAsset(QString name);
-	static AssetsFactory* getInstance() {
-		if(instance == NULL) {
-			instance = new AssetsFactory();
-		}
+	static AssetsFactory& getInstance() {
 		return instance;
 	}
 
