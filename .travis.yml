@@ -6,7 +6,7 @@ install:
 
 script:
   - qmake -project
-  - qmake ProjetVaR_Software/ProjetVaR_Software.pro
+  - qmake ProjetVaR.pro
   - make
 
 notifications:
