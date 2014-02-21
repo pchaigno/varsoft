@@ -5,7 +5,7 @@ install:
   - sudo apt-get install libqt4-dev qt4-qmake
 
 script:
-  - qmake -project
+  - qmake -project ProjetVaR_Software/
   - qmake ProjetVaR.pro
   - make
 
