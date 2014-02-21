@@ -6,7 +6,7 @@ Réalisé par une équipe de 7 élèves-ingénieurs de l'INSA de Rennes.
 
 
 ### Instructions pour contribuer dans le Wiki
-[[Instruction pour effectuer une Pull Request|Instructions-Pull-Request]]
+[Instructions pour effectuer une Pull Request](https://github.com/pchaigno/ProjetVaR/wiki/Instructions-Pull-Request)
 
 
 ### Etat actuel du projet
