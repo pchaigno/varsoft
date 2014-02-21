@@ -9,7 +9,6 @@ QT       -= gui
 TARGET = ModelVaR
 TEMPLATE = lib
 
-QMAKE_CXXFLAGS += -std=c++11
 
 DEFINES += MODELVAR_LIBRARY
 

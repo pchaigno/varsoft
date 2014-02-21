@@ -2,4 +2,5 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     ModelVaR \
-    GUI
+    GUI \
+    TestUnitaire
