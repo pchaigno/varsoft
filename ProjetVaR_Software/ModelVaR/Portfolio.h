@@ -22,7 +22,7 @@ public:
 	Portfolio(QString name, QMap<Asset*, int>& assets, QVector<Report>& reports);
 	Portfolio(Portfolio* parent, int id, QString name, QMap<Asset *, int> &assets, QVector<Report>& reports);
 	Portfolio(int id, QString name, QMap<Asset*, int>& assets, QVector<Report>& reports);
-	void init(Portfolio* parent, int id, QString name, QMap<Asset*, int>& assets, QVector<Report>& reports);
+    void init(Portfolio* parent, int id, QString name, QMap<Asset*, int>& assets, QVector<Report>& reports);
 
 	QString getName() const;
 	int getId() const;

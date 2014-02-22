@@ -1,9 +1,9 @@
 #include "Asset.h"
 
 /**
- * @brief Empty constructor
- * Should only be used by Qt containers.
- */
+* @brief Empty constructor
+* Should only be used by Qt containers.
+*/
 Asset::Asset() {
 
 }
