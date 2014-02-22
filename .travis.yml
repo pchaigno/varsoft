@@ -7,9 +7,7 @@ install:
 script:
   - mkdir build
   - cd build
-  - qmake -project ../ProjetVaR_Software/
-  - echo -e '\nQT -= gui\nQT += sql\nQT += testlib\n' >> build.pro
-  - qmake build.pro
+  - qmake ../ProjetVaR_Software/ProjetVaR_Software.pro
   - make
 
 notifications:
