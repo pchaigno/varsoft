@@ -1,0 +1,19 @@
+before_install:
+  - sudo apt-get update
+
+install:
+  - sudo apt-get install libqt4-dev qt4-qmake
+
+script:
+  - mkdir build
+  - cd build
+  - qmake -project ../ProjetVaR_Software/
+  - qmake build.pro
+  - make
+
+notifications:
+  email:
+    recipients:
+      - paul.chaignon@insa-rennes.fr
+    on_success: never
+    on_failure: change
