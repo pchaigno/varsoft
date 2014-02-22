@@ -10,7 +10,7 @@ TARGET = ModelVaR
 TEMPLATE = lib
 
 # To compile under Linux
-QMAKE_CXXFLAGS += -std=c++11
+#QMAKE_CXXFLAGS += -std=c++11
 # For QSQL
 QT += sql
 
