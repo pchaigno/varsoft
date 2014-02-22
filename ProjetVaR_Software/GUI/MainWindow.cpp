@@ -47,6 +47,17 @@ void MainWindow::importCSV()
        }
        qDebug() << "Données importées";
 
+//////CREATION DU FICHIER DES DONNEES IMPORTEES
+	   QFile file("Qt.txt");
+	   // On ouvre notre fichier en lecture seule et on vérifie l'ouverture
+	   if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+		   return;
+	   QTextStream flux(&file);
+	   flux.setCodec("UTF-8");
+
+
+
+
        //TODO : Add rows automaticaly according to the file imported
        // Try to import with a file with a size lower or equals to 9*9
 
@@ -72,6 +83,9 @@ void MainWindow::importCSV()
                QTableWidgetItem* item = new QTableWidgetItem();
 			   // the index of the interesting column is always the same for yahoo files
 			   item->setText(rowData[6]);
+
+			   // Écriture des différentes lignes dans le fichier, mais il devient imcompatible avec l'importation
+			   flux << rowData[0] << "," << rowData[6] << "\n";
 			   ui->tableWidget->setItem(x-1,0,item);
 
 	   }
