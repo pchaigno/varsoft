@@ -1,6 +1,14 @@
 #include "Portfolio.h"
 
 /**
+* @brief Empty constructor
+* Should only be used by Qt containers.
+*/
+Portfolio::Portfolio() {
+
+}
+
+/**
  * @brief Constructor with parent.
  * @param parent The older version of the portfolio.
  * @param name The name of the portfolio.

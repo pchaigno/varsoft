@@ -1,6 +1,14 @@
 #include "Report.h"
 
 /**
+* @brief Empty constructor
+* Should only be used by Qt containers.
+*/
+Report::Report() {
+
+}
+
+/**
  * @brief A report.
  * @param docxPath The location of the DOCX file on the disk.
  * @param pdfPath The location of the PDF file on the disk.

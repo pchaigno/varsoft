@@ -17,6 +17,7 @@ private:
     QVector<Report> reports;
 
 public:
+    Portfolio();
 	Portfolio(const Portfolio& portfolio);
     Portfolio(Portfolio* parent, QString name, QMap<Asset*, QDateTime>& assets, QVector<Report>& reports);
     Portfolio(QString name, QMap<Asset*, QDateTime>& assets, QVector<Report>& reports);

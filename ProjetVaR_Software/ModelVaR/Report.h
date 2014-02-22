@@ -8,6 +8,7 @@ private:
     QString pdfPath;
 
 public:
+    Report();
     Report(QString docxPath, QString pdfPath);
     QString getDOCXPath() const;
     QString getPDFPath() const;

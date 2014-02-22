@@ -11,6 +11,7 @@ private:
     QDateTime lastDate;
 
 public:
+    Asset();
     Asset(QString name, QString file, QDateTime firstDate, QDateTime lastDate);
     QString getFile() const;
     QString getName() const;
