@@ -1,41 +1,9 @@
-#include "MainWindow.h"
-#include "ui_MainWindow.h"
-#include <QDebug>
-#include <QFile>
-#include <QFileDialog>
-#include <QTableWidgetItem>
-#include <QDateTime>
+#include "ImportNewData.h"
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+class ImportNewData : public IStrategieImport
 {
-    ui->setupUi(this);
-    connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(importCSV()));
-}
-
-MainWindow::~MainWindow()
-{
-    delete ui;
-}
-
-//TODO Handle the import of differents source files ?
-//TODO Add a screen to the select the range of data that sould be imported
-
-//TODO Sauvegarder dans un nouveau fichier les données importées(sélectionnées)
-//Sauvegarder les données importées dans un Asset, l'envoyer dans le AssetFactory
-//Une seule source de fichier
-//externaliser le traitement des fichiers
-//faire une super classe Importation, avec pour l'instant qu'une classe Yahoo héritant
-
-void MainWindow::importCSV()
-{
-		ImportNewData algo1;
-
-		Importator imp1{&algo1};
-
-		imp1.execute();
-		/*
+public :
+	void import(){
 		QString fileName = QFileDialog::getOpenFileName(this, ("Open File"), "C:/", ("csv File(*.csv)"));
 		QString data;
 		QFile importedCSV(fileName);
@@ -72,11 +40,11 @@ void MainWindow::importCSV()
 		// rowOfData.size()-1 to avoid a blank line a the end of the file
 		for (int x =1; x < rowOfData.size()-1; x++)
 		{
-           rowData = rowOfData.at(x).split(",");
+		   rowData = rowOfData.at(x).split(",");
 
 			   qDebug() << rowData[6];
-               //  ui->tableWidget->insertRow(indice);
-               QTableWidgetItem* item = new QTableWidgetItem();
+			   //  ui->tableWidget->insertRow(indice);
+			   QTableWidgetItem* item = new QTableWidgetItem();
 			   // the index of the interesting column is always the same for yahoo files
 			   item->setText(rowData[6]);
 
@@ -85,10 +53,10 @@ void MainWindow::importCSV()
 			   ui->tableWidget->setItem(x-1,0,item);
 		}
 		//obligé de faire des conversions pour passer de QString à QDateTime
-		//firstDate = rowOfData.at(1).split(",")[0];
-		//lastDate = rowOfData.at(rowOfData.size()-1).split(",")[0];
-
-		//Asset a1 = Asset("name",name,firstDate,lastDate);
-		*/
-}
-
+		QString fd = rowOfData.at(1).split(",")[0];
+		firstDate = QDateTime::fromString(fd,"yyyy:MM:dd ");
+		QString ld = rowOfData.at(rowOfData.size()-1).split(",")[0];
+		lastDate = QDateTime::fromString(ld,"yyyy:MM:dd ");
+		Asset a1 = Asset("name",name,firstDate,lastDate);
+	}
+};

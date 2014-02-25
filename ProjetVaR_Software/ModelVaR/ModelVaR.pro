@@ -39,7 +39,11 @@ SOURCES += \
     VaRReportFactory.cpp \
     GarchReportFactory.cpp \
     StatisticsReportFactory.cpp \
-    CorrelationReportFactory.cpp
+    CorrelationReportFactory.cpp \
+    ImportNewData.cpp \
+    ImportData.cpp \
+    Importator.cpp \
+    IImportStrategie.cpp
 
 HEADERS +=\
     Asset.h \
@@ -70,7 +74,10 @@ HEADERS +=\
     VaRReportFactory.h \
     GarchReportFactory.h \
     StatisticsReportFactory.h \
-    CorrelationReportFactory.h
+    CorrelationReportFactory.h \
+    IImportStrategie.h \
+    ImportData.h \
+    ImportNewData.h
 
 unix:!symbian {
     maemo5 {
