@@ -1,9 +1,6 @@
 #include "ImportNewData.h"
 
-class ImportNewData : public IStrategieImport
-{
-public :
-	void import(){
+ImportNewData::import(){
 		QString fileName = QFileDialog::getOpenFileName(this, ("Open File"), "C:/", ("csv File(*.csv)"));
 		QString data;
 		QFile importedCSV(fileName);
@@ -59,4 +56,3 @@ public :
 		lastDate = QDateTime::fromString(ld,"yyyy:MM:dd ");
 		Asset a1 = Asset("name",name,firstDate,lastDate);
 	}
-};

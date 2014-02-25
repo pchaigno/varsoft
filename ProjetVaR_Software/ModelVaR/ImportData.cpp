@@ -1,10 +1,6 @@
 #include "ImportData.h"
 
-class ImportNewData : public IStrategieImport
-{
-public:
-	//il faut connaître le chamin à l'avance
-	void import(){
+ImportNewData::import(){
 		QString fileName = QFileDialog::getOpenFileName(this, ("Open File"), "C:/", ("csv File(*.csv)"));
 		QString data;
 		QFile importedCSV(fileName);
@@ -37,4 +33,3 @@ public:
 
 		//Asset a1 = Asset("name",name,firstDate,lastDate);
 	}
-};
