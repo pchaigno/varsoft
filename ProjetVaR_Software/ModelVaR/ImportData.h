@@ -1,6 +1,8 @@
 #pragma once
 #include "IImportStrategie.h"
-class ImportData : public IImportStrategie
+#include "ModelVaR_global.h"
+
+class MODELVARSHARED_EXPORT ImportData : public IImportStrategie
 {
 public:
 	virtual void import(QString s) const;

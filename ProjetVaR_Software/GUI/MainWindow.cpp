@@ -7,13 +7,15 @@
 #include <QDateTime>
 #include "ImportNewData.h"
 #include "ImportData.h"
+#include "import.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);
+	ui->setupUi(this);
     connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(importCSV()));
+	//connect(ui->actionExport, SIGNAL(triggered()), this, SLOT(import()));
 }
 
 MainWindow::~MainWindow()
@@ -29,10 +31,15 @@ MainWindow::~MainWindow()
 //Une seule source de fichier
 //externaliser le traitement des fichiers
 //faire une super classe Importation, avec pour l'instant qu'une classe Yahoo héritant
+void MainWindow::import(){
+	Import* import_win = new Import(this);
+	import_win->show();
+}
 
 void MainWindow::importCSV()
 {
 		QString fileName = QFileDialog::getOpenFileName(this, ("Open File"), "C:/", ("csv File(*.csv)"));
+
 		ImportNewData algo1 = ImportNewData();
 		algo1.import(fileName);
 		//

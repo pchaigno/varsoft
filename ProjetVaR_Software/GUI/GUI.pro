@@ -16,11 +16,14 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        MainWindow.cpp
+        MainWindow.cpp \
+    import.cpp
 
-HEADERS  += MainWindow.h
+HEADERS  += MainWindow.h \
+    import.h
 
-FORMS    += MainWindow.ui
+FORMS    += MainWindow.ui \
+    import.ui
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../ModelVaR/release/ -lModelVaR
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../ModelVaR/debug/ -lModelVaR

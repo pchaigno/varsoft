@@ -6,7 +6,8 @@
 #include <QDateTime>
 #include <QString>
 #include "Asset.h"
-class IImportStrategie
+#include "ModelVaR_global.h"
+class MODELVARSHARED_EXPORT IImportStrategie
 {
 public:
 	virtual void import(QString s) const =0;
