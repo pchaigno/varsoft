@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       -= gui
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = ModelVaR
 TEMPLATE = lib
@@ -77,7 +78,8 @@ HEADERS +=\
     CorrelationReportFactory.h \
     IImportStrategie.h \
     ImportData.h \
-    ImportNewData.h
+    ImportNewData.h \
+    Importator.h
 
 unix:!symbian {
     maemo5 {

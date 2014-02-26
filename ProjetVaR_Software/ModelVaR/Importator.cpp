@@ -1,14 +1,9 @@
-class Importator
+#include "Importator.h"
+
+Importator::Importator(IImportStrategie& strategy): strategy(strategy){}
+
+void Importator::execute(QString s)
 {
-private:
-	IStrategieImport* strategy;
+	strategy.import(s);
+}
 
-public:
-	Importator(IStrategieImport* strategy): strategy(strategy){}
-
-	void execute()
-	{
-		strategie->execute();
-	}
-
-};

@@ -1,13 +1,13 @@
 #include "ImportNewData.h"
 
-ImportNewData::import(){
-		QString fileName = QFileDialog::getOpenFileName(this, ("Open File"), "C:/", ("csv File(*.csv)"));
+void ImportNewData::import(QString s) const{
+		QString fileName = s;
 		QString data;
 		QFile importedCSV(fileName);
 		QStringList rowOfData;
 		QStringList rowData;
-		//QDateTime firstDate;
-		//QDateTime lastDate;
+		QDateTime firstDate;
+		QDateTime lastDate;
 		data.clear();
 		rowOfData.clear();
 		rowData.clear();
@@ -47,7 +47,7 @@ ImportNewData::import(){
 
 			   // Écriture des différentes lignes dans le fichier, mais il devient imcompatible avec l'importation
 			   flux << rowData[0] << "," << rowData[6] << "\n";
-			   ui->tableWidget->setItem(x-1,0,item);
+			   //ui->tableWidget->setItem(x-1,0,item);
 		}
 		//obligé de faire des conversions pour passer de QString à QDateTime
 		QString fd = rowOfData.at(1).split(",")[0];

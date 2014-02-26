@@ -1,9 +1,7 @@
-#ifndef IMPORTDATA_H
-#define IMPORTDATA_H
+#pragma once
+#include "IImportStrategie.h"
 class ImportData : public IImportStrategie
 {
 public:
-	//il faut connaître le chamin à l'avance
-	virtual void import();
-}
-#endif // IMPORTDATA_H
+	virtual void import(QString s) const;
+};

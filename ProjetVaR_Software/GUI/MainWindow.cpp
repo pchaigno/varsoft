@@ -5,6 +5,8 @@
 #include <QFileDialog>
 #include <QTableWidgetItem>
 #include <QDateTime>
+#include "ImportNewData.h"
+#include "ImportData.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -30,13 +32,15 @@ MainWindow::~MainWindow()
 
 void MainWindow::importCSV()
 {
-		ImportNewData algo1;
-
-		Importator imp1{&algo1};
-
-		imp1.execute();
-		/*
 		QString fileName = QFileDialog::getOpenFileName(this, ("Open File"), "C:/", ("csv File(*.csv)"));
+		ImportNewData algo1 = ImportNewData();
+		algo1.import(fileName);
+		//
+		//Importator importator = Importator(algo1);
+
+		//importator.execute(fileName);
+		/*
+
 		QString data;
 		QFile importedCSV(fileName);
 		QStringList rowOfData;

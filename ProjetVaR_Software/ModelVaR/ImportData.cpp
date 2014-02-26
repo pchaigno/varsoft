@@ -1,7 +1,7 @@
 #include "ImportData.h"
 
-ImportNewData::import(){
-		QString fileName = QFileDialog::getOpenFileName(this, ("Open File"), "C:/", ("csv File(*.csv)"));
+void ImportData::import(QString s)const{
+		QString fileName = s;
 		QString data;
 		QFile importedCSV(fileName);
 		QStringList rowOfData;
@@ -28,7 +28,7 @@ ImportNewData::import(){
 			   QTableWidgetItem* item = new QTableWidgetItem();
 			   // the index of the interesting column is always the same for yahoo files
 			   item->setText(rowData[6]);
-			   ui->tableWidget->setItem(x-1,0,item);
+			   //ui->tableWidget->setItem(x-1,0,item);
 		}
 
 		//Asset a1 = Asset("name",name,firstDate,lastDate);
