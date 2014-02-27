@@ -1,4 +1,6 @@
 #include "Asset.h"
+#include <QFile>
+#include <QVector>
 
 /**
 * @brief Empty constructor
@@ -60,4 +62,42 @@ QDateTime Asset::getLastDate() const {
  */
 void Asset::changeName(QString name) {
 	this->name = name;
+}
+
+/**
+ * @brief Getter of the asset values.
+ * @param startDate The new name.
+ * @param endDate
+ * @return A vector containing the values of the asset according to the parameters
+ */
+QVector<double> Asset::getAsQVectors(QDateTime startDate, QDateTime endDate) {
+    QVector<double> values;
+    QFile inputFile(this->getFile());
+
+    if(inputFile.open(QIODevice::ReadOnly)) {
+            QTextStream in(&inputFile);
+
+            // A ameliorer en utilisant plusieurs while peut etre
+            while(!in.atEnd()) {
+                    QString line = in.readLine();
+                    QStringList row = line.split(",");
+                    QString date = row.value(0);
+                    QString value = row.value(1);
+                    boolean startDetected = false;
+
+                    if(startDate != QDateTime::fromString(date,"yyyy:MM:dd ") && !startDetected)
+                        continue;
+
+                    if(startDetected == false) startDetected = true;
+
+                    values.push_back(value.toDouble());
+
+                    if(endDate == QDateTime::fromString(date,"yyyy:MM:dd "))
+                            break;
+
+            }
+           inputFile.close();
+        }
+
+    return values;
 }

@@ -94,3 +94,29 @@ QDateTime Portfolio::retrieveLastDate() const {
 	}
 	return minLastDate;
 }
+
+QVector<double> Portfolio::getAsVectors() const {
+    QVector<double> values;
+
+    for(QMap<Asset*, QDateTime>::const_iterator it=this->assets.begin(); it!=this->assets.end(); ++it) {
+        QVector<double> = it.key()->;
+        QFile inputFile(fileName);
+
+        // besoin d'une fonction auxiliare dans la classe Asset
+
+        if (inputFile.open(QIODevice::ReadOnly)) {
+                QTextStream in(&inputFile);
+                while(!in.atEnd()) {
+                        QString line = in.readLine();
+                        QStringList row = line.split(",");
+                        QString value = row.value(1);
+
+                        // FAUX
+                        values.push_back(value.toDouble());
+
+               }
+               inputFile.close();
+            }
+    }
+    return values;
+}
