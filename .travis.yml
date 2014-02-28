@@ -9,6 +9,8 @@ script:
   - cd build
   - qmake ../ProjetVaR_Software/ProjetVaR_Software.pro
   - make
+  - export LD_LIBRARY_PATH=ModelVaR
+  - TestUnitaire/main
 
 notifications:
   email:
