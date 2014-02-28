@@ -6,6 +6,8 @@
 
 QT       += testlib
 QT       -= gui
+# For QSQL
+QT += sql
 
 TARGET = main
 CONFIG   += console
@@ -16,12 +18,14 @@ TEMPLATE = app
 SOURCES += TestPortfolio.cpp \
     TestAsset.cpp \
     main.cpp \
-    TestReport.cpp
+    TestReport.cpp \
+    TestSQLiteManagers.cpp
 
 HEADERS += \
     TestPortfolio.h \
     TestAsset.h \
-    TestReport.h
+    TestReport.h \
+    TestSQLiteManagers.h
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 

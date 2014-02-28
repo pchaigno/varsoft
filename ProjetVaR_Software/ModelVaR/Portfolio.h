@@ -34,4 +34,6 @@ public:
 
 	QDateTime retrieveFirstDate() const;
 	QDateTime retrieveLastDate() const;
+
+	bool operator==(const Portfolio& portfolio) const;
 };

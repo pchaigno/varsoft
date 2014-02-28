@@ -8,7 +8,7 @@
 #include <QString>
 #include <QVariant>
 
-class SessionSaver: public SQLiteManager {
+class MODELVARSHARED_EXPORT SessionSaver: public SQLiteManager {
 private:
 	static SessionSaver* instance;
 

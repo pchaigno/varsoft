@@ -11,7 +11,7 @@
 #include <QVariant>
 
 
-class SessionBuilder: public SQLiteManager {
+class MODELVARSHARED_EXPORT SessionBuilder: public SQLiteManager {
 private:
 	static SessionBuilder* instance;
 

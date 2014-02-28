@@ -28,4 +28,6 @@ public:
 	QDateTime getFirstDate() const;
 	QDateTime getLastDate() const;
 	void changeName(QString name);
+
+	bool operator==(const Asset& asset) const;
 };

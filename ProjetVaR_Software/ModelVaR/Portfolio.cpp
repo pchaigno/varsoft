@@ -159,3 +159,13 @@ QDateTime Portfolio::retrieveLastDate() const {
 	}
 	return minLastDate;
 }
+
+/**
+ * @brief Checks if two portfolios are equal.
+ * @param a The first portfolio.
+ * @param b The second asset.
+ * @return True if the two assets are equal.
+ */
+bool Portfolio::operator==(const Portfolio& portfolio) const {
+	return this->name == portfolio.name;
+}

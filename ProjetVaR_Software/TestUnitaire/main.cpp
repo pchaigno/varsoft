@@ -1,7 +1,7 @@
 #include "TestAsset.h"
 #include "TestPortfolio.h"
 #include "TestReport.h"
-#include <QtWidgets/QApplication>
+#include "TestSQLiteManagers.h"
 
 int main() {
 	TestAsset asset;
@@ -10,5 +10,7 @@ int main() {
 	QTest::qExec(&portfolio);
 	TestReport report;
 	QTest::qExec(&report);
+	TestSQLiteManagers sqlite;
+	QTest::qExec(&sqlite);
 	return 0;
 }

@@ -3,8 +3,9 @@
 #include <QString>
 #include <QSqlQuery>
 #include <QSqlDatabase>
+#include "ModelVaR_global.h"
 
-class SQLiteManager {
+class MODELVARSHARED_EXPORT SQLiteManager {
 protected:
     const QString databaseFile;
 	QSqlDatabase db;

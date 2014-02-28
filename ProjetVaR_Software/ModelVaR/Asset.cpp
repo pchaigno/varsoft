@@ -119,3 +119,12 @@ QDateTime Asset::getLastDate() const {
 void Asset::changeName(QString name) {
 	this->name = name;
 }
+
+/**
+ * @brief Checks if two assets are equal.
+ * @param asset The second asset.
+ * @return True if the two assets are equal.
+ */
+bool Asset::operator==(const Asset& asset) const {
+	return this->name == asset.name;
+}
