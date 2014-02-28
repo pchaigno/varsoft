@@ -1,5 +1,5 @@
-build-*-Desktop-Debug/
-build-*-Desktop-Release/
+build-*-Desktop*-Debug/
+build-*-Desktop*-Release/
 
 ########################
 #        Latex
