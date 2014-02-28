@@ -4,13 +4,14 @@
 #include "TestSQLiteManagers.h"
 
 int main() {
+	int result = 0;
 	TestAsset asset;
-	QTest::qExec(&asset);
+	result += QTest::qExec(&asset);
 	TestPortfolio portfolio;
-	QTest::qExec(&portfolio);
+	result += QTest::qExec(&portfolio);
 	TestReport report;
-	QTest::qExec(&report);
+	result += QTest::qExec(&report);
 	TestSQLiteManagers sqlite;
-	QTest::qExec(&sqlite);
-	return 0;
+	result += QTest::qExec(&sqlite);
+	return result;
 }
