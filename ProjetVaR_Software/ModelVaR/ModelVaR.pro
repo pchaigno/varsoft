@@ -55,6 +55,7 @@ HEADERS +=\
     StatisticsReport.h \
     CorrelationReport.h \
     AssetsFactory.h \
+    IdAlreadyAttributedException.h \
     VaRAlgorithm.h \
     VaRHistorical.h \
     VaRGarch.h \

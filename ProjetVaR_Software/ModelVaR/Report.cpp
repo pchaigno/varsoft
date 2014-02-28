@@ -9,7 +9,6 @@ Report::Report() {
 }
 
 /**
-<<<<<<< HEAD
  * @brief Constructor
  * @param docxPath The location of the DOCX file on the disk.
  * @param pdfPath The location of the PDF file on the disk.
@@ -53,7 +52,7 @@ int Report::getId() const {
  * @throw IdAlreadyAttributedException If an id was already attributed.
  */
 void Report::setId(int id) {
-	if(this->id == -1) {
+	if(this->id != -1) {
 		// TODO Improve error message.
 		throw IdAlreadyAttributedException("An id has already been attributed to this report.");
 	}

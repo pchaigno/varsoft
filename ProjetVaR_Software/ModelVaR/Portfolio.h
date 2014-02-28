@@ -7,8 +7,9 @@
 #include "Asset.h"
 #include <QDateTime>
 #include "IdAlreadyAttributedException.h"
+#include "ModelVaR_global.h"
 
-class Portfolio {
+class MODELVARSHARED_EXPORT Portfolio {
 private:
 	int id;
 	QString name;

@@ -2,8 +2,9 @@
 
 #include "Report.h"
 #include <QString>
+#include "ModelVaR_global.h"
 
-class StatisticsReport: public Report {
+class MODELVARSHARED_EXPORT StatisticsReport: public Report {
 public:
 	StatisticsReport(QString docxFile, QString pdfFile);
 	virtual ReportType getType() const;

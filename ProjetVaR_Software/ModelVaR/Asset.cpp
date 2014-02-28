@@ -65,7 +65,7 @@ int Asset::getId() const {
  * @throw IdAlreadyAttributedException If an id was already attributed.
  */
 void Asset::setId(int id) {
-	if(id != -1) {
+	if(this->id != -1) {
 		// TODO Improve error message.
 		throw IdAlreadyAttributedException("An id has already been attributed to this asset.");
 	}

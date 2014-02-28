@@ -3,8 +3,9 @@
 #include <QString>
 #include <QDateTime>
 #include "IdAlreadyAttributedException.h"
+#include "ModelVaR_global.h"
 
-class Asset {
+class MODELVARSHARED_EXPORT Asset {
 private:
 	int id;
 	QString file;

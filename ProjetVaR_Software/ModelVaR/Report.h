@@ -2,6 +2,7 @@
 
 #include <QString>
 #include "IdAlreadyAttributedException.h"
+#include "ModelVaR_global.h"
 
 enum ReportType {
 	NONE = 0,
@@ -12,7 +13,7 @@ enum ReportType {
 	VAR
 };
 
-class Report {
+class MODELVARSHARED_EXPORT Report {
 private:
 	int id;
 	QString docxFile;

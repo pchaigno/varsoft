@@ -90,7 +90,7 @@ int Portfolio::getId() const {
  * @throw IdAlreadyAttributedException If an id was already attributed.
  */
 void Portfolio::setId(int id) {
-	if(this->id == -1) {
+    if(this->id != -1) {
 		// TODO Improve error message.
 		throw IdAlreadyAttributedException("An id has already been attributed to this portfolio.");
 	}
