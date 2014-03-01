@@ -12,21 +12,21 @@ Portfolio::Portfolio() {
  * @brief Constructor with parent.
  * @param parent The older version of the portfolio.
  * @param name The name of the portfolio.
- * @param assets The assets composing the portfolio.
+ * @param composition The assets composing the portfolio.
  * @param reports The reports of the portfolio.
  */
-Portfolio::Portfolio(Portfolio* parent, QString name, QMap<Asset*, int>& assets, QVector<Report>& reports) {
-	this->init(parent, -1, name, assets, reports);
+Portfolio::Portfolio(Portfolio* parent, QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports) {
+	this->init(parent, -1, name, composition, reports);
 }
 
 /**
  * @brief Constructor
  * @param name The name of the portfolio.
- * @param assets The assets composing the portfolio.
+ * @param composition The assets composing the portfolio.
  * @param reports The reports of the portfolio.
  */
-Portfolio::Portfolio(QString name, QMap<Asset*, int>& assets, QVector<Report>& reports) {
-	this->init(NULL, -1, name, assets, reports);
+Portfolio::Portfolio(QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports) {
+	this->init(NULL, -1, name, composition, reports);
 }
 
 /**
@@ -34,22 +34,22 @@ Portfolio::Portfolio(QString name, QMap<Asset*, int>& assets, QVector<Report>& r
  * @param parent The older version of the portfolio.
  * @param id The id of the portfolio in the database.
  * @param name The name of the portfolio.
- * @param assets The assets composing the portfolio.
+ * @param composition The assets composing the portfolio.
  * @param reports The reports of the portfolio.
  */
-Portfolio::Portfolio(Portfolio* parent, int id, QString name, QMap<Asset*, int>& assets, QVector<Report>& reports) {
-	this->init(parent, id, name, assets, reports);
+Portfolio::Portfolio(Portfolio* parent, int id, QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports) {
+	this->init(parent, id, name, composition, reports);
 }
 
 /**
  * @brief Constructor
  * @param id The id of the portfolio in the database.
  * @param name The name of the portfolio.
- * @param assets The assets composing the portfolio.
+ * @param composition The assets composing the portfolio.
  * @param reports The reports of the portfolio.
  */
-Portfolio::Portfolio(int id, QString name, QMap<Asset *, int> &assets, QVector<Report>& reports) {
-	this->init(NULL, id, name, assets, reports);
+Portfolio::Portfolio(int id, QString name, QMap<Asset *, int> &composition, QVector<Report*>& reports) {
+	this->init(NULL, id, name, composition, reports);
 }
 
 /**
@@ -57,14 +57,14 @@ Portfolio::Portfolio(int id, QString name, QMap<Asset *, int> &assets, QVector<R
  * @param parent The older version of the portfolio.
  * @param id The id of the portfolio in the database.
  * @param name The name of the portfolio.
- * @param assets The assets composing the portfolio.
+ * @param composition The assets composing the portfolio.
  * @param reports The reports of the portfolio.
  */
-void Portfolio::init(Portfolio* parent, int id, QString name, QMap<Asset *, int> &assets, QVector<Report>& reports) {
+void Portfolio::init(Portfolio* parent, int id, QString name, QMap<Asset *, int> &composition, QVector<Report*>& reports) {
 	this->parent = parent;
 	this->id = id;
 	this->name = name;
-	this->assets = assets;
+	this->composition = composition;
 	this->reports = reports;
 }
 
@@ -112,8 +112,28 @@ int Portfolio::getParentId() const {
  * @brief Accessor to reports.
  * @return The reports for this portfolio.
  */
-QVector<Report> Portfolio::getReports() const {
+QVector<Report*> Portfolio::getReports() const {
 	return this->reports;
+}
+
+/**
+ * @brief Accessor to the assets.
+ * @return The assets composing the portfolio.
+ */
+QVector<Asset*> Portfolio::getAssets() const {
+	QVector<Asset*> assets;
+	for(QMap<Asset*, int>::const_iterator it=this->composition.begin(); it!=this->composition.end(); ++it) {
+		assets.append(it.key());
+	}
+	return assets;
+}
+
+/**
+ * @brief Accessor to the composition of the portfolio.
+ * @return The weight for each asset of the portfolio.
+ */
+QMap<Asset*, int> Portfolio::getComposition() const {
+	return this->composition;
 }
 
 /**
@@ -133,7 +153,7 @@ void Portfolio::changeName(QString name) {
 QDateTime Portfolio::retrieveFirstDate() const {
     QDateTime maxFirstDate;
     maxFirstDate.setTime_t(0);
-	for(QMap<Asset*, int>::const_iterator it=this->assets.begin(); it!=this->assets.end(); ++it) {
+	for(QMap<Asset*, int>::const_iterator it=this->composition.begin(); it!=this->composition.end(); ++it) {
 		QDateTime firstDate = it.key()->getFirstDate();
 		if(firstDate > maxFirstDate) {
 			maxFirstDate = firstDate;
@@ -151,7 +171,7 @@ QDateTime Portfolio::retrieveFirstDate() const {
 QDateTime Portfolio::retrieveLastDate() const {
     QDateTime minLastDate;
     minLastDate.setTime_t(INT_MAX);
-	for(QMap<Asset*, int>::const_iterator it=this->assets.begin(); it!=this->assets.end(); ++it) {
+	for(QMap<Asset*, int>::const_iterator it=this->composition.begin(); it!=this->composition.end(); ++it) {
 		QDateTime lastDate = it.key()->getLastDate();
 		if(lastDate < minLastDate) {
 			minLastDate = lastDate;

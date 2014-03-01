@@ -17,7 +17,7 @@ SessionBuilder::SessionBuilder(QString databaseFile): SQLiteManager(databaseFile
  */
 Asset* SessionBuilder::buildAsset(QString name) {
 	this->openConnection();
-	QSqlQuery query;
+	QSqlQuery query(this->db);
 	query.prepare("SELECT id, file, first_date, last_date FROM assets WHERE name = :name;");
 	query.bindValue(":name", name);
 	query.exec();
@@ -35,6 +35,7 @@ Asset* SessionBuilder::buildAsset(QString name) {
 		asset = new Asset(id, name, file, origin, firstDate, lastDate);
 	}
 
+	query.finish();
 	this->closeConnection();
 	return asset;
 }
@@ -43,12 +44,12 @@ Asset* SessionBuilder::buildAsset(QString name) {
  * @brief Retrieves all assets from the database.
  * @return The assets.
  */
-QVector<Asset> SessionBuilder::buildAssets() {
+QMap<QString, Asset*> SessionBuilder::buildAssets() {
 	this->openConnection();
-	QSqlQuery query;
+	QSqlQuery query(this->db);
 	query.exec("SELECT id, name, file, first_date, last_date FROM assets;");
 
-	QVector<Asset> assets;
+    QMap<QString, Asset*> assets;
 	int id;
 	QString file, origin, name;
 	QDateTime firstDate, lastDate;
@@ -59,9 +60,10 @@ QVector<Asset> SessionBuilder::buildAssets() {
 		origin = query.value(3).toString();
 		firstDate.setTime_t(query.value(4).toInt());
 		lastDate.setTime_t(query.value(5).toInt());
-		assets.append(Asset(id, name, file, origin, firstDate, lastDate));
+        assets[name] = new Asset(id, name, file, origin, firstDate, lastDate);
 	}
 
+	query.finish();
 	this->closeConnection();
 	return assets;
 }
@@ -72,33 +74,10 @@ QVector<Asset> SessionBuilder::buildAssets() {
  */
 QVector<Portfolio> SessionBuilder::buildSession() {
 	AssetsFactory::getInstance();
-	QVector<Portfolio> portfolios = this->buildPortfolios();
-	return portfolios;
-}
-
-/**
- * @brief Retrieves all reports of a portfolio from the database.
- * @param idPortfolio The id of the portfolio.
- * @return The reports.
- */
-QVector<Report> SessionBuilder::buildReports(int idPortfolio) {
 	this->openConnection();
-	QSqlQuery query;
-	query.exec("SELECT id, docx_file, pdf_file FROM reports WHERE portfolio = :id_portfolio;");
-	query.bindValue(":id_portfolio", idPortfolio);
-
-	int id;
-	QString docxFile, pdfFile;
-	QVector<Report> reports;
-	while(query.next()) {
-		id = query.value(0).toInt();
-		docxFile = query.value(1).toString();
-		pdfFile = query.value(2).toString();
-		reports.append(Report(id, docxFile, pdfFile));
-	}
-
+	QVector<Portfolio> portfolios = this->buildPortfolios();
 	this->closeConnection();
-	return reports;
+	return portfolios;
 }
 
 /**
@@ -107,13 +86,12 @@ QVector<Report> SessionBuilder::buildReports(int idPortfolio) {
  */
 QVector<Portfolio> SessionBuilder::buildPortfolios() {
 	// TODO Should we have a mechanism to prevent the portfolios to be loop-linked?
-	this->openConnection();
-	QSqlQuery query;
+	QSqlQuery query(this->db);
 	query.exec("SELECT id, name, parent FROM portfolios ORDER BY parent ASC;");
 
 	QVector<Portfolio> portfolios;
 	QMap<int, Portfolio*> portfoliosById;
-	QVector<Report> reports;
+    QVector<Report*> reports;
 	QMap<Asset*, int> assets;
 	QString name;
 	int id, parent;
@@ -134,7 +112,7 @@ QVector<Portfolio> SessionBuilder::buildPortfolios() {
 		portfoliosById[id] = &portfolio;
 	}
 
-	this->closeConnection();
+	query.finish();
 	return portfolios;
 }
 
@@ -144,10 +122,10 @@ QVector<Portfolio> SessionBuilder::buildPortfolios() {
 * @return The portfolio composition as a map.
 */
 QMap<Asset*, int> SessionBuilder::buildPortfolioComposition(int idPortfolio) {
-	this->openConnection();
-	QSqlQuery query;
-	query.exec("SELECT name, weight FROM weights, assets WHERE portfolio = :id_portfolio;");
+	QSqlQuery query(this->db);
+    query.prepare("SELECT name, weight FROM weights, assets WHERE asset = id AND portfolio = :id_portfolio;");
 	query.bindValue(":id_portfolio", idPortfolio);
+    query.exec();
 
 	Asset* asset;
 	QString assetName;
@@ -155,11 +133,59 @@ QMap<Asset*, int> SessionBuilder::buildPortfolioComposition(int idPortfolio) {
 	QMap<Asset*, int> composition;
 	while(query.next()) {
 		assetName = query.value(0).toString();
-		weight = query.value(1).toInt();
-		asset = AssetsFactory::getInstance().retrieveAsset(assetName);
-		composition[asset] = weight;
+        weight = query.value(1).toInt();
+        asset = AssetsFactory::getInstance()->retrieveAsset(assetName);
+        composition[asset] = weight;
 	}
 
-	this->closeConnection();
+	query.finish();
 	return composition;
+}
+
+/**
+ * @brief Retrieves all reports of a portfolio from the database.
+ * @param idPortfolio The id of the portfolio.
+ * @return The reports.
+ */
+QVector<Report*> SessionBuilder::buildReports(int idPortfolio) {
+	QSqlQuery query(this->db);
+	query.prepare("SELECT id, docx_file, pdf_file, type FROM reports WHERE portfolio = :id_portfolio;");
+	query.bindValue(":id_portfolio", idPortfolio);
+	query.exec();
+
+	int id;
+	ReportType type;
+	QString docxFile, pdfFile;
+    QVector<Report*> reports;
+	while(query.next()) {
+		id = query.value(0).toInt();
+		docxFile = query.value(1).toString();
+		pdfFile = query.value(2).toString();
+		type = (ReportType)query.value(3).toInt();
+        Report* report;
+		switch(type) {
+			case GARCH:
+                report = new GarchReport(id, docxFile, pdfFile);
+				break;
+			case VAR:
+                report = new VaRReport(id, docxFile, pdfFile);
+				break;
+			case STATISTICS:
+                report = new StatisticsReport(id, docxFile, pdfFile);
+				break;
+			case CORRELATION:
+                report = new CorrelationReport(id, docxFile, pdfFile);
+				break;
+			case BACKTESTING:
+                report = new BacktestingReport(id, docxFile, pdfFile);
+				break;
+			default:
+				// TODO Throw exception?
+                break;
+		}
+        reports.append(report);
+	}
+
+	query.finish();
+	return reports;
 }

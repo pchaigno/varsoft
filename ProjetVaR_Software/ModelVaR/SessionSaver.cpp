@@ -17,14 +17,17 @@ SessionSaver::SessionSaver(QString databaseFile): SQLiteManager(databaseFile) {
  */
 bool SessionSaver::saveAsset(Asset& asset) {
 	this->openConnection();
-	QSqlQuery query;
-	query.prepare("INSERT INTO assets(name, file, origin, first_date, last_date) VALUES(:name, :file, :origin, :first_date, :last_date);");
+	QSqlQuery query(this->db);
+	query.prepare("INSERT INTO assets(id, name, file, origin, first_date, last_date) VALUES(NULL, :name, :file, :origin, :first_date, :last_date);");
 	query.bindValue(":name", asset.getFile());
 	query.bindValue(":file", asset.getName());
 	query.bindValue(":origin", asset.getOrigin());
 	query.bindValue(":first_date", asset.getFirstDate());
 	query.bindValue(":last_date", asset.getLastDate());
 	bool result = query.exec();
+	asset.setId(query.lastInsertId().toInt());
+
+	query.finish();
 	this->closeConnection();
 	return result;
 }
@@ -33,44 +36,70 @@ bool SessionSaver::saveAsset(Asset& asset) {
  * @brief Save an entire session in the database.
  * @param portfolios The portfolios of the session.
  */
-void SessionSaver::saveSession(const QVector<Portfolio>& portfolios) {
-	// TODO
+void SessionSaver::saveSession(QVector<Portfolio>& portfolios) {
+	this->openConnection();
+	// The assets must be saved first:
+	QVector<Asset*> allAssets;
+	for(int i=0; i<portfolios.size(); i++) {
+		QVector<Asset*> assets = portfolios[i].getAssets();
+		for(int j=0; j<assets.size(); j++) {
+			allAssets.append(assets[j]);
+		}
+	}
+	this->saveAssets(allAssets);
+	// Now it's possible to save the portfolios:
 	this->savePortfolios(portfolios);
+	// The reports are saved last because they have a reference to a portfolio:
+	for(int i=0; i<portfolios.size(); i++) {
+		this->saveReports(portfolios[i], portfolios[i].getReports());
+	}
+	this->closeConnection();
 }
 
 /**
  * @brief Save some assets in the database.
  * @param assets The assets to save.
  */
-void SessionSaver::saveAssets(const QVector<Asset>& assets) {
-	this->openConnection();
-	QSqlQuery query;
-	query.prepare("INSERT INTO assets(name, file, origin, first_date, last_date) VALUES(:name, :file, :origin, :first_date, :last_date);");
-	for(QVector<Asset>::const_iterator asset=assets.begin(); asset!=assets.end(); ++asset) {
-		query.bindValue(":name", asset->getFile());
-		query.bindValue(":file", asset->getName());
+void SessionSaver::saveAssets(QVector<Asset*>& assets) {
+	QSqlQuery query(this->db);
+	query.prepare("INSERT INTO assets(id, name, file, origin, first_date, last_date) VALUES(NULL, :name, :file, :origin, :first_date, :last_date);");
+	for(QVector<Asset*>::iterator it=assets.begin(); it!=assets.end(); ++it) {
+		Asset* asset = *it;
+		query.bindValue(":name", asset->getName());
+		query.bindValue(":file", asset->getFile());
 		query.bindValue(":origin", asset->getOrigin());
 		query.bindValue(":first_date", asset->getFirstDate());
 		query.bindValue(":last_date", asset->getLastDate());
-		query.execBatch();
+		query.exec();
+		asset->setId(query.lastInsertId().toInt());
 	}
-	this->closeConnection();
+	query.finish();
 }
 
 /**
  * @brief Save some portfolios in the database.
  * @param portfolios The portfolios to save.
  */
-void SessionSaver::savePortfolios(const QVector<Portfolio>& portfolios) {
-	this->openConnection();
-	QSqlQuery query;
-	query.prepare("INSERT INTO portfolios(name, parent) VALUES(:name, :parent);");
-	for(QVector<Portfolio>::const_iterator portfolio=portfolios.begin(); portfolio!=portfolios.end(); ++portfolio) {
-		query.bindValue(":name", portfolio->getName());
-		query.bindValue(":parent", portfolio->getParentId());
-		query.execBatch();
+void SessionSaver::savePortfolios(QVector<Portfolio>& portfolios) {
+	QSqlQuery queryPortfolios(this->db);
+	QSqlQuery queryWeights(this->db);
+	queryPortfolios.prepare("INSERT INTO portfolios(id, name, parent) VALUES(NULL, :name, :parent);");
+	queryWeights.prepare("INSERT INTO weights(asset, portfolio, weight) VALUES(:asset, :portfolio, :weight);");
+	for(QVector<Portfolio>::iterator portfolio=portfolios.begin(); portfolio!=portfolios.end(); ++portfolio) {
+		queryPortfolios.bindValue(":name", portfolio->getName());
+		queryPortfolios.bindValue(":parent", portfolio->getParentId());
+		queryPortfolios.exec();
+		portfolio->setId(queryPortfolios.lastInsertId().toInt());
+		QMap<Asset*, int> composition = portfolio->getComposition();
+		for(QMap<Asset*, int>::iterator it=composition.begin(); it!=composition.end(); ++it) {
+			queryWeights.bindValue(":asset", it.key()->getId());
+			queryWeights.bindValue(":portfolio", portfolio->getId());
+			queryWeights.bindValue(":weight", it.value());
+			queryWeights.exec();
+		}
 	}
-	this->closeConnection();
+	queryWeights.finish();
+	queryPortfolios.finish();
 }
 
 /**
@@ -78,16 +107,16 @@ void SessionSaver::savePortfolios(const QVector<Portfolio>& portfolios) {
  * @param portfolio The porfolios owner of the reports.
  * @param reports The reports to save.
  */
-void SessionSaver::saveReports(const Portfolio& portfolio, const QVector<Report>& reports) {
-	this->openConnection();
-	QSqlQuery query;
-	query.prepare("INSERT INTO reports(portfolio, pdf_file, docx_file, type) VALUES(:portfolio, :pdf_file, :docx_file, :type);");
-	for(QVector<Report>::const_iterator report=reports.begin(); report!=reports.end(); ++report) {
+void SessionSaver::saveReports(const Portfolio& portfolio, const QVector<Report*>& reports) {
+	QSqlQuery query(this->db);
+	query.prepare("INSERT INTO reports(id, portfolio, pdf_file, docx_file, type) VALUES(NULL, :portfolio, :pdf_file, :docx_file, :type);");
+	for(int i=0; i<reports.size(); i++) {
 		query.bindValue(":portfolio", portfolio.getId());
-		query.bindValue(":pdf_file", report->getPDFFile());
-		query.bindValue(":docx_file", report->getDOCXFile());
-		query.bindValue(":type", report->getType());
-		query.execBatch();
+        query.bindValue(":pdf_file", reports[i]->getPDFFile());
+        query.bindValue(":docx_file", reports[i]->getDOCXFile());
+        query.bindValue(":type", reports[i]->getType());
+        query.exec();
+        reports[i]->setId(query.lastInsertId().toInt());
 	}
-	this->closeConnection();
+	query.finish();
 }

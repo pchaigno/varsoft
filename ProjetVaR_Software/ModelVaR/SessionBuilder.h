@@ -4,7 +4,11 @@
 #include <QString>
 #include "Portfolio.h"
 #include "Asset.h"
-#include "Report.h"
+#include "GarchReport.h"
+#include "VaRReport.h"
+#include "StatisticsReport.h"
+#include "CorrelationReport.h"
+#include "BacktestingReport.h"
 #include <QDateTime>
 #include <QVector>
 #include "AssetsFactory.h"
@@ -17,7 +21,7 @@ private:
 
 public:
 	Asset *buildAsset(QString name);
-    QVector<Asset> buildAssets();
+    QMap<QString, Asset*> buildAssets();
     QVector<Portfolio> buildSession();
 	/**
 	 * @brief Accessor to the only instance of SessionBuilder.
@@ -33,6 +37,6 @@ public:
 private:
     SessionBuilder(QString databaseFile);
     QVector<Portfolio> buildPortfolios();
-	QVector<Report> buildReports(int idPortfolio);
+    QVector<Report*> buildReports(int idPortfolio);
     QMap<Asset*, int> buildPortfolioComposition(int idPortfolio);
 };

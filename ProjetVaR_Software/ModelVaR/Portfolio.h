@@ -14,22 +14,24 @@ private:
 	int id;
 	QString name;
 	Portfolio* parent;
-	QMap<Asset*, int> assets;
-	QVector<Report> reports;
+	QMap<Asset*, int> composition;
+    QVector<Report*> reports;
 
 public:
 	Portfolio();
-	Portfolio(Portfolio* parent, QString name, QMap<Asset*, int>& assets, QVector<Report>& reports);
-	Portfolio(QString name, QMap<Asset*, int>& assets, QVector<Report>& reports);
-	Portfolio(Portfolio* parent, int id, QString name, QMap<Asset *, int> &assets, QVector<Report>& reports);
-	Portfolio(int id, QString name, QMap<Asset*, int>& assets, QVector<Report>& reports);
-    void init(Portfolio* parent, int id, QString name, QMap<Asset*, int>& assets, QVector<Report>& reports);
+    Portfolio(Portfolio* parent, QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports);
+    Portfolio(QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports);
+    Portfolio(Portfolio* parent, int id, QString name, QMap<Asset *, int>& composition, QVector<Report*>& reports);
+    Portfolio(int id, QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports);
+    void init(Portfolio* parent, int id, QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports);
 
 	QString getName() const;
 	int getId() const;
 	void setId(int id);
 	int getParentId() const;
-	QVector<Report> getReports() const;
+    QVector<Report*> getReports() const;
+	QVector<Asset*> getAssets() const;
+	QMap<Asset*, int> getComposition() const;
 	void changeName(QString name);
 
 	QDateTime retrieveFirstDate() const;
