@@ -1,6 +1,18 @@
 #include "CorrelationReport.h"
 
+/**
+ * @brief Empty constructor
+ * Should only be used by Qt containers.
+ */
+CorrelationReport::CorrelationReport() {
+
+}
+
 CorrelationReport::CorrelationReport(QString docxPath, QString pdfPath): Report(docxPath, pdfPath) {
+
+}
+
+CorrelationReport::CorrelationReport(int id, QString docxFile, QString pdfFile): Report(id, docxFile, pdfFile) {
 
 }
 

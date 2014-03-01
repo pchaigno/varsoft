@@ -82,3 +82,15 @@ QString Report::getPDFFile() const {
 ReportType Report::getType() const {
 	return NONE;
 }
+
+/**
+ * @brief Checks if two reports are equal.
+ * @param report The second report.
+ * @return True if the two reports are equal.
+ */
+bool Report::operator==(const Report& report) const {
+	if(this->id == -1) {
+		return this->docxFile==report.docxFile && this->pdfFile==report.pdfFile;
+	}
+	return this->id == report.id;
+}

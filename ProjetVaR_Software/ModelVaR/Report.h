@@ -31,4 +31,6 @@ public:
 	QString getPDFFile() const;
 	// TODO Any way to make it abstract?
 	virtual ReportType getType() const;
+
+    bool operator==(const Report& report) const;
 };
