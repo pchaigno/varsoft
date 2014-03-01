@@ -3,13 +3,13 @@
 /**
  * @brief Singleton definition. Mandatory.
  */
-AssetsFactory AssetsFactory::instance;
+AssetsFactory* AssetsFactory::instance = NULL;
 
 /**
  * @brief Private constructor.
  */
 AssetsFactory::AssetsFactory() {
-	// TODO
+    this->assets = SessionBuilder::getInstance()->buildAssets();
 }
 
 /**
@@ -18,6 +18,8 @@ AssetsFactory::AssetsFactory() {
  * @return A pointer to the asset.
  */
 Asset* AssetsFactory::retrieveAsset(QString name) {
-	// TODO
-	return NULL;
+    if(!this->assets.contains(name)) {
+        this->assets[name] = SessionBuilder::getInstance()->buildAsset(name);
+    }
+    return this->assets[name];
 }
