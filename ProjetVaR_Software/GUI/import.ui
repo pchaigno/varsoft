@@ -108,11 +108,6 @@
     <string>Date de fin</string>
    </property>
   </widget>
-  <action name="actionStockName">
-   <property name="text">
-    <string>stockName</string>
-   </property>
-  </action>
  </widget>
  <resources/>
  <connections/>

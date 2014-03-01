@@ -24,8 +24,8 @@ private slots:
 
 signals:
 		void textEntered(const QString &text);
-		void firstDateEntered(const QString &text);
-		void lastDateEntered(const QString &text);
+		void firstDateEntered(const QDateTime &date);
+		void lastDateEntered(const QDateTime &date);
 };
 
 #endif // IMPORT_H

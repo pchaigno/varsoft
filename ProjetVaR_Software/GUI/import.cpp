@@ -6,6 +6,11 @@ Import::Import(QWidget *parent) :
 	ui(new Ui::Import)
 {
 	ui->setupUi(this);
+	//Date of the day
+	ui->dateEdit->setDate(QDate::currentDate());
+	ui->dateEdit->setCalendarPopup(true);
+	ui->dateEdit_2->setCalendarPopup(true);
+	//ui->dateEdit_2->setDisplayFormat("yyyy-MM-dd");
 	connect(ui->pushButton, SIGNAL(clicked()),
 			   this, SIGNAL(on_pushButton_clicked));
 }
@@ -18,12 +23,20 @@ Import::~Import()
 // Validate button clicked
 void Import::on_pushButton_clicked()
 {
-	// Emitting a signal with the new text
-	emit this->textEntered(ui->textEdit->toPlainText());
+	// TODO : vérifier que le texte n'est pas vide
+	//if(ui->textEdit->toPlainText() != "")
+		emit this->textEntered(ui->textEdit->toPlainText());
+	//else
+		// afficher quelque chose pour obliger à renseigner un nom
+	emit this->firstDateEntered(ui->dateEdit->dateTime());
+	emit this->lastDateEntered(ui->dateEdit_2->dateTime());
+	this->close();
 }
 
 // Cancel button clicked
 void Import::on_pushButton_2_clicked()
 {
-
+	//annuler totalement l'importation????
+	//reseter les champs???
+	//this->textEntered(ui->textEdit->toPlainText(""));
 }

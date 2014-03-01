@@ -43,7 +43,6 @@ SOURCES += \
     CorrelationReportFactory.cpp \
     ImportNewData.cpp \
     ImportData.cpp \
-    Importator.cpp \
     IImportStrategie.cpp
 
 HEADERS +=\
@@ -78,8 +77,7 @@ HEADERS +=\
     CorrelationReportFactory.h \
     IImportStrategie.h \
     ImportData.h \
-    ImportNewData.h \
-    Importator.h
+    ImportNewData.h
 
 unix:!symbian {
     maemo5 {
