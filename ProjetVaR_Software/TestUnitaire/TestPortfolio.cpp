@@ -5,7 +5,7 @@
  */
 TestPortfolio::TestPortfolio() {
 	QMap<Asset*, int> assets;
-	QVector<Report> reports;
+    QVector<Report*> reports;
 	this->father = Portfolio("Test", assets, reports);
 	this->son = Portfolio(&this->father, "Test", assets, reports);
 }

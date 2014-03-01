@@ -13,10 +13,8 @@ class TestSQLiteManagers: public QObject {
 
 private:
 	QVector<Portfolio> portfolios;
-	Asset* google;
-	Asset* apple;
-	Report garchReport;
-	Report varReport;
+    Asset google;
+    Asset apple;
 
 public:
 	TestSQLiteManagers();
