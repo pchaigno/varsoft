@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QDialog>
+#include "import.h"
 
 namespace Ui {
 class MainWindow;
@@ -19,8 +20,11 @@ public:
 private slots:
     void importCSV();
 	void import();
+public slots:
+	void onTextEntered(const QString &text);
 private:
 	Ui::MainWindow *ui;
+	Import import_win;
 };
 
 #endif // MAINWINDOW_H

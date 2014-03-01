@@ -15,6 +15,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
 	ui->setupUi(this);
     connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(importCSV()));
+	//Import i = new Import(this);
+	connect(&import_win, SIGNAL(textEntered(const QString&)),
+						 this, SLOT(onTextEntered(const QString&)));
 	//connect(ui->actionExport, SIGNAL(triggered()), this, SLOT(import()));
 }
 
@@ -31,9 +34,17 @@ MainWindow::~MainWindow()
 //Une seule source de fichier
 //externaliser le traitement des fichiers
 //faire une super classe Importation, avec pour l'instant qu'une classe Yahoo héritant
+
+//pour envoyer les données captées dans la fenêtre d'importation
+//il faut les envoyer via un connect, signal à la fonction qui en a besoin
 void MainWindow::import(){
 	Import* import_win = new Import(this);
 	import_win->show();
+}
+
+//
+void MainWindow::onTextEntered(const QString &text){
+	qDebug() << text;
 }
 
 void MainWindow::importCSV()
@@ -42,12 +53,10 @@ void MainWindow::importCSV()
 
 		ImportNewData algo1 = ImportNewData();
 		algo1.import(fileName);
-		//
-		//Importator importator = Importator(algo1);
-
-		//importator.execute(fileName);
-		/*
-
+		//Import* import_win = new Import(this);
+		//import_win->show();
+		import_win.show();
+/*
 		QString data;
 		QFile importedCSV(fileName);
 		QStringList rowOfData;

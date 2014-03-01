@@ -17,6 +17,15 @@ public:
 
 private:
 	Ui::Import *ui;
+
+private slots:
+	void on_pushButton_clicked();
+	void on_pushButton_2_clicked();
+
+signals:
+		void textEntered(const QString &text);
+		void firstDateEntered(const QString &text);
+		void lastDateEntered(const QString &text);
 };
 
 #endif // IMPORT_H
