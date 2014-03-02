@@ -1,5 +1,8 @@
 #include "Asset.h"
+#include <QDebug>
 #include <QFile>
+#include <QString>
+#include <QTextStream>
 #include <QVector>
 
 /**
@@ -72,9 +75,15 @@ void Asset::changeName(QString name) {
  */
 QVector<double> Asset::getAsQVectors(QDateTime startDate, QDateTime endDate) {
     QVector<double> values;
+
+    qDebug() << this->getFile();
+
     QFile inputFile(this->getFile());
 
-    if(inputFile.open(QIODevice::ReadOnly)) {
+    if(!inputFile.open(QIODevice::ReadOnly)) {
+        qDebug() << inputFile.errorString();
+    } else {
+        qDebug() << "dans if";
             QTextStream in(&inputFile);
 
             // A ameliorer en utilisant plusieurs while peut etre
@@ -83,7 +92,7 @@ QVector<double> Asset::getAsQVectors(QDateTime startDate, QDateTime endDate) {
                     QStringList row = line.split(",");
                     QString date = row.value(0);
                     QString value = row.value(1);
-                    boolean startDetected = false;
+                    bool startDetected = false;
 
                     if(startDate != QDateTime::fromString(date,"yyyy:MM:dd ") && !startDetected)
                         continue;

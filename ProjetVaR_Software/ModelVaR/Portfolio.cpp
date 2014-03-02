@@ -98,7 +98,7 @@ QDateTime Portfolio::retrieveLastDate() const {
 QVector<double> Portfolio::getAsVectors() const {
     QVector<double> values;
 
-    for(QMap<Asset*, QDateTime>::const_iterator it=this->assets.begin(); it!=this->assets.end(); ++it) {
+    /*for(QMap<Asset*, QDateTime>::const_iterator it=this->assets.begin(); it!=this->assets.end(); ++it) {
         QVector<double> = it.key()->;
         QFile inputFile(fileName);
 
@@ -117,6 +117,6 @@ QVector<double> Portfolio::getAsVectors() const {
                }
                inputFile.close();
             }
-    }
+    }*/
     return values;
 }
