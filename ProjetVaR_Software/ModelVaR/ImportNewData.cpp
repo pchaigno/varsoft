@@ -1,9 +1,9 @@
 #include "ImportNewData.h"
 
 void ImportNewData::import(const QString file, const QString name, const QDateTime firstDate, const QDateTime lastDate) const{
-		QString fileName = file;
+		//QString fileName = file;
 		QString data;
-		QFile importedCSV(fileName);
+		QFile importedCSV(file);
 		QStringList rowOfData;
 		QStringList rowData;
 		data.clear();
@@ -35,7 +35,9 @@ void ImportNewData::import(const QString file, const QString name, const QDateTi
 		for (int x =1; x < rowOfData.size()-1; x++)
 		{
 			rowData = rowOfData.at(x).split(",");
-			if ((QDateTimeEdit::dateTimeFromText(rowData[0]) >= firstDate) && (QDateTimeEdit::dateTimeFromText(rowData[0]) <= lastDate)){
+			//QString format = "yyyy-MM-dd";
+			QDateTime currentDate = QDateTime::fromString(rowData[0],"yyyy-MM-dd");
+			if ((firstDate >= currentDate) && (currentDate >= lastDate)){
 				qDebug() << rowData[6];
 				//  ui->tableWidget->insertRow(indice);
 				QTableWidgetItem* item = new QTableWidgetItem();
@@ -46,9 +48,9 @@ void ImportNewData::import(const QString file, const QString name, const QDateTi
 			//ui->tableWidget->setItem(x-1,0,item);
 		}
 		//obligé de faire des conversions pour passer de QString à QDateTime
-		QString fd = rowOfData.at(1).split(",")[0];
+		//QString fd = rowOfData.at(1).split(",")[0];
 		//firstDate = QDateTime::fromString(fd,"yyyy:MM:dd ");
-		QString ld = rowOfData.at(rowOfData.size()-1).split(",")[0];
+		//QString ld = rowOfData.at(rowOfData.size()-1).split(",")[0];
 		//lastDate = QDateTime::fromString(ld,"yyyy:MM:dd ");
 		Asset a1 = Asset(name,namealea,firstDate,lastDate);
 	}

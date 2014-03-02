@@ -25,11 +25,11 @@ void Import::on_pushButton_clicked()
 {
 	// TODO : vérifier que le texte n'est pas vide
 	//if(ui->textEdit->toPlainText() != "")
-		emit this->textEntered(ui->textEdit->toPlainText());
+		emit this->dataEntered(ui->textEdit->toPlainText(), ui->dateEdit->dateTime(), ui->dateEdit_2->dateTime());
 	//else
 		// afficher quelque chose pour obliger à renseigner un nom
-	emit this->firstDateEntered(ui->dateEdit->dateTime());
-	emit this->lastDateEntered(ui->dateEdit_2->dateTime());
+	//emit this->firstDateEntered(ui->dateEdit->dateTime());
+	//emit this->lastDateEntered(ui->dateEdit_2->dateTime());
 	this->close();
 }
 

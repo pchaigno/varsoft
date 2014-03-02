@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QDateTime>
 #include <QDialog>
 #include "import.h"
 
@@ -19,12 +20,18 @@ public:
 
 private slots:
     void importCSV();
-	void import();
+	void setImportCSV();
 public slots:
-	void onTextEntered(const QString &text);
+	void onDataEntered(const QString &text, const QDateTime &fDate ,const QDateTime &lDate);
+	//void onFirstDateEntered(const QDateTime &date);
+	//void onLastDateEntered(const QDateTime &date);
 private:
 	Ui::MainWindow *ui;
 	Import import_win;
+	QString stockName;
+	QDateTime firstDate;
+	QDateTime lastDate;
+	QString fileName;
 };
 
 #endif // MAINWINDOW_H

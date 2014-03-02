@@ -23,9 +23,9 @@ private slots:
 	void on_pushButton_2_clicked();
 
 signals:
-		void textEntered(const QString &text);
-		void firstDateEntered(const QDateTime &date);
-		void lastDateEntered(const QDateTime &date);
+		void dataEntered(const QString &text, const QDateTime &fDate ,const QDateTime &lDate);
+		//void firstDateEntered(const QDateTime &date);
+		//void lastDateEntered(const QDateTime &date);
 };
 
 #endif // IMPORT_H
