@@ -8,10 +8,21 @@ CorrelationReport::CorrelationReport() {
 
 }
 
+/**
+ * @brief Constructor
+ * @param docxPath The location of the DOCX file on the disk.
+ * @param pdfPath The location of the PDF file on the disk.
+ */
 CorrelationReport::CorrelationReport(QString docxPath, QString pdfPath): Report(docxPath, pdfPath) {
 
 }
 
+/**
+ * @brief Constructor
+ * @param id The id of the report in the database.
+ * @param docxPath The location of the DOCX file on the disk.
+ * @param pdfPath The location of the PDF file on the disk.
+ */
 CorrelationReport::CorrelationReport(int id, QString docxFile, QString pdfFile): Report(id, docxFile, pdfFile) {
 
 }
