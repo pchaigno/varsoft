@@ -70,50 +70,39 @@ void Asset::changeName(QString name) {
 
 /**
  * @brief Getter of the asset values.
- * @param startDate The new name.
- * @param endDate
+ * @param startDate The starting date
+ * @param endDate The ending date
  * @return A vector containing the values of the asset according to the parameters
  */
 QVector<double> Asset::getAsQVectors(QDateTime startDate, QDateTime endDate) {
     QVector<double> values;
-
-    qDebug() << this->getFile();
-
     QFile inputFile(this->getFile());
 
     if(!inputFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
         qDebug() << inputFile.errorString();
-        qDebug() << QDir::currentPath();
     } else {
-            QTextStream in(&inputFile);
+        QTextStream in(&inputFile);
 
-            // A ameliorer en utilisant plusieurs while peut etre
-            bool startDetected = false;
-            while(!in.atEnd()) {
-                    QString line = in.readLine();
-                    qDebug() << line;
-                    QRegExp rx("\\s*,\\s*");
-                    QStringList row = line.split(rx);
-                    QString date = row.value(0);
-                    qDebug() << date;
-                    QString value = row.value(1);
-                    qDebug() << value;
+        bool startDetected = false;
+        while(!in.atEnd()) {
+            QString line = in.readLine();
+            QRegExp rx("\\s*,\\s*");
+            QStringList row = line.split(rx);
+            QString date = row.value(0);
+            QString value = row.value(1);
 
-                    qDebug() << QDateTime::fromString(date,"yyyy:MM:dd");
+            if(startDate != QDateTime::fromString(date,"yyyy-MM-dd") && !startDetected)
+                continue;
 
-                    if(startDate != QDateTime::fromString(date,"yyyy:MM:dd") && !startDetected)
-                        continue;
+            if(startDetected == false) startDetected = true;
 
-                    if(startDetected == false) startDetected = true;
+            values.push_back(value.toDouble());
 
-                    values.push_back(value.toDouble());
-
-                    if(endDate == QDateTime::fromString(date,"yyyy:MM:dd"))
-                            break;
-
-            }
-           inputFile.close();
+            if(endDate == QDateTime::fromString(date,"yyyy-MM-dd"))
+                break;
         }
+        inputFile.close();
+    }
 
     return values;
 }

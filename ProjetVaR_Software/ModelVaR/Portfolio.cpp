@@ -1,6 +1,5 @@
 #include "Portfolio.h"
 #include <QVector>
-#include <QDebug>
 
 /**
 * @brief Empty constructor
@@ -97,10 +96,16 @@ QDateTime Portfolio::retrieveLastDate() const {
 	return minLastDate;
 }
 
+/**
+ * @brief Retrieves the values of a portfolio according to
+ * the specified dates as QVectors
+ * @param startDate The starting date
+ * @param endDate The ending date
+ * @return The values of the portfolio
+ */
 QVector<double> Portfolio::getAsVectors(QDateTime startDate, QDateTime endDate) const {
     int length = startDate.daysTo(endDate)+1;
     QVector<double> portfolioValues(length, 0);
-
 
     for(QMap<Asset*, int>::const_iterator it=this->assets.begin(); it!=this->assets.end(); ++it) {
         QVector<double> assetValues = it.key()->getAsQVectors(startDate, endDate);
