@@ -1,27 +1,22 @@
-
 language: cpp
 compiler:
   - gcc
 env:
-  - CONFIG=debug QT=qt4
-  - CONFIG=debug QT=qt5
-  - CONFIG=release QT=qt4
-  - CONFIG=release QT=qt5
+  - CONFIG=debug
+  - CONFIG=release
 
 before_install:
-  - sudo apt-get update -qq
-
+  - sudo apt-get update
 install:
-  - sh -c "if [ '$QT' = 'qt4' ]; then sudo apt-get install -qq libqt4-dev qt4-qmake libqt4-sql-sqlite; fi"
-  - sh -c "if [ '$QT' = 'qt5' ]; then sudo apt-add-repository -y ppa:beineri/opt-qt50; sudo apt-get update -qq; sudo apt-get install -qq qt5-meta-minimal; fi"
+  - sudo apt-get install -y qt5-default libqt5sql5-sqlite
 
 script:
   - mkdir build
   - cd build
-  - if [ '$QT' = 'qt4' ] ; then export QMAKE=qmake; else export QMAKE=/opt/qt5/bin/qmake; fi;
-  - $QMAKE QMAKE_CXX=$CXX CONFIG+=$CONFIG ../ProjetVaR_Software/ProjetVaR_Software.pro
-  - export LD_LIBRARY_PATH=ModelVaR
+  - qmake QMAKE_CXX=$CXX CONFIG+=$CONFIG ../ProjetVaR_Software/ProjetVaR_Software.pro
   - make
+  - export LD_LIBRARY_PATH=ModelVaR
+  - TestUnitaire/main
 
 notifications:
   email:
