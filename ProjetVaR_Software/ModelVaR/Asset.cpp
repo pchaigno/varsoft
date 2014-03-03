@@ -1,5 +1,6 @@
 #include "Asset.h"
 #include <QDebug>
+#include <QDir>
 #include <QFile>
 #include <QString>
 #include <QTextStream>
@@ -80,28 +81,34 @@ QVector<double> Asset::getAsQVectors(QDateTime startDate, QDateTime endDate) {
 
     QFile inputFile(this->getFile());
 
-    if(!inputFile.open(QIODevice::ReadOnly)) {
+    if(!inputFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
         qDebug() << inputFile.errorString();
+        qDebug() << QDir::currentPath();
     } else {
-        qDebug() << "dans if";
             QTextStream in(&inputFile);
 
             // A ameliorer en utilisant plusieurs while peut etre
+            bool startDetected = false;
             while(!in.atEnd()) {
                     QString line = in.readLine();
-                    QStringList row = line.split(",");
+                    qDebug() << line;
+                    QRegExp rx("\\s*,\\s*");
+                    QStringList row = line.split(rx);
                     QString date = row.value(0);
+                    qDebug() << date;
                     QString value = row.value(1);
-                    bool startDetected = false;
+                    qDebug() << value;
 
-                    if(startDate != QDateTime::fromString(date,"yyyy:MM:dd ") && !startDetected)
+                    qDebug() << QDateTime::fromString(date,"yyyy:MM:dd");
+
+                    if(startDate != QDateTime::fromString(date,"yyyy:MM:dd") && !startDetected)
                         continue;
 
                     if(startDetected == false) startDetected = true;
 
                     values.push_back(value.toDouble());
 
-                    if(endDate == QDateTime::fromString(date,"yyyy:MM:dd "))
+                    if(endDate == QDateTime::fromString(date,"yyyy:MM:dd"))
                             break;
 
             }

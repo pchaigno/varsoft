@@ -1,4 +1,6 @@
 #include "Portfolio.h"
+#include <QVector>
+#include <QDebug>
 
 /**
 * @brief Empty constructor
@@ -15,7 +17,7 @@ Portfolio::Portfolio() {
  * @param assets The assets composing the portfolio.
  * @param reports The reports of the portfolio.
  */
-Portfolio::Portfolio(Portfolio* parent, QString name, QMap<Asset*, QDateTime> &assets, QVector<Report>& reports) {
+Portfolio::Portfolio(Portfolio* parent, QString name, QMap<Asset*, int> &assets, QVector<Report>& reports) {
 	this->parent = parent;
 	this->name = name;
 	this->assets = assets;
@@ -28,7 +30,7 @@ Portfolio::Portfolio(Portfolio* parent, QString name, QMap<Asset*, QDateTime> &a
  * @param assets The assets composing the portfolio.
  * @param reports The reports of the portfolio.
  */
-Portfolio::Portfolio(QString name, QMap<Asset*, QDateTime>& assets, QVector<Report>& reports) {
+Portfolio::Portfolio(QString name, QMap<Asset*, int>& assets, QVector<Report>& reports) {
 	this->parent = NULL;
 	this->name = name;
 	this->assets = assets;
@@ -68,7 +70,7 @@ void Portfolio::changeName(QString name) {
 QDateTime Portfolio::retrieveFirstDate() const {
     QDateTime maxFirstDate;
     maxFirstDate.setTime_t(0);
-    for(QMap<Asset*, QDateTime>::const_iterator it=this->assets.begin(); it!=this->assets.end(); ++it) {
+    for(QMap<Asset*, int>::const_iterator it=this->assets.begin(); it!=this->assets.end(); ++it) {
         QDateTime firstDate = it.key()->getFirstDate();
 		if(firstDate > maxFirstDate) {
 			maxFirstDate = firstDate;
@@ -86,7 +88,7 @@ QDateTime Portfolio::retrieveFirstDate() const {
 QDateTime Portfolio::retrieveLastDate() const {
     QDateTime minLastDate;
     minLastDate.setTime_t(INT_MAX);
-    for(QMap<Asset*, QDateTime>::const_iterator it=this->assets.begin(); it!=this->assets.end(); ++it) {
+    for(QMap<Asset*, int>::const_iterator it=this->assets.begin(); it!=this->assets.end(); ++it) {
         QDateTime lastDate = it.key()->getLastDate();
 		if(lastDate < minLastDate) {
 			minLastDate = lastDate;
@@ -95,28 +97,21 @@ QDateTime Portfolio::retrieveLastDate() const {
 	return minLastDate;
 }
 
-QVector<double> Portfolio::getAsVectors() const {
-    QVector<double> values;
+QVector<double> Portfolio::getAsVectors(QDateTime startDate, QDateTime endDate) const {
+    int length = startDate.daysTo(endDate)+1;
+    QVector<double> portfolioValues(length, 0);
 
-    /*for(QMap<Asset*, QDateTime>::const_iterator it=this->assets.begin(); it!=this->assets.end(); ++it) {
-        QVector<double> = it.key()->;
-        QFile inputFile(fileName);
 
-        // besoin d'une fonction auxiliare dans la classe Asset
+    for(QMap<Asset*, int>::const_iterator it=this->assets.begin(); it!=this->assets.end(); ++it) {
+        QVector<double> assetValues = it.key()->getAsQVectors(startDate, endDate);
+        int weight = it.value();
 
-        if (inputFile.open(QIODevice::ReadOnly)) {
-                QTextStream in(&inputFile);
-                while(!in.atEnd()) {
-                        QString line = in.readLine();
-                        QStringList row = line.split(",");
-                        QString value = row.value(1);
+        QVector<double>::iterator portfolioValuesIt=portfolioValues.begin();
+        QVector<double>::const_iterator assetValuesIt=assetValues.begin();
+        for(; assetValuesIt!=assetValues.end(); ++portfolioValuesIt, ++assetValuesIt) {
+            *portfolioValuesIt += *assetValuesIt * weight;
+        }
+    }
 
-                        // FAUX
-                        values.push_back(value.toDouble());
-
-               }
-               inputFile.close();
-            }
-    }*/
-    return values;
+    return portfolioValues;
 }
