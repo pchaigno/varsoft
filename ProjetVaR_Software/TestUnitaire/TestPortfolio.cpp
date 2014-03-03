@@ -1,20 +1,12 @@
 #pragma once
-#include "Asset.h"
-#include "Asset.cpp"
-#include "Portfolio.h"
-#include "Portfolio.cpp"
+
 #include "TestPortfolio.h"
-#include <QDateTime>
-#include <QDebug>
-#include <QString>
-#include <QTest>
-#include <QVector>
 
 TestPortfolio::TestPortfolio() {}
 
 void TestPortfolio::testGetAsQVectors() {
 
-    QString assetFolder = "C:/Users/Ulysse/ProjetVaR/CSV_examples/";
+    QString assetFolder = "../../CSV_examples/";
     // FIRST ASSET DEFINITION
     QDateTime startDate1(QDate(2014, 1, 1), QTime(0, 0, 0));
     QDateTime endDate1(QDate(2014, 1, 6), QTime(0, 0, 0));
@@ -45,11 +37,11 @@ void TestPortfolio::testGetAsQVectors() {
 
     QVector<double> result = testPortfolio.getAsQVectors(startDate, endDate);
 
-    QVERIFY(result.size() == 4);
-    QVERIFY(result.at(0) == 612);
-    QVERIFY(result.at(1) == 618);
-    QVERIFY(result.at(2) == 624);
-    QVERIFY(result.at(3) == 630);
+    QCOMPARE(result.size(), 4);
+    QCOMPARE(result.at(0), 612);
+    QCOMPARE(result.at(1), 618);
+    QCOMPARE(result.at(2), 624);
+    QCOMPARE(result.at(3), 630);
 
     for(QVector<double>::const_iterator it=result.begin(); it!=result.end(); ++it) {
         qDebug() << *it;

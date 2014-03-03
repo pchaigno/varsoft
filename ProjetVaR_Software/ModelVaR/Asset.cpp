@@ -1,10 +1,4 @@
 #include "Asset.h"
-#include <QDebug>
-#include <QDir>
-#include <QFile>
-#include <QString>
-#include <QTextStream>
-#include <QVector>
 
 /**
 * @brief Empty constructor

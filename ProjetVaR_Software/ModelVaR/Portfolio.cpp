@@ -1,5 +1,4 @@
 #include "Portfolio.h"
-#include <QVector>
 
 /**
 * @brief Empty constructor

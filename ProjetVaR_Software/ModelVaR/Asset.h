@@ -1,7 +1,11 @@
 #pragma once
 
-#include <QString>
 #include <QDateTime>
+#include <QDebug>
+#include <QFile>
+#include <QString>
+#include <QTextStream>
+#include <QVector>
 
 class Asset {
 private:
