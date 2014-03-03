@@ -1,9 +1,6 @@
 #include "Asset.h"
 //#include "Asset.cpp"
 #include "TestAsset.h"
-/*#include <QDebug>
-#include <QString>
-#include <QTest>*/
 #include <QVector>
 
 TestAsset::TestAsset() {}
@@ -24,7 +21,3 @@ void TestAsset::testGetAsQVectors() {
     QVERIFY(result.at(2) == 103);
     QVERIFY(result.at(3) == 104);
 }
-
-//QTEST_APPLESS_MAIN(TestAsset)
-
-//#include "TestAsset.moc"
