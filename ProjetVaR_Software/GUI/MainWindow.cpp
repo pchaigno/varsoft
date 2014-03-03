@@ -15,8 +15,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
 	ui->setupUi(this);
 	connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(setImportCSV()));
-	connect(&import_win, SIGNAL(dataEntered(const QString&, const QDateTime&, const QDateTime&)),
-						 this, SLOT(onDataEntered(const QString&, const QDateTime&, const QDateTime&)));
+	connect(&import_win, SIGNAL(dataEntered(const QString&, const QDateTime&, const QDateTime&, const QString&)),
+						 this, SLOT(onDataEntered(const QString&, const QDateTime&, const QDateTime&, const QString&)));
 	//connect(&import_win, SIGNAL(firstDateEntered(const QDateTime&)),
 		//				 this, SLOT(onFirstDateEntered(const QDateTime&)));
 	//connect(&import_win, SIGNAL(lastDateEntered(const QDateTime&)),
@@ -34,26 +34,18 @@ MainWindow::~MainWindow()
 
 //faire une super classe Importation, avec pour l'instant qu'une classe Yahoo héritant
 
-void MainWindow::onDataEntered(const QString &text, const QDateTime &fDate ,const QDateTime &lDate){
+void MainWindow::onDataEntered(const QString &text, const QDateTime &fDate ,const QDateTime &lDate, const QString &source){
 	MainWindow::stockName = text;
 	qDebug() << text;
 	MainWindow::firstDate = fDate;
 	qDebug() << fDate.toString("yyyy-MM-dd");
 	MainWindow::lastDate = lDate;
 	qDebug() << lDate.toString("yyyy-MM-dd");
+	MainWindow::source = source;
+	QDebug() << source;
 	this->importCSV();
 }
-/*
-void MainWindow::onFirstDateEntered(const QDateTime &date){
-	MainWindow::firstDate = date;
-	qDebug() << date.toString("yyyy-MM-dd");
-}
 
-void MainWindow::onLastDateEntered(const QDateTime &date){
-	MainWindow::lastDate = date;
-	qDebug() << date.toString("yyyy-MM-dd");
-}
-*/
 void MainWindow::importCSV()
 {
 		ImportNewData algo1 = ImportNewData();

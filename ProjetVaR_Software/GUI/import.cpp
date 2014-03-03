@@ -10,7 +10,6 @@ Import::Import(QWidget *parent) :
 	ui->dateEdit->setDate(QDate::currentDate());
 	ui->dateEdit->setCalendarPopup(true);
 	ui->dateEdit_2->setCalendarPopup(true);
-	//ui->dateEdit_2->setDisplayFormat("yyyy-MM-dd");
 	connect(ui->pushButton, SIGNAL(clicked()),
 			   this, SIGNAL(on_pushButton_clicked));
 }
@@ -25,7 +24,8 @@ void Import::on_pushButton_clicked()
 {
 	// TODO : vérifier que le texte n'est pas vide
 	//if(ui->textEdit->toPlainText() != "")
-		emit this->dataEntered(ui->textEdit->toPlainText(), ui->dateEdit->dateTime(), ui->dateEdit_2->dateTime());
+		emit this->dataEntered(ui->textEdit->toPlainText(), ui->dateEdit->dateTime(),
+							   ui->dateEdit_2->dateTime(), ui->comboBox->currentText());
 	//else
 		// afficher quelque chose pour obliger à renseigner un nom
 	//emit this->firstDateEntered(ui->dateEdit->dateTime());

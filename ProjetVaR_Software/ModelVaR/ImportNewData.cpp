@@ -1,6 +1,6 @@
 #include "ImportNewData.h"
 
-void ImportNewData::import(const QString file, const QString name, const QDateTime firstDate, const QDateTime lastDate) const{
+void ImportNewData::import(const QString name, const QString file, const QString origin, const QDateTime firstDate, const QDateTime lastDate) const{
 		//QString fileName = file;
 		QString data;
 		QFile importedCSV(file);
@@ -20,7 +20,7 @@ void ImportNewData::import(const QString file, const QString name, const QDateTi
 
 //////CREATION DU FICHIER DES DONNEES IMPORTEES
 		//Faire des noms aléatoires et uniques
-		QString namealea = "Qt.txt";
+		QString namealea = name+"_"+file+".txt";
 		QFile fileCreated(namealea);
 		// On ouvre notre fichier en lecture seule et on vérifie l'ouverture
 		if (!fileCreated.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -47,10 +47,5 @@ void ImportNewData::import(const QString file, const QString name, const QDateTi
 			}
 			//ui->tableWidget->setItem(x-1,0,item);
 		}
-		//obligé de faire des conversions pour passer de QString à QDateTime
-		//QString fd = rowOfData.at(1).split(",")[0];
-		//firstDate = QDateTime::fromString(fd,"yyyy:MM:dd ");
-		//QString ld = rowOfData.at(rowOfData.size()-1).split(",")[0];
-		//lastDate = QDateTime::fromString(ld,"yyyy:MM:dd ");
-		Asset a1 = Asset(name,namealea,firstDate,lastDate);
+		//Asset a1 = Asset(name,namealea,origin,firstDate,lastDate);
 	}
