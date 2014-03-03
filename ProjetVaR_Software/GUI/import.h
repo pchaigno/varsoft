@@ -23,4 +23,5 @@ private slots:
 
 signals:
 		void dataEntered(const QString &name, const QDateTime &fDate,const QDateTime &lDate, const QString &source);
+};
 

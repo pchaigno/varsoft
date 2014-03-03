@@ -42,14 +42,14 @@ void MainWindow::onDataEntered(const QString &text, const QDateTime &fDate ,cons
 	MainWindow::lastDate = lDate;
 	qDebug() << lDate.toString("yyyy-MM-dd");
 	MainWindow::source = source;
-	QDebug() << source;
+    qDebug() << source;
 	this->importCSV();
 }
 
 void MainWindow::importCSV()
 {
 		ImportNewData algo1 = ImportNewData();
-		algo1.import(fileName, MainWindow::stockName, MainWindow::firstDate, MainWindow::lastDate);
+        algo1.import(MainWindow::stockName, fileName, MainWindow::source, MainWindow::firstDate, MainWindow::lastDate);
 }
 
 void MainWindow::setImportCSV(){
