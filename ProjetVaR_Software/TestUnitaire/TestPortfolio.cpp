@@ -1,23 +1,14 @@
-//#pragma once
+#pragma once
 #include "Asset.h"
+#include "Asset.cpp"
 #include "Portfolio.h"
 #include "Portfolio.cpp"
+#include "TestPortfolio.h"
 #include <QDateTime>
 #include <QDebug>
 #include <QString>
 #include <QTest>
 #include <QVector>
-
-class TestPortfolio: public QObject {
-    Q_OBJECT
-
-public:
-    TestPortfolio();
-
-private Q_SLOTS:
-    void testGetAsQVectors();
-
-};
 
 TestPortfolio::TestPortfolio() {}
 
@@ -64,8 +55,4 @@ void TestPortfolio::testGetAsQVectors() {
         qDebug() << *it;
     }
 }
-
-//QTEST_APPLESS_MAIN(TestPortfolio)
-
-#include "TestPortfolio.moc"
 

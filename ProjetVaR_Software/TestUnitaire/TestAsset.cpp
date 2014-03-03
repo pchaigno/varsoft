@@ -1,21 +1,10 @@
-//#pragma once
 #include "Asset.h"
-#include "Asset.cpp"
-#include <QDebug>
+//#include "Asset.cpp"
+#include "TestAsset.h"
+/*#include <QDebug>
 #include <QString>
-#include <QTest>
+#include <QTest>*/
 #include <QVector>
-
-class TestAsset: public QObject {
-    Q_OBJECT
-
-public:
-    TestAsset();
-
-private Q_SLOTS:
-    void testGetAsQVectors();
-
-};
 
 TestAsset::TestAsset() {}
 
@@ -36,6 +25,6 @@ void TestAsset::testGetAsQVectors() {
     QVERIFY(result.at(3) == 104);
 }
 
-QTEST_APPLESS_MAIN(TestAsset)
+//QTEST_APPLESS_MAIN(TestAsset)
 
-#include "TestAsset.moc"
+//#include "TestAsset.moc"
