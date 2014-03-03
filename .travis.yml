@@ -6,7 +6,7 @@ env:
   - CONFIG=release
 
 before_install:
-  - sudo apt-add-repository ppa:ubuntu-sdk-team/ppa
+  - sudo apt-add-repository -y ppa:ubuntu-sdk-team/ppa
   - sudo apt-get update
 install:
   - sudo apt-get install -y qt5-default libqt5sql5-sqlite
