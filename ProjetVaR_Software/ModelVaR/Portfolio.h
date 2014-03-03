@@ -28,7 +28,7 @@ public:
 
     QDateTime retrieveFirstDate() const;
     QDateTime retrieveLastDate() const;
-    QVector<double> getAsVectors(QDateTime startDate, QDateTime endDate) const;
+    QVector<double> getAsQVectors(QDateTime startDate, QDateTime endDate) const;
 
 	Portfolio& operator=(const Portfolio& portfolio);
 };
