@@ -13,8 +13,8 @@ void TestAsset::testGetAsQVectors() {
     QVector<double> result = test.getAsQVectors(startDate, endDate);
 
     QCOMPARE(result.size(), 4);
-    QCOMPARE(result.at(0), 101);
-    QCOMPARE(result.at(1), 102);
-    QCOMPARE(result.at(2), 103);
-    QCOMPARE(result.at(3), 104);
+    QCOMPARE(result.at(0), 101.0);
+    QCOMPARE(result.at(1), 102.0);
+    QCOMPARE(result.at(2), 103.0);
+    QCOMPARE(result.at(3), 104.0);
 }

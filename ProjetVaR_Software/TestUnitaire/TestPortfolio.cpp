@@ -38,10 +38,10 @@ void TestPortfolio::testGetAsQVectors() {
     QVector<double> result = testPortfolio.getAsQVectors(startDate, endDate);
 
     QCOMPARE(result.size(), 4);
-    QCOMPARE(result.at(0), 612);
-    QCOMPARE(result.at(1), 618);
-    QCOMPARE(result.at(2), 624);
-    QCOMPARE(result.at(3), 630);
+    QCOMPARE(result.at(0), 612.0);
+    QCOMPARE(result.at(1), 618.0);
+    QCOMPARE(result.at(2), 624.0);
+    QCOMPARE(result.at(3), 630.0);
 
     for(QVector<double>::const_iterator it=result.begin(); it!=result.end(); ++it) {
         qDebug() << *it;
