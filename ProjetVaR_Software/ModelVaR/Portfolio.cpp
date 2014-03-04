@@ -102,7 +102,7 @@ QDateTime Portfolio::retrieveLastDate() const {
  * @param endDate The ending date
  * @return The values of the portfolio
  */
-QVector<double> Portfolio::getValues(QDateTime startDate, QDateTime endDate) const {
+QVector<double> Portfolio::getValues(const QDateTime & startDate, const QDateTime & endDate) const {
     int length = startDate.daysTo(endDate)+1;
     QVector<double> portfolioValues(length, 0);
 

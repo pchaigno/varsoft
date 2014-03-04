@@ -68,7 +68,7 @@ void Asset::changeName(QString name) {
  * @param endDate The ending date
  * @return A vector containing the values of the asset according to the parameters
  */
-QVector<double> Asset::getValues(QDateTime startDate, QDateTime endDate) {
+QVector<double> Asset::getValues(const QDateTime& startDate, const QDateTime& endDate) {
     QVector<double> values;
     QFile inputFile(this->getFile());
 
