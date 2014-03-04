@@ -8,9 +8,9 @@ void TestPortfolio::testGetAsQVectors() {
 
     QString assetFolder;
     if(QDir::currentPath().contains("travis")) {
-        assetFolder; = "../CSV_examples/";
+        assetFolder = "../CSV_examples/";
     } else { /* local */
-        assetFolder; = "../../CSV_examples/";
+        assetFolder = "../../CSV_examples/";
     }
 
     // FIRST ASSET DEFINITION

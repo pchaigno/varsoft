@@ -2,6 +2,7 @@
 #include <QTest>
 #include <QDateTime>
 #include <QDebug>
+#include <QDir>
 #include <QString>
 #include <QTest>
 #include <QVector>
