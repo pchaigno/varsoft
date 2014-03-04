@@ -6,7 +6,13 @@ TestPortfolio::TestPortfolio() {}
 
 void TestPortfolio::testGetAsQVectors() {
 
-    QString assetFolder = "../../CSV_examples/";
+    QString assetFolder;
+    if(QDir::currentPath().contains("travis")) {
+        assetFolder; = "../CSV_examples/";
+    } else { /* local */
+        assetFolder; = "../../CSV_examples/";
+    }
+
     // FIRST ASSET DEFINITION
     QDateTime startDate1(QDate(2014, 1, 1), QTime(0, 0, 0));
     QDateTime endDate1(QDate(2014, 1, 6), QTime(0, 0, 0));
