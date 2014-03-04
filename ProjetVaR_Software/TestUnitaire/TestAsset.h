@@ -1,4 +1,5 @@
 #pragma once
+#include <QDir>
 #include <QTest>
 #include <QVector>
 #include "Asset.h"

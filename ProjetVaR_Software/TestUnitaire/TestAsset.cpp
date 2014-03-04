@@ -4,6 +4,8 @@ TestAsset::TestAsset() {}
 
 void TestAsset::testGetAsQVectors() {
 
+    qDebug() << "Current dir: " << QDir::currentPath();
+
     QDateTime startDate(QDate(2014, 1, 2), QTime(0, 0, 0));
     QDateTime endDate(QDate(2014, 1, 5), QTime(0, 0, 0));
 

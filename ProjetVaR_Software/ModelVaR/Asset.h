@@ -8,8 +8,9 @@
 #include <QStringList>
 #include <QTextStream>
 #include <QVector>
+#include "ModelVaR_global.h"
 
-class Asset {
+class MODELVARSHARED_EXPORT Asset {
 private:
     QString file;
     QString name;

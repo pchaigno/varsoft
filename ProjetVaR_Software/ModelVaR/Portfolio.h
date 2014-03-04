@@ -7,9 +7,9 @@
 #include "Asset.h"
 #include <climits>
 #include <QDateTime>
+#include "ModelVaR_global.h"
 
-
-class Portfolio {
+class MODELVARSHARED_EXPORT Portfolio {
 private:
     QString name;
 	Portfolio* parent;
