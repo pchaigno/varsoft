@@ -20,12 +20,9 @@ public:
     ~MainWindow();
 
 private slots:
-    void importCSV();
 	void setImportCSV();
 public slots:
 	void onDataEntered(const QString &text, const QDateTime &fDate ,const QDateTime &lDate, const QString &source);
-	//void onFirstDateEntered(const QDateTime &date);
-	//void onLastDateEntered(const QDateTime &date);
 private:
 	Ui::MainWindow *ui;
 	Import import_win;
@@ -33,6 +30,6 @@ private:
 	QDateTime firstDate;
 	QDateTime lastDate;
 	QString fileName;
-	QString source;
+    QString origin;
 };
 

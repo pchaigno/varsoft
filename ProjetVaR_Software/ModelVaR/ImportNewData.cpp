@@ -1,14 +1,29 @@
 #include "ImportNewData.h"
 
-void ImportNewData::import(const QString name, const QString file, const QString origin, const QDateTime firstDate, const QDateTime lastDate) const{
-		//QString fileName = file;
+/**
+* @brief Import method for Yahoo files
+* @param name The name of the stock
+* @param file The file where are located the values.
+* @param origin The origin of the file with the values.
+* @param firstDate The date of the first value defined.
+* @param lastDate The date of the last value defined.
+*/
+void ImportNewData::import(const QString &name, const QString &file, const QString &origin, const QDateTime &firstDate, const QDateTime &lastDate) const{
 		QString data;
 		QFile importedCSV(file);
 		QStringList rowOfData;
 		QStringList rowData;
 		data.clear();
 		rowOfData.clear();
-		rowData.clear();
+        rowData.clear();
+        // column_of_values_to_import =6;
+
+
+        //if (origin == Yahoo)
+        //  column_of_values_to_import = 6
+        //else if(origin == ProjetVaR)
+        //  column_of_values_to_import = 2
+        //==> no strategy, no duplicated code ....
 
 		if (importedCSV.open(QFile::ReadOnly))
 			{
@@ -18,7 +33,7 @@ void ImportNewData::import(const QString name, const QString file, const QString
 			}
 		qDebug() << "Données importées";
 
-//////CREATION DU FICHIER DES DONNEES IMPORTEES
+        //CREATION DU FICHIER DES DONNEES IMPORTEES
 		//Faire des noms aléatoires et uniques
 		QString namealea = name+"_"+file+".txt";
 		QFile fileCreated(namealea);
@@ -30,22 +45,17 @@ void ImportNewData::import(const QString name, const QString file, const QString
 
 		// x = 1 to avoid the first line with labels
 		// rowOfData.size()-1 to avoid a blank line a the end of the file
-
-		// TODO : avec les dates, ne sélectionner que les parties intéressantes
 		for (int x =1; x < rowOfData.size()-1; x++)
 		{
 			rowData = rowOfData.at(x).split(",");
-			//QString format = "yyyy-MM-dd";
 			QDateTime currentDate = QDateTime::fromString(rowData[0],"yyyy-MM-dd");
 			if ((firstDate >= currentDate) && (currentDate >= lastDate)){
 				qDebug() << rowData[6];
-				//  ui->tableWidget->insertRow(indice);
 				QTableWidgetItem* item = new QTableWidgetItem();
 				// the index of the interesting column is always the same for yahoo files
 				item->setText(rowData[6]);
 				flux << rowData[0] << "," << rowData[6] << "\n";
 			}
-			//ui->tableWidget->setItem(x-1,0,item);
 		}
-		//Asset a1 = Asset(name,namealea,origin,firstDate,lastDate);
+        //Asset a1 = Asset(name,namealea,origin,firstDate,lastDate);
 	}

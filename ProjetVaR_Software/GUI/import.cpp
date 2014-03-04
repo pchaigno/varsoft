@@ -1,6 +1,10 @@
 #include "import.h"
 #include "ui_import.h"
 
+/**
+* @brief Import Constructor
+* @param parent QDialog Widget to use
+*/
 Import::Import(QWidget *parent) :
 	QDialog(parent),
 	ui(new Ui::Import)
@@ -20,6 +24,10 @@ Import::~Import()
 }
 
 // Validate button clicked
+/**
+* @brief Called when Importing file window's "OK" button is pushed
+* Emit a signal with all data set in the window
+*/
 void Import::on_pushButton_clicked()
 {
 	// TODO : vérifier que le texte n'est pas vide
@@ -28,12 +36,14 @@ void Import::on_pushButton_clicked()
 							   ui->dateEdit_2->dateTime(), ui->comboBox->currentText());
 	//else
 		// afficher quelque chose pour obliger à renseigner un nom
-	//emit this->firstDateEntered(ui->dateEdit->dateTime());
-	//emit this->lastDateEntered(ui->dateEdit_2->dateTime());
 	this->close();
 }
 
 // Cancel button clicked
+/**
+* @brief Called when Importing file window's "Cancel" button is pushed
+* Blank all fields
+*/
 void Import::on_pushButton_2_clicked()
 {
 	//annuler totalement l'importation????
