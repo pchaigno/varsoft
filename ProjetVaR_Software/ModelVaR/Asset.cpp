@@ -78,6 +78,8 @@ QVector<double> Asset::getValues(const QDateTime& startDate, const QDateTime& en
         QTextStream in(&inputFile);
 
         bool startDetected = false;
+
+        // Loop over each line
         while(!in.atEnd()) {
             QString line = in.readLine();
             QRegExp rx("\\s*,\\s*");
@@ -85,13 +87,19 @@ QVector<double> Asset::getValues(const QDateTime& startDate, const QDateTime& en
             QString date = row.value(0);
             QString value = row.value(1);
 
-            if(startDate != QDateTime::fromString(date,"yyyy-MM-dd") && !startDetected)
+            // If the starting date has not been read yet, it goes at the start of the loop
+            // and read the next line
+            if(!startDetected && startDate != QDateTime::fromString(date,"yyyy-MM-dd"))
                 continue;
 
+            // If execution reaches that point, it means that the start date has been read
             if(startDetected == false) startDetected = true;
 
+            // Building the vector
             values.push_back(value.toDouble());
 
+            // If the end date has been reached, it exits the loop
+            // Otherwise it reads the file till the end
             if(endDate == QDateTime::fromString(date,"yyyy-MM-dd"))
                 break;
         }
