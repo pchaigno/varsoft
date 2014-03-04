@@ -25,5 +25,5 @@ public:
     QDateTime getFirstDate() const;
     QDateTime getLastDate() const;
     void changeName(QString name);
-    QVector<double> getAsQVectors(QDateTime startDate, QDateTime endDate);
+    QVector<double> getValues(QDateTime startDate, QDateTime endDate);
 };

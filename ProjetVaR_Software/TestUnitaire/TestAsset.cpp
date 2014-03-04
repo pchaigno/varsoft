@@ -2,7 +2,7 @@
 
 TestAsset::TestAsset() {}
 
-void TestAsset::testGetAsQVectors() {
+void TestAsset::testGetValues() {
 
     qDebug() << "Current dir: " << QDir::currentPath();
 
@@ -13,7 +13,7 @@ void TestAsset::testGetAsQVectors() {
 
     Asset test("test", assetFolder+"asset1.txt", startDate, endDate);
 
-    QVector<double> result = test.getAsQVectors(startDate, endDate);
+    QVector<double> result = test.getValues(startDate, endDate);
 
     QCOMPARE(result.size(), 4);
     QCOMPARE(result.at(0), 101.0);

@@ -4,7 +4,7 @@
 
 TestPortfolio::TestPortfolio() {}
 
-void TestPortfolio::testGetAsQVectors() {
+void TestPortfolio::testGetValues() {
 
     QString assetFolder = "../../CSV_examples/";
 
@@ -36,7 +36,7 @@ void TestPortfolio::testGetAsQVectors() {
     QDateTime startDate(QDate(2014, 1, 3), QTime(0, 0, 0));
     QDateTime endDate(QDate(2014, 1, 6), QTime(0, 0, 0));
 
-    QVector<double> result = testPortfolio.getAsQVectors(startDate, endDate);
+    QVector<double> result = testPortfolio.getValues(startDate, endDate);
 
     QCOMPARE(result.size(), 4);
     QCOMPARE(result.at(0), 612.0);

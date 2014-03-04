@@ -11,6 +11,6 @@ public:
     TestAsset();
 
 private Q_SLOTS:
-    void testGetAsQVectors();
+    void testGetValues();
 
 };
