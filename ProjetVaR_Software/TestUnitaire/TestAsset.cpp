@@ -9,12 +9,7 @@ void TestAsset::testGetAsQVectors() {
     QDateTime startDate(QDate(2014, 1, 2), QTime(0, 0, 0));
     QDateTime endDate(QDate(2014, 1, 5), QTime(0, 0, 0));
 
-    QString assetFolder;
-    if(QDir::currentPath().contains("travis")) {
-        assetFolder = "../CSV_examples/";
-    } else { /* local */
-        assetFolder = "../../CSV_examples/";
-    }
+    QString assetFolder = "../../CSV_examples/";
 
     Asset test("test", assetFolder+"asset1.txt", startDate, endDate);
 
