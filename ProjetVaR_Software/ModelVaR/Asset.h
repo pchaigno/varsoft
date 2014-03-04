@@ -3,7 +3,9 @@
 #include <QDateTime>
 #include <QDebug>
 #include <QFile>
+#include <QRegExp>
 #include <QString>
+#include <QStringList>
 #include <QTextStream>
 #include <QVector>
 
