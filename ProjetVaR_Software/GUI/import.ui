@@ -87,12 +87,12 @@
     <rect>
      <x>20</x>
      <y>90</y>
-     <width>81</width>
+     <width>101</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
-    <string>Date de début</string>
+    <string>Date la plus récente</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_3">
@@ -100,12 +100,12 @@
     <rect>
      <x>20</x>
      <y>140</y>
-     <width>81</width>
+     <width>111</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
-    <string>Date de fin</string>
+    <string>Date la plus ancienne</string>
    </property>
   </widget>
   <widget class="QComboBox" name="comboBox">
