@@ -1,13 +1,21 @@
-before_install:
-  - sudo apt-get update
+language: cpp
+compiler:
+  - gcc
+env:
+  - CONFIG=debug
+  - CONFIG=release
 
+before_install:
+  - sudo apt-add-repository -y ppa:ubuntu-sdk-team/ppa
+  - sudo apt-get update
 install:
-  - sudo apt-get install libqt4-dev qt4-qmake
+  - sudo apt-get install -y qt5-default libqt5sql5-sqlite
 
 script:
+  - cd ProjetVaR_Software
   - mkdir build
   - cd build
-  - qmake ../ProjetVaR_Software/ProjetVaR_Software.pro
+  - qmake QMAKE_CXX=$CXX CONFIG+=$CONFIG ../ProjetVaR_Software.pro
   - make
 
 notifications:
