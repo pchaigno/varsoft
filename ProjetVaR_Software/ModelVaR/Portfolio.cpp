@@ -110,11 +110,8 @@ QVector<double> Portfolio::getValues(const QDateTime & startDate, const QDateTim
         QVector<double> assetValues = it.key()->getValues(startDate, endDate);
         int weight = it.value();
 
-        QVector<double>::iterator portfolioValuesIt=portfolioValues.begin();
-        QVector<double>::const_iterator assetValuesIt=assetValues.begin();
-        for(; assetValuesIt!=assetValues.end(); ++portfolioValuesIt, ++assetValuesIt) {
-            *portfolioValuesIt += *assetValuesIt * weight;
-        }
+        for(QVector<double>::size_type i = 0; i != portfolioValues.size(); i++)
+            portfolioValues[i] += assetValues[i]*weight;
     }
 
     return portfolioValues;
