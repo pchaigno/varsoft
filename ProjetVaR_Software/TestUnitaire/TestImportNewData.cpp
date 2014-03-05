@@ -73,7 +73,7 @@ void TestImportNewData::testDates() {
     QVERIFY((QDateTime::fromString(TestImportNewData::firstDate,"yyyy-MM-dd")) >= (QDateTime::fromString(rowData[0],"yyyy-MM-dd")));
 
     //last date
-    rowData = rowOfData.at(rowOfData.size()).split(",");
+    rowData = rowOfData.at(rowOfData.size()-1).split(",");
     qDebug() << rowData[0];
     QVERIFY((QDateTime::fromString(TestImportNewData::lastDate,"yyyy-MM-dd")) <= (QDateTime::fromString(rowData[0],"yyyy-MM-dd")));
 }
