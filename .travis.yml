@@ -17,6 +17,8 @@ script:
   - cd build
   - qmake QMAKE_CXX=$CXX CONFIG+=$CONFIG ../ProjetVaR_Software.pro
   - make
+  - export LD_LIBRARY_PATH=ModelVaR
+  - TestUnitaire/main
 
 notifications:
   email:
