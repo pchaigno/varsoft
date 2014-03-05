@@ -48,7 +48,7 @@ Portfolio::Portfolio(Portfolio* parent, int id, QString name, QMap<Asset*, int>&
  * @param composition The assets composing the portfolio.
  * @param reports The reports of the portfolio.
  */
-Portfolio::Portfolio(int id, QString name, QMap<Asset *, int> &composition, QVector<Report*>& reports) {
+Portfolio::Portfolio(int id, QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports) {
 	this->init(NULL, id, name, composition, reports);
 }
 
@@ -60,7 +60,7 @@ Portfolio::Portfolio(int id, QString name, QMap<Asset *, int> &composition, QVec
  * @param composition The assets composing the portfolio.
  * @param reports The reports of the portfolio.
  */
-void Portfolio::init(Portfolio* parent, int id, QString name, QMap<Asset *, int> &composition, QVector<Report*>& reports) {
+void Portfolio::init(Portfolio* parent, int id, QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports) {
 	this->parent = parent;
 	this->id = id;
 	this->name = name;
@@ -152,7 +152,7 @@ void Portfolio::changeName(QString name) {
  */
 QDateTime Portfolio::retrieveFirstDate() const {
     QDateTime maxFirstDate;
-    maxFirstDate.setTime_t(0);
+	maxFirstDate.setTime_t(0);
 	for(QMap<Asset*, int>::const_iterator it=this->composition.begin(); it!=this->composition.end(); ++it) {
 		QDateTime firstDate = it.key()->getFirstDate();
 		if(firstDate > maxFirstDate) {
@@ -170,7 +170,7 @@ QDateTime Portfolio::retrieveFirstDate() const {
  */
 QDateTime Portfolio::retrieveLastDate() const {
     QDateTime minLastDate;
-    minLastDate.setTime_t(INT_MAX);
+	minLastDate.setTime_t(INT_MAX);
 	for(QMap<Asset*, int>::const_iterator it=this->composition.begin(); it!=this->composition.end(); ++it) {
 		QDateTime lastDate = it.key()->getLastDate();
 		if(lastDate < minLastDate) {
@@ -178,6 +178,35 @@ QDateTime Portfolio::retrieveLastDate() const {
 		}
 	}
 	return minLastDate;
+}
+
+/**
+ * @brief Retrieves the values of a portfolio according to
+ * the specified dates as QVectors
+ * @param startDate The starting date
+ * @param endDate The ending date
+ * @return The values of the portfolio
+ */
+QVector<double> Portfolio::getValues(const QDateTime& startDate, const QDateTime& endDate) const {
+    int length = startDate.daysTo(endDate)+1;
+    QVector<double> portfolioValues(length, 0);
+
+	for(QMap<Asset*, int>::const_iterator it=this->composition.begin(); it!=this->composition.end(); ++it) {
+        QVector<double> assetValues = it.key()->getValues(startDate, endDate);
+		int weight = it.value();
+
+        // We make sure that every asset has the same size and thus the values of the portfolio are
+        // well defined
+        if(assetValues.size() != length) {
+            throw PortfolioCalculationException("Missing asset values to calculate the portfolio ones, asset involved: "
+                                                + it.key()->getName().toStdString());
+		}
+
+        for(QVector<double>::size_type i = 0; i != portfolioValues.size(); i++)
+			portfolioValues[i] += assetValues[i]*weight;
+	}
+
+    return portfolioValues;
 }
 
 /**

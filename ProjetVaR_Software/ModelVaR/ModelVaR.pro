@@ -75,7 +75,9 @@ HEADERS +=\
     VaRReportFactory.h \
     GarchReportFactory.h \
     StatisticsReportFactory.h \
-    CorrelationReportFactory.h
+    CorrelationReportFactory.h \
+    CannotOpenFileException.h \
+    PortfolioCalculationException.h
 
 unix:!symbian {
     maemo5 {

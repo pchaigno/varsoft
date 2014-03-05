@@ -1,9 +1,15 @@
 #pragma once
 
-#include <QString>
 #include <QDateTime>
 #include "IdAlreadyAttributedException.h"
+#include <QFile>
+#include <QRegExp>
+#include <QString>
+#include <QStringList>
+#include <QTextStream>
+#include <QVector>
 #include "ModelVaR_global.h"
+#include "CannotOpenFileException.h"
 
 class MODELVARSHARED_EXPORT Asset {
 private:
@@ -28,6 +34,7 @@ public:
 	QDateTime getFirstDate() const;
 	QDateTime getLastDate() const;
 	void changeName(QString name);
+    QVector<double> getValues(const QDateTime &startDate, const QDateTime &endDate);
 
 	bool operator==(const Asset& asset) const;
 };

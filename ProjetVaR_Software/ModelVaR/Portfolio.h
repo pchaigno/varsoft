@@ -8,6 +8,7 @@
 #include <QDateTime>
 #include "IdAlreadyAttributedException.h"
 #include "ModelVaR_global.h"
+#include "PortfolioCalculationException.h"
 
 class MODELVARSHARED_EXPORT Portfolio {
 private:
@@ -19,11 +20,11 @@ private:
 
 public:
 	Portfolio();
-    Portfolio(Portfolio* parent, QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports);
-    Portfolio(QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports);
-    Portfolio(Portfolio* parent, int id, QString name, QMap<Asset *, int>& composition, QVector<Report*>& reports);
-    Portfolio(int id, QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports);
-    void init(Portfolio* parent, int id, QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports);
+	Portfolio(Portfolio* parent, QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports);
+	Portfolio(QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports);
+	Portfolio(Portfolio* parent, int id, QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports);
+	Portfolio(int id, QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports);
+	void init(Portfolio* parent, int id, QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports);
 
 	QString getName() const;
 	int getId() const;
@@ -33,9 +34,9 @@ public:
 	QVector<Asset*> getAssets() const;
 	QMap<Asset*, int> getComposition() const;
 	void changeName(QString name);
-
-	QDateTime retrieveFirstDate() const;
-	QDateTime retrieveLastDate() const;
+    QDateTime retrieveFirstDate() const;
+    QDateTime retrieveLastDate() const;
+    QVector<double> getValues(const QDateTime &startDate, const QDateTime &endDate) const;
 
 	bool operator==(const Portfolio& portfolio) const;
 };
