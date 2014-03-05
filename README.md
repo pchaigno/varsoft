@@ -10,8 +10,8 @@ Developped by a team of 7 engineering students from the INSA-Rennes in France.
 
 
 ### Current build status
-Travis Status : [![Build Status](https://travis-ci.org/pchaigno/ProjetVaR.png)](https://travis-ci.org/pchaigno/ProjetVaR)
+Travis Status : [![Build Status](https://api.travis-ci.org/pchaigno/ProjetVaR.png?branch=master)](https://travis-ci.org/pchaigno/ProjetVaR)
 
 
 ### Task list
-(https://github.com/pchaigno/ProjetVaR/wiki/Task-list)
+https://github.com/pchaigno/ProjetVaR/wiki/Task-list
