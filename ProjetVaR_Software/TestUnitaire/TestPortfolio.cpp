@@ -60,6 +60,7 @@ void TestPortfolio::testGetValues() {
     // INCORRECT DATE CASE FOR ILLUSTRATION PURPOSES
     try {
         result = testPortfolio.getValues(incorrectStartDate, endDate);
+        QFAIL("getValues() was able to calculate the portfolio values with missing asset values");
     } catch(PortfolioCalculationException& e) {
         qDebug() << e.what();
     }

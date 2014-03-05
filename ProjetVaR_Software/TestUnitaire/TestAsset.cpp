@@ -31,6 +31,7 @@ void TestAsset::testGetValues() {
     // NONEXISTING FILE CASE FOR ILLUSTRATION PURPOSES
     try {
         result = test2.getValues(startDate, endDate);
+        QFAIL("getValues() was able to open the file that should not exist");
     } catch(CannotOpenFileException& e) {
         qDebug() << e.what();
     }
