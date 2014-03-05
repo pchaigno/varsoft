@@ -5,18 +5,26 @@ VaRHistorical::VaRHistorical(const Portfolio& portfolio, double risk):
 
 }
 
+/**
+ * @brief VaRHistorical::execute
+ * @param period
+ * @return
+ */
 double VaRHistorical::execute(int period) const {
 
-    QDateTime endingPeriodDate = portfolio.retrieveLastDate();
-    QDateTime startingPeriodDate = lastDate.addDays(-period+1);
-    QVector<double> values = portfolio.getAsQVectors(startingPeriodDate, endingPeriodDate);
+    QDateTime endingPeriodDate = getPortfolio().retrieveLastDate();
+    QDateTime startingPeriodDate = endingPeriodDate.addDays(-period+1);
+    QVector<double> values = getPortfolio().getValues(startingPeriodDate, endingPeriodDate);
 
-    if(startingPeriodDate < portfolio.retrieveFirstDate()) {
+    if(startingPeriodDate < getPortfolio().retrieveFirstDate()) {
         // Couille dans le piano
     }
 
     // Utilise qsort
-    values.
+    //values.
 
-	return 0;
+    qSort(values.begin(), values.end());
+
+    int quantile = risk*values.size();
+    return values.at();
 }
