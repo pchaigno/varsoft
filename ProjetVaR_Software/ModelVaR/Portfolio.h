@@ -8,6 +8,7 @@
 #include <climits>
 #include <QDateTime>
 #include "ModelVaR_global.h"
+#include "PortfolioCalculationException.h"
 
 class MODELVARSHARED_EXPORT Portfolio {
 private:
@@ -28,7 +29,7 @@ public:
 
     QDateTime retrieveFirstDate() const;
     QDateTime retrieveLastDate() const;
-    QVector<double> getAsQVectors(QDateTime startDate, QDateTime endDate) const;
+    QVector<double> getValues(const QDateTime &startDate, const QDateTime &endDate) const;
 
 	Portfolio& operator=(const Portfolio& portfolio);
 };

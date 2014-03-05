@@ -12,9 +12,10 @@ install:
   - sudo apt-get install -y qt5-default libqt5sql5-sqlite
 
 script:
+  - cd ProjetVaR_Software
   - mkdir build
   - cd build
-  - qmake QMAKE_CXX=$CXX CONFIG+=$CONFIG ../ProjetVaR_Software/ProjetVaR_Software.pro
+  - qmake QMAKE_CXX=$CXX CONFIG+=$CONFIG ../ProjetVaR_Software.pro
   - make
   - export LD_LIBRARY_PATH=ModelVaR
   - TestUnitaire/main

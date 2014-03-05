@@ -102,19 +102,23 @@ QDateTime Portfolio::retrieveLastDate() const {
  * @param endDate The ending date
  * @return The values of the portfolio
  */
-QVector<double> Portfolio::getAsQVectors(QDateTime startDate, QDateTime endDate) const {
+QVector<double> Portfolio::getValues(const QDateTime & startDate, const QDateTime & endDate) const {
     int length = startDate.daysTo(endDate)+1;
     QVector<double> portfolioValues(length, 0);
 
     for(QMap<Asset*, int>::const_iterator it=this->assets.begin(); it!=this->assets.end(); ++it) {
-        QVector<double> assetValues = it.key()->getAsQVectors(startDate, endDate);
+        QVector<double> assetValues = it.key()->getValues(startDate, endDate);
         int weight = it.value();
 
-        QVector<double>::iterator portfolioValuesIt=portfolioValues.begin();
-        QVector<double>::const_iterator assetValuesIt=assetValues.begin();
-        for(; assetValuesIt!=assetValues.end(); ++portfolioValuesIt, ++assetValuesIt) {
-            *portfolioValuesIt += *assetValuesIt * weight;
+        // We make sure that every asset has the same size and thus the values of the portfolio are
+        // well defined
+        if(assetValues.size() != length) {
+            throw PortfolioCalculationException("Missing asset values to calculate the portfolio ones, asset involved: "
+                                                + it.key()->getName().toStdString());
         }
+
+        for(QVector<double>::size_type i = 0; i != portfolioValues.size(); i++)
+            portfolioValues[i] += assetValues[i]*weight;
     }
 
     return portfolioValues;

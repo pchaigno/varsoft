@@ -1,4 +1,6 @@
 #include "Asset.h"
+#include <exception>
+#include <stdexcept>
 
 /**
 * @brief Empty constructor
@@ -68,31 +70,40 @@ void Asset::changeName(QString name) {
  * @param endDate The ending date
  * @return A vector containing the values of the asset according to the parameters
  */
-QVector<double> Asset::getAsQVectors(QDateTime startDate, QDateTime endDate) {
+QVector<double> Asset::getValues(const QDateTime& startDate, const QDateTime& endDate) {
     QVector<double> values;
     QFile inputFile(this->getFile());
 
     if(!inputFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        qDebug() << inputFile.errorString();
+        throw CannotOpenFileException("Could not open file: " + this->getFile().toStdString());
     } else {
         QTextStream in(&inputFile);
 
         bool startDetected = false;
+
+        // Loop over each line
         while(!in.atEnd()) {
             QString line = in.readLine();
             QRegExp rx("\\s*,\\s*");
             QStringList row = line.split(rx);
             QString date = row.value(0);
             QString value = row.value(1);
+            QDateTime readDate = QDateTime::fromString(date,"yyyy-MM-dd");
 
-            if(startDate != QDateTime::fromString(date,"yyyy-MM-dd") && !startDetected)
+            // If the starting date has not been read yet, it goes at the start of the loop
+            // and read the next line
+            if(!startDetected && readDate < startDate)
                 continue;
 
+            // If execution reaches that point, it means that the start date has been read
             if(startDetected == false) startDetected = true;
 
+            // Building the vector
             values.push_back(value.toDouble());
 
-            if(endDate == QDateTime::fromString(date,"yyyy-MM-dd"))
+            // If the end date has been reached, it exits the loop
+            // Otherwise it reads the file till the end
+            if(readDate >= endDate)
                 break;
         }
         inputFile.close();

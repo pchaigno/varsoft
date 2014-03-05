@@ -9,6 +9,7 @@
 #include <QTextStream>
 #include <QVector>
 #include "ModelVaR_global.h"
+#include "CannotOpenFileException.h"
 
 class MODELVARSHARED_EXPORT Asset {
 private:
@@ -25,5 +26,5 @@ public:
     QDateTime getFirstDate() const;
     QDateTime getLastDate() const;
     void changeName(QString name);
-    QVector<double> getAsQVectors(QDateTime startDate, QDateTime endDate);
+    QVector<double> getValues(const QDateTime &startDate, const QDateTime &endDate);
 };
