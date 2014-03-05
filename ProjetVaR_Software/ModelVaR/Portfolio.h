@@ -8,6 +8,7 @@
 #include <climits>
 #include <QDateTime>
 #include "ModelVaR_global.h"
+#include "PortfolioCalculationException.h"
 
 class MODELVARSHARED_EXPORT Portfolio {
 private:

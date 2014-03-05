@@ -110,6 +110,12 @@ QVector<double> Portfolio::getValues(const QDateTime & startDate, const QDateTim
         QVector<double> assetValues = it.key()->getValues(startDate, endDate);
         int weight = it.value();
 
+        // We make sure that every asset has the same size and thus the values of the portfolio are
+        // well defined
+        if(assetValues.size() != length) {
+            throw PortfolioCalculationException("Impossible");
+        }
+
         for(QVector<double>::size_type i = 0; i != portfolioValues.size(); i++)
             portfolioValues[i] += assetValues[i]*weight;
     }
