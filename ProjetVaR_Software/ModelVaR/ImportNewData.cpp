@@ -58,6 +58,11 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
                     item->setText(rowData[6]);
 				flux << rowData[0] << "," << rowData[6] << "\n";
 			}
+            //else{
+                // seulement quand la derniere date est atteinte
+              //  break;
+            //}
 		}
+        fileCreated.close();
         //Asset a1 = Asset(name,namealea,origin,firstDate,lastDate);
 	}

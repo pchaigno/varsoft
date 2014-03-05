@@ -8,7 +8,6 @@ private:
     QString stockName;
     QString firstDate;
     QString lastDate;
-    QString fileName;
     QString origin;
 
 public:

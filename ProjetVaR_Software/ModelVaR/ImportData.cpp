@@ -31,7 +31,7 @@ void ImportData::import(const QString &name, const QString &file, const QString 
 		{
 		   rowData = rowOfData.at(x).split(",");
 
-               qDebug() << rowData[2];
+               qDebug() << rowData[1];
 			   QTableWidgetItem* item = new QTableWidgetItem();
                item->setText(rowData[2]);
 		}

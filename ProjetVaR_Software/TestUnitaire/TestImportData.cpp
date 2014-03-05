@@ -7,7 +7,6 @@ TestImportData::TestImportData() {
     TestImportData::stockName = "Gogole";
     TestImportData::firstDate = "2014-01-02";
     TestImportData::lastDate = "2014-01-01";
-    TestImportData::fileName = "test.csv";
     TestImportData::origin = "Yahoo";
 }
 
@@ -62,8 +61,6 @@ void TestImportData::testDates() {
         }
     }
     //Asset a1 = Asset(name,namealea,origin,firstDate,lastDate);
-}
-/*
     QCOMPARE(this->google.getId(), -1);
     this->google.setId(42);
     QCOMPARE(this->google.getId(), 42);
