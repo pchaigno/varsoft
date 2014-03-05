@@ -9,7 +9,7 @@ QT += widgets
 
 QT       -= gui
 
-TARGET = tst_TestUnitaireTest
+TARGET = main
 CONFIG   += console
 CONFIG   -= app_bundle
 
