@@ -32,11 +32,20 @@ void TestPortfolio::testGetValues() {
     QVector<Report> reports;
     Portfolio testPortfolio("testPortfolio", assets, reports);
 
+
     // COMMON DATE DEFINITION
     QDateTime startDate(QDate(2014, 1, 3), QTime(0, 0, 0));
     QDateTime endDate(QDate(2014, 1, 6), QTime(0, 0, 0));
+    // FAULTY INCORRECT DATE DEFINITION
+    QDateTime incorrectStartDate(QDate(2014, 1, 1), QTime(0, 0, 0));
 
-    QVector<double> result = testPortfolio.getValues(startDate, endDate);
+    QVector<double> result;
+
+    try {
+        result = testPortfolio.getValues(startDate, endDate);
+    } catch(PortfolioCalculationException& e) {
+        qDebug() << e.what();
+    }
 
     QCOMPARE(result.size(), 4);
     QCOMPARE(result.at(0), 612.0);
@@ -46,6 +55,13 @@ void TestPortfolio::testGetValues() {
 
     for(QVector<double>::const_iterator it=result.begin(); it!=result.end(); ++it) {
         qDebug() << *it;
+    }
+
+    // INCORRECT DATE CASE FOR ILLUSTRATION PURPOSES
+    try {
+        result = testPortfolio.getValues(incorrectStartDate, endDate);
+    } catch(PortfolioCalculationException& e) {
+        qDebug() << e.what();
     }
 }
 

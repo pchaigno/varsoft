@@ -113,7 +113,8 @@ QVector<double> Portfolio::getValues(const QDateTime & startDate, const QDateTim
         // We make sure that every asset has the same size and thus the values of the portfolio are
         // well defined
         if(assetValues.size() != length) {
-            throw PortfolioCalculationException("Impossible");
+            throw PortfolioCalculationException("Missing asset values to calculate the portfolio ones, asset involved: "
+                                                + it.key()->getName().toStdString());
         }
 
         for(QVector<double>::size_type i = 0; i != portfolioValues.size(); i++)

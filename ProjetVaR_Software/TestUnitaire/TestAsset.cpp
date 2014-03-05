@@ -11,12 +11,13 @@ void TestAsset::testGetValues() {
 
     QString assetFolder = "../../CSV_examples/";
 
-    Asset test("test", assetFolder+"asset1.txt", startDate, endDate);
+    Asset test1("test", assetFolder+"asset1.txt", startDate, endDate);
+    Asset test2("test", assetFolder+"nonexistingfile.txt", startDate, endDate);
 
     QVector<double> result;
 
     try {
-        result = test.getValues(startDate, endDate);
+        result = test1.getValues(startDate, endDate);
     } catch(CannotOpenFileException& e) {
         qDebug() << e.what();
     }
@@ -26,4 +27,11 @@ void TestAsset::testGetValues() {
     QCOMPARE(result.at(1), 102.0);
     QCOMPARE(result.at(2), 103.0);
     QCOMPARE(result.at(3), 104.0);
+
+    // NONEXISTING FILE CASE FOR ILLUSTRATION PURPOSES
+    try {
+        result = test2.getValues(startDate, endDate);
+    } catch(CannotOpenFileException& e) {
+        qDebug() << e.what();
+    }
 }
