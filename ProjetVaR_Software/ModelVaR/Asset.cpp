@@ -1,4 +1,6 @@
 #include "Asset.h"
+#include <exception>
+#include <stdexcept>
 
 /**
 * @brief Empty constructor
@@ -73,7 +75,7 @@ QVector<double> Asset::getValues(const QDateTime& startDate, const QDateTime& en
     QFile inputFile(this->getFile());
 
     if(!inputFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        qDebug() << inputFile.errorString();
+        throw CannotOpenFileException("Could not open file: " + this->getFile().toStdString());
     } else {
         QTextStream in(&inputFile);
 

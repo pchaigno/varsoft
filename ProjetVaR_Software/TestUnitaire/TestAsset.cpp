@@ -13,7 +13,13 @@ void TestAsset::testGetValues() {
 
     Asset test("test", assetFolder+"asset1.txt", startDate, endDate);
 
-    QVector<double> result = test.getValues(startDate, endDate);
+    QVector<double> result;
+
+    try {
+        result = test.getValues(startDate, endDate);
+    } catch(CannotOpenFileException& e) {
+        qDebug() << e.what();
+    }
 
     QCOMPARE(result.size(), 4);
     QCOMPARE(result.at(0), 101.0);

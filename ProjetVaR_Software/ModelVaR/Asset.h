@@ -9,6 +9,7 @@
 #include <QTextStream>
 #include <QVector>
 #include "ModelVaR_global.h"
+#include "CannotOpenFileException.h"
 
 class MODELVARSHARED_EXPORT Asset {
 private:
