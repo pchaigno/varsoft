@@ -16,7 +16,7 @@ CONFIG   -= app_bundle
 TEMPLATE = app
 
 
-SOURCES += tst_TestUnitaireTest.cpp \
+SOURCES += \
     TestImportNewData.cpp \
     TestImportData.cpp \
     main.cpp

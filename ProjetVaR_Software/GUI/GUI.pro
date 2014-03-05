@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT += widgets
 GTCONFIG +=console
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets

@@ -10,6 +10,10 @@ private:
     QString lastDate;
     QString fileName;
     QString origin;
+    QString newFile;
+
+public:
+    TestImportNewData();
 
 private Q_SLOTS:
     void testDates();

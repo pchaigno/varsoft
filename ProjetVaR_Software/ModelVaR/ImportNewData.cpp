@@ -35,7 +35,8 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
 
         //CREATION DU FICHIER DES DONNEES IMPORTEES
 		//Faire des noms aléatoires et uniques
-		QString namealea = name+"_"+file+".txt";
+        QString namealea = name+".txt";
+        qDebug() << namealea;
 		QFile fileCreated(namealea);
 		// On ouvre notre fichier en lecture seule et on vérifie l'ouverture
 		if (!fileCreated.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -51,9 +52,10 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
 			QDateTime currentDate = QDateTime::fromString(rowData[0],"yyyy-MM-dd");
 			if ((firstDate >= currentDate) && (currentDate >= lastDate)){
 				qDebug() << rowData[6];
-				QTableWidgetItem* item = new QTableWidgetItem();
-				// the index of the interesting column is always the same for yahoo files
-				item->setText(rowData[6]);
+                //useful to print into a tableWidget
+                    QTableWidgetItem* item = new QTableWidgetItem();
+                    // the index of the interesting column is always the same for yahoo files
+                    item->setText(rowData[6]);
 				flux << rowData[0] << "," << rowData[6] << "\n";
 			}
 		}

@@ -11,6 +11,9 @@ private:
     QString fileName;
     QString origin;
 
+public:
+    TestImportData();
+
 private Q_SLOTS:
     void testDates();
     void testName();
