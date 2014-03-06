@@ -28,7 +28,7 @@ TestImportNewData::TestImportNewData() {
         importedCSV.close();
     }
 
-    TestImportNewData::newFile =  TestImportNewData::stockName+"_test.csv";
+    TestImportNewData::newFile = "../../CSV_examples/"+TestImportNewData::stockName+"_test.csv";
     QFile fileCreated(TestImportNewData::newFile);
     if (!fileCreated.open(QIODevice::WriteOnly | QIODevice::Text))
        return;
@@ -62,7 +62,7 @@ void TestImportNewData::testDates() {
     data.clear();
     rowOfData.clear();
     rowData.clear();
-
+    qDebug() << TestImportNewData::newFile;
     if (importedCSV.open(QFile::ReadOnly))
     {
         data = importedCSV.readAll();
