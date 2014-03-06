@@ -14,7 +14,7 @@ TestImportNewData::TestImportNewData() {
     //lire le fichier généré
     //comparer les dates obtenues
     QString data;
-    QFile importedCSV("C:/Users/Eric/Downloads/table.csv");
+    QFile importedCSV("../../CSV_examples/table.csv");
     QStringList rowOfData;
     QStringList rowData;
     data.clear();
