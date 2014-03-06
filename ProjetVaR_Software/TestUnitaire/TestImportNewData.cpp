@@ -24,7 +24,7 @@ TestImportNewData::TestImportNewData() {
     if (importedCSV.open(QFile::ReadOnly))
     {
         data = importedCSV.readAll();
-        rowOfData = data.split("\r\n");
+        rowOfData = data.split("\n");
         importedCSV.close();
     }
 
