@@ -5,7 +5,7 @@
 */
 TestImportNewData::TestImportNewData() {
     TestImportNewData::stockName = "Gogole";
-    TestImportNewData::firstDate = "2014-01-02";
+    TestImportNewData::firstDate = "2014-02-07";
     TestImportNewData::lastDate = "2014-01-01";
     TestImportNewData::origin = "Yahoo";
 
@@ -22,11 +22,11 @@ TestImportNewData::TestImportNewData() {
     rowData.clear();
 
     if (importedCSV.open(QFile::ReadOnly))
-        {
-            data = importedCSV.readAll();
-            rowOfData = data.split("\r\n");
-            importedCSV.close();
-        }
+    {
+        data = importedCSV.readAll();
+        rowOfData = data.split("\r\n");
+        importedCSV.close();
+    }
 
     TestImportNewData::newFile =  TestImportNewData::stockName+"_test.csv";
     QFile fileCreated(TestImportNewData::newFile);
@@ -39,12 +39,14 @@ TestImportNewData::TestImportNewData() {
     for (int x =1; x < rowOfData.size()-1; x++)
     {
         rowData = rowOfData.at(x).split(",");
-        const QDateTime &currentDate = QDateTime::fromString(rowData[0],"yyyy-MM-dd");
-        if ((fiDate >= currentDate) && (currentDate >= laDate)){
+        QDateTime currentDate = QDateTime::fromString(rowData[0],"yyyy-MM-dd");
+        if ((fiDate >= currentDate)){
+            if(laDate >= currentDate){
+                break;
+            }
             flux << rowData[0] << "," << rowData[6] << "\n";
-            qDebug() << rowData[0] << "," << rowData[6];
+            //qDebug() << rowData[0] << "," << rowData[6];
         }
-        //qDebug() << rowData[0] << "," << rowData[6];
     }
     fileCreated.close();
 }
@@ -73,7 +75,7 @@ void TestImportNewData::testDates() {
     QVERIFY((QDateTime::fromString(TestImportNewData::firstDate,"yyyy-MM-dd")) >= (QDateTime::fromString(rowData[0],"yyyy-MM-dd")));
 
     //last date
-    rowData = rowOfData.at(rowOfData.size()-1).split(",");
+    rowData = rowOfData.at(rowOfData.size()-2).split(",");
     qDebug() << rowData[0];
     QVERIFY((QDateTime::fromString(TestImportNewData::lastDate,"yyyy-MM-dd")) <= (QDateTime::fromString(rowData[0],"yyyy-MM-dd")));
 }

@@ -46,22 +46,22 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
 
 		// x = 1 to avoid the first line with labels
 		// rowOfData.size()-1 to avoid a blank line a the end of the file
+        //le fichier entier est parcouru
 		for (int x =1; x < rowOfData.size()-1; x++)
 		{
 			rowData = rowOfData.at(x).split(",");
 			QDateTime currentDate = QDateTime::fromString(rowData[0],"yyyy-MM-dd");
-			if ((firstDate >= currentDate) && (currentDate >= lastDate)){
+            if ((firstDate >= currentDate)){
+                if(lastDate >= currentDate){
+                    break;
+                }
 				qDebug() << rowData[6];
                 //useful to print into a tableWidget
                     QTableWidgetItem* item = new QTableWidgetItem();
                     // the index of the interesting column is always the same for yahoo files
                     item->setText(rowData[6]);
-				flux << rowData[0] << "," << rowData[6] << "\n";
+                flux << rowData[0] << "," << rowData[6] << "\n";
 			}
-            //else{
-                // seulement quand la derniere date est atteinte
-              //  break;
-            //}
 		}
         fileCreated.close();
         //Asset a1 = Asset(name,namealea,origin,firstDate,lastDate);
