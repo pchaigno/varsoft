@@ -22,7 +22,7 @@ void ImportData::import(const QString &name, const QString &file, const QString 
 		if (importedCSV.open(QFile::ReadOnly))
 			{
 				data = importedCSV.readAll();
-				rowOfData = data.split("\r\n");
+                rowOfData = data.split("\n");
 				importedCSV.close();
 			}
 		qDebug() << "Données importées";
