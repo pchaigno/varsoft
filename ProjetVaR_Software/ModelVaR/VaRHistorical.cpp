@@ -18,6 +18,7 @@ double VaRHistorical::execute(int period) const {
 
     if(startingPeriodDate < getPortfolio().retrieveFirstDate()) {
         // Couille dans le piano
+        qDebug() << "ca va peter !";
     }
 
     // Utilise qsort
@@ -25,6 +26,6 @@ double VaRHistorical::execute(int period) const {
 
     qSort(values.begin(), values.end());
 
-    int quantile = risk*values.size();
-    return values.at();
+    int quantile = getRisk()*values.size();
+    return values.at(quantile);
 }

@@ -18,7 +18,8 @@ TEMPLATE = app
 SOURCES += \
     TestAsset.cpp \
     TestPortfolio.cpp \
-    main.cpp
+    main.cpp \
+    TestVaRHistorical.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../ModelVaR/release/ -lModelVaR
@@ -30,4 +31,5 @@ DEPENDPATH += $$PWD/../ModelVaR
 
 HEADERS += \
     TestAsset.h \
-    TestPortfolio.h
+    TestPortfolio.h \
+    TestVaRHistorical.h
