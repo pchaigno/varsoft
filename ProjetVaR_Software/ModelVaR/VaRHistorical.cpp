@@ -22,13 +22,9 @@ double VaRHistorical::execute(int period) const {
     QDateTime endingPeriodDate = getPortfolio().retrieveLastDate();
     QDateTime startingPeriodDate = endingPeriodDate.addDays(-period+1);
 
-    QVector<double> values = getPortfolio().getValues(startingPeriodDate, endingPeriodDate);
-
     // If the distribution period is too large, then the corresponding starting date may not
-    // be available in the database
-    if(startingPeriodDate < getPortfolio().retrieveFirstDate()) {
-        // TODO: create specific exception
-    }
+    // be available in the database. A portfolioCalculationException will be thrown
+    QVector<double> values = getPortfolio().getValues(startingPeriodDate, endingPeriodDate);
 
     // Returns have to be calculated first
     // TODO: Make it a function, it will most likely be reused somewhere else
