@@ -14,6 +14,7 @@ VaRHistorical::VaRHistorical(const Portfolio& portfolio, double risk):
  * @return Value-at-Risk given the parameters
  */
 double VaRHistorical::execute(int period) const {
+    QVector<double> returns;
 
     // Definitions of the starting and ending dates that define
     // the period of time on which return values are used to define
@@ -29,13 +30,15 @@ double VaRHistorical::execute(int period) const {
         // TODO: create specific exception
     }
 
-    // Returns have to calculated
-
+    // Returns have to be calculated first
+    // TODO: Make it a function, it will most likely be reused somewhere else
+    for(int i=1; i < values.size(); i++) {
+        returns.push_back(values.at(i) - values.at(i-1));
+    }
 
     // Return values are sorted
-    qSort(values.begin(), values.end());
+    qSort(returns.begin(), values.end());
 
-    // FAUX
-    int quantile = getRisk()*values.size();
-    return values.at(quantile);
+    int quantile = getRisk()*returns.size();
+    return returns.at(quantile);
 }
