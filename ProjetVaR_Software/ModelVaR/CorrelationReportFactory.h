@@ -5,6 +5,6 @@
 
 class CorrelationReportFactory: public ReportFactory {
 public:
-    CorrelationReportFactory(QString docxPath, QString pdfPath);
+	CorrelationReportFactory(QString docxFile, QString pdfFile);
 	virtual DocxGenerator& generateDOCX();
 };

@@ -1,10 +1,15 @@
 #include "AssetsFactory.h"
 
 /**
+ * @brief Singleton definition. Mandatory.
+ */
+AssetsFactory* AssetsFactory::instance = NULL;
+
+/**
  * @brief Private constructor.
  */
 AssetsFactory::AssetsFactory() {
-	// TODO
+	this->assets = SessionBuilder::getInstance()->buildAssets();
 }
 
 /**
@@ -12,7 +17,9 @@ AssetsFactory::AssetsFactory() {
  * @param name The name of the asset to retrieve.
  * @return A pointer to the asset.
  */
-Asset* retrieveAsset(QString name) {
-	// TODO
-	return NULL;
+Asset* AssetsFactory::retrieveAsset(QString name) {
+	if(!this->assets.contains(name)) {
+		this->assets[name] = SessionBuilder::getInstance()->buildAsset(name);
+	}
+	return this->assets[name];
 }

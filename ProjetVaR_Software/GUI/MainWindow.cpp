@@ -9,10 +9,7 @@
 #include "ImportData.h"
 #include "import.h"
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
-{
+MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow) {
 	ui->setupUi(this);
     //for the import button in the main window
 	connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(setImportCSV()));
@@ -21,9 +18,8 @@ MainWindow::MainWindow(QWidget *parent) :
 						 this, SLOT(onDataEntered(const QString&, const QDateTime&, const QDateTime&, const QString&)));
 }
 
-MainWindow::~MainWindow()
-{
-    delete ui;
+MainWindow::~MainWindow() {
+	delete ui;
 }
 
 /**
@@ -47,7 +43,6 @@ void MainWindow::onDataEntered(const QString &name, const QDateTime &fDate ,cons
     //else
     //    ImportData algo1 = ImportData();;
      algo1.import(MainWindow::stockName, fileName, MainWindow::origin, MainWindow::firstDate, MainWindow::lastDate);
-
 }
 
 /**

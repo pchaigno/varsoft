@@ -4,15 +4,17 @@
 #include "Portfolio.h"
 #include "Asset.h"
 #include "Report.h"
+#include <QVector>
+#include <QString>
+#include <QVariant>
 
-
-class SessionSaver: public SQLiteManager {
+class MODELVARSHARED_EXPORT SessionSaver: public SQLiteManager {
 private:
 	static SessionSaver* instance;
 
 public:
-	void saveAsset(const Asset& asset);
-    void saveSession(const QVector<Portfolio>& portfolios);
+	bool saveAsset(Asset& asset);
+	void saveSession(QVector<Portfolio>& portfolios);
 	/**
 	 * @brief Accessor to the only instance of SessionSaver.
 	 * @return The only instance of SessionSaver.
@@ -25,8 +27,8 @@ public:
 	}
 
 private:
-    SessionSaver(QString databaseFile);
-    void saveAssets(const QVector<Asset>& assets);
-    void savePortfolios(const QVector<Portfolio>& portfolios);
-    void saveReports(const Portfolio& portfolio, const QVector<Report>& reports);
+	SessionSaver(QString databaseFile);
+	void saveAssets(QVector<Asset*> &assets);
+	void savePortfolios(QVector<Portfolio>& portfolios);
+	void saveReports(const Portfolio& portfolio, const QVector<Report*>& reports);
 };

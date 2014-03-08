@@ -7,22 +7,23 @@
 #include "import.h"
 #include <string>
 
-namespace Ui{
+namespace Ui {
 	class MainWindow;
 }
 
-class MainWindow : public QMainWindow
-{
-    Q_OBJECT
+class MainWindow: public QMainWindow {
+	Q_OBJECT
     
 public:
-    explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+	explicit MainWindow(QWidget* parent = 0);
+	~MainWindow();
 
 private slots:
 	void setImportCSV();
+
 public slots:
 	void onDataEntered(const QString &text, const QDateTime &fDate ,const QDateTime &lDate, const QString &source);
+
 private:
 	Ui::MainWindow *ui;
 	Import import_win;
@@ -32,4 +33,3 @@ private:
 	QString fileName;
     QString origin;
 };
-
