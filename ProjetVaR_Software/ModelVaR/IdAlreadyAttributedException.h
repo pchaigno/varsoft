@@ -4,8 +4,7 @@
 #include <QString>
 #include "ModelVaR_global.h"
 
-class MODELVARSHARED_EXPORT IdAlreadyAttributedException: public std::exception
-{
+class MODELVARSHARED_EXPORT IdAlreadyAttributedException: public std::exception {
 public:
 	IdAlreadyAttributedException(std::string msg) {
 		this->msg = msg;

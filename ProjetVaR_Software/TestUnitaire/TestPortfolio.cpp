@@ -27,7 +27,7 @@ TestPortfolio::TestPortfolio() {
 	assets.insert(asset2, 2);
 	assets.insert(asset3, 3);
 
-    QVector<Report*> reports;
+	QVector<Report*> reports;
 	this->father = Portfolio("Father", assets, reports);
 	this->son = Portfolio(&this->father, "Son", assets, reports);
 }
@@ -62,34 +62,34 @@ void TestPortfolio::testName() {
  * @brief Tests the method getValues that retrieve and compute values of a portfolio.
  */
 void TestPortfolio::testGetValues() {
-    // COMMON DATE DEFINITION
-    QDateTime startDate(QDate(2014, 1, 3), QTime(0, 0, 0));
-    QDateTime endDate(QDate(2014, 1, 6), QTime(0, 0, 0));
-    // FAULTY INCORRECT DATE DEFINITION
-    QDateTime incorrectStartDate(QDate(2014, 1, 1), QTime(0, 0, 0));
+	// COMMON DATE DEFINITION
+	QDateTime startDate(QDate(2014, 1, 3), QTime(0, 0, 0));
+	QDateTime endDate(QDate(2014, 1, 6), QTime(0, 0, 0));
+	// FAULTY INCORRECT DATE DEFINITION
+	QDateTime incorrectStartDate(QDate(2014, 1, 1), QTime(0, 0, 0));
 
 	QVector<double> result;
-    try {
+	try {
 		result = this->son.getValues(startDate, endDate);
-    } catch(PortfolioCalculationException& e) {
-        qDebug() << e.what();
+	} catch(PortfolioCalculationException& e) {
+		qDebug() << e.what();
 	}
 
-    QCOMPARE(result.size(), 4);
-    QCOMPARE(result.at(0), 612.0);
-    QCOMPARE(result.at(1), 618.0);
-    QCOMPARE(result.at(2), 624.0);
-    QCOMPARE(result.at(3), 630.0);
+	QCOMPARE(result.size(), 4);
+	QCOMPARE(result.at(0), 612.0);
+	QCOMPARE(result.at(1), 618.0);
+	QCOMPARE(result.at(2), 624.0);
+	QCOMPARE(result.at(3), 630.0);
 
-    for(QVector<double>::const_iterator it=result.begin(); it!=result.end(); ++it) {
-        qDebug() << *it;
-    }
+	for(QVector<double>::const_iterator it=result.begin(); it!=result.end(); ++it) {
+		qDebug() << *it;
+	}
 
-    // INCORRECT DATE CASE FOR ILLUSTRATION PURPOSES
-    try {
+	// INCORRECT DATE CASE FOR ILLUSTRATION PURPOSES
+	try {
 		result = this->son.getValues(incorrectStartDate, endDate);
-        QFAIL("getValues() was able to calculate the portfolio values with missing asset values");
-    } catch(PortfolioCalculationException& e) {
-        qDebug() << e.what();
-    }
+		QFAIL("getValues() was able to calculate the portfolio values with missing asset values");
+	} catch(PortfolioCalculationException& e) {
+		qDebug() << e.what();
+	}
 }

@@ -3,6 +3,6 @@
 /**
  * @brief Constructor
  */
-ModelVaR::ModelVaR()
-{
+ModelVaR::ModelVaR() {
+
 }

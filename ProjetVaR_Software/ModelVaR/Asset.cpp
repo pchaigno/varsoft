@@ -131,41 +131,45 @@ QVector<double> Asset::getValues(const QDateTime& startDate, const QDateTime& en
 	QFile inputFile(this->getFile());
 
 	if(!inputFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        throw CannotOpenFileException("Could not open file: " + this->getFile().toStdString());
+		throw CannotOpenFileException("Could not open file: " + this->getFile().toStdString());
 	} else {
 		QTextStream in(&inputFile);
 
-        bool startDetected = false;
+		bool startDetected = false;
 
-        // Loop over each line
+		// Loop over each line
 		while(!in.atEnd()) {
-            QString line = in.readLine();
-            QRegExp rx("\\s*,\\s*");
-            QStringList row = line.split(rx);
-            QString date = row.value(0);
-            QString value = row.value(1);
+			QString line = in.readLine();
+			QRegExp rx("\\s*,\\s*");
+			QStringList row = line.split(rx);
+			QString date = row.value(0);
+			QString value = row.value(1);
 			QDateTime readDate = QDateTime::fromString(date,"yyyy-MM-dd");
 
-            // If the starting date has not been read yet, it goes at the start of the loop
-            // and read the next line
-            if(!startDetected && readDate < startDate)
-                continue;
+			// If the starting date has not been read yet, it goes at the start of the loop
+			// and read the next line
+			if(!startDetected && readDate < startDate) {
+				continue;
+			}
 
-            // If execution reaches that point, it means that the start date has been read
-			if(startDetected == false) startDetected = true;
+			// If execution reaches that point, it means that the start date has been read
+			if(startDetected == false) {
+				startDetected = true;
+			}
 
 			// Building the vector
-            values.push_back(value.toDouble());
+			values.push_back(value.toDouble());
 
-            // If the end date has been reached, it exits the loop
-            // Otherwise it reads the file till the end
-            if(readDate >= endDate)
-                break;
+			// If the end date has been reached, it exits the loop
+			// Otherwise it reads the file till the end
+			if(readDate >= endDate) {
+				break;
+			}
 		}
-        inputFile.close();
-    }
+		inputFile.close();
+	}
 
-    return values;
+	return values;
 }
 
 /**
@@ -174,5 +178,5 @@ QVector<double> Asset::getValues(const QDateTime& startDate, const QDateTime& en
  * @return True if the two assets are equal.
  */
 bool Asset::operator==(const Asset& asset) const {
-    return this->name == asset.name;
+	return this->name == asset.name;
 }

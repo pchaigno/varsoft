@@ -34,7 +34,7 @@ public:
 	QDateTime getFirstDate() const;
 	QDateTime getLastDate() const;
 	void changeName(QString name);
-    QVector<double> getValues(const QDateTime &startDate, const QDateTime &endDate);
+	QVector<double> getValues(const QDateTime &startDate, const QDateTime &endDate);
 
 	bool operator==(const Asset& asset) const;
 };

@@ -9,7 +9,7 @@ AssetsFactory* AssetsFactory::instance = NULL;
  * @brief Private constructor.
  */
 AssetsFactory::AssetsFactory() {
-    this->assets = SessionBuilder::getInstance()->buildAssets();
+	this->assets = SessionBuilder::getInstance()->buildAssets();
 }
 
 /**
@@ -18,8 +18,8 @@ AssetsFactory::AssetsFactory() {
  * @return A pointer to the asset.
  */
 Asset* AssetsFactory::retrieveAsset(QString name) {
-    if(!this->assets.contains(name)) {
-        this->assets[name] = SessionBuilder::getInstance()->buildAsset(name);
-    }
-    return this->assets[name];
+	if(!this->assets.contains(name)) {
+		this->assets[name] = SessionBuilder::getInstance()->buildAsset(name);
+	}
+	return this->assets[name];
 }

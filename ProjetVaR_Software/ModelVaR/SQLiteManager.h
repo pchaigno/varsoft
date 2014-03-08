@@ -8,11 +8,11 @@
 
 class MODELVARSHARED_EXPORT SQLiteManager {
 protected:
-    const QString databaseFile;
+	const QString databaseFile;
 	QSqlDatabase db;
 
 protected:
-    SQLiteManager(const QString databaseFile);
+	SQLiteManager(const QString databaseFile);
 	bool openConnection();
 	void closeConnection();
 	bool createDatabase();

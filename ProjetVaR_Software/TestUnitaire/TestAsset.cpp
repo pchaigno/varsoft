@@ -40,25 +40,25 @@ void TestAsset::testName() {
 void TestAsset::testGetValues() {
 	qDebug() << "Current dir: " << QDir::currentPath();
 
-    QVector<double> result;
+	QVector<double> result;
 
-    try {
+	try {
 		result = this->google.getValues(this->google.getFirstDate(), this->google.getLastDate());
-    } catch(CannotOpenFileException& e) {
-        qDebug() << e.what();
-    }
+	} catch(CannotOpenFileException& e) {
+		qDebug() << e.what();
+	}
 
-    QCOMPARE(result.size(), 4);
-    QCOMPARE(result.at(0), 101.0);
-    QCOMPARE(result.at(1), 102.0);
-    QCOMPARE(result.at(2), 103.0);
-    QCOMPARE(result.at(3), 104.0);
+	QCOMPARE(result.size(), 4);
+	QCOMPARE(result.at(0), 101.0);
+	QCOMPARE(result.at(1), 102.0);
+	QCOMPARE(result.at(2), 103.0);
+	QCOMPARE(result.at(3), 104.0);
 
-    // NONEXISTING FILE CASE FOR ILLUSTRATION PURPOSES
-    try {
+	// NONEXISTING FILE CASE FOR ILLUSTRATION PURPOSES
+	try {
 		result = this->missing.getValues(this->missing.getFirstDate(), this->missing.getLastDate());
-        QFAIL("getValues() was able to open the file that should not exist");
-    } catch(CannotOpenFileException& e) {
-        qDebug() << e.what();
+		QFAIL("getValues() was able to open the file that should not exist");
+	} catch(CannotOpenFileException& e) {
+		qDebug() << e.what();
 	}
 }

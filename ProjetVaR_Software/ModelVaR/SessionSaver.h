@@ -27,8 +27,8 @@ public:
 	}
 
 private:
-    SessionSaver(QString databaseFile);
+	SessionSaver(QString databaseFile);
 	void saveAssets(QVector<Asset*> &assets);
 	void savePortfolios(QVector<Portfolio>& portfolios);
-    void saveReports(const Portfolio& portfolio, const QVector<Report*>& reports);
+	void saveReports(const Portfolio& portfolio, const QVector<Report*>& reports);
 };

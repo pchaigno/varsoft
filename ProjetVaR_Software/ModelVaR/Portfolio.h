@@ -16,7 +16,7 @@ private:
 	QString name;
 	Portfolio* parent;
 	QMap<Asset*, int> composition;
-    QVector<Report*> reports;
+	QVector<Report*> reports;
 
 public:
 	Portfolio();
@@ -30,13 +30,13 @@ public:
 	int getId() const;
 	void setId(int id);
 	int getParentId() const;
-    QVector<Report*> getReports() const;
+	QVector<Report*> getReports() const;
 	QVector<Asset*> getAssets() const;
 	QMap<Asset*, int> getComposition() const;
 	void changeName(QString name);
-    QDateTime retrieveFirstDate() const;
-    QDateTime retrieveLastDate() const;
-    QVector<double> getValues(const QDateTime &startDate, const QDateTime &endDate) const;
+	QDateTime retrieveFirstDate() const;
+	QDateTime retrieveLastDate() const;
+	QVector<double> getValues(const QDateTime &startDate, const QDateTime &endDate) const;
 
 	bool operator==(const Portfolio& portfolio) const;
 };

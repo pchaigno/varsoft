@@ -4,21 +4,20 @@
 #include <QString>
 #include "ModelVaR_global.h"
 
-class MODELVARSHARED_EXPORT CannotOpenFileException: public std::exception
-{
+class MODELVARSHARED_EXPORT CannotOpenFileException: public std::exception {
 public:
-    CannotOpenFileException(std::string msg) {
-        this->msg = msg;
-    }
+	CannotOpenFileException(std::string msg) {
+		this->msg = msg;
+	}
 
-    virtual ~CannotOpenFileException() throw() {
+	virtual ~CannotOpenFileException() throw() {
 
-    }
+	}
 
-    virtual const char * what() const throw() {
-        return this->msg.c_str();
-    }
+	virtual const char * what() const throw() {
+		return this->msg.c_str();
+	}
 
 private:
-    std::string msg;
+	std::string msg;
 };

@@ -90,7 +90,7 @@ int Portfolio::getId() const {
  * @throw IdAlreadyAttributedException If an id was already attributed.
  */
 void Portfolio::setId(int id) {
-    if(this->id != -1) {
+	if(this->id != -1) {
 		// TODO Improve error message.
 		throw IdAlreadyAttributedException("An id has already been attributed to this portfolio.");
 	}
@@ -151,7 +151,7 @@ void Portfolio::changeName(QString name) {
  * @return The first date defined for this portfolio.
  */
 QDateTime Portfolio::retrieveFirstDate() const {
-    QDateTime maxFirstDate;
+	QDateTime maxFirstDate;
 	maxFirstDate.setTime_t(0);
 	for(QMap<Asset*, int>::const_iterator it=this->composition.begin(); it!=this->composition.end(); ++it) {
 		QDateTime firstDate = it.key()->getFirstDate();
@@ -169,7 +169,7 @@ QDateTime Portfolio::retrieveFirstDate() const {
  * @return The last date defined for this portfolio.
  */
 QDateTime Portfolio::retrieveLastDate() const {
-    QDateTime minLastDate;
+	QDateTime minLastDate;
 	minLastDate.setTime_t(INT_MAX);
 	for(QMap<Asset*, int>::const_iterator it=this->composition.begin(); it!=this->composition.end(); ++it) {
 		QDateTime lastDate = it.key()->getLastDate();
@@ -188,25 +188,26 @@ QDateTime Portfolio::retrieveLastDate() const {
  * @return The values of the portfolio
  */
 QVector<double> Portfolio::getValues(const QDateTime& startDate, const QDateTime& endDate) const {
-    int length = startDate.daysTo(endDate)+1;
-    QVector<double> portfolioValues(length, 0);
+	int length = startDate.daysTo(endDate)+1;
+	QVector<double> portfolioValues(length, 0);
 
 	for(QMap<Asset*, int>::const_iterator it=this->composition.begin(); it!=this->composition.end(); ++it) {
-        QVector<double> assetValues = it.key()->getValues(startDate, endDate);
+		QVector<double> assetValues = it.key()->getValues(startDate, endDate);
 		int weight = it.value();
 
-        // We make sure that every asset has the same size and thus the values of the portfolio are
-        // well defined
-        if(assetValues.size() != length) {
-            throw PortfolioCalculationException("Missing asset values to calculate the portfolio ones, asset involved: "
-                                                + it.key()->getName().toStdString());
+		// We make sure that every asset has the same size and thus the values of the portfolio are
+		// well defined
+		if(assetValues.size() != length) {
+			throw PortfolioCalculationException("Missing asset values to calculate the portfolio ones, asset involved: "
+				+ it.key()->getName().toStdString());
 		}
 
-        for(QVector<double>::size_type i = 0; i != portfolioValues.size(); i++)
+		for(QVector<double>::size_type i = 0; i != portfolioValues.size(); i++) {
 			portfolioValues[i] += assetValues[i]*weight;
+		}
 	}
 
-    return portfolioValues;
+	return portfolioValues;
 }
 
 /**

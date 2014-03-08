@@ -13,7 +13,7 @@ SQLiteManager::SQLiteManager(const QString databaseFile): databaseFile(databaseF
  * @return The location of the database file.
  */
 QString SQLiteManager::getDatabaseFile() const {
-    return this->databaseFile;
+	return this->databaseFile;
 }
 
 /**
@@ -71,8 +71,8 @@ bool SQLiteManager::createDatabase() {
 		"asset INTEGER NOT NULL REFERENCES assets(id),"
 		"portfolio INTEGER NOT NULL REFERENCES portfolio(id),"
 		"weight INTEGER NOT NULL,"
-        "PRIMARY KEY(asset, portfolio));";
-    result &= query.exec(sqlWeights);
+		"PRIMARY KEY(asset, portfolio));";
+	result &= query.exec(sqlWeights);
 	sqlReports = "CREATE TABLE reports("
 		"id INTEGER PRIMARY KEY AUTOINCREMENT,"
 		"portfolio INTEGER NOT NULL REFERENCES portfolios(id),"

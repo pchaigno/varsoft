@@ -21,8 +21,8 @@ private:
 
 public:
 	Asset *buildAsset(QString name);
-    QMap<QString, Asset*> buildAssets();
-    QVector<Portfolio> buildSession();
+	QMap<QString, Asset*> buildAssets();
+	QVector<Portfolio> buildSession();
 	/**
 	 * @brief Accessor to the only instance of SessionBuilder.
 	 * @return The only instance of SessionBuilder.
@@ -35,8 +35,8 @@ public:
 	}
 
 private:
-    SessionBuilder(QString databaseFile);
-    QVector<Portfolio> buildPortfolios();
-    QVector<Report*> buildReports(int idPortfolio);
-    QMap<Asset*, int> buildPortfolioComposition(int idPortfolio);
+	SessionBuilder(QString databaseFile);
+	QVector<Portfolio> buildPortfolios();
+	QVector<Report*> buildReports(int idPortfolio);
+	QMap<Asset*, int> buildPortfolioComposition(int idPortfolio);
 };
