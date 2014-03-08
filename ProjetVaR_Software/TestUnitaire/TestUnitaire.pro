@@ -23,7 +23,7 @@ SOURCES += \
 
 HEADERS += \
     TestImportNewData.h \
-    TestImportData.h
+    TestImportData.h \
     TestAsset.h \
     TestPortfolio.h
 
