@@ -7,20 +7,21 @@
 #include "Asset.h"
 #include <climits>
 #include <QDateTime>
+#include "ModelVaR_global.h"
+#include "PortfolioCalculationException.h"
 
-
-class Portfolio {
+class MODELVARSHARED_EXPORT Portfolio {
 private:
     QString name;
 	Portfolio* parent;
-    QMap<Asset*, QDateTime> assets;
+    QMap<Asset*, int> assets;
     QVector<Report> reports;
 
 public:
     Portfolio();
 	Portfolio(const Portfolio& portfolio);
-    Portfolio(Portfolio* parent, QString name, QMap<Asset*, QDateTime>& assets, QVector<Report>& reports);
-    Portfolio(QString name, QMap<Asset*, QDateTime>& assets, QVector<Report>& reports);
+    Portfolio(Portfolio* parent, QString name, QMap<Asset*, int>& assets, QVector<Report>& reports);
+    Portfolio(QString name, QMap<Asset*, int>& assets, QVector<Report>& reports);
 
     QString getName() const;
     QVector<Report> getReports() const;
@@ -28,6 +29,7 @@ public:
 
     QDateTime retrieveFirstDate() const;
     QDateTime retrieveLastDate() const;
+    QVector<double> getValues(const QDateTime &startDate, const QDateTime &endDate) const;
 
 	Portfolio& operator=(const Portfolio& portfolio);
 };

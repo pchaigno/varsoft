@@ -1,13 +1,17 @@
 ProjetVaR
 =========
 
-Logiciel de calcul de Value-at-Risk.
-Réalisé par une équipe de 7 élèves-ingénieurs de l'INSA de Rennes.
+Software to compute the Value-at-Risk.
+Developped by a team of 7 engineering students from the INSA-Rennes in France.
 
 
-### Instructions pour contribuer dans le Wiki
-[Instructions pour effectuer une Pull Request](https://github.com/pchaigno/ProjetVaR/wiki/Instructions-Pull-Request)
+### Instructions to contribute are in the Wiki:
+[Instructions to do a Pull Request](https://github.com/pchaigno/ProjetVaR/wiki/Instructions-Pull-Request)
 
 
-### Etat actuel du projet
-Status Travis : [![Build Status](https://travis-ci.org/pchaigno/ProjetVaR.png)](https://travis-ci.org/pchaigno/ProjetVaR)
+### Current build status
+Travis Status : [![Build Status](https://api.travis-ci.org/pchaigno/ProjetVaR.png?branch=master)](https://travis-ci.org/pchaigno/ProjetVaR)
+
+
+### Task list
+https://github.com/pchaigno/ProjetVaR/wiki/Task-list
