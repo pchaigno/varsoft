@@ -1,16 +1,22 @@
 #pragma once
-#include <QDir>
-#include <QTest>
-#include <QVector>
+
 #include "Asset.h"
+#include <QtTest>
+#include <QDir>
+#include <QVector>
 
 class TestAsset: public QObject {
-    Q_OBJECT
+	Q_OBJECT
+
+private:
+	Asset google;
+	Asset missing;
 
 public:
-    TestAsset();
+	TestAsset();
 
 private Q_SLOTS:
-    void testGetValues();
-
+	void testId();
+	void testName();
+	void testGetValues();
 };

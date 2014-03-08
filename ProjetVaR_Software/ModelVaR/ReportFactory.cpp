@@ -5,10 +5,10 @@
  * @param docxPath
  * @param pdfPath
  */
-ReportFactory::ReportFactory(QString docxPath, QString pdfPath):
-	docxGenerator(DocxGenerator(docxPath)) {
-	this->docxPath = docxPath;
-	this->pdfPath = pdfPath;
+ReportFactory::ReportFactory(QString docxFile, QString pdfFile):
+	docxGenerator(DocxGenerator(docxFile)) {
+	this->docxFile = docxFile;
+	this->pdfFile = pdfFile;
 }
 
 /**
@@ -18,7 +18,7 @@ ReportFactory::ReportFactory(QString docxPath, QString pdfPath):
 Report ReportFactory::generateReport() {
 	this->docxGenerator = this->generateDOCX();
 	this->generatePDF();
-	return Report(this->docxPath, this->pdfPath);
+	return Report(this->docxFile, this->pdfFile);
 }
 
 /**

@@ -2,8 +2,12 @@
 
 #include <QString>
 #include "Report.h"
+#include "ModelVaR_global.h"
 
-class CorrelationReport: public Report {
+class MODELVARSHARED_EXPORT CorrelationReport: public Report {
 public:
-    CorrelationReport(QString docxPath, QString pdfPath);
+	CorrelationReport();
+	CorrelationReport(QString docxFile, QString pdfFile);
+	CorrelationReport(int id, QString docxFile, QString pdfFile);
+	virtual ReportType getType() const;
 };

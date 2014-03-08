@@ -2,8 +2,12 @@
 
 #include "Report.h"
 #include <QString>
+#include "ModelVaR_global.h"
 
-class GarchReport: public Report {
+class MODELVARSHARED_EXPORT GarchReport: public Report {
 public:
-    GarchReport(QString docxPath, QString pdfPath);
+	GarchReport();
+	GarchReport(QString docxFile, QString pdfFile);
+	GarchReport(int id, QString docxFile, QString pdfFile);
+	virtual ReportType getType() const;
 };

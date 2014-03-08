@@ -1,21 +1,26 @@
 #pragma once
-#include <QTest>
+
+#include "Portfolio.h"
+#include <QtTest>
 #include <QDateTime>
 #include <QDebug>
 #include <QDir>
 #include <QString>
-#include <QTest>
 #include <QVector>
 #include "Asset.h"
-#include "Portfolio.h"
 
 class TestPortfolio: public QObject {
-    Q_OBJECT
+	Q_OBJECT
+
+private:
+	Portfolio father;
+	Portfolio son;
 
 public:
-    TestPortfolio();
+	TestPortfolio();
 
 private Q_SLOTS:
-    void testGetValues();
-
+	void testId();
+	void testName();
+	void testGetValues();
 };

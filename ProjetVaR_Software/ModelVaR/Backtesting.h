@@ -2,6 +2,7 @@
 
 #include "Portfolio.h"
 #include "VaRAlgorithm.h"
+#include <QPair>
 #include <QDateTime>
 #include <QPair>
 

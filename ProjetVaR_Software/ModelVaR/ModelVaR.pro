@@ -9,6 +9,10 @@ QT       -= gui
 TARGET = ModelVaR
 TEMPLATE = lib
 
+# To compile under Linux
+#QMAKE_CXXFLAGS += -std=c++11
+# For QSQL
+QT += sql
 
 DEFINES += MODELVAR_LIBRARY
 
@@ -51,6 +55,7 @@ HEADERS +=\
     StatisticsReport.h \
     CorrelationReport.h \
     AssetsFactory.h \
+    IdAlreadyAttributedException.h \
     VaRAlgorithm.h \
     VaRHistorical.h \
     VaRGarch.h \

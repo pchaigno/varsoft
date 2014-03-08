@@ -4,13 +4,13 @@
 #include <QString>
 #include "ModelVaR_global.h"
 
-class MODELVARSHARED_EXPORT PortfolioCalculationException: public std::exception {
+class MODELVARSHARED_EXPORT IdAlreadyAttributedException: public std::exception {
 public:
-	PortfolioCalculationException(std::string msg) {
+	IdAlreadyAttributedException(std::string msg) {
 		this->msg = msg;
 	}
 
-	virtual ~PortfolioCalculationException() throw() {
+	virtual ~IdAlreadyAttributedException() throw() {
 
 	}
 
