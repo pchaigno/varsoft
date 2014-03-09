@@ -32,8 +32,9 @@ void ImportData::import(const QString &name, const QString &file, const QString 
 		   rowData = rowOfData.at(x).split(",");
 
                qDebug() << rowData[1];
-			   QTableWidgetItem* item = new QTableWidgetItem();
-               item->setText(rowData[2]);
+               //QTableWidgetItem* item = new QTableWidgetItem();
+               //item->setText(rowData[2]);
+               //ui->tableWidget->setItem(x-1,0,item);
 		}
 
 		//Asset a1 = Asset("name",name,firstDate,lastDate);

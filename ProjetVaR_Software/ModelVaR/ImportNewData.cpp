@@ -46,7 +46,6 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
 
 		// x = 1 to avoid the first line with labels
 		// rowOfData.size()-1 to avoid a blank line a the end of the file
-        //le fichier entier est parcouru
 		for (int x =1; x < rowOfData.size()-1; x++)
 		{
 			rowData = rowOfData.at(x).split(",");
@@ -57,9 +56,10 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
                 }
 				qDebug() << rowData[6];
                 //useful to print into a tableWidget
-                    QTableWidgetItem* item = new QTableWidgetItem();
+                    //QTableWidgetItem* item = new QTableWidgetItem();
                     // the index of the interesting column is always the same for yahoo files
-                    item->setText(rowData[6]);
+                    //item->setText(rowData[6]);
+                    //ui->tableWidget->setItem(x-1,0,item);
                 flux << rowData[0] << "," << rowData[6] << "\n";
 			}
 		}
