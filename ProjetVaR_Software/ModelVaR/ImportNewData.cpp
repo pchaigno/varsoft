@@ -32,11 +32,13 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
 				importedCSV.close();
 			}
 
-        //CREATION DU FICHIER DES DONNEES IMPORTEES
-		//Faire des noms aléatoires et uniques
-        QString namealea = name+".txt";
+        //FILE CREATION OF IMPORTED DATA
+        //Do random names
+        //uint time = QDateTime::toTime_t();
+        //QString stime = QString::number(time);
+        QString namealea = name+".csv";
 		QFile fileCreated(namealea);
-		// On ouvre notre fichier en lecture seule et on vérifie l'ouverture
+        // The file is open in write-only mode and we check the opening
 		if (!fileCreated.open(QIODevice::WriteOnly | QIODevice::Text))
 		   return;
 		QTextStream flux(&fileCreated);
@@ -48,8 +50,12 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
         for (int x =1; x < rowOfData.size()-1; x++)
         {
             rowData = rowOfData.at(x).split(",");
-            if(!(rowData.count() > 2)){
+            //TODO : Check the date is correct
+            //if(!(rowData.count() >= 2) || !(rowData.count() >= 6)){
+            if(!(rowData.count() >= 6)){
                  QMessageBox::warning(0, "Attention","Le fichier que vous avez essayé d'importer n'est pas valide");
+                 fileCreated.close();
+                 fileCreated.remove();
                  break;
             }
 
@@ -63,11 +69,9 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
                         // the index of the interesting column is always the same for yahoo files
                         //item->setText(rowData[6]);
                         //ui->tableWidget->setItem(x-1,0,item);
-                flux << rowData[0] << "," << rowData[6] << "\n";
+                flux << rowData[0] << "," << rowData[6];
             }
         }
-
-
         fileCreated.close();
         //Asset a1 = Asset(name,namealea,origin,firstDate,lastDate);
 	}
