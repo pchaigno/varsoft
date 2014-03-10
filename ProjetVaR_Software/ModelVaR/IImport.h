@@ -11,7 +11,7 @@
 /**
 * @brief Import Strategy Interface
 */
-class MODELVARSHARED_EXPORT IImportStrategie
+class MODELVARSHARED_EXPORT IImport
 {
 public:
     virtual void import(const QString &name, const QString &file, const QString &origin,

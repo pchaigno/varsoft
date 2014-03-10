@@ -30,12 +30,12 @@ Import::~Import()
 */
 void Import::on_pushButton_clicked()
 {
-	// TODO : vérifier que le texte n'est pas vide
+    // TODO : check the field is not empty
 	//if(ui->textEdit->toPlainText() != "")
 		emit this->dataEntered(ui->textEdit->toPlainText(), ui->dateEdit->dateTime(),
 							   ui->dateEdit_2->dateTime(), ui->comboBox->currentText());
 	//else
-		// afficher quelque chose pour obliger à renseigner un nom
+        // print a message to force the user to give a name
 	this->close();
 }
 
@@ -46,7 +46,7 @@ void Import::on_pushButton_clicked()
 */
 void Import::on_pushButton_2_clicked()
 {
-	//annuler totalement l'importation????
-	//reseter les champs???
+    //cancel import?
+    //reset fields???
 	//this->textEntered(ui->textEdit->toPlainText(""));
 }

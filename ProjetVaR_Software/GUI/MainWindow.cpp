@@ -31,13 +31,9 @@ MainWindow::~MainWindow() {
 */
 void MainWindow::onDataEntered(const QString &name, const QDateTime &fDate ,const QDateTime &lDate, const QString &origin){
     MainWindow::stockName = name;
-    qDebug() << name;
 	MainWindow::firstDate = fDate;
-	qDebug() << fDate.toString("yyyy-MM-dd");
 	MainWindow::lastDate = lDate;
-	qDebug() << lDate.toString("yyyy-MM-dd");
     MainWindow::origin = origin;
-    qDebug() << origin;
     ImportNewData algo = ImportNewData();
     //if (origin == "Yahoo")
     //    algo = ImportNewData();
@@ -52,6 +48,5 @@ void MainWindow::onDataEntered(const QString &name, const QDateTime &fDate ,cons
 */
 void MainWindow::setImportCSV(){
     MainWindow::fileName = QFileDialog::getOpenFileName(this, ("Open File"), "C:/", ("Text CSV(*.csv *txt)") );
-    qDebug() << MainWindow::fileName;
     import_win.show();
 }

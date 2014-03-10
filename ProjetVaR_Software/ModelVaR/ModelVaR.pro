@@ -47,7 +47,7 @@ SOURCES += \
     CorrelationReportFactory.cpp \
     ImportNewData.cpp \
     ImportData.cpp \
-    IImportStrategie.cpp
+    IImport.cpp
 
 HEADERS +=\
     Asset.h \
@@ -80,11 +80,11 @@ HEADERS +=\
     GarchReportFactory.h \
     StatisticsReportFactory.h \
 	CorrelationReportFactory.h \
-    IImportStrategie.h \
     ImportData.h \
 	ImportNewData.h \
     CannotOpenFileException.h \
-	PortfolioCalculationException.h
+	PortfolioCalculationException.h \
+    IImport.h
 
 unix:!symbian {
     maemo5 {

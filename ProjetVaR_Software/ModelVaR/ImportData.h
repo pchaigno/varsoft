@@ -1,8 +1,8 @@
 #pragma once
-#include "IImportStrategie.h"
+#include "IImport.h"
 #include "ModelVaR_global.h"
 
-class MODELVARSHARED_EXPORT ImportData : public IImportStrategie
+class MODELVARSHARED_EXPORT ImportData : public IImport
 {
 public:
     virtual void import(const QString &name, const QString &file, const QString &origin,

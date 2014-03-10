@@ -1,4 +1,5 @@
 #include "ImportNewData.h"
+#include <QMessageBox>
 
 /**
 * @brief Import method for Yahoo files
@@ -7,6 +8,7 @@
 * @param origin The origin of the file with the values.
 * @param firstDate The date of the first value defined.
 * @param lastDate The date of the last value defined.
+* @throw BadFile The file is not handled
 */
 void ImportNewData::import(const QString &name, const QString &file, const QString &origin, const QDateTime &firstDate, const QDateTime &lastDate) const{
 		QString data;
@@ -17,8 +19,6 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
 		rowOfData.clear();
         rowData.clear();
         // column_of_values_to_import =6;
-
-
         //if (origin == Yahoo)
         //  column_of_values_to_import = 6
         //else if(origin == ProjetVaR)
@@ -31,12 +31,10 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
                 rowOfData = data.split("\n");
 				importedCSV.close();
 			}
-		qDebug() << "Données importées";
 
         //CREATION DU FICHIER DES DONNEES IMPORTEES
 		//Faire des noms aléatoires et uniques
         QString namealea = name+".txt";
-        qDebug() << namealea;
 		QFile fileCreated(namealea);
 		// On ouvre notre fichier en lecture seule et on vérifie l'ouverture
 		if (!fileCreated.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -46,23 +44,30 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
 
 		// x = 1 to avoid the first line with labels
 		// rowOfData.size()-1 to avoid a blank line a the end of the file
-		for (int x =1; x < rowOfData.size()-1; x++)
-		{
-			rowData = rowOfData.at(x).split(",");
-			QDateTime currentDate = QDateTime::fromString(rowData[0],"yyyy-MM-dd");
+
+        for (int x =1; x < rowOfData.size()-1; x++)
+        {
+            rowData = rowOfData.at(x).split(",");
+            if(!(rowData.count() > 2)){
+                 QMessageBox::warning(0, "Attention","Le fichier que vous avez essayé d'importer n'est pas valide");
+                 break;
+            }
+
+            QDateTime currentDate = QDateTime::fromString(rowData[0],"yyyy-MM-dd");
             if ((firstDate >= currentDate)){
                 if(lastDate >= currentDate){
                     break;
                 }
-				qDebug() << rowData[6];
-                //useful to print into a tableWidget
-                    //QTableWidgetItem* item = new QTableWidgetItem();
-                    // the index of the interesting column is always the same for yahoo files
-                    //item->setText(rowData[6]);
-                    //ui->tableWidget->setItem(x-1,0,item);
+                    //useful to print into a tableWidget
+                        //QTableWidgetItem* item = new QTableWidgetItem();
+                        // the index of the interesting column is always the same for yahoo files
+                        //item->setText(rowData[6]);
+                        //ui->tableWidget->setItem(x-1,0,item);
                 flux << rowData[0] << "," << rowData[6] << "\n";
-			}
-		}
+            }
+        }
+
+
         fileCreated.close();
         //Asset a1 = Asset(name,namealea,origin,firstDate,lastDate);
 	}
