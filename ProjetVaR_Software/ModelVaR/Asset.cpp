@@ -123,8 +123,8 @@ void Asset::changeName(QString name) {
 
 
 /**
- * @brief Getter of the asset values
- * @return the values of the asset between its firstDate and lastDate
+ * @brief Getter of the asset values between its firstDate and lastDate
+ * @return The values of the asset
  */
 QVector<double> Asset::getValues() {
     return this->getValues(this->firstDate, this->lastDate);

@@ -181,7 +181,7 @@ QDateTime Portfolio::retrieveLastDate() const {
 }
 
 /**
- * @brief Retrieves the values of a portfolio corresponding to its defined dates
+ * @brief Retrieves the values of a portfolio on its largest time range
  * @return The values of the portfolio
  */
 QVector<double> Portfolio::getValues() const {
