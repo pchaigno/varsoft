@@ -8,6 +8,7 @@
 #include <QStringList>
 #include <QTextStream>
 #include <QVector>
+#include <stdexcept>
 #include "ModelVaR_global.h"
 #include "CannotOpenFileException.h"
 
@@ -34,6 +35,7 @@ public:
 	QDateTime getFirstDate() const;
 	QDateTime getLastDate() const;
 	void changeName(QString name);
+	QVector<double> getValues();
 	QVector<double> getValues(const QDateTime &startDate, const QDateTime &endDate);
 
 	bool operator==(const Asset& asset) const;
