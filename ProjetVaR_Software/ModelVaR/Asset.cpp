@@ -124,7 +124,7 @@ void Asset::changeName(QString name) {
 
 /**
  * @brief Getter of the asset values between its firstDate and lastDate
- * @return The values of the asset
+ * @return The values of the asset in the chronlogical order
  */
 QVector<double> Asset::getValues() {
     return this->getValues(this->firstDate, this->lastDate);
@@ -134,7 +134,7 @@ QVector<double> Asset::getValues() {
  * @brief Getter of the asset values.
  * @param startDate The starting date
  * @param endDate The ending date
- * @return A vector containing the values of the asset in the chronological order
+ * @return The values of the asset in the chronological order
  */
 QVector<double> Asset::getValues(const QDateTime& startDate, const QDateTime& endDate) {
 	QVector<double> values;

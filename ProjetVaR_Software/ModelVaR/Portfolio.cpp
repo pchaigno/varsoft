@@ -182,7 +182,7 @@ QDateTime Portfolio::retrieveLastDate() const {
 
 /**
  * @brief Retrieves the values of a portfolio on its largest time range
- * @return The values of the portfolio
+ * @return The values of the portfolio in the chronological order
  */
 QVector<double> Portfolio::getValues() const {
     return this->getValues(this->retrieveFirstDate(), this->retrieveLastDate());
@@ -190,10 +190,10 @@ QVector<double> Portfolio::getValues() const {
 
 /**
  * @brief Retrieves the values of a portfolio according to
- * the specified dates as QVectors
+ * the specified dates
  * @param startDate The starting date
  * @param endDate The ending date
- * @return The values of the portfolio
+ * @return The values of the portfolio in the chronological order
  */
 QVector<double> Portfolio::getValues(const QDateTime& startDate, const QDateTime& endDate) const {
 	int length = startDate.daysTo(endDate)+1;
