@@ -3,7 +3,6 @@
 
 /**
 * @brief Import Constructor
-* Useful for the import window links with the mainwindow
 * @param parent QDialog Widget to use
 */
 Import::Import(QWidget *parent) :

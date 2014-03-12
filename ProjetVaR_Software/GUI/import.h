@@ -5,7 +5,9 @@
 namespace Ui {
 class Import;
 }
-
+/**
+* @brief Useful for the import window links with the mainwindow
+*/
 class Import : public QDialog
 {
 	Q_OBJECT
