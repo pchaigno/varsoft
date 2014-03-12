@@ -4,7 +4,6 @@
 #include <QDateTime>
 #include <QDialog>
 #include <QComboBox>
-#include <SessionSaver.h>
 #include "import.h"
 #include <string>
 
@@ -33,5 +32,5 @@ private:
     QDateTime endDate;
 	QString fileName;
     QString origin;
-    SessionSaver session;
+    //SessionSaver session;
 };
