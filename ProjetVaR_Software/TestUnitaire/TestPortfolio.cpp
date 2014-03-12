@@ -65,12 +65,12 @@ void TestPortfolio::testGetValues() {
 	// COMMON DATE DEFINITION
 	QDateTime startDate(QDate(2014, 1, 3), QTime(0, 0, 0));
 	QDateTime endDate(QDate(2014, 1, 6), QTime(0, 0, 0));
-    // INCORRECT DATE DEFINITION
+	// INCORRECT DATE DEFINITION
 	QDateTime incorrectStartDate(QDate(2014, 1, 1), QTime(0, 0, 0));
 
 	QVector<double> result;
 
-    // getValues() version with dates parameters
+	// getValues() version with dates parameters
 	try {
 		result = this->son.getValues(startDate, endDate);
 	} catch(PortfolioCalculationException& e) {
@@ -87,22 +87,22 @@ void TestPortfolio::testGetValues() {
 		qDebug() << *it;
 	}
 
-    // getValues() version without parameters
-    try {
-        result = this->son.getValues();
-    } catch(PortfolioCalculationException& e) {
-        qDebug() << e.what();
-    }
+	// getValues() version without parameters
+	try {
+		result = this->son.getValues();
+	} catch(PortfolioCalculationException& e) {
+		qDebug() << e.what();
+	}
 
-    QCOMPARE(result.size(), 4);
-    QCOMPARE(result.at(0), 612.0);
-    QCOMPARE(result.at(1), 618.0);
-    QCOMPARE(result.at(2), 624.0);
-    QCOMPARE(result.at(3), 630.0);
+	QCOMPARE(result.size(), 4);
+	QCOMPARE(result.at(0), 612.0);
+	QCOMPARE(result.at(1), 618.0);
+	QCOMPARE(result.at(2), 624.0);
+	QCOMPARE(result.at(3), 630.0);
 
-    for(QVector<double>::const_iterator it=result.begin(); it!=result.end(); ++it) {
-        qDebug() << *it;
-    }
+	for(QVector<double>::const_iterator it=result.begin(); it!=result.end(); ++it) {
+		qDebug() << *it;
+	}
 
 	// INCORRECT DATE CASE FOR ILLUSTRATION PURPOSES
 	try {

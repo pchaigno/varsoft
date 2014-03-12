@@ -185,7 +185,7 @@ QDateTime Portfolio::retrieveLastDate() const {
  * @return The values of the portfolio in the chronological order
  */
 QVector<double> Portfolio::getValues() const {
-    return this->getValues(this->retrieveFirstDate(), this->retrieveLastDate());
+	return this->getValues(this->retrieveFirstDate(), this->retrieveLastDate());
 }
 
 /**

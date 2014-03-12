@@ -127,7 +127,7 @@ void Asset::changeName(QString name) {
  * @return The values of the asset in the chronlogical order
  */
 QVector<double> Asset::getValues() {
-    return this->getValues(this->firstDate, this->lastDate);
+	return this->getValues(this->firstDate, this->lastDate);
 }
 
 /**
@@ -140,11 +140,11 @@ QVector<double> Asset::getValues(const QDateTime& startDate, const QDateTime& en
 	QVector<double> values;
 	QFile inputFile(this->getFile());
 
-    // Throw an exception if the startDate is after the endDate.
-    if(startDate > endDate) {
-        throw std::invalid_argument("startDate: "+ startDate.toString().toStdString() + " is after endDate: " +
-                                    endDate.toString().toStdString());
-    }
+	// Throw an exception if the startDate is after the endDate.
+	if(startDate > endDate) {
+		throw std::invalid_argument("startDate: "+ startDate.toString().toStdString() + " is after endDate: " +
+									endDate.toString().toStdString());
+	}
 
 	if(!inputFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
 		throw CannotOpenFileException("Could not open file: " + this->getFile().toStdString());
@@ -162,9 +162,9 @@ QVector<double> Asset::getValues(const QDateTime& startDate, const QDateTime& en
 			QString value = row.value(1);
 			QDateTime readDate = QDateTime::fromString(date,"yyyy-MM-dd");
 
-            // If the ending date has not been read yet, it goes at the start of the loop
+			// If the ending date has not been read yet, it goes at the start of the loop
 			// and read the next line
-            if(!startDetected && readDate > endDate) {
+			if(!startDetected && readDate > endDate) {
 				continue;
 			}
 
@@ -174,11 +174,11 @@ QVector<double> Asset::getValues(const QDateTime& startDate, const QDateTime& en
 			}
 
 			// Building the vector
-            values.push_front(value.toDouble());
+			values.push_front(value.toDouble());
 
 			// If the end date has been reached, it exits the loop
 			// Otherwise it reads the file till the end
-            if(readDate <= startDate) {
+			if(readDate <= startDate) {
 				break;
 			}
 		}
