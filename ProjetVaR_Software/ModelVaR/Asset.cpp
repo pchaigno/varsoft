@@ -120,15 +120,22 @@ void Asset::changeName(QString name) {
 	this->name = name;
 }
 
+
+// TODO cas tordu des parametres : egaux, inverse..
 /**
  * @brief Getter of the asset values.
  * @param startDate The starting date
  * @param endDate The ending date
- * @return A vector containing the values of the asset according to the parameters
+ * @return A vector containing the values of the asset in the chronological order
  */
 QVector<double> Asset::getValues(const QDateTime& startDate, const QDateTime& endDate) {
 	QVector<double> values;
 	QFile inputFile(this->getFile());
+
+    // If the startDate is after the endDate, the function won't work, a empty vector is returned
+    if(startDate > endDate) {
+        return values;
+    }
 
 	if(!inputFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
 		throw CannotOpenFileException("Could not open file: " + this->getFile().toStdString());
@@ -146,9 +153,9 @@ QVector<double> Asset::getValues(const QDateTime& startDate, const QDateTime& en
 			QString value = row.value(1);
 			QDateTime readDate = QDateTime::fromString(date,"yyyy-MM-dd");
 
-			// If the starting date has not been read yet, it goes at the start of the loop
+            // If the ending date has not been read yet, it goes at the start of the loop
 			// and read the next line
-			if(!startDetected && readDate < startDate) {
+            if(!startDetected && readDate > endDate) {
 				continue;
 			}
 
@@ -158,11 +165,11 @@ QVector<double> Asset::getValues(const QDateTime& startDate, const QDateTime& en
 			}
 
 			// Building the vector
-			values.push_back(value.toDouble());
+            values.push_front(value.toDouble());
 
 			// If the end date has been reached, it exits the loop
 			// Otherwise it reads the file till the end
-			if(readDate >= endDate) {
+            if(readDate <= startDate) {
 				break;
 			}
 		}
