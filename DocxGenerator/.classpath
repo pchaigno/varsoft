@@ -12,5 +12,6 @@
 	<classpathentry kind="lib" path="libs/fr.opensagres.xdocreport.template.velocity-1.0.4.jar"/>
 	<classpathentry kind="lib" path="libs/oro-2.0.8.jar"/>
 	<classpathentry kind="lib" path="libs/velocity-1.7.jar"/>
+	<classpathentry kind="lib" path="libs/json_simple-1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

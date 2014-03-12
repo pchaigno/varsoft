@@ -17,7 +17,11 @@ import fr.opensagres.xdocreport.document.XDocReport;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 
-
+/**
+ * Test class
+ * @author Benjamin
+ *
+ */
 public class PDFGenerator {
 
 	/**
