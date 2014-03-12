@@ -35,7 +35,7 @@ void Import::on_pushButton_clicked()
 		emit this->dataEntered(ui->textEdit->toPlainText(), ui->dateEdit->dateTime(),
 							   ui->dateEdit_2->dateTime(), ui->comboBox->currentText());
 	//else
-        // print a message to force the user to give a name
+        //TODO: print a message to force the user to give a name
 	this->close();
 }
 
@@ -46,7 +46,7 @@ void Import::on_pushButton_clicked()
 */
 void Import::on_pushButton_2_clicked()
 {
-    //cancel import?
-    //reset fields???
+    //TODO:cancel import?
+    //TODO:reset fields???
 	//this->textEntered(ui->textEdit->toPlainText(""));
 }
