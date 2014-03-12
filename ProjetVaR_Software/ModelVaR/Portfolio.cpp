@@ -181,6 +181,14 @@ QDateTime Portfolio::retrieveLastDate() const {
 }
 
 /**
+ * @brief Retrieves the values of a portfolio corresponding to its defined dates
+ * @return The values of the portfolio
+ */
+QVector<double> Portfolio::getValues() const {
+    return this->getValues(this->retrieveFirstDate(), this->retrieveLastDate());
+}
+
+/**
  * @brief Retrieves the values of a portfolio according to
  * the specified dates as QVectors
  * @param startDate The starting date
