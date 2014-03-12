@@ -26,20 +26,20 @@ MainWindow::~MainWindow() {
 * @brief Set up variables to import
 * Select the write algorithm to import according to the origin
 * @param name The name of the stock
-* @param firstDate The date of the first value to import.
-* @param lastDate The date of the last value to import.
+* @param startDate The date of the first value to import.
+* @param endDate The date of the last value to import.
 */
 void MainWindow::onDataEntered(const QString &name, const QDateTime &fDate ,const QDateTime &lDate, const QString &origin){
     MainWindow::stockName = name;
-	MainWindow::firstDate = fDate;
-	MainWindow::lastDate = lDate;
+    MainWindow::startDate = fDate;
+    MainWindow::endDate = lDate;
     MainWindow::origin = origin;
     ImportNewData algo = ImportNewData();
     //if (origin == "Yahoo")
     //    algo = ImportNewData();
     //else
     //    algo = ImportData();;
-    algo.import(MainWindow::stockName, fileName, MainWindow::origin, MainWindow::firstDate, MainWindow::lastDate);
+    algo.import(MainWindow::stockName, fileName, MainWindow::origin, MainWindow::startDate, MainWindow::endDate);
 }
 
 /**

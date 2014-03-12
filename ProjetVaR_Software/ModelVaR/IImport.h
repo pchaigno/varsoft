@@ -15,6 +15,6 @@ class MODELVARSHARED_EXPORT IImport
 {
 public:
     virtual void import(const QString &name, const QString &file, const QString &origin,
-                        const QDateTime &firstDate, const QDateTime &lastDate) const =0;
+                        const QDateTime &startDate, const QDateTime &endDate) const =0;
 };
 

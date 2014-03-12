@@ -1,16 +1,17 @@
 #include "ImportNewData.h"
 #include <QMessageBox>
+#include "SessionSaver.h"
 
 /**
 * @brief Import method for Yahoo files
 * @param name The name of the stock
 * @param file The file where are located the values.
 * @param origin The origin of the file with the values.
-* @param firstDate The date of the first value defined.
-* @param lastDate The date of the last value defined.
+* @param startDate The date of the first value defined.
+* @param endDate The date of the last value defined.
 * @throw BadFile The file is not handled
 */
-void ImportNewData::import(const QString &name, const QString &file, const QString &origin, const QDateTime &firstDate, const QDateTime &lastDate) const{
+void ImportNewData::import(const QString &name, const QString &file, const QString &origin, const QDateTime &startDate, const QDateTime &endDate) const{
 		QString data;
 		QFile importedCSV(file);
 		QStringList rowOfData;
@@ -60,7 +61,7 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
             }
 
             QDateTime currentDate = QDateTime::fromString(rowData[0],"yyyy-MM-dd");
-            if ((firstDate >= currentDate)){
+            if ((startDate >= currentDate)){
                 if(lastDate >= currentDate){
                     break;
                 }
@@ -73,5 +74,7 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
             }
         }
         fileCreated.close();
-        //Asset a1 = Asset(name,namealea,origin,firstDate,lastDate);
+
+      //  Asset &a = Asset(name,namealea,origin,startDate,endDate);
+      //  SessionSaver::saveAsset(a);
 	}

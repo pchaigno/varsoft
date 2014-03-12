@@ -4,6 +4,7 @@
 #include <QDateTime>
 #include <QDialog>
 #include <QComboBox>
+#include <SessionSaver.h>
 #include "import.h"
 #include <string>
 
@@ -28,8 +29,9 @@ private:
 	Ui::MainWindow *ui;
 	Import import_win;
 	QString stockName;
-	QDateTime firstDate;
-	QDateTime lastDate;
+    QDateTime startDate;
+    QDateTime endDate;
 	QString fileName;
     QString origin;
+    SessionSaver session;
 };
