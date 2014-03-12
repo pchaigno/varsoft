@@ -62,7 +62,7 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
 
             QDateTime currentDate = QDateTime::fromString(rowData[0],"yyyy-MM-dd");
             if ((startDate >= currentDate)){
-                if(lastDate >= currentDate){
+                if(endDate >= currentDate){
                     break;
                 }
                     //useful to print into a tableWidget
