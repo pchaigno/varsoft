@@ -122,16 +122,6 @@
      <string>Yahoo</string>
     </property>
    </item>
-   <item>
-    <property name="text">
-     <string>Données exportées</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Autre</string>
-    </property>
-   </item>
   </widget>
   <widget class="QLabel" name="label_4">
    <property name="geometry">
