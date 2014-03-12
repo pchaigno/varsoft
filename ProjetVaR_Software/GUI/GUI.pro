@@ -4,7 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui printsupport
+
 GTCONFIG +=console
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -16,11 +17,16 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        MainWindow.cpp
+        MainWindow.cpp \
+    NewPortfolioDialog.cpp \
+    qcustomplot.cpp
 
-HEADERS  += MainWindow.h
+HEADERS  += MainWindow.h \
+    NewPortfolioDialog.h \
+    qcustomplot.h
 
-FORMS    += MainWindow.ui
+FORMS    += MainWindow.ui \
+    NewPortfolioDialog.ui
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../ModelVaR/release/ -lModelVaR
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../ModelVaR/debug/ -lModelVaR
