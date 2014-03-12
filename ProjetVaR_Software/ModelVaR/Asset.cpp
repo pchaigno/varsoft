@@ -123,8 +123,8 @@ void Asset::changeName(QString name) {
 
 
 /**
- * @brief Getter of the asset values with the firstDate and lastDate
- * @return the values of the asset
+ * @brief Getter of the asset values
+ * @return the values of the asset between its firstDate and lastDate
  */
 QVector<double> Asset::getValues() {
     return this->getValues(this->firstDate, this->lastDate);
@@ -140,9 +140,10 @@ QVector<double> Asset::getValues(const QDateTime& startDate, const QDateTime& en
 	QVector<double> values;
 	QFile inputFile(this->getFile());
 
-    // If the startDate is after the endDate, the function won't work, a empty vector is returned
+    // Throw an exception if the startDate is after the endDate.
     if(startDate > endDate) {
-        return values;
+        throw std::invalid_argument("startDate: "+ startDate.toString().toStdString() + " is after endDate: " +
+                                    endDate.toString().toStdString());
     }
 
 	if(!inputFile.open(QIODevice::ReadOnly | QIODevice::Text)) {

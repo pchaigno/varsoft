@@ -42,7 +42,7 @@ void TestAsset::testGetValues() {
 
 	QVector<double> result;
 
-    // getValues version with dates parameters
+    // getValues() version with dates parameters
 	try {
 		result = this->google.getValues(this->google.getFirstDate(), this->google.getLastDate());
 	} catch(CannotOpenFileException& e) {
@@ -55,7 +55,7 @@ void TestAsset::testGetValues() {
 	QCOMPARE(result.at(2), 103.0);
 	QCOMPARE(result.at(3), 104.0);
 
-    // getValues version without dates parameters
+    // getValues() version without dates parameters
     try {
         result = this->google.getValues();
     } catch(CannotOpenFileException& e) {
@@ -75,4 +75,13 @@ void TestAsset::testGetValues() {
 	} catch(CannotOpenFileException& e) {
 		qDebug() << e.what();
 	}
+
+    // INCORRECT PARAMETERS CASE
+    // firstDate is after endDate
+    try {
+        result = this->google.getValues(this->google.getLastDate(), this->google.getFirstDate());
+        QFAIL("getValues was able to execute with incorrect date paramaeters");
+    } catch(std::exception& e) {
+        qDebug() << e.what();
+    }
 }

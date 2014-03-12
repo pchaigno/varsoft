@@ -8,6 +8,7 @@
 #include <QStringList>
 #include <QTextStream>
 #include <QVector>
+#include <stdexcept>
 #include "ModelVaR_global.h"
 #include "CannotOpenFileException.h"
 
