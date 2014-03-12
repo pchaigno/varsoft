@@ -36,6 +36,7 @@ public:
 	void changeName(QString name);
 	QDateTime retrieveFirstDate() const;
 	QDateTime retrieveLastDate() const;
+	QVector<double> getValues() const;
 	QVector<double> getValues(const QDateTime &startDate, const QDateTime &endDate) const;
 
 	bool operator==(const Portfolio& portfolio) const;
