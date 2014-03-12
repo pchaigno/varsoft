@@ -121,7 +121,15 @@ void Asset::changeName(QString name) {
 }
 
 
-// TODO cas tordu des parametres : egaux, inverse..
+
+/**
+ * @brief Getter of the asset values with the firstDate and lastDate
+ * @return the values of the asset
+ */
+QVector<double> Asset::getValues() {
+    return this->getValues(this->firstDate, this->lastDate);
+}
+
 /**
  * @brief Getter of the asset values.
  * @param startDate The starting date
