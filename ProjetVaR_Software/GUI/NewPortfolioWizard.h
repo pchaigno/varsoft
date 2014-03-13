@@ -2,6 +2,7 @@
 #define NEWPORTFOLIOWIZARD_H
 
 #include <QWizard>
+#include "SessionBuilder.h"
 
 namespace Ui {
 class NewPortfolioWizard;
@@ -14,6 +15,8 @@ class NewPortfolioWizard : public QWizard
 public:
     explicit NewPortfolioWizard(QWidget *parent = 0);
     ~NewPortfolioWizard();
+
+    void setupAssets();
 
 private:
     Ui::NewPortfolioWizard *ui;

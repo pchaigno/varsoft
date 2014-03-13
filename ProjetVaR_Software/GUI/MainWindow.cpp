@@ -14,7 +14,9 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
 MainWindow::~MainWindow() {
     delete ui;
 }
-
+/**
+ * @brief MainWindow::newPortfolio open the New portfolio window
+ */
 void MainWindow::newPortfolio()
 {
    NewPortfolioWizard * fen = new NewPortfolioWizard(this);
