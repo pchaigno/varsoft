@@ -29,7 +29,7 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
 		if (importedCSV.open(QFile::ReadOnly))
 			{
 				data = importedCSV.readAll();
-                rowOfData = data.split("\n");
+                rowOfData = data.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
 				importedCSV.close();
 			}
 
@@ -70,7 +70,7 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
                         // the index of the interesting column is always the same for yahoo files
                         //item->setText(rowData[6]);
                         //ui->tableWidget->setItem(x-1,0,item);
-                flux << rowData[0] << "," << rowData[6];
+                flux << rowData[0] << "," << rowData[6] << "\n";
             }
         }
         fileCreated.close();
