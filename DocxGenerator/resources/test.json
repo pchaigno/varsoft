@@ -12,8 +12,8 @@
  		"max": "48"
  	},
  "images" : {
- 	"chart1" : "chart1.jpg",
- 	"chart2" : "chart2.jpg"
+ 	"chart1" : "resources/chart1.jpg",
+ 	"chart2" : "resources/chart2.jpg"
  },
  "list":{
  	"asset":[
