@@ -15,7 +15,6 @@ int main() {
 	TestSQLiteManagers sqlite;
 	result += QTest::qExec(&sqlite);
 	TestVaRHistorical testVaRHistorical;
-    	result += QTest::qExec(&testVaRHistorical);
+	result += QTest::qExec(&testVaRHistorical);
 	return result;
->>>>>>> master
 }

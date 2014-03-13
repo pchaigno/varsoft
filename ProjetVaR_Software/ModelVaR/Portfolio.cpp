@@ -196,7 +196,11 @@ QVector<double> Portfolio::getValues() const {
  * @return The values of the portfolio in the chronological order
  */
 QVector<double> Portfolio::getValues(const QDateTime& startDate, const QDateTime& endDate) const {
-	int length = startDate.daysTo(endDate)+1;
+	// The following did not work because of the days the asset were not quoted
+	// int length = startDate.daysTo(endDate)+1;
+	// Initialization of the portfolio values size with the size of the first asset
+	// operation done twice, not optimal
+	int length = this->composition.begin().key()->getValues(startDate, endDate).size();;
 	QVector<double> portfolioValues(length, 0);
 
 	for(QMap<Asset*, int>::const_iterator it=this->composition.begin(); it!=this->composition.end(); ++it) {
@@ -205,6 +209,7 @@ QVector<double> Portfolio::getValues(const QDateTime& startDate, const QDateTime
 
 		// We make sure that every asset has the same size and thus the values of the portfolio are
 		// well defined
+
 		if(assetValues.size() != length) {
 			throw PortfolioCalculationException("Missing asset values to calculate the portfolio ones, asset involved: "
 				+ it.key()->getName().toStdString());

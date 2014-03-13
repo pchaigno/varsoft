@@ -18,7 +18,7 @@ TEMPLATE = app
 SOURCES += TestPortfolio.cpp \
     TestAsset.cpp \
     main.cpp \
-    TestVaRHistorical.cpp
+	TestVaRHistorical.cpp \
     TestReport.cpp \
     TestSQLiteManagers.cpp
 
@@ -26,7 +26,8 @@ HEADERS += \
     TestPortfolio.h \
     TestAsset.h \
     TestReport.h \
-    TestSQLiteManagers.h
+    TestSQLiteManagers.h \
+    TestVaRHistorical.h
     TestVaRHistorical.h
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
