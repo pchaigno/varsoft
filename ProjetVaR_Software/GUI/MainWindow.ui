@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>713</width>
-    <height>425</height>
+    <width>826</width>
+    <height>440</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -183,7 +183,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>713</width>
+     <width>826</width>
      <height>20</height>
     </rect>
    </property>
@@ -191,12 +191,16 @@
     <property name="title">
      <string>Fichier</string>
     </property>
+    <addaction name="actionNouveau"/>
     <addaction name="actionOuvrir"/>
+    <addaction name="separator"/>
     <addaction name="actionSauvegarder"/>
     <addaction name="actionSauvegarder_sous"/>
     <addaction name="separator"/>
     <addaction name="actionImport"/>
     <addaction name="actionExport"/>
+    <addaction name="separator"/>
+    <addaction name="actionQuitter"/>
    </widget>
    <addaction name="menuFichier"/>
   </widget>
@@ -238,6 +242,16 @@
   <action name="actionExport">
    <property name="text">
     <string>Export</string>
+   </property>
+  </action>
+  <action name="actionNouveau">
+   <property name="text">
+    <string>Nouveau</string>
+   </property>
+  </action>
+  <action name="actionQuitter">
+   <property name="text">
+    <string>Quitter</string>
    </property>
   </action>
  </widget>

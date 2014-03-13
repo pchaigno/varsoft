@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QMainWindow>
+#include "NewPortfolioDialog.h"
 
 namespace Ui {
 	class MainWindow;
