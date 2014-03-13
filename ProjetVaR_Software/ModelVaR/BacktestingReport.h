@@ -2,8 +2,12 @@
 
 #include <QString>
 #include "Report.h"
+#include "ModelVaR_global.h"
 
-class BacktestingReport: public Report {
+class MODELVARSHARED_EXPORT BacktestingReport: public Report {
 public:
-    BacktestingReport(QString docxPath, QString pdfPath);
+	BacktestingReport();
+	BacktestingReport(QString docxFile, QString pdfFile);
+	BacktestingReport(int id, QString docxFile, QString pdfFile);
+	virtual ReportType getType() const;
 };

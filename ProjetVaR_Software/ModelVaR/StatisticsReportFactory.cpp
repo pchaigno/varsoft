@@ -5,8 +5,8 @@
  * @param docxPath The location of the DOCX file on the disk.
  * @param pdfPath The location of the PDF file on the disk.
  */
-StatisticsReportFactory::StatisticsReportFactory(QString docxPath, QString pdfPath):
-	ReportFactory(docxPath, pdfPath) {
+StatisticsReportFactory::StatisticsReportFactory(QString docxFile, QString pdfFile):
+	ReportFactory(docxFile, pdfFile) {
 
 }
 

@@ -1,5 +1,8 @@
 #include "ModelVaR.h"
 
-ModelVaR::ModelVaR()
-{
+/**
+ * @brief Constructor
+ */
+ModelVaR::ModelVaR() {
+
 }

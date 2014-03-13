@@ -4,21 +4,20 @@
 #include <QString>
 #include "ModelVaR_global.h"
 
-class MODELVARSHARED_EXPORT PortfolioCalculationException: public std::exception
-{
+class MODELVARSHARED_EXPORT PortfolioCalculationException: public std::exception {
 public:
-    PortfolioCalculationException(std::string msg) {
-        this->msg = msg;
-    }
+	PortfolioCalculationException(std::string msg) {
+		this->msg = msg;
+	}
 
-    virtual ~PortfolioCalculationException() throw() {
+	virtual ~PortfolioCalculationException() throw() {
 
-    }
+	}
 
-    virtual const char * what() const throw() {
-        return this->msg.c_str();
-    }
+	virtual const char * what() const throw() {
+		return this->msg.c_str();
+	}
 
 private:
-    std::string msg;
+	std::string msg;
 };

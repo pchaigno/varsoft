@@ -1,9 +1,9 @@
 #include "VaRHistorical.h"
 
 /**
- * @brief VaRHistorical::VaRHistorical
- * @param portfolio
- * @param risk
+ * @brief Constructor
+ * @param portfolio The portfolio to apply the algorithm to.
+ * @param risk The risk level.
  */
 VaRHistorical::VaRHistorical(const Portfolio& portfolio, double risk):
 	VaRAlgorithm(portfolio, risk) {}

@@ -5,8 +5,9 @@
 #-------------------------------------------------
 
 QT       += testlib
-
 QT       -= gui
+# For QSQL
+QT += sql
 
 TARGET = main
 CONFIG   += console
@@ -14,12 +15,20 @@ CONFIG   -= app_bundle
 
 TEMPLATE = app
 
-
-SOURCES += \
+SOURCES += TestPortfolio.cpp \
     TestAsset.cpp \
-    TestPortfolio.cpp \
     main.cpp \
     TestVaRHistorical.cpp
+    TestReport.cpp \
+    TestSQLiteManagers.cpp
+
+HEADERS += \
+    TestPortfolio.h \
+    TestAsset.h \
+    TestReport.h \
+    TestSQLiteManagers.h
+    TestVaRHistorical.h
+
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../ModelVaR/release/ -lModelVaR
@@ -28,8 +37,3 @@ else:unix: LIBS += -L$$OUT_PWD/../ModelVaR/ -lModelVaR
 
 INCLUDEPATH += $$PWD/../ModelVaR
 DEPENDPATH += $$PWD/../ModelVaR
-
-HEADERS += \
-    TestAsset.h \
-    TestPortfolio.h \
-    TestVaRHistorical.h

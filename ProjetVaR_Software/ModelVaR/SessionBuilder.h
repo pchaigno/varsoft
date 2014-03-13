@@ -1,22 +1,28 @@
 #pragma once
 
 #include "SQLiteManager.h"
-#include <string>
+#include <QString>
 #include "Portfolio.h"
 #include "Asset.h"
-#include "Report.h"
+#include "GarchReport.h"
+#include "VaRReport.h"
+#include "StatisticsReport.h"
+#include "CorrelationReport.h"
+#include "BacktestingReport.h"
 #include <QDateTime>
-#include <vector>
+#include <QVector>
+#include "AssetsFactory.h"
+#include <QVariant>
 
 
-class SessionBuilder: public SQLiteManager {
+class MODELVARSHARED_EXPORT SessionBuilder: public SQLiteManager {
 private:
 	static SessionBuilder* instance;
 
 public:
-    Asset buildAsset(QString name);
-    QVector<Asset> buildAssets();
-    QVector<Portfolio> buildSession();
+	Asset *buildAsset(QString name);
+	QMap<QString, Asset*> buildAssets();
+	QVector<Portfolio> buildSession();
 	/**
 	 * @brief Accessor to the only instance of SessionBuilder.
 	 * @return The only instance of SessionBuilder.
@@ -29,7 +35,8 @@ public:
 	}
 
 private:
-    SessionBuilder(QString databaseFile);
-    QVector<Portfolio> buildPortfolios();
-    QVector<Report> buildReports();
+	SessionBuilder(QString databaseFile);
+	QVector<Portfolio> buildPortfolios();
+	QVector<Report*> buildReports(int idPortfolio);
+	QMap<Asset*, int> buildPortfolioComposition(int idPortfolio);
 };
