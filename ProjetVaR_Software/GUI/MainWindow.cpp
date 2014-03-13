@@ -6,12 +6,19 @@
 #include <QTableWidgetItem>
 
 MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWindow) {
-	ui->setupUi(this);
-	connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(importCSV()));
+    ui->setupUi(this);
+    connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(importCSV()));
+    connect(ui->actionNouveau, SIGNAL(triggered()), this, SLOT(newPortfolio()));
 }
 
 MainWindow::~MainWindow() {
-	delete ui;
+    delete ui;
+}
+
+void MainWindow::newPortfolio()
+{
+   NewPortfolioWizard * fen = new NewPortfolioWizard(this);
+   fen->show();
 }
 
 //TODO Handle the import of differents source files ?

@@ -18,15 +18,15 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         MainWindow.cpp \
-    NewPortfolioDialog.cpp \
-    qcustomplot.cpp
+    qcustomplot.cpp \
+    NewPortfolioWizard.cpp
 
 HEADERS  += MainWindow.h \
-    NewPortfolioDialog.h \
-    qcustomplot.h
+    qcustomplot.h \
+    NewPortfolioWizard.h
 
 FORMS    += MainWindow.ui \
-    NewPortfolioDialog.ui
+    NewPortfolioWizard.ui
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../ModelVaR/release/ -lModelVaR
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../ModelVaR/debug/ -lModelVaR

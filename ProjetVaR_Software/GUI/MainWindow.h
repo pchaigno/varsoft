@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QMainWindow>
-#include "NewPortfolioDialog.h"
+#include "NewPortfolioWizard.h"
 
 namespace Ui {
 	class MainWindow;
@@ -15,6 +15,7 @@ public:
 	~MainWindow();
 
 private slots:
+    void newPortfolio();
 	void importCSV();
 private:
 	Ui::MainWindow *ui;
