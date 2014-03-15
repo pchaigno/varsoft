@@ -25,8 +25,6 @@ VaRHistorical::VaRHistorical(const Portfolio& portfolio, double risk, int timeHo
 double VaRHistorical::execute(QDateTime date) const {
 	QVector<double> returns;
 
-	// Check date makes sense
-
 	// Definitions of the starting that define with the passed date
 	// the period of time on which return values are used
 	// PB when market closed
