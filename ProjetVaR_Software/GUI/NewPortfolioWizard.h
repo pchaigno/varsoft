@@ -2,7 +2,8 @@
 #define NEWPORTFOLIOWIZARD_H
 
 #include <QWizard>
-#include "SessionBuilder.h"
+#include "ShowAssetsWizardPage.h"
+#include "SetWeightAssetWizardPage.h"
 
 namespace Ui {
 class NewPortfolioWizard;
@@ -16,7 +17,6 @@ public:
     explicit NewPortfolioWizard(QWidget *parent = 0);
     ~NewPortfolioWizard();
 
-    void setupAssets();
 
 private:
     Ui::NewPortfolioWizard *ui;

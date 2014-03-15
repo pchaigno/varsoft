@@ -19,14 +19,20 @@ TEMPLATE = app
 SOURCES += main.cpp\
         MainWindow.cpp \
     qcustomplot.cpp \
-    NewPortfolioWizard.cpp
+    NewPortfolioWizard.cpp \
+    SetWeightAssetWizardPage.cpp \
+    ShowAssetsWizardPage.cpp
 
 HEADERS  += MainWindow.h \
     qcustomplot.h \
-    NewPortfolioWizard.h
+    NewPortfolioWizard.h \
+    SetWeightAssetWizardPage.h \
+    ShowAssetsWizardPage.h
 
 FORMS    += MainWindow.ui \
-    NewPortfolioWizard.ui
+    NewPortfolioWizard.ui \
+    SetWeightAssetWizardPage.ui \
+    ShowAssetsWizardPage.ui
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../ModelVaR/release/ -lModelVaR
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../ModelVaR/debug/ -lModelVaR
