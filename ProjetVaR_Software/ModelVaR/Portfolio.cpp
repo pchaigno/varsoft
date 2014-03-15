@@ -196,8 +196,9 @@ QVector<double> Portfolio::getValues() const {
  * @return The values of the portfolio in the chronological order
  */
 QVector<double> Portfolio::getValues(const QDateTime& startDate, const QDateTime& endDate) const {
-	// The following did not work because of the days the asset were not quoted
+	// The following did not work because of the days the asset is not quoted
 	// int length = startDate.daysTo(endDate)+1;
+
 	// Initialization of the portfolio values size with the size of the first asset
 	// operation done twice, not optimal
 	// Cas ou meme taille, mais valeurs pas aux meme dates

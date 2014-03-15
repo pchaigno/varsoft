@@ -28,6 +28,7 @@ double VaRHistorical::execute(QDateTime date) const {
 	// Definitions of the starting that define with the passed date
 	// the period of time on which return values are used
 	// PB when market closed
+	// Additionnal getter needs to be written
 	QDateTime endingPeriodDate = date;
 	QDateTime startingPeriodDate = endingPeriodDate.addDays(-period+1);
 
