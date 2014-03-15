@@ -3,6 +3,7 @@
 #include "Asset.h"
 #include <QtTest>
 #include <QDir>
+#include <QMap>
 #include <QVector>
 
 class TestAsset: public QObject {

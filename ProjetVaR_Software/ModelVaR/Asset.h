@@ -37,6 +37,7 @@ public:
 	void changeName(QString name);
 	QVector<double> getValues();
 	QVector<double> getValues(const QDateTime &startDate, const QDateTime &endDate);
+	QMap<QDateTime, double> getValues2(const QDateTime& startDate, const QDateTime& endDate);
 
 	bool operator==(const Asset& asset) const;
 };

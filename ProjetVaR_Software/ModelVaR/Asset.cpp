@@ -189,6 +189,64 @@ QVector<double> Asset::getValues(const QDateTime& startDate, const QDateTime& en
 }
 
 /**
+ * @brief Getter of the asset values.
+ * @param startDate The starting date
+ * @param endDate The ending date
+ * @return The values of the asset in the chronological order
+ */
+QMap<QDateTime, double> Asset::getValues2(const QDateTime& startDate, const QDateTime& endDate) {
+	QMap<QDateTime, double> values;
+	QFile inputFile(this->getFile());
+
+	// Throw an exception if the startDate is after the endDate.
+	if(startDate > endDate) {
+		throw std::invalid_argument("startDate: "+ startDate.toString().toStdString() + " is after endDate: " +
+									endDate.toString().toStdString());
+	}
+
+	if(!inputFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+		throw CannotOpenFileException("Could not open file: " + this->getFile().toStdString());
+	} else {
+		QTextStream in(&inputFile);
+
+		bool startDetected = false;
+
+		// Loop over each line
+		while(!in.atEnd()) {
+			QString line = in.readLine();
+			QRegExp rx("\\s*,\\s*");
+			QStringList row = line.split(rx);
+			QString date = row.value(0);
+			QString value = row.value(1);
+			QDateTime readDate = QDateTime::fromString(date,"yyyy-MM-dd");
+
+			// If the ending date has not been read yet, it goes at the start of the loop
+			// and read the next line
+			if(!startDetected && readDate > endDate) {
+				continue;
+			}
+
+			// If execution reaches that point, it means that the start date has been read
+			if(startDetected == false) {
+				startDetected = true;
+			}
+
+			// Building the vector
+			values.insert(readDate, value.toDouble());
+
+			// If the end date has been reached, it exits the loop
+			// Otherwise it reads the file till the end
+			if(readDate <= startDate) {
+				break;
+			}
+		}
+		inputFile.close();
+	}
+
+	return values;
+}
+
+/**
  * @brief Checks if two assets are equal.
  * @param asset The second asset.
  * @return True if the two assets are equal.

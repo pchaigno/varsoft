@@ -68,6 +68,20 @@ void TestAsset::testGetValues() {
 	QCOMPARE(result.at(2), 103.0);
 	QCOMPARE(result.at(3), 104.0);
 
+	QMap<QDateTime, double> result2;
+
+	try {
+		result2 = this->google.getValues2(this->google.getFirstDate(), this->google.getLastDate());
+	} catch(CannotOpenFileException& e) {
+		qDebug() << e.what();
+	}
+
+	QMapIterator<QDateTime, double> i(result2);
+	while (i.hasNext()) {
+		i.next();
+		qDebug() << i.key().toString() << ": " << i.value() << endl;
+	}
+
 	// NONEXISTING FILE CASE
 	try {
 		result = this->missing.getValues(this->missing.getFirstDate(), this->missing.getLastDate());
