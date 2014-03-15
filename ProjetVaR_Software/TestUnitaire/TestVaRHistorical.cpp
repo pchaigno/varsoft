@@ -8,33 +8,33 @@ void TestVaRHistorical::testExecute() {
 
     QString assetFolder = "../../CSV_examples/";
 
-    // FIRST ASSET DEFINITION
-	QDateTime startDate1(QDate(2014, 1, 2), QTime(0, 0, 0));
-	QDateTime endDate1(QDate(2014, 3, 11), QTime(0, 0, 0));
-	Asset asset1("dax", assetFolder+"dax.csv", "YAHOO", startDate1, endDate1);
+	// ASSET DEFINITION
+	QDateTime startDate(QDate(2014, 1, 2), QTime(0, 0, 0));
+	QDateTime endDate(QDate(2014, 3, 11), QTime(0, 0, 0));
+	Asset dax("dax", assetFolder+"dax.csv", "YAHOO", startDate, endDate);
 
     // TEST PORTFOLIO DEFINITION
     QMap<Asset*, int> assets;
-    assets.insert(&asset1, 1);
-    //assets.insert(&asset2, 2);
-    //assets.insert(&asset3, 3);
-
+	assets.insert(&dax, 1);
 	QVector<Report*> reports;
-    Portfolio testPortfolio("testPortfolio", assets, reports);
+	Portfolio daxPortfolio("daxPortfolio", assets, reports);
 
-
-	VaRHistorical test(testPortfolio, 0.05, 1, 20);
+	// Value-at-Risk parameters
+	double risk = 0.05;
+	int timeHorizon = 1;
+	int returnsPeriod = 20;
+	VaRHistorical daxVaR(daxPortfolio, risk, timeHorizon, returnsPeriod);
 
 	double var;
 
-	qDebug() << "salut";
-
 	try {
-		var = test.execute(endDate1);
+		var = daxVaR.execute(endDate);
 	} catch(PortfolioCalculationException& e) {
 		qDebug() << e.what();
 	}
-    qDebug() << "VaR=" << var;
 
-
+	qDebug() << "At the following date: " + endDate.toString();
+	qDebug() << "For the asset: " + dax.getName();
+	qDebug() << "Historical VaR parameters: risk=" << risk << ", timeHorizon=" << timeHorizon << "returnsPeriod=" << returnsPeriod;
+	qDebug() << "Value-at-Risk=" << var;
 }
