@@ -21,6 +21,17 @@ ShowAssetsWizardPage::~ShowAssetsWizardPage()
 {
     delete ui;
 }
+
+/**
+ * @brief ShowAssetsWizardPage::initializePage
+ * Registre the field name and the right list of Assets.
+ */
+void ShowAssetsWizardPage::initializePage()
+{
+    registerField("name*",ui->nameLineEdit);
+    registerField("listAssets",ui->rightAssets);
+}
+
 /**
  * @brief NewPortfolioWizard::setupAssets
  * Clear then fill the listView on the left with the list of assets from the DB
@@ -38,6 +49,11 @@ void ShowAssetsWizardPage::setupAssets()
     }
 }
 
+/**
+ * @brief ShowAssetsWizardPage::isComplete
+ * Check if the user has entered a name for the portfolio and has selected Assets.
+ * @return true if the user has entered a name and selected assets, false otherwise.
+ */
 bool ShowAssetsWizardPage::isComplete() const
 {
     if (!ui->nameLineEdit->text().isEmpty() && ui->rightAssets->count()>0)
@@ -46,6 +62,22 @@ bool ShowAssetsWizardPage::isComplete() const
     }
     return false;
 }
+
+/**
+ * @brief ShowAssetsWizardPage::getListAssetsSelected
+ * Return a QList with the Assets's name selected (in the right list).
+ * @return A QList fill with QString of Assets's name.
+ */
+QList<QString> ShowAssetsWizardPage::getListAssetsSelected()
+{
+    QList<QString> res;
+    for(int i = 0; i < ui->rightAssets->count(); ++i)
+    {
+        res << ui->rightAssets->item(i)->text();
+    }
+    return res;
+}
+
 /**
  * @brief ShowAssetsWizardPage::allLeftButtonClicked
  * Copy the right list of assets to the left list and clear the right list.

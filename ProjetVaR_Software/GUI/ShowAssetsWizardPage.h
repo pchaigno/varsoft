@@ -17,9 +17,11 @@ public:
     explicit ShowAssetsWizardPage(QWidget *parent = 0);
     ~ShowAssetsWizardPage();
 
+    void initializePage();
     void setupAssets();
+    bool isComplete() const;
 
-    bool isComplete() const ;
+    QList<QString> getListAssetsSelected();
 
 public slots:
     void allLeftButtonClicked();

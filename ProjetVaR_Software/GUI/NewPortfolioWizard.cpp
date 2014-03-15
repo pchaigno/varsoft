@@ -15,3 +15,8 @@ NewPortfolioWizard::~NewPortfolioWizard()
     delete ui;
 }
 
+void NewPortfolioWizard::accept()
+{
+
+}
+

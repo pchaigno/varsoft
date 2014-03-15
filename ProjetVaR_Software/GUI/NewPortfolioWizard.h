@@ -17,6 +17,8 @@ public:
     explicit NewPortfolioWizard(QWidget *parent = 0);
     ~NewPortfolioWizard();
 
+    void accept();
+
 
 private:
     Ui::NewPortfolioWizard *ui;
