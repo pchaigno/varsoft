@@ -226,6 +226,50 @@ QVector<double> Portfolio::getValues(const QDateTime& startDate, const QDateTime
 }
 
 /**
+ * @brief Retrieves the values of a portfolio according to
+ * the specified dates
+ * @param startDate The starting date
+ * @param endDate The ending date
+ * @return The values of the portfolio in the chronological order
+ */
+QMap<QDateTime, double> Portfolio::getValues2(const QDateTime& startDate, const QDateTime& endDate) const {
+	// The following did not work because of the days the asset is not quoted
+	// int length = startDate.daysTo(endDate)+1;
+
+	// Initialization of the portfolio values size with the size of the first asset
+	// operation done twice, not optimal
+	// Cas ou meme taille, mais valeurs pas aux meme dates
+	//int length = this->composition.begin().key()->getValues(startDate, endDate).size();;
+	//QVector<double> portfolioValues(length, 0);
+	QMap<QDateTime, double> result;
+
+	bool first = true;
+
+	for(QMap<Asset*, int>::const_iterator it=this->composition.begin(); it!=this->composition.end(); ++it) {
+		QMap<QDateTime, double> assetValues = it.key()->getValues2(startDate, endDate);
+		int weight = it.value();
+
+		if(first == true) {
+			result =
+		}
+
+		// We make sure that every asset has the same size and thus the values of the portfolio are
+		// well defined
+
+		if(assetValues.size() != length) {
+			throw PortfolioCalculationException("Missing asset values to calculate the portfolio ones, asset involved: "
+				+ it.key()->getName().toStdString());
+		}
+
+		for(QVector<double>::size_type i = 0; i != portfolioValues.size(); i++) {
+			portfolioValues[i] += assetValues[i]*weight;
+		}
+	}
+
+	return portfolioValues;
+}
+
+/**
  * @brief Checks if two portfolios are equal.
  * @param a The first portfolio.
  * @param b The second asset.
