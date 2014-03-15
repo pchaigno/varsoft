@@ -200,6 +200,7 @@ QVector<double> Portfolio::getValues(const QDateTime& startDate, const QDateTime
 	// int length = startDate.daysTo(endDate)+1;
 	// Initialization of the portfolio values size with the size of the first asset
 	// operation done twice, not optimal
+	// Cas ou meme taille, mais valeurs pas aux meme dates
 	int length = this->composition.begin().key()->getValues(startDate, endDate).size();;
 	QVector<double> portfolioValues(length, 0);
 

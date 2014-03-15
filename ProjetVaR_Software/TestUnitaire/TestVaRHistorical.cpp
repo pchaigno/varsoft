@@ -22,12 +22,15 @@ void TestVaRHistorical::testExecute() {
 	QVector<Report*> reports;
     Portfolio testPortfolio("testPortfolio", assets, reports);
 
-    VaRHistorical test(testPortfolio, 0.05);
+
+	VaRHistorical test(testPortfolio, 0.05, 1, 20);
 
 	double var;
 
+	qDebug() << "salut";
+
 	try {
-		var = test.execute(10);
+		var = test.execute(endDate1);
 	} catch(PortfolioCalculationException& e) {
 		qDebug() << e.what();
 	}
