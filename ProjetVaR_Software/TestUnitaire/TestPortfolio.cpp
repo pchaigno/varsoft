@@ -104,6 +104,25 @@ void TestPortfolio::testGetValues() {
 		qDebug() << *it;
 	}
 
+	// getValues2()
+	QMap<QDateTime, double> result2;
+
+	try {
+		result2 = this->son.getValues2(startDate, endDate);
+	} catch(PortfolioCalculationException& e) {
+		qDebug() << e.what();
+	}
+
+	/*QCOMPARE(result.size(), 4);
+	QCOMPARE(result.at(0), 612.0);
+	QCOMPARE(result.at(1), 618.0);
+	QCOMPARE(result.at(2), 624.0);
+	QCOMPARE(result.at(3), 630.0);*/
+
+	for(QMap<QDateTime, double>::const_iterator it=result2.begin(); it!=result2.end(); ++it) {
+		qDebug() << it.key() << it.value();
+	}
+
 	// INCORRECT DATE CASE FOR ILLUSTRATION PURPOSES
 	try {
 		result = this->son.getValues(incorrectStartDate, endDate);

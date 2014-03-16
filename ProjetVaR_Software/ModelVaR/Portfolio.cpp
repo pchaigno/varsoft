@@ -214,7 +214,7 @@ QVector<double> Portfolio::getValues(const QDateTime& startDate, const QDateTime
 
 		if(assetValues.size() != length) {
 			throw PortfolioCalculationException("Missing asset values to calculate the portfolio ones, asset involved: "
-				+ it.key()->getName().toStdString());
+												+ it.key()->getName().toStdString());
 		}
 
 		for(QVector<double>::size_type i = 0; i != portfolioValues.size(); i++) {
@@ -247,26 +247,30 @@ QMap<QDateTime, double> Portfolio::getValues2(const QDateTime& startDate, const 
 
 	for(QMap<Asset*, int>::const_iterator it=this->composition.begin(); it!=this->composition.end(); ++it) {
 		QMap<QDateTime, double> assetValues = it.key()->getValues2(startDate, endDate);
+
+		// Asset ponderation
 		int weight = it.value();
 
+		// Initialization with the first asset
 		if(first == true) {
-			result =
-		}
-
-		// We make sure that every asset has the same size and thus the values of the portfolio are
-		// well defined
-
-		if(assetValues.size() != length) {
-			throw PortfolioCalculationException("Missing asset values to calculate the portfolio ones, asset involved: "
-				+ it.key()->getName().toStdString());
-		}
-
-		for(QVector<double>::size_type i = 0; i != portfolioValues.size(); i++) {
-			portfolioValues[i] += assetValues[i]*weight;
+			for(QMap<QDateTime, double>::const_iterator i = assetValues.begin(); i != assetValues.constEnd(); ++i) {
+				result.insert(i.key(), i.value()*weight);
+			}
+			first = false;
+		} else {
+			if(result.size() != assetValues.size()) {
+				throw PortfolioCalculationException("");
+			}
+			for(QMap<QDateTime, double>::const_iterator i = assetValues.begin(); i != assetValues.constEnd(); ++i) {
+				if(result.contains(i.key())) {
+					result.insert(i.key(), result.value(i.key())+i.value()*weight);
+				} else {
+					throw PortfolioCalculationException("");
+				}
+			}
 		}
 	}
-
-	return portfolioValues;
+	return result;
 }
 
 /**

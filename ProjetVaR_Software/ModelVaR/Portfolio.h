@@ -38,6 +38,7 @@ public:
 	QDateTime retrieveLastDate() const;
 	QVector<double> getValues() const;
 	QVector<double> getValues(const QDateTime &startDate, const QDateTime &endDate) const;
+	QMap<QDateTime, double> getValues2(const QDateTime& startDate, const QDateTime& endDate) const;
 
 	bool operator==(const Portfolio& portfolio) const;
 };
