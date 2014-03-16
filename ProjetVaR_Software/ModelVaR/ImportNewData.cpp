@@ -1,6 +1,8 @@
 #include "ImportNewData.h"
 #include <QMessageBox>
 #include "SessionSaver.h"
+#include "SQLiteManager.h"
+#include "SessionBuilder.h"
 
 /**
 * @brief Import method for Yahoo files
@@ -75,6 +77,6 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
         }
         fileCreated.close();
 
-      //  Asset &a = Asset(name,namealea,origin,startDate,endDate);
-      //  SessionSaver::saveAsset(a);
+      Asset a = Asset(name,namealea,origin,startDate,endDate);
+      SessionSaver::getInstance()->saveAsset(a);
 	}
