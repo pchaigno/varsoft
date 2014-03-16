@@ -44,9 +44,7 @@ double VaRHistorical::execute(QDateTime date) const {
 	}
 
 	// Returns have to be calculated first
-	// TODO: Make it a function, it will most likely be reused somewhere else
-	for(int i=1; i < values.size(); i++)
-		returns.push_back(values.at(i) - values.at(i-1));
+	returns = Portfolio::getReturns(values);
 
 	// Return values are sorted
 	qSort(returns.begin(), returns.end());

@@ -36,6 +36,7 @@ public:
 	void changeName(QString name);
 	QDateTime retrieveFirstDate() const;
 	QDateTime retrieveLastDate() const;
+	static QVector<double> getReturns(QVector<double> &values);
 	QVector<double> getValues() const;
 	QVector<double> getValues(const QDateTime &startDate, const QDateTime &endDate) const;
 	QMap<QDateTime, double> getValues2(const QDateTime& startDate, const QDateTime& endDate) const;

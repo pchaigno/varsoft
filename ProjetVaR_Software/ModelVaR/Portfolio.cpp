@@ -274,6 +274,21 @@ QMap<QDateTime, double> Portfolio::getValues2(const QDateTime& startDate, const 
 }
 
 /**
+ * @brief Calculates the returns associated with the values
+ * @param values in a chronological order
+ * @return retruns in a chronological order
+ */
+QVector<double> Portfolio::getReturns(QVector<double> &values) {
+	QVector<double> returns;
+
+	for(int i=1; i < values.size(); i++) {
+		returns.push_back(values.at(i) - values.at(i-1));
+	}
+
+	return returns;
+}
+
+/**
  * @brief Checks if two portfolios are equal.
  * @param a The first portfolio.
  * @param b The second asset.
