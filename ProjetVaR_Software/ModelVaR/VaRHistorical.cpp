@@ -37,6 +37,12 @@ double VaRHistorical::execute(QDateTime date) const {
 	// be available in the database. A portfolioCalculationException will be thrown
 	QVector<double> values = getPortfolio().getValues(startingPeriodDate, endingPeriodDate);
 
+	// Make sure there is there is the exact number of returns
+	while(values.size() < period) {
+		startingPeriodDate.addDays(-1);
+		values.push_front(getPortfolio().getValues(startingPeriodDate, startingPeriodDate).at(0));
+	}
+
 	// Returns have to be calculated first
 	// TODO: Make it a function, it will most likely be reused somewhere else
 	for(int i=1; i < values.size(); i++)
