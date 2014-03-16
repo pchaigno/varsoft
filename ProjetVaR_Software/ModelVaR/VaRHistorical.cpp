@@ -23,6 +23,7 @@ VaRHistorical::VaRHistorical(const Portfolio& portfolio, double risk, int timeHo
  * @return Value-at-Risk
  */
 double VaRHistorical::execute(QDateTime date) const {
+	double var;
 	QVector<double> returns;
 
 	// Definitions of the starting that define with the passed date
@@ -48,5 +49,11 @@ double VaRHistorical::execute(QDateTime date) const {
 	int quantile = getRisk()*returns.size();
 
 	// Take into account the time horizon
-	return returns.at(quantile)*qSqrt(getTimeHorizon());
+	var = returns.at(quantile)*qSqrt(getTimeHorizon());
+
+	// For future use
+	// VaRReportFactory report(getPortfolio(), getRisk(), getTimeHorizon(), period, date, var);
+	// report.generate();
+
+	return var;
 }
