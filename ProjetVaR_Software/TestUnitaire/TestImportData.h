@@ -15,5 +15,4 @@ public:
 
 private Q_SLOTS:
     void testDates();
-    void testName();
 };

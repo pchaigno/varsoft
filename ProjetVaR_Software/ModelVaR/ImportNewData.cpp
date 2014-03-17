@@ -37,8 +37,6 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
 
         //FILE CREATION OF IMPORTED DATA
         //Do random names
-        //uint time = QDateTime::toTime_t();
-        //QString stime = QString::number(time);
         QString namealea = name+".csv";
 		QFile fileCreated(namealea);
         // The file is open in write-only mode and we check the opening
@@ -67,11 +65,6 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
                 if(endDate >= currentDate){
                     break;
                 }
-                    //useful to print into a tableWidget
-                        //QTableWidgetItem* item = new QTableWidgetItem();
-                        // the index of the interesting column is always the same for yahoo files
-                        //item->setText(rowData[6]);
-                        //ui->tableWidget->setItem(x-1,0,item);
                 flux << rowData[0] << "," << rowData[6] << "\n";
             }
         }

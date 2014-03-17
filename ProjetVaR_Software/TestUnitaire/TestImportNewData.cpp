@@ -8,11 +8,6 @@ TestImportNewData::TestImportNewData() {
     TestImportNewData::firstDate = "2014-02-07";
     TestImportNewData::lastDate = "2014-01-01";
     TestImportNewData::origin = "Yahoo";
-
-    //mettre une valeur par défaut au firstdate et lastdate
-    //les donner en param de l'algo d'importation
-    //lire le fichier généré
-    //comparer les dates obtenues
     QString data;
     QFile importedCSV("../../CSV_examples/table.csv");
     QStringList rowOfData;
@@ -78,16 +73,4 @@ void TestImportNewData::testDates() {
     rowData = rowOfData.at(rowOfData.size()-2).split(",");
     qDebug() << rowData[0];
     QVERIFY((QDateTime::fromString(TestImportNewData::lastDate,"yyyy-MM-dd")) <= (QDateTime::fromString(rowData[0],"yyyy-MM-dd")));
-}
-
-
-/**
-* @brief Checks that the name can actually be changed.
-*/
-void TestImportNewData::testName() {
-    /*
-    QVERIFY(this->google.getName() == "Google");
-    this->google.changeName("Googl");
-    QVERIFY(this->google.getName() == "Googl");
-    */
 }
