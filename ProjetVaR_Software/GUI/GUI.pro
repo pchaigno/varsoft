@@ -21,13 +21,15 @@ SOURCES += main.cpp\
     qcustomplot.cpp \
     NewPortfolioWizard.cpp \
     SetWeightAssetWizardPage.cpp \
-    ShowAssetsWizardPage.cpp
+    ShowAssetsWizardPage.cpp \
+    PortfolioItemModel.cpp
 
 HEADERS  += MainWindow.h \
     qcustomplot.h \
     NewPortfolioWizard.h \
     SetWeightAssetWizardPage.h \
-    ShowAssetsWizardPage.h
+    ShowAssetsWizardPage.h \
+    PortfolioItemModel.h
 
 FORMS    += MainWindow.ui \
     NewPortfolioWizard.ui \

@@ -2,6 +2,7 @@
 
 #include <QMainWindow>
 #include "NewPortfolioWizard.h"
+#include "PortfolioItemModel.h"
 
 namespace Ui {
 	class MainWindow;
@@ -16,7 +17,8 @@ public:
 
 private slots:
     void newPortfolio();
-	void importCSV();
+    void importCSV();
 private:
 	Ui::MainWindow *ui;
+    PortfolioItemModel * portfolioModel;
 };

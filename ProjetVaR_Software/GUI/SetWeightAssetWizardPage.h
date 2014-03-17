@@ -5,7 +5,9 @@
 #include <QDebug>
 #include <QListWidget>
 #include "ShowAssetsWizardPage.h"
-#include <QDoubleSpinBox>
+#include <QSpinBox>
+#include <QMap>
+#include <QSignalMapper>
 
 namespace Ui {
 class SetWeightAssetWizardPage;
@@ -23,8 +25,15 @@ public:
     void cleanupPage();
     QList<QString> getAssetsSelected();
 
+    QMap<QString,int> getWeights();
+
+
 private:
     void clearLayout(QLayout* layout, bool deleteWidgets = true);
+
+    QMap<QString,QSpinBox*> weights;
+
+    QSignalMapper * mapper;
 
     Ui::SetWeightAssetWizardPage *ui;
 };

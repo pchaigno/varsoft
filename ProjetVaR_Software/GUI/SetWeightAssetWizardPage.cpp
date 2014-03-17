@@ -20,7 +20,11 @@ void SetWeightAssetWizardPage::initializePage()
 {
     QList<QString> listAssets = getAssetsSelected();
     foreach(QString str, listAssets)
-        ui->weightFormLayout->addRow(str,new QDoubleSpinBox());
+    {
+        QSpinBox* spinBox = new QSpinBox();
+        weights[str]=spinBox;
+        ui->weightFormLayout->addRow(str,spinBox);
+    }
 }
 /**
  * @brief SetWeightAssetWizardPage::cleanupPage
@@ -28,6 +32,7 @@ void SetWeightAssetWizardPage::initializePage()
  */
 void SetWeightAssetWizardPage::cleanupPage()
 {
+    weights.clear();
     clearLayout(ui->weightFormLayout);
 }
 
@@ -61,3 +66,19 @@ QList<QString> SetWeightAssetWizardPage::getAssetsSelected()
 {
     return qobject_cast<ShowAssetsWizardPage *>(wizard()->page(wizard()->startId()))->getListAssetsSelected();
 }
+
+/**
+ * @brief SetWeightAssetWizardPage::getWeights
+ * Retrieve the weights entered by the user in a map.
+ * @return a map with the weights associate to the name of the asset
+ */
+QMap<QString, int> SetWeightAssetWizardPage::getWeights()
+{
+    QMap<QString, int>  res;
+    foreach (const QString &str, weights.keys())
+    {
+        res[str]=weights.value(str)->value();
+    }
+    return res;
+}
+

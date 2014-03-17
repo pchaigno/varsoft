@@ -4,6 +4,7 @@
 #include <QWizard>
 #include "ShowAssetsWizardPage.h"
 #include "SetWeightAssetWizardPage.h"
+#include "Portfolio.h"
 
 namespace Ui {
 class NewPortfolioWizard;
@@ -19,9 +20,14 @@ public:
 
     void accept();
 
+signals:
+    void newPortfolioCreated(Portfolio *);
+
 
 private:
     Ui::NewPortfolioWizard *ui;
+    ShowAssetsWizardPage *showAssetPage;
+    SetWeightAssetWizardPage * setWeightPage;
 };
 
 #endif // NEWPORTFOLIOWIZARD_H

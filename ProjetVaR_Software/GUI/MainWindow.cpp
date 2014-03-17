@@ -8,7 +8,9 @@
 MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
     connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(importCSV()));
-    connect(ui->actionNouveau, SIGNAL(triggered()), this, SLOT(newPortfolio()));
+    connect(ui->addPushButton, SIGNAL(clicked()), this, SLOT(newPortfolio()));
+    portfolioModel = new PortfolioItemModel(this);
+    ui->listView->setModel(portfolioModel);
 }
 
 MainWindow::~MainWindow() {
@@ -20,6 +22,7 @@ MainWindow::~MainWindow() {
 void MainWindow::newPortfolio()
 {
    NewPortfolioWizard * fen = new NewPortfolioWizard(this);
+   connect(fen,SIGNAL(newPortfolioCreated(Portfolio*)),portfolioModel,SLOT(addPortfolio(Portfolio*)));
    fen->show();
 }
 
@@ -88,5 +91,6 @@ void MainWindow::importCSV() {
 		// Écriture des différentes lignes dans le fichier, mais il devient imcompatible avec l'importation
 		flux << rowData[0] << "," << rowData[6] << "\n";
 		ui->tableWidget->setItem(x-1,0,item);
-	}
+    }
 }
+
