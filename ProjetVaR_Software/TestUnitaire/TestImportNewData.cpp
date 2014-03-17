@@ -40,7 +40,6 @@ TestImportNewData::TestImportNewData() {
                 break;
             }
             flux << rowData[0] << "," << rowData[6] << "\n";
-            //qDebug() << rowData[0] << "," << rowData[6];
         }
     }
     fileCreated.close();
