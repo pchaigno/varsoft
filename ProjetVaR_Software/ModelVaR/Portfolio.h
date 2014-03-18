@@ -39,7 +39,7 @@ public:
 	static QVector<double> getReturns(QVector<double> &values);
 	QVector<double> getValues() const;
 	QVector<double> getValues(const QDateTime &startDate, const QDateTime &endDate) const;
-	QMap<QDateTime, double> getValues2(const QDateTime& startDate, const QDateTime& endDate) const;
+	QMap<QDateTime, double> getValuesByDates(const QDateTime& startDate, const QDateTime& endDate) const;
 
 	bool operator==(const Portfolio& portfolio) const;
 };

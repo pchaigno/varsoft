@@ -104,11 +104,11 @@ void TestPortfolio::testGetValues() {
 		qDebug() << *it;
 	}
 
-	// getValues2()
+	// getValuesByDates()
 	QMap<QDateTime, double> result2;
 
 	try {
-		result2 = this->son.getValues2(startDate, endDate);
+		result2 = this->son.getValuesByDates(startDate, endDate);
 	} catch(PortfolioCalculationException& e) {
 		qDebug() << e.what();
 	}

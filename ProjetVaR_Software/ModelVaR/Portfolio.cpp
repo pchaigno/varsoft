@@ -232,17 +232,9 @@ QVector<double> Portfolio::getValues(const QDateTime& startDate, const QDateTime
  * @param endDate The ending date
  * @return The values of the portfolio in the chronological order
  */
-QMap<QDateTime, double> Portfolio::getValues2(const QDateTime& startDate, const QDateTime& endDate) const {
-	// The following did not work because of the days the asset is not quoted
-	// int length = startDate.daysTo(endDate)+1;
+QMap<QDateTime, double> Portfolio::getValuesByDates(const QDateTime& startDate, const QDateTime& endDate) const {
 
-	// Initialization of the portfolio values size with the size of the first asset
-	// operation done twice, not optimal
-	// Cas ou meme taille, mais valeurs pas aux meme dates
-	//int length = this->composition.begin().key()->getValues(startDate, endDate).size();;
-	//QVector<double> portfolioValues(length, 0);
 	QMap<QDateTime, double> result;
-
 	bool first = true;
 
 	for(QMap<Asset*, int>::const_iterator it=this->composition.begin(); it!=this->composition.end(); ++it) {
@@ -251,7 +243,8 @@ QMap<QDateTime, double> Portfolio::getValues2(const QDateTime& startDate, const 
 		// Asset ponderation
 		int weight = it.value();
 
-		// Initialization with the first asset
+		// The portofolio is initialized with the first asset, ie the portfolio will be defined with
+		// the same dates as the first asset is.
 		if(first == true) {
 			for(QMap<QDateTime, double>::const_iterator i = assetValues.begin(); i != assetValues.constEnd(); ++i) {
 				result.insert(i.key(), i.value()*weight);
