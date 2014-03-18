@@ -252,13 +252,16 @@ QMap<QDateTime, double> Portfolio::getValuesByDates(const QDateTime& startDate, 
 			first = false;
 		} else {
 			if(result.size() != assetValues.size()) {
-				throw PortfolioCalculationException("");
+				throw PortfolioCalculationException(it.key()->getName().toStdString()
+						+ " asset has a different size from the portfolio it is included in. Portfolio size: "
+													+ QString::number(result.size()).toStdString());
 			}
 			for(QMap<QDateTime, double>::const_iterator i = assetValues.begin(); i != assetValues.constEnd(); ++i) {
 				if(result.contains(i.key())) {
 					result.insert(i.key(), result.value(i.key())+i.value()*weight);
 				} else {
-					throw PortfolioCalculationException("");
+					throw PortfolioCalculationException("The date "+i.key().toString().toStdString()
+														+ "is not defined as key in the portfolio");
 				}
 			}
 		}
