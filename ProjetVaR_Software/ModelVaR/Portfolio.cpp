@@ -268,8 +268,8 @@ QMap<QDateTime, double> Portfolio::getValuesByDates(const QDateTime& startDate, 
 
 /**
  * @brief Calculates the returns associated with the values
- * @param values in a chronological order
- * @return retruns in a chronological order
+ * @param values Values in a chronological order
+ * @return The returns in a chronological order
  */
 QVector<double> Portfolio::getReturns(QVector<double> &values) {
 	QVector<double> returns;
