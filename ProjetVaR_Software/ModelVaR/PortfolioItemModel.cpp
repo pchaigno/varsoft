@@ -77,6 +77,8 @@ QVariant PortfolioItemModel::headerData(int section, Qt::Orientation orientation
  */
 void PortfolioItemModel::addPortfolio(Portfolio * portfolio)
 {
+    if (portfolio==0)
+        throw std::invalid_argument("portfolio cannot be NULL");
     const int count = portfolioList.count();
     beginInsertRows(QModelIndex(), count, count);
     portfolioList << portfolio;

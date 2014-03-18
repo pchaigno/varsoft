@@ -22,7 +22,6 @@ SOURCES += main.cpp\
     NewPortfolioWizard.cpp \
     SetWeightAssetWizardPage.cpp \
     ShowAssetsWizardPage.cpp \
-    PortfolioItemModel.cpp \
     PortfolioListView.cpp
 
 HEADERS  += MainWindow.h \
@@ -30,7 +29,6 @@ HEADERS  += MainWindow.h \
     NewPortfolioWizard.h \
     SetWeightAssetWizardPage.h \
     ShowAssetsWizardPage.h \
-    PortfolioItemModel.h \
     PortfolioListView.h
 
 FORMS    += MainWindow.ui \

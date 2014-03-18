@@ -43,6 +43,7 @@ SOURCES += \
     VaRReportFactory.cpp \
     GarchReportFactory.cpp \
     StatisticsReportFactory.cpp \
+    PortfolioItemModel.cpp \
     CorrelationReportFactory.cpp
 
 HEADERS +=\
@@ -77,6 +78,7 @@ HEADERS +=\
     StatisticsReportFactory.h \
     CorrelationReportFactory.h \
     CannotOpenFileException.h \
+    PortfolioItemModel.h \
     PortfolioCalculationException.h
 
 unix:!symbian {

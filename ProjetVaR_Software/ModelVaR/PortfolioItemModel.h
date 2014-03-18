@@ -3,8 +3,13 @@
 
 #include <QAbstractListModel>
 #include "Portfolio.h"
+#include <stdexcept>
 
-class PortfolioItemModel : public QAbstractListModel
+#ifdef UNITTEST
+class TestPortfolioItemModel;
+#endif
+
+class MODELVARSHARED_EXPORT PortfolioItemModel : public QAbstractListModel
 {
     Q_OBJECT
 public:
@@ -15,14 +20,18 @@ public:
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
     Qt::ItemFlags flags(const QModelIndex &index) const;
 
-    void insertPortfolio(Portfolio*portfolio,int row);
-    bool removePortfolio(int row);
+#ifdef UNITTEST
+ friend class TestPortfolioItemModel;
+#endif
 
 signals:
 
 public slots:
     void addPortfolio(Portfolio *portfolio);
+    void insertPortfolio(Portfolio*portfolio,int row);
+
     bool removePortfolio(Portfolio*portfolio);
+    bool removePortfolio(int row);
 
 private:
     QList<Portfolio*> portfolioList;
