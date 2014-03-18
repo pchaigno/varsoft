@@ -22,14 +22,16 @@ SOURCES += main.cpp\
     NewPortfolioWizard.cpp \
     SetWeightAssetWizardPage.cpp \
     ShowAssetsWizardPage.cpp \
-    PortfolioItemModel.cpp
+    PortfolioItemModel.cpp \
+    PortfolioListView.cpp
 
 HEADERS  += MainWindow.h \
     qcustomplot.h \
     NewPortfolioWizard.h \
     SetWeightAssetWizardPage.h \
     ShowAssetsWizardPage.h \
-    PortfolioItemModel.h
+    PortfolioItemModel.h \
+    PortfolioListView.h
 
 FORMS    += MainWindow.ui \
     NewPortfolioWizard.ui \

@@ -16,13 +16,13 @@ public:
     Qt::ItemFlags flags(const QModelIndex &index) const;
 
     void insertPortfolio(Portfolio*portfolio,int row);
-    void removePortfolio(int row);
+    bool removePortfolio(int row);
 
 signals:
 
 public slots:
     void addPortfolio(Portfolio *portfolio);
-    void removePortfolio(Portfolio*portfolio);
+    bool removePortfolio(Portfolio*portfolio);
 
 private:
     QList<Portfolio*> portfolioList;

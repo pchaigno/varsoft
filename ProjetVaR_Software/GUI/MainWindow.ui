@@ -105,7 +105,7 @@
        </layout>
       </item>
       <item>
-       <widget class="QListView" name="listView">
+       <widget class="PortfolioListView" name="listView">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
           <horstretch>0</horstretch>
@@ -313,6 +313,13 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>PortfolioListView</class>
+   <extends>QListView</extends>
+   <header>PortfolioListView.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

@@ -18,7 +18,11 @@ NewPortfolioWizard::~NewPortfolioWizard()
     delete showAssetPage;
     delete setWeightPage;
 }
-
+/**
+ * @brief NewPortfolioWizard::accept
+ * Call when the user press the valid button.
+ * Create the portfolio and emit the signal newPortfolioCreated(Portfolio* portfolioCreated)
+ */
 void NewPortfolioWizard::accept()
 {
     QMap<Asset*,int> composition;
