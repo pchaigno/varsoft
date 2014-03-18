@@ -22,8 +22,8 @@
  */
 TestSQLiteManagers::TestSQLiteManagers() {
 	// The assets:
-	QDateTime firstDate;
-	QDateTime lastDate;
+	QDateTime firstDate = QDateTime::fromString("M1d1y9800:01:02", "'M'M'd'd'y'yyhh:mm:ss");
+	QDateTime lastDate = QDateTime::currentDateTime();;
 	this->apple = Asset("Apple", "somefolder\\apple.csv", "YAHOO", firstDate, lastDate);
 	this->google = Asset("Google", "somefolder\\google.csv", "YAHOO", firstDate, lastDate);
 	QMap<Asset*, int> assets = QMap<Asset*, int>();
@@ -96,7 +96,7 @@ void TestSQLiteManagers::testSaveSession() {
 		const QMap<Asset*, int>& composition = this->portfolios[i].getComposition();
 		for(QMap<Asset*, int>::const_iterator it=composition.begin(); it!=composition.end(); ++it) {
 			bool found = false;
-			for(QMap<Asset*, int>::const_iterator savedIt=composition.begin(); savedIt!=composition.end(); ++savedIt) {
+			for(QMap<Asset*, int>::const_iterator savedIt=savedComposition.begin(); savedIt!=savedComposition.end(); ++savedIt) {
 				if(*(it.key()) == *(savedIt.key())) {
 					QCOMPARE(savedIt.value(), it.value());
 					found = true;
