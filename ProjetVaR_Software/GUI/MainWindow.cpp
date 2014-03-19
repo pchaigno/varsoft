@@ -27,6 +27,40 @@ void MainWindow::newPortfolio()
    fen->show();
 }
 
+void MainWindow::showPortfolio(Portfolio* portfolio){
+    //portfolio->getComposition().size() => number of assets
+    //we need to add two colums more for : the dates and the values of the porfolio
+    QMap<Asset*, int> values = portfolio->getComposition();
+    QVector< QVector<QString> > matrix(values.size()+2);
+    QMap<QDateTime, double> dates = getValuesByDates(QDateTime& startDate, QDateTime& endDate);
+    for (int i=0; i<values.size(); i++)
+       //dates.size() => numberOfDates
+       matrix[i].fill("", dates.size());
+
+    //Dates and values are added
+    int i =0;
+    for(QMap<QDateTime, double>::const_iterator it=this->dates.begin(); it!=this->dates.end(); ++it) {
+        matrix[0][i]=it.key().toString("YYYY-mm-dd");
+        matrix[1][i]=QString(it.value());
+        i++;
+    }
+    //each asset's value is added
+    int j =2;
+    for(QMap<Asset*, int>::const_iterator it=this->values.begin(); it!=this->values.end(); ++it) {
+        //get all the values
+        k =0;
+        QVector<double> val = it.key()->getValues(it.key()->getFirstDate(),it.key()->getLastDate());
+        for(int i=0; i < dates.size(); i++){
+            // no verification upon the date's existance
+            matrix[j][k] = val.at(k);
+            k++;
+        }
+        j++;
+    }
+    //send the matrix for showing
+    //
+}
+
 //TODO Handle the import of differents source files ?
 //TODO Add a screen to the select the range of data that sould be imported
 

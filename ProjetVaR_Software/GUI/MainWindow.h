@@ -17,6 +17,7 @@ public:
 
 private slots:
     void newPortfolio();
+    void showPortfolio(Portfolio* portfolio);
     void importCSV();
 private:
 	Ui::MainWindow *ui;
