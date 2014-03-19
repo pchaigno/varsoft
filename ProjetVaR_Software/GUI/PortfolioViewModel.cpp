@@ -15,12 +15,7 @@ QVariant PortfolioViewModel::data(const QModelIndex &index, int role) const
 
     if(role == Qt::DisplayRole)
     {
-        switch (role)
-        {
-        case Qt::DisplayRole:
-            return QVariant(mydata[index.row()]->getName());
-            break;
-        }
+        return QVariant(mydata[index.row()]);
     }
     return QVariant();
 }
@@ -30,9 +25,15 @@ QVariant PortfolioViewModel::headerData(int section, Qt::Orientation orientation
 {
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
     {
-        return QString("Asset");
+        QList l = new QList();
+        l.append("Date");
+        l.append("Valeur");
+        l.append("Action1");
+        return QStringList(l);
     }
     return QAbstractTableModel::headerData(section, orientation, role);
+    //renvoyer une QStringlist avec toutes nos strings
+
     //return QVariant();
 }
 
@@ -49,15 +50,15 @@ Qt::ItemFlags PortfolioViewModel::flags(const QModelIndex &index) const
     return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
 }
 
-void PortfolioViewModel::addAsset(Asset* asset)
+void PortfolioViewModel::addPortfolio(Portfolio* portfolio)
 {
-    if(std::find(mydata.begin(),mydata.end(),data)!=mydata.end())
+    if(std::find(mydata.begin(),mydata.end(),portfolio)!=mydata.end())
         return;
     beginInsertRows(QModelIndex(),mydata.size(),mydata.size());
     /*BOOST_SCOPE_EXIT(this_){
         this_->endInsertRows();
     }BOOST_SCOPE_EXIT_END*/
-    mydata.push_back(std::move(asset));
+    mydata.push_back(std::move(portfolio));
     endInsertRows();
     /*
     const int count = assetList.count();
@@ -67,14 +68,15 @@ void PortfolioViewModel::addAsset(Asset* asset)
     */
 }
 
-void PortfolioViewModel::removeAsset(int row)
+bool PortfolioViewModel::removePortfolio()
 {
-    beginRemoveRows(QModelIndex(),row,row);
+    beginRemoveRows(QModelIndex(),0,0);
     /*BOOST_SCOPE_EXIT(this_){
         this_->endRemoveRows();
     }BOOST_SCOPE_EXIT_END//*/
-    mydata.erase(std::next(mydata.begin(),row));
+    mydata.erase(std::next(mydata.begin(),0));
     endRemoveRows();
+    return true;
     /*
     beginRemoveRows(QModelIndex(),row,row);
     Asset * asset = assetList.at(row);
