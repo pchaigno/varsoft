@@ -11,6 +11,7 @@ class PortfolioViewModel: public QAbstractTableModel
 
 public:
     explicit PortfolioViewModel(QObject *parent = 0);
+    explicit PortfolioViewModel(QVector< QVector<QString> >* portfolio, QObject *parent = 0);
 
     int rowCount(const QModelIndex &parent) const;
     int columnCount(const QModelIndex &parent) const;
@@ -21,7 +22,7 @@ public:
 signals:
 
 public slots:
-    void addPortfolio(Portfolio* portfolio);
+    void addPortfolio(QVector<QVector<QString>> portfolio);
     bool removePortfolio();
 
 private:

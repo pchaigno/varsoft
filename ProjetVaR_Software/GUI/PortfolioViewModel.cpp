@@ -5,6 +5,12 @@ PortfolioViewModel::PortfolioViewModel(QObject *parent) :
 {
 }
 
+PortfolioViewModel::PortfolioViewModel(QVector< QVector<QString> >* portfolio, QObject *parent) :
+    QAbstractTableModel(parent)
+{
+    mydata = portfolio;
+}
+
 QVariant PortfolioViewModel::data(const QModelIndex &index, int role) const
 {
     if(!index.isValid())
@@ -15,7 +21,7 @@ QVariant PortfolioViewModel::data(const QModelIndex &index, int role) const
 
     if(role == Qt::DisplayRole)
     {
-        return QVariant(mydata[index.row()]);
+        return QVariant(mydata[index.row()][index.column()]);
     }
     return QVariant();
 }
@@ -23,18 +29,13 @@ QVariant PortfolioViewModel::data(const QModelIndex &index, int role) const
 
 QVariant PortfolioViewModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-    if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
-    {
-        QList l = new QList();
-        l.append("Date");
-        l.append("Valeur");
-        l.append("Action1");
-        return QStringList(l);
-    }
-    return QAbstractTableModel::headerData(section, orientation, role);
-    //renvoyer une QStringlist avec toutes nos strings
+    if (role != Qt::DisplayRole)
+           return QVariant();
 
-    //return QVariant();
+       if (orientation == Qt::Horizontal)
+           return QString("Column %1").arg(section);
+       else
+           return QString("Row %1").arg(section);
 }
 
 /**
@@ -50,7 +51,7 @@ Qt::ItemFlags PortfolioViewModel::flags(const QModelIndex &index) const
     return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
 }
 
-void PortfolioViewModel::addPortfolio(Portfolio* portfolio)
+void PortfolioViewModel::addPortfolio(QVector<QVector<QString> > portfolio)
 {
     if(std::find(mydata.begin(),mydata.end(),portfolio)!=mydata.end())
         return;

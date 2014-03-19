@@ -4,6 +4,7 @@
 #include <QFile>
 #include <QFileDialog>
 #include <QTableWidgetItem>
+#include "PortfolioViewModel.h"
 
 MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
@@ -31,7 +32,7 @@ void MainWindow::showPortfolio(Portfolio* portfolio){
     //portfolio->getComposition().size() => number of assets
     //we need to add two colums more for : the dates and the values of the porfolio
     QMap<Asset*, int> values = portfolio->getComposition();
-    QVector< QVector<QString> > matrix(values.size()+2);
+    QVector< QVector<QString> >* matrix(values.size()+2);
     QMap<QDateTime, double> dates = getValuesByDates(QDateTime& startDate, QDateTime& endDate);
     for (int i=0; i<values.size(); i++)
        //dates.size() => numberOfDates
@@ -58,7 +59,18 @@ void MainWindow::showPortfolio(Portfolio* portfolio){
         j++;
     }
     //send the matrix for showing
-    //
+
+    /*
+    QTableWidgetItem *newItem = new QTableWidgetItem(tr("%1").arg(
+        pow(row, column+1)));
+    tableWidget->setItem(row, column, newItem);
+    Horizontal and vertical headers can be added to the table by constructing items outside the table and using them as headers:
+    QTableWidgetItem *valuesHeaderItem = new QTableWidgetItem(tr("Values"));
+    tableWidget->setHorizontalHeaderItem(0, valuesHeaderItem);
+    */
+    // set the model
+    PortfolioViewModel pfm = new PortfolioViewModel(portfolio);
+    ui->tableWidget->setModel(pfm);
 }
 
 //TODO Handle the import of differents source files ?
