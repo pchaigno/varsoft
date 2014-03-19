@@ -23,7 +23,7 @@
 TestSQLiteManagers::TestSQLiteManagers() {
 	// The assets:
 	QDateTime firstDate = QDateTime::fromString("M1d1y9800:01:02", "'M'M'd'd'y'yyhh:mm:ss");
-	QDateTime lastDate = QDateTime::currentDateTime();;
+	QDateTime lastDate = QDateTime::currentDateTime();
 	this->apple = Asset("Apple", "somefolder\\apple.csv", "YAHOO", firstDate, lastDate);
 	this->google = Asset("Google", "somefolder\\google.csv", "YAHOO", firstDate, lastDate);
 	QMap<Asset*, int> assets = QMap<Asset*, int>();
