@@ -16,9 +16,3 @@ TestImportData::TestImportData() {
 void TestImportData::testDates() {
 }
 
-
-/**
-* @brief Checks that the name can actually be changed.
-*/
-void TestImportData::testName() {
-}
