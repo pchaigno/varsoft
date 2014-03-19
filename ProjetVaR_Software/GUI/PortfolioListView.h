@@ -12,7 +12,7 @@ public:
     explicit PortfolioListView(QWidget *parent = 0);
 
     void setModel(PortfolioItemModel * model);
-    PortfolioItemModel *model();
+    PortfolioItemModel *model() const;
 
 signals:
 

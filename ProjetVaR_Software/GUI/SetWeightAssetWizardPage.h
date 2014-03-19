@@ -23,18 +23,13 @@ public:
 
     void initializePage();
     void cleanupPage();
-    QList<QString> getAssetsSelected();
-
-    QMap<QString,int> getWeights();
-
+    QList<QString> getAssetsSelected() const;
+    QMap<QString,int> getWeights() const;
 
 private:
     void clearLayout(QLayout* layout, bool deleteWidgets = true);
 
     QMap<QString,QSpinBox*> weights;
-
-    QSignalMapper * mapper;
-
     Ui::SetWeightAssetWizardPage *ui;
 };
 

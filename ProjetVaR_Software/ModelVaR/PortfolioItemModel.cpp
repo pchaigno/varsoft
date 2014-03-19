@@ -92,6 +92,12 @@ void PortfolioItemModel::addPortfolio(Portfolio * portfolio)
  */
 void PortfolioItemModel::insertPortfolio(Portfolio *portfolio, int row)
 {
+    if (portfolio==0)
+        throw std::invalid_argument("portfolio cannot be NULL");
+
+    if (row < 0 || row > portfolioList.count())
+        throw std::invalid_argument("row out of bound");
+
     beginInsertRows(QModelIndex(), row, row);
     portfolioList.insert(row,portfolio);
     endInsertRows();
@@ -105,6 +111,9 @@ void PortfolioItemModel::insertPortfolio(Portfolio *portfolio, int row)
  */
 bool PortfolioItemModel::removePortfolio(Portfolio *portfolio)
 {
+    if (portfolio==0)
+        throw std::invalid_argument("portfolio cannot be NULL");
+
     int pos = portfolioList.indexOf(portfolio);
     return removePortfolio(pos);
 }
@@ -116,6 +125,9 @@ bool PortfolioItemModel::removePortfolio(Portfolio *portfolio)
  */
 bool PortfolioItemModel::removePortfolio(int row)
 {
+    if (row < 0 || row > portfolioList.count()-1)
+        throw std::invalid_argument("row out of bound");
+
     beginRemoveRows(QModelIndex(),row,row);
     Portfolio * portfolio = portfolioList.at(row);
     bool res = portfolioList.removeOne(portfolio);

@@ -62,7 +62,7 @@ void SetWeightAssetWizardPage::clearLayout(QLayout* layout, bool deleteWidgets)
  * Retrieve the list of the assets selected in the previous page of the wizard.
  * @return QList of String
  */
-QList<QString> SetWeightAssetWizardPage::getAssetsSelected()
+QList<QString> SetWeightAssetWizardPage::getAssetsSelected() const
 {
     return qobject_cast<ShowAssetsWizardPage *>(wizard()->page(wizard()->startId()))->getListAssetsSelected();
 }
@@ -72,7 +72,7 @@ QList<QString> SetWeightAssetWizardPage::getAssetsSelected()
  * Retrieve the weights entered by the user in a map.
  * @return a map with the weights associate to the name of the asset
  */
-QMap<QString, int> SetWeightAssetWizardPage::getWeights()
+QMap<QString, int> SetWeightAssetWizardPage::getWeights() const
 {
     QMap<QString, int>  res;
     foreach (const QString &str, weights.keys())

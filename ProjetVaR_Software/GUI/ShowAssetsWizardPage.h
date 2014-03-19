@@ -21,7 +21,7 @@ public:
     void setupAssets();
     bool isComplete() const;
 
-    QList<QString> getListAssetsSelected();
+    QList<QString> getListAssetsSelected() const;
 
 public slots:
     void allLeftButtonClicked();

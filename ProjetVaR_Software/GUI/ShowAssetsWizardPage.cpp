@@ -68,7 +68,7 @@ bool ShowAssetsWizardPage::isComplete() const
  * Return a QList with the Assets's name selected (in the right list).
  * @return A QList fill with QString of Assets's name.
  */
-QList<QString> ShowAssetsWizardPage::getListAssetsSelected()
+QList<QString> ShowAssetsWizardPage::getListAssetsSelected() const
 {
     QList<QString> res;
     for(int i = 0; i < ui->rightAssets->count(); ++i)

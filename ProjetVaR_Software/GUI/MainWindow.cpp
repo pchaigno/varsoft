@@ -5,25 +5,26 @@
 #include <QFileDialog>
 #include <QTableWidgetItem>
 
-MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWindow) {
+MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWindow), portfolioModel(new PortfolioItemModel(this)) {
     ui->setupUi(this);
+
     connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(importCSV()));
-    connect(ui->addPushButton, SIGNAL(clicked()), this, SLOT(newPortfolio()));
-    portfolioModel = new PortfolioItemModel(this);
+
     ui->listView->setModel(portfolioModel);
-    connect(ui->removePushButton, SIGNAL(clicked()), ui->listView, SLOT(removeSelectedPortfolio()));
 }
 
 MainWindow::~MainWindow() {
     delete ui;
+    delete portfolioModel;
 }
 /**
- * @brief MainWindow::newPortfolio open the New portfolio window
+ * @brief MainWindow::newPortfolio open the PortfolioWizard
  */
 void MainWindow::newPortfolio()
 {
    NewPortfolioWizard * fen = new NewPortfolioWizard(this);
    connect(fen,SIGNAL(newPortfolioCreated(Portfolio*)),portfolioModel,SLOT(addPortfolio(Portfolio*)));
+   fen->setAttribute(Qt::WA_DeleteOnClose);
    fen->show();
 }
 
