@@ -15,8 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef SETWEIGHTASSETWIZARDPAGE_H
-#define SETWEIGHTASSETWIZARDPAGE_H
+#pragma once
 
 #include <QWizardPage>
 #include <QDebug>
@@ -50,4 +49,3 @@ private:
     Ui::SetWeightAssetWizardPage *ui;
 };
 
-#endif // SETWEIGHTASSETWIZARDPAGE_H

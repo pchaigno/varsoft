@@ -15,8 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef PORTFOLIOITEMMODEL_H
-#define PORTFOLIOITEMMODEL_H
+#pragma once
 
 #include <QAbstractListModel>
 #include "Portfolio.h"
@@ -55,4 +54,3 @@ private:
 
 };
 
-#endif // PORTFOLIOITEMMODEL_H

@@ -15,8 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef NEWPORTFOLIOWIZARD_H
-#define NEWPORTFOLIOWIZARD_H
+#pragma once
 
 #include <QWizard>
 #include "ShowAssetsWizardPage.h"
@@ -47,4 +46,3 @@ private:
     SetWeightAssetWizardPage * setWeightPage;
 };
 
-#endif // NEWPORTFOLIOWIZARD_H
