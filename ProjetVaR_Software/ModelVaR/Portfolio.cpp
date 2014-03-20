@@ -292,12 +292,14 @@ QMap<QDateTime, double> Portfolio::getValuesByDates2(const QDateTime& startDate,
 			throw PortfolioCalculationException("All portfolio assets must have the first date in common");
 		}
 
+		// Portofolio dates construction
 		for(QList<QDateTime>::const_iterator dateIt=dates.begin(); dateIt!=dates.end(); ++dateIt) {
 			//if result.
 			result.insert(*dateIt, 0);
 		}
 	}
 
+	// Calculation of portfolio values
 	for(QMap<Asset*, int>::const_iterator assetIt=this->composition.begin(); assetIt!=this->composition.end(); ++assetIt) {
 
 		QMap<QDateTime, double> assetValuesByDates = assetIt.key()->getValues2(startDate, endDate);
