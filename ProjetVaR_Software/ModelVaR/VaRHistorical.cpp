@@ -35,12 +35,12 @@ double VaRHistorical::execute(QDateTime date) const {
 
 	// If the distribution period is too large, then the corresponding starting date may not
 	// be available in the database. A portfolioCalculationException will be thrown
-	QVector<double> values = getPortfolio().getValues(startingPeriodDate, endingPeriodDate);
+	QVector<double> values = getPortfolio().retrieveValues(startingPeriodDate, endingPeriodDate);
 
 	// Make sure there is there is the exact number of returns
 	while(values.size() < period) {
 		startingPeriodDate.addDays(-1);
-		values.push_front(getPortfolio().getValues(startingPeriodDate, startingPeriodDate).at(0));
+		values.push_front(getPortfolio().retrieveValues(startingPeriodDate, startingPeriodDate).at(0));
 	}
 
 	// Returns have to be calculated first

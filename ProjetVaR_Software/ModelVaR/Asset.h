@@ -35,9 +35,9 @@ public:
 	QDateTime getFirstDate() const;
 	QDateTime getLastDate() const;
 	void changeName(QString name);
-	QVector<double> getValues();
-	QVector<double> getValues(const QDateTime &startDate, const QDateTime &endDate);
-	QMap<QDateTime, double> getValuesByDates(const QDateTime& startDate, const QDateTime& endDate);
+	QVector<double> retrieveValues() const;
+	QVector<double> retrieveValues(const QDateTime &startDate, const QDateTime &endDate) const;
+	QMap<QDateTime, double> retrieveValuesByDate(const QDateTime& startDate, const QDateTime& endDate) const;
 
 	bool operator==(const Asset& asset) const;
 };

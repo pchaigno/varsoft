@@ -184,110 +184,37 @@ QDateTime Portfolio::retrieveLastDate() const {
  * @brief Retrieves the values of a portfolio on its largest time range
  * @return The values of the portfolio in the chronological order
  */
-QVector<double> Portfolio::getValues() const {
-	return this->getValues(this->retrieveFirstDate(), this->retrieveLastDate());
+QVector<double> Portfolio::retrieveValues() const {
+	return this->retrieveValues(this->retrieveFirstDate(), this->retrieveLastDate());
 }
 
 /**
  * @brief Retrieves the values of a portfolio according to
- * the specified dates
+ * the specified dates. It reads each file corresponding to the assets
+ * constituing the portfolio
  * @param startDate The starting date
  * @param endDate The ending date
  * @return The values of the portfolio in the chronological order
  */
-QVector<double> Portfolio::getValues(const QDateTime& startDate, const QDateTime& endDate) const {
-	return this->getValuesByDates2(startDate, endDate).values().toVector();
+QVector<double> Portfolio::retrieveValues(const QDateTime& startDate, const QDateTime& endDate) const {
+	return this->retrieveValuesByDate(startDate, endDate).values().toVector();
 }
-// Previous fonction, wrong
-/*QVector<double> Portfolio::getValues(const QDateTime& startDate, const QDateTime& endDate) const {
-	// The following did not work because of the days the asset is not quoted
-	// int length = startDate.daysTo(endDate)+1;
-
-	// Initialization of the portfolio values size with the size of the first asset
-	// operation done twice, not optimal
-	// Cas ou meme taille, mais valeurs pas aux meme dates
-	int length = this->composition.begin().key()->getValues(startDate, endDate).size();;
-	QVector<double> portfolioValues(length, 0);
-
-	for(QMap<Asset*, int>::const_iterator it=this->composition.begin(); it!=this->composition.end(); ++it) {
-		QVector<double> assetValues = it.key()->getValues(startDate, endDate);
-		int weight = it.value();
-
-		// We make sure that every asset has the same size and thus the values of the portfolio are
-		// well defined
-
-		if(assetValues.size() != length) {
-			throw PortfolioCalculationException("Missing asset values to calculate the portfolio ones, asset involved: "
-												+ it.key()->getName().toStdString());
-		}
-
-		for(QVector<double>::size_type i = 0; i != portfolioValues.size(); i++) {
-			portfolioValues[i] += assetValues[i]*weight;
-		}
-	}
-
-	return portfolioValues;
-}*/
 
 /**
- * @brief Retrieves the values of a portfolio according to
- * the specified dates
+ * @brief Retrieve the associations of dates and portfolio values between startDate and endDate.
+ * It reads the corresponding files located in the database.
  * @param startDate The starting date
  * @param endDate The ending date
- * @return The values of the portfolio in the chronological order
+ * @return The date value associations of the portfolio in the chronological order
  */
-/*QMap<QDateTime, double> Portfolio::getValuesByDates(const QDateTime& startDate, const QDateTime& endDate) const {
-
-	QMap<QDateTime, double> result;
-	bool first = true;
-
-	for(QMap<Asset*, int>::const_iterator it=this->composition.begin(); it!=this->composition.end(); ++it) {
-		QMap<QDateTime, double> assetValues = it.key()->getValues2(startDate, endDate);
-
-		// Asset ponderation
-		int weight = it.value();
-
-		// The portofolio is initialized with the first asset, ie the portfolio will be defined with
-		// the same dates as the first asset is.
-		if(first == true) {
-			for(QMap<QDateTime, double>::const_iterator i = assetValues.begin(); i != assetValues.constEnd(); ++i) {
-				result.insert(i.key(), i.value()*weight);
-			}
-			first = false;
-		} else {
-			if(result.size() != assetValues.size()) {
-				throw PortfolioCalculationException(it.key()->getName().toStdString()
-													+ " asset has a different size from the portfolio it is included in. Portfolio size: "
-													+ QString::number(result.size()).toStdString());
-			}
-			for(QMap<QDateTime, double>::const_iterator i = assetValues.begin(); i != assetValues.constEnd(); ++i) {
-				if(result.contains(i.key())) {
-					result.insert(i.key(), result.value(i.key())+i.value()*weight);
-				} else {
-					throw PortfolioCalculationException("The date "+i.key().toString().toStdString()
-														+ "is not defined as key in the portfolio");
-				}
-			}
-		}
-	}
-	return result;
-}*/
-
-/**
- * @brief Retrieves the values of a portfolio according to
- * the specified dates
- * @param startDate The starting date
- * @param endDate The ending date
- * @return The values of the portfolio in the chronological order
- */
-QMap<QDateTime, double> Portfolio::getValuesByDates2(const QDateTime& startDate, const QDateTime& endDate) const {
+QMap<QDateTime, double> Portfolio::retrieveValuesByDate(const QDateTime& startDate, const QDateTime& endDate) const {
 
 	QMap<QDateTime, double> result;
 
 	// Portfolio dates definition
 	QDateTime firstDate;
 	for(QMap<Asset*, int>::const_iterator assetIt=this->composition.begin(); assetIt!=this->composition.end(); ++assetIt) {
-		QList<QDateTime> dates = assetIt.key()->getValuesByDates(startDate, endDate).keys();
+		QList<QDateTime> dates = assetIt.key()->retrieveValuesByDate(startDate, endDate).keys();
 
 		// Check that all assets have the initial date in common
 		if(firstDate.isNull()) {
@@ -306,7 +233,7 @@ QMap<QDateTime, double> Portfolio::getValuesByDates2(const QDateTime& startDate,
 	// Calculation of portfolio values
 	for(QMap<Asset*, int>::const_iterator assetIt=this->composition.begin(); assetIt!=this->composition.end(); ++assetIt) {
 
-		QMap<QDateTime, double> assetValuesByDates = assetIt.key()->getValuesByDates(startDate, endDate);
+		QMap<QDateTime, double> assetValuesByDates = assetIt.key()->retrieveValuesByDate(startDate, endDate);
 		int weight = assetIt.value();
 
 		for(QMap<QDateTime, double>::const_iterator portfolioIt=result.begin(); portfolioIt!=result.end(); portfolioIt++) {

@@ -120,23 +120,22 @@ void Asset::changeName(QString name) {
 	this->name = name;
 }
 
-
-
 /**
- * @brief Getter of the asset values between its firstDate and lastDate
- * @return The values of the asset in the chronlogical order
+ * @brief Retrieve the asset values between its firstDate and lastDate attributes
+ * @return The values of the asset in the chronological order
  */
-QVector<double> Asset::getValues() {
-	return this->getValues(this->firstDate, this->lastDate);
+QVector<double> Asset::retrieveValues() const {
+	return this->retrieveValues(this->firstDate, this->lastDate);
 }
 
 /**
- * @brief Getter of the asset values.
+ * @brief Retrieve the asset values between startDate and endDate. It reads the
+ * corresponding file located in the database
  * @param startDate The starting date
  * @param endDate The ending date
  * @return The values of the asset in the chronological order
  */
-QVector<double> Asset::getValues(const QDateTime& startDate, const QDateTime& endDate) {
+QVector<double> Asset::retrieveValues(const QDateTime& startDate, const QDateTime& endDate) const {
 	QVector<double> values;
 	QFile inputFile(this->getFile());
 
@@ -189,12 +188,13 @@ QVector<double> Asset::getValues(const QDateTime& startDate, const QDateTime& en
 }
 
 /**
- * @brief Getter of the asset values.
+ * @brief Retrieve the associations of dates and asset values between startDate and endDate.
+ * It reads the corresponding file located in the database
  * @param startDate The starting date
  * @param endDate The ending date
- * @return The values of the asset in the chronological order
+ * @return The date and value associations of the asset in the chronological order
  */
-QMap<QDateTime, double> Asset::getValuesByDates(const QDateTime& startDate, const QDateTime& endDate) {
+QMap<QDateTime, double> Asset::retrieveValuesByDate(const QDateTime& startDate, const QDateTime& endDate) const {
 	QMap<QDateTime, double> values;
 	QFile inputFile(this->getFile());
 

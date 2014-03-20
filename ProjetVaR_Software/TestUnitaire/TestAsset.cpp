@@ -42,9 +42,9 @@ void TestAsset::testGetValues() {
 
 	QVector<double> result;
 
-	// getValues() version with dates parameters
+	// retrieveValues() version with dates parameters
 	try {
-		result = this->google.getValues(this->google.getFirstDate(), this->google.getLastDate());
+		result = this->google.retrieveValues(this->google.getFirstDate(), this->google.getLastDate());
 	} catch(CannotOpenFileException& e) {
 		qDebug() << e.what();
 	}
@@ -55,9 +55,9 @@ void TestAsset::testGetValues() {
 	QCOMPARE(result.at(2), 103.0);
 	QCOMPARE(result.at(3), 104.0);
 
-	// getValues() version without dates parameters
+	// retrieveValues() version without dates parameters
 	try {
-		result = this->google.getValues();
+		result = this->google.retrieveValues();
 	} catch(CannotOpenFileException& e) {
 		qDebug() << e.what();
 	}
@@ -71,7 +71,7 @@ void TestAsset::testGetValues() {
 	QMap<QDateTime, double> result2;
 
 	try {
-		result2 = this->google.getValuesByDates(this->google.getFirstDate(), this->google.getLastDate());
+		result2 = this->google.retrieveValuesByDate(this->google.getFirstDate(), this->google.getLastDate());
 	} catch(CannotOpenFileException& e) {
 		qDebug() << e.what();
 	}
@@ -84,7 +84,7 @@ void TestAsset::testGetValues() {
 
 	// NONEXISTING FILE CASE
 	try {
-		result = this->missing.getValues(this->missing.getFirstDate(), this->missing.getLastDate());
+		result = this->missing.retrieveValues(this->missing.getFirstDate(), this->missing.getLastDate());
 		QFAIL("getValues() was able to open the file that should not exist");
 	} catch(CannotOpenFileException& e) {
 		qDebug() << e.what();
@@ -93,7 +93,7 @@ void TestAsset::testGetValues() {
 	// INCORRECT PARAMETERS CASE
 	// firstDate is after endDate
 	try {
-		result = this->google.getValues(this->google.getLastDate(), this->google.getFirstDate());
+		result = this->google.retrieveValues(this->google.getLastDate(), this->google.getFirstDate());
 		QFAIL("getValues was able to execute with incorrect date paramaeters");
 	} catch(std::exception& e) {
 		qDebug() << e.what();

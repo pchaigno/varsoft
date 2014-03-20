@@ -87,9 +87,9 @@ void TestPortfolio::testGetValues() {
 
 	QVector<double> result;
 
-	// getValues() version with dates parameters
+	// retrieveValues() version with dates parameters
 	try {
-		result = this->son.getValues(startDate, endDate);
+		result = this->son.retrieveValues(startDate, endDate);
 	} catch(PortfolioCalculationException& e) {
 		qDebug() << e.what();
 	}
@@ -104,9 +104,9 @@ void TestPortfolio::testGetValues() {
 		qDebug() << *it;
 	}
 
-	// getValues() version without parameters
+	// retrieveValues() version without parameters
 	try {
-		result = this->son.getValues();
+		result = this->son.retrieveValues();
 	} catch(PortfolioCalculationException& e) {
 		qDebug() << e.what();
 	}
@@ -121,11 +121,11 @@ void TestPortfolio::testGetValues() {
 		qDebug() << *it;
 	}
 
-	// getValuesByDates()
+	// retrieveValuesByDate()
 	QMap<QDateTime, double> result2;
 
 	try {
-		result2 = this->son.getValuesByDates2(startDate, endDate);
+		result2 = this->son.retrieveValuesByDate(startDate, endDate);
 	} catch(PortfolioCalculationException& e) {
 		qDebug() << e.what();
 	}
@@ -142,9 +142,9 @@ void TestPortfolio::testGetValues() {
 
 
 
-	// getValuesByDates2()
+	// retrieveValuesByDate() test
 	QMap<QDateTime, double> result3;
-	result3 = this->uncle.getValuesByDates2(QDateTime(QDate(2014, 1, 1), QTime(0, 0, 0)), QDateTime(QDate(2014, 1, 4), QTime(0, 0, 0)));
+	result3 = this->uncle.retrieveValuesByDate(QDateTime(QDate(2014, 1, 1), QTime(0, 0, 0)), QDateTime(QDate(2014, 1, 4), QTime(0, 0, 0)));
 
 	for(QMap<QDateTime, double>::const_iterator it=result3.begin(); it!=result3.end(); ++it) {
 		qDebug() << it.key() << it.value();
@@ -152,7 +152,7 @@ void TestPortfolio::testGetValues() {
 
 	// INCORRECT DATE CASE FOR ILLUSTRATION PURPOSES
 	try {
-		result = this->son.getValues(incorrectStartDate, endDate);
+		result = this->son.retrieveValues(incorrectStartDate, endDate);
 		QFAIL("getValues() was able to calculate the portfolio values with missing asset values");
 	} catch(PortfolioCalculationException& e) {
 		qDebug() << e.what();

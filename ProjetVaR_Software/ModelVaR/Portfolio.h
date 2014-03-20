@@ -38,10 +38,9 @@ public:
 	QDateTime retrieveFirstDate() const;
 	QDateTime retrieveLastDate() const;
 	static QVector<double> getReturns(QVector<double> &values);
-	QVector<double> getValues() const;
-	QVector<double> getValues(const QDateTime &startDate, const QDateTime &endDate) const;
-	//QMap<QDateTime, double> getValuesByDates(const QDateTime& startDate, const QDateTime& endDate) const;
-	QMap<QDateTime, double> getValuesByDates2(const QDateTime& startDate, const QDateTime& endDate) const;
+	QVector<double> retrieveValues() const;
+	QVector<double> retrieveValues(const QDateTime &startDate, const QDateTime &endDate) const;
+	QMap<QDateTime, double> retrieveValuesByDate(const QDateTime& startDate, const QDateTime& endDate) const;
 
 	bool operator==(const Portfolio& portfolio) const;
 };
