@@ -15,6 +15,7 @@ class TestPortfolio: public QObject {
 private:
 	Portfolio father;
 	Portfolio son;
+	Portfolio uncle;
 
 public:
 	TestPortfolio();

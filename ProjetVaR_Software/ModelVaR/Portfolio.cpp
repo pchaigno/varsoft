@@ -253,7 +253,7 @@ QMap<QDateTime, double> Portfolio::getValuesByDates(const QDateTime& startDate, 
 		} else {
 			if(result.size() != assetValues.size()) {
 				throw PortfolioCalculationException(it.key()->getName().toStdString()
-						+ " asset has a different size from the portfolio it is included in. Portfolio size: "
+													+ " asset has a different size from the portfolio it is included in. Portfolio size: "
 													+ QString::number(result.size()).toStdString());
 			}
 			for(QMap<QDateTime, double>::const_iterator i = assetValues.begin(); i != assetValues.constEnd(); ++i) {
@@ -266,6 +266,58 @@ QMap<QDateTime, double> Portfolio::getValuesByDates(const QDateTime& startDate, 
 			}
 		}
 	}
+	return result;
+}
+
+/**
+ * @brief Retrieves the values of a portfolio according to
+ * the specified dates
+ * @param startDate The starting date
+ * @param endDate The ending date
+ * @return The values of the portfolio in the chronological order
+ */
+QMap<QDateTime, double> Portfolio::getValuesByDates2(const QDateTime& startDate, const QDateTime& endDate) const {
+
+	QMap<QDateTime, double> result;
+
+	// Portfolio dates definition
+	QDateTime firstDate;
+	for(QMap<Asset*, int>::const_iterator assetIt=this->composition.begin(); assetIt!=this->composition.end(); ++assetIt) {
+		QList<QDateTime> dates = assetIt.key()->getValues2(startDate, endDate).keys();
+
+		// Check that all assets have the initial date in common
+		if(firstDate.isNull()) {
+			firstDate = *dates.begin();
+		} else if(firstDate != *dates.begin()) {
+			throw PortfolioCalculationException("All portfolio assets must have the first date in common");
+		}
+
+		for(QList<QDateTime>::const_iterator dateIt=dates.begin(); dateIt!=dates.end(); ++dateIt) {
+			//if result.
+			result.insert(*dateIt, 0);
+		}
+	}
+
+	for(QMap<Asset*, int>::const_iterator assetIt=this->composition.begin(); assetIt!=this->composition.end(); ++assetIt) {
+
+		QMap<QDateTime, double> assetValuesByDates = assetIt.key()->getValues2(startDate, endDate);
+		int weight = assetIt.value();
+
+		for(QMap<QDateTime, double>::const_iterator portfolioIt=result.begin(); portfolioIt!=result.end(); portfolioIt++) {
+			// Check that the asset has the date of the portfolio
+			if(assetValuesByDates.contains(portfolioIt.key())) {
+				result.insert(portfolioIt.key(), portfolioIt.value() + assetValuesByDates.value(portfolioIt.key())*weight);
+			// Take the latest available value of the asset
+			} else {
+				QDateTime latestCommonDate = portfolioIt.key().addDays(-1);
+				while(latestCommonDate >= assetValuesByDates.begin().key() && !assetValuesByDates.contains(latestCommonDate)) {
+					latestCommonDate = latestCommonDate.addDays(-1);
+				}
+				result.insert(portfolioIt.key(), portfolioIt.value() + assetValuesByDates.value(latestCommonDate)*weight);
+			}
+		}
+	}
+
 	return result;
 }
 

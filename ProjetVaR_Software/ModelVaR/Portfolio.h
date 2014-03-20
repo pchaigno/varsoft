@@ -6,6 +6,7 @@
 #include <QMap>
 #include "Asset.h"
 #include <QDateTime>
+#include <QDebug>
 #include "IdAlreadyAttributedException.h"
 #include "ModelVaR_global.h"
 #include "PortfolioCalculationException.h"
@@ -40,6 +41,7 @@ public:
 	QVector<double> getValues() const;
 	QVector<double> getValues(const QDateTime &startDate, const QDateTime &endDate) const;
 	QMap<QDateTime, double> getValuesByDates(const QDateTime& startDate, const QDateTime& endDate) const;
+	QMap<QDateTime, double> getValuesByDates2(const QDateTime& startDate, const QDateTime& endDate) const;
 
 	bool operator==(const Portfolio& portfolio) const;
 };

@@ -21,6 +21,16 @@ TestPortfolio::TestPortfolio() {
 	QDateTime endDate3(QDate(2014, 1, 8), QTime(0, 0, 0));
 	Asset* asset3 = new Asset("asset3", assetFolder+"asset3.txt", "YAHOO", startDate3, endDate3);
 
+	// FOURTH ASSET DEFINITION
+	QDateTime startDate4(QDate(2014, 1, 1), QTime(0, 0, 0));
+	QDateTime endDate4(QDate(2014, 1, 4), QTime(0, 0, 0));
+	Asset* asset4 = new Asset("asset4", assetFolder+"asset4.txt", "YAHOO", startDate4, endDate4);
+
+	// FIFTH ASSET DEFINITION
+	QDateTime startDate5(QDate(2014, 1, 1), QTime(0, 0, 0));
+	QDateTime endDate5(QDate(2014, 1, 4), QTime(0, 0, 0));
+	Asset* asset5 = new Asset("asset5", assetFolder+"asset5.txt", "YAHOO", startDate5, endDate5);
+
 	// TEST PORTFOLIO DEFINITION
 	QMap<Asset*, int> assets;
 	assets.insert(asset1, 1);
@@ -30,6 +40,13 @@ TestPortfolio::TestPortfolio() {
 	QVector<Report*> reports;
 	this->father = Portfolio("Father", assets, reports);
 	this->son = Portfolio(&this->father, "Son", assets, reports);
+
+	// SECOND PORTFOLIO DEFINITION
+	QMap<Asset*, int> assets2;
+	assets2.insert(asset4, 1);
+	assets2.insert(asset5, 2);
+	QVector<Report*> reports2;
+	this->uncle = Portfolio("uncle", assets2, reports2);
 }
 
 /**
@@ -120,6 +137,15 @@ void TestPortfolio::testGetValues() {
 	QCOMPARE(result.at(3), 630.0);*/
 
 	for(QMap<QDateTime, double>::const_iterator it=result2.begin(); it!=result2.end(); ++it) {
+		qDebug() << it.key() << it.value();
+	}
+
+
+	QMap<QDateTime, double> result3;
+	// getValuesByDates2()
+	result3 = this->uncle.getValuesByDates2(QDateTime(QDate(2014, 1, 1), QTime(0, 0, 0)), QDateTime(QDate(2014, 1, 4), QTime(0, 0, 0)));
+
+	for(QMap<QDateTime, double>::const_iterator it=result3.begin(); it!=result3.end(); ++it) {
 		qDebug() << it.key() << it.value();
 	}
 
