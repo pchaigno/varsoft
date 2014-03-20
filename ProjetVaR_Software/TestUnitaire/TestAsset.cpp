@@ -71,7 +71,7 @@ void TestAsset::testGetValues() {
 	QMap<QDateTime, double> result2;
 
 	try {
-		result2 = this->google.getValues2(this->google.getFirstDate(), this->google.getLastDate());
+		result2 = this->google.getValuesByDates(this->google.getFirstDate(), this->google.getLastDate());
 	} catch(CannotOpenFileException& e) {
 		qDebug() << e.what();
 	}

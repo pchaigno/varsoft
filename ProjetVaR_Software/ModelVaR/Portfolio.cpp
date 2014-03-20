@@ -287,7 +287,7 @@ QMap<QDateTime, double> Portfolio::getValuesByDates2(const QDateTime& startDate,
 	// Portfolio dates definition
 	QDateTime firstDate;
 	for(QMap<Asset*, int>::const_iterator assetIt=this->composition.begin(); assetIt!=this->composition.end(); ++assetIt) {
-		QList<QDateTime> dates = assetIt.key()->getValues2(startDate, endDate).keys();
+		QList<QDateTime> dates = assetIt.key()->getValuesByDates(startDate, endDate).keys();
 
 		// Check that all assets have the initial date in common
 		if(firstDate.isNull()) {
@@ -306,7 +306,7 @@ QMap<QDateTime, double> Portfolio::getValuesByDates2(const QDateTime& startDate,
 	// Calculation of portfolio values
 	for(QMap<Asset*, int>::const_iterator assetIt=this->composition.begin(); assetIt!=this->composition.end(); ++assetIt) {
 
-		QMap<QDateTime, double> assetValuesByDates = assetIt.key()->getValues2(startDate, endDate);
+		QMap<QDateTime, double> assetValuesByDates = assetIt.key()->getValuesByDates(startDate, endDate);
 		int weight = assetIt.value();
 
 		for(QMap<QDateTime, double>::const_iterator portfolioIt=result.begin(); portfolioIt!=result.end(); portfolioIt++) {

@@ -194,7 +194,7 @@ QVector<double> Asset::getValues(const QDateTime& startDate, const QDateTime& en
  * @param endDate The ending date
  * @return The values of the asset in the chronological order
  */
-QMap<QDateTime, double> Asset::getValues2(const QDateTime& startDate, const QDateTime& endDate) {
+QMap<QDateTime, double> Asset::getValuesByDates(const QDateTime& startDate, const QDateTime& endDate) {
 	QMap<QDateTime, double> values;
 	QFile inputFile(this->getFile());
 
