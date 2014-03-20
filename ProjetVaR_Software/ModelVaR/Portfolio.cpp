@@ -196,6 +196,10 @@ QVector<double> Portfolio::getValues() const {
  * @return The values of the portfolio in the chronological order
  */
 QVector<double> Portfolio::getValues(const QDateTime& startDate, const QDateTime& endDate) const {
+	return this->getValuesByDates2(startDate, endDate).values().toVector();
+}
+// Previous fonction, wrong
+/*QVector<double> Portfolio::getValues(const QDateTime& startDate, const QDateTime& endDate) const {
 	// The following did not work because of the days the asset is not quoted
 	// int length = startDate.daysTo(endDate)+1;
 
@@ -223,7 +227,7 @@ QVector<double> Portfolio::getValues(const QDateTime& startDate, const QDateTime
 	}
 
 	return portfolioValues;
-}
+}*/
 
 /**
  * @brief Retrieves the values of a portfolio according to
@@ -232,7 +236,7 @@ QVector<double> Portfolio::getValues(const QDateTime& startDate, const QDateTime
  * @param endDate The ending date
  * @return The values of the portfolio in the chronological order
  */
-QMap<QDateTime, double> Portfolio::getValuesByDates(const QDateTime& startDate, const QDateTime& endDate) const {
+/*QMap<QDateTime, double> Portfolio::getValuesByDates(const QDateTime& startDate, const QDateTime& endDate) const {
 
 	QMap<QDateTime, double> result;
 	bool first = true;
@@ -267,7 +271,7 @@ QMap<QDateTime, double> Portfolio::getValuesByDates(const QDateTime& startDate, 
 		}
 	}
 	return result;
-}
+}*/
 
 /**
  * @brief Retrieves the values of a portfolio according to

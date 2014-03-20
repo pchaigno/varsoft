@@ -125,24 +125,25 @@ void TestPortfolio::testGetValues() {
 	QMap<QDateTime, double> result2;
 
 	try {
-		result2 = this->son.getValuesByDates(startDate, endDate);
+		result2 = this->son.getValuesByDates2(startDate, endDate);
 	} catch(PortfolioCalculationException& e) {
 		qDebug() << e.what();
 	}
 
-	/*QCOMPARE(result.size(), 4);
+	QCOMPARE(result.size(), 4);
 	QCOMPARE(result.at(0), 612.0);
 	QCOMPARE(result.at(1), 618.0);
 	QCOMPARE(result.at(2), 624.0);
-	QCOMPARE(result.at(3), 630.0);*/
+	QCOMPARE(result.at(3), 630.0);
 
 	for(QMap<QDateTime, double>::const_iterator it=result2.begin(); it!=result2.end(); ++it) {
 		qDebug() << it.key() << it.value();
 	}
 
 
-	QMap<QDateTime, double> result3;
+
 	// getValuesByDates2()
+	QMap<QDateTime, double> result3;
 	result3 = this->uncle.getValuesByDates2(QDateTime(QDate(2014, 1, 1), QTime(0, 0, 0)), QDateTime(QDate(2014, 1, 4), QTime(0, 0, 0)));
 
 	for(QMap<QDateTime, double>::const_iterator it=result3.begin(); it!=result3.end(); ++it) {
