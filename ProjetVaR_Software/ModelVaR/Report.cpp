@@ -88,6 +88,11 @@ QJsonDocument Report::getDataJson() const
     return dataJson;
 }
 
+QString Report::getTemplateFile() const
+{
+    return "A ENLEVER PLUS TARD";
+}
+
 /**
  * @brief Checks if two reports are equal.
  * @param report The second report.

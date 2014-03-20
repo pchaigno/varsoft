@@ -3,7 +3,7 @@
 #include <QString>
 #include "IdAlreadyAttributedException.h"
 #include "ModelVaR_global.h"
-#include <QJsonDocument>
+#include "ReportDataJson.h"
 
 enum ReportType {
 	NONE = 0,
@@ -19,7 +19,7 @@ private:
 	int id;
 	QString docxFile;
 	QString pdfFile;
-    QJsonDocument dataJson;
+    ReportDataJson dataJson;
 
 public:
 	Report();
@@ -34,8 +34,8 @@ public:
     // TODO Any way to make it abstract? (virtual ReportType getType() const = 0;)
 	virtual ReportType getType() const;
 
-    QJsonDocument getDataJson() const;
-    virtual QString getTemplateFile() const = 0;
+    ReportDataJson getDataJson() const;
+    virtual QString getTemplateFile() const;
 
 
 	bool operator==(const Report& report) const;

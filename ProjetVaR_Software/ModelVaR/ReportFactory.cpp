@@ -5,8 +5,7 @@
  * @param docxPath
  * @param pdfPath
  */
-ReportFactory::ReportFactory(QString docxFile, QString pdfFile):
-	docxGenerator(DocxGenerator(docxFile)) {
+ReportFactory::ReportFactory(QString docxFile, QString pdfFile){
 	this->docxFile = docxFile;
 	this->pdfFile = pdfFile;
 }
@@ -23,8 +22,7 @@ Report ReportFactory::generateReport() {
 
 /**
  * @brief Generates the PDF.
- * Converts the DOCX file to a PDF.
  */
 void ReportFactory::generatePDF() {
-	this->docxGenerator.convertToPDF();
+
 }

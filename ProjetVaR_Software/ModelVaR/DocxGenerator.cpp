@@ -6,6 +6,11 @@
  * @param templateFile The template file of the report
  * @param data the json data
  */
+DocxGenerator::DocxGenerator()
+{
+
+}
+
 DocxGenerator::DocxGenerator(Report *report) {
     this->report=report;
 }
@@ -16,8 +21,7 @@ DocxGenerator::DocxGenerator(Report *report) {
 void DocxGenerator::generate() {
     QProcess docx;
     docx.start("java DocxGenerator", QStringList() << report->getTemplateFile() << report->getTemplateFile());
-    if (!docx.waitForStarted())
-     return false;
+    docx.waitForStarted();
 
     docx.write(report->getDataJson().toJson(QJsonDocument::Compact));
     docx.closeWriteChannel();
