@@ -36,11 +36,11 @@ bool SessionSaver::saveAsset(Asset& asset) {
 	this->openConnection();
 	QSqlQuery query(this->db);
 	query.prepare("INSERT INTO assets(id, name, file, origin, first_date, last_date) VALUES(NULL, :name, :file, :origin, :first_date, :last_date);");
-	query.bindValue(":name", asset.getFile());
-	query.bindValue(":file", asset.getName());
+	query.bindValue(":name", asset.getName());
+	query.bindValue(":file", asset.getFile());
 	query.bindValue(":origin", asset.getOrigin());
-	query.bindValue(":first_date", asset.getFirstDate());
-	query.bindValue(":last_date", asset.getLastDate());
+	query.bindValue(":first_date", asset.getFirstDate().toTime_t());
+	query.bindValue(":last_date", asset.getLastDate().toTime_t());
 	bool result = query.exec();
 	asset.setId(query.lastInsertId().toInt());
 
@@ -85,8 +85,8 @@ void SessionSaver::saveAssets(QVector<Asset*>& assets) {
 		query.bindValue(":name", asset->getName());
 		query.bindValue(":file", asset->getFile());
 		query.bindValue(":origin", asset->getOrigin());
-		query.bindValue(":first_date", asset->getFirstDate());
-		query.bindValue(":last_date", asset->getLastDate());
+		query.bindValue(":first_date", asset->getFirstDate().toTime_t());
+		query.bindValue(":last_date", asset->getLastDate().toTime_t());
 		query.exec();
 		asset->setId(query.lastInsertId().toInt());
 	}
