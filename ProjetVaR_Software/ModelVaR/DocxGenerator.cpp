@@ -3,11 +3,11 @@
 /**
  * @brief Constructor
  * @param location The path to the DOCX file to generate.
+ * @param templateFile The template file of the report
+ * @param data the json data
  */
-DocxGenerator::DocxGenerator(QString location, QString templateFile, QJsonDocument doc) {
-    this->location=location;
-    this->templateFile=templateFile;
-    this->doc=doc;
+DocxGenerator::DocxGenerator(Report *report) {
+    this->report=report;
 }
 
 /**
@@ -15,11 +15,11 @@ DocxGenerator::DocxGenerator(QString location, QString templateFile, QJsonDocume
  */
 void DocxGenerator::generate() {
     QProcess docx;
-    docx.start("java DocxGenerator", QStringList() << templateFile << location);
+    docx.start("java DocxGenerator", QStringList() << report->getTemplateFile() << report->getTemplateFile());
     if (!docx.waitForStarted())
      return false;
 
-    docx.write(doc.toJson(QJsonDocument::Compact));
+    docx.write(report->getDataJson().toJson(QJsonDocument::Compact));
     docx.closeWriteChannel();
 
     docx.waitForFinished();

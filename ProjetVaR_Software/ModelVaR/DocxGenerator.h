@@ -3,15 +3,13 @@
 #include <QString>
 #include <QProcess>
 #include <QJsonDocument>
+#include "Report.h"
 #include "ReportGenerator.h"
 
 class DocxGenerator: public ReportGenerator {
 public:
-    DocxGenerator(QString location, QString templateFile,QJsonDocument doc);
-	virtual void generate();
-	void convertToPDF();
-
+    DocxGenerator(Report * report);
+    virtual void generate();
 private:
-    QString location, templateFile;
-    QJsonDocument doc;
+    Report * report;
 };

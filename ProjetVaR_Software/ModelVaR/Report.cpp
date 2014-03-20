@@ -80,7 +80,12 @@ QString Report::getPDFFile() const {
  * @return The type of the report.
  */
 ReportType Report::getType() const {
-	return NONE;
+    return NONE;
+}
+
+QJsonDocument Report::getDataJson() const
+{
+    return dataJson;
 }
 
 /**

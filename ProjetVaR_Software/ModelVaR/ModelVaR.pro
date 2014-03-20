@@ -43,7 +43,8 @@ SOURCES += \
     VaRReportFactory.cpp \
     GarchReportFactory.cpp \
     StatisticsReportFactory.cpp \
-    CorrelationReportFactory.cpp
+    CorrelationReportFactory.cpp \
+    ReportDataJson.cpp
 
 HEADERS +=\
     Asset.h \
@@ -77,7 +78,8 @@ HEADERS +=\
     StatisticsReportFactory.h \
     CorrelationReportFactory.h \
     CannotOpenFileException.h \
-    PortfolioCalculationException.h
+    PortfolioCalculationException.h \
+    ReportDataJson.h
 
 unix:!symbian {
     maemo5 {
