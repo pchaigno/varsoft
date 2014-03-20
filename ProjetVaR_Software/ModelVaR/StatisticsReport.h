@@ -10,4 +10,5 @@ public:
 	StatisticsReport(QString docxFile, QString pdfFile);
 	StatisticsReport(int id, QString docxFile, QString pdfFile);
 	virtual ReportType getType() const;
+    virtual QString getTemplateFile() const;
 };
