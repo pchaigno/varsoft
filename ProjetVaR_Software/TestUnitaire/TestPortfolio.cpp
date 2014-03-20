@@ -78,7 +78,7 @@ void TestPortfolio::testName() {
 /**
  * @brief Tests the method getValues that retrieve and compute values of a portfolio.
  */
-void TestPortfolio::testGetValues() {
+void TestPortfolio::testRetrieveValues() {
 	// COMMON DATE DEFINITION
 	QDateTime startDate(QDate(2014, 1, 3), QTime(0, 0, 0));
 	QDateTime endDate(QDate(2014, 1, 6), QTime(0, 0, 0));

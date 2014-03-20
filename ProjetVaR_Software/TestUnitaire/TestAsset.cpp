@@ -37,7 +37,7 @@ void TestAsset::testName() {
 /**
  * @brief Tests the method getValues that retrieves all values of an asset.
  */
-void TestAsset::testGetValues() {
+void TestAsset::testRetrieveValues() {
 	qDebug() << "Current dir: " << QDir::currentPath();
 
 	QVector<double> result;
@@ -85,7 +85,7 @@ void TestAsset::testGetValues() {
 	// NONEXISTING FILE CASE
 	try {
 		result = this->missing.retrieveValues(this->missing.getFirstDate(), this->missing.getLastDate());
-		QFAIL("getValues() was able to open the file that should not exist");
+		QFAIL("retrieveValues() was able to open the file that should not exist");
 	} catch(CannotOpenFileException& e) {
 		qDebug() << e.what();
 	}
@@ -94,7 +94,7 @@ void TestAsset::testGetValues() {
 	// firstDate is after endDate
 	try {
 		result = this->google.retrieveValues(this->google.getLastDate(), this->google.getFirstDate());
-		QFAIL("getValues was able to execute with incorrect date paramaeters");
+		QFAIL("retrieveValues was able to execute with incorrect date paramaeters");
 	} catch(std::exception& e) {
 		qDebug() << e.what();
 	}

@@ -146,7 +146,7 @@ QVector<double> Asset::retrieveValues(const QDateTime& startDate, const QDateTim
 	}
 
 	if(!inputFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
-		CannotOpenFileException("Could not open file: " + this->getFile().toStdString());
+		throw CannotOpenFileException("Could not open file: " + this->getFile().toStdString());
 	} else {
 		QTextStream in(&inputFile);
 

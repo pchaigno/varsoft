@@ -19,5 +19,5 @@ public:
 private Q_SLOTS:
 	void testId();
 	void testName();
-	void testGetValues();
+	void testRetrieveValues();
 };
