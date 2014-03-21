@@ -1,4 +1,6 @@
 #include "TestImportNewData.h"
+#include "SessionBuilder.h"
+#include "SessionSaver.h"
 
 /**
 * @brief Initializes an asset for the tests.
@@ -43,6 +45,8 @@ TestImportNewData::TestImportNewData() {
         }
     }
     fileCreated.close();
+    Asset a = Asset("Gogole",TestImportNewData::newFile,TestImportNewData::origin,fiDate,laDate);
+    SessionSaver::getInstance()->saveAsset(a);
 }
 
 /**
@@ -72,4 +76,17 @@ void TestImportNewData::testDates() {
     rowData = rowOfData.at(rowOfData.size()-2).split(",");
     qDebug() << rowData[0];
     QVERIFY((QDateTime::fromString(TestImportNewData::lastDate,"yyyy-MM-dd")) <= (QDateTime::fromString(rowData[0],"yyyy-MM-dd")));
+}
+
+void TestImportNewData::testBDD(){
+    Asset *a = SessionBuilder::getInstance()->buildAsset("Gogole");
+    QVERIFY(a->getFile() == TestImportNewData::newFile);
+    QVERIFY(a->getFirstDate() == QDateTime::fromString(TestImportNewData::firstDate,"yyyy-MM-dd"));
+    QVERIFY(a->getLastDate() == QDateTime::fromString(TestImportNewData::lastDate,"yyyy-MM-dd"));
+    //QVERIFY(a->getName() == TestImportNewData::stockName);
+    QVERIFY(a->getOrigin() == TestImportNewData::origin);
+
+    // Deletes the database file:
+    QFile databaseFile(SessionSaver::getInstance()->getDatabaseFile());
+    databaseFile.remove();
 }
