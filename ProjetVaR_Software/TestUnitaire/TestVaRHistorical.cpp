@@ -59,12 +59,11 @@ void TestVaRHistorical::testExecute() {
 
 	try {
 		var = daxVaR.execute(QDateTime(QDate(2014, 3, 11), QTime(0, 0, 0)));
-	} catch(PortfolioCalculationException& e) {
+		qDebug() << "At the following date: " + daxPortfolio.retrieveLastDate().toString();
+		qDebug() << "For the asset: " + daxPortfolio.getName();
+		qDebug() << "Historical VaR parameters: risk=" << risk << ", timeHorizon=" << timeHorizon << "returnsPeriod=" << returnsPeriod;
+		qDebug() << "Value-at-Risk=" << var;
+	} catch(std::range_error& e) {
 		qDebug() << e.what();
 	}
-
-	qDebug() << "At the following date: " + daxPortfolio.retrieveLastDate().toString();
-	qDebug() << "For the asset: " + daxPortfolio.getName();
-	qDebug() << "Historical VaR parameters: risk=" << risk << ", timeHorizon=" << timeHorizon << "returnsPeriod=" << returnsPeriod;
-	qDebug() << "Value-at-Risk=" << var;
 }

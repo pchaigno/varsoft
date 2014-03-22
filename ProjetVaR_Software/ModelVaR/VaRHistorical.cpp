@@ -36,12 +36,15 @@ double VaRHistorical::execute(QDateTime date) const {
 	QVector<double> values = getPortfolio().retrieveValues(startingPeriodDate, endingPeriodDate);
 
 	// Make sure there is there is the exact number of returns
-	// TODO: Attention au depassement
-	while(values.size() <= period) {
+	while(values.size() <= period && startingPeriodDate > getPortfolio().retrieveFirstDate()) {
 		startingPeriodDate = startingPeriodDate.addDays(-1);
 		if(!getPortfolio().retrieveValues(startingPeriodDate, startingPeriodDate).isEmpty()) {
 			values.push_front(getPortfolio().retrieveValues(startingPeriodDate, startingPeriodDate).at(0));
 		}
+	}
+
+	if(values.size() < period) {
+		throw std::range_error("Not enough portfolio values to satisfy the period parameter");
 	}
 
 	// Returns have to be calculated first
