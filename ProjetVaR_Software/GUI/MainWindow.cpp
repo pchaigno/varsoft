@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
     portfolioModel = new PortfolioItemModel(this);
     ui->listView->setModel(portfolioModel);
     connect(ui->removePushButton, SIGNAL(clicked()), ui->listView, SLOT(removeSelectedPortfolio()));
+    showPortfolio();
 }
 
 MainWindow::~MainWindow() {

@@ -75,7 +75,7 @@ bool PortfolioViewModel::removePortfolio()
     /*BOOST_SCOPE_EXIT(this_){
         this_->endRemoveRows();
     }BOOST_SCOPE_EXIT_END//*/
-    mydata.erase(mydata.begin(),0);
+    mydata.clear();
     endRemoveRows();
     return true;
     /*
