@@ -20,13 +20,15 @@ DocxGenerator::DocxGenerator(Report *report) {
  */
 void DocxGenerator::generate() {
     QProcess docx;
-    qDebug() << "avant" << QFile::exists(report->getTemplateFile()) << QFile::exists("../../DocxGenerator/bin/DocXGenerator.class");
-    docx.start("java", QStringList() << "../../DocxGenerator/bin/DocxGenerator" << report->getTemplateFile() << report->getDOCXFile());
+    qDebug() << "avant" << QFile::exists(report->getTemplateFile()) << QFile::exists("../DocxGenerator/DocxGenerator.jar");
+    docx.start("java", QStringList() << "-jar" << "../DocxGenerator/DocxGenerator.jar" << report->getTemplateFile() << report->getDOCXFile());
     docx.waitForStarted();
 
-    docx.write(report->getDataJson().toString().toLatin1());
+    QString data = report->getDataJson().toString();
+    qint64 i = docx.write(data.toLatin1(),data.length());
+    qDebug() << i;
     docx.closeWriteChannel();
 
     docx.waitForFinished();
-    qDebug() << "appres" << QFile::exists(report->getTemplateFile()) << QFile::exists(report->getDOCXFile());
+    qDebug() << "appres" << QFile::exists(report->getTemplateFile()) << QFile::exists(report->getDOCXFile()) << report->getDOCXFile();
 }

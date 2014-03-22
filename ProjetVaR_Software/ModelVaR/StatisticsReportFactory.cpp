@@ -10,7 +10,7 @@ StatisticsReportFactory::StatisticsReportFactory(Portfolio * portfolio):
 
 Report *StatisticsReportFactory::getReport()
 {
-    return new StatisticsReport(QString("../../DocxGenerator/resource/statisticReport.docx"),QString());
+    return new StatisticsReport(QString("../resources/Reports/statisticReport.docx"),QString());
 }
 
 ReportDataJson StatisticsReportFactory::createJson()
