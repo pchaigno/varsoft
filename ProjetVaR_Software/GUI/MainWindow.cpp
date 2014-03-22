@@ -33,7 +33,7 @@ void MainWindow::showPortfolio(Portfolio* portfolio){
     //portfolio->getComposition().size() => number of assets
     //we need to add two colums more for : the dates and the values of the porfolio
     QMap<Asset*, int> values = portfolio->getComposition();
-    QMap<QDateTime, double> dates = portfolio->getValuesByDates(portfolio->retrieveFirstDate(), portfolio->retrieveLastDate());
+    QMap<QDateTime, double> dates = portfolio->retrieveValuesByDate(portfolio->retrieveFirstDate(), portfolio->retrieveLastDate());
     QVector<QVector<QString> > matrix(values.size()+2);
     for (int i=0; i<values.size(); i++)
        //dates.size() => numberOfDates
