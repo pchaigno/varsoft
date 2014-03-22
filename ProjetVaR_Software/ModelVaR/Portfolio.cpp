@@ -216,6 +216,12 @@ QMap<QDateTime, double> Portfolio::retrieveValuesByDate(const QDateTime& startDa
 	for(QMap<Asset*, int>::const_iterator assetIt=this->composition.begin(); assetIt!=this->composition.end(); ++assetIt) {
 		QList<QDateTime> dates = assetIt.key()->retrieveValuesByDate(startDate, endDate).keys();
 
+		// If a asset values vector is empty, we have no choice but to return
+		// an empty map
+		if(dates.isEmpty()) {
+			return result;
+		}
+
 		// Check that all assets have the initial date in common
 		if(firstDate.isNull()) {
 			firstDate = *dates.begin();

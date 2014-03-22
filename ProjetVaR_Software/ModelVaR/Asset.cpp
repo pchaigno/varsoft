@@ -133,7 +133,8 @@ QVector<double> Asset::retrieveValues() const {
  * corresponding file located in the database
  * @param startDate The starting date
  * @param endDate The ending date
- * @return The values of the asset in the chronological order
+ * @return The values of the asset in the chronological order, empty if parameters
+ * don't match any dates in the file
  */
 QVector<double> Asset::retrieveValues(const QDateTime& startDate, const QDateTime& endDate) const {
 	QVector<double> values;
@@ -172,14 +173,16 @@ QVector<double> Asset::retrieveValues(const QDateTime& startDate, const QDateTim
 				startDetected = true;
 			}
 
+			// If the end date has been reached, it exits the loop
+			// Otherwise it reads the file till the end
+			if(readDate < startDate) {
+				break;
+			}
+
 			// Building the vector
 			values.push_front(value.toDouble());
 
-			// If the end date has been reached, it exits the loop
-			// Otherwise it reads the file till the end
-			if(readDate <= startDate) {
-				break;
-			}
+
 		}
 		inputFile.close();
 	}
@@ -194,6 +197,7 @@ QVector<double> Asset::retrieveValues(const QDateTime& startDate, const QDateTim
  * @param endDate The ending date
  * @return The date and value associations of the asset in the chronological order
  */
+// BUG
 QMap<QDateTime, double> Asset::retrieveValuesByDate(const QDateTime& startDate, const QDateTime& endDate) const {
 	QMap<QDateTime, double> values;
 	QFile inputFile(this->getFile());
@@ -231,14 +235,14 @@ QMap<QDateTime, double> Asset::retrieveValuesByDate(const QDateTime& startDate, 
 				startDetected = true;
 			}
 
-			// Building the vector
-			values.insert(readDate, value.toDouble());
-
 			// If the end date has been reached, it exits the loop
 			// Otherwise it reads the file till the end
-			if(readDate <= startDate) {
+			if(readDate < startDate) {
 				break;
 			}
+
+			// Building the vector
+			values.insert(readDate, value.toDouble());
 		}
 		inputFile.close();
 	}

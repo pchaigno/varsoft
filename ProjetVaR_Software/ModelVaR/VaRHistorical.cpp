@@ -28,19 +28,20 @@ double VaRHistorical::execute(QDateTime date) const {
 
 	// Definitions of the starting that define with the passed date
 	// the period of time on which return values are used
-	// PB when market closed
-	// Additionnal getter needs to be written
 	QDateTime endingPeriodDate = date;
-	QDateTime startingPeriodDate = endingPeriodDate.addDays(-period+1);
+	QDateTime startingPeriodDate = endingPeriodDate.addDays(-period);
 
 	// If the distribution period is too large, then the corresponding starting date may not
 	// be available in the database. A portfolioCalculationException will be thrown
 	QVector<double> values = getPortfolio().retrieveValues(startingPeriodDate, endingPeriodDate);
 
 	// Make sure there is there is the exact number of returns
-	while(values.size() < period) {
-		startingPeriodDate.addDays(-1);
-		values.push_front(getPortfolio().retrieveValues(startingPeriodDate, startingPeriodDate).at(0));
+	// TODO: Attention au depassement
+	while(values.size() <= period) {
+		startingPeriodDate = startingPeriodDate.addDays(-1);
+		if(!getPortfolio().retrieveValues(startingPeriodDate, startingPeriodDate).isEmpty()) {
+			values.push_front(getPortfolio().retrieveValues(startingPeriodDate, startingPeriodDate).at(0));
+		}
 	}
 
 	// Returns have to be calculated first
@@ -50,7 +51,8 @@ double VaRHistorical::execute(QDateTime date) const {
 	qSort(returns.begin(), returns.end());
 
 	// Determine the best return of the risk*100 % worst returns
-	int quantile = getRisk()*returns.size();
+	// Using floor(), we expect the worst case
+	int quantile = floor(getRisk()*returns.size()-1);
 
 	// Take into account the time horizon
 	var = returns.at(quantile)*qSqrt(getTimeHorizon());

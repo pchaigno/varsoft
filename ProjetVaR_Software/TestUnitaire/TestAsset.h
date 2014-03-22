@@ -11,6 +11,7 @@ class TestAsset: public QObject {
 
 private:
 	Asset google;
+	Asset apple;
 	Asset missing;
 
 public:

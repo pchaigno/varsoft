@@ -7,6 +7,8 @@ TestAsset::TestAsset() {
 	QDateTime firstDate(QDate(2014, 1, 2), QTime(0, 0, 0));
 	QDateTime lastDate(QDate(2014, 1, 5), QTime(0, 0, 0));
 	this->google = Asset("Google", "../../CSV_examples/asset1.txt", "YAHOO", firstDate, lastDate);
+	this->apple = Asset("Apple", "../../CSV_examples/asset4.txt", "YAHOO", QDateTime(QDate(2014, 1, 1), QTime(0, 0, 0)),
+						QDateTime(QDate(2014, 1, 4), QTime(0, 0, 0)));
 	this->missing = Asset("test", "../../CSV_examples/nonexistingfile.txt", "YAHOO", firstDate, lastDate);
 }
 
@@ -93,6 +95,16 @@ void TestAsset::testRetrieveValues() {
 	QCOMPARE(result.at(3), 103.0);
 	QCOMPARE(result.at(4), 104.0);
 	QCOMPARE(result.at(5), 105.0);
+
+	// UNAVAILABLE DATES IN THE MIDDLE CASE
+	try {
+		result = this->apple.retrieveValues(QDateTime(QDate(2014, 1, 3), QTime(0, 0, 0)),
+											QDateTime(QDate(2014, 1, 3), QTime(0, 0, 0)));
+	} catch(CannotOpenFileException& e) {
+		qDebug() << e.what();
+	}
+
+	QVERIFY(result.isEmpty());
 
 	// NO PARAMETER FUNCTION TESTS:
 	// QVector<double> Asset::RetrieveValues() const
