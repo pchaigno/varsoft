@@ -1,3 +1,20 @@
+/**
+ * Copyright (C) 2013 Benjamin Bouguet, Damien Carduner, Paul Chaignon,
+ * Eric Chauty, Xavier Fraboulet, Clement Gautrais, Ulysse Goarant.
+
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 #include "TestSQLiteManagers.h"
 
 /**
@@ -5,8 +22,8 @@
  */
 TestSQLiteManagers::TestSQLiteManagers() {
 	// The assets:
-	QDateTime firstDate;
-	QDateTime lastDate;
+	QDateTime firstDate = QDateTime::fromString("M1d1y9800:01:02", "'M'M'd'd'y'yyhh:mm:ss");
+	QDateTime lastDate = QDateTime::currentDateTime();
 	this->apple = Asset("Apple", "somefolder\\apple.csv", "YAHOO", firstDate, lastDate);
 	this->google = Asset("Google", "somefolder\\google.csv", "YAHOO", firstDate, lastDate);
 	QMap<Asset*, int> assets = QMap<Asset*, int>();
@@ -79,7 +96,7 @@ void TestSQLiteManagers::testSaveSession() {
 		const QMap<Asset*, int>& composition = this->portfolios[i].getComposition();
 		for(QMap<Asset*, int>::const_iterator it=composition.begin(); it!=composition.end(); ++it) {
 			bool found = false;
-			for(QMap<Asset*, int>::const_iterator savedIt=composition.begin(); savedIt!=composition.end(); ++savedIt) {
+			for(QMap<Asset*, int>::const_iterator savedIt=savedComposition.begin(); savedIt!=savedComposition.end(); ++savedIt) {
 				if(*(it.key()) == *(savedIt.key())) {
 					QCOMPARE(savedIt.value(), it.value());
 					found = true;
