@@ -8,22 +8,16 @@ StatisticsReport::StatisticsReport() {
 
 }
 
-/**
- * @brief Constructor
- * @param docxPath The location of the DOCX file on the disk.
- * @param pdfPath The location of the PDF file on the disk.
- */
-StatisticsReport::StatisticsReport(QString docxFile, QString pdfFile): Report(docxFile, pdfFile) {
+StatisticsReport::StatisticsReport(QString docxFile, QString pdfFile) : Report(docxFile,pdfFile)
+{
 
 }
 
 /**
  * @brief Constructor
  * @param id The id of the report in the database.
- * @param docxPath The location of the DOCX file on the disk.
- * @param pdfPath The location of the PDF file on the disk.
  */
-StatisticsReport::StatisticsReport(int id, QString docxFile, QString pdfFile): Report(id, docxFile, pdfFile) {
+StatisticsReport::StatisticsReport(int id,  QString docxFile, QString pdfFile): Report(id,docxFile,pdfFile) {
 
 }
 
@@ -41,5 +35,5 @@ ReportType StatisticsReport::getType() const {
  */
 QString StatisticsReport::getTemplateFile() const
 {
-    return QString("templateReport/statisticReport.docx");
+    return QString("../../DocxGenerator/resources/statisticTemplate.docx");
 }

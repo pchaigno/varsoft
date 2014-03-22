@@ -9,12 +9,3 @@ CorrelationReportFactory::CorrelationReportFactory(QString docxFile, QString pdf
 	ReportFactory(docxFile, pdfFile) {
 
 }
-
-/**
- * @brief Generates the DOCX file using a DocxGenerator.
- * @return The DocxGenerator used.
- */
-DocxGenerator& CorrelationReportFactory::generateDOCX() {
-	// TODO
-	return this->docxGenerator;
-}

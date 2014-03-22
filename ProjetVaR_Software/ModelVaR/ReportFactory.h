@@ -5,16 +5,14 @@
 #include <QString>
 
 class ReportFactory {
-protected:
-	DocxGenerator docxGenerator;
-
-private:
-	QString docxFile;
-	QString pdfFile;
-
 public:
-	ReportFactory(QString docxFile, QString pdfFile);
-	Report generateReport();
-	virtual DocxGenerator& generateDOCX() const =0;
-	void generatePDF();
+    ReportFactory();
+    ReportFactory(QString&,QString &);
+
+    Report *buildReport();
+
+protected:
+    virtual Report * getReport() =0;
+    virtual ReportDataJson createJson() = 0;
+
 };

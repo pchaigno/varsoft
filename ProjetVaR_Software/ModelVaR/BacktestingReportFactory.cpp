@@ -9,12 +9,3 @@ BacktestingReportFactory::BacktestingReportFactory(QString docxFile, QString pdf
 	ReportFactory(docxFile, pdfFile) {
 
 }
-
-/**
- * @brief Generates the DOCX file using a DocxGenerator.
- * @return The DocxGenerator used.
- */
-DocxGenerator& BacktestingReportFactory::generateDOCX() {
-	// TODO
-	return this->docxGenerator;
-}

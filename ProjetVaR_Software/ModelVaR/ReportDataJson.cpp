@@ -1,7 +1,6 @@
 #include "ReportDataJson.h"
 
-ReportDataJson::ReportDataJson(QObject *parent) :
-    QObject(parent)
+ReportDataJson::ReportDataJson()
 {
 }
 
@@ -36,7 +35,7 @@ void ReportDataJson::addList(QString key, QList<QMap<QString, QString> > list)
     lists[key]=jsonArray;
 }
 
-QString ReportDataJson::getDataJson()
+QString ReportDataJson::toString()
 {
     QJsonDocument data;
     QJsonObject document;

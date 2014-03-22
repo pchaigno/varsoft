@@ -9,12 +9,3 @@ VaRReportFactory::VaRReportFactory(QString docxFile, QString pdfFile):
 	ReportFactory(docxFile, pdfFile) {
 
 }
-
-/**
- * @brief Generates the DOCX file using a DocxGenerator.
- * @return The DocxGenerator used.
- */
-DocxGenerator& VaRReportFactory::generateDOCX() {
-	// TODO
-	return this->docxGenerator;
-}

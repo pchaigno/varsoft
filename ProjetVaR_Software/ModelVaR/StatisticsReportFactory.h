@@ -2,9 +2,19 @@
 
 #include "ReportFactory.h"
 #include <QString>
+#include "Portfolio.h"
+#include "StatisticsReport.h"
 
 class StatisticsReportFactory: public ReportFactory {
 public:
-	StatisticsReportFactory(QString docxFile, QString pdfFile);
-	virtual DocxGenerator& generateDOCX();
+    StatisticsReportFactory(Portfolio *portfolio);
+
+protected:
+
+    virtual Report * getReport();
+    virtual ReportDataJson createJson();
+
+    Portfolio * portfolio;
+
+
 };

@@ -14,7 +14,7 @@ Report::Report() {
  * @param pdfPath The location of the PDF file on the disk.
  */
 Report::Report(QString docxFile, QString pdfFile) {
-	this->init(-1, docxFile, pdfFile);
+    this->init(-1, docxFile, pdfFile);
 }
 
 /**
@@ -24,7 +24,7 @@ Report::Report(QString docxFile, QString pdfFile) {
  * @param pdfPath The location of the PDF file on the disk.
  */
 Report::Report(int id, QString docxFile, QString pdfFile) {
-	this->init(id, docxFile, pdfFile);
+    this->init(id, docxFile, pdfFile);
 }
 
 /**
@@ -33,9 +33,9 @@ Report::Report(int id, QString docxFile, QString pdfFile) {
  * @param pdfPath The location of the PDF file on the disk.
  */
 void Report::init(int id, QString docxFile, QString pdfFile) {
-	this->id = id;
-	this->docxFile = docxFile;
-	this->pdfFile = pdfFile;
+    this->id = id;
+    this->docxFile = docxFile;
+    this->pdfFile = pdfFile;
 }
 
 /**
@@ -64,7 +64,7 @@ void Report::setId(int id) {
  * @return The location of the DOCX file on the disk.
  */
 QString Report::getDOCXFile() const {
-	return this->docxFile;
+    return this->docxFile;
 }
 
 /**
@@ -72,7 +72,7 @@ QString Report::getDOCXFile() const {
  * @return The location of the PDF file on the disk.
  */
 QString Report::getPDFFile() const {
-	return this->pdfFile;
+    return this->pdfFile;
 }
 
 /**
@@ -83,9 +83,14 @@ ReportType Report::getType() const {
     return NONE;
 }
 
-QJsonDocument Report::getDataJson() const
+ReportDataJson Report::getDataJson() const
 {
     return dataJson;
+}
+
+void Report::setDataJson(ReportDataJson data)
+{
+    dataJson=data;
 }
 
 QString Report::getTemplateFile() const

@@ -32,5 +32,10 @@ BacktestingReport::BacktestingReport(int id, QString docxFile, QString pdfFile):
  * @return The type of the report.
  */
 ReportType BacktestingReport::getType() const {
-	return BACKTESTING;
+    return BACKTESTING;
+}
+
+QString BacktestingReport::getTemplateFile() const
+{
+    return "";
 }

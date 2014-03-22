@@ -5,6 +5,8 @@
 #include <QJsonDocument>
 #include "Report.h"
 #include "ReportGenerator.h"
+#include <QDebug>
+#include <QFile>
 
 class DocxGenerator: public ReportGenerator {
 public:

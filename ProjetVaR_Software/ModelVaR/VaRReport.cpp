@@ -32,5 +32,10 @@ VaRReport::VaRReport(int id, QString docxFile, QString pdfFile): Report(id, docx
  * @return The type of the report.
  */
 ReportType VaRReport::getType() const {
-	return VAR;
+    return VAR;
+}
+
+QString VaRReport::getTemplateFile() const
+{
+    return "";
 }

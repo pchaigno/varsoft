@@ -22,19 +22,20 @@ private:
     ReportDataJson dataJson;
 
 public:
-	Report();
-	Report(QString docxFile, QString pdfFile);
-	Report(int id, QString docxFile, QString pdfFile);
-	void init(int id, QString docxFile, QString pdfFile);
+    Report();
+    Report(QString docxFile, QString pdfFile);
+    Report(int id, QString docxFile, QString pdfFile);
+    void init(int id, QString docxFile, QString pdfFile);
 
 	int getId() const;
-	void setId(int id);
-	QString getDOCXFile() const;
-	QString getPDFFile() const;
+    void setId(int id);
+    QString getDOCXFile() const;
+    QString getPDFFile() const;
     // TODO Any way to make it abstract? (virtual ReportType getType() const = 0;)
-	virtual ReportType getType() const;
+    virtual ReportType getType() const;
 
     ReportDataJson getDataJson() const;
+    void setDataJson(ReportDataJson data);
     virtual QString getTemplateFile() const;
 
 

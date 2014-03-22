@@ -32,5 +32,10 @@ GarchReport::GarchReport(int id, QString docxFile, QString pdfFile): Report(id, 
  * @return The type of the report.
  */
 ReportType GarchReport::getType() const {
-	return GARCH;
+    return GARCH;
+}
+
+QString GarchReport::getTemplateFile() const
+{
+    return "";
 }

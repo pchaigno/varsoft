@@ -4,6 +4,5 @@
 
 class GarchReportFactory: public ReportFactory {
 public:
-	GarchReportFactory(QString docxFile, QString pdfFile);
-	virtual DocxGenerator& generateDOCX();
+    GarchReportFactory(QString docxFile, QString pdfFile);
 };

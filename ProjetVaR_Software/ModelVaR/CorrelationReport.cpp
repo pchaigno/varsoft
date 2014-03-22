@@ -32,5 +32,10 @@ CorrelationReport::CorrelationReport(int id, QString docxFile, QString pdfFile):
  * @return The type of the report.
  */
 ReportType CorrelationReport::getType() const {
-	return CORRELATION;
+    return CORRELATION;
+}
+
+QString CorrelationReport::getTemplateFile() const
+{
+    return "";
 }

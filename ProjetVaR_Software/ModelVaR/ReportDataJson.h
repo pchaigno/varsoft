@@ -10,22 +10,17 @@
 #include <QUrl>
 #include "ModelVaR_global.h"
 
-class MODELVARSHARED_EXPORT ReportDataJson : public QObject
+class MODELVARSHARED_EXPORT ReportDataJson
 {
-    Q_OBJECT
 public:
-    explicit ReportDataJson(QObject *parent = 0);
+    ReportDataJson();
 
     void addText(QString key, QString value);
     void addImage(QString key, QString path);
     void addImage(QString key, QUrl path);
     void addList(QString key, QList<QMap<QString,QString> > list);
 
-    QString getDataJson();
-
-signals:
-
-public slots:
+    QString toString();
 
 private:
     QJsonObject texts;

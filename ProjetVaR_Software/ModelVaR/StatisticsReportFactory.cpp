@@ -2,19 +2,22 @@
 
 /**
  * @brief Constructor
- * @param docxPath The location of the DOCX file on the disk.
- * @param pdfPath The location of the PDF file on the disk.
  */
-StatisticsReportFactory::StatisticsReportFactory(QString docxFile, QString pdfFile):
-	ReportFactory(docxFile, pdfFile) {
-
+StatisticsReportFactory::StatisticsReportFactory(Portfolio * portfolio):
+    ReportFactory() {
+    this->portfolio=portfolio;
 }
 
-/**
- * @brief Generates the DOCX file using a DocxGenerator.
- * @return The DocxGenerator used.
- */
-DocxGenerator& StatisticsReportFactory::generateDOCX() {
-	// TODO
-	return this->docxGenerator;
+Report *StatisticsReportFactory::getReport()
+{
+    return new StatisticsReport(QString("../../DocxGenerator/resource/statisticReport.docx"),QString());
+}
+
+ReportDataJson StatisticsReportFactory::createJson()
+{
+    ReportDataJson data;
+
+    data.addText("portefeuilleName",portfolio->getName());
+
+    return data;
 }
