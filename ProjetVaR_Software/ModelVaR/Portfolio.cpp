@@ -220,7 +220,7 @@ QMap<QDateTime, double> Portfolio::retrieveValuesByDate(const QDateTime& startDa
 		if(firstDate.isNull()) {
 			firstDate = *dates.begin();
 		} else if(firstDate != *dates.begin()) {
-			throw PortfolioCalculationException("All portfolio assets must have the first date in common");
+			throw PortfolioCalculationException("All portfolio assets must share the first date");
 		}
 
 		// Portofolio dates construction

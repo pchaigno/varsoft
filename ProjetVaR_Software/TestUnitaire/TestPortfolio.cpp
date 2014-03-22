@@ -79,15 +79,14 @@ void TestPortfolio::testName() {
  * @brief Tests the method getValues that retrieve and compute values of a portfolio.
  */
 void TestPortfolio::testRetrieveValues() {
-	// COMMON DATE DEFINITION
+	// SHARED DATE DEFINITION
 	QDateTime startDate(QDate(2014, 1, 3), QTime(0, 0, 0));
 	QDateTime endDate(QDate(2014, 1, 6), QTime(0, 0, 0));
-	// INCORRECT DATE DEFINITION
-	QDateTime incorrectStartDate(QDate(2014, 1, 1), QTime(0, 0, 0));
 
 	QVector<double> result;
 
-	// retrieveValues() version with dates parameters
+	// DATE PARAMETERS FUNCTION TESTS
+	// EXPECTED USE CASE
 	try {
 		result = this->son.retrieveValues(startDate, endDate);
 	} catch(PortfolioCalculationException& e) {
@@ -100,11 +99,7 @@ void TestPortfolio::testRetrieveValues() {
 	QCOMPARE(result.at(2), 624.0);
 	QCOMPARE(result.at(3), 630.0);
 
-	for(QVector<double>::const_iterator it=result.begin(); it!=result.end(); ++it) {
-		qDebug() << *it;
-	}
-
-	// retrieveValues() version without parameters
+	// NO PARAMETER FUNCTION TESTS
 	try {
 		result = this->son.retrieveValues();
 	} catch(PortfolioCalculationException& e) {
@@ -116,44 +111,45 @@ void TestPortfolio::testRetrieveValues() {
 	QCOMPARE(result.at(1), 618.0);
 	QCOMPARE(result.at(2), 624.0);
 	QCOMPARE(result.at(3), 630.0);
+}
 
-	for(QVector<double>::const_iterator it=result.begin(); it!=result.end(); ++it) {
-		qDebug() << *it;
-	}
+/**
+ * @brief Tests the method retrieveValuesByDate that retrieve and compute date-values of a portfolio
+ */
+void TestPortfolio::testRetrieveValuesByDate() {
+	// RetrieveValuesByDate() behaviour
+	// FIRST PORTFOLIO ILLUSTRATION
+	//				a1		a2		a3		Portfolio
+	// 2014-01-01	100		UNDEF	UNDEF	UNDEF
+	// 2014-01-02	101		202		UNDEF	UNDEF
+	// 2014-01-03	102		204		306		612
+	// 2014-01-04	103		206		309		618
+	// 2014-01-05	104		208		312		624
+	// 2014-01-06	105		210		315		630
+	// 2014-01-07	UNDEF	212		318		635 << using previous value for a1
+	// 2014-01-08	UNDEF	UNDEF	321		638 << using previous values for a1 and a2
 
-	// retrieveValuesByDate()
-	QMap<QDateTime, double> result2;
+	QMap<QDateTime, double> result;
 
+	// EXPECTED USE CASE
 	try {
-		result2 = this->son.retrieveValuesByDate(startDate, endDate);
+		result = this->son.retrieveValuesByDate(QDateTime(QDate(2014, 1, 3), QTime(0, 0, 0)), QDateTime(QDate(2014, 1, 8), QTime(0, 0, 0)));
 	} catch(PortfolioCalculationException& e) {
 		qDebug() << e.what();
 	}
 
-	QCOMPARE(result.size(), 4);
-	QCOMPARE(result.at(0), 612.0);
-	QCOMPARE(result.at(1), 618.0);
-	QCOMPARE(result.at(2), 624.0);
-	QCOMPARE(result.at(3), 630.0);
+	QCOMPARE(result.size(), 6);
+	QCOMPARE(result.value(QDateTime(QDate(2014, 1, 3), QTime(0, 0, 0))), 612.0);
+	QCOMPARE(result.value(QDateTime(QDate(2014, 1, 4), QTime(0, 0, 0))), 618.0);
+	QCOMPARE(result.value(QDateTime(QDate(2014, 1, 5), QTime(0, 0, 0))), 624.0);
+	QCOMPARE(result.value(QDateTime(QDate(2014, 1, 6), QTime(0, 0, 0))), 630.0);
+	QCOMPARE(result.value(QDateTime(QDate(2014, 1, 7), QTime(0, 0, 0))), 635.0);
+	QCOMPARE(result.value(QDateTime(QDate(2014, 1, 8), QTime(0, 0, 0))), 638.0);
 
-	for(QMap<QDateTime, double>::const_iterator it=result2.begin(); it!=result2.end(); ++it) {
-		qDebug() << it.key() << it.value();
-	}
-
-
-
-	// retrieveValuesByDate() test
-	QMap<QDateTime, double> result3;
-	result3 = this->uncle.retrieveValuesByDate(QDateTime(QDate(2014, 1, 1), QTime(0, 0, 0)), QDateTime(QDate(2014, 1, 4), QTime(0, 0, 0)));
-
-	for(QMap<QDateTime, double>::const_iterator it=result3.begin(); it!=result3.end(); ++it) {
-		qDebug() << it.key() << it.value();
-	}
-
-	// INCORRECT DATE CASE FOR ILLUSTRATION PURPOSES
+	// UNDEFINED USE CASE
 	try {
-		result = this->son.retrieveValues(incorrectStartDate, endDate);
-		QFAIL("getValues() was able to calculate the portfolio values with missing asset values");
+		result = this->son.retrieveValuesByDate(QDateTime(QDate(2014, 1, 2), QTime(0, 0, 0)), QDateTime(QDate(2014, 1, 8), QTime(0, 0, 0)));
+		QFAIL("retrieveValuesByDate succedded in computing portfolio values despite missing asset values");
 	} catch(PortfolioCalculationException& e) {
 		qDebug() << e.what();
 	}

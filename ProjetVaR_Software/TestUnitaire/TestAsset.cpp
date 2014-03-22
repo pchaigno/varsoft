@@ -35,7 +35,7 @@ void TestAsset::testName() {
 }
 
 /**
- * @brief Tests the method getValues that retrieves all values of an asset.
+ * @brief Tests the method retrieveValues that retrieves all values of an asset.
  */
 void TestAsset::testRetrieveValues() {
 
@@ -110,6 +110,9 @@ void TestAsset::testRetrieveValues() {
 	QCOMPARE(result.at(3), 104.0);
 }
 
+/**
+ * @brief Tests the method retrieveValuesByDate that retrieves all date-values of an asset.
+ */
 void TestAsset::testRetrieveValuesByDate() {
 	QMap<QDateTime, double> result;
 
