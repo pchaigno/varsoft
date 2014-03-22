@@ -5,13 +5,14 @@
 #include "Asset.h"
 
 
+
 class PortfolioViewModel: public QAbstractTableModel
 {
     Q_OBJECT
 
 public:
     explicit PortfolioViewModel(QObject *parent = 0);
-    explicit PortfolioViewModel(QVector< QVector<QString> >* portfolio, QObject *parent = 0);
+    explicit PortfolioViewModel(QVector<QVector<QString> > portfolio, QObject *parent = 0);
 
     int rowCount(const QModelIndex &parent) const;
     int columnCount(const QModelIndex &parent) const;
@@ -22,11 +23,11 @@ public:
 signals:
 
 public slots:
-    void addPortfolio(QVector<QVector<QString>> portfolio);
+    void addPortfolio(QVector<QVector<QString> > portfolio);
     bool removePortfolio();
 
 private:
-    QVector<QVector<QString>> mydata;
+    QVector< QVector<QString> > mydata;
 };
 
 #endif // PORTFOLIOVIEWMODEL_H

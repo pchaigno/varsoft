@@ -5,7 +5,7 @@ PortfolioViewModel::PortfolioViewModel(QObject *parent) :
 {
 }
 
-PortfolioViewModel::PortfolioViewModel(QVector< QVector<QString> >* portfolio, QObject *parent) :
+PortfolioViewModel::PortfolioViewModel(QVector<QVector<QString> > portfolio, QObject *parent) :
     QAbstractTableModel(parent)
 {
     mydata = portfolio;

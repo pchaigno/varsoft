@@ -5,6 +5,7 @@
 #include <QFileDialog>
 #include <QTableWidgetItem>
 #include "PortfolioViewModel.h"
+#include "QDateTime"
 
 MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
@@ -32,28 +33,28 @@ void MainWindow::showPortfolio(Portfolio* portfolio){
     //portfolio->getComposition().size() => number of assets
     //we need to add two colums more for : the dates and the values of the porfolio
     QMap<Asset*, int> values = portfolio->getComposition();
-    QVector< QVector<QString> >* matrix(values.size()+2);
-    QMap<QDateTime, double> dates = getValuesByDates(QDateTime& startDate, QDateTime& endDate);
+    QMap<QDateTime, double> dates = portfolio->getValuesByDates(portfolio->retrieveFirstDate(), portfolio->retrieveLastDate());
+    QVector<QVector<QString> > matrix(values.size()+2);
     for (int i=0; i<values.size(); i++)
        //dates.size() => numberOfDates
-       matrix[i].fill("", dates.size());
+        matrix[i].fill("", dates.size());
 
     //Dates and values are added
     int i =0;
-    for(QMap<QDateTime, double>::const_iterator it=this->dates.begin(); it!=this->dates.end(); ++it) {
-        matrix[0][i]=it.key().toString("YYYY-mm-dd");
-        matrix[1][i]=QString(it.value());
+    for(QMap<QDateTime, double>::const_iterator it=dates.begin(); it!=dates.end(); ++it) {
+        matrix[0][i]=it.key().toString("yyyy-MM-dd");
+        matrix[1][i]=QString::number(it.value());
         i++;
     }
     //each asset's value is added
     int j =2;
-    for(QMap<Asset*, int>::const_iterator it=this->values.begin(); it!=this->values.end(); ++it) {
+    for(QMap<Asset*, int>::const_iterator it=values.begin(); it!=values.end(); ++it) {
         //get all the values
-        k =0;
+        int k =0;
         QVector<double> val = it.key()->getValues(it.key()->getFirstDate(),it.key()->getLastDate());
         for(int i=0; i < dates.size(); i++){
             // no verification upon the date's existance
-            matrix[j][k] = val.at(k);
+            matrix[j][k] = QString::number(val.at(k));
             k++;
         }
         j++;
@@ -69,8 +70,8 @@ void MainWindow::showPortfolio(Portfolio* portfolio){
     tableWidget->setHorizontalHeaderItem(0, valuesHeaderItem);
     */
     // set the model
-    PortfolioViewModel pfm = new PortfolioViewModel(portfolio);
-    ui->tableWidget->setModel(pfm);
+    PortfolioViewModel* pfm = new PortfolioViewModel(matrix);
+    ui->tableView->setModel(pfm);
 }
 
 //TODO Handle the import of differents source files ?
@@ -137,7 +138,7 @@ void MainWindow::importCSV() {
 
 		// Écriture des différentes lignes dans le fichier, mais il devient imcompatible avec l'importation
 		flux << rowData[0] << "," << rowData[6] << "\n";
-		ui->tableWidget->setItem(x-1,0,item);
+        //ui->tableWidget->setItem(x-1,0,item);
     }
 }
 
