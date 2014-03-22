@@ -59,7 +59,7 @@ void PortfolioViewModel::addPortfolio(QVector<QVector<QString> > portfolio)
     /*BOOST_SCOPE_EXIT(this_){
         this_->endInsertRows();
     }BOOST_SCOPE_EXIT_END*/
-    mydata.push_back(std::move(portfolio));
+    mydata << portfolio;
     endInsertRows();
     /*
     const int count = assetList.count();
@@ -75,7 +75,7 @@ bool PortfolioViewModel::removePortfolio()
     /*BOOST_SCOPE_EXIT(this_){
         this_->endRemoveRows();
     }BOOST_SCOPE_EXIT_END//*/
-    mydata.erase(std::next(mydata.begin(),0));
+    mydata.erase(mydata.begin(),0);
     endRemoveRows();
     return true;
     /*

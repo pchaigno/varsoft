@@ -29,12 +29,47 @@ void MainWindow::newPortfolio()
    fen->show();
 }
 
-void MainWindow::showPortfolio(Portfolio* portfolio){
+void MainWindow::showPortfolio(){
+
+//void MainWindow::showPortfolio(Portfolio* portfolio){
+    QString assetFolder = "../../CSV_examples/";
+
+    // FIRST ASSET DEFINITION
+    QDateTime startDate1(QDate(2014, 1, 1), QTime(0, 0, 0));
+    QDateTime endDate1(QDate(2014, 1, 6), QTime(0, 0, 0));
+    Asset* asset1 = new Asset("asset1", assetFolder+"asset1.txt", "YAHOO", startDate1, endDate1);
+
+    // SECOND ASSET DEFINITION
+    QDateTime startDate2(QDate(2014, 1, 2), QTime(0, 0, 0));
+    QDateTime endDate2(QDate(2014, 1, 7), QTime(0, 0, 0));
+    Asset* asset2 = new Asset("asset2", assetFolder+"asset2.txt", "YAHOO", startDate2, endDate2);
+
+    // THIRD ASSET DEFINITION
+    QDateTime startDate3(QDate(2014, 1, 3), QTime(0, 0, 0));
+    QDateTime endDate3(QDate(2014, 1, 8), QTime(0, 0, 0));
+    Asset* asset3 = new Asset("asset3", assetFolder+"asset3.txt", "YAHOO", startDate3, endDate3);
+
+    // TEST PORTFOLIO DEFINITION
+    QMap<Asset*, int> assets;
+    assets.insert(asset1, 1);
+    assets.insert(asset2, 2);
+    assets.insert(asset3, 3);
+
+    QVector<Report*> reports;
+    Portfolio* father = new Portfolio("Father", assets, reports);
+
+
+
     //portfolio->getComposition().size() => number of assets
     //we need to add two colums more for : the dates and the values of the porfolio
-    QMap<Asset*, int> values = portfolio->getComposition();
-    QMap<QDateTime, double> dates = portfolio->retrieveValuesByDate(portfolio->retrieveFirstDate(), portfolio->retrieveLastDate());
+    QMap<Asset*, int> values = father->getComposition();
+    QMap<QDateTime, double> dates = QMap<QDateTime, double>();
+    dates[(endDate3)] = 6;
+    dates[(endDate2)] = (double)5;
+    dates[(endDate1)] = (double)4;
+    //QMap<QDateTime, double> dates = portfolio->retrieveValuesByDate(portfolio->retrieveFirstDate(), portfolio->retrieveLastDate());
     QVector<QVector<QString> > matrix(values.size()+2);
+
     for (int i=0; i<values.size(); i++)
        //dates.size() => numberOfDates
         matrix[i].fill("", dates.size());
@@ -59,16 +94,7 @@ void MainWindow::showPortfolio(Portfolio* portfolio){
         }
         j++;
     }
-    //send the matrix for showing
 
-    /*
-    QTableWidgetItem *newItem = new QTableWidgetItem(tr("%1").arg(
-        pow(row, column+1)));
-    tableWidget->setItem(row, column, newItem);
-    Horizontal and vertical headers can be added to the table by constructing items outside the table and using them as headers:
-    QTableWidgetItem *valuesHeaderItem = new QTableWidgetItem(tr("Values"));
-    tableWidget->setHorizontalHeaderItem(0, valuesHeaderItem);
-    */
     // set the model
     PortfolioViewModel* pfm = new PortfolioViewModel(matrix);
     ui->tableView->setModel(pfm);

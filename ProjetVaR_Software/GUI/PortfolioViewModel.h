@@ -27,7 +27,7 @@ public slots:
     bool removePortfolio();
 
 private:
-    QVector< QVector<QString> > mydata;
+    QVector<QVector<QString> > mydata;
 };
 
 #endif // PORTFOLIOVIEWMODEL_H
