@@ -15,14 +15,37 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#include "MainWindow.h"
-#include <QApplication>
+#pragma once
+
+#include <QWizardPage>
 #include <QDebug>
+#include <QListWidget>
+#include "ShowAssetsWizardPage.h"
+#include <QSpinBox>
+#include <QMap>
+#include <QSignalMapper>
 
-int main(int argc, char *argv[]) {
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.showMaximized();
-
-    return a.exec();
+namespace Ui {
+class SetWeightAssetWizardPage;
 }
+
+class SetWeightAssetWizardPage : public QWizardPage
+{
+    Q_OBJECT
+
+public:
+    explicit SetWeightAssetWizardPage(QWidget *parent = 0);
+    ~SetWeightAssetWizardPage();
+
+    void initializePage();
+    void cleanupPage();
+    QList<QString> getAssetsSelected() const;
+    QMap<QString,int> getWeights() const;
+
+private:
+    void clearLayout(QLayout* layout, bool deleteWidgets = true);
+
+    QMap<QString,QSpinBox*> weights;
+    Ui::SetWeightAssetWizardPage *ui;
+};
+

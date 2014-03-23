@@ -15,14 +15,25 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#include "MainWindow.h"
-#include <QApplication>
+#pragma once
+
+#include <QListView>
+#include "PortfolioItemModel.h"
 #include <QDebug>
 
-int main(int argc, char *argv[]) {
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.showMaximized();
+class PortfolioListView : public QListView
+{
+    Q_OBJECT
+public:
+    explicit PortfolioListView(QWidget *parent = 0);
 
-    return a.exec();
-}
+    void setModel(PortfolioItemModel * model);
+    PortfolioItemModel *model() const;
+
+signals:
+
+public slots:
+    void removeSelectedPortfolio();
+
+};
+

@@ -19,6 +19,7 @@
 #include "TestPortfolio.h"
 #include "TestReport.h"
 #include "TestSQLiteManagers.h"
+#include "TestPortfolioItemModel.h"
 
 int main() {
 	int result = 0;
@@ -30,5 +31,7 @@ int main() {
 	result += QTest::qExec(&report);
 	TestSQLiteManagers sqlite;
 	result += QTest::qExec(&sqlite);
+    TestPortfolioItemModel portfolioModel;
+    result += QTest::qExec(&portfolioModel);
 	return result;
 }

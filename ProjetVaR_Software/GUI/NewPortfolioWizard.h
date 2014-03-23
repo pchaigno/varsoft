@@ -15,14 +15,34 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#include "MainWindow.h"
-#include <QApplication>
-#include <QDebug>
+#pragma once
 
-int main(int argc, char *argv[]) {
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.showMaximized();
+#include <QWizard>
+#include "ShowAssetsWizardPage.h"
+#include "SetWeightAssetWizardPage.h"
+#include "Portfolio.h"
 
-    return a.exec();
+namespace Ui {
+class NewPortfolioWizard;
 }
+
+class NewPortfolioWizard : public QWizard
+{
+    Q_OBJECT
+
+public:
+    explicit NewPortfolioWizard(QWidget *parent = 0);
+    ~NewPortfolioWizard();
+
+    void accept();
+
+signals:
+    void newPortfolioCreated(Portfolio *);
+
+
+private:
+    Ui::NewPortfolioWizard *ui;
+    ShowAssetsWizardPage *showAssetPage;
+    SetWeightAssetWizardPage * setWeightPage;
+};
+

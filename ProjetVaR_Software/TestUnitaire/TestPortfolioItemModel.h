@@ -15,14 +15,32 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#include "MainWindow.h"
-#include <QApplication>
-#include <QDebug>
+#pragma once
 
-int main(int argc, char *argv[]) {
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.showMaximized();
+#include <QObject>
+#include <QtTest>
+#include <exception>
+#include "PortfolioItemModel.h"
 
-    return a.exec();
-}
+class TestPortfolioItemModel : public QObject
+{
+    Q_OBJECT
+public:
+    explicit TestPortfolioItemModel();
+
+signals:
+
+private Q_SLOTS:
+    void init();
+    void cleanup();
+    void testAdd();
+    void testInsert();
+    void testRemove();
+    void testData();
+
+
+private:
+    PortfolioItemModel * model;
+
+};
+

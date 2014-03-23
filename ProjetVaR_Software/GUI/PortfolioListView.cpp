@@ -15,14 +15,38 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#include "MainWindow.h"
-#include <QApplication>
-#include <QDebug>
+#include "PortfolioListView.h"
 
-int main(int argc, char *argv[]) {
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.showMaximized();
+PortfolioListView::PortfolioListView(QWidget *parent) :
+    QListView(parent)
+{
+}
 
-    return a.exec();
+/**
+ * @brief Redefinition of the model's setter
+ * @param model
+ */
+void PortfolioListView::setModel(PortfolioItemModel *model)
+{
+    this->QListView::setModel(model);
+}
+/**
+ * @brief Redefinition of the model's getter
+ * @return the model
+ */
+PortfolioItemModel *PortfolioListView::model() const
+{
+    return (PortfolioItemModel*)QListView::model();
+}
+
+/**
+ * @brief Remove the selected items
+ */
+void PortfolioListView::removeSelectedPortfolio()
+{
+    QModelIndexList selectedItem = this->selectedIndexes();
+    foreach(QModelIndex index, selectedItem)
+    {
+        model()->removePortfolio(index.row());
+    }
 }

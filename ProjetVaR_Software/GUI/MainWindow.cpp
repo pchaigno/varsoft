@@ -22,13 +22,27 @@
 #include <QFileDialog>
 #include <QTableWidgetItem>
 
-MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWindow) {
-	ui->setupUi(this);
-	connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(importCSV()));
+MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWindow), portfolioModel(new PortfolioItemModel(this)) {
+    ui->setupUi(this);
+
+    connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(importCSV()));
+
+    ui->listView->setModel(portfolioModel);
 }
 
 MainWindow::~MainWindow() {
-	delete ui;
+    delete ui;
+    delete portfolioModel;
+}
+/**
+ * @brief MainWindow::newPortfolio open the PortfolioWizard
+ */
+void MainWindow::newPortfolio()
+{
+   NewPortfolioWizard * fen = new NewPortfolioWizard(this);
+   connect(fen,SIGNAL(newPortfolioCreated(Portfolio*)),portfolioModel,SLOT(addPortfolio(Portfolio*)));
+   fen->setAttribute(Qt::WA_DeleteOnClose);
+   fen->show();
 }
 
 //TODO Handle the import of differents source files ?
@@ -96,5 +110,6 @@ void MainWindow::importCSV() {
 		// Écriture des différentes lignes dans le fichier, mais il devient imcompatible avec l'importation
 		flux << rowData[0] << "," << rowData[6] << "\n";
 		ui->tableWidget->setItem(x-1,0,item);
-	}
+    }
 }
+

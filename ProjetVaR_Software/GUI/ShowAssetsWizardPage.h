@@ -15,14 +15,37 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#include "MainWindow.h"
-#include <QApplication>
+#pragma once
+
+#include <QWizardPage>
 #include <QDebug>
+#include "SessionBuilder.h"
 
-int main(int argc, char *argv[]) {
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.showMaximized();
-
-    return a.exec();
+namespace Ui {
+class ShowAssetsWizardPage;
 }
+
+class ShowAssetsWizardPage : public QWizardPage
+{
+    Q_OBJECT
+
+public:
+    explicit ShowAssetsWizardPage(QWidget *parent = 0);
+    ~ShowAssetsWizardPage();
+
+    void initializePage();
+    void setupAssets();
+    bool isComplete() const;
+
+    QList<QString> getListAssetsSelected() const;
+
+public slots:
+    void allLeftButtonClicked();
+    void allRightButtonClicked();
+    void rightButtonClicked();
+    void leftButtonClicked();
+
+private:
+    Ui::ShowAssetsWizardPage *ui;
+};
+
