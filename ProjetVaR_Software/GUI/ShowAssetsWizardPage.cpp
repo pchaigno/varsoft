@@ -40,8 +40,7 @@ ShowAssetsWizardPage::~ShowAssetsWizardPage()
 }
 
 /**
- * @brief
- * Registre the field name and the right list of Assets.
+ * @brief Registre the field name and the right list of Assets.
  */
 void ShowAssetsWizardPage::initializePage()
 {
@@ -50,8 +49,7 @@ void ShowAssetsWizardPage::initializePage()
 }
 
 /**
- * @brief
- * Clear then fill the listView on the left with the list of assets from the DB
+ * @brief Clear then fill the listView on the left with the list of assets from the DB
  */
 void ShowAssetsWizardPage::setupAssets()
 {
@@ -67,8 +65,7 @@ void ShowAssetsWizardPage::setupAssets()
 }
 
 /**
- * @brief
- * Check if the user has entered a name for the portfolio and has selected Assets.
+ * @brief Check if the user has entered a name for the portfolio and has selected Assets.
  * @return true if the user has entered a name and selected assets, false otherwise.
  */
 bool ShowAssetsWizardPage::isComplete() const
@@ -81,8 +78,7 @@ bool ShowAssetsWizardPage::isComplete() const
 }
 
 /**
- * @brief
- * Return a QList with the Assets's name selected (in the right list).
+ * @brief Return a QList with the Assets's name selected (in the right list).
  * @return A QList fill with QString of Assets's name.
  */
 QList<QString> ShowAssetsWizardPage::getListAssetsSelected() const
@@ -96,8 +92,7 @@ QList<QString> ShowAssetsWizardPage::getListAssetsSelected() const
 }
 
 /**
- * @brief
- * Copy the right list of assets to the left list and clear the right list.
+ * @brief Copy the right list of assets to the left list and clear the right list.
  */
 void ShowAssetsWizardPage::allLeftButtonClicked()
 {
@@ -111,8 +106,7 @@ void ShowAssetsWizardPage::allLeftButtonClicked()
 }
 
 /**
- * @brief
- * Copy the left list of assets to the right list and clear the left list.
+ * @brief Copy the left list of assets to the right list and clear the left list.
  */
 void ShowAssetsWizardPage::allRightButtonClicked()
 {
@@ -125,8 +119,7 @@ void ShowAssetsWizardPage::allRightButtonClicked()
     emit completeChanged();
 }
 /**
- * @brief
- * Add the selected items from the left list of assets to the right list and remove it in the left list.
+ * @brief Add the selected items from the left list of assets to the right list and remove it in the left list.
  */
 void ShowAssetsWizardPage::rightButtonClicked()
 {
@@ -142,8 +135,7 @@ void ShowAssetsWizardPage::rightButtonClicked()
     emit completeChanged();
 }
 /**
- * @brief
- * Add the selected items from the right list of assets to the left list and remove it in the right list.
+ * @brief Add the selected items from the right list of assets to the left list and remove it in the right list.
  */
 void ShowAssetsWizardPage::leftButtonClicked()
 {

@@ -23,8 +23,7 @@ PortfolioListView::PortfolioListView(QWidget *parent) :
 }
 
 /**
- * @brief
- * Redefinition of the model's setter
+ * @brief Redefinition of the model's setter
  * @param model
  */
 void PortfolioListView::setModel(PortfolioItemModel *model)
@@ -32,8 +31,7 @@ void PortfolioListView::setModel(PortfolioItemModel *model)
     this->QListView::setModel(model);
 }
 /**
- * @brief
- * Redefinition of the model's getter
+ * @brief Redefinition of the model's getter
  * @return the model
  */
 PortfolioItemModel *PortfolioListView::model() const
@@ -42,8 +40,7 @@ PortfolioItemModel *PortfolioListView::model() const
 }
 
 /**
- * @brief
- * Remove the selected items
+ * @brief Remove the selected items
  */
 void PortfolioListView::removeSelectedPortfolio()
 {

@@ -36,8 +36,7 @@ NewPortfolioWizard::~NewPortfolioWizard()
     delete setWeightPage;
 }
 /**
- * @brief
- * Call when the user press the valid button.
+ * @brief Call when the user press the valid button.
  * Create the portfolio and emit the signal newPortfolioCreated(Portfolio* portfolioCreated)
  */
 void NewPortfolioWizard::accept()

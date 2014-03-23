@@ -22,8 +22,7 @@ PortfolioItemModel::PortfolioItemModel(QObject *parent) :
 {
 }
 /**
- * @brief
- * Return the number of row, or 0 if parent is not valid.
+ * @brief Return the number of row, or 0 if parent is not valid.
  * (this method is call by Qt and should never be called by user, see Qt'doc)
  * @param parent
  * @return the number of row
@@ -34,8 +33,7 @@ int PortfolioItemModel::rowCount(const QModelIndex &parent) const
 }
 
 /**
- * @brief
- * Define the flags for the model, here is ItemIsSelectable and ItemIsEnable
+ * @brief Define the flags for the model, here is ItemIsSelectable and ItemIsEnable
  * (this method is call by Qt and should never be called by user, see Qt'doc)
  * @param index
  * @return the flags
@@ -46,8 +44,7 @@ Qt::ItemFlags PortfolioItemModel::flags(const QModelIndex &index) const
     return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
 }
 /**
- * @brief
- * Return the data associate by the index with the specified role
+ * @brief Return the data associate by the index with the specified role
  * (this method is call by Qt and should never be called by user, see Qt'doc)
  * @param index
  * @param role
@@ -69,8 +66,7 @@ QVariant PortfolioItemModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 /**
- * @brief
- * Define the header
+ * @brief Define the header
  * (this method is call by Qt and should never be called by user, see Qt'doc)
  * @param section
  * @param orientation
@@ -88,8 +84,7 @@ QVariant PortfolioItemModel::headerData(int section, Qt::Orientation orientation
 }
 
 /**
- * @brief
- * Add a portfolio to the model
+ * @brief Add a portfolio to the model
  * @param portfolio the Portfolio to add
  */
 void PortfolioItemModel::addPortfolio(Portfolio * portfolio)
@@ -102,8 +97,7 @@ void PortfolioItemModel::addPortfolio(Portfolio * portfolio)
     endInsertRows();
 }
 /**
- * @brief
- * Insert a portfolio to the model at the specified row
+ * @brief Insert a portfolio to the model at the specified row
  * @param portfolio the portfolio to insert
  * @param row
  */
@@ -121,8 +115,7 @@ void PortfolioItemModel::insertPortfolio(Portfolio *portfolio, int row)
 }
 
 /**
- * @brief
- * Remove the portfolio from the model and delete the portfolio.
+ * @brief Remove the portfolio from the model and delete the portfolio.
  * @param portfolio
  * @return true if the portfolio has been removed, false otherwise
  */
@@ -135,8 +128,7 @@ bool PortfolioItemModel::removePortfolio(Portfolio *portfolio)
     return removePortfolio(pos);
 }
 /**
- * @brief
- * Remove the portfolio at the specified row from the model and delete the portfolio.
+ * @brief Remove the portfolio at the specified row from the model and delete the portfolio.
  * @param row
  * @return true if the portfolio has been removed, false otherwise
  */

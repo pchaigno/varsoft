@@ -22,16 +22,14 @@ TestPortfolioItemModel::TestPortfolioItemModel() :
 {
 }
 /**
- * @brief TestPortfolioItemModel::init
- * Create a model before each tests.
+ * @brief Create a model before each tests.
  */
 void TestPortfolioItemModel::init()
 {
     model = new PortfolioItemModel();
 }
 /**
- * @brief TestPortfolioItemModel::cleanup
- * Delete the model after each tests.
+ * @brief Delete the model after each tests.
  */
 void TestPortfolioItemModel::cleanup()
 {
@@ -39,8 +37,7 @@ void TestPortfolioItemModel::cleanup()
 }
 
 /**
- * @brief TestPortfolioItemModel::testAdd
- * Add few portfolio to the model, test the number of portfolios of
+ * @brief Add few portfolio to the model, test the number of portfolios of
  * the private attribute "QList portfolioList" and test the adding of
  * the null pointer.
  */
@@ -68,8 +65,7 @@ void TestPortfolioItemModel::testAdd()
     QFAIL("NullPointerException not handled.");
 }
 /**
- * @brief TestPortfolioItemModel::testInsert
- * Add 2 portfolios to the model and insert one in the middle, test it. It's ready =)
+ * @brief Add 2 portfolios to the model and insert one in the middle, test it. It's ready =)
  * test also the inserting of a portfolio at row=0 and at the row=count.
  */
 void TestPortfolioItemModel::testInsert()
@@ -141,8 +137,7 @@ void TestPortfolioItemModel::testInsert()
         QFAIL("Row error not handled.");
 }
 /**
- * @brief TestPortfolioItemModel::testRemove
- * Add a portfolio, remove it, and the model should be empty.
+ * @brief Add a portfolio, remove it, and the model should be empty.
  */
 void TestPortfolioItemModel::testRemove()
 {
@@ -194,8 +189,7 @@ void TestPortfolioItemModel::testRemove()
         QFAIL("Row error not handled.");
 }
 /**
- * @brief TestPortfolioItemModel::testData
- * Add a portfolio, test the first element.
+ * @brief Add a portfolio, test the first element.
  * Do it again for fun ...
  */
 void TestPortfolioItemModel::testData()
