@@ -1,3 +1,20 @@
+/**
+ * Copyright (C) 2013 Benjamin Bouguet, Damien Carduner, Paul Chaignon,
+ * Eric Chauty, Xavier Fraboulet, Clement Gautrais, Ulysse Goarant.
+
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 #include "Asset.h"
 
 /**
@@ -120,15 +137,31 @@ void Asset::changeName(QString name) {
 	this->name = name;
 }
 
+
+
+/**
+ * @brief Getter of the asset values between its firstDate and lastDate
+ * @return The values of the asset in the chronlogical order
+ */
+QVector<double> Asset::getValues() {
+	return this->getValues(this->firstDate, this->lastDate);
+}
+
 /**
  * @brief Getter of the asset values.
  * @param startDate The starting date
  * @param endDate The ending date
- * @return A vector containing the values of the asset according to the parameters
+ * @return The values of the asset in the chronological order
  */
 QVector<double> Asset::getValues(const QDateTime& startDate, const QDateTime& endDate) {
 	QVector<double> values;
 	QFile inputFile(this->getFile());
+
+	// Throw an exception if the startDate is after the endDate.
+	if(startDate > endDate) {
+		throw std::invalid_argument("startDate: "+ startDate.toString().toStdString() + " is after endDate: " +
+									endDate.toString().toStdString());
+	}
 
 	if(!inputFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
 		throw CannotOpenFileException("Could not open file: " + this->getFile().toStdString());
@@ -146,9 +179,9 @@ QVector<double> Asset::getValues(const QDateTime& startDate, const QDateTime& en
 			QString value = row.value(1);
 			QDateTime readDate = QDateTime::fromString(date,"yyyy-MM-dd");
 
-			// If the starting date has not been read yet, it goes at the start of the loop
+			// If the ending date has not been read yet, it goes at the start of the loop
 			// and read the next line
-			if(!startDetected && readDate < startDate) {
+			if(!startDetected && readDate > endDate) {
 				continue;
 			}
 
@@ -158,11 +191,11 @@ QVector<double> Asset::getValues(const QDateTime& startDate, const QDateTime& en
 			}
 
 			// Building the vector
-			values.push_back(value.toDouble());
+			values.push_front(value.toDouble());
 
 			// If the end date has been reached, it exits the loop
 			// Otherwise it reads the file till the end
-			if(readDate >= endDate) {
+			if(readDate <= startDate) {
 				break;
 			}
 		}

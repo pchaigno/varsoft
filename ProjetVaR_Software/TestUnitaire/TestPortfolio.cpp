@@ -1,3 +1,20 @@
+/**
+ * Copyright (C) 2013 Benjamin Bouguet, Damien Carduner, Paul Chaignon,
+ * Eric Chauty, Xavier Fraboulet, Clement Gautrais, Ulysse Goarant.
+
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 #include "TestPortfolio.h"
 
 /**
@@ -65,12 +82,31 @@ void TestPortfolio::testGetValues() {
 	// COMMON DATE DEFINITION
 	QDateTime startDate(QDate(2014, 1, 3), QTime(0, 0, 0));
 	QDateTime endDate(QDate(2014, 1, 6), QTime(0, 0, 0));
-	// FAULTY INCORRECT DATE DEFINITION
+	// INCORRECT DATE DEFINITION
 	QDateTime incorrectStartDate(QDate(2014, 1, 1), QTime(0, 0, 0));
 
 	QVector<double> result;
+
+	// getValues() version with dates parameters
 	try {
 		result = this->son.getValues(startDate, endDate);
+	} catch(PortfolioCalculationException& e) {
+		qDebug() << e.what();
+	}
+
+	QCOMPARE(result.size(), 4);
+	QCOMPARE(result.at(0), 612.0);
+	QCOMPARE(result.at(1), 618.0);
+	QCOMPARE(result.at(2), 624.0);
+	QCOMPARE(result.at(3), 630.0);
+
+	for(QVector<double>::const_iterator it=result.begin(); it!=result.end(); ++it) {
+		qDebug() << *it;
+	}
+
+	// getValues() version without parameters
+	try {
+		result = this->son.getValues();
 	} catch(PortfolioCalculationException& e) {
 		qDebug() << e.what();
 	}
