@@ -33,5 +33,5 @@ public:
 
 private Q_SLOTS:
     void testDates();
-    void testBDD();
+    void testDB();
 };

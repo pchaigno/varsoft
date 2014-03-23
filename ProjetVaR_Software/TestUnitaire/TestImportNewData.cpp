@@ -97,7 +97,7 @@ void TestImportNewData::testDates() {
     QVERIFY((QDateTime::fromString(TestImportNewData::lastDate,"yyyy-MM-dd")) <= (QDateTime::fromString(rowData[0],"yyyy-MM-dd")));
 }
 
-void TestImportNewData::testBDD(){
+void TestImportNewData::testDB(){
     Asset *a = SessionBuilder::getInstance()->buildAsset("Gogole");
     QVERIFY(a->getFile() == TestImportNewData::newFile);
     qDebug() << "fistDate BDD " << a->getFirstDate().toString("yyyy-MM-dd");
@@ -105,10 +105,10 @@ void TestImportNewData::testBDD(){
     qDebug() << "lastDate BDD " << a->getLastDate().toString("yyyy-MM-dd");
     qDebug() << TestImportNewData::lastDate;
     QVERIFY(a->getFirstDate() <= QDateTime::fromString(TestImportNewData::firstDate,"yyyy-MM-dd"));
-    //QVERIFY(a->getLastDate() >= QDateTime::fromString(TestImportNewData::lastDate,"yyyy-MM-dd"));
-    //QVERIFY(a->getName() == TestImportNewData::stockName);
+    QVERIFY(a->getLastDate() >= QDateTime::fromString(TestImportNewData::lastDate,"yyyy-MM-dd"));
+    QVERIFY(a->getName() == TestImportNewData::stockName);
     qDebug() << "Origin " << a->getOrigin();
-    //QVERIFY(a->getOrigin() == TestImportNewData::origin);
+    QVERIFY(a->getOrigin() == TestImportNewData::origin);
 
     // Deletes the database file:
     QFile databaseFile(SessionSaver::getInstance()->getDatabaseFile());
