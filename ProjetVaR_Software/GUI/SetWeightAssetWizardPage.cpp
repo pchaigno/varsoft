@@ -30,7 +30,7 @@ SetWeightAssetWizardPage::~SetWeightAssetWizardPage()
     delete ui;
 }
 /**
- * @brief SetWeightAssetWizardPage::initializePage
+ * @brief
  * Load the formLayout with the list of the selected assets.
  */
 void SetWeightAssetWizardPage::initializePage()
@@ -44,7 +44,7 @@ void SetWeightAssetWizardPage::initializePage()
     }
 }
 /**
- * @brief SetWeightAssetWizardPage::cleanupPage
+ * @brief
  * Clear the formLayout
  */
 void SetWeightAssetWizardPage::cleanupPage()
@@ -54,7 +54,7 @@ void SetWeightAssetWizardPage::cleanupPage()
 }
 
 /**
- * @brief SetWeightAssetWizardPage::clearLayout
+ * @brief
  * Clear the specified layout.
  * @param layout The layout to clear.
  * @param deleteWidgets If true, it delete widgets in the layout, otherwise it just clear the layout without call delete on widgets. True by default.
@@ -75,7 +75,7 @@ void SetWeightAssetWizardPage::clearLayout(QLayout* layout, bool deleteWidgets)
 }
 
 /**
- * @brief SetWeightAssetWizardPage::getAssetsSelected
+ * @brief
  * Retrieve the list of the assets selected in the previous page of the wizard.
  * @return QList of String
  */
@@ -85,7 +85,7 @@ QList<QString> SetWeightAssetWizardPage::getAssetsSelected() const
 }
 
 /**
- * @brief SetWeightAssetWizardPage::getWeights
+ * @brief
  * Retrieve the weights entered by the user in a map.
  * @return a map with the weights associate to the name of the asset
  */

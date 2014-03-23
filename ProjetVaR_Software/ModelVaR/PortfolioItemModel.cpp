@@ -22,7 +22,7 @@ PortfolioItemModel::PortfolioItemModel(QObject *parent) :
 {
 }
 /**
- * @brief PortfolioItemModel::rowCount
+ * @brief
  * Return the number of row, or 0 if parent is not valid.
  * (this method is call by Qt and should never be called by user, see Qt'doc)
  * @param parent
@@ -34,7 +34,7 @@ int PortfolioItemModel::rowCount(const QModelIndex &parent) const
 }
 
 /**
- * @brief PortfolioItemModel::flags
+ * @brief
  * Define the flags for the model, here is ItemIsSelectable and ItemIsEnable
  * (this method is call by Qt and should never be called by user, see Qt'doc)
  * @param index
@@ -46,7 +46,7 @@ Qt::ItemFlags PortfolioItemModel::flags(const QModelIndex &index) const
     return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
 }
 /**
- * @brief PortfolioItemModel::data
+ * @brief
  * Return the data associate by the index with the specified role
  * (this method is call by Qt and should never be called by user, see Qt'doc)
  * @param index
@@ -69,7 +69,7 @@ QVariant PortfolioItemModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 /**
- * @brief PortfolioItemModel::headerData
+ * @brief
  * Define the header
  * (this method is call by Qt and should never be called by user, see Qt'doc)
  * @param section
@@ -88,13 +88,13 @@ QVariant PortfolioItemModel::headerData(int section, Qt::Orientation orientation
 }
 
 /**
- * @brief PortfolioItemModel::addPortfolio
+ * @brief
  * Add a portfolio to the model
  * @param portfolio the Portfolio to add
  */
 void PortfolioItemModel::addPortfolio(Portfolio * portfolio)
 {
-    if (portfolio==0)
+    if (portfolio==NULL)
         throw std::invalid_argument("portfolio cannot be NULL");
     const int count = portfolioList.count();
     beginInsertRows(QModelIndex(), count, count);
@@ -102,14 +102,14 @@ void PortfolioItemModel::addPortfolio(Portfolio * portfolio)
     endInsertRows();
 }
 /**
- * @brief PortfolioItemModel::insertPortfolio
+ * @brief
  * Insert a portfolio to the model at the specified row
  * @param portfolio the portfolio to insert
  * @param row
  */
 void PortfolioItemModel::insertPortfolio(Portfolio *portfolio, int row)
 {
-    if (portfolio==0)
+    if (portfolio==NULL)
         throw std::invalid_argument("portfolio cannot be NULL");
 
     if (row < 0 || row > portfolioList.count())
@@ -121,21 +121,21 @@ void PortfolioItemModel::insertPortfolio(Portfolio *portfolio, int row)
 }
 
 /**
- * @brief PortfolioItemModel::removePortfolio
+ * @brief
  * Remove the portfolio from the model and delete the portfolio.
  * @param portfolio
  * @return true if the portfolio has been removed, false otherwise
  */
 bool PortfolioItemModel::removePortfolio(Portfolio *portfolio)
 {
-    if (portfolio==0)
+    if (portfolio==NULL)
         throw std::invalid_argument("portfolio cannot be NULL");
 
     int pos = portfolioList.indexOf(portfolio);
     return removePortfolio(pos);
 }
 /**
- * @brief PortfolioItemModel::removePortfolio
+ * @brief
  * Remove the portfolio at the specified row from the model and delete the portfolio.
  * @param row
  * @return true if the portfolio has been removed, false otherwise
