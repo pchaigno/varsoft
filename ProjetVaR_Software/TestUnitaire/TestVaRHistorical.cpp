@@ -19,50 +19,69 @@
 #include "TestVaRHistorical.h"
 
 TestVaRHistorical::TestVaRHistorical() {
-
-}
-
-void TestVaRHistorical::testVaRHistoricalConstructor() {
-	// Value-at-Risk parameters
-	/*double risk = 0.05;
-	int timeHorizon = 1;
-	int returnsPeriod = 0; // INCORRECT VALUE
-
-	try {
-		VaRHistorical daxVaR(daxPortfolio, risk, timeHorizon, returnsPeriod);
-	} catch(PortfolioCalculationException& e) {
-		qDebug() << e.what();
-	}*/
-}
-
-void TestVaRHistorical::testExecute() {
 	QString assetFolder = "../../CSV_examples/";
 
 	// ASSET DEFINITION
 	QDateTime startDate(QDate(2014, 1, 2), QTime(0, 0, 0));
 	QDateTime endDate(QDate(2014, 3, 11), QTime(0, 0, 0));
-	Asset dax("dax", assetFolder+"dax.csv", "YAHOO", startDate, endDate);
+	Asset* dax = new Asset("dax", assetFolder+"dax.csv", "YAHOO", startDate, endDate);
 
 	// TEST PORTFOLIO DEFINITION
 	QMap<Asset*, int> assets;
-	assets.insert(&dax, 1);
+	assets.insert(dax, 1);
 	QVector<Report*> reports;
-	Portfolio daxPortfolio("daxPortfolio", assets, reports);
+	this->daxPortfolio = Portfolio("daxPortfolio", assets, reports);
+}
 
+void TestVaRHistorical::testVaRHistoricalConstructor() {
+	// Value-at-Risk parameters
+	double risk = 0.05;
+	int timeHorizon = 1;
+	int returnsPeriod = 0; // INTENDED INCORRECT VALUE
+
+	try {
+		VaRHistorical daxVaR(daxPortfolio, risk, timeHorizon, returnsPeriod);
+		QFAIL("VaRHistorical constructor succeeded despite wrong returnsPeriod parameter");
+	} catch(std::invalid_argument& e) {
+		qDebug() << e.what();
+	}
+
+	// ANOTHER IMPOSSIBLE CASE
+	returnsPeriod = -3;
+	try {
+		VaRHistorical daxVaR(daxPortfolio, risk, timeHorizon, returnsPeriod);
+		QFAIL("VaRHistorical constructor succeeded despite wrong returnsPeriod parameter");
+	} catch(std::invalid_argument& e) {
+		qDebug() << e.what();
+	}
+}
+
+void TestVaRHistorical::testExecute() {
 	// Value-at-Risk parameters
 	double risk = 0.05;
 	int timeHorizon = 1;
 	int returnsPeriod = 45;
-	VaRHistorical daxVaR(daxPortfolio, risk, timeHorizon, returnsPeriod);
+	VaRHistorical daxVaR(this->daxPortfolio, risk, timeHorizon, returnsPeriod);
 
 	double var;
 
 	try {
-		var = daxVaR.execute(QDateTime(QDate(2014, 3, 11), QTime(0, 0, 0)));
-		qDebug() << "At the following date: " + daxPortfolio.retrieveLastDate().toString();
-		qDebug() << "For the asset: " + daxPortfolio.getName();
+		var = daxVaR.execute(this->daxPortfolio.retrieveLastDate());
+		qDebug() << "At the following date: " + this->daxPortfolio.retrieveLastDate().toString();
+		qDebug() << "For the asset: " + this->daxPortfolio.getName();
 		qDebug() << "Historical VaR parameters: risk=" << risk << ", timeHorizon=" << timeHorizon << "returnsPeriod=" << returnsPeriod;
 		qDebug() << "Value-at-Risk=" << var;
+	} catch(std::range_error& e) {
+		qDebug() << e.what();
+	}
+
+	// TOO LARGE returnsPeriod CASE
+	returnsPeriod = 100;
+	VaRHistorical incorrectDaxVaR(this->daxPortfolio, risk, timeHorizon, returnsPeriod);
+	try {
+		var = incorrectDaxVaR.execute(this->daxPortfolio.retrieveLastDate());
+		QFAIL("execute() succeeded despite too large returnsPeriod parameter");
+
 	} catch(std::range_error& e) {
 		qDebug() << e.what();
 	}

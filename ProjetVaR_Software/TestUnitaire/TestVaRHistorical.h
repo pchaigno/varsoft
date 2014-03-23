@@ -28,13 +28,13 @@ class TestVaRHistorical: public QObject {
     Q_OBJECT
 
 private:
-	//Portfolio daxPortfolio;
+	Portfolio daxPortfolio;
 
 public:
     TestVaRHistorical();
 
 private Q_SLOTS:
-    void testExecute();
 	void testVaRHistoricalConstructor();
+    void testExecute();
 };
 

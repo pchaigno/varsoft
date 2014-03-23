@@ -11,7 +11,7 @@ VaRHistorical::VaRHistorical(const Portfolio& portfolio, double risk, int timeHo
 	VaRAlgorithm(portfolio, risk, timeHorizon) {
 
 	if(period <= 0) {
-		throw std::invalid_argument("The period argument must be strictly positive, passed value: "+period);
+		throw std::invalid_argument("The period argument must be strictly positive");
 	} else {
 		this->period = period;
 	}
