@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>713</width>
-    <height>425</height>
+    <width>826</width>
+    <height>440</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,54 +16,111 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QTreeWidget" name="treeWidget">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetMinimumSize</enum>
       </property>
-      <column>
-       <property name="text">
-        <string>Portefeuilles</string>
-       </property>
-      </column>
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
       <item>
-       <property name="text">
-        <string>Nouvel élément</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Nouvel élément</string>
-       </property>
-       <item>
-        <property name="text">
-         <string>Nouveau sous-élément</string>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetMinimumSize</enum>
         </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Nouvel élément</string>
+        <property name="topMargin">
+         <number>0</number>
         </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Nouvel élément</string>
-        </property>
-       </item>
+        <item>
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Minimum</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="addPushButton">
+          <property name="maximumSize">
+           <size>
+            <width>50</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>+</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="removePushButton">
+          <property name="maximumSize">
+           <size>
+            <width>50</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>-</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="editPushButton">
+          <property name="maximumSize">
+           <size>
+            <width>50</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>edit</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Minimum</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
       </item>
       <item>
-       <property name="text">
-        <string>Nouvel élément</string>
-       </property>
+       <widget class="PortfolioListView" name="listView">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
+       </widget>
       </item>
-      <item>
-       <property name="text">
-        <string>Nouvel élément</string>
-       </property>
-      </item>
-     </widget>
+     </layout>
     </item>
     <item>
      <widget class="QTabWidget" name="tabWidget">
@@ -183,7 +240,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>713</width>
+     <width>826</width>
      <height>20</height>
     </rect>
    </property>
@@ -191,12 +248,16 @@
     <property name="title">
      <string>Fichier</string>
     </property>
+    <addaction name="actionNouveau"/>
     <addaction name="actionOuvrir"/>
+    <addaction name="separator"/>
     <addaction name="actionSauvegarder"/>
     <addaction name="actionSauvegarder_sous"/>
     <addaction name="separator"/>
     <addaction name="actionImport"/>
     <addaction name="actionExport"/>
+    <addaction name="separator"/>
+    <addaction name="actionQuitter"/>
    </widget>
    <addaction name="menuFichier"/>
   </widget>
@@ -207,6 +268,7 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionGenerate_Stats_Report"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionOuvrir">
@@ -240,8 +302,69 @@
     <string>Export</string>
    </property>
   </action>
+  <action name="actionNouveau">
+   <property name="text">
+    <string>Nouveau</string>
+   </property>
+  </action>
+  <action name="actionQuitter">
+   <property name="text">
+    <string>Quitter</string>
+   </property>
+  </action>
+  <action name="actionGenerate_Stats_Report">
+   <property name="text">
+    <string>Generate Stats Report</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>PortfolioListView</class>
+   <extends>QListView</extends>
+   <header>PortfolioListView.h</header>
+   <slots>
+    <slot>removeSelectedPortfolio()</slot>
+   </slots>
+  </customwidget>
+ </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>addPushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>newPortfolio()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>81</x>
+     <y>59</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>412</x>
+     <y>219</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>removePushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>listView</receiver>
+   <slot>removeSelectedPortfolio()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>137</x>
+     <y>59</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>137</x>
+     <y>242</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>newPortfolio()</slot>
+ </slots>
 </ui>

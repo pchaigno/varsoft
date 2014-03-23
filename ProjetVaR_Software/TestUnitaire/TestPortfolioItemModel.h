@@ -17,23 +17,30 @@
  */
 #pragma once
 
-#include "ReportFactory.h"
-#include <QString>
-#include "Portfolio.h"
-#include "StatisticsReport.h"
+#include <QObject>
+#include <QtTest>
+#include <exception>
+#include "PortfolioItemModel.h"
 
-class StatisticsReportFactory: public ReportFactory {
+class TestPortfolioItemModel : public QObject
+{
+    Q_OBJECT
 public:
-    StatisticsReportFactory(Portfolio *portfolio);
+    explicit TestPortfolioItemModel();
 
-protected:
+signals:
 
-    virtual Report * getReport();
-    virtual ReportDataJson createJson();
+private Q_SLOTS:
+    void init();
+    void cleanup();
+    void testAdd();
+    void testInsert();
+    void testRemove();
+    void testData();
 
-    double getMoyenne(QVector<double> values);
 
-    Portfolio * portfolio;
-
+private:
+    PortfolioItemModel * model;
 
 };
+

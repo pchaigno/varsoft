@@ -17,23 +17,31 @@
  */
 #pragma once
 
-#include "ReportFactory.h"
-#include <QString>
-#include "Portfolio.h"
-#include "StatisticsReport.h"
+#include <QListView>
+#include "PortfolioItemModel.h"
+#include <QDebug>
 
-class StatisticsReportFactory: public ReportFactory {
+class PortfolioListView : public QListView
+{
+    Q_OBJECT
 public:
-    StatisticsReportFactory(Portfolio *portfolio);
+    explicit PortfolioListView(QWidget *parent = 0);
 
-protected:
+    void setModel(PortfolioItemModel * model);
+    PortfolioItemModel *model() const;
 
-    virtual Report * getReport();
-    virtual ReportDataJson createJson();
+    void currentChanged(const QModelIndex & current,const QModelIndex & previous);
 
-    double getMoyenne(QVector<double> values);
+    Portfolio * getCurrentPortfolio() const;
 
-    Portfolio * portfolio;
+signals:
+    void portfolioSelected(Portfolio*);
 
+public slots:
+    void removeSelectedPortfolio();
+
+private:
+    QModelIndex current;
 
 };
+

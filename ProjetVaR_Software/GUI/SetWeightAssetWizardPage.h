@@ -17,23 +17,35 @@
  */
 #pragma once
 
-#include "ReportFactory.h"
-#include <QString>
-#include "Portfolio.h"
-#include "StatisticsReport.h"
+#include <QWizardPage>
+#include <QDebug>
+#include <QListWidget>
+#include "ShowAssetsWizardPage.h"
+#include <QSpinBox>
+#include <QMap>
+#include <QSignalMapper>
 
-class StatisticsReportFactory: public ReportFactory {
+namespace Ui {
+class SetWeightAssetWizardPage;
+}
+
+class SetWeightAssetWizardPage : public QWizardPage
+{
+    Q_OBJECT
+
 public:
-    StatisticsReportFactory(Portfolio *portfolio);
+    explicit SetWeightAssetWizardPage(QWidget *parent = 0);
+    ~SetWeightAssetWizardPage();
 
-protected:
+    void initializePage();
+    void cleanupPage();
+    QList<QString> getAssetsSelected() const;
+    QMap<QString,int> getWeights() const;
 
-    virtual Report * getReport();
-    virtual ReportDataJson createJson();
+private:
+    void clearLayout(QLayout* layout, bool deleteWidgets = true);
 
-    double getMoyenne(QVector<double> values);
-
-    Portfolio * portfolio;
-
-
+    QMap<QString,QSpinBox*> weights;
+    Ui::SetWeightAssetWizardPage *ui;
 };
+

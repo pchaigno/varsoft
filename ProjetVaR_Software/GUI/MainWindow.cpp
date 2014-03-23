@@ -22,13 +22,28 @@
 #include <QFileDialog>
 #include <QTableWidgetItem>
 
-MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWindow) {
-	ui->setupUi(this);
-	connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(importCSV()));
+MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWindow), portfolioModel(new PortfolioItemModel(this)) {
+    ui->setupUi(this);
+
+    connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(importCSV()));
+    connect(ui->actionGenerate_Stats_Report,SIGNAL(triggered()),this,SLOT(generateStatsReport()));
+
+    ui->listView->setModel(portfolioModel);
 }
 
 MainWindow::~MainWindow() {
-	delete ui;
+    delete ui;
+    delete portfolioModel;
+}
+/**
+ * @brief MainWindow::newPortfolio open the PortfolioWizard
+ */
+void MainWindow::newPortfolio()
+{
+   NewPortfolioWizard * fen = new NewPortfolioWizard(this);
+   connect(fen,SIGNAL(newPortfolioCreated(Portfolio*)),portfolioModel,SLOT(addPortfolio(Portfolio*)));
+   fen->setAttribute(Qt::WA_DeleteOnClose);
+   fen->show();
 }
 
 //TODO Handle the import of differents source files ?
@@ -96,5 +111,28 @@ void MainWindow::importCSV() {
 		// Écriture des différentes lignes dans le fichier, mais il devient imcompatible avec l'importation
 		flux << rowData[0] << "," << rowData[6] << "\n";
 		ui->tableWidget->setItem(x-1,0,item);
-	}
+    }
 }
+
+void MainWindow::generateStatsReport()
+{
+    // retrieve the current portfolio
+    Portfolio * port = ui->listView->getCurrentPortfolio();
+    qDebug() << port->getName();
+    // build its stats report
+    Report * report = buildReport(new StatisticsReportFactory(port));
+    port->getReports().append(report);
+    // generate it in Docx format
+    generateReport(new DocxGenerator(report));
+}
+
+Report *MainWindow::buildReport(ReportFactory * factory)
+{
+    return factory->buildReport();
+}
+
+void MainWindow::generateReport(ReportGenerator *gen)
+{
+    gen->generate();
+}
+

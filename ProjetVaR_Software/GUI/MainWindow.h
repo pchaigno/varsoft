@@ -18,6 +18,12 @@
 #pragma once
 
 #include <QMainWindow>
+#include "NewPortfolioWizard.h"
+#include "PortfolioItemModel.h"
+#include "ReportFactory.h"
+#include "ReportGenerator.h"
+#include "StatisticsReportFactory.h"
+#include "DocxGenerator.h"
 
 namespace Ui {
 	class MainWindow;
@@ -31,7 +37,14 @@ public:
 	~MainWindow();
 
 private slots:
-	void importCSV();
+    void newPortfolio();
+    void importCSV();
+    void generateStatsReport();
 private:
+
+    Report* buildReport(ReportFactory * );
+    void generateReport(ReportGenerator * gen);
+
 	Ui::MainWindow *ui;
+    PortfolioItemModel * portfolioModel;
 };

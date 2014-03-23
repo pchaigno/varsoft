@@ -17,23 +17,35 @@
  */
 #pragma once
 
-#include "ReportFactory.h"
-#include <QString>
-#include "Portfolio.h"
-#include "StatisticsReport.h"
+#include <QWizardPage>
+#include <QDebug>
+#include "SessionBuilder.h"
 
-class StatisticsReportFactory: public ReportFactory {
+namespace Ui {
+class ShowAssetsWizardPage;
+}
+
+class ShowAssetsWizardPage : public QWizardPage
+{
+    Q_OBJECT
+
 public:
-    StatisticsReportFactory(Portfolio *portfolio);
+    explicit ShowAssetsWizardPage(QWidget *parent = 0);
+    ~ShowAssetsWizardPage();
 
-protected:
+    void initializePage();
+    void setupAssets();
+    bool isComplete() const;
 
-    virtual Report * getReport();
-    virtual ReportDataJson createJson();
+    QList<QString> getListAssetsSelected() const;
 
-    double getMoyenne(QVector<double> values);
+public slots:
+    void allLeftButtonClicked();
+    void allRightButtonClicked();
+    void rightButtonClicked();
+    void leftButtonClicked();
 
-    Portfolio * portfolio;
-
-
+private:
+    Ui::ShowAssetsWizardPage *ui;
 };
+

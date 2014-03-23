@@ -35,6 +35,43 @@ ReportDataJson StatisticsReportFactory::createJson()
     ReportDataJson data;
 
     data.addText("portefeuilleName",portfolio->getName());
+    data.addText("dateDeb",portfolio->retrieveFirstDate().toString());
+    QDateTime lastDate = portfolio->retrieveLastDate();
+    data.addText("dateFin",lastDate.toString());
+    data.addText("date",lastDate.toString());
+
+    QVector<double> values = portfolio->getValues(lastDate,lastDate);
+    data.addText("moyenne",QString::number(getMoyenne(values)));
+    qSort(values.begin(),values.end());
+    data.addText("min",QString::number(values.first()));
+    data.addText("max",QString::number(values.last()));
+
+    QList<QMap<QString,QString> > listAssets;
+    QVector<Asset*> assets = portfolio->getAssets();
+    QMap<Asset*,int> compo = portfolio->getComposition();
+    foreach(Asset* asset, assets)
+    {
+        QMap<QString,QString> map;
+        map["Name"]=asset->getName();
+        map["Qte"]=compo[asset];
+        map["Unit"]=asset->getValues(lastDate,lastDate).last();
+        map["Total"]=compo[asset]*asset->getValues(lastDate,lastDate).last();
+
+        listAssets.append(map);
+    }
+
+    data.addList("asset",listAssets);
 
     return data;
+}
+
+double StatisticsReportFactory::getMoyenne(QVector<double> values)
+{
+    double moyenne=0;
+    foreach(double val, values)
+    {
+        moyenne+=val;
+    }
+
+    return moyenne/values.count();
 }

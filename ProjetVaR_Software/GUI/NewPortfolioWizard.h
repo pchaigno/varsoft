@@ -17,23 +17,32 @@
  */
 #pragma once
 
-#include "ReportFactory.h"
-#include <QString>
+#include <QWizard>
+#include "ShowAssetsWizardPage.h"
+#include "SetWeightAssetWizardPage.h"
 #include "Portfolio.h"
-#include "StatisticsReport.h"
 
-class StatisticsReportFactory: public ReportFactory {
+namespace Ui {
+class NewPortfolioWizard;
+}
+
+class NewPortfolioWizard : public QWizard
+{
+    Q_OBJECT
+
 public:
-    StatisticsReportFactory(Portfolio *portfolio);
+    explicit NewPortfolioWizard(QWidget *parent = 0);
+    ~NewPortfolioWizard();
 
-protected:
+    void accept();
 
-    virtual Report * getReport();
-    virtual ReportDataJson createJson();
-
-    double getMoyenne(QVector<double> values);
-
-    Portfolio * portfolio;
+signals:
+    void newPortfolioCreated(Portfolio *);
 
 
+private:
+    Ui::NewPortfolioWizard *ui;
+    ShowAssetsWizardPage *showAssetPage;
+    SetWeightAssetWizardPage * setWeightPage;
 };
+
