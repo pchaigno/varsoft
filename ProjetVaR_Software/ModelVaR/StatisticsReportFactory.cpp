@@ -35,17 +35,17 @@ ReportDataJson StatisticsReportFactory::createJson()
     ReportDataJson data;
 
     data.addText("portefeuilleName",portfolio->getName());
-    data.addText("dateDeb",portfolio->retrieveFirstDate().toString());
+    data.addText("dateDeb",portfolio->retrieveFirstDate().toString("dd/MM/yyyy"));
     QDateTime lastDate = portfolio->retrieveLastDate();
-    data.addText("dateFin",lastDate.toString());
-    data.addText("date",lastDate.toString());
-
-    QVector<double> values = portfolio->getValues(lastDate,lastDate);
+    data.addText("dateFin",lastDate.toString("dd/MM/yyyy"));
+    data.addText("date",lastDate.toString("dd/MM/yyyy"));
+/*
+    QVector<double> values = portfolio->getValues();
     data.addText("moyenne",QString::number(getMoyenne(values)));
     qSort(values.begin(),values.end());
     data.addText("min",QString::number(values.first()));
     data.addText("max",QString::number(values.last()));
-
+*/
     QList<QMap<QString,QString> > listAssets;
     QVector<Asset*> assets = portfolio->getAssets();
     QMap<Asset*,int> compo = portfolio->getComposition();
@@ -53,9 +53,9 @@ ReportDataJson StatisticsReportFactory::createJson()
     {
         QMap<QString,QString> map;
         map["Name"]=asset->getName();
-        map["Qte"]=compo[asset];
-        map["Unit"]=asset->getValues(lastDate,lastDate).last();
-        map["Total"]=compo[asset]*asset->getValues(lastDate,lastDate).last();
+        map["Qte"]=QString::number(compo[asset]);
+        map["Unit"]=QString::number(asset->getValues().last());
+        map["Total"]=QString::number(compo[asset]*asset->getValues(lastDate,lastDate).last());
 
         listAssets.append(map);
     }
