@@ -20,13 +20,12 @@
 #include <QDialog>
 
 namespace Ui {
-class Import;
+	class Import;
 }
 /**
 * @brief Useful for the import window links with the mainwindow
 */
-class Import : public QDialog
-{
+class Import : public QDialog {
 	Q_OBJECT
 
 public:
@@ -41,6 +40,5 @@ private slots:
 	void on_pushButton_2_clicked();
 
 signals:
-		void dataEntered(const QString &name, const QDateTime &fDate,const QDateTime &lDate, const QString &source);
+	void dataEntered(const QString &name, const QDateTime &fDate,const QDateTime &lDate, const QString &source);
 };
-

@@ -18,20 +18,21 @@
 #pragma once
 #include "ImportNewData.h"
 #include <QtTest>
+ 
 class TestImportNewData: public QObject {
-    Q_OBJECT
+	Q_OBJECT
 
 private:
-    QString stockName;
-    QString firstDate;
-    QString lastDate;
-    QString origin;
-    QString newFile;
+	QString stockName;
+	QString firstDate;
+	QString lastDate;
+	QString origin;
+	QString newFile;
 
 public:
-    TestImportNewData();
+	TestImportNewData();
 
 private Q_SLOTS:
-    void testDates();
-    void testDB();
+	void testDates();
+	void testDB();
 };

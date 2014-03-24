@@ -22,25 +22,22 @@
 #include <exception>
 #include "PortfolioItemModel.h"
 
-class TestPortfolioItemModel : public QObject
-{
-    Q_OBJECT
+class TestPortfolioItemModel : public QObject {
+	Q_OBJECT
 public:
-    explicit TestPortfolioItemModel();
+	explicit TestPortfolioItemModel();
 
 signals:
 
 private Q_SLOTS:
-    void init();
-    void cleanup();
-    void testAdd();
-    void testInsert();
-    void testRemove();
-    void testData();
-
+	void init();
+	void cleanup();
+	void testAdd();
+	void testInsert();
+	void testRemove();
+	void testData();
 
 private:
-    PortfolioItemModel * model;
+	PortfolioItemModel * model;
 
 };
-

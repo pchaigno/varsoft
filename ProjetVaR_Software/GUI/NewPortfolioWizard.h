@@ -23,26 +23,23 @@
 #include "Portfolio.h"
 
 namespace Ui {
-class NewPortfolioWizard;
+	class NewPortfolioWizard;
 }
 
-class NewPortfolioWizard : public QWizard
-{
-    Q_OBJECT
+class NewPortfolioWizard : public QWizard {
+	Q_OBJECT
 
 public:
-    explicit NewPortfolioWizard(QWidget *parent = 0);
-    ~NewPortfolioWizard();
+	explicit NewPortfolioWizard(QWidget *parent = 0);
+	~NewPortfolioWizard();
 
-    void accept();
+	void accept();
 
 signals:
-    void newPortfolioCreated(Portfolio *);
-
+	void newPortfolioCreated(Portfolio *);
 
 private:
-    Ui::NewPortfolioWizard *ui;
-    ShowAssetsWizardPage *showAssetPage;
-    SetWeightAssetWizardPage * setWeightPage;
+	Ui::NewPortfolioWizard *ui;
+	ShowAssetsWizardPage *showAssetPage;
+	SetWeightAssetWizardPage * setWeightPage;
 };
-

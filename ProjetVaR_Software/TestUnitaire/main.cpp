@@ -24,7 +24,7 @@
 #include "TestPortfolioItemModel.h"
 
 int main() {
-    int result = 0;
+	int result = 0;
 	TestAsset asset;
 	result += QTest::qExec(&asset);
 	TestPortfolio portfolio;
@@ -33,11 +33,11 @@ int main() {
 	result += QTest::qExec(&report);
 	TestSQLiteManagers sqlite;
 	result += QTest::qExec(&sqlite);
-    TestImportNewData newdata;
-    result += QTest::qExec(&newdata);
-    TestImportData data;
+	TestImportNewData newdata;
+	result += QTest::qExec(&newdata);
+	TestImportData data;
 	result += QTest::qExec(&data);
-    TestPortfolioItemModel portfolioModel;
-    result += QTest::qExec(&portfolioModel);
+	TestPortfolioItemModel portfolioModel;
+	result += QTest::qExec(&portfolioModel);
 	return result;
 }

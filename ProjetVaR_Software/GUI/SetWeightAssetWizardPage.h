@@ -26,26 +26,24 @@
 #include <QSignalMapper>
 
 namespace Ui {
-class SetWeightAssetWizardPage;
+	class SetWeightAssetWizardPage;
 }
 
-class SetWeightAssetWizardPage : public QWizardPage
-{
-    Q_OBJECT
+class SetWeightAssetWizardPage : public QWizardPage {
+	Q_OBJECT
 
 public:
-    explicit SetWeightAssetWizardPage(QWidget *parent = 0);
-    ~SetWeightAssetWizardPage();
+	explicit SetWeightAssetWizardPage(QWidget *parent = 0);
+	~SetWeightAssetWizardPage();
 
-    void initializePage();
-    void cleanupPage();
-    QList<QString> getAssetsSelected() const;
-    QMap<QString,int> getWeights() const;
+	void initializePage();
+	void cleanupPage();
+	QList<QString> getAssetsSelected() const;
+	QMap<QString,int> getWeights() const;
 
 private:
-    void clearLayout(QLayout* layout, bool deleteWidgets = true);
+	void clearLayout(QLayout* layout, bool deleteWidgets = true);
 
-    QMap<QString,QSpinBox*> weights;
-    Ui::SetWeightAssetWizardPage *ui;
+	QMap<QString,QSpinBox*> weights;
+	Ui::SetWeightAssetWizardPage *ui;
 };
-

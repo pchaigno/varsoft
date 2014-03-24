@@ -27,18 +27,18 @@
 #include "import.h"
 
 MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWindow), portfolioModel(new PortfolioItemModel(this)) {
-    ui->setupUi(this);
-    //for the import button in the main window
-    connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(setImportCSV()));
-    //to connect the signal sent from the import window
-    connect(&import_win, SIGNAL(dataEntered(const QString&, const QDateTime&, const QDateTime&, const QString&)),
-                         this, SLOT(onDataEntered(const QString&, const QDateTime&, const QDateTime&, const QString&)));
-    ui->listView->setModel(portfolioModel);
+	ui->setupUi(this);
+	//for the import button in the main window
+	connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(setImportCSV()));
+	//to connect the signal sent from the import window
+	connect(&import_win, SIGNAL(dataEntered(const QString&, const QDateTime&, const QDateTime&, const QString&)),
+						 this, SLOT(onDataEntered(const QString&, const QDateTime&, const QDateTime&, const QString&)));
+	ui->listView->setModel(portfolioModel);
 }
 
 MainWindow::~MainWindow() {
-    delete ui;
-    delete portfolioModel;
+	delete ui;
+	delete portfolioModel;
 }
 
 /**
@@ -59,16 +59,16 @@ void MainWindow::newPortfolio() {
 * @param endDate The date of the last value to import.
 */
 void MainWindow::onDataEntered(const QString &name, const QDateTime &fDate ,const QDateTime &lDate, const QString &origin){
-    MainWindow::stockName = name;
-    MainWindow::startDate = fDate;
-    MainWindow::endDate = lDate;
-    MainWindow::origin = origin;
-    ImportNewData algo = ImportNewData();
-    //if (origin == "Yahoo")
-    //    algo = ImportNewData();
-    //else
-    //    algo = ImportData();;
-    algo.import(MainWindow::stockName, fileName, MainWindow::origin, MainWindow::startDate, MainWindow::endDate);
+	MainWindow::stockName = name;
+	MainWindow::startDate = fDate;
+	MainWindow::endDate = lDate;
+	MainWindow::origin = origin;
+	ImportNewData algo = ImportNewData();
+	//if (origin == "Yahoo")
+	//    algo = ImportNewData();
+	//else
+	//    algo = ImportData();;
+	algo.import(MainWindow::stockName, fileName, MainWindow::origin, MainWindow::startDate, MainWindow::endDate);
 }
 
 /**
@@ -76,7 +76,6 @@ void MainWindow::onDataEntered(const QString &name, const QDateTime &fDate ,cons
 * Shows the window to set up the import file
 */
 void MainWindow::setImportCSV(){
-    MainWindow::fileName = QFileDialog::getOpenFileName(this, ("Ouvrir fichier"), "C:/", ("Texte CSV (*.csv; *.txt)") );
-    import_win.show();
+	MainWindow::fileName = QFileDialog::getOpenFileName(this, ("Ouvrir fichier"), "C:/", ("Texte CSV (*.csv; *.txt)") );
+	import_win.show();
 }
-
