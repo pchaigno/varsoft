@@ -17,23 +17,26 @@ CONFIG   -= app_bundle
 TEMPLATE = app
 
 SOURCES += \
-    TestImportNewData.cpp \
-    TestImportData.cpp \
-    TestAsset.cpp \
+	TestImportNewData.cpp \
+	TestImportData.cpp \
+	TestAsset.cpp \
+	TestPortfolio.cpp \
+	main.cpp \
 	TestReport.cpp \
-    TestPortfolio.cpp \
 	TestSQLiteManagers.cpp \
-    main.cpp
+	TestPortfolioItemModel.cpp
 
 HEADERS += \
-    TestImportNewData.h \
-    TestImportData.h \
-    TestAsset.h \
+	TestImportNewData.h \
+	TestImportData.h \
+	TestAsset.h \
 	TestReport.h \
 	TestPortfolio.h \
-	TestSQLiteManagers.h
+	TestSQLiteManagers.h \
+	TestPortfolioItemModel.h
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
+DEFINES += UNITTEST
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../ModelVaR/release/ -lModelVaR
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../ModelVaR/debug/ -lModelVaR

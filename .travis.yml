@@ -20,9 +20,9 @@ script:
   - export LD_LIBRARY_PATH=ModelVaR
   - TestUnitaire/main
 
-notifications:
-  email:
-    recipients:
-      - paul.chaignon@insa-rennes.fr
-    on_success: never
-    on_failure: change
+#notifications:
+#  email:
+#    recipients:
+#      - paul.chaignon@insa-rennes.fr
+#    on_success: never
+#    on_failure: change

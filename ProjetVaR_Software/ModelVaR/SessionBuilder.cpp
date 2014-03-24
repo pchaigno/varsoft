@@ -35,7 +35,7 @@ SessionBuilder::SessionBuilder(QString databaseFile): SQLiteManager(databaseFile
 Asset* SessionBuilder::buildAsset(QString name) {
 	this->openConnection();
 	QSqlQuery query(this->db);
-	query.prepare("SELECT id, file, first_date, last_date FROM assets WHERE name = :name;");
+	query.prepare("SELECT id, file, origin, first_date, last_date FROM assets WHERE name = :name;");
 	query.bindValue(":name", name);
 	query.exec();
 
@@ -64,7 +64,7 @@ Asset* SessionBuilder::buildAsset(QString name) {
 QMap<QString, Asset*> SessionBuilder::buildAssets() {
 	this->openConnection();
 	QSqlQuery query(this->db);
-	query.exec("SELECT id, name, file, first_date, last_date FROM assets;");
+	query.exec("SELECT id, name, file, origin, first_date, last_date FROM assets;");
 
 	QMap<QString, Asset*> assets;
 	int id;

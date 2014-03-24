@@ -15,29 +15,34 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#include "TestImportData.h"
-#include "TestImportNewData.h"
-#include "TestAsset.h"
-#include "TestPortfolio.h"
-#include "TestReport.h"
-#include "TestSQLiteManagers.h"
-#include "TestPortfolioItemModel.h"
+#pragma once
 
-int main() {
-    int result = 0;
-	TestAsset asset;
-	result += QTest::qExec(&asset);
-	TestPortfolio portfolio;
-	result += QTest::qExec(&portfolio);
-	TestReport report;
-	result += QTest::qExec(&report);
-	TestSQLiteManagers sqlite;
-	result += QTest::qExec(&sqlite);
-    TestImportNewData newdata;
-    result += QTest::qExec(&newdata);
-    TestImportData data;
-	result += QTest::qExec(&data);
-    TestPortfolioItemModel portfolioModel;
-    result += QTest::qExec(&portfolioModel);
-	return result;
+#include <QWizard>
+#include "ShowAssetsWizardPage.h"
+#include "SetWeightAssetWizardPage.h"
+#include "Portfolio.h"
+
+namespace Ui {
+class NewPortfolioWizard;
 }
+
+class NewPortfolioWizard : public QWizard
+{
+    Q_OBJECT
+
+public:
+    explicit NewPortfolioWizard(QWidget *parent = 0);
+    ~NewPortfolioWizard();
+
+    void accept();
+
+signals:
+    void newPortfolioCreated(Portfolio *);
+
+
+private:
+    Ui::NewPortfolioWizard *ui;
+    ShowAssetsWizardPage *showAssetPage;
+    SetWeightAssetWizardPage * setWeightPage;
+};
+

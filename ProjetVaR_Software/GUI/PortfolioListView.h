@@ -15,29 +15,25 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#include "TestImportData.h"
-#include "TestImportNewData.h"
-#include "TestAsset.h"
-#include "TestPortfolio.h"
-#include "TestReport.h"
-#include "TestSQLiteManagers.h"
-#include "TestPortfolioItemModel.h"
+#pragma once
 
-int main() {
-    int result = 0;
-	TestAsset asset;
-	result += QTest::qExec(&asset);
-	TestPortfolio portfolio;
-	result += QTest::qExec(&portfolio);
-	TestReport report;
-	result += QTest::qExec(&report);
-	TestSQLiteManagers sqlite;
-	result += QTest::qExec(&sqlite);
-    TestImportNewData newdata;
-    result += QTest::qExec(&newdata);
-    TestImportData data;
-	result += QTest::qExec(&data);
-    TestPortfolioItemModel portfolioModel;
-    result += QTest::qExec(&portfolioModel);
-	return result;
-}
+#include <QListView>
+#include "PortfolioItemModel.h"
+#include <QDebug>
+
+class PortfolioListView : public QListView
+{
+    Q_OBJECT
+public:
+    explicit PortfolioListView(QWidget *parent = 0);
+
+    void setModel(PortfolioItemModel * model);
+    PortfolioItemModel *model() const;
+
+signals:
+
+public slots:
+    void removeSelectedPortfolio();
+
+};
+

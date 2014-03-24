@@ -26,17 +26,29 @@
 #include "ImportData.h"
 #include "import.h"
 
-MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow) {
-	ui->setupUi(this);
+MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWindow), portfolioModel(new PortfolioItemModel(this)) {
+    ui->setupUi(this);
     //for the import button in the main window
-	connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(setImportCSV()));
+    connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(setImportCSV()));
     //to connect the signal sent from the import window
-	connect(&import_win, SIGNAL(dataEntered(const QString&, const QDateTime&, const QDateTime&, const QString&)),
-						 this, SLOT(onDataEntered(const QString&, const QDateTime&, const QDateTime&, const QString&)));
+    connect(&import_win, SIGNAL(dataEntered(const QString&, const QDateTime&, const QDateTime&, const QString&)),
+                         this, SLOT(onDataEntered(const QString&, const QDateTime&, const QDateTime&, const QString&)));
+    ui->listView->setModel(portfolioModel);
 }
 
 MainWindow::~MainWindow() {
-	delete ui;
+    delete ui;
+    delete portfolioModel;
+}
+
+/**
+ * @brief MainWindow::newPortfolio open the PortfolioWizard
+ */
+void MainWindow::newPortfolio() {
+   NewPortfolioWizard * fen = new NewPortfolioWizard(this);
+   connect(fen,SIGNAL(newPortfolioCreated(Portfolio*)),portfolioModel,SLOT(addPortfolio(Portfolio*)));
+   fen->setAttribute(Qt::WA_DeleteOnClose);
+   fen->show();
 }
 
 /**
@@ -67,3 +79,4 @@ void MainWindow::setImportCSV(){
     MainWindow::fileName = QFileDialog::getOpenFileName(this, ("Ouvrir fichier"), "C:/", ("Texte CSV (*.csv; *.txt)") );
     import_win.show();
 }
+

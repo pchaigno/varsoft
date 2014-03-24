@@ -4,8 +4,9 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT += core gui printsupport sql
 QT += widgets
+
 GTCONFIG +=console
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -17,13 +18,26 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        MainWindow.cpp \
-    import.cpp
+    MainWindow.cpp \
+    import.cpp \
+    qcustomplot.cpp \
+    NewPortfolioWizard.cpp \
+    SetWeightAssetWizardPage.cpp \
+    ShowAssetsWizardPage.cpp \
+    PortfolioListView.cpp
 
-HEADERS  += MainWindow.h \
+HEADERS += MainWindow.h \
+    qcustomplot.h \
+    NewPortfolioWizard.h \
+    SetWeightAssetWizardPage.h \
+    ShowAssetsWizardPage.h \
+    PortfolioListView.h \
     import.h
 
-FORMS    += MainWindow.ui \
+FORMS += MainWindow.ui \
+    NewPortfolioWizard.ui \
+    SetWeightAssetWizardPage.ui \
+    ShowAssetsWizardPage.ui \
     import.ui
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../ModelVaR/release/ -lModelVaR

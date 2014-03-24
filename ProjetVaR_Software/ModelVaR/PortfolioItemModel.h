@@ -17,40 +17,40 @@
  */
 #pragma once
 
-#include <QMainWindow>
-#include <QDateTime>
-#include <QDialog>
-#include <QComboBox>
-#include "import.h"
-#include <string>
-#include "NewPortfolioWizard.h"
-#include "PortfolioItemModel.h"
+#include <QAbstractListModel>
+#include "Portfolio.h"
+#include <stdexcept>
 
-namespace Ui {
-	class MainWindow;
-}
+#ifdef UNITTEST
+class TestPortfolioItemModel;
+#endif
 
-class MainWindow: public QMainWindow {
-	Q_OBJECT
-    
+class MODELVARSHARED_EXPORT PortfolioItemModel : public QAbstractListModel
+{
+    Q_OBJECT
 public:
-	explicit MainWindow(QWidget* parent = 0);
-	~MainWindow();
+    explicit PortfolioItemModel(QObject *parent = 0);
 
-private slots:
-	void setImportCSV();
+    int rowCount(const QModelIndex &parent) const;
+    QVariant data(const QModelIndex &index, int role) const;
+    QVariant headerData(int section, Qt::Orientation orientation, int role) const;
+    Qt::ItemFlags flags(const QModelIndex &index) const;
+
+#ifdef UNITTEST
+ friend class TestPortfolioItemModel;
+#endif
+
+signals:
 
 public slots:
-	void onDataEntered(const QString &text, const QDateTime &fDate ,const QDateTime &lDate, const QString &source);
-	void newPortfolio();
+    void addPortfolio(Portfolio *portfolio);
+    void insertPortfolio(Portfolio*portfolio,int row);
+
+    bool removePortfolio(Portfolio*portfolio);
+    bool removePortfolio(int row);
 
 private:
-	Ui::MainWindow *ui;
-	Import import_win;
-	QString stockName;
-	QDateTime startDate;
-	QDateTime endDate;
-	QString fileName;
-	QString origin;
-	PortfolioItemModel * portfolioModel;
+    QList<Portfolio*> portfolioList;
+
 };
+

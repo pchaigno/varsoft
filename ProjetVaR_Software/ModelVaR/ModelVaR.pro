@@ -44,10 +44,11 @@ SOURCES += \
     VaRReportFactory.cpp \
     GarchReportFactory.cpp \
     StatisticsReportFactory.cpp \
-    CorrelationReportFactory.cpp \
     ImportNewData.cpp \
     ImportData.cpp \
-    IImport.cpp
+    IImport.cpp \
+    PortfolioItemModel.cpp \
+    CorrelationReportFactory.cpp
 
 HEADERS +=\
     Asset.h \
@@ -83,8 +84,9 @@ HEADERS +=\
     ImportData.h \
 	ImportNewData.h \
     CannotOpenFileException.h \
-	PortfolioCalculationException.h \
-    IImport.h
+    IImport.h \
+    PortfolioItemModel.h \
+    PortfolioCalculationException.h
 
 unix:!symbian {
     maemo5 {
