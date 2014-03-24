@@ -16,30 +16,11 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #pragma once
+#include "IImport.h"
+#include "ModelVaR_global.h"
 
-#include <QWizard>
-#include "ShowAssetsWizardPage.h"
-#include "SetWeightAssetWizardPage.h"
-#include "Portfolio.h"
-
-namespace Ui {
-	class NewPortfolioWizard;
-}
-
-class NewPortfolioWizard : public QWizard {
-	Q_OBJECT
-
+class MODELVARSHARED_EXPORT ImportNewData : public IImport{
 public:
-	explicit NewPortfolioWizard(QWidget *parent = 0);
-	~NewPortfolioWizard();
-
-	void accept();
-
-signals:
-	void newPortfolioCreated(Portfolio *);
-
-private:
-	Ui::NewPortfolioWizard *ui;
-	ShowAssetsWizardPage *showAssetPage;
-	SetWeightAssetWizardPage * setWeightPage;
+	virtual void import(const QString &name, const QString &file, const QString &origin,
+						const QDateTime &firstDate, const QDateTime &lastDate) const;
 };

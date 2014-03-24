@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += testlib
+QT       += widgets
 QT       -= gui
 # For QSQL
 QT += sql
@@ -15,19 +16,24 @@ CONFIG   -= app_bundle
 
 TEMPLATE = app
 
-SOURCES += TestPortfolio.cpp \
-    TestAsset.cpp \
-    main.cpp \
-    TestReport.cpp \
-    TestSQLiteManagers.cpp \
-    TestPortfolioItemModel.cpp
+SOURCES += \
+	TestImportNewData.cpp \
+	TestImportData.cpp \
+	TestAsset.cpp \
+	TestPortfolio.cpp \
+	main.cpp \
+	TestReport.cpp \
+	TestSQLiteManagers.cpp \
+	TestPortfolioItemModel.cpp
 
 HEADERS += \
-    TestPortfolio.h \
-    TestAsset.h \
-    TestReport.h \
-    TestSQLiteManagers.h \
-    TestPortfolioItemModel.h
+	TestImportNewData.h \
+	TestImportData.h \
+	TestAsset.h \
+	TestReport.h \
+	TestPortfolio.h \
+	TestSQLiteManagers.h \
+	TestPortfolioItemModel.h
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 DEFINES += UNITTEST

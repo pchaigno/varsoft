@@ -35,5 +35,5 @@ protected:
 	bool createDatabase();
 
 public:
-    QString getDatabaseFile() const;
+	QString getDatabaseFile() const;
 };

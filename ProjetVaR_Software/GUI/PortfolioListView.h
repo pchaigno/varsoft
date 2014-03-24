@@ -21,19 +21,17 @@
 #include "PortfolioItemModel.h"
 #include <QDebug>
 
-class PortfolioListView : public QListView
-{
-    Q_OBJECT
+class PortfolioListView : public QListView {
+	Q_OBJECT
 public:
-    explicit PortfolioListView(QWidget *parent = 0);
+	explicit PortfolioListView(QWidget *parent = 0);
 
-    void setModel(PortfolioItemModel * model);
-    PortfolioItemModel *model() const;
+	void setModel(PortfolioItemModel * model);
+	PortfolioItemModel *model() const;
 
 signals:
 
 public slots:
-    void removeSelectedPortfolio();
+	void removeSelectedPortfolio();
 
 };
-
