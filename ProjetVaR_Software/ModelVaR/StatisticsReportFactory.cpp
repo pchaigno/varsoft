@@ -27,7 +27,7 @@ StatisticsReportFactory::StatisticsReportFactory(Portfolio * portfolio):
 
 Report *StatisticsReportFactory::getReport()
 {
-    return new StatisticsReport(QString("../resources/Reports/statisticReport.docx"),QString());
+    return new StatisticsReport(QString("../resources/Reports/statisticReport.docx"),QString("../resources/Reports/statisticReport.pdf"));
 }
 
 ReportDataJson StatisticsReportFactory::createJson()
@@ -54,8 +54,8 @@ ReportDataJson StatisticsReportFactory::createJson()
         QMap<QString,QString> map;
         map["Name"]=asset->getName();
         map["Qte"]=QString::number(compo[asset]);
-        map["Unit"]=QString::number(asset->getValues().last());
-        map["Total"]=QString::number(compo[asset]*asset->getValues(lastDate,lastDate).last());
+        map["Unit"]=QString::number(5);
+        map["Total"]=QString::number(compo[asset]*5);
 
         listAssets.append(map);
     }

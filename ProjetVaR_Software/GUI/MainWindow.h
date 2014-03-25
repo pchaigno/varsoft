@@ -24,6 +24,7 @@
 #include "ReportGenerator.h"
 #include "StatisticsReportFactory.h"
 #include "DocxGenerator.h"
+#include "PDFGenerator.h"
 
 namespace Ui {
 	class MainWindow;

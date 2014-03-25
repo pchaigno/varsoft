@@ -45,7 +45,8 @@ SOURCES += \
     StatisticsReportFactory.cpp \
     ReportDataJson.cpp \
     PortfolioItemModel.cpp \
-    CorrelationReportFactory.cpp
+    CorrelationReportFactory.cpp \
+    PDFGenerator.cpp
 
 HEADERS +=\
     Asset.h \
@@ -81,7 +82,8 @@ HEADERS +=\
     CannotOpenFileException.h \
     ReportDataJson.h \
     PortfolioItemModel.h \
-    PortfolioCalculationException.h
+    PortfolioCalculationException.h \
+    PDFGenerator.h
 
 unix:!symbian {
     maemo5 {
