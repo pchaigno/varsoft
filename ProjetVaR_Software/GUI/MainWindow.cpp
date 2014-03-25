@@ -57,47 +57,10 @@ void MainWindow::showPortfolio(){
     assets.insert(asset3, 3);
 
     QVector<Report*> reports;
-    Portfolio* father = new Portfolio("Father", assets, reports);
-
-
-
-    //portfolio->getComposition().size() => number of assets
-    //we need to add two colums more for : the dates and the values of the porfolio
-    QMap<Asset*, int> values = father->getComposition();
-    QMap<QDateTime, double> dates = QMap<QDateTime, double>();
-    dates[(endDate3)] = 6;
-    dates[(endDate2)] = (double)5;
-    dates[(endDate1)] = (double)4;
-    //QMap<QDateTime, double> dates = portfolio->retrieveValuesByDate(portfolio->retrieveFirstDate(), portfolio->retrieveLastDate());
-    QVector<QVector<QString> > matrix(values.size()+2);
-
-    for (int i=0; i<values.size(); i++)
-       //dates.size() => numberOfDates
-        matrix[i].fill("", dates.size());
-
-    //Dates and values are added
-    int i =0;
-    for(QMap<QDateTime, double>::const_iterator it=dates.begin(); it!=dates.end(); ++it) {
-        matrix[0][i]=it.key().toString("yyyy-MM-dd");
-        matrix[1][i]=QString::number(it.value());
-        i++;
-    }
-    //each asset's value is added
-    int j =2;
-    for(QMap<Asset*, int>::const_iterator it=values.begin(); it!=values.end(); ++it) {
-        //get all the values
-        int k =0;
-        QVector<double> val = it.key()->getValues(it.key()->getFirstDate(),it.key()->getLastDate());
-        for(int i=0; i < dates.size(); i++){
-            // no verification upon the date's existance
-            matrix[j][k] = QString::number(val.at(k));
-            k++;
-        }
-        j++;
-    }
+    Portfolio* portfolio = new Portfolio("Father", assets, reports);
 
     // set the model
-    PortfolioViewModel* pfm = new PortfolioViewModel(matrix);
+    PortfolioViewModel* pfm = new PortfolioViewModel(portfolio);
     ui->tableView->setModel(pfm);
 }
 
