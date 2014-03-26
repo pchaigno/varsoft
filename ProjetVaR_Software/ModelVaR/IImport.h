@@ -16,30 +16,20 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #pragma once
+#include <QDateTime>
+#include <QString>
+#include <QFile>
+#include <QStringList>
+#include <QDebug>
+#include <QTableWidgetItem>
+#include "Asset.h"
+#include "ModelVaR_global.h"
 
-#include <QWizard>
-#include "ShowAssetsWizardPage.h"
-#include "SetWeightAssetWizardPage.h"
-#include "Portfolio.h"
-
-namespace Ui {
-	class NewPortfolioWizard;
-}
-
-class NewPortfolioWizard : public QWizard {
-	Q_OBJECT
-
+/**
+* @brief Import Strategy Interface
+*/
+class MODELVARSHARED_EXPORT IImport {
 public:
-	explicit NewPortfolioWizard(QWidget *parent = 0);
-	~NewPortfolioWizard();
-
-	void accept();
-
-signals:
-	void newPortfolioCreated(Portfolio *);
-
-private:
-	Ui::NewPortfolioWizard *ui;
-	ShowAssetsWizardPage *showAssetPage;
-	SetWeightAssetWizardPage * setWeightPage;
+	virtual void import(const QString &name, const QString &file, const QString &origin,
+						const QDateTime &startDate, const QDateTime &endDate) const =0;
 };

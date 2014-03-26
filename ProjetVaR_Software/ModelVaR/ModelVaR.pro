@@ -4,7 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       -= gui
+QT -= gui
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = ModelVaR
 TEMPLATE = lib
@@ -44,9 +45,12 @@ SOURCES += \
     GarchReportFactory.cpp \
     StatisticsReportFactory.cpp \
     ReportDataJson.cpp \
+    PDFGenerator.cpp \
+    ImportNewData.cpp \
+    ImportData.cpp \
+    IImport.cpp \
     PortfolioItemModel.cpp \
-    CorrelationReportFactory.cpp \
-    PDFGenerator.cpp
+    CorrelationReportFactory.cpp
 
 HEADERS +=\
     Asset.h \
@@ -83,13 +87,17 @@ HEADERS +=\
     ReportDataJson.h \
     PortfolioItemModel.h \
     PortfolioCalculationException.h \
-    PDFGenerator.h
+    PDFGenerator.h \
+    ImportData.h \
+    ImportNewData.h \
+    CannotOpenFileException.h \
+    IImport.h
 
 unix:!symbian {
-    maemo5 {
-        target.path = /opt/usr/lib
-    } else {
-        target.path = /usr/lib
-    }
-    INSTALLS += target
+	maemo5 {
+		target.path = /opt/usr/lib
+	} else {
+		target.path = /usr/lib
+	}
+	INSTALLS += target
 }

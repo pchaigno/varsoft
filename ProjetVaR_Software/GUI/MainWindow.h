@@ -18,6 +18,11 @@
 #pragma once
 
 #include <QMainWindow>
+#include <QDateTime>
+#include <QDialog>
+#include <QComboBox>
+#include "import.h"
+#include <string>
 #include "NewPortfolioWizard.h"
 #include "PortfolioItemModel.h"
 #include "ReportFactory.h"
@@ -32,20 +37,29 @@ namespace Ui {
 
 class MainWindow: public QMainWindow {
 	Q_OBJECT
-    
+	
 public:
 	explicit MainWindow(QWidget* parent = 0);
 	~MainWindow();
 
 private slots:
     void newPortfolio();
-    void importCSV();
     void generateStatsReport();
+	void setImportCSV();
+	void onDataEntered(const QString &text, const QDateTime &fDate ,const QDateTime &lDate, const QString &source);
+
+
 private:
 
     Report* buildReport(ReportFactory * );
     void generateReport(ReportGenerator * gen);
 
 	Ui::MainWindow *ui;
-    PortfolioItemModel * portfolioModel;
+	Import import_win;
+	QString stockName;
+	QDateTime startDate;
+	QDateTime endDate;
+	QString fileName;
+	QString origin;
+	PortfolioItemModel * portfolioModel;
 };

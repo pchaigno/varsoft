@@ -16,30 +16,21 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #pragma once
+#include "ImportData.h"
+#include <QtTest>
 
-#include <QWizard>
-#include "ShowAssetsWizardPage.h"
-#include "SetWeightAssetWizardPage.h"
-#include "Portfolio.h"
-
-namespace Ui {
-	class NewPortfolioWizard;
-}
-
-class NewPortfolioWizard : public QWizard {
+class TestImportData: public QObject {
 	Q_OBJECT
 
-public:
-	explicit NewPortfolioWizard(QWidget *parent = 0);
-	~NewPortfolioWizard();
-
-	void accept();
-
-signals:
-	void newPortfolioCreated(Portfolio *);
-
 private:
-	Ui::NewPortfolioWizard *ui;
-	ShowAssetsWizardPage *showAssetPage;
-	SetWeightAssetWizardPage * setWeightPage;
+	QString stockName;
+	QString firstDate;
+	QString lastDate;
+	QString origin;
+
+public:
+	TestImportData();
+
+private Q_SLOTS:
+	void testDates();
 };

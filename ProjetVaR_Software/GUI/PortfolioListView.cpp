@@ -17,26 +17,23 @@
  */
 #include "PortfolioListView.h"
 
-PortfolioListView::PortfolioListView(QWidget *parent) :
-    QListView(parent)
-{
+PortfolioListView::PortfolioListView(QWidget *parent): QListView(parent) {
+
 }
 
 /**
  * @brief Redefinition of the model's setter
  * @param model
  */
-void PortfolioListView::setModel(PortfolioItemModel *model)
-{
-    this->QListView::setModel(model);
+void PortfolioListView::setModel(PortfolioItemModel *model) {
+	this->QListView::setModel(model);
 }
 /**
  * @brief Redefinition of the model's getter
  * @return the model
  */
-PortfolioItemModel *PortfolioListView::model() const
-{
-    return (PortfolioItemModel*)QListView::model();
+PortfolioItemModel *PortfolioListView::model() const {
+	return (PortfolioItemModel*)QListView::model();
 }
 
 void PortfolioListView::currentChanged(const QModelIndex &current, const QModelIndex &previous)
@@ -54,11 +51,9 @@ Portfolio *PortfolioListView::getCurrentPortfolio() const
 /**
  * @brief Remove the selected items
  */
-void PortfolioListView::removeSelectedPortfolio()
-{
-    QModelIndexList selectedItem = this->selectedIndexes();
-    foreach(QModelIndex index, selectedItem)
-    {
-        model()->removePortfolio(index.row());
-    }
+void PortfolioListView::removeSelectedPortfolio() {
+	QModelIndexList selectedItem = this->selectedIndexes();
+	foreach(QModelIndex index, selectedItem) {
+		model()->removePortfolio(index.row());
+	}
 }

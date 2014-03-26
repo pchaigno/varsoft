@@ -15,31 +15,21 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#pragma once
+#include "TestImportData.h"
 
-#include <QWizard>
-#include "ShowAssetsWizardPage.h"
-#include "SetWeightAssetWizardPage.h"
-#include "Portfolio.h"
-
-namespace Ui {
-	class NewPortfolioWizard;
+/**
+* @brief Initializes an asset for the tests.
+*/
+TestImportData::TestImportData() {
+	TestImportData::stockName = "Gogole";
+	TestImportData::firstDate = "2014-01-02";
+	TestImportData::lastDate = "2014-01-01";
+	TestImportData::origin = "Yahoo";
 }
 
-class NewPortfolioWizard : public QWizard {
-	Q_OBJECT
-
-public:
-	explicit NewPortfolioWizard(QWidget *parent = 0);
-	~NewPortfolioWizard();
-
-	void accept();
-
-signals:
-	void newPortfolioCreated(Portfolio *);
-
-private:
-	Ui::NewPortfolioWizard *ui;
-	ShowAssetsWizardPage *showAssetPage;
-	SetWeightAssetWizardPage * setWeightPage;
-};
+/**
+* @brief Checks that the firstDate and the lastDate of the generated file correspond to the params
+*/
+void TestImportData::testDates() {
+	
+}

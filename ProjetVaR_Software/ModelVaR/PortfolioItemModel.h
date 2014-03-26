@@ -23,22 +23,21 @@
 #include <QDebug>
 
 #ifdef UNITTEST
-class TestPortfolioItemModel;
+	class TestPortfolioItemModel;
 #endif
 
-class MODELVARSHARED_EXPORT PortfolioItemModel : public QAbstractListModel
-{
-    Q_OBJECT
+class MODELVARSHARED_EXPORT PortfolioItemModel : public QAbstractListModel {
+	Q_OBJECT
 public:
-    explicit PortfolioItemModel(QObject *parent = 0);
+	explicit PortfolioItemModel(QObject *parent = 0);
 
-    int rowCount(const QModelIndex &parent) const;
-    QVariant data(const QModelIndex &index, int role) const;
-    QVariant headerData(int section, Qt::Orientation orientation, int role) const;
-    Qt::ItemFlags flags(const QModelIndex &index) const;
+	int rowCount(const QModelIndex &parent) const;
+	QVariant data(const QModelIndex &index, int role) const;
+	QVariant headerData(int section, Qt::Orientation orientation, int role) const;
+	Qt::ItemFlags flags(const QModelIndex &index) const;
 
 #ifdef UNITTEST
- friend class TestPortfolioItemModel;
+	friend class TestPortfolioItemModel;
 #endif
 
     Portfolio *getPortfolio(const QModelIndex & index);
@@ -46,14 +45,13 @@ public:
 signals:
 
 public slots:
-    void addPortfolio(Portfolio *portfolio);
-    void insertPortfolio(Portfolio*portfolio,int row);
+	void addPortfolio(Portfolio *portfolio);
+	void insertPortfolio(Portfolio*portfolio,int row);
 
-    bool removePortfolio(Portfolio*portfolio);
-    bool removePortfolio(int row);
+	bool removePortfolio(Portfolio*portfolio);
+	bool removePortfolio(int row);
 
 private:
-    QList<Portfolio*> portfolioList;
+	QList<Portfolio*> portfolioList;
 
 };
-

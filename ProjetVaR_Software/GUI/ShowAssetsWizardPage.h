@@ -22,30 +22,28 @@
 #include "SessionBuilder.h"
 
 namespace Ui {
-class ShowAssetsWizardPage;
+	class ShowAssetsWizardPage;
 }
 
-class ShowAssetsWizardPage : public QWizardPage
-{
-    Q_OBJECT
+class ShowAssetsWizardPage : public QWizardPage {
+	Q_OBJECT
 
 public:
-    explicit ShowAssetsWizardPage(QWidget *parent = 0);
-    ~ShowAssetsWizardPage();
+	explicit ShowAssetsWizardPage(QWidget *parent = 0);
+	~ShowAssetsWizardPage();
 
-    void initializePage();
-    void setupAssets();
-    bool isComplete() const;
+	void initializePage();
+	void setupAssets();
+	bool isComplete() const;
 
-    QList<QString> getListAssetsSelected() const;
+	QList<QString> getListAssetsSelected() const;
 
 public slots:
-    void allLeftButtonClicked();
-    void allRightButtonClicked();
-    void rightButtonClicked();
-    void leftButtonClicked();
+	void allLeftButtonClicked();
+	void allRightButtonClicked();
+	void rightButtonClicked();
+	void leftButtonClicked();
 
 private:
-    Ui::ShowAssetsWizardPage *ui;
+	Ui::ShowAssetsWizardPage *ui;
 };
-

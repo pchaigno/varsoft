@@ -8,7 +8,9 @@ PDFGenerator::PDFGenerator(Report *report)
 {
     this->report=report;
 }
-
+/**
+ * @brief Generate the PDF file by calling the DocxGenerator tool with -pdf param
+ */
 void PDFGenerator::generate()
 {
     QProcess docx;
