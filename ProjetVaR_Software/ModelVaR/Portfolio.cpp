@@ -164,20 +164,20 @@ QDateTime Portfolio::retrieveFirstDate() const {
 
 /**
  * @brief Retrieves the last date defined for this portfolio.
- * The last date defined for a portfolio is the last date
- * where every asset of the portfolio is defined.
+ * The last date defined for a portfolio is the lastest date
+ * of all the last dates of the portfolio assets.
  * @return The last date defined for this portfolio.
  */
 QDateTime Portfolio::retrieveLastDate() const {
-	QDateTime minLastDate;
-	minLastDate.setTime_t(INT_MAX);
+	QDateTime maxLastDate;
+	maxLastDate.setTime_t(0);
 	for(QMap<Asset*, int>::const_iterator it=this->composition.begin(); it!=this->composition.end(); ++it) {
 		QDateTime lastDate = it.key()->getLastDate();
-		if(lastDate < minLastDate) {
-			minLastDate = lastDate;
+		if(lastDate > maxLastDate) {
+			maxLastDate = lastDate;
 		}
 	}
-	return minLastDate;
+	return maxLastDate;
 }
 
 /**

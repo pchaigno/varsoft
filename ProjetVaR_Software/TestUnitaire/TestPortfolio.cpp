@@ -106,11 +106,13 @@ void TestPortfolio::testRetrieveValues() {
 		qDebug() << e.what();
 	}
 
-	QCOMPARE(result.size(), 4);
+	QCOMPARE(result.size(), 6);
 	QCOMPARE(result.at(0), 612.0);
 	QCOMPARE(result.at(1), 618.0);
 	QCOMPARE(result.at(2), 624.0);
 	QCOMPARE(result.at(3), 630.0);
+	QCOMPARE(result.at(4), 635.0);
+	QCOMPARE(result.at(5), 638.0);
 }
 
 /**
@@ -160,5 +162,11 @@ void TestPortfolio::testRetrieveReturns() {
 
 	result = this->son.retrieveReturns(QDateTime(QDate(2014, 1, 8), QTime(0, 0, 0)), 4);
 
+	qDebug() << result;
+
+	qDebug() << this->son.retrieveLastDate();
+	result = this->son.retrieveReturns(this->son.retrieveLastDate(), 4);
+	// In that case retrieveLastDate() is 2014-01-06 because it is the last shared date
+	// among the assets.
 	qDebug() << result;
 }
