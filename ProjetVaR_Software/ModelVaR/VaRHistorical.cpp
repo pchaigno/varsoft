@@ -26,29 +26,11 @@ double VaRHistorical::execute(QDateTime date) const {
 	double var;
 	QVector<double> returns;
 
-	// Definitions of the starting that define with the passed date
-	// the period of time on which return values are used
-	QDateTime endingPeriodDate = date;
-	QDateTime startingPeriodDate = endingPeriodDate.addDays(-period);
+	returns = getPortfolio().retrieveReturns(getPortfolio().retrieveLastDate(), period);
 
-	// If the distribution period is too large, then the corresponding starting date may not
-	// be available in the database. A portfolioCalculationException will be thrown
-	QVector<double> values = getPortfolio().retrieveValues(startingPeriodDate, endingPeriodDate);
-
-	// Make sure there is there is the exact number of returns
-	while(values.size() <= period && startingPeriodDate > getPortfolio().retrieveFirstDate()) {
-		startingPeriodDate = startingPeriodDate.addDays(-1);
-		if(!getPortfolio().retrieveValues(startingPeriodDate, startingPeriodDate).isEmpty()) {
-			values.push_front(getPortfolio().retrieveValues(startingPeriodDate, startingPeriodDate).at(0));
-		}
-	}
-
-	if(values.size() < period) {
+	if(returns.size() < period) {
 		throw std::range_error("Not enough portfolio values to satisfy the period parameter");
 	}
-
-	// Returns have to be calculated first
-	returns = Portfolio::getReturns(values);
 
 	// Return values are sorted
 	qSort(returns.begin(), returns.end());

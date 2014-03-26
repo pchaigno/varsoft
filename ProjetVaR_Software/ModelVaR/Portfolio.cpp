@@ -246,7 +246,7 @@ QMap<QDateTime, double> Portfolio::retrieveValuesByDate(const QDateTime& startDa
 			// Check that the asset has the date of the portfolio
 			if(assetValuesByDates.contains(portfolioIt.key())) {
 				result.insert(portfolioIt.key(), portfolioIt.value() + assetValuesByDates.value(portfolioIt.key())*weight);
-			// Take the latest available value of the asset
+				// Take the latest available value of the asset
 			} else {
 				QDateTime latestCommonDate = portfolioIt.key().addDays(-1);
 				while(latestCommonDate >= assetValuesByDates.begin().key() && !assetValuesByDates.contains(latestCommonDate)) {
@@ -267,6 +267,34 @@ QMap<QDateTime, double> Portfolio::retrieveValuesByDate(const QDateTime& startDa
  */
 QVector<double> Portfolio::getReturns(QVector<double> &values) {
 	QVector<double> returns;
+
+	for(int i=1; i < values.size(); i++) {
+		returns.push_back(values.at(i) - values.at(i-1));
+	}
+
+	return returns;
+}
+
+/**
+ * @brief Calculates the returns associated with the values. It does not guarantee that
+ * the returned vector size is period.
+ * @param endingPeriodDate The ending date of the returns
+ * @param period The number of desired returns
+ * @return The returns in a chronological order
+ */
+QVector<double> Portfolio::retrieveReturns(QDateTime endingPeriodDate, int period) const {
+	QVector<double> returns;
+
+	QDateTime startingPeriodDate = endingPeriodDate.addDays(-period+1);
+	QVector<double> values = this->retrieveValues(startingPeriodDate, endingPeriodDate);
+
+	// Make sure there is there is the exact number of returns
+	while(values.size() <= period && startingPeriodDate > this->retrieveFirstDate()) {
+		startingPeriodDate = startingPeriodDate.addDays(-1);
+		if(!this->retrieveValues(startingPeriodDate, startingPeriodDate).isEmpty()) {
+			values.push_front(this->retrieveValues(startingPeriodDate, startingPeriodDate).at(0));
+		}
+	}
 
 	for(int i=1; i < values.size(); i++) {
 		returns.push_back(values.at(i) - values.at(i-1));

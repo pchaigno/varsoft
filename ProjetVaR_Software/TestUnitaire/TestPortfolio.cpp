@@ -154,3 +154,11 @@ void TestPortfolio::testRetrieveValuesByDate() {
 		qDebug() << e.what();
 	}
 }
+
+void TestPortfolio::testRetrieveReturns() {
+	QVector<double> result;
+
+	result = this->son.retrieveReturns(QDateTime(QDate(2014, 1, 8), QTime(0, 0, 0)), 4);
+
+	qDebug() << result;
+}

@@ -60,7 +60,7 @@ void TestVaRHistorical::testExecute() {
 	// Value-at-Risk parameters
 	double risk = 0.05;
 	int timeHorizon = 1;
-	int returnsPeriod = 45;
+	int returnsPeriod = 20;
 	VaRHistorical daxVaR(this->daxPortfolio, risk, timeHorizon, returnsPeriod);
 
 	double var;
@@ -79,7 +79,7 @@ void TestVaRHistorical::testExecute() {
 	returnsPeriod = 100;
 	VaRHistorical incorrectDaxVaR(this->daxPortfolio, risk, timeHorizon, returnsPeriod);
 	try {
-		var = incorrectDaxVaR.execute(this->daxPortfolio.retrieveLastDate());
+		//var = incorrectDaxVaR.execute(this->daxPortfolio.retrieveLastDate());
 		QFAIL("execute() succeeded despite too large returnsPeriod parameter");
 
 	} catch(std::range_error& e) {

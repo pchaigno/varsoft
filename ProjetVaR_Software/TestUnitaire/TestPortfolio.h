@@ -25,4 +25,5 @@ private Q_SLOTS:
 	void testName();
 	void testRetrieveValues();
 	void testRetrieveValuesByDate();
+	void testRetrieveReturns();
 };
