@@ -43,7 +43,7 @@ double VaRHistorical::execute(QDateTime date) const {
 	double var;
 	QVector<double> returns;
 
-	returns = getPortfolio().retrieveReturns(getPortfolio().retrieveLastDate(), period);
+	returns = getPortfolio().retrieveReturns(date, period);
 
 	if(returns.size() < period) {
 		throw std::range_error("Not enough portfolio values to satisfy the period parameter");
