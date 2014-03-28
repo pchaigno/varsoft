@@ -12,7 +12,7 @@ before_install:
   - if [ $QT == "Qt5" ]; then sudo apt-add-repository -y ppa:ubuntu-sdk-team/ppa; fi
   - sudo apt-get update
 install:
-  - if [ $QT == "Qt4" ]; then sudo apt-get install libqt4-dev qt4-qmake; fi
+  - if [ $QT == "Qt4" ]; then sudo apt-get install libqt4-dev qt4-qmake libqt4-sql-sqlite; fi
   - if [ $QT == "Qt5" ]; then sudo apt-get install -y qt5-default libqt5sql5-sqlite; fi
 
 script:
