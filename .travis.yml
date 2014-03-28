@@ -1,6 +1,7 @@
 language: cpp
 compiler:
   - gcc
+  - clang
 env:
   - CONFIG=debug
   - CONFIG=release
