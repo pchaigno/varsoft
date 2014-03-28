@@ -1,7 +1,6 @@
 language: cpp
 compiler:
   - gcc
-  - clang
 env:
   - CONFIG=debug QT=Qt4
   - CONFIG=debug QT=Qt5
