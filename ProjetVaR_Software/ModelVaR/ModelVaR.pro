@@ -4,16 +4,12 @@
 #
 #-------------------------------------------------
 
-QT -= gui
+QT += sql
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = ModelVaR
 TEMPLATE = lib
 
-# To compile under Linux
-#QMAKE_CXXFLAGS += -std=c++11
-# For QSQL
-QT += sql
 
 DEFINES += MODELVAR_LIBRARY
 
