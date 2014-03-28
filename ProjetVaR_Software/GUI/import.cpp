@@ -16,7 +16,6 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #include "import.h"
-#include "ui_import.h"
 
 /**
 * @brief Import Constructor
