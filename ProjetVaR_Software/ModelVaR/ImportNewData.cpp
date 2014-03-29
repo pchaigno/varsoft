@@ -39,6 +39,11 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
 	rowOfData.clear();
 	rowData.clear();
 
+    int data_index = 6;
+
+    if (origin == "ProjectVaR")
+        data_index = 1;
+
 	if (importedCSV.open(QFile::ReadOnly)) {
 		data = importedCSV.readAll();
 		rowOfData = data.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
@@ -62,7 +67,7 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
 	for (int x =1; x < rowOfData.size()-1; x++) {
 		rowData = rowOfData.at(x).split(",");
 		//TODO : Check that the date is correct
-		if(!(rowData.count() >= 6)) {
+        if(!(rowData.count() >= data_index)) {
 			 QMessageBox::warning(0, "Attention","Le fichier que vous avez essayé d'importer n'est pas valide");
 			 fileCreated.close();
 			 fileCreated.remove();
@@ -74,7 +79,7 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
 			if(endDate >= currentDate) {
 				break;
 			}
-			flux << rowData[0] << "," << rowData[6] << "\n";
+            flux << rowData[0] << "," << rowData[data_index] << "\n";
 		}
 	}
 	fileCreated.close();

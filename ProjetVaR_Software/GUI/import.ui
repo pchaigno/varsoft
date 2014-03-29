@@ -122,6 +122,11 @@
      <string>Yahoo</string>
     </property>
    </item>
+   <item>
+    <property name="text">
+     <string>ProjectVaR</string>
+    </property>
+   </item>
   </widget>
   <widget class="QLabel" name="label_4">
    <property name="geometry">

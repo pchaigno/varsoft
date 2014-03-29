@@ -241,7 +241,7 @@
      <x>0</x>
      <y>0</y>
      <width>826</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFichier">
@@ -296,7 +296,7 @@
   </action>
   <action name="actionImport">
    <property name="text">
-    <string>Import</string>
+    <string>Importer</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+I</string>
@@ -304,7 +304,7 @@
   </action>
   <action name="actionExport">
    <property name="text">
-    <string>Export</string>
+    <string>Exporter</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+E</string>
