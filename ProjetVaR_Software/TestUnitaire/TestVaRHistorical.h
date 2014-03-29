@@ -15,28 +15,26 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 #pragma once
-
+#include <QDebug>
+#include <QTest>
 #include "Asset.h"
-#include <QtTest>
-#include <QDir>
-#include <QMap>
-#include <QVector>
+#include "Portfolio.h"
+#include "Report.h"
+#include "VaRHistorical.h"
 
-class TestAsset: public QObject {
+class TestVaRHistorical: public QObject {
 	Q_OBJECT
 
-private:
-	Asset google;
-	Asset apple;
-	Asset missing;
-
 public:
-	TestAsset();
+    TestVaRHistorical();
+
+private:
+	Portfolio daxPortfolio;
 
 private Q_SLOTS:
-	void testId();
-	void testName();
-	void testRetrieveValues();
-	void testRetrieveValuesByDate();
+	void testVaRHistoricalConstructor();
+    void testExecute();
 };
+

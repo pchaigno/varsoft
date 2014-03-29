@@ -22,6 +22,6 @@
 
 class VaRRiskmetrics: public VaRAlgorithm {
 public:
-	VaRRiskmetrics(const Portfolio& portfolio, double risk);
+	VaRRiskmetrics(const Portfolio& portfolio, double risk, int timeHorizon);
 	virtual double execute(QDateTime timeHorizon) const;
 };
