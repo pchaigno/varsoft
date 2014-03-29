@@ -23,7 +23,6 @@
 #include "Portfolio.h"
 #include "Report.h"
 #include "VaRHistorical.h"
-#include "TestVaRAlgorithm.h"
 
 class TestVaRHistorical: public QObject {
 	Q_OBJECT
