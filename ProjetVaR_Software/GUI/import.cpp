@@ -28,6 +28,7 @@ Import::Import(QWidget *parent): QDialog(parent), ui(new Ui::Import) {
 	ui->dateEdit->setCalendarPopup(true);
 	ui->dateEdit_2->setCalendarPopup(true);
 	connect(ui->pushButton, SIGNAL(clicked()),this, SLOT(on_pushButton_clicked()));
+    connect(ui->pushButton_2, SIGNAL(clicked()),this, SLOT(on_pushButton_2_clicked()));
 }
 
 Import::~Import() {
@@ -47,8 +48,8 @@ void Import::on_pushButton_clicked() {
 
 /**
 * @brief Called when Importing file window's "Cancel" button is pushed
-* Blank all fields
+* Cancel csv's import
 */
 void Import::on_pushButton_2_clicked() {
-	//TODO: cancel import
+    this->close();
 }
