@@ -68,12 +68,20 @@ void TestVaRHistorical::testExecute() {
 	try {
 		var = daxVaR.execute(this->daxPortfolio.retrieveLastDate());
 		// Check that the computed VaR matches the manually found one
-		//QCOMPARE(var, -239.02);
+		QCOMPARE(var, -239.02);
 		qDebug() << "At the following date: " + this->daxPortfolio.retrieveLastDate().toString();
 		qDebug() << "For the asset: " + this->daxPortfolio.getName();
 		qDebug() << "Historical VaR parameters: risk=" << risk << ", timeHorizon=" << timeHorizon << "returnsPeriod=" << returnsPeriod;
 		qDebug() << "Value-at-Risk=" << var;
 	} catch(std::range_error& e) {
+		qDebug() << e.what();
+	}
+
+	// FUTURE DATE CASE
+	try {
+		var = daxVaR.execute(this->daxPortfolio.retrieveLastDate().addDays(10));
+		QFAIL("Computation of Value-at-Risk at an undefined future date");
+	} catch(std::invalid_argument& e) {
 		qDebug() << e.what();
 	}
 

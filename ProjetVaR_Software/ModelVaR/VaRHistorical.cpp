@@ -40,6 +40,10 @@ VaRHistorical::VaRHistorical(const Portfolio& portfolio, double risk, int timeHo
  * @return Value-at-Risk
  */
 double VaRHistorical::execute(QDateTime date) const {
+	if(date > getPortfolio().retrieveLastDate()) {
+		throw std::invalid_argument("Value-at-Risk cannot be computed at an undefined future date.");
+	}
+
 	double var;
 	QVector<double> returns;
 
