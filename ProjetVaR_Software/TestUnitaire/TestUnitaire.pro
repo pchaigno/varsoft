@@ -25,8 +25,7 @@ SOURCES += \
 	TestReport.cpp \
 	TestSQLiteManagers.cpp \
 	TestPortfolioItemModel.cpp \
-	TestVaRHistorical.cpp \
-    TestVaRAlgorithm.cpp
+	TestVaRHistorical.cpp
 
 HEADERS += \
 	TestImportNewData.h \
@@ -36,8 +35,7 @@ HEADERS += \
 	TestPortfolio.h \
 	TestSQLiteManagers.h \
 	TestPortfolioItemModel.h \
-    TestVaRHistorical.h \
-    TestVaRAlgorithm.h
+    TestVaRHistorical.h
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 DEFINES += UNITTEST

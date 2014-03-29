@@ -23,18 +23,18 @@
 #include "Portfolio.h"
 #include "Report.h"
 #include "VaRHistorical.h"
-#include "VaRAlgorithm.h"
+#include "TestVaRAlgorithm.h"
 
-class TestVaRHistorical: public QObject, public TestVaRAlgorithm {
+class TestVaRHistorical: public QObject {
 	Q_OBJECT
-
-//private:
-	//Portfolio daxPortfolio;
 
 public:
     TestVaRHistorical();
 
-private /*Q_SLOTS*/:
+private:
+	Portfolio daxPortfolio;
+
+private Q_SLOTS:
 	void testVaRHistoricalConstructor();
     void testExecute();
 };

@@ -19,6 +19,7 @@
 #include "TestImportNewData.h"
 #include "TestAsset.h"
 #include "TestPortfolio.h"
+#include "TestVaRAlgorithm.h"
 #include "TestVaRHistorical.h"
 #include "TestReport.h"
 #include "TestSQLiteManagers.h"

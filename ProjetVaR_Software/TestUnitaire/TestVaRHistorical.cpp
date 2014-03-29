@@ -19,7 +19,7 @@
 #include "TestVaRHistorical.h"
 
 TestVaRHistorical::TestVaRHistorical() {
-	/*QString assetFolder = "../../CSV_examples/";
+	QString assetFolder = "../../CSV_examples/";
 
 	// ASSET DEFINITION
 	QDateTime startDate(QDate(2014, 1, 2), QTime(0, 0, 0));
@@ -30,7 +30,7 @@ TestVaRHistorical::TestVaRHistorical() {
 	QMap<Asset*, int> assets;
 	assets.insert(dax, 1);
 	QVector<Report*> reports;
-	this->daxPortfolio = Portfolio("daxPortfolio", assets, reports);*/
+	this->daxPortfolio = Portfolio("daxPortfolio", assets, reports);
 }
 
 void TestVaRHistorical::testVaRHistoricalConstructor() {
@@ -51,6 +51,50 @@ void TestVaRHistorical::testVaRHistoricalConstructor() {
 	try {
 		VaRHistorical daxVaR(daxPortfolio, risk, timeHorizon, returnsPeriod);
 		QFAIL("VaRHistorical constructor succeeded despite wrong returnsPeriod parameter");
+	} catch(std::invalid_argument& e) {
+		qDebug() << e.what();
+	}
+
+	// INCORRECT RISK
+	returnsPeriod = 10;
+	risk = 0;
+	try {
+		VaRHistorical daxVaR(daxPortfolio, risk, timeHorizon, returnsPeriod);
+		QFAIL("VaRHistorical constructor succeeded despite wrong risk parameter");
+	} catch(std::invalid_argument& e) {
+		qDebug() << e.what();
+	}
+
+	risk = 1;
+	try {
+		VaRHistorical daxVaR(daxPortfolio, risk, timeHorizon, returnsPeriod);
+		QFAIL("VaRHistorical constructor succeeded despite wrong risk parameter");
+	} catch(std::invalid_argument& e) {
+		qDebug() << e.what();
+	}
+
+	risk = 1.5;
+	try {
+		VaRHistorical daxVaR(daxPortfolio, risk, timeHorizon, returnsPeriod);
+		QFAIL("VaRHistorical constructor succeeded despite wrong risk parameter");
+	} catch(std::invalid_argument& e) {
+		qDebug() << e.what();
+	}
+
+	// INCORRECT TIME HORIZON
+	risk = 0.05;
+	timeHorizon = 0;
+	try {
+		VaRHistorical daxVaR(daxPortfolio, risk, timeHorizon, returnsPeriod);
+		QFAIL("VaRHistorical constructor succeeded despite wrong timeHorizon parameter");
+	} catch(std::invalid_argument& e) {
+		qDebug() << e.what();
+	}
+
+	timeHorizon = -1;
+	try {
+		VaRHistorical daxVaR(daxPortfolio, risk, timeHorizon, returnsPeriod);
+		QFAIL("VaRHistorical constructor succeeded despite wrong timeHorizon parameter");
 	} catch(std::invalid_argument& e) {
 		qDebug() << e.what();
 	}
