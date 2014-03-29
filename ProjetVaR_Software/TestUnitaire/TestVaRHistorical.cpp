@@ -19,7 +19,7 @@
 #include "TestVaRHistorical.h"
 
 TestVaRHistorical::TestVaRHistorical() {
-	QString assetFolder = "../../CSV_examples/";
+	/*QString assetFolder = "../../CSV_examples/";
 
 	// ASSET DEFINITION
 	QDateTime startDate(QDate(2014, 1, 2), QTime(0, 0, 0));
@@ -30,7 +30,7 @@ TestVaRHistorical::TestVaRHistorical() {
 	QMap<Asset*, int> assets;
 	assets.insert(dax, 1);
 	QVector<Report*> reports;
-	this->daxPortfolio = Portfolio("daxPortfolio", assets, reports);
+	this->daxPortfolio = Portfolio("daxPortfolio", assets, reports);*/
 }
 
 void TestVaRHistorical::testVaRHistoricalConstructor() {
