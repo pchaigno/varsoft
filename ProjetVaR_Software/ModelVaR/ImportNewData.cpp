@@ -40,9 +40,12 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
 	rowData.clear();
 
     int data_index = 6;
+    int row_index = 1;
 
-    if (origin == "ProjectVaR")
+    if (origin == "ProjectVaR"){
         data_index = 1;
+        row_index = 0;
+    }
 
 	if (importedCSV.open(QFile::ReadOnly)) {
 		data = importedCSV.readAll();
@@ -64,10 +67,10 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
 	// x = 1 to avoid the first line with labels
 	// rowOfData.size()-1 to avoid a blank line a the end of the file
 
-	for (int x =1; x < rowOfData.size()-1; x++) {
+    for (int x =row_index; x < rowOfData.size()-1; x++) {
 		rowData = rowOfData.at(x).split(",");
 		//TODO : Check that the date is correct
-        if(!(rowData.count() >= data_index)) {
+        if((rowData.count() != data_index)) {
 			 QMessageBox::warning(0, "Attention","Le fichier que vous avez essayé d'importer n'est pas valide");
 			 fileCreated.close();
 			 fileCreated.remove();
