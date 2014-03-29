@@ -55,8 +55,8 @@ double VaRAlgorithm::getRisk() const {
 
 /**
  * @brief Accessor to the time horizon
- * @return the time horizon associated with the Value-at-Risk calculation
+ * @return the time horizon in number of days associated with the Value-at-Risk calculation
  */
-double VaRAlgorithm::getTimeHorizon() const {
+int VaRAlgorithm::getTimeHorizon() const {
 	return this->timeHorizon;
 }

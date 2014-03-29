@@ -60,13 +60,15 @@ void TestVaRHistorical::testExecute() {
 	// Value-at-Risk parameters
 	double risk = 0.05;
 	int timeHorizon = 1;
-	int returnsPeriod = 20;
+	int returnsPeriod = 45;
 	VaRHistorical daxVaR(this->daxPortfolio, risk, timeHorizon, returnsPeriod);
 
 	double var;
 
 	try {
 		var = daxVaR.execute(this->daxPortfolio.retrieveLastDate());
+		// Check that the computed VaR matches the manually found one
+		//QCOMPARE(var, -239.02);
 		qDebug() << "At the following date: " + this->daxPortfolio.retrieveLastDate().toString();
 		qDebug() << "For the asset: " + this->daxPortfolio.getName();
 		qDebug() << "Historical VaR parameters: risk=" << risk << ", timeHorizon=" << timeHorizon << "returnsPeriod=" << returnsPeriod;

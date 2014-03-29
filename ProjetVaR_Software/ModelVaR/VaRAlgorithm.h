@@ -33,5 +33,5 @@ public:
 	virtual double execute(QDateTime date) const =0;
     const Portfolio& getPortfolio() const;
     double getRisk() const;
-	double getTimeHorizon() const;
+	int getTimeHorizon() const;
 };
