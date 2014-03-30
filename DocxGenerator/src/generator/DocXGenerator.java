@@ -50,7 +50,7 @@ public class DocXGenerator {
 			if (!template.exists())
 			{
 				System.out.println("Error: " +args[0]+ "does not exist.");
-				return;
+				System.exit(GeneratorError.TEMPLATE_NOT_FOUND.getCode());
 			}
 			outputPath = args[1];
 		} else {
