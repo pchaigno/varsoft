@@ -120,7 +120,7 @@ void PortfolioViewModel::createDataStructure(){
     {
         columns.clear();
         columns.append(asset->getName());
-        QVector<double> valvector = asset->getValues(asset->getFirstDate(),asset->getLastDate());
+        QVector<double> valvector = asset->retrieveValues(asset->getFirstDate(),asset->getLastDate());
 
         foreach(double val,valvector)
         {

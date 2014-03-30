@@ -4,25 +4,21 @@
 #
 #-------------------------------------------------
 
-QT       += core gui printsupport sql
-
-GTCONFIG +=console
-
+QT += core gui printsupport sql
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-#QMAKE_CXXFLAGS += -std=c++11
+GTCONFIG +=console
 
 TARGET = GUI
 TEMPLATE = app
 
-
 SOURCES += main.cpp\
         MainWindow.cpp \
     qcustomplot.cpp \
+    import.cpp \
     NewPortfolioWizard.cpp \
     SetWeightAssetWizardPage.cpp \
     ShowAssetsWizardPage.cpp \
-    PortfolioItemModel.cpp \
     PortfolioListView.cpp \
     PortfolioViewModel.cpp
 
@@ -31,14 +27,16 @@ HEADERS  += MainWindow.h \
     NewPortfolioWizard.h \
     SetWeightAssetWizardPage.h \
     ShowAssetsWizardPage.h \
-    PortfolioItemModel.h \
     PortfolioListView.h \
-    PortfolioViewModel.h
+    PortfolioViewModel.h \
+    import.h
 
 FORMS    += MainWindow.ui \
     NewPortfolioWizard.ui \
     SetWeightAssetWizardPage.ui \
-    ShowAssetsWizardPage.ui
+    ShowAssetsWizardPage.ui\
+    import.ui
+
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../ModelVaR/release/ -lModelVaR
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../ModelVaR/debug/ -lModelVaR

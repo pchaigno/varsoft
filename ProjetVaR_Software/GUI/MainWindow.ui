@@ -206,15 +206,24 @@
    <property name="text">
     <string>Sauvegarder sous ...</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+S</string>
+   </property>
   </action>
   <action name="actionImport">
    <property name="text">
     <string>Import</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+I</string>
+   </property>
   </action>
   <action name="actionExport">
    <property name="text">
     <string>Export</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+E</string>
    </property>
   </action>
   <action name="actionNouveau">
@@ -234,8 +243,47 @@
    <class>PortfolioListView</class>
    <extends>QListView</extends>
    <header>PortfolioListView.h</header>
+   <slots>
+    <slot>removeSelectedPortfolio()</slot>
+   </slots>
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>addPushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>newPortfolio()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>81</x>
+     <y>59</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>412</x>
+     <y>219</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>removePushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>listView</receiver>
+   <slot>removeSelectedPortfolio()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>137</x>
+     <y>59</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>137</x>
+     <y>242</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>newPortfolio()</slot>
+ </slots>
 </ui>

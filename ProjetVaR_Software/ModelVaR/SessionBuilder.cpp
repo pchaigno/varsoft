@@ -1,3 +1,20 @@
+/**
+ * Copyright (C) 2013 Benjamin Bouguet, Damien Carduner, Paul Chaignon,
+ * Eric Chauty, Xavier Fraboulet, Clement Gautrais, Ulysse Goarant.
+
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 #include "SessionBuilder.h"
 
 SessionBuilder* SessionBuilder::instance;
@@ -18,7 +35,7 @@ SessionBuilder::SessionBuilder(QString databaseFile): SQLiteManager(databaseFile
 Asset* SessionBuilder::buildAsset(QString name) {
 	this->openConnection();
 	QSqlQuery query(this->db);
-	query.prepare("SELECT id, file, first_date, last_date FROM assets WHERE name = :name;");
+	query.prepare("SELECT id, file, origin, first_date, last_date FROM assets WHERE name = :name;");
 	query.bindValue(":name", name);
 	query.exec();
 
@@ -47,7 +64,7 @@ Asset* SessionBuilder::buildAsset(QString name) {
 QMap<QString, Asset*> SessionBuilder::buildAssets() {
 	this->openConnection();
 	QSqlQuery query(this->db);
-	query.exec("SELECT id, name, file, first_date, last_date FROM assets;");
+	query.exec("SELECT id, name, file, origin, first_date, last_date FROM assets;");
 
 	QMap<QString, Asset*> assets;
 	int id;
