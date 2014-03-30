@@ -1,21 +1,17 @@
 package generator;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Map;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import org.apache.commons.io.IOUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import fr.opensagres.xdocreport.converter.ConverterTypeTo;
 import fr.opensagres.xdocreport.converter.ConverterTypeVia;
@@ -49,7 +45,7 @@ public class DocXGenerator {
 			template = new File(args[0]);
 			if (!template.exists())
 			{
-				System.out.println("Error: " +args[0]+ "does not exist.");
+				System.out.println("Error: "+args[0]+" does not exist.");
 				System.exit(GeneratorError.TEMPLATE_NOT_FOUND.getCode());
 			}
 			outputPath = args[1];
@@ -62,13 +58,12 @@ public class DocXGenerator {
 		try
 		{ 
 			// initialize the input with the standard input
-			InputStreamReader reader=new InputStreamReader(System.in); 
-			BufferedReader input=new BufferedReader(reader); 
+			String jsonText = IOUtils.toString(System.in, "UTF-8");
 			
-			result = generate(input, template, outputPath);
+			result = generate(jsonText, template, outputPath);
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.err.println("Error: "+e.getMessage());
 			System.exit(GeneratorError.IO_ERROR.getCode());
 		}
 		System.exit(result.getCode());
@@ -76,38 +71,36 @@ public class DocXGenerator {
 
 	/**
 	 * Add the text data from the JSON to the report's context
-	 * @param textObject
+	 * @param textObject The JSON text object
 	 */
-	private static void computeText(JSONObject textObject)
-	{
+	private static void computeText(JSONObject textObject) {
 		// iterate on all the simple text
-		Iterator<?> iter = textObject.entrySet().iterator();
-		while(iter.hasNext()){
-			Map.Entry entry = (Map.Entry)iter.next();
+		Iterator<?> it = textObject.keys();
+		while(it.hasNext()) {
+			String key = it.next().toString();
 			// add the text to the report's context
-			contextMap.put(entry.getKey().toString(), entry.getValue().toString());
-		}  
+			contextMap.put(key, textObject.getString(key));
+		}
 	}
 
 	/**
 	 * Initialize the FieldsMetaData for all images,
 	 * create them with the paths from the JSON and add it to the report's context.
-	 * @param imagesObject
+	 * @param imagesObject The JSON images object.
 	 */
-	private static void computeImages(JSONObject imagesObject)
-	{
+	private static void computeImages(JSONObject imagesObject) {
 		// iterate on all images
-		Iterator<?> iter = imagesObject.entrySet().iterator();
-		while(iter.hasNext()){
-			Map.Entry entry = (Map.Entry)iter.next();
+		Iterator<?> it = imagesObject.keys();
+		while(it.hasNext()) {
+			String key = it.next().toString();
 			// set the FieldsMetaData
-			metadata.addFieldAsImage(entry.getKey().toString());
+			metadata.addFieldAsImage(key);
 			// create the image
-			IImageProvider img = new FileImageProvider(new File(entry.getValue().toString()));
+			IImageProvider img = new FileImageProvider(new File(imagesObject.getString(key)));
 			img.setUseImageSize(true);
 			// add it to the report's context
-			contextMap.put(entry.getKey().toString(), img);
-		}  
+			contextMap.put(key, img);
+		}
 	}
 
 	/**
@@ -115,31 +108,22 @@ public class DocXGenerator {
 	 * and add the list to the report's context.
 	 * @param listObject
 	 */
-	private static void computeList(JSONObject listObject)
-	{
+	private static void computeList(JSONObject listObject) {
 		// iterate on all the list
-		Iterator<?> iter = listObject.entrySet().iterator();
-		while(iter.hasNext()){
+		Iterator<?> it = listObject.keys();
+		while(it.hasNext()) {
 			// Get the key and the array
-			Map.Entry entry = (Map.Entry)iter.next();
-			String key = entry.getKey().toString();
-			JSONArray array = (JSONArray) entry.getValue();
+			String key = it.next().toString();
+			JSONArray array = listObject.getJSONArray(key);
 
 			//get the FieldsMetaData, searching for all different keys on the Map
-			HashSet<String> metaData = new HashSet<String>();
-			Iterator<?> iterArray = array.iterator();
-			while(iterArray.hasNext()){
-				JSONObject map = (JSONObject) iterArray.next();
-				Iterator<?> iterMap = map.entrySet().iterator();
-				while(iterMap.hasNext()){
-					Map.Entry entryMap = (Map.Entry)iterMap.next();	
-					metaData.add(entryMap.getKey().toString());
+			for(int i=0; i<array.length(); i++) {
+				JSONObject map = array.getJSONObject(i);
+				Iterator<?> itMap = map.keys();
+				while(itMap.hasNext()) {
+					// set the FieldsMetaData
+					metadata.addFieldAsList(key+"."+itMap.next().toString());
 				}
-			}
-			// set the FieldsMetaData
-			Iterator<?> iterMetaData = metaData.iterator();
-			while(iterMetaData.hasNext()){
-				metadata.addFieldAsList(key+"."+iterMetaData.next().toString());				
 			}
 			
 			// add the array to the report's context
@@ -149,7 +133,7 @@ public class DocXGenerator {
 	
 	/**
 	 * Generates the DOCX and PDF reports with the data in the context.
-	 * @param input The input stream.
+	 * @param jsonText The JSON text.
 	 * @param template The template DOCX file.
 	 * @param outputPath The path to the file which has to be written (without the extension).
 	 * @return An error code or 0 if all went well.
@@ -157,14 +141,15 @@ public class DocXGenerator {
 	 * @throws IOException
 	 * @throws ParseException
 	 */
-	public static GeneratorError generate(BufferedReader input, File template, String outputPath) throws IOException {
+	public static GeneratorError generate(String jsonText, File template, String outputPath) throws IOException {
 		// initialize of the JSON Parser with the input
-		JSONParser parser = new JSONParser();
-		JSONObject json = null;
+		JSONObject json;
 		try {
-			json = (JSONObject) parser.parse(input);
-		} catch(ParseException e) {
-			e.printStackTrace();
+			json = new JSONObject(jsonText);
+		} catch(JSONException e) {
+			System.err.println("Error while parsing the JSON file:");
+			System.err.println(e.getMessage());
+			System.err.println();
 			return GeneratorError.JSON_ERROR;
 		}
 
@@ -173,7 +158,8 @@ public class DocXGenerator {
 		try {
 			report = XDocReportRegistry.getRegistry().loadReport(in, TemplateEngineKind.Velocity);
 		} catch (XDocReportException e) {
-			e.printStackTrace();
+			System.err.println("Error with the template file:");
+			System.err.println(e.getMessage());
 			return GeneratorError.TEMPLATE_ERROR;
 		}
 
@@ -184,14 +170,15 @@ public class DocXGenerator {
 		try {
 			contextMap = report.createContext();
 		} catch (XDocReportException e) {
-			e.printStackTrace();
+			System.err.println("Error while creating the context:");
+			System.err.println(e.getMessage());
 			return GeneratorError.CONTEXT_ERROR;
 		}
 
 		//add the data from the JSON to the report context
-		computeText((JSONObject) json.get("text"));
-		computeImages((JSONObject) json.get("images"));
-		computeList((JSONObject) json.get("list"));
+		computeText(json.getJSONObject("text"));
+		computeImages(json.getJSONObject("images"));
+		computeList(json.getJSONObject("list"));
 
 		// link the FieldsMetaData to the report
 		report.setFieldsMetadata(metadata);
@@ -222,7 +209,8 @@ public class DocXGenerator {
 		try {
 			report.process(contextMap, out);
 		} catch (XDocReportException e) {
-			e.printStackTrace();
+			System.err.println("Error while generating the DOCX file:");
+			System.err.println(e.getMessage());
 			return GeneratorError.DOCX_GENERATION_ERROR;
 		}
 		return GeneratorError.NO_ERROR;
@@ -242,10 +230,12 @@ public class DocXGenerator {
 		try {
 			report.convert(contextMap, options, out);
 		} catch (XDocConverterException e) {
-			e.printStackTrace();
+			System.err.println("Error while converting the PDF:");
+			System.err.println(e.getMessage());
 			return GeneratorError.PDF_CONVERTION_ERROR;
 		} catch (XDocReportException e) {
-			e.printStackTrace();
+			System.err.println("Error while generating the PDF:");
+			System.err.println(e.getMessage());
 			return GeneratorError.PDF_GENERATION_ERROR;
 		}
 		return GeneratorError.NO_ERROR;

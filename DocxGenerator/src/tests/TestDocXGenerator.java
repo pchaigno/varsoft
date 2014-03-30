@@ -1,9 +1,10 @@
 package tests;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+
+import org.apache.commons.io.IOUtils;
 
 import generator.DocXGenerator;
 import generator.GeneratorError;
@@ -12,11 +13,11 @@ import junit.framework.TestCase;
 public class TestDocXGenerator extends TestCase {
 	
 	public static void testStatisticsReport() throws IOException {
-		File json = new File("resources/test.json");
-		BufferedReader input = new BufferedReader(new FileReader(json));
+		FileInputStream jsonInput = new FileInputStream("resources/test.json");
+		String jsonText = IOUtils.toString(jsonInput);
 		File template = new File("resources/test.docx");
 		String outputPath = "resources/test_result";
-		assertEquals(GeneratorError.NO_ERROR, DocXGenerator.generate(input, template, outputPath));
+		assertEquals(GeneratorError.NO_ERROR, DocXGenerator.generate(jsonText, template, outputPath));
 
 		File docxFile = new File(outputPath+".docx");
 		File pdfFile = new File(outputPath+".pdf");
@@ -28,10 +29,10 @@ public class TestDocXGenerator extends TestCase {
 	}
 	
 	public static void testErroredJSON() throws IOException {
-		File json = new File("resources/errored.json");
-		BufferedReader input = new BufferedReader(new FileReader(json));
+		FileInputStream jsonInput = new FileInputStream("resources/errored.json");
+		String jsonText = IOUtils.toString(jsonInput);
 		File template = new File("resources/test.docx");
 		String outputPath = "resources/errored_result";
-		assertEquals(GeneratorError.JSON_ERROR, DocXGenerator.generate(input, template, outputPath));
+		assertEquals(GeneratorError.JSON_ERROR, DocXGenerator.generate(jsonText, template, outputPath));
 	}
 }
