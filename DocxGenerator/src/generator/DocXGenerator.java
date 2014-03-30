@@ -1,4 +1,5 @@
 package generator;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -39,21 +40,20 @@ public class DocXGenerator {
 	 */
 	public static void main(String[] args) {
 
-		File template, output;
-		boolean pdf = false;
+		File template;
+		String outputPath;
 
-		// check the arguments "Usage: java DocXGenerator templateFilePath outputFilePath [-pdf]"
-		if (args.length>=2 && args.length < 4) {
+		// check the arguments "Usage: java DocXGenerator templateFilePath outputFilePath"
+		if (args.length>=2 && args.length < 3) {
 			template = new File(args[0]);
 			if (!template.exists())
 			{
 				System.out.println("Error: " +args[0]+ "does not exist.");
 				return;
 			}
-			output = new File(args[1]);
-			pdf = (args.length==3) && args[2].equals("-pdf");
+			outputPath = args[1];
 		} else {
-			System.out.println("Usage: java DocXGenerator templateFilePath outputFilePath [-pdf]");
+			System.out.println("Usage: java DocXGenerator templateFilePath outputFilePath");
 			return;
 		}
 		try
@@ -62,33 +62,7 @@ public class DocXGenerator {
 			InputStreamReader reader=new InputStreamReader(System.in); 
 			BufferedReader input=new BufferedReader(reader); 
 			
-			// initialize of the JSON Parser with the input
-			JSONParser parser = new JSONParser();
-			JSONObject json = (JSONObject) parser.parse(input);
-
-			// Initialize the template file and create the report object
-			InputStream in = new FileInputStream(template);
-			report = XDocReportRegistry.getRegistry().loadReport(in, TemplateEngineKind.Velocity);
-
-			// create the FieldsMetadata
-			metadata = new FieldsMetadata();
-
-			// create the report context
-			contextMap = report.createContext();
-
-			//add the data from the JSON to the report context
-			computeText((JSONObject) json.get("text"));
-			computeImages((JSONObject) json.get("images"));
-			computeList((JSONObject) json.get("list"));
-
-			// link the FieldsMetaData to the report
-			report.setFieldsMetadata(metadata);
-
-			// generate the output file
-			if (pdf)
-				generatePdf(output);
-			else
-				generateDocx(output);
+			generate(input, template, outputPath);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -171,27 +145,64 @@ public class DocXGenerator {
 			contextMap.put(key, array);
 		} 
 	}
+	
+	/**
+	 * Generates the DOCX and PDF reports with the data in the context.
+	 * @param input The input stream.
+	 * @param template The template DOCX file.
+	 * @param outputPath The path to the file which has to be written (without the extension).
+	 * @throws XDocReportException
+	 * @throws IOException
+	 * @throws ParseException
+	 */
+	public static void generate(BufferedReader input, File template, String outputPath) throws XDocReportException, IOException, ParseException {
+		// initialize of the JSON Parser with the input
+		JSONParser parser = new JSONParser();
+		JSONObject json = (JSONObject) parser.parse(input);
+
+		// Initialize the template file and create the report object
+		InputStream in = new FileInputStream(template);
+		report = XDocReportRegistry.getRegistry().loadReport(in, TemplateEngineKind.Velocity);
+
+		// create the FieldsMetadata
+		metadata = new FieldsMetadata();
+
+		// create the report context
+		contextMap = report.createContext();
+
+		//add the data from the JSON to the report context
+		computeText((JSONObject) json.get("text"));
+		computeImages((JSONObject) json.get("images"));
+		computeList((JSONObject) json.get("list"));
+
+		// link the FieldsMetaData to the report
+		report.setFieldsMetadata(metadata);
+
+		// generate the output file
+		generatePdf(outputPath);
+		generateDocx(outputPath);
+	}
 
 	/**
 	 * Generate the DOCX report with the data in the context.
-	 * @param outputFile The file which has to be written
+	 * @param outputFile The path to the file which has to be written (without the extension).
 	 * @throws XDocReportException
 	 * @throws IOException
 	 */
-	private static void generateDocx(File outputFile) throws XDocReportException, IOException
-	{
+	private static void generateDocx(String outputPath) throws XDocReportException, IOException {
+		File outputFile = new File(outputPath+".docx");
 		OutputStream out = new FileOutputStream(outputFile);
 		report.process(contextMap, out);
 	}
 
 	/**
 	 * Generate the PDF report with the data in the context.
-	 * @param outputFile The file which has to be written
+	 * @param outputFile The path to the file which has to be written (without the extension).
 	 * @throws IOException
 	 * @throws XDocReportException
 	 */
-	private static void generatePdf(File outputFile) throws IOException, XDocReportException
-	{
+	private static void generatePdf(String outputPath) throws IOException, XDocReportException {
+		File outputFile = new File(outputPath+".pdf");
 		OutputStream out = new FileOutputStream(outputFile);
 		Options options = Options.getTo(ConverterTypeTo.PDF).via(ConverterTypeVia.XWPF);
 		report.convert(contextMap, options, out);
