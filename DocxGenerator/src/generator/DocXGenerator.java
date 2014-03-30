@@ -20,6 +20,7 @@ import org.json.simple.parser.ParseException;
 import fr.opensagres.xdocreport.converter.ConverterTypeTo;
 import fr.opensagres.xdocreport.converter.ConverterTypeVia;
 import fr.opensagres.xdocreport.converter.Options;
+import fr.opensagres.xdocreport.converter.XDocConverterException;
 import fr.opensagres.xdocreport.core.XDocReportException;
 import fr.opensagres.xdocreport.document.IXDocReport;
 import fr.opensagres.xdocreport.document.images.FileImageProvider;
@@ -40,8 +41,8 @@ public class DocXGenerator {
 	 */
 	public static void main(String[] args) {
 
-		File template;
-		String outputPath;
+		File template = null;
+		String outputPath = null;
 
 		// check the arguments "Usage: java DocXGenerator templateFilePath outputFilePath"
 		if (args.length>=2 && args.length < 3) {
@@ -54,23 +55,23 @@ public class DocXGenerator {
 			outputPath = args[1];
 		} else {
 			System.out.println("Usage: java DocXGenerator templateFilePath outputFilePath");
-			return;
+			System.exit(GeneratorError.PARAMETER_ERROR.getCode());
 		}
+		
+		GeneratorError result = GeneratorError.NO_ERROR;
 		try
 		{ 
 			// initialize the input with the standard input
 			InputStreamReader reader=new InputStreamReader(System.in); 
 			BufferedReader input=new BufferedReader(reader); 
 			
-			generate(input, template, outputPath);
+			result = generate(input, template, outputPath);
 
 		} catch (IOException e) {
 			e.printStackTrace();
-		} catch (XDocReportException e) {
-			e.printStackTrace();
-		} catch (ParseException e) {
-			e.printStackTrace();
+			System.exit(GeneratorError.IO_ERROR.getCode());
 		}
+		System.exit(result.getCode());
 	}
 
 	/**
@@ -151,24 +152,41 @@ public class DocXGenerator {
 	 * @param input The input stream.
 	 * @param template The template DOCX file.
 	 * @param outputPath The path to the file which has to be written (without the extension).
+	 * @return An error code or 0 if all went well.
 	 * @throws XDocReportException
 	 * @throws IOException
 	 * @throws ParseException
 	 */
-	public static void generate(BufferedReader input, File template, String outputPath) throws XDocReportException, IOException, ParseException {
+	public static GeneratorError generate(BufferedReader input, File template, String outputPath) throws IOException {
 		// initialize of the JSON Parser with the input
 		JSONParser parser = new JSONParser();
-		JSONObject json = (JSONObject) parser.parse(input);
+		JSONObject json = null;
+		try {
+			json = (JSONObject) parser.parse(input);
+		} catch(ParseException e) {
+			e.printStackTrace();
+			return GeneratorError.JSON_ERROR;
+		}
 
 		// Initialize the template file and create the report object
 		InputStream in = new FileInputStream(template);
-		report = XDocReportRegistry.getRegistry().loadReport(in, TemplateEngineKind.Velocity);
+		try {
+			report = XDocReportRegistry.getRegistry().loadReport(in, TemplateEngineKind.Velocity);
+		} catch (XDocReportException e) {
+			e.printStackTrace();
+			return GeneratorError.TEMPLATE_ERROR;
+		}
 
 		// create the FieldsMetadata
 		metadata = new FieldsMetadata();
 
 		// create the report context
-		contextMap = report.createContext();
+		try {
+			contextMap = report.createContext();
+		} catch (XDocReportException e) {
+			e.printStackTrace();
+			return GeneratorError.CONTEXT_ERROR;
+		}
 
 		//add the data from the JSON to the report context
 		computeText((JSONObject) json.get("text"));
@@ -179,32 +197,57 @@ public class DocXGenerator {
 		report.setFieldsMetadata(metadata);
 
 		// generate the output file
-		generatePdf(outputPath);
-		generateDocx(outputPath);
+		GeneratorError errorCode = generateDocx(outputPath);
+		if(errorCode != GeneratorError.NO_ERROR) {
+			return errorCode;
+		}
+		errorCode = generatePdf(outputPath);
+		if(errorCode != GeneratorError.NO_ERROR) {
+			return errorCode;
+		}
+		
+		return GeneratorError.NO_ERROR;
 	}
 
 	/**
 	 * Generate the DOCX report with the data in the context.
 	 * @param outputFile The path to the file which has to be written (without the extension).
+	 * @reutrn An error code or 0 if all went well.
 	 * @throws XDocReportException
 	 * @throws IOException
 	 */
-	private static void generateDocx(String outputPath) throws XDocReportException, IOException {
+	private static GeneratorError generateDocx(String outputPath) throws IOException {
 		File outputFile = new File(outputPath+".docx");
 		OutputStream out = new FileOutputStream(outputFile);
-		report.process(contextMap, out);
+		try {
+			report.process(contextMap, out);
+		} catch (XDocReportException e) {
+			e.printStackTrace();
+			return GeneratorError.DOCX_GENERATION_ERROR;
+		}
+		return GeneratorError.NO_ERROR;
 	}
 
 	/**
 	 * Generate the PDF report with the data in the context.
 	 * @param outputFile The path to the file which has to be written (without the extension).
+	 * @return An error code or 0 if all went well.
 	 * @throws IOException
 	 * @throws XDocReportException
 	 */
-	private static void generatePdf(String outputPath) throws IOException, XDocReportException {
+	private static GeneratorError generatePdf(String outputPath) throws IOException {
 		File outputFile = new File(outputPath+".pdf");
 		OutputStream out = new FileOutputStream(outputFile);
 		Options options = Options.getTo(ConverterTypeTo.PDF).via(ConverterTypeVia.XWPF);
-		report.convert(contextMap, options, out);
+		try {
+			report.convert(contextMap, options, out);
+		} catch (XDocConverterException e) {
+			e.printStackTrace();
+			return GeneratorError.PDF_CONVERTION_ERROR;
+		} catch (XDocReportException e) {
+			e.printStackTrace();
+			return GeneratorError.PDF_GENERATION_ERROR;
+		}
+		return GeneratorError.NO_ERROR;
 	}
 }

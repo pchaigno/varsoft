@@ -5,20 +5,18 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-import org.json.simple.parser.ParseException;
-
-import fr.opensagres.xdocreport.core.XDocReportException;
 import generator.DocXGenerator;
+import generator.GeneratorError;
 import junit.framework.TestCase;
 
 public class TestDocXGenerator extends TestCase {
 	
-	public static void testStatisticsReport() throws XDocReportException, IOException, ParseException {
+	public static void testStatisticsReport() throws IOException {
 		File json = new File("resources/test.json");
 		BufferedReader input = new BufferedReader(new FileReader(json));
 		File template = new File("resources/test.docx");
 		String outputPath = "resources/test_result";
-		DocXGenerator.generate(input, template, outputPath);
+		assertEquals(GeneratorError.NO_ERROR, DocXGenerator.generate(input, template, outputPath));
 
 		File docxFile = new File(outputPath+".docx");
 		File pdfFile = new File(outputPath+".pdf");
