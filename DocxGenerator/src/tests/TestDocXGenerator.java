@@ -26,4 +26,12 @@ public class TestDocXGenerator extends TestCase {
 		assertTrue(docxFile.delete());
 		assertTrue(pdfFile.delete());
 	}
+	
+	public static void testErroredJSON() throws IOException {
+		File json = new File("resources/errored.json");
+		BufferedReader input = new BufferedReader(new FileReader(json));
+		File template = new File("resources/test.docx");
+		String outputPath = "resources/errored_result";
+		assertEquals(GeneratorError.JSON_ERROR, DocXGenerator.generate(input, template, outputPath));
+	}
 }
