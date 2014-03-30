@@ -32,6 +32,7 @@ class TestPortfolio: public QObject {
 private:
 	Portfolio father;
 	Portfolio son;
+	Portfolio uncle;
 
 public:
 	TestPortfolio();
@@ -39,5 +40,7 @@ public:
 private Q_SLOTS:
 	void testId();
 	void testName();
-	void testGetValues();
+	void testRetrieveValues();
+	void testRetrieveValuesByDate();
+	void testRetrieveReturns();
 };

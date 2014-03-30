@@ -19,6 +19,7 @@
 #include "TestImportNewData.h"
 #include "TestAsset.h"
 #include "TestPortfolio.h"
+#include "TestVaRHistorical.h"
 #include "TestReport.h"
 #include "TestSQLiteManagers.h"
 #include "TestPortfolioItemModel.h"
@@ -33,6 +34,8 @@ int main() {
 	result += QTest::qExec(&report);
 	TestSQLiteManagers sqlite;
 	result += QTest::qExec(&sqlite);
+	TestVaRHistorical testVaRHistorical;
+	result += QTest::qExec(&testVaRHistorical);
 	TestImportNewData newdata;
 	result += QTest::qExec(&newdata);
 	TestImportData data;

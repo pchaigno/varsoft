@@ -22,8 +22,8 @@
  * @param portfolio The portfolio to apply the algorithm to.
  * @param risk The risk level.
  */
-VaRRiskmetrics::VaRRiskmetrics(const Portfolio& portfolio, double risk):
-	VaRAlgorithm(portfolio, risk) {
+VaRRiskmetrics::VaRRiskmetrics(const Portfolio& portfolio, double risk, int timeHorizon):
+	VaRAlgorithm(portfolio, risk, timeHorizon) {
 
 }
 

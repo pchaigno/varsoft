@@ -4,11 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += testlib
-QT       += widgets
-QT       -= gui
-# For QSQL
-QT += sql
+QT += testlib sql
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = main
 CONFIG   += console
@@ -24,7 +21,8 @@ SOURCES += \
 	main.cpp \
 	TestReport.cpp \
 	TestSQLiteManagers.cpp \
-	TestPortfolioItemModel.cpp
+	TestPortfolioItemModel.cpp \
+	TestVaRHistorical.cpp
 
 HEADERS += \
 	TestImportNewData.h \
@@ -33,7 +31,8 @@ HEADERS += \
 	TestReport.h \
 	TestPortfolio.h \
 	TestSQLiteManagers.h \
-	TestPortfolioItemModel.h
+	TestPortfolioItemModel.h \
+    TestVaRHistorical.h
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 DEFINES += UNITTEST

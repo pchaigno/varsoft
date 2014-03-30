@@ -23,6 +23,7 @@
 #include <QMap>
 #include "Asset.h"
 #include <QDateTime>
+#include <QDebug>
 #include "IdAlreadyAttributedException.h"
 #include "ModelVaR_global.h"
 #include "PortfolioCalculationException.h"
@@ -53,8 +54,11 @@ public:
 	void changeName(QString name);
 	QDateTime retrieveFirstDate() const;
 	QDateTime retrieveLastDate() const;
-	QVector<double> getValues() const;
-	QVector<double> getValues(const QDateTime &startDate, const QDateTime &endDate) const;
+	static QVector<double> getReturns(QVector<double> &values);
+	QVector<double> retrieveReturns(QDateTime endingPeriodDate, int period) const;
+	QVector<double> retrieveValues() const;
+	QVector<double> retrieveValues(const QDateTime &startDate, const QDateTime &endDate) const;
+	QMap<QDateTime, double> retrieveValuesByDate(const QDateTime& startDate, const QDateTime& endDate) const;
 
 	bool operator==(const Portfolio& portfolio) const;
 };

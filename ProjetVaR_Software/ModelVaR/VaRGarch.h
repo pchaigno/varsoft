@@ -26,6 +26,6 @@ private:
 	const GarchModel& garchModel;
 
 public:
-	VaRGarch(const Portfolio& portfolio, double risk, const GarchModel& garchModel);
+	VaRGarch(const Portfolio& portfolio, double risk, int timeHorizon, const GarchModel& garchModel);
 	virtual double execute(QDateTime timeHorizon) const;
 };

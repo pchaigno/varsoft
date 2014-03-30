@@ -17,6 +17,8 @@
  */
 #pragma once
 
+#include "ui_import.h"
+#include <QDateTime>
 #include <QDialog>
 
 namespace Ui {

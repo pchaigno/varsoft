@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>VaR project</title>
+		<style>
+			body {
+				width: 650px;
+				margin: auto;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Présentation</h1>
+		Notre projet vise à développer un outil de gestion du risque financier.
+		Plus précisément, nous proposons trois méthodes différentes pour calculer la Value-at-Risk, une mesure du risque de perte sur les portefeuilles d'actifs financiers.
+		Notre logiciel aide l'utilisateur à travers son processus de décision, de la création du portefeuille à la comparaison des trois méthodes :
+		<ol>
+			<li>Méthode historique</li>
+			<li>Modélisation GARCH</li>
+			<li>Méthode RiskMetrics</li>
+		</ol>
+		Dans sa première version, notre logiciel permettra à l'utilisateur de produire plusieurs rapports aux formats PDF ou DOCX.<br/>
+
+		Actuellement, notre logiciel Open Source est le seul sur ​​le marché à fournir ces services.
+		Il est distribué sous licence LGPL 3.<br/>
+		<br/>
+
+		<h1>Fonctionnement</h1>
+		Le c&oelig;ur de notre logiciel est entièrement écrit en C++.
+		Cependant, plusieurs de ces fonctionnalités s'appuient sur d'autre langages et frameworks.<br/>
+		
+		Il utilise notamment le logiciel libre de calcul statistiques, R.
+		Ce dernier est utilisé pour exécuter plusieurs algorithmes tels que celui de l'estimation du modèle GARCH et l'algorithme Riskmetric.<br/>
+
+		Notre interface graphique est développée avec le framework Qt.
+		Il est également utilisé pour créer les graphiques qui sont ensuite inclus dans les rapports.<br/>
+
+		Pour générer les rapports, nous avons développé un outil Java léger en ligne de commande.
+		Il utilise l'API Open Source xdocreport et reçoit les valeurs à inclure dans le rapport au format JSON sur l'entrée standard.<br/>
+	</body>
+</html>
