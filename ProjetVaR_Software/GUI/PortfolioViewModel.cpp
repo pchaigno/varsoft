@@ -14,7 +14,14 @@ PortfolioViewModel::PortfolioViewModel(Portfolio* portfolio, QObject *parent) :
 
 int PortfolioViewModel::rowCount(const QModelIndex &parent) const
 {
-    return mydata[0].count();
+    int row=0;
+    foreach(QVector<QString> tab, mydata)
+    {
+        if (tab.count()>row)
+            row=tab.count();
+    }
+
+    return row;
 }
 
 int PortfolioViewModel::columnCount(const QModelIndex &parent) const
@@ -38,13 +45,24 @@ QVariant PortfolioViewModel::data(const QModelIndex &index, int role) const
 
 QVariant PortfolioViewModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
+    #define NB_COLUMNS_BEFORE_ASSET 2
     if (role != Qt::DisplayRole)
            return QVariant();
 
        if (orientation == Qt::Horizontal)
-           return QString("Column %1").arg(section);
+       {
+            if (section<NB_COLUMNS_BEFORE_ASSET)
+                return QString("");
+            else
+            {
+                QList<Asset*> values = portfolio->getComposition().keys();
+                return QString("%1").arg(values.at(section-NB_COLUMNS_BEFORE_ASSET)->getName());
+            }
+       }
        else
+       {
            return QString("Row %1").arg(section);
+       }
 }
 
 /**
@@ -69,36 +87,16 @@ void PortfolioViewModel::setPortfolio(Portfolio *portfolio)
 bool PortfolioViewModel::removePortfolio()
 {
     beginRemoveRows(QModelIndex(),0,mydata[0].count());
-    /*BOOST_SCOPE_EXIT(this_){
-        this_->endRemoveRows();
-    }BOOST_SCOPE_EXIT_END//*/
     mydata.clear();
     endRemoveRows();
     return true;
-    /*
-    beginRemoveRows(QModelIndex(),row,row);
-    Asset * asset = assetList.at(row);
-    bool res = assetList.removeOne(asset);
-    if (res)
-        delete asset;
-    endRemoveRows();
-    */
+
 }
 
 void PortfolioViewModel::createDataStructure(){
-    //portfolio->getComposition().size() => number of assets
-    //we need to add two colums more for : the dates and the values of the porfolio
-    QDateTime endDate3(QDate(2014, 1, 6), QTime(0, 0, 0));
-    QDateTime endDate2(QDate(2014, 1, 7), QTime(0, 0, 0));
-    QDateTime endDate1(QDate(2014, 1, 8), QTime(0, 0, 0));
     QMap<Asset*, int> values = portfolio->getComposition();
-    QMap<QDateTime, double> dates = QMap<QDateTime, double>();
-    dates[(endDate3)] = 6;
-    dates[(endDate2)] = (double)5;
-    dates[(endDate1)] = (double)4;
+    QMap<QDateTime, double> dates = portfolio->retrieveValuesByDate(portfolio->retrieveFirstDate(),portfolio->retrieveLastDate());
     QVector<QString> columns;
-
-
 
     columns.append("");
     foreach(QDateTime date, dates.keys())
@@ -119,8 +117,7 @@ void PortfolioViewModel::createDataStructure(){
     foreach(Asset* asset, values.keys())
     {
         columns.clear();
-        columns.append(asset->getName());
-        QVector<double> valvector = asset->retrieveValues(asset->getFirstDate(),asset->getLastDate());
+        QVector<double> valvector = asset->retrieveValues();
 
         foreach(double val,valvector)
         {

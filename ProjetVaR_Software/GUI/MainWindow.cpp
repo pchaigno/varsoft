@@ -28,7 +28,7 @@
 #include "PortfolioViewModel.h"
 #include "QDateTime"
 
-MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWindow) {
+MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWindow), portfolioModel(new PortfolioItemModel(this))  {
     ui->setupUi(this);
 
     //for the import button in the main window
@@ -37,11 +37,10 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
     connect(&import_win, SIGNAL(dataEntered(const QString&, const QDateTime&, const QDateTime&, const QString&)),
                          this, SLOT(onDataEntered(const QString&, const QDateTime&, const QDateTime&, const QString&)));
 
-    portfolioModel = new PortfolioItemModel(this);
     ui->listView->setModel(portfolioModel);
     connect(ui->removePushButton, SIGNAL(clicked()), ui->listView, SLOT(removeSelectedPortfolio()));
 
-    showPortfolio();
+    connect(ui->listView,SIGNAL(portfolioSelected(Portfolio*)),this,SLOT(showPortfolio(Portfolio*)));
 }
 
 MainWindow::~MainWindow() {
@@ -59,8 +58,8 @@ void MainWindow::newPortfolio() {
    fen->show();
 }
 
-void MainWindow::showPortfolio(){
-
+void MainWindow::showPortfolio(Portfolio * portfolio){
+/*
 //void MainWindow::showPortfolio(Portfolio* portfolio){
     QString assetFolder = "../../CSV_examples/";
 
@@ -87,7 +86,7 @@ void MainWindow::showPortfolio(){
 
     QVector<Report*> reports;
     Portfolio* portfolio = new Portfolio("Father", assets, reports);
-
+*/
     // set the model
     PortfolioViewModel* pfm = new PortfolioViewModel(portfolio);
     ui->tableView->setModel(pfm);

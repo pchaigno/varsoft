@@ -39,6 +39,8 @@ public:
 	friend class TestPortfolioItemModel;
 #endif
 
+    Portfolio *getPortfolio(const QModelIndex & index);
+
 signals:
 
 public slots:

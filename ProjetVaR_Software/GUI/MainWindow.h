@@ -39,8 +39,7 @@ public:
 
 private slots:
     void newPortfolio();
-    void showPortfolio();
-    //void showPortfolio(Portfolio* portfolio);
+    void showPortfolio(Portfolio* portfolio);
 	void setImportCSV();
 
 	void onDataEntered(const QString &text, const QDateTime &fDate ,const QDateTime &lDate, const QString &source);
