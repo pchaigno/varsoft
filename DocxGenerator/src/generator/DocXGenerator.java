@@ -176,9 +176,30 @@ public class DocXGenerator {
 		}
 
 		//add the data from the JSON to the report context
-		computeText(json.getJSONObject("text"));
-		computeImages(json.getJSONObject("images"));
-		computeList(json.getJSONObject("list"));
+		JSONObject textObject = null;
+		try {
+			textObject = json.getJSONObject("text");
+		} catch(JSONException e) {
+			System.err.println("Text element missing in JSON.");
+			return GeneratorError.TEXT_MISSING;
+		}
+		computeText(textObject);
+		JSONObject imagesObject = null;
+		try {
+			imagesObject = json.getJSONObject("images");
+		} catch(JSONException e) {
+			System.err.println("Images element missing in JSON.");
+			return GeneratorError.IMAGES_MISSING;
+		}
+		computeImages(imagesObject);
+		JSONObject listObject = null;
+		try {
+			listObject = json.getJSONObject("list");
+		} catch(JSONException e) {
+			System.err.println("List element missing in JSON.");
+			return GeneratorError.LIST_MISSING;
+		}
+		computeList(listObject);
 
 		// link the FieldsMetaData to the report
 		report.setFieldsMetadata(metadata);

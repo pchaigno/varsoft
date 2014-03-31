@@ -12,6 +12,10 @@ import junit.framework.TestCase;
 
 public class TestDocXGenerator extends TestCase {
 	
+	/**
+	 * Normal statistics report.
+	 * @throws IOException
+	 */
 	public static void testStatisticsReport() throws IOException {
 		FileInputStream jsonInput = new FileInputStream("resources/test.json");
 		String jsonText = IOUtils.toString(jsonInput);
@@ -28,11 +32,40 @@ public class TestDocXGenerator extends TestCase {
 		assertTrue(pdfFile.delete());
 	}
 	
+	/**
+	 * The JSON document is badly formatted.
+	 * @throws IOException
+	 */
 	public static void testErroredJSON() throws IOException {
 		FileInputStream jsonInput = new FileInputStream("resources/errored.json");
 		String jsonText = IOUtils.toString(jsonInput);
 		File template = new File("resources/test.docx");
-		String outputPath = "resources/errored_result";
+		String outputPath = "resources/errored_json_result";
 		assertEquals(GeneratorError.JSON_ERROR, DocXGenerator.generate(jsonText, template, outputPath));
+	}
+	
+	/**
+	 * Information is missing in the JSON document.
+	 * @throws IOException
+	 */
+	public static void testMissingInformation() throws IOException {
+		FileInputStream jsonInput = new FileInputStream("resources/missing-information.json");
+		String jsonText = IOUtils.toString(jsonInput);
+		File template = new File("resources/test.docx");
+		String outputPath = "resources/missing_information_result";
+		assertEquals(GeneratorError.IMAGES_MISSING, DocXGenerator.generate(jsonText, template, outputPath));
+	}
+	
+	/**
+	 * The kurtosis is missing in the JSON document.
+	 * @throws IOException
+	 */
+	public static void testMissingValue() {
+		// TODO Doesn't work at the moment as the generator can't detect if a value is missing.
+		/*FileInputStream jsonInput = new FileInputStream("resources/missing-value.json");
+		String jsonText = IOUtils.toString(jsonInput);
+		File template = new File("resources/test.docx");
+		String outputPath = "resources/missing_value_result";
+		assertEquals(GeneratorError.IMAGES_MISSING, DocXGenerator.generate(jsonText, template, outputPath));*/
 	}
 }
