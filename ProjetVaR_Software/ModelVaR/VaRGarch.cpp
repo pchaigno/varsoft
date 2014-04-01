@@ -23,8 +23,8 @@
  * @param risk The risk level.
  * @param garchModel The GARCH model estimated from the portfolio.
  */
-VaRGarch::VaRGarch(const Portfolio& portfolio, double risk, const GarchModel& garchModel):
-	VaRAlgorithm(portfolio, risk), garchModel(garchModel) {
+VaRGarch::VaRGarch(const Portfolio& portfolio, double risk, int timeHorizon, const GarchModel& garchModel):
+	VaRAlgorithm(portfolio, risk, timeHorizon), garchModel(garchModel) {
 
 }
 
