@@ -181,9 +181,9 @@ void TestPortfolio::testRetrieveReturns() {
 
 	qDebug() << result;
 
-	qDebug() << this->son.retrieveLastDate();
-	result = this->son.retrieveReturns(this->son.retrieveLastDate(), 4);
-	// In that case retrieveLastDate() is 2014-01-06 because it is the last shared date
+	qDebug() << this->son.retrieveEndDate();
+	result = this->son.retrieveReturns(this->son.retrieveEndDate(), 4);
+	// In that case retrieveEndDate() is 2014-01-06 because it is the last shared date
 	// among the assets.
 	qDebug() << result;
 }

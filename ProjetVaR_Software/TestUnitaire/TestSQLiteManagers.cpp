@@ -22,10 +22,10 @@
  */
 TestSQLiteManagers::TestSQLiteManagers() {
 	// The assets:
-	QDateTime firstDate = QDateTime::fromString("01019800:01:02", "ddMMyyhh:mm:ss");
-	QDateTime lastDate = QDateTime::fromString("0312201405:45:50", "ddMMyyyyhh:mm:ss");
-	this->apple = Asset("Apple", "somefolder\\apple.csv", "YAHOO", firstDate, lastDate);
-	this->google = Asset("Google", "somefolder\\google.csv", "YAHOO", firstDate, lastDate);
+	QDateTime startDate = QDateTime::fromString("01019800:01:02", "ddMMyyhh:mm:ss");
+	QDateTime endDate = QDateTime::fromString("0312201405:45:50", "ddMMyyyyhh:mm:ss");
+	this->apple = Asset("Apple", "somefolder\\apple.csv", "YAHOO", startDate, endDate);
+	this->google = Asset("Google", "somefolder\\google.csv", "YAHOO", startDate, endDate);
 	QMap<Asset*, int> assets = QMap<Asset*, int>();
 	assets[&(this->google)] = 5;
 	assets[&(this->apple)] = 4;
@@ -66,10 +66,10 @@ void TestSQLiteManagers::testSaveSession() {
 	QVERIFY(assets["Google"]->getOrigin() == this->google.getOrigin());
 	QVERIFY(assets["Apple"]->getFile() == this->apple.getFile());
 	QVERIFY(assets["Google"]->getFile() == this->google.getFile());
-	QCOMPARE(assets["Apple"]->getFirstDate(), this->apple.getFirstDate());
-	QCOMPARE(assets["Google"]->getFirstDate(), this->google.getFirstDate());
-	QCOMPARE(assets["Apple"]->getLastDate(), this->apple.getLastDate());
-	QCOMPARE(assets["Google"]->getLastDate(), this->google.getLastDate());
+	QCOMPARE(assets["Apple"]->getStartDate(), this->apple.getStartDate());
+	QCOMPARE(assets["Google"]->getStartDate(), this->google.getStartDate());
+	QCOMPARE(assets["Apple"]->getEndDate(), this->apple.getEndDate());
+	QCOMPARE(assets["Google"]->getEndDate(), this->google.getEndDate());
 
 	// Checks the portfolios:
 	QVector<Portfolio> savedPortfolios = SessionBuilder::getInstance()->buildSession();

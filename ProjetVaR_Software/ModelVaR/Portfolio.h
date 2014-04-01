@@ -52,8 +52,8 @@ public:
 	QVector<Asset*> getAssets() const;
 	QMap<Asset*, int> getComposition() const;
 	void changeName(QString name);
-	QDateTime retrieveFirstDate() const;
-	QDateTime retrieveLastDate() const;
+	QDateTime retrieveStartDate() const;
+	QDateTime retrieveEndDate() const;
 	static QVector<double> getReturns(QVector<double> &values);
 	QVector<double> retrieveReturns(QDateTime endingPeriodDate, int period) const;
 	QVector<double> retrieveValues() const;
