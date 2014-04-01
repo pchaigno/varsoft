@@ -6,7 +6,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
@@ -117,13 +119,19 @@ public class DocXGenerator {
 			JSONArray array = listObject.getJSONArray(key);
 
 			//get the FieldsMetaData, searching for all different keys on the Map
+			Set<String> fields = new HashSet<String>();
 			for(int i=0; i<array.length(); i++) {
 				JSONObject map = array.getJSONObject(i);
 				Iterator<?> itMap = map.keys();
 				while(itMap.hasNext()) {
-					// set the FieldsMetaData
-					metadata.addFieldAsList(key+"."+itMap.next().toString());
+					System.out.println(key+"."+itMap.next().toString());
+					fields.add(key+"."+itMap.next().toString());
 				}
+			}
+			
+			// set the FieldsMetaData
+			for(String field: fields) {
+				metadata.addFieldAsList(field);
 			}
 			
 			// add the array to the report's context
