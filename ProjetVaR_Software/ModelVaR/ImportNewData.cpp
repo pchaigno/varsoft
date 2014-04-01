@@ -87,6 +87,6 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
 	}
 	fileCreated.close();
 
-	Asset a = Asset(name,namealea,origin,startDate,endDate);
+    Asset a = Asset(name,namealea,origin,endDate,startDate);
 	SessionSaver::getInstance()->saveAsset(a);
 }

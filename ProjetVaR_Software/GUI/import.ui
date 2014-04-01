@@ -59,7 +59,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QDateEdit" name="dateEdit_2">
+  <widget class="QDateEdit" name="startDate">
    <property name="geometry">
     <rect>
      <x>20</x>

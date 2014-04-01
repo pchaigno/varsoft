@@ -58,10 +58,10 @@ void MainWindow::newPortfolio() {
 * @param startDate The date of the first value to import.
 * @param endDate The date of the last value to import.
 */
-void MainWindow::onDataEntered(const QString &name, const QDateTime &fDate ,const QDateTime &lDate, const QString &origin){
+void MainWindow::onDataEntered(const QString &name, const QDateTime &lDate ,const QDateTime &fDate, const QString &origin){
 	MainWindow::stockName = name;
-	MainWindow::startDate = fDate;
-	MainWindow::endDate = lDate;
+    MainWindow::startDate = lDate;
+    MainWindow::endDate = fDate;
 	MainWindow::origin = origin;
 	ImportNewData algo = ImportNewData();
 	//if (origin == "Yahoo")
