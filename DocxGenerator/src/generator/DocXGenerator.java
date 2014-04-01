@@ -124,7 +124,6 @@ public class DocXGenerator {
 				JSONObject map = array.getJSONObject(i);
 				Iterator<?> itMap = map.keys();
 				while(itMap.hasNext()) {
-					System.out.println(key+"."+itMap.next().toString());
 					fields.add(key+"."+itMap.next().toString());
 				}
 			}
