@@ -5,6 +5,7 @@
 		<title>VaR project</title>
 		<style>
 			body {
+				font-size: medium;
 				width: 650px;
 				margin: auto;
 			}
@@ -16,9 +17,9 @@
 		Plus précisément, nous proposons trois méthodes différentes pour calculer la Value-at-Risk, une mesure du risque de perte sur les portefeuilles d'actifs financiers.
 		Notre logiciel aide l'utilisateur à travers son processus de décision, de la création du portefeuille à la comparaison des trois méthodes :
 		<ol>
-			<li>Méthode historique</li>
-			<li>Modélisation GARCH</li>
-			<li>Méthode RiskMetrics</li>
+			<li>Méthode historique : méthode la plus simple</li>
+			<li>Modélisation GARCH : utilise une modélisation de la volatilité et des rendements</li>
+			<li>Méthode RiskMetrics : cas particulier de la modélisation GARCH basé sur l'expérience</li>
 		</ol>
 		Dans sa première version, notre logiciel permettra à l'utilisateur de produire plusieurs rapports aux formats PDF ou DOCX.<br/>
 
@@ -38,5 +39,19 @@
 
 		Pour générer les rapports, nous avons développé un outil Java léger en ligne de commande.
 		Il utilise l'API Open Source <a href="https://code.google.com/p/xdocreport/">xdocreport</a> et reçoit les valeurs à inclure dans le rapport au format JSON sur l'entrée standard.<br/>
+		<br/>
+
+		<h1>Contact</h1>
+		Notre projet est hébergé sur <a href="http://github.com/pchaigno/ProjetVaR">GitHub</a>.
+		Les sources et les fichiers exécutables pour Windows peuvent y être trouvés.<br/>
+
+		Nous utilisons les méthodes de développement du monde Open Source.
+		Toutes les nouvelles fonctionnalités ou améliorations sont développées en parallèle sur des branches séparées.
+		Une <i>Pull Request</i> est ensuite ouverte et un autre contributeur passe en revu le nouveau code avant de l'intégrer.
+		Cette façon de procéder nous permet de produire un logiciel de meilleure qualité.<br/>
+
+		Si vous rencontrez un problème avec le logiciel, veuillez ouvrir un <i>issue</i> sur GitHub ou nous contacter.<br/>
+		<br/>
+
 	</body>
 </html>
