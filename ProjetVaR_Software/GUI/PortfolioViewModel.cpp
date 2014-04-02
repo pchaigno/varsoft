@@ -14,19 +14,12 @@ PortfolioViewModel::PortfolioViewModel(Portfolio* portfolio, QObject *parent) :
 
 int PortfolioViewModel::rowCount(const QModelIndex &parent) const
 {
-    int row=0;
-    foreach(QVector<QString> tab, mydata)
-    {
-        if (tab.count()>row)
-            row=tab.count();
-    }
-
-    return row;
+    return datesRow.count()+1;
 }
 
 int PortfolioViewModel::columnCount(const QModelIndex &parent) const
 {
-    return mydata.count()-1;
+    return mydata.count();
 }
 
 QVariant PortfolioViewModel::data(const QModelIndex &index, int role) const
@@ -36,42 +29,38 @@ QVariant PortfolioViewModel::data(const QModelIndex &index, int role) const
 
     if(role == Qt::DisplayRole)
     {
-        if (index.column()+1 < mydata.count() && index.row() < mydata[index.column()+1].count())
-            return QVariant(mydata[index.column()+1][index.row()]);
+        if (index.column() < mydata.count() && index.row() < mydata[index.column()].count())
+            return QVariant(mydata[index.column()][index.row()]);
     }
     return QVariant();
 }
 
-
+/**
+ * @brief Return the date of the portfolio for vertical header
+ * and the name of the assets for the horinzontal header
+ * @param section
+ * @param orientation
+ * @param role
+ * @return the QString for the specified section and orientation
+ */
 QVariant PortfolioViewModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-    #define NB_COLUMNS_BEFORE_ASSET 1
     if (role != Qt::DisplayRole)
            return QVariant();
 
        if (orientation == Qt::Horizontal)
        {
-           QList<Asset*> values = portfolio->getComposition().keys();
-            if (section<NB_COLUMNS_BEFORE_ASSET)
-                return QString("Values");
-            else if (section>values.count())
-                return QString();
-            else
-            {
-                return QString("%1").arg(values.at(section-NB_COLUMNS_BEFORE_ASSET)->getName());
-            }
+            return QString("%1").arg(headers.at(section));
        }
        else
        {
-           if (section==0)
-           {
+           if (section == 0)
                return QString("Values");
-           }
-           else if (section<mydata[0].count())
-            return QString("%1").arg(mydata[0][section]);
            else
-               return QString("");
+               return QString("%1").arg(datesRow.at(section-1).toString("dd-MM-yyyy"));
        }
+
+    return QVariant();
 }
 
 /**
@@ -86,88 +75,79 @@ Qt::ItemFlags PortfolioViewModel::flags(const QModelIndex &index) const
     Q_UNUSED(index);
     return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
 }
-
+/**
+ * @brief Setter of the portfolio
+ * @param portfolio the new portfolio
+ */
 void PortfolioViewModel::setPortfolio(Portfolio *portfolio)
 {
     this->portfolio=portfolio;
     createDataStructure();
 }
-
-bool PortfolioViewModel::removePortfolio()
-{
-    beginRemoveRows(QModelIndex(),0,mydata[0].count());
-    mydata.clear();
-    endRemoveRows();
-    return true;
-
-}
-
+/**
+ * Create the internal data structure with the data of the Portfolio.
+ * It creates a vector for the vertical and horizontal header,
+ * put the values of the portfolio in the first columns, et the
+ * values of each assets of the portfolio to others columns.
+ */
 void PortfolioViewModel::createDataStructure(){
-    QMap<Asset*, int> values = portfolio->getComposition();
-    QMap<QDateTime, double> dates = portfolio->retrieveValuesByDate(portfolio->retrieveFirstDate(),portfolio->retrieveLastDate());
-    QVector<QString> columns;
+    QMap<Asset*, int> compo = portfolio->getComposition();
+    QDateTime startDate = portfolio->retrieveStartDate();
+    QDateTime endDate = portfolio->retrieveEndDate();
+    QMap<QDateTime, double> dates;
+    try
+    {
+        dates = portfolio->retrieveValuesByDate(startDate,endDate);
+    }
+    catch (std::exception & )
+    {
+        QDateTime tmp = startDate;
+        startDate = endDate;
+        endDate=tmp;
+        //bug des dates dans import ...
+        dates = portfolio->retrieveValuesByDate(startDate,endDate);
+    }
 
-    columns.append("");
+    mydata.clear();
+
+    //set the horizontal headers with the name of portfolio and assets
+    headers.clear();
+    headers.append(portfolio->getName());
+    foreach(Asset* asset, compo.keys())
+        headers.append(asset->getName());
+
+    // set the vertical headers with the dates
+    datesRow.clear();
+    foreach(QDateTime date, dates.keys())
+        datesRow.append(date);
+
+    qStableSort(datesRow.begin(),datesRow.end(),qGreater<QDateTime>());
+
+    // put the first column of the table with the value of th portfolio for each date
+    QVector<QString> columns;
+    columns.clear();
+    columns.resize(1+datesRow.count());
     foreach(QDateTime date, dates.keys())
     {
-        columns.append(date.toString("yyyy-MM-dd"));
-    }
-    mydata+=columns;
-
-    columns.clear();
-    columns.append("");
-    foreach(double value, dates.values())
-    {
-        columns.append(QString::number(value));
+        int index = datesRow.indexOf(date);
+        columns[index+1] = QString::number(dates[date]);
     }
     mydata+=columns;
 
 
-    QMap<Asset*,int> compo = portfolio->getComposition();
-
-    foreach(Asset* asset, values.keys())
+    //put the value of each assets
+    foreach(Asset* asset, compo.keys())
     {
         columns.clear();
-        QVector<double> valvector = asset->retrieveValues(portfolio->retrieveFirstDate(),portfolio->retrieveLastDate());
+        columns.resize(1+datesRow.count());
+        QMap<QDateTime,double> valvector = asset->retrieveValuesByDate(startDate,endDate);
 
-        columns.append(QString::number(compo[asset]));
-        foreach(double val,valvector)
+        columns[0]=QString::number(compo[asset]); // number of asset in portfolio
+        foreach(QDateTime date,valvector.keys())
         {
-            columns.append(QString::number(val));
+            int index = datesRow.indexOf(date);
+            columns[index+1] = QString::number(valvector[date]);
         }
         mydata+=columns;
     }
-
-    /*
-    //QMap<QDateTime, double> dates = portfolio->retrieveValuesByDate(portfolio->retrieveFirstDate(), portfolio->retrieveLastDate());
-
-
-    for (int i=0; i<values.size(); i++)
-       //dates.size() => numberOfDates
-        matrix[i].fill("", dates.size());
-
-    //Dates and values are added
-    int i =0;
-    for(QMap<QDateTime, double>::const_iterator it=dates.begin(); it!=dates.end(); ++it) {
-        matrix[i][0]=it.key().toString("yyyy-MM-dd");
-        matrix[i][1]=QString::number(it.value());
-        i++;
-    }
-
-    //each asset's value is added
-    int j =0;
-    for(QMap<Asset*, int>::const_iterator it=values.begin(); it!=values.end(); ++it) {
-        //get all the values
-        int k =2;
-        QVector<double> val = it.key()->getValues(it.key()->getFirstDate(),it.key()->getLastDate());
-        for(int i=0; i < dates.size(); i++){
-            // no verification upon the date's existance
-            if (k<matrix[j].count())
-                matrix[j][k] = QString::number(val.at(k));
-            k++;
-        }
-        j++;
-    }*/
-
-   // mydata=matrix;
 }

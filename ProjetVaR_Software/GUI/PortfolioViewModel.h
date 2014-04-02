@@ -25,11 +25,12 @@ public:
 signals:
 
 public slots:
-    bool removePortfolio();
 
 private:
     void createDataStructure();
     Portfolio * portfolio;
+    QVector<QString> headers;
+    QVector<QDateTime> datesRow;
     QVector<QVector<QString> > mydata;
 };
 

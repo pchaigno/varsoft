@@ -25,6 +25,7 @@
 #include <string>
 #include "NewPortfolioWizard.h"
 #include "PortfolioItemModel.h"
+#include "PortfolioViewModel.h"
 
 namespace Ui {
 	class MainWindow;
@@ -42,6 +43,8 @@ private slots:
     void showPortfolio(Portfolio* portfolio);
 	void setImportCSV();
 
+    void addPortfolio(Portfolio *);
+
 	void onDataEntered(const QString &text, const QDateTime &fDate ,const QDateTime &lDate, const QString &source);
 
 private:
@@ -52,5 +55,6 @@ private:
 	QDateTime endDate;
 	QString fileName;
 	QString origin;
-	PortfolioItemModel * portfolioModel;
+    PortfolioItemModel * portfolioListModel;
+    QHash<Portfolio*,PortfolioViewModel*> portfoliosModels;
 };
