@@ -49,7 +49,7 @@
     <string>Annuler</string>
    </property>
   </widget>
-  <widget class="QDateEdit" name="dateEdit">
+  <widget class="QDateEdit" name="endDate">
    <property name="geometry">
     <rect>
      <x>20</x>

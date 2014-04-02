@@ -24,9 +24,9 @@
 Import::Import(QWidget *parent): QDialog(parent), ui(new Ui::Import) {
 	ui->setupUi(this);
 	//Date of the day
-	ui->dateEdit->setDate(QDate::currentDate());
-	ui->dateEdit->setCalendarPopup(true);
-	ui->dateEdit_2->setCalendarPopup(true);
+    ui->endDate->setDate(QDate::currentDate());
+    ui->endDate->setCalendarPopup(true);
+    ui->startDate->setCalendarPopup(true);
 	connect(ui->pushButton, SIGNAL(clicked()),this, SLOT(on_pushButton_clicked()));
     connect(ui->pushButton_2, SIGNAL(clicked()),this, SLOT(on_pushButton_2_clicked()));
 }
