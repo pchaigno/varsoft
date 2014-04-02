@@ -24,8 +24,8 @@ class TestImportNewData: public QObject {
 
 private:
 	QString stockName;
-	QString firstDate;
-	QString lastDate;
+	QString startDate;
+	QString endDate;
 	QString origin;
 	QString newFile;
 

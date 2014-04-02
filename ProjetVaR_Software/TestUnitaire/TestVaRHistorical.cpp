@@ -110,10 +110,10 @@ void TestVaRHistorical::testExecute() {
 	double var;
 
 	try {
-		var = daxVaR.execute(this->daxPortfolio.retrieveLastDate());
+		var = daxVaR.execute(this->daxPortfolio.retrieveEndDate());
 		// Check that the computed VaR matches the manually found one
 		QCOMPARE(var, -239.02);
-		qDebug() << "At the following date: " + this->daxPortfolio.retrieveLastDate().toString();
+		qDebug() << "At the following date: " + this->daxPortfolio.retrieveEndDate().toString();
 		qDebug() << "For the asset: " + this->daxPortfolio.getName();
 		qDebug() << "Historical VaR parameters: risk=" << risk << ", timeHorizon=" << timeHorizon << "returnsPeriod=" << returnsPeriod;
 		qDebug() << "Value-at-Risk=" << var;
@@ -123,7 +123,7 @@ void TestVaRHistorical::testExecute() {
 
 	// FUTURE DATE CASE
 	try {
-		var = daxVaR.execute(this->daxPortfolio.retrieveLastDate().addDays(10));
+		var = daxVaR.execute(this->daxPortfolio.retrieveEndDate().addDays(10));
 		QFAIL("Computation of Value-at-Risk at an undefined future date");
 	} catch(std::invalid_argument& e) {
 		qDebug() << e.what();
@@ -133,7 +133,7 @@ void TestVaRHistorical::testExecute() {
 	returnsPeriod = 100;
 	VaRHistorical incorrectDaxVaR(this->daxPortfolio, risk, timeHorizon, returnsPeriod);
 	try {
-		var = incorrectDaxVaR.execute(this->daxPortfolio.retrieveLastDate());
+		var = incorrectDaxVaR.execute(this->daxPortfolio.retrieveEndDate());
 		QFAIL("execute() succeeded despite too large returnsPeriod parameter");
 
 	} catch(std::range_error& e) {

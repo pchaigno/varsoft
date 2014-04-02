@@ -36,22 +36,22 @@ private:
 	QString file;
 	QString name;
 	QString origin;
-	QDateTime firstDate;
-	QDateTime lastDate;
+	QDateTime startDate;
+	QDateTime endDate;
 
 public:
 	Asset();
-	Asset(QString name, QString file, QString origin, QDateTime firstDate, QDateTime lastDate);
-	Asset(int id, QString name, QString file, QString origin, QDateTime firstDate, QDateTime lastDate);
-	void init(int id, QString name, QString file, QString origin, QDateTime firstDate, QDateTime lastDate);
+	Asset(QString name, QString file, QString origin, QDateTime startDate, QDateTime endDate);
+	Asset(int id, QString name, QString file, QString origin, QDateTime startDate, QDateTime endDate);
+	void init(int id, QString name, QString file, QString origin, QDateTime startDate, QDateTime endDate);
 
 	int getId() const;
 	void setId(int id);
 	QString getFile() const;
 	QString getName() const;
 	QString getOrigin() const;
-	QDateTime getFirstDate() const;
-	QDateTime getLastDate() const;
+	QDateTime getStartDate() const;
+	QDateTime getEndDate() const;
 	void changeName(QString name);
 	QVector<double> retrieveValues() const;
 	QVector<double> retrieveValues(const QDateTime &startDate, const QDateTime &endDate) const;

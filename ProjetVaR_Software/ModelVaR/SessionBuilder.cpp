@@ -41,15 +41,15 @@ Asset* SessionBuilder::buildAsset(QString name) {
 
 	int id;
 	QString file, origin;
-	QDateTime firstDate, lastDate;
+	QDateTime startDate, endDate;
 	Asset* asset = NULL;
 	if(query.next()) {
 		id = query.value(0).toInt();
 		file = query.value(1).toString();
 		origin = query.value(2).toString();
-		firstDate.setTime_t(query.value(3).toInt());
-		lastDate.setTime_t(query.value(4).toInt());
-		asset = new Asset(id, name, file, origin, firstDate, lastDate);
+		startDate.setTime_t(query.value(3).toInt());
+		endDate.setTime_t(query.value(4).toInt());
+		asset = new Asset(id, name, file, origin, startDate, endDate);
 	}
 
 	query.finish();
@@ -69,15 +69,15 @@ QMap<QString, Asset*> SessionBuilder::buildAssets() {
 	QMap<QString, Asset*> assets;
 	int id;
 	QString file, origin, name;
-	QDateTime firstDate, lastDate;
+	QDateTime startDate, endDate;
 	while(query.next()) {
 		id = query.value(0).toInt();
 		name = query.value(1).toString();
 		file = query.value(2).toString();
 		origin = query.value(3).toString();
-		firstDate.setTime_t(query.value(4).toInt());
-		lastDate.setTime_t(query.value(5).toInt());
-		assets[name] = new Asset(id, name, file, origin, firstDate, lastDate);
+		startDate.setTime_t(query.value(4).toInt());
+		endDate.setTime_t(query.value(5).toInt());
+		assets[name] = new Asset(id, name, file, origin, startDate, endDate);
 	}
 
 	query.finish();
