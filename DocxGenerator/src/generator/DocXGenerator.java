@@ -6,8 +6,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
@@ -116,12 +119,12 @@ public class DocXGenerator {
 		while(it.hasNext()) {
 			// Get the key and the array
 			String key = it.next().toString();
-			JSONArray array = listObject.getJSONArray(key);
+			JSONArray jsonArray = listObject.getJSONArray(key);
 
 			//get the FieldsMetaData, searching for all different keys on the Map
 			Set<String> fields = new HashSet<String>();
-			for(int i=0; i<array.length(); i++) {
-				JSONObject map = array.getJSONObject(i);
+			for(int i=0; i<jsonArray.length(); i++) {
+				JSONObject map = jsonArray.getJSONObject(i);
 				Iterator<?> itMap = map.keys();
 				while(itMap.hasNext()) {
 					fields.add(key+"."+itMap.next().toString());
@@ -134,6 +137,17 @@ public class DocXGenerator {
 			}
 			
 			// add the array to the report's context
+			ArrayList<Map<String, String>> array = new ArrayList<Map<String, String>>();
+			for(int i=0; i<jsonArray.length(); i++) {
+			    JSONObject jsonMap = jsonArray.getJSONObject(i);
+			    Map<String, String> map = new HashMap<String, String>();
+			    Iterator<?> itMap = jsonMap.keys();
+			    while(itMap.hasNext()) {
+			        String jsonKey = itMap.next().toString();
+			        map.put(jsonKey, jsonMap.getString(jsonKey));
+			    }
+			    array.add(map);
+			}
 			contextMap.put(key, array);
 		} 
 	}
