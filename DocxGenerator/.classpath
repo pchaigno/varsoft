@@ -27,7 +27,7 @@
 	<classpathentry kind="lib" path="libs/xml-apis-1.0.b2.jar"/>
 	<classpathentry kind="lib" path="libs/xmlbeans-2.3.0.jar"/>
 	<classpathentry kind="lib" path="libs/junit.jar"/>
-	<classpathentry kind="lib" path="libs/org.json.jar"/>
 	<classpathentry kind="lib" path="libs/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="libs/json-simple-1.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

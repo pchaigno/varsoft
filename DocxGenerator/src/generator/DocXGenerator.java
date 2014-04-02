@@ -6,17 +6,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import fr.opensagres.xdocreport.converter.ConverterTypeTo;
 import fr.opensagres.xdocreport.converter.ConverterTypeVia;
@@ -78,13 +76,14 @@ public class DocXGenerator {
 	 * Add the text data from the JSON to the report's context
 	 * @param textObject The JSON text object
 	 */
+	@SuppressWarnings("rawtypes")
 	private static void computeText(JSONObject textObject) {
 		// iterate on all the simple text
-		Iterator<?> it = textObject.keys();
-		while(it.hasNext()) {
-			String key = it.next().toString();
+		Iterator<?> iter = textObject.entrySet().iterator();
+		while(iter.hasNext()){
+			Map.Entry entry = (Map.Entry)iter.next();
 			// add the text to the report's context
-			contextMap.put(key, textObject.getString(key));
+			contextMap.put(entry.getKey().toString(), entry.getValue().toString());
 		}
 	}
 
@@ -93,18 +92,19 @@ public class DocXGenerator {
 	 * create them with the paths from the JSON and add it to the report's context.
 	 * @param imagesObject The JSON images object.
 	 */
+	@SuppressWarnings("rawtypes")
 	private static void computeImages(JSONObject imagesObject) {
 		// iterate on all images
-		Iterator<?> it = imagesObject.keys();
-		while(it.hasNext()) {
-			String key = it.next().toString();
+		Iterator<?> iter = imagesObject.entrySet().iterator();
+		while(iter.hasNext()){
+			Map.Entry entry = (Map.Entry)iter.next();
 			// set the FieldsMetaData
-			metadata.addFieldAsImage(key);
+			metadata.addFieldAsImage(entry.getKey().toString());
 			// create the image
-			IImageProvider img = new FileImageProvider(new File(imagesObject.getString(key)));
+			IImageProvider img = new FileImageProvider(new File(entry.getValue().toString()));
 			img.setUseImageSize(true);
 			// add it to the report's context
-			contextMap.put(key, img);
+			contextMap.put(entry.getKey().toString(), img);
 		}
 	}
 
@@ -113,41 +113,35 @@ public class DocXGenerator {
 	 * and add the list to the report's context.
 	 * @param listObject
 	 */
+	@SuppressWarnings("rawtypes")
 	private static void computeList(JSONObject listObject) {
 		// iterate on all the list
-		Iterator<?> it = listObject.keys();
-		while(it.hasNext()) {
+		Iterator<?> iter = listObject.entrySet().iterator();
+		while(iter.hasNext()){
 			// Get the key and the array
-			String key = it.next().toString();
-			JSONArray jsonArray = listObject.getJSONArray(key);
-
+			Map.Entry entry = (Map.Entry)iter.next();
+			String key = entry.getKey().toString();
+			JSONArray array = (JSONArray) entry.getValue();
+	
 			//get the FieldsMetaData, searching for all different keys on the Map
-			Set<String> fields = new HashSet<String>();
-			for(int i=0; i<jsonArray.length(); i++) {
-				JSONObject map = jsonArray.getJSONObject(i);
-				Iterator<?> itMap = map.keys();
-				while(itMap.hasNext()) {
-					fields.add(key+"."+itMap.next().toString());
+			HashSet<String> metaData = new HashSet<String>();
+			Iterator<?> iterArray = array.iterator();
+			while(iterArray.hasNext()){
+				JSONObject map = (JSONObject) iterArray.next();
+				Iterator<?> iterMap = map.entrySet().iterator();
+				while(iterMap.hasNext()){
+					Map.Entry entryMap = (Map.Entry)iterMap.next();	
+					metaData.add(entryMap.getKey().toString());
 				}
 			}
 			
 			// set the FieldsMetaData
-			for(String field: fields) {
-				metadata.addFieldAsList(field);
+			Iterator<?> iterMetaData = metaData.iterator();
+			while(iterMetaData.hasNext()){
+				metadata.addFieldAsList(key+"."+iterMetaData.next().toString());	
 			}
-			
+	
 			// add the array to the report's context
-			ArrayList<Map<String, String>> array = new ArrayList<Map<String, String>>();
-			for(int i=0; i<jsonArray.length(); i++) {
-			    JSONObject jsonMap = jsonArray.getJSONObject(i);
-			    Map<String, String> map = new HashMap<String, String>();
-			    Iterator<?> itMap = jsonMap.keys();
-			    while(itMap.hasNext()) {
-			        String jsonKey = itMap.next().toString();
-			        map.put(jsonKey, jsonMap.getString(jsonKey));
-			    }
-			    array.add(map);
-			}
 			contextMap.put(key, array);
 		} 
 	}
@@ -166,11 +160,11 @@ public class DocXGenerator {
 		// initialize of the JSON Parser with the input
 		JSONObject json;
 		try {
-			json = new JSONObject(jsonText);
-		} catch(JSONException e) {
+			JSONParser parser = new JSONParser();
+			json = (JSONObject)parser.parse(jsonText);
+		} catch(ParseException e) {
 			System.err.println("Error while parsing the JSON file:");
-			System.err.println(e.getMessage());
-			System.err.println();
+			System.err.println(e.toString());
 			return GeneratorError.JSON_ERROR;
 		}
 
@@ -197,26 +191,20 @@ public class DocXGenerator {
 		}
 
 		//add the data from the JSON to the report context
-		JSONObject textObject = null;
-		try {
-			textObject = json.getJSONObject("text");
-		} catch(JSONException e) {
+		JSONObject textObject = (JSONObject)json.get("text");
+		if(textObject == null) {
 			System.err.println("Text element missing in JSON.");
 			return GeneratorError.TEXT_MISSING;
 		}
 		computeText(textObject);
-		JSONObject imagesObject = null;
-		try {
-			imagesObject = json.getJSONObject("images");
-		} catch(JSONException e) {
+		JSONObject imagesObject = (JSONObject)json.get("images");
+		if(imagesObject == null) {
 			System.err.println("Images element missing in JSON.");
 			return GeneratorError.IMAGES_MISSING;
 		}
 		computeImages(imagesObject);
-		JSONObject listObject = null;
-		try {
-			listObject = json.getJSONObject("list");
-		} catch(JSONException e) {
+		JSONObject listObject = (JSONObject)json.get("list");
+		if(listObject == null) {
 			System.err.println("List element missing in JSON.");
 			return GeneratorError.LIST_MISSING;
 		}
