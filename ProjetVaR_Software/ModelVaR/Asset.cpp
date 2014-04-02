@@ -239,7 +239,7 @@ QMap<QDateTime, double> Asset::retrieveValuesByDate(const QDateTime& startDate, 
 			QString date = row.value(0);
 			QString value = row.value(1);
             QDateTime readDate = QDateTime::fromString(date,"yyyy-MM-dd");
-            qDebug() << readDate;
+
 
 			// If the ending date has not been read yet, it goes at the start of the loop
 			// and read the next line

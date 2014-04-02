@@ -4,7 +4,6 @@
 #include "QAbstractTableModel"
 #include "Asset.h"
 #include "Portfolio.h"
-#include <QDebug>
 
 class PortfolioViewModel: public QAbstractTableModel
 {

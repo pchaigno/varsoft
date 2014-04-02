@@ -55,7 +55,7 @@ QVariant PortfolioViewModel::headerData(int section, Qt::Orientation orientation
        else
        {
            if (section == 0)
-               return QString("Values");
+               return QString("Weights");
            else
                return QString("%1").arg(datesRow.at(section-1).toString("dd-MM-yyyy"));
        }

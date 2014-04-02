@@ -17,7 +17,6 @@
  */
 #include "MainWindow.h"
 #include <QApplication>
-#include <QDebug>
 #include "import.h"
 
 int main(int argc, char *argv[]) {

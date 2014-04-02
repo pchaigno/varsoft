@@ -19,7 +19,6 @@
 
 #include <QListView>
 #include "PortfolioItemModel.h"
-#include <QDebug>
 
 class PortfolioListView : public QListView {
 	Q_OBJECT

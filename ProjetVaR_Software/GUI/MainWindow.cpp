@@ -17,7 +17,6 @@
  */
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
-#include <QDebug>
 #include <QFile>
 #include <QFileDialog>
 #include <QTableWidgetItem>
