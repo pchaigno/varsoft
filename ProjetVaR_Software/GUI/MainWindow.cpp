@@ -101,8 +101,8 @@ void MainWindow::showPortfolio(Portfolio * portfolio){
 */
 void MainWindow::onDataEntered(const QString &name, const QDateTime &fDate ,const QDateTime &lDate, const QString &origin){
 	MainWindow::stockName = name;
-	MainWindow::startDate = fDate;
-	MainWindow::endDate = lDate;
+    MainWindow::startDate = fDate;
+    MainWindow::endDate = lDate;
 	MainWindow::origin = origin;
 	ImportNewData algo = ImportNewData();
 	//if (origin == "Yahoo")

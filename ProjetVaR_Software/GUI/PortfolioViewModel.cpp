@@ -26,7 +26,7 @@ int PortfolioViewModel::rowCount(const QModelIndex &parent) const
 
 int PortfolioViewModel::columnCount(const QModelIndex &parent) const
 {
-    return mydata.count();
+    return mydata.count()-1;
 }
 
 QVariant PortfolioViewModel::data(const QModelIndex &index, int role) const
@@ -36,8 +36,8 @@ QVariant PortfolioViewModel::data(const QModelIndex &index, int role) const
 
     if(role == Qt::DisplayRole)
     {
-        if (index.column() < mydata.count() && index.row() < mydata[index.column()].count())
-            return QVariant(mydata[index.column()][index.row()]);
+        if (index.column()+1 < mydata.count() && index.row() < mydata[index.column()+1].count())
+            return QVariant(mydata[index.column()+1][index.row()]);
     }
     return QVariant();
 }
@@ -45,23 +45,32 @@ QVariant PortfolioViewModel::data(const QModelIndex &index, int role) const
 
 QVariant PortfolioViewModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-    #define NB_COLUMNS_BEFORE_ASSET 2
+    #define NB_COLUMNS_BEFORE_ASSET 1
     if (role != Qt::DisplayRole)
            return QVariant();
 
        if (orientation == Qt::Horizontal)
        {
+           QList<Asset*> values = portfolio->getComposition().keys();
             if (section<NB_COLUMNS_BEFORE_ASSET)
-                return QString("");
+                return QString("Values");
+            else if (section>values.count())
+                return QString();
             else
             {
-                QList<Asset*> values = portfolio->getComposition().keys();
                 return QString("%1").arg(values.at(section-NB_COLUMNS_BEFORE_ASSET)->getName());
             }
        }
        else
        {
-           return QString("Row %1").arg(section);
+           if (section==0)
+           {
+               return QString("Values");
+           }
+           else if (section<mydata[0].count())
+            return QString("%1").arg(mydata[0][section]);
+           else
+               return QString("");
        }
 }
 
@@ -114,11 +123,14 @@ void PortfolioViewModel::createDataStructure(){
     mydata+=columns;
 
 
+    QMap<Asset*,int> compo = portfolio->getComposition();
+
     foreach(Asset* asset, values.keys())
     {
         columns.clear();
-        QVector<double> valvector = asset->retrieveValues();
+        QVector<double> valvector = asset->retrieveValues(portfolio->retrieveFirstDate(),portfolio->retrieveLastDate());
 
+        columns.append(QString::number(compo[asset]));
         foreach(double val,valvector)
         {
             columns.append(QString::number(val));
