@@ -20,7 +20,6 @@
 #include <QAbstractTableModel>
 #include "Asset.h"
 #include "Portfolio.h"
-#include <QDebug>
 
 class MODELVARSHARED_EXPORT PortfolioViewModel: public QAbstractTableModel
 {

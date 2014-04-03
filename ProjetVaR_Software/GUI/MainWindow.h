@@ -21,7 +21,6 @@
 #include <QDateTime>
 #include <QDialog>
 #include <QComboBox>
-#include <QDebug>
 #include "import.h"
 #include <string>
 #include "NewPortfolioWizard.h"
