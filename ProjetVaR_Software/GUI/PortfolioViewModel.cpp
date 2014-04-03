@@ -11,17 +11,35 @@ PortfolioViewModel::PortfolioViewModel(Portfolio* portfolio, QObject *parent) :
     this->portfolio = portfolio;
     createDataStructure();
 }
-
+/**
+ * @brief Return the size of the vector datesRow + 1
+ * (this method is called by Qt and should never be called by user, see Qt'doc)
+ * @param parent
+ * @return
+ */
 int PortfolioViewModel::rowCount(const QModelIndex &parent) const
 {
-    return datesRow.count()+1;
+    return parent.isValid() ? datesRow.count()+1 : 0;
 }
-
+/**
+ * @brief The return the vertical size of the private attribute mydata.
+ * (this method is called by Qt and should never be called by user, see Qt'doc)
+ * @param parent
+ * @return
+ */
 int PortfolioViewModel::columnCount(const QModelIndex &parent) const
 {
-    return mydata.count();
+    return parent.isValid() ? mydata.count() : 0;
 }
 
+/**
+ * @brief Return the value contained in the internal structure.
+ * Contains values of assets and fo portfolio for each dates.
+ * (this method is called by Qt and should never be called by user, see Qt'doc)
+ * @param index
+ * @param role
+ * @return
+ */
 QVariant PortfolioViewModel::data(const QModelIndex &index, int role) const
 {
     if(!index.isValid())
@@ -37,7 +55,8 @@ QVariant PortfolioViewModel::data(const QModelIndex &index, int role) const
 
 /**
  * @brief Return the date of the portfolio for vertical header
- * and the name of the assets for the horinzontal header
+ * and the name of the assets for the horinzontal header.
+ * (this method is called by Qt and should never be called by user, see Qt'doc)
  * @param section
  * @param orientation
  * @param role
@@ -76,7 +95,8 @@ Qt::ItemFlags PortfolioViewModel::flags(const QModelIndex &index) const
     return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
 }
 /**
- * @brief Setter of the portfolio
+ * @brief Setter of the portfolio.
+ * Create the internal structure of the given portfolio.
  * @param portfolio the new portfolio
  */
 void PortfolioViewModel::setPortfolio(Portfolio *portfolio)
@@ -88,7 +108,7 @@ void PortfolioViewModel::setPortfolio(Portfolio *portfolio)
  * Create the internal data structure with the data of the Portfolio.
  * It creates a vector for the vertical and horizontal header,
  * put the values of the portfolio in the first columns, et the
- * values of each assets of the portfolio to others columns.
+ * values of each assets of the portfolio to others columns in the private attribute mydata.
  */
 void PortfolioViewModel::createDataStructure(){
     QMap<Asset*, int> compo = portfolio->getComposition();
