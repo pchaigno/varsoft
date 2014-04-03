@@ -17,14 +17,14 @@
  */
 #pragma once
 
-#include "QAbstractTableModel"
+#include <QAbstractTableModel>
 #include "Asset.h"
 #include "Portfolio.h"
+#include <QDebug>
 
-class PortfolioViewModel: public QAbstractTableModel
+class MODELVARSHARED_EXPORT PortfolioViewModel: public QAbstractTableModel
 {
     Q_OBJECT
-
 public:
     explicit PortfolioViewModel(QObject *parent = 0);
     explicit PortfolioViewModel(Portfolio* portfolio, QObject *parent = 0);

@@ -36,7 +36,7 @@ PortfolioViewModel::PortfolioViewModel(Portfolio* portfolio, QObject *parent) :
  */
 int PortfolioViewModel::rowCount(const QModelIndex &parent) const
 {
-    return parent.isValid() ? datesRow.count()+1 : 0;
+    return parent.isValid() ? 0 : datesRow.count()+1;
 }
 /**
  * @brief The return the vertical size of the private attribute mydata.
@@ -46,7 +46,7 @@ int PortfolioViewModel::rowCount(const QModelIndex &parent) const
  */
 int PortfolioViewModel::columnCount(const QModelIndex &parent) const
 {
-    return parent.isValid() ? mydata.count() : 0;
+    return parent.isValid() ? 0 : mydata.count();
 }
 
 /**
