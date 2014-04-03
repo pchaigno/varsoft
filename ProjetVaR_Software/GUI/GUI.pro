@@ -20,7 +20,6 @@ SOURCES += main.cpp\
     SetWeightAssetWizardPage.cpp \
     ShowAssetsWizardPage.cpp \
     PortfolioListView.cpp \
-    PortfolioViewModel.cpp
 
 HEADERS  += MainWindow.h \
     qcustomplot.h \

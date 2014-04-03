@@ -44,7 +44,8 @@ SOURCES += \
 	ImportData.cpp \
 	IImport.cpp \
 	PortfolioItemModel.cpp \
-	CorrelationReportFactory.cpp
+    CorrelationReportFactory.cpp \
+    PortfolioViewModel.cpp
 
 HEADERS +=\
 	Asset.h \
@@ -82,6 +83,7 @@ HEADERS +=\
 	CannotOpenFileException.h \
 	IImport.h \
 	PortfolioItemModel.h \
+    PortfolioViewModel.h \
 	PortfolioCalculationException.h
 
 unix:!symbian {
