@@ -50,14 +50,12 @@ QPair<double, double> RInterface::checkCorrelation(const Portfolio& portfolio, i
 	}
 
 	process.start("Rscript", arguments);
+	process.waitForStarted();
 
 	// Writes to R standard input the previously created string
 	process.write(parameters.toStdString().c_str());
 	process.closeWriteChannel();
-
-	if (!process.waitForFinished()) {}
-			// TOIMPROVE: Manage properly
-			//return false;
+	process.waitForFinished();
 
 	// Reads R output
 	QByteArray rawOutput = process.readAllStandardOutput();
@@ -113,14 +111,12 @@ QPair<double, double> RInterface::checkSquareCorrelation(const Portfolio& portfo
 	}
 
 	process.start("Rscript", arguments);
+	process.waitForStarted();
 
 	// Writes to R standard input the previously created string
 	process.write(parameters.toStdString().c_str());
 	process.closeWriteChannel();
-
-	if (!process.waitForFinished()) {}
-			// TOIMPROVE: Manage properly
-			//return false;
+	process.waitForFinished();
 
 	// Reads R output
 	QByteArray rawOutput = process.readAllStandardOutput();
