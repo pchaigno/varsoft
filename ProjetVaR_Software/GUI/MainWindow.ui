@@ -296,7 +296,7 @@
   </action>
   <action name="actionImport">
    <property name="text">
-    <string>Importer</string>
+    <string>Créer un actif</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+I</string>
