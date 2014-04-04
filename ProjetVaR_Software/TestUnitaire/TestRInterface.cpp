@@ -15,15 +15,19 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#pragma once
+#include "TestRInterface.h"
 
-#include <QProcess>
-#include "Portfolio.h"
-#include "GarchModel.h"
+TestRInterface::TestRInterface()
+{
+}
 
-class MODELVARSHARED_EXPORT RInterface {
-public:
-	static QPair<double, double> checkCorrelation(const Portfolio& portfolio, int timeLag, QDateTime startDate, QDateTime endDate);
-	static bool checkSquareCorrelation(const Portfolio& portfolio);
-	static GarchModel computeGarchModel(const Portfolio& portfolio);
-};
+void TestRInterface::testCheckCorrelation() {
+
+	Portfolio pf;
+	int i = 1;
+	QDateTime startDate, endDate;
+
+	QPair<double, double> result = RInterface::checkCorrelation();
+	qDebug() << result;
+
+}
