@@ -17,6 +17,9 @@
  */
 #include "TestRInterface.h"
 
+/**
+ * @brief Initializes a portfolio for the tests.
+ */
 TestRInterface::TestRInterface() {
 	QString assetFolder = "../../CSV_examples/";
 
@@ -32,6 +35,9 @@ TestRInterface::TestRInterface() {
 	this->father = Portfolio("Father", assets, reports);
 }
 
+/**
+ * @brief Tests the method checkCorrelation that computes the correlation of portfolio returns.
+ */
 void TestRInterface::testCheckCorrelation() {
 
 	int timeLag = 1;
@@ -52,6 +58,9 @@ void TestRInterface::testCheckCorrelation() {
 
 }
 
+/**
+ * @brief Tests the method checkSquareCorrelation that computes the square correlation of portfolio returns.
+ */
 void TestRInterface::testCheckSquareCorrelation() {
 	int timeLag = 1;
 	QDateTime date = this->father.retrieveEndDate();
