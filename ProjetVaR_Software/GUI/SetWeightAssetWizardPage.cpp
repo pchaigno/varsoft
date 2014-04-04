@@ -18,7 +18,7 @@
 #include "SetWeightAssetWizardPage.h"
 #include "ui_SetWeightAssetWizardPage.h"
 
-SetWeightAssetWizardPage::SetWeightAssetWizardPage(QWidget *parent) :
+SetWeightAssetWizardPage::SetWeightAssetWizardPage(QWidget *parent):
 	QWizardPage(parent), ui(new Ui::SetWeightAssetWizardPage) {
 	ui->setupUi(this);
 }
@@ -26,6 +26,7 @@ SetWeightAssetWizardPage::SetWeightAssetWizardPage(QWidget *parent) :
 SetWeightAssetWizardPage::~SetWeightAssetWizardPage() {
 	delete ui;
 }
+
 /**
  * @brief Load the formLayout with the list of the selected assets.
  */
@@ -37,6 +38,7 @@ void SetWeightAssetWizardPage::initializePage() {
 		ui->weightFormLayout->addRow(str,spinBox);
 	}
 }
+
 /**
  * @brief Clear the formLayout
  */

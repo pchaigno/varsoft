@@ -13,28 +13,28 @@ TARGET = GUI
 TEMPLATE = app
 
 SOURCES += main.cpp\
-        MainWindow.cpp \
-    qcustomplot.cpp \
-    import.cpp \
-    NewPortfolioWizard.cpp \
-    SetWeightAssetWizardPage.cpp \
-    ShowAssetsWizardPage.cpp \
-    PortfolioListView.cpp \
+		MainWindow.cpp \
+		qcustomplot.cpp \
+		import.cpp \
+		NewPortfolioWizard.cpp \
+		SetWeightAssetWizardPage.cpp \
+		ShowAssetsWizardPage.cpp \
+		PortfolioListView.cpp \
 
-HEADERS  += MainWindow.h \
-    qcustomplot.h \
-    NewPortfolioWizard.h \
-    SetWeightAssetWizardPage.h \
-    ShowAssetsWizardPage.h \
-    PortfolioListView.h \
-    PortfolioViewModel.h \
-    import.h
+HEADERS += MainWindow.h \
+		qcustomplot.h \
+		NewPortfolioWizard.h \
+		SetWeightAssetWizardPage.h \
+		ShowAssetsWizardPage.h \
+		PortfolioListView.h \
+		PortfolioViewModel.h \
+		import.h
 
-FORMS    += MainWindow.ui \
-    NewPortfolioWizard.ui \
-    SetWeightAssetWizardPage.ui \
-    ShowAssetsWizardPage.ui\
-    import.ui
+FORMS += MainWindow.ui \
+		NewPortfolioWizard.ui \
+		SetWeightAssetWizardPage.ui \
+		ShowAssetsWizardPage.ui\
+		import.ui
 
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../ModelVaR/release/ -lModelVaR

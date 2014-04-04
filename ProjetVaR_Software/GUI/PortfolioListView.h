@@ -29,10 +29,10 @@ public:
 	PortfolioItemModel *model() const;
 
 protected:
-    void selectionChanged(const QItemSelection & selected, const QItemSelection & deselected);
+	void selectionChanged(const QItemSelection & selected, const QItemSelection & deselected);
 
 signals:
-    void portfolioSelected(Portfolio *);
+	void portfolioSelected(Portfolio *);
 
 public slots:
 	void removeSelectedPortfolio();

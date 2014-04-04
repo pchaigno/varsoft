@@ -42,7 +42,7 @@ VaRAlgorithm::VaRAlgorithm(const Portfolio& portfolio, double risk, int timeHori
  * @return the portfolio associated with the Value-at-Risk calculation
  */
 const Portfolio &VaRAlgorithm::getPortfolio() const {
-    return this->portfolio;
+	return this->portfolio;
 }
 
 /**
@@ -50,7 +50,7 @@ const Portfolio &VaRAlgorithm::getPortfolio() const {
  * @return the risk associated with the Value-at-Risk calculation
  */
 double VaRAlgorithm::getRisk() const {
-    return this->risk;
+	return this->risk;
 }
 
 /**

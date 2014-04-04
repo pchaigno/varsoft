@@ -39,13 +39,13 @@ public:
 	~MainWindow();
 
 private slots:
-    void newPortfolio();
-    void showPortfolio(Portfolio* portfolio);
+	void newPortfolio();
+	void showPortfolio(Portfolio* portfolio);
 	void setImportCSV();
 
-    void addPortfolio(Portfolio *);
+	void addPortfolio(Portfolio *);
 
-	void onDataEntered(const QString &text, const QDateTime &fDate ,const QDateTime &lDate, const QString &source);
+	void onDataEntered(const QString &text, const QDateTime &fDate, const QDateTime &lDate, const QString &source);
 
 private:
 	Ui::MainWindow *ui;
@@ -55,6 +55,6 @@ private:
 	QDateTime endDate;
 	QString fileName;
 	QString origin;
-    PortfolioItemModel * portfolioListModel;
-    QHash<Portfolio*,PortfolioViewModel*> portfoliosModels;
+	PortfolioItemModel * portfolioListModel;
+	QHash<Portfolio*, PortfolioViewModel*> portfoliosModels;
 };

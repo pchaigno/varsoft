@@ -65,7 +65,7 @@ void Asset::init(int id, QString name, QString file, QString origin, QDateTime s
 	this->file = file;
 	this->origin = origin;
 	this->startDate = startDate;
-    this->endDate = endDate;
+	this->endDate = endDate;
 }
 
 /**
@@ -217,7 +217,7 @@ QVector<double> Asset::retrieveValues(const QDateTime& startDate, const QDateTim
 // BUG
 QMap<QDateTime, double> Asset::retrieveValuesByDate(const QDateTime& startDate, const QDateTime& endDate) const {
 	QMap<QDateTime, double> values;
-    QFile inputFile(this->getFile());
+	QFile inputFile(this->getFile());
 
 	// Throw an exception if the startDate is after the endDate.
 	if(startDate > endDate) {
@@ -230,15 +230,15 @@ QMap<QDateTime, double> Asset::retrieveValuesByDate(const QDateTime& startDate, 
 	} else {
 		QTextStream in(&inputFile);
 
-        bool startDetected = false;
+		bool startDetected = false;
 		// Loop over each line
-        while(!in.atEnd()) {
+		while(!in.atEnd()) {
 			QString line = in.readLine();
 			QRegExp rx("\\s*,\\s*");
 			QStringList row = line.split(rx);
 			QString date = row.value(0);
 			QString value = row.value(1);
-            QDateTime readDate = QDateTime::fromString(date,"yyyy-MM-dd");
+			QDateTime readDate = QDateTime::fromString(date,"yyyy-MM-dd");
 
 
 			// If the ending date has not been read yet, it goes at the start of the loop
@@ -256,7 +256,7 @@ QMap<QDateTime, double> Asset::retrieveValuesByDate(const QDateTime& startDate, 
 			// Otherwise it reads the file till the end
 			if(readDate < startDate) {
 				break;
-            }
+			}
 			// Building the vector
 			values.insert(readDate, value.toDouble());
 		}

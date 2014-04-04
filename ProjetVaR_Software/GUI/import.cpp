@@ -40,8 +40,8 @@ Import::~Import() {
 */
 void Import::on_pushButton_clicked() {
 	// TODO : check the field is not empty and print a message to force the user to give a name
-    emit this->dataEntered(ui->textEdit->toPlainText(), ui->dateEdit->dateTime(),
-                            ui->dateEdit_2->dateTime(), ui->comboBox->currentText());
+	emit this->dataEntered(ui->textEdit->toPlainText(), ui->dateEdit->dateTime(),
+							ui->dateEdit_2->dateTime(), ui->comboBox->currentText());
 	this->close();
 }
 
