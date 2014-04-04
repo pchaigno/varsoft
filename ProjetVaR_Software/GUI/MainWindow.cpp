@@ -64,10 +64,6 @@ void MainWindow::onDataEntered(const QString &name, const QDateTime &lDate ,cons
     MainWindow::endDate = fDate;
 	MainWindow::origin = origin;
 	ImportNewData algo = ImportNewData();
-	//if (origin == "Yahoo")
-	//    algo = ImportNewData();
-	//else
-	//    algo = ImportData();;
 	algo.import(MainWindow::stockName, fileName, MainWindow::origin, MainWindow::startDate, MainWindow::endDate);
 }
 
@@ -77,5 +73,7 @@ void MainWindow::onDataEntered(const QString &name, const QDateTime &lDate ,cons
 */
 void MainWindow::setImportCSV(){
     MainWindow::fileName = QFileDialog::getOpenFileName(this, ("Ouvrir fichier"), "C:/", ("Texte CSV (*.csv *.txt)") );
-	import_win.show();
+    //TODO: ne pas ouvrir la fenêtre de paramétrage de l'importation si elle a été annulée
+    if (MainWindow::fileName != "")
+        import_win.show();
 }
