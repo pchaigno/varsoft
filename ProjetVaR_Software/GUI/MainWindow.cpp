@@ -66,7 +66,15 @@ void MainWindow::onDataEntered(const QString &name, const QDateTime &lDate ,cons
 * Shows the window to set up the import file
 */
 void MainWindow::setImportCSV(){
-    MainWindow::fileName = QFileDialog::getOpenFileName(this, ("Ouvrir fichier"), "C:/", ("Texte CSV (*.csv *.txt)") );
+    if (MainWindow::path != ""){
+        MainWindow::fileName = QFileDialog::getOpenFileName(this, ("Ouvrir fichier"), MainWindow::path, ("Texte CSV (*.csv *.txt)") );
+        //qDebug() << MainWindow::fileName;
+    }
+    else
+        MainWindow::fileName = QFileDialog::getOpenFileName(this, ("Ouvrir fichier"), "C:/", ("Texte CSV (*.csv *.txt)") );
+    MainWindow::path = MainWindow::fileName.left(MainWindow::fileName.lastIndexOf("/"));
+    qDebug() << MainWindow::path;
+    qDebug() << MainWindow::fileName;
     //TODO: ne pas ouvrir la fenêtre de paramétrage de l'importation si elle a été annulée
     if (MainWindow::fileName != "")
         import_win.show();

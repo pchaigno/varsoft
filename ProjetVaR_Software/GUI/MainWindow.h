@@ -54,5 +54,6 @@ private:
 	QDateTime endDate;
 	QString fileName;
 	QString origin;
+    QString path;
 	PortfolioItemModel * portfolioModel;
 };
