@@ -1,7 +1,7 @@
 ####################################
 #  Portmanteau test for the level  #
 ####################################
-# Modified script made compatible with
+# R script made compatible with
 # Rscript calls using standard input
 
 # Read parameters from the standard input
@@ -11,17 +11,13 @@ open(f)
 # Parse the first line
 firstline <- readLines(f,n=1)
 m <- as.numeric(firstline)
-#print(m)
 
 # Parse the second line
 secondline <- readLines(f,n=1)
 tmp <- strsplit(secondline, " ")
 resid <- as.numeric(unlist(tmp))
-#print(resid)
-#resid <- c(1, 2, 3)
-#print(resid)
 
-#portmanteau<-function(m, resid) {
+# Actual function
 	n<-length(resid)
 
 	autocov<-matrix(0, m+1)

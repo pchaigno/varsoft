@@ -2,21 +2,7 @@
 #  Portmanteau test for the squares  #
 ######################################
 
-# Read parameters from the standard input
-f <- file("stdin")
-open(f)
-
-# Parse the first line
-firstline <- readLines(f,n=1)
-q <- as.numeric(firstline)
-
-# Parse the second line
-secondline <- readLines(f,n=1)
-tmp <- strsplit(line, " ")
-resid <- unlist(test)
-
-
-#statstd<-function(q, resid) {
+statstd<-function(q, resid) {
 	n<-length(resid)
 
 	rescarre = resid * resid
@@ -50,4 +36,4 @@ resid <- unlist(test)
 	pvportcarre = 1 - pchisq(qstat, df = q)
 
 	list(ststdport = ststdport, pvportcarre = pvportcarre)
-#}
+}

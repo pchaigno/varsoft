@@ -1,7 +1,23 @@
 ######################################
 #  Portmanteau test for the squares  #
 ######################################
-statstd<-function(q, resid) {
+# R script made compatible with
+# Rscript calls using standard input
+
+# Read parameters from the standard input
+f <- file("stdin")
+open(f)
+
+# Parse the first line
+firstline <- readLines(f,n=1)
+q <- as.numeric(firstline)
+
+# Parse the second line
+secondline <- readLines(f,n=1)
+tmp <- strsplit(secondline, " ")
+resid <- as.numeric(unlist(tmp))
+
+# Actual function
 	n<-length(resid)
 
 	rescarre = resid * resid
@@ -35,6 +51,3 @@ statstd<-function(q, resid) {
 	pvportcarre = 1 - pchisq(qstat, df = q)
 
 	list(ststdport = ststdport, pvportcarre = pvportcarre)
-}
-
-statstd(1, c(1, 2, 3))

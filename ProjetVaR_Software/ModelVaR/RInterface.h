@@ -23,7 +23,7 @@
 
 class MODELVARSHARED_EXPORT RInterface {
 public:
-	static QPair<double, double> checkCorrelation(/*const Portfolio& portfolio, int timeLag, QDateTime startDate, QDateTime endDate*/);
-	static bool checkSquareCorrelation(const Portfolio& portfolio);
+	static QPair<double, double> checkCorrelation(const Portfolio& portfolio, int timeLag, QDateTime date, int period);
+	static QPair<double, double> checkSquareCorrelation(const Portfolio& portfolio, int timeLag, QDateTime date, int period);
 	static GarchModel computeGarchModel(const Portfolio& portfolio);
 };
