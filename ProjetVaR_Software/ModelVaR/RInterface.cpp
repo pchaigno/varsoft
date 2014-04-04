@@ -25,7 +25,7 @@
  * @param endDate The end date of the returns used for the test
  * @return The statistical value and p-value couple
  */
-QPair<double, double> RInterface::checkCorrelation(const Portfolio& portfolio, int timeLag, QDateTime startDate, QDateTime endDate) {
+QPair<double, double> RInterface::checkCorrelation(/*const Portfolio& portfolio, int timeLag, QDateTime startDate, QDateTime endDate*/) {
 
 	QVector<double> returns;
 	QProcess process;
@@ -33,7 +33,7 @@ QPair<double, double> RInterface::checkCorrelation(const Portfolio& portfolio, i
 	QPair<double, double> result;
 
 	//returns = portfolio.retrieveReturns(startDate, endDate);
-	portfolio.retrieveReturns();
+	//portfolio.retrieveReturns();
 
 	// Parametres bidon pour tester
 	int abc = 1;
