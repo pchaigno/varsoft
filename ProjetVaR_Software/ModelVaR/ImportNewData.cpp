@@ -16,7 +16,6 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #include "ImportNewData.h"
-#include <QMessageBox>
 #include "SessionSaver.h"
 #include "SQLiteManager.h"
 #include "SessionBuilder.h"

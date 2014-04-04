@@ -21,8 +21,10 @@
 #include <QDateTime>
 #include <QDialog>
 #include <QComboBox>
+#include <QFile>
+#include <QFileDialog>
+#include <QTableWidgetItem>
 #include "import.h"
-#include <string>
 #include "NewPortfolioWizard.h"
 #include "PortfolioItemModel.h"
 

@@ -18,6 +18,7 @@
 #pragma once
 #include "IImport.h"
 #include "ModelVaR_global.h"
+#include <QMessageBox>
 
 class MODELVARSHARED_EXPORT ImportNewData : public IImport{
 public:
