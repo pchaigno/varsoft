@@ -30,24 +30,24 @@ import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 
 public class DocXGenerator {
-
 	private static IContext contextMap;
 	private static FieldsMetadata metadata;
 	private static IXDocReport report;
 
 	/**
-	 * @param args
+	 * Entry point for the program.
+	 * Usage: java DocXGenerator templateFilePath outputFilePath.
+	 * Takes the variables as JSON on the standard input.
+	 * @param args Arguments from the command line.
 	 */
 	public static void main(String[] args) {
-
 		File template = null;
 		String outputPath = null;
 
-		// check the arguments "Usage: java DocXGenerator templateFilePath outputFilePath"
-		if (args.length>=2 && args.length < 3) {
+		// Checks the arguments "Usage: java DocXGenerator templateFilePath outputFilePath"
+		if (args.length>=2 && args.length<3) {
 			template = new File(args[0]);
-			if (!template.exists())
-			{
+			if (!template.exists())	{
 				System.out.println("Error: "+args[0]+" does not exist.");
 				System.exit(GeneratorError.TEMPLATE_NOT_FOUND.getCode());
 			}
@@ -58,13 +58,10 @@ public class DocXGenerator {
 		}
 		
 		GeneratorError result = GeneratorError.NO_ERROR;
-		try
-		{ 
-			// initialize the input with the standard input
+		try {
+			// Initializes the input with the standard input
 			String jsonText = IOUtils.toString(System.in, "UTF-8");
-			
 			result = generate(jsonText, template, outputPath);
-
 		} catch (IOException e) {
 			System.err.println("Error: "+e.getMessage());
 			System.exit(GeneratorError.IO_ERROR.getCode());
@@ -73,14 +70,14 @@ public class DocXGenerator {
 	}
 
 	/**
-	 * Add the text data from the JSON to the report's context
-	 * @param textObject The JSON text object
+	 * Adds the text data from the JSON to the report's context.
+	 * @param textObject The JSON text object.
 	 */
 	@SuppressWarnings("rawtypes")
 	private static void computeText(JSONObject textObject) {
 		// iterate on all the simple text
 		Iterator<?> iter = textObject.entrySet().iterator();
-		while(iter.hasNext()){
+		while (iter.hasNext()) {
 			Map.Entry entry = (Map.Entry)iter.next();
 			// add the text to the report's context
 			contextMap.put(entry.getKey().toString(), entry.getValue().toString());
@@ -88,15 +85,15 @@ public class DocXGenerator {
 	}
 
 	/**
-	 * Initialize the FieldsMetaData for all images,
-	 * create them with the paths from the JSON and add it to the report's context.
+	 * Initializes the FieldsMetaData for all images,
+	 * creates them with the paths from the JSON and adds it to the report's context.
 	 * @param imagesObject The JSON images object.
 	 */
 	@SuppressWarnings("rawtypes")
 	private static void computeImages(JSONObject imagesObject) {
 		// iterate on all images
 		Iterator<?> iter = imagesObject.entrySet().iterator();
-		while(iter.hasNext()){
+		while (iter.hasNext()) {
 			Map.Entry entry = (Map.Entry)iter.next();
 			// set the FieldsMetaData
 			metadata.addFieldAsImage(entry.getKey().toString());
@@ -109,39 +106,40 @@ public class DocXGenerator {
 	}
 
 	/**
-	 * Initialize the FieldsMetaData with the key of the JSON data
-	 * and add the list to the report's context.
-	 * @param listObject
+	 * Initializes the FieldsMetaData with the key of the JSON data
+	 * and adds the list to the report's context.
+	 * @param listObject The JSON list object.
 	 */
 	@SuppressWarnings("rawtypes")
 	private static void computeList(JSONObject listObject) {
-		// iterate on all the list
+		// Iterates on all the list:
 		Iterator<?> iter = listObject.entrySet().iterator();
-		while(iter.hasNext()){
-			// Get the key and the array
+		while (iter.hasNext()) {
+			// Gets the key and the array:
 			Map.Entry entry = (Map.Entry)iter.next();
 			String key = entry.getKey().toString();
 			JSONArray array = (JSONArray) entry.getValue();
 	
-			//get the FieldsMetaData, searching for all different keys on the Map
+			// Gets the FieldsMetaData, searching for all different keys on the Map:
 			HashSet<String> metaData = new HashSet<String>();
 			Iterator<?> iterArray = array.iterator();
-			while(iterArray.hasNext()){
+			while (iterArray.hasNext()) {
 				JSONObject map = (JSONObject) iterArray.next();
 				Iterator<?> iterMap = map.entrySet().iterator();
-				while(iterMap.hasNext()){
+				while (iterMap.hasNext()) {
 					Map.Entry entryMap = (Map.Entry)iterMap.next();	
 					metaData.add(entryMap.getKey().toString());
 				}
 			}
 			
-			// set the FieldsMetaData
+			// Sets the FieldsMetaData:
 			Iterator<?> iterMetaData = metaData.iterator();
-			while(iterMetaData.hasNext()){
+			while (iterMetaData.hasNext()) {
 				metadata.addFieldAsList(key+"."+iterMetaData.next().toString());	
 			}
 	
-			// add the array to the report's context
+			// Adds the array to the report's context.
+			// array can be directly passed as a value for contextMap because it inherits from ArrayList.
 			contextMap.put(key, array);
 		} 
 	}
@@ -152,12 +150,10 @@ public class DocXGenerator {
 	 * @param template The template DOCX file.
 	 * @param outputPath The path to the file which has to be written (without the extension).
 	 * @return An error code or 0 if all went well.
-	 * @throws XDocReportException
-	 * @throws IOException
-	 * @throws ParseException
+	 * @throws IOException If the template or output file can't be opened or written.
 	 */
 	public static GeneratorError generate(String jsonText, File template, String outputPath) throws IOException {
-		// initialize of the JSON Parser with the input
+		// Parses the JSON text:
 		JSONObject json;
 		try {
 			JSONParser parser = new JSONParser();
@@ -168,7 +164,7 @@ public class DocXGenerator {
 			return GeneratorError.JSON_ERROR;
 		}
 
-		// Initialize the template file and create the report object
+		// Initializes the template file and creates the report object:
 		InputStream in = new FileInputStream(template);
 		try {
 			report = XDocReportRegistry.getRegistry().loadReport(in, TemplateEngineKind.Velocity);
@@ -178,10 +174,10 @@ public class DocXGenerator {
 			return GeneratorError.TEMPLATE_ERROR;
 		}
 
-		// create the FieldsMetadata
+		// Creates the FieldsMetadata.
 		metadata = new FieldsMetadata();
 
-		// create the report context
+		// Creates the report context:
 		try {
 			contextMap = report.createContext();
 		} catch (XDocReportException e) {
@@ -190,7 +186,7 @@ public class DocXGenerator {
 			return GeneratorError.CONTEXT_ERROR;
 		}
 
-		//add the data from the JSON to the report context
+		// Adds the data from the JSON to the report context:
 		JSONObject textObject = (JSONObject)json.get("text");
 		if(textObject == null) {
 			System.err.println("Text element missing in JSON.");
@@ -210,10 +206,10 @@ public class DocXGenerator {
 		}
 		computeList(listObject);
 
-		// link the FieldsMetaData to the report
+		// Links the FieldsMetaData to the report.
 		report.setFieldsMetadata(metadata);
 
-		// generate the output file
+		// Generates the output file:
 		GeneratorError errorCode = generateDocx(outputPath);
 		if(errorCode != GeneratorError.NO_ERROR) {
 			return errorCode;
@@ -227,11 +223,11 @@ public class DocXGenerator {
 	}
 
 	/**
-	 * Generate the DOCX report with the data in the context.
+	 * Generates the DOCX report with the data in the context.
 	 * @param outputFile The path to the file which has to be written (without the extension).
-	 * @reutrn An error code or 0 if all went well.
-	 * @throws XDocReportException
-	 * @throws IOException
+	 * @return A generator error code or NO_ERROR if all went well.
+	 * @see ErrorGenerator
+	 * @throws IOException If the ouput file can't be opened or if it can't be written.
 	 */
 	private static GeneratorError generateDocx(String outputPath) throws IOException {
 		File outputFile = new File(outputPath+".docx");
@@ -247,11 +243,11 @@ public class DocXGenerator {
 	}
 
 	/**
-	 * Generate the PDF report with the data in the context.
+	 * Generates the PDF report with the data in the context.
 	 * @param outputFile The path to the file which has to be written (without the extension).
-	 * @return An error code or 0 if all went well.
-	 * @throws IOException
-	 * @throws XDocReportException
+	 * @return A generator error code or NO_ERROR if all went well.
+	 * @see GeneratorError
+	 * @throws IOException If the ouput file can't be opened or if it can't be written.
 	 */
 	private static GeneratorError generatePdf(String outputPath) throws IOException {
 		File outputFile = new File(outputPath+".pdf");
