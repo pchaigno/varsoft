@@ -17,44 +17,33 @@
  */
 #pragma once
 
-#include <QMainWindow>
-#include <QDateTime>
-#include <QDialog>
-#include <QComboBox>
-#include "import.h"
-#include <string>
-#include "NewPortfolioWizard.h"
-#include "PortfolioItemModel.h"
-#include "PortfolioViewModel.h"
+#include <QAbstractTableModel>
+#include "Asset.h"
+#include "Portfolio.h"
 
-namespace Ui {
-	class MainWindow;
-}
-
-class MainWindow: public QMainWindow {
+class MODELVARSHARED_EXPORT PortfolioViewModel: public QAbstractTableModel {
 	Q_OBJECT
-	
 public:
-	explicit MainWindow(QWidget* parent = 0);
-	~MainWindow();
+	explicit PortfolioViewModel(QObject *parent = 0);
+	explicit PortfolioViewModel(Portfolio* portfolio, QObject *parent = 0);
 
-private slots:
-	void newPortfolio();
-	void showPortfolio(Portfolio* portfolio);
-	void setImportCSV();
+	int rowCount(const QModelIndex &parent) const;
+	int columnCount(const QModelIndex &parent) const;
+	QVariant data(const QModelIndex &index, int role) const;
+	QVariant headerData(int section, Qt::Orientation orientation, int role) const;
+	Qt::ItemFlags flags(const QModelIndex &index) const;
 
-	void addPortfolio(Portfolio *);
+	void setPortfolio(Portfolio * portfolio);
 
-	void onDataEntered(const QString &text, const QDateTime &fDate, const QDateTime &lDate, const QString &source);
+signals:
+
+public slots:
 
 private:
-	Ui::MainWindow *ui;
-	Import import_win;
-	QString stockName;
-	QDateTime startDate;
-	QDateTime endDate;
-	QString fileName;
-	QString origin;
-	PortfolioItemModel * portfolioListModel;
-	QHash<Portfolio*, PortfolioViewModel*> portfoliosModels;
+	void createDataStructure();
+	Portfolio * portfolio;
+	QVector<QString> headers;
+	QVector<QDateTime> datesRow;
+	QVector<QVector<QString> > mydata;
 };
+

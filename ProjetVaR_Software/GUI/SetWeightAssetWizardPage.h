@@ -18,7 +18,6 @@
 #pragma once
 
 #include <QWizardPage>
-#include <QDebug>
 #include <QListWidget>
 #include "ShowAssetsWizardPage.h"
 #include <QSpinBox>

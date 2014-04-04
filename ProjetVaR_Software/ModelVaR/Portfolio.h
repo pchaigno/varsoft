@@ -23,7 +23,6 @@
 #include <QMap>
 #include "Asset.h"
 #include <QDateTime>
-#include <QDebug>
 #include "IdAlreadyAttributedException.h"
 #include "ModelVaR_global.h"
 #include "PortfolioCalculationException.h"

@@ -19,7 +19,6 @@
 
 #include <QListView>
 #include "PortfolioItemModel.h"
-#include <QDebug>
 
 class PortfolioListView : public QListView {
 	Q_OBJECT
@@ -29,7 +28,11 @@ public:
 	void setModel(PortfolioItemModel * model);
 	PortfolioItemModel *model() const;
 
+protected:
+	void selectionChanged(const QItemSelection & selected, const QItemSelection & deselected);
+
 signals:
+	void portfolioSelected(Portfolio *);
 
 public slots:
 	void removeSelectedPortfolio();

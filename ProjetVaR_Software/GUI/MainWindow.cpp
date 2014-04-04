@@ -17,7 +17,6 @@
  */
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
-#include <QDebug>
 #include <QFile>
 #include <QFileDialog>
 #include <QTableWidgetItem>
@@ -25,20 +24,29 @@
 #include "ImportNewData.h"
 #include "ImportData.h"
 #include "import.h"
+#include "QDateTime"
 
-MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWindow), portfolioModel(new PortfolioItemModel(this)) {
+MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWindow), portfolioListModel(new PortfolioItemModel(this)) {
 	ui->setupUi(this);
+
 	//for the import button in the main window
 	connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(setImportCSV()));
 	//to connect the signal sent from the import window
 	connect(&import_win, SIGNAL(dataEntered(const QString&, const QDateTime&, const QDateTime&, const QString&)),
 						 this, SLOT(onDataEntered(const QString&, const QDateTime&, const QDateTime&, const QString&)));
-	ui->listView->setModel(portfolioModel);
+
+	ui->listView->setModel(portfolioListModel);
+	connect(ui->removePushButton, SIGNAL(clicked()), ui->listView, SLOT(removeSelectedPortfolio()));
+
+	connect(ui->listView,SIGNAL(portfolioSelected(Portfolio*)),this,SLOT(showPortfolio(Portfolio*)));
 }
 
 MainWindow::~MainWindow() {
 	delete ui;
-	delete portfolioModel;
+	delete portfolioListModel;
+	foreach (Portfolio *portfolio, portfoliosModels.keys()) {
+		delete portfoliosModels[portfolio];
+	}
 }
 
 /**
@@ -46,9 +54,18 @@ MainWindow::~MainWindow() {
  */
 void MainWindow::newPortfolio() {
    NewPortfolioWizard * fen = new NewPortfolioWizard(this);
-   connect(fen,SIGNAL(newPortfolioCreated(Portfolio*)),portfolioModel,SLOT(addPortfolio(Portfolio*)));
+   connect(fen,SIGNAL(newPortfolioCreated(Portfolio*)),this,SLOT(addPortfolio(Portfolio*)));
    fen->setAttribute(Qt::WA_DeleteOnClose);
    fen->show();
+}
+
+/**
+ * @brief Set the model of the specified portfolio to the TableView to display it.
+ * @param portfolio
+ */
+void MainWindow::showPortfolio(Portfolio * portfolio){
+	// set the model
+	ui->tableView->setModel(portfoliosModels[portfolio]);
 }
 
 /**
@@ -76,6 +93,16 @@ void MainWindow::onDataEntered(const QString &name, const QDateTime &fDate ,cons
 * Shows the window to set up the import file
 */
 void MainWindow::setImportCSV(){
-    MainWindow::fileName = QFileDialog::getOpenFileName(this, ("Ouvrir fichier"), "C:/", ("Texte CSV (*.csv *.txt)") );
+	MainWindow::fileName = QFileDialog::getOpenFileName(this, ("Ouvrir fichier"), "C:/", ("Texte CSV (*.csv *.txt)") );
 	import_win.show();
+}
+
+/**
+ * @brief Add the portfolio to the ListView,
+ * create the TableModel, and add it to the Map "portfoliosModels"
+ * @param portfolio
+ */
+void MainWindow::addPortfolio(Portfolio * portfolio) {
+	portfoliosModels[portfolio] = new PortfolioViewModel(portfolio);
+	portfolioListModel->addPortfolio(portfolio);
 }

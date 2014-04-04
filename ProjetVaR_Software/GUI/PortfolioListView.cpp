@@ -36,6 +36,11 @@ PortfolioItemModel *PortfolioListView::model() const {
 	return (PortfolioItemModel*)QListView::model();
 }
 
+void PortfolioListView::selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) {
+	emit portfolioSelected(model()->getPortfolio(selected.indexes().first()));
+	QListView::selectionChanged(selected, deselected);
+}
+
 /**
  * @brief Remove the selected items
  */

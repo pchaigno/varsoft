@@ -18,7 +18,6 @@
 #pragma once
 
 #include <QWizardPage>
-#include <QDebug>
 #include "SessionBuilder.h"
 
 namespace Ui {

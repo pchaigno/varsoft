@@ -231,7 +231,6 @@ QMap<QDateTime, double> Asset::retrieveValuesByDate(const QDateTime& startDate, 
 		QTextStream in(&inputFile);
 
 		bool startDetected = false;
-
 		// Loop over each line
 		while(!in.atEnd()) {
 			QString line = in.readLine();
@@ -240,6 +239,7 @@ QMap<QDateTime, double> Asset::retrieveValuesByDate(const QDateTime& startDate, 
 			QString date = row.value(0);
 			QString value = row.value(1);
 			QDateTime readDate = QDateTime::fromString(date,"yyyy-MM-dd");
+
 
 			// If the ending date has not been read yet, it goes at the start of the loop
 			// and read the next line
@@ -257,7 +257,6 @@ QMap<QDateTime, double> Asset::retrieveValuesByDate(const QDateTime& startDate, 
 			if(readDate < startDate) {
 				break;
 			}
-
 			// Building the vector
 			values.insert(readDate, value.toDouble());
 		}

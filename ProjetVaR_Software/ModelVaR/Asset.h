@@ -26,7 +26,6 @@
 #include <QTextStream>
 #include <QVector>
 #include <stdexcept>
-#include <QDebug>
 #include "ModelVaR_global.h"
 #include "CannotOpenFileException.h"
 
