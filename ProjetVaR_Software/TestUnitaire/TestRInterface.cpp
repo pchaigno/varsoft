@@ -44,6 +44,8 @@ void TestRInterface::testCheckCorrelation() {
 	QDateTime date = this->father.retrieveEndDate();
 	int period = 5;
 
+	qDebug() << this->father.retrieveReturns(this->father.retrieveEndDate(), period);
+
 	QPair<double, double> result = RInterface::checkCorrelation(this->father, timeLag, date, period);
 	// Comparing results coming from a classic R execution
 	// Info: qDebug does not print all the digits. It may be confusing when debugging
