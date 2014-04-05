@@ -18,7 +18,6 @@
 #pragma once
 
 #include "ui_import.h"
-#include <QDateTime>
 #include <QDialog>
 
 namespace Ui {
@@ -42,5 +41,5 @@ private slots:
 	void on_pushButton_2_clicked();
 
 signals:
-	void dataEntered(const QString &name, const QDateTime &fDate,const QDateTime &lDate, const QString &source);
+	void dataEntered(const QString &name, const QDate &fDate, const QDate &lDate, const QString &source);
 };

@@ -16,7 +16,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #pragma once
-#include <QDateTime>
+
+#include <QDate>
 #include <QString>
 #include <QFile>
 #include <QStringList>
@@ -31,5 +32,5 @@
 class MODELVARSHARED_EXPORT IImport {
 public:
 	virtual void import(const QString &name, const QString &file, const QString &origin,
-						const QDateTime &startDate, const QDateTime &endDate) const =0;
+						const QDate &startDate, const QDate &endDate) const =0;
 };

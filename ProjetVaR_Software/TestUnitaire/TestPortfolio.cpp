@@ -24,28 +24,28 @@ TestPortfolio::TestPortfolio() {
 	QString assetFolder = "../../CSV_examples/";
 
 	// FIRST ASSET DEFINITION
-	QDateTime startDate1(QDate(2014, 1, 1), QTime(0, 0, 0));
-	QDateTime endDate1(QDate(2014, 1, 6), QTime(0, 0, 0));
+	QDate startDate1(2014, 1, 1);
+	QDate endDate1(2014, 1, 6);
 	Asset* asset1 = new Asset("asset1", assetFolder+"asset1.txt", "YAHOO", startDate1, endDate1);
 
 	// SECOND ASSET DEFINITION
-	QDateTime startDate2(QDate(2014, 1, 2), QTime(0, 0, 0));
-	QDateTime endDate2(QDate(2014, 1, 7), QTime(0, 0, 0));
+	QDate startDate2(2014, 1, 2);
+	QDate endDate2(2014, 1, 7);
 	Asset* asset2 = new Asset("asset2", assetFolder+"asset2.txt", "YAHOO", startDate2, endDate2);
 
 	// THIRD ASSET DEFINITION
-	QDateTime startDate3(QDate(2014, 1, 3), QTime(0, 0, 0));
-	QDateTime endDate3(QDate(2014, 1, 8), QTime(0, 0, 0));
+	QDate startDate3(QDate(2014, 1, 3));
+	QDate endDate3(QDate(2014, 1, 8));
 	Asset* asset3 = new Asset("asset3", assetFolder+"asset3.txt", "YAHOO", startDate3, endDate3);
 
 	// FOURTH ASSET DEFINITION
-	QDateTime startDate4(QDate(2014, 1, 1), QTime(0, 0, 0));
-	QDateTime endDate4(QDate(2014, 1, 4), QTime(0, 0, 0));
+	QDate startDate4(QDate(2014, 1, 1));
+	QDate endDate4(QDate(2014, 1, 4));
 	Asset* asset4 = new Asset("asset4", assetFolder+"asset4.txt", "YAHOO", startDate4, endDate4);
 
 	// FIFTH ASSET DEFINITION
-	QDateTime startDate5(QDate(2014, 1, 1), QTime(0, 0, 0));
-	QDateTime endDate5(QDate(2014, 1, 4), QTime(0, 0, 0));
+	QDate startDate5(QDate(2014, 1, 1));
+	QDate endDate5(QDate(2014, 1, 4));
 	Asset* asset5 = new Asset("asset5", assetFolder+"asset5.txt", "YAHOO", startDate5, endDate5);
 
 	// TEST PORTFOLIO DEFINITION
@@ -97,8 +97,8 @@ void TestPortfolio::testName() {
  */
 void TestPortfolio::testRetrieveValues() {
 	// SHARED DATE DEFINITION
-	QDateTime startDate(QDate(2014, 1, 3), QTime(0, 0, 0));
-	QDateTime endDate(QDate(2014, 1, 6), QTime(0, 0, 0));
+	QDate startDate(2014, 1, 3);
+	QDate endDate(2014, 1, 6);
 
 	QVector<double> result;
 
@@ -148,26 +148,26 @@ void TestPortfolio::testRetrieveValuesByDate() {
 	// 2014-01-07	UNDEF	212		318		635 << using previous value for a1
 	// 2014-01-08	UNDEF	UNDEF	321		638 << using previous values for a1 and a2
 
-	QMap<QDateTime, double> result;
+	QMap<QDate, double> result;
 
 	// EXPECTED USE CASE
 	try {
-		result = this->son.retrieveValuesByDate(QDateTime(QDate(2014, 1, 3), QTime(0, 0, 0)), QDateTime(QDate(2014, 1, 8), QTime(0, 0, 0)));
+		result = this->son.retrieveValuesByDate(QDate(2014, 1, 3), QDate(2014, 1, 8));
 	} catch(PortfolioCalculationException& e) {
 		qDebug() << e.what();
 	}
 
 	QCOMPARE(result.size(), 6);
-	QCOMPARE(result.value(QDateTime(QDate(2014, 1, 3), QTime(0, 0, 0))), 612.0);
-	QCOMPARE(result.value(QDateTime(QDate(2014, 1, 4), QTime(0, 0, 0))), 618.0);
-	QCOMPARE(result.value(QDateTime(QDate(2014, 1, 5), QTime(0, 0, 0))), 624.0);
-	QCOMPARE(result.value(QDateTime(QDate(2014, 1, 6), QTime(0, 0, 0))), 630.0);
-	QCOMPARE(result.value(QDateTime(QDate(2014, 1, 7), QTime(0, 0, 0))), 635.0);
-	QCOMPARE(result.value(QDateTime(QDate(2014, 1, 8), QTime(0, 0, 0))), 638.0);
+	QCOMPARE(result.value(QDate(2014, 1, 3)), 612.0);
+	QCOMPARE(result.value(QDate(2014, 1, 4)), 618.0);
+	QCOMPARE(result.value(QDate(2014, 1, 5)), 624.0);
+	QCOMPARE(result.value(QDate(2014, 1, 6)), 630.0);
+	QCOMPARE(result.value(QDate(2014, 1, 7)), 635.0);
+	QCOMPARE(result.value(QDate(2014, 1, 8)), 638.0);
 
 	// UNDEFINED USE CASE
 	try {
-		result = this->son.retrieveValuesByDate(QDateTime(QDate(2014, 1, 2), QTime(0, 0, 0)), QDateTime(QDate(2014, 1, 8), QTime(0, 0, 0)));
+		result = this->son.retrieveValuesByDate(QDate(2014, 1, 2), QDate(2014, 1, 8));
 		QFAIL("retrieveValuesByDate succedded in computing portfolio values despite missing asset values");
 	} catch(PortfolioCalculationException& e) {
 		qDebug() << e.what();
@@ -177,7 +177,7 @@ void TestPortfolio::testRetrieveValuesByDate() {
 void TestPortfolio::testRetrieveReturns() {
 	QVector<double> result;
 
-	result = this->son.retrieveReturns(QDateTime(QDate(2014, 1, 8), QTime(0, 0, 0)), 4);
+	result = this->son.retrieveReturns(QDate(2014, 1, 8), 4);
 
 	qDebug() << result;
 

@@ -19,7 +19,7 @@
 
 #include "Portfolio.h"
 #include <QtTest>
-#include <QDateTime>
+#include <QDate>
 #include <QDebug>
 #include <QDir>
 #include <QString>

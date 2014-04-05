@@ -17,7 +17,6 @@
  */
 #pragma once
 
-#include <QDateTime>
 #include "IdAlreadyAttributedException.h"
 #include <QFile>
 #include <QRegExp>
@@ -28,6 +27,7 @@
 #include <stdexcept>
 #include "ModelVaR_global.h"
 #include "CannotOpenFileException.h"
+#include <QDate>
 
 class MODELVARSHARED_EXPORT Asset {
 private:
@@ -35,26 +35,26 @@ private:
 	QString file;
 	QString name;
 	QString origin;
-	QDateTime startDate;
-	QDateTime endDate;
+	QDate startDate;
+	QDate endDate;
 
 public:
 	Asset();
-	Asset(QString name, QString file, QString origin, QDateTime startDate, QDateTime endDate);
-	Asset(int id, QString name, QString file, QString origin, QDateTime startDate, QDateTime endDate);
-	void init(int id, QString name, QString file, QString origin, QDateTime startDate, QDateTime endDate);
+	Asset(QString name, QString file, QString origin, QDate startDate, QDate endDate);
+	Asset(int id, QString name, QString file, QString origin, QDate startDate, QDate endDate);
+	void init(int id, QString name, QString file, QString origin, QDate startDate, QDate endDate);
 
 	int getId() const;
 	void setId(int id);
 	QString getFile() const;
 	QString getName() const;
 	QString getOrigin() const;
-	QDateTime getStartDate() const;
-	QDateTime getEndDate() const;
+	QDate getStartDate() const;
+	QDate getEndDate() const;
 	void changeName(QString name);
 	QVector<double> retrieveValues() const;
-	QVector<double> retrieveValues(const QDateTime &startDate, const QDateTime &endDate) const;
-	QMap<QDateTime, double> retrieveValuesByDate(const QDateTime& startDate, const QDateTime& endDate) const;
+	QVector<double> retrieveValues(const QDate &startDate, const QDate &endDate) const;
+	QMap<QDate, double> retrieveValuesByDate(const QDate& startDate, const QDate& endDate) const;
 
 	bool operator==(const Asset& asset) const;
 };

@@ -30,7 +30,7 @@
 * @param endDate The date of the last value defined.
 * @throw BadFile The file is not handled
 */
-void ImportNewData::import(const QString &name, const QString &file, const QString &origin, const QDateTime &startDate, const QDateTime &endDate) const{
+void ImportNewData::import(const QString &name, const QString &file, const QString &origin, const QDate &startDate, const QDate &endDate) const{
 	QString data;
 	QFile importedCSV(file);
 	QStringList rowOfData;
@@ -69,7 +69,7 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
 			 break;
 		}
 
-		QDateTime currentDate = QDateTime::fromString(rowData[0],"yyyy-MM-dd");
+		QDate currentDate = QDate::fromString(rowData[0], "yyyy-MM-dd");
 		if ((startDate >= currentDate)) {
 			if(endDate >= currentDate) {
 				break;

@@ -167,11 +167,10 @@ void Portfolio::changeName(QString name) {
  * where every asset of the portfolio is defined.
  * @return The first date defined for this portfolio.
  */
-QDateTime Portfolio::retrieveStartDate() const {
-	QDateTime maxStartDate;
-	maxStartDate.setTime_t(0);
+QDate Portfolio::retrieveStartDate() const {
+	QDate maxStartDate = QDate(0, 0, 0);
 	for(QMap<Asset*, int>::const_iterator it=this->composition.begin(); it!=this->composition.end(); ++it) {
-		QDateTime startDate = it.key()->getStartDate();
+		QDate startDate = it.key()->getStartDate();
 		if(startDate > maxStartDate) {
 			maxStartDate = startDate;
 		}
@@ -185,11 +184,10 @@ QDateTime Portfolio::retrieveStartDate() const {
  * of all the last dates of the portfolio assets.
  * @return The last date defined for this portfolio.
  */
-QDateTime Portfolio::retrieveEndDate() const {
-	QDateTime maxEndDate;
-	maxEndDate.setTime_t(0);
+QDate Portfolio::retrieveEndDate() const {
+	QDate maxEndDate = QDate(0, 0, 0);
 	for(QMap<Asset*, int>::const_iterator it=this->composition.begin(); it!=this->composition.end(); ++it) {
-		QDateTime endDate = it.key()->getEndDate();
+		QDate endDate = it.key()->getEndDate();
 		if(endDate > maxEndDate) {
 			maxEndDate = endDate;
 		}
@@ -213,7 +211,7 @@ QVector<double> Portfolio::retrieveValues() const {
  * @param endDate The ending date
  * @return The values of the portfolio in the chronological order
  */
-QVector<double> Portfolio::retrieveValues(const QDateTime& startDate, const QDateTime& endDate) const {
+QVector<double> Portfolio::retrieveValues(const QDate& startDate, const QDate& endDate) const {
 	return this->retrieveValuesByDate(startDate, endDate).values().toVector();
 }
 
@@ -224,14 +222,14 @@ QVector<double> Portfolio::retrieveValues(const QDateTime& startDate, const QDat
  * @param endDate The ending date
  * @return The date value associations of the portfolio in the chronological order (from )
  */
-QMap<QDateTime, double> Portfolio::retrieveValuesByDate(const QDateTime& startDate, const QDateTime& endDate) const {
+QMap<QDate, double> Portfolio::retrieveValuesByDate(const QDate& startDate, const QDate& endDate) const {
 
-	QMap<QDateTime, double> result;
+	QMap<QDate, double> result;
 
 	// Portfolio dates definition
-	QDateTime sharedStartDate;
+	QDate sharedStartDate;
 	for(QMap<Asset*, int>::const_iterator assetIt=this->composition.begin(); assetIt!=this->composition.end(); ++assetIt) {
-		QList<QDateTime> dates = assetIt.key()->retrieveValuesByDate(startDate, endDate).keys();
+		QList<QDate> dates = assetIt.key()->retrieveValuesByDate(startDate, endDate).keys();
 		// If a asset values vector is empty, we have no choice but to return
 		// an empty map
 		if(dates.isEmpty()) {
@@ -246,7 +244,7 @@ QMap<QDateTime, double> Portfolio::retrieveValuesByDate(const QDateTime& startDa
 		}
 
 		// Portofolio dates construction
-		for(QList<QDateTime>::const_iterator dateIt=dates.begin(); dateIt!=dates.end(); ++dateIt) {
+		for(QList<QDate>::const_iterator dateIt=dates.begin(); dateIt!=dates.end(); ++dateIt) {
 			//if result.
 			result.insert(*dateIt, 0);
 		}
@@ -255,16 +253,16 @@ QMap<QDateTime, double> Portfolio::retrieveValuesByDate(const QDateTime& startDa
 	// Calculation of portfolio values
 	for(QMap<Asset*, int>::const_iterator assetIt=this->composition.begin(); assetIt!=this->composition.end(); ++assetIt) {
 
-		QMap<QDateTime, double> assetValuesByDates = assetIt.key()->retrieveValuesByDate(startDate, endDate);
+		QMap<QDate, double> assetValuesByDates = assetIt.key()->retrieveValuesByDate(startDate, endDate);
 		int weight = assetIt.value();
 
-		for(QMap<QDateTime, double>::const_iterator portfolioIt=result.begin(); portfolioIt!=result.end(); portfolioIt++) {
+		for(QMap<QDate, double>::const_iterator portfolioIt=result.begin(); portfolioIt!=result.end(); portfolioIt++) {
 			// Check that the asset has the date of the portfolio
 			if(assetValuesByDates.contains(portfolioIt.key())) {
 				result.insert(portfolioIt.key(), portfolioIt.value() + assetValuesByDates.value(portfolioIt.key())*weight);
 				// Take the latest available value of the asset
 			} else {
-				QDateTime latestCommonDate = portfolioIt.key().addDays(-1);
+				QDate latestCommonDate = portfolioIt.key().addDays(-1);
 				while(latestCommonDate >= assetValuesByDates.begin().key() && !assetValuesByDates.contains(latestCommonDate)) {
 					latestCommonDate = latestCommonDate.addDays(-1);
 				}
@@ -298,10 +296,10 @@ QVector<double> Portfolio::getReturns(QVector<double> &values) {
  * @param period The number of desired returns
  * @return The returns in a chronological order
  */
-QVector<double> Portfolio::retrieveReturns(QDateTime endingPeriodDate, int period) const {
+QVector<double> Portfolio::retrieveReturns(QDate endingPeriodDate, int period) const {
 	QVector<double> returns;
 
-	QDateTime startingPeriodDate = endingPeriodDate.addDays(-period+1);
+	QDate startingPeriodDate = endingPeriodDate.addDays(-period+1);
 	QVector<double> values = this->retrieveValues(startingPeriodDate, endingPeriodDate);
 
 	// Make sure there is there is the exact number of returns

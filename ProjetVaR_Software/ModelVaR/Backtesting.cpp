@@ -23,7 +23,7 @@
  * @param varAlgo The algorithm to compute the Value-at-Risk.
  * @param backtestperiod The time period of backtesting.
  */
-Backtesting::Backtesting(const Portfolio& portfolio, const VaRAlgorithm& varAlgo, const QPair<QDateTime, QDateTime> &backtestperiod):
+Backtesting::Backtesting(const Portfolio& portfolio, const VaRAlgorithm& varAlgo, const QPair<QDate, QDate> &backtestperiod):
 	portfolio(portfolio), varAlgo(varAlgo), backtestperiod(backtestperiod) {
 
 }

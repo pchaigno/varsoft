@@ -16,11 +16,12 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #pragma once
+
 #include "IImport.h"
 #include "ModelVaR_global.h"
 
 class MODELVARSHARED_EXPORT ImportData : public IImport {
 public:
 	virtual void import(const QString &name, const QString &file, const QString &origin,
-						const QDateTime &startDate, const QDateTime &endDate) const;
+						const QDate &startDate, const QDate &endDate) const;
 };

@@ -25,7 +25,7 @@
 * @param startDate The date of the first value defined.
 * @param endDate The date of the last value defined.
 */
-void ImportData::import(const QString &name, const QString &file, const QString &origin, const QDateTime &startDate, const QDateTime &endDate) const {
+void ImportData::import(const QString &name, const QString &file, const QString &origin, const QDate &startDate, const QDate &endDate) const {
 	QString fileName = file;
 	QString data;
 	QFile importedCSV(fileName);

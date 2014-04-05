@@ -20,6 +20,7 @@
 #include <QWizard>
 #include "ShowAssetsWizardPage.h"
 #include "SetWeightAssetWizardPage.h"
+#include "ui_NewPortfolioWizard.h"
 #include "Portfolio.h"
 
 namespace Ui {

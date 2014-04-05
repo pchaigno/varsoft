@@ -21,11 +21,10 @@
  * @brief Initializes an asset for the tests.
  */
 TestAsset::TestAsset() {
-	QDateTime startDate(QDate(2014, 1, 2), QTime(0, 0, 0));
-	QDateTime endDate(QDate(2014, 1, 5), QTime(0, 0, 0));
+	QDate startDate(2014, 1, 2);
+	QDate endDate(2014, 1, 5);
 	this->google = Asset("Google", "../../CSV_examples/asset1.txt", "YAHOO", startDate, endDate);
-	this->apple = Asset("Apple", "../../CSV_examples/asset4.txt", "YAHOO", QDateTime(QDate(2014, 1, 1), QTime(0, 0, 0)),
-						QDateTime(QDate(2014, 1, 4), QTime(0, 0, 0)));
+	this->apple = Asset("Apple", "../../CSV_examples/asset4.txt", "YAHOO", QDate(2014, 1, 1), QDate(2014, 1, 4));
 	this->missing = Asset("test", "../../CSV_examples/nonexistingfile.txt", "YAHOO", startDate, endDate);
 }
 
@@ -63,7 +62,7 @@ void TestAsset::testRetrieveValues() {
 	QVector<double> result;
 
 	// DATE PARAMETERS FUNCTION TESTS:
-	// QVector<double> Asset::RetrieveValues(const QDateTime& startDate, const QDateTime& endDate) const
+	// QVector<double> Asset::RetrieveValues(const Date& startDate, const Date& endDate) const
 	try {
 		result = this->google.retrieveValues(this->google.getStartDate(), this->google.getEndDate());
 	} catch(CannotOpenFileException& e) {
@@ -97,8 +96,8 @@ void TestAsset::testRetrieveValues() {
 	// The first date can be older than the actual oldest date in the file.
 	// The returned vector will simply start with the actual oldest date.
 	// The same goes with the last date in its opposite way.
-	QDateTime startDate(QDate(2013, 12, 25), QTime(0, 0, 0));
-	QDateTime endDate(QDate(2014, 1, 10), QTime(0, 0, 0));
+	QDate startDate(2013, 12, 25);
+	QDate endDate(2014, 1, 10);
 	try {
 		result = this->google.retrieveValues(startDate, endDate);
 	} catch(CannotOpenFileException& e) {
@@ -115,8 +114,7 @@ void TestAsset::testRetrieveValues() {
 
 	// UNAVAILABLE DATES IN THE MIDDLE CASE
 	try {
-		result = this->apple.retrieveValues(QDateTime(QDate(2014, 1, 3), QTime(0, 0, 0)),
-											QDateTime(QDate(2014, 1, 3), QTime(0, 0, 0)));
+		result = this->apple.retrieveValues(QDate(2014, 1, 3), QDate(2014, 1, 3));
 	} catch(CannotOpenFileException& e) {
 		qDebug() << e.what();
 	}
@@ -143,7 +141,7 @@ void TestAsset::testRetrieveValues() {
  * @brief Tests the method retrieveValuesByDate that retrieves all date-values of an asset.
  */
 void TestAsset::testRetrieveValuesByDate() {
-	QMap<QDateTime, double> result;
+	QMap<QDate, double> result;
 
 
 	// EXPECTED AND SUCCESSFUL CASE
@@ -154,10 +152,10 @@ void TestAsset::testRetrieveValuesByDate() {
 	}
 
 	QCOMPARE(result.size(), 4);
-	QCOMPARE(result.value(QDateTime(QDate(2014, 1, 2), QTime(0, 0, 0))), 101.0);
-	QCOMPARE(result.value(QDateTime(QDate(2014, 1, 3), QTime(0, 0, 0))), 102.0);
-	QCOMPARE(result.value(QDateTime(QDate(2014, 1, 4), QTime(0, 0, 0))), 103.0);
-	QCOMPARE(result.value(QDateTime(QDate(2014, 1, 5), QTime(0, 0, 0))), 104.0);
+	QCOMPARE(result.value(QDate(2014, 1, 2)), 101.0);
+	QCOMPARE(result.value(QDate(2014, 1, 3)), 102.0);
+	QCOMPARE(result.value(QDate(2014, 1, 4)), 103.0);
+	QCOMPARE(result.value(QDate(2014, 1, 5)), 104.0);
 
 	// INCORRECT DATE PARAMETERS CASE
 	// startDate is after endDate
@@ -180,8 +178,8 @@ void TestAsset::testRetrieveValuesByDate() {
 	// The first date can be older than the actual oldest date in the file.
 	// The returned map will simply start with the actual oldest date.
 	// The same goes with the last date in its opposite way.
-	QDateTime startDate(QDate(2013, 12, 25), QTime(0, 0, 0));
-	QDateTime endDate(QDate(2014, 1, 10), QTime(0, 0, 0));
+	QDate startDate(2013, 12, 25);
+	QDate endDate(2014, 1, 10);
 	try {
 		result = this->google.retrieveValuesByDate(startDate, endDate);
 	} catch(CannotOpenFileException& e) {
@@ -189,10 +187,10 @@ void TestAsset::testRetrieveValuesByDate() {
 	}
 
 	QCOMPARE(result.size(), 6);
-	QCOMPARE(result.value(QDateTime(QDate(2014, 1, 1), QTime(0, 0, 0))), 100.0);
-	QCOMPARE(result.value(QDateTime(QDate(2014, 1, 2), QTime(0, 0, 0))), 101.0);
-	QCOMPARE(result.value(QDateTime(QDate(2014, 1, 3), QTime(0, 0, 0))), 102.0);
-	QCOMPARE(result.value(QDateTime(QDate(2014, 1, 4), QTime(0, 0, 0))), 103.0);
-	QCOMPARE(result.value(QDateTime(QDate(2014, 1, 5), QTime(0, 0, 0))), 104.0);
-	QCOMPARE(result.value(QDateTime(QDate(2014, 1, 6), QTime(0, 0, 0))), 105.0);
+	QCOMPARE(result.value(QDate(2014, 1, 1)), 100.0);
+	QCOMPARE(result.value(QDate(2014, 1, 2)), 101.0);
+	QCOMPARE(result.value(QDate(2014, 1, 3)), 102.0);
+	QCOMPARE(result.value(QDate(2014, 1, 4)), 103.0);
+	QCOMPARE(result.value(QDate(2014, 1, 5)), 104.0);
+	QCOMPARE(result.value(QDate(2014, 1, 6)), 105.0);
 }

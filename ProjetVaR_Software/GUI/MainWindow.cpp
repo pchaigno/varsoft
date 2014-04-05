@@ -16,15 +16,6 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #include "MainWindow.h"
-#include "ui_MainWindow.h"
-#include <QFile>
-#include <QFileDialog>
-#include <QTableWidgetItem>
-#include <QDateTime>
-#include "ImportNewData.h"
-#include "ImportData.h"
-#include "import.h"
-#include "QDateTime"
 
 MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWindow), portfolioListModel(new PortfolioItemModel(this)) {
 	ui->setupUi(this);
@@ -32,8 +23,8 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
 	//for the import button in the main window
 	connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(setImportCSV()));
 	//to connect the signal sent from the import window
-	connect(&import_win, SIGNAL(dataEntered(const QString&, const QDateTime&, const QDateTime&, const QString&)),
-						 this, SLOT(onDataEntered(const QString&, const QDateTime&, const QDateTime&, const QString&)));
+    connect(&import_win, SIGNAL(dataEntered(const QString&, const QDate&, const QDate&, const QString&)),
+                         this, SLOT(onDataEntered(const QString&, const QDate&, const QDate&, const QString&)));
 
 	ui->listView->setModel(portfolioListModel);
 	connect(ui->removePushButton, SIGNAL(clicked()), ui->listView, SLOT(removeSelectedPortfolio()));
@@ -75,7 +66,7 @@ void MainWindow::showPortfolio(Portfolio * portfolio){
 * @param startDate The date of the first value to import.
 * @param endDate The date of the last value to import.
 */
-void MainWindow::onDataEntered(const QString &name, const QDateTime &fDate ,const QDateTime &lDate, const QString &origin){
+void MainWindow::onDataEntered(const QString &name, const QDate &fDate, const QDate &lDate, const QString &origin) {
 	MainWindow::stockName = name;
 	MainWindow::startDate = fDate;
 	MainWindow::endDate = lDate;

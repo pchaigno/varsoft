@@ -48,11 +48,11 @@ TestImportNewData::TestImportNewData() {
 	}
 	QTextStream flux(&fileCreated);
 	flux.setCodec("UTF-8");
-	const QDateTime &fiDate = QDateTime::fromString(TestImportNewData::startDate,"yyyy-MM-dd");
-	const QDateTime &laDate = QDateTime::fromString(TestImportNewData::endDate,"yyyy-MM-dd");
+	const QDate &fiDate = QDate::fromString(TestImportNewData::startDate,"yyyy-MM-dd");
+	const QDate &laDate = QDate::fromString(TestImportNewData::endDate,"yyyy-MM-dd");
 	for (int x =1; x < rowOfData.size()-1; x++)	{
 		rowData = rowOfData.at(x).split(",");
-		QDateTime currentDate = QDateTime::fromString(rowData[0],"yyyy-MM-dd");
+		QDate currentDate = QDate::fromString(rowData[0],"yyyy-MM-dd");
 		if ((fiDate >= currentDate)) {
 			if(laDate >= currentDate) {
 				break;
@@ -61,7 +61,7 @@ TestImportNewData::TestImportNewData() {
 		}
 	}
 	fileCreated.close();
-	Asset a = Asset("Gogole",TestImportNewData::newFile,TestImportNewData::origin,fiDate,laDate);
+	Asset a = Asset("Gogole",TestImportNewData::newFile, TestImportNewData::origin, fiDate, laDate);
 	SessionSaver::getInstance()->saveAsset(a);
 }
 
@@ -83,11 +83,11 @@ void TestImportNewData::testDates() {
 	}
 	//first date
 	rowData = rowOfData.at(0).split(",");
-	QVERIFY((QDateTime::fromString(TestImportNewData::startDate,"yyyy-MM-dd")) >= (QDateTime::fromString(rowData[0],"yyyy-MM-dd")));
+	QVERIFY((QDate::fromString(TestImportNewData::startDate, "yyyy-MM-dd")) >= (QDate::fromString(rowData[0], "yyyy-MM-dd")));
 
 	//last date
 	rowData = rowOfData.at(rowOfData.size()-2).split(",");
-	QVERIFY((QDateTime::fromString(TestImportNewData::endDate,"yyyy-MM-dd")) <= (QDateTime::fromString(rowData[0],"yyyy-MM-dd")));
+	QVERIFY((QDate::fromString(TestImportNewData::endDate, "yyyy-MM-dd")) <= (QDate::fromString(rowData[0], "yyyy-MM-dd")));
 }
 
 /**
@@ -96,8 +96,8 @@ void TestImportNewData::testDates() {
 void TestImportNewData::testDB() {
 	Asset *a = SessionBuilder::getInstance()->buildAsset("Gogole");
 	QVERIFY(a->getFile() == TestImportNewData::newFile);
-	QVERIFY(a->getStartDate() <= QDateTime::fromString(TestImportNewData::startDate,"yyyy-MM-dd"));
-	QVERIFY(a->getEndDate() >= QDateTime::fromString(TestImportNewData::endDate,"yyyy-MM-dd"));
+	QVERIFY(a->getStartDate() <= QDate::fromString(TestImportNewData::startDate, "yyyy-MM-dd"));
+	QVERIFY(a->getEndDate() >= QDate::fromString(TestImportNewData::endDate, "yyyy-MM-dd"));
 	QVERIFY(a->getName() == TestImportNewData::stockName);
 	QVERIFY(a->getOrigin() == TestImportNewData::origin);
 

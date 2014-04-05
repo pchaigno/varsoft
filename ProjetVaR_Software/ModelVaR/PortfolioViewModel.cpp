@@ -123,13 +123,13 @@ void PortfolioViewModel::setPortfolio(Portfolio *portfolio) {
  */
 void PortfolioViewModel::createDataStructure() {
 	QMap<Asset*, int> compo = portfolio->getComposition();
-	QDateTime startDate = portfolio->retrieveStartDate();
-	QDateTime endDate = portfolio->retrieveEndDate();
-	QMap<QDateTime, double> dates;
+	QDate startDate = portfolio->retrieveStartDate();
+	QDate endDate = portfolio->retrieveEndDate();
+	QMap<QDate, double> dates;
 	try {
 		dates = portfolio->retrieveValuesByDate(startDate, endDate);
 	} catch (std::exception & ) {
-		QDateTime tmp = startDate;
+		QDate tmp = startDate;
 		startDate = endDate;
 		endDate = tmp;
 		//bug des dates dans import ...
@@ -147,17 +147,17 @@ void PortfolioViewModel::createDataStructure() {
 
 	// set the vertical headers with the dates
 	datesRow.clear();
-	foreach(QDateTime date, dates.keys()) {
+	foreach(QDate date, dates.keys()) {
 		datesRow.append(date);
 	}
 
-	qStableSort(datesRow.begin(), datesRow.end(), qGreater<QDateTime>());
+	qStableSort(datesRow.begin(), datesRow.end(), qGreater<QDate>());
 
 	// put the first column of the table with the value of th portfolio for each date
 	QVector<QString> columns;
 	columns.clear();
 	columns.resize(1+datesRow.count());
-	foreach(QDateTime date, dates.keys()) {
+	foreach(QDate date, dates.keys()) {
 		int index = datesRow.indexOf(date);
 		columns[index+1] = QString::number(dates[date]);
 	}
@@ -168,10 +168,10 @@ void PortfolioViewModel::createDataStructure() {
 	foreach(Asset* asset, compo.keys()) {
 		columns.clear();
 		columns.resize(1+datesRow.count());
-		QMap<QDateTime, double> valvector = asset->retrieveValuesByDate(startDate, endDate);
+		QMap<QDate, double> valvector = asset->retrieveValuesByDate(startDate, endDate);
 
 		columns[0] = QString::number(compo[asset]); // number of asset in portfolio
-		foreach(QDateTime date, valvector.keys()) {
+		foreach(QDate date, valvector.keys()) {
 			int index = datesRow.indexOf(date);
 			columns[index+1] = QString::number(valvector[date]);
 		}

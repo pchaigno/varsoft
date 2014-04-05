@@ -18,7 +18,6 @@
 #pragma once
 
 #include <QMainWindow>
-#include <QDateTime>
 #include <QDialog>
 #include <QComboBox>
 #include "import.h"
@@ -26,6 +25,13 @@
 #include "NewPortfolioWizard.h"
 #include "PortfolioItemModel.h"
 #include "PortfolioViewModel.h"
+#include "ui_MainWindow.h"
+#include <QFile>
+#include <QFileDialog>
+#include <QTableWidgetItem>
+#include <QDate>
+#include "ImportNewData.h"
+#include "ImportData.h"
 
 namespace Ui {
 	class MainWindow;
@@ -45,14 +51,14 @@ private slots:
 
 	void addPortfolio(Portfolio *);
 
-	void onDataEntered(const QString &text, const QDateTime &fDate, const QDateTime &lDate, const QString &source);
+	void onDataEntered(const QString &text, const QDate &fDate, const QDate &lDate, const QString &source);
 
 private:
 	Ui::MainWindow *ui;
 	Import import_win;
 	QString stockName;
-	QDateTime startDate;
-	QDateTime endDate;
+	QDate startDate;
+	QDate endDate;
 	QString fileName;
 	QString origin;
 	PortfolioItemModel * portfolioListModel;

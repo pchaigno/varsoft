@@ -22,8 +22,8 @@ TestVaRHistorical::TestVaRHistorical() {
 	QString assetFolder = "../../CSV_examples/";
 
 	// ASSET DEFINITION
-	QDateTime startDate(QDate(2014, 1, 2), QTime(0, 0, 0));
-	QDateTime endDate(QDate(2014, 3, 11), QTime(0, 0, 0));
+	QDate startDate(QDate(2014, 1, 2));
+	QDate endDate(QDate(2014, 3, 11));
 	Asset* dax = new Asset("dax", assetFolder+"dax.csv", "YAHOO", startDate, endDate);
 
 	// TEST PORTFOLIO DEFINITION

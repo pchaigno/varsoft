@@ -30,7 +30,7 @@ private:
 
 public:
 	VaRAlgorithm(const Portfolio& portfolio, double risk, int timeHorizon);
-	virtual double execute(QDateTime date) const =0;
+	virtual double execute(QDate date) const =0;
 	const Portfolio& getPortfolio() const;
 	double getRisk() const;
 	int getTimeHorizon() const;
