@@ -40,7 +40,11 @@ public:
 	friend class TestPortfolioItemModel;
 #endif
 
+<<<<<<< HEAD
     Portfolio *getPortfolio(const QModelIndex & index);
+=======
+	Portfolio *getPortfolio(const QModelIndex & index);
+>>>>>>> master
 
 signals:
 

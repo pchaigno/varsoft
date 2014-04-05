@@ -1,0 +1,48 @@
+{
+ "text": {
+ 		"portefeuilleName": "Portefeuille 2014",
+ 		"dateDeb": "01/01/2014",
+ 		"dateFin": "30/03/2014",
+ 		"val": "300",
+ 		"date": "30/03/2014",
+ 		"moyenne": "35.2",
+ 		"variance": "2.5",
+ 		"kurtosis": "85",
+ 		"min": "24",
+ 		"max": "48"
+ 	},
+ "list":{
+ 	"asset":[
+ 	{
+ 		"Name" : "GOOGLE",
+ 		"Qte" : "5",
+ 		"Unit" : "125.5",
+ 		"Total" : "627.5"
+ 	},
+ 	{
+ 		"Name" : "AMAZONE",
+ 		"Qte" : "8",
+ 		"Unit" : "35.5",
+ 		"Total" : "627.5"
+ 	},
+ 	{
+ 		"Name" : "APPLE",
+ 		"Qte" : "2",
+ 		"Unit" : "255.5",
+ 		"Total" : "627.5"
+ 	},
+ 	{
+ 		"Name" : "EDF",
+ 		"Qte" : "7",
+ 		"Unit" : "85.5",
+ 		"Total" : "627.5"
+ 	},
+ 	{
+ 		"Name" : "Test",
+ 		"Qte" : "10",
+ 		"Unit" : "65.5",
+ 		"Total" : "627.5"
+ 	},
+ 	]
+ }
+}

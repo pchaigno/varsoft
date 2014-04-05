@@ -5,6 +5,7 @@
 		<title>VaR project</title>
 		<style>
 			body {
+				font-size: medium;
 				width: 650px;
 				margin: auto;
 			}
@@ -16,9 +17,9 @@
 		More precisely, it provides three different methods to compute the Value-at-Risk, a measure of the risk of loss on portfolio of financial assets.
 		Our software assists the user through his decision-making process, from the creation of portfolio to the comparison of the three methods:
 		<ol>
-			<li>Historic method</li>
-			<li>GARCH modelisation</li>
-			<li>Riskmetrics method</li>
+			<li>Historic method: the simplest method</li>
+			<li>GARCH modelisation: based on a volatility and returns model</li>
+			<li>Riskmetrics method: heuristic-based method using a particular case of the GARCH modelisation</li>
 		</ol>
 		In its first stage, our software will allow the user to produce several reports as PDF or DOCX documents.<br/>
 
@@ -30,13 +31,26 @@
 		Our software core is entirely written in C++.
 		However, it uses several other languages and frameworks for certain features.<br/>
 
-		It relies on the free software environnement for statistical computing, R.
-		It is used for several algorithm such as the GARCH estimation and the Riskmetric algorithm.<br/>
+		It relies on <a href="http://www.r-project.org/">R</a>, which is a free software environnement for statistical computing.
+		R is used for several algorithms such as the GARCH estimation and the Riskmetric algorithm.<br/>
 
-		Our graphical user interface uses the Qt widget toolkit.
-		The latter also creates the charts which are then included in the reports.<br/>
+		Our graphical user interface uses the <a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qtwidgets-index.html">Qt widget toolkit</a>.
+		It also creates the charts which are then included in the reports.<br/>
 
 		To generate the reports, we developed a light Java command-line tool.
-		It uses the open-source API xdocreport and receives the values to include in the report as JSON on the standard input.<br/>
+		It uses the open-source API <a href="https://code.google.com/p/xdocreport/">xdocreport</a> and receives the values to include in the report as JSON on the standard input.<br/>
+		<br/>
+
+		<h1>Continuous integration</h1>
+		Our projet is hosted on <a href="http://github.com/pchaigno/ProjetVaR">GitHub</a>.
+		Sources and executables can be downloaded there.<br/>
+
+		We used Open-source software development methods throughout the project.
+		All new features or improvements are developped on new branches and then merged into the project using <a href="http://en.wikipedia.org/wiki/Pull_request">Pull Requests</a>.
+		The branch is entirely reviewed by another contributor before merging.
+		This method allows us to produce a far better quality software.<br/>
+
+		If you find a bug, please open an issue on GitHub or contact us.<br/>
+		<br/>
 	</body>
 </html>

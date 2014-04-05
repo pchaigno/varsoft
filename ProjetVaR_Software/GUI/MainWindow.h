@@ -29,7 +29,7 @@
 #include "ReportGenerator.h"
 #include "StatisticsReportFactory.h"
 #include "DocxGenerator.h"
-#include "PDFGenerator.h"
+#include "PortfolioViewModel.h"
 
 namespace Ui {
 	class MainWindow;
@@ -43,10 +43,12 @@ public:
 	~MainWindow();
 
 private slots:
-    void newPortfolio();
-    void generateStatsReport();
+	void newPortfolio();
+	void showPortfolio(Portfolio* portfolio);
 	void setImportCSV();
-	void onDataEntered(const QString &text, const QDateTime &fDate ,const QDateTime &lDate, const QString &source);
+    void generateStatsReport();
+	void addPortfolio(Portfolio *);
+	void onDataEntered(const QString &text, const QDateTime &fDate, const QDateTime &lDate, const QString &source);
 
 
 private:
@@ -61,5 +63,6 @@ private:
 	QDateTime endDate;
 	QString fileName;
 	QString origin;
-	PortfolioItemModel * portfolioModel;
+	PortfolioItemModel * portfolioListModel;
+	QHash<Portfolio*, PortfolioViewModel*> portfoliosModels;
 };

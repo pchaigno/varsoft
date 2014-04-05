@@ -30,11 +30,11 @@ Asset::Asset() {
  * @param name The name of the asset.
  * @param file The file where are located the values.
  * @param origin The origin of the file with the values.
- * @param firstDate The date of the first value defined.
- * @param lastDate The date of the last value defined.
+ * @param startDate The date of the first value defined.
+ * @param endDate The date of the last value defined.
  */
-Asset::Asset(QString name, QString file, QString origin, QDateTime firstDate, QDateTime lastDate) {
-	this->init(-1, name, file, origin, firstDate, lastDate);
+Asset::Asset(QString name, QString file, QString origin, QDateTime startDate, QDateTime endDate) {
+	this->init(-1, name, file, origin, startDate, endDate);
 }
 
 /**
@@ -43,11 +43,11 @@ Asset::Asset(QString name, QString file, QString origin, QDateTime firstDate, QD
  * @param name The name of the asset.
  * @param file The file where are located the values.
  * @param origin The origin of the file with the values.
- * @param firstDate The date of the first value defined.
- * @param lastDate The date of the last value defined.
+ * @param startDate The date of the first value defined.
+ * @param endDate The date of the last value defined.
  */
-Asset::Asset(int id, QString name, QString file, QString origin, QDateTime firstDate, QDateTime lastDate) {
-	this->init(id, name, file, origin, firstDate, lastDate);
+Asset::Asset(int id, QString name, QString file, QString origin, QDateTime startDate, QDateTime endDate) {
+	this->init(id, name, file, origin, startDate, endDate);
 }
 
 /**
@@ -56,16 +56,16 @@ Asset::Asset(int id, QString name, QString file, QString origin, QDateTime first
  * @param name The name of the asset.
  * @param file The file where are located the values.
  * @param origin The origin of the file with the values.
- * @param firstDate The date of the first value defined.
- * @param lastDate The date of the last value defined.
+ * @param startDate The date of the first value defined.
+ * @param endDate The date of the last value defined.
  */
-void Asset::init(int id, QString name, QString file, QString origin, QDateTime firstDate, QDateTime lastDate) {
+void Asset::init(int id, QString name, QString file, QString origin, QDateTime startDate, QDateTime endDate) {
 	this->id = id;
 	this->name = name;
 	this->file = file;
 	this->origin = origin;
-	this->firstDate = firstDate;
-	this->lastDate = lastDate;
+	this->startDate = startDate;
+	this->endDate = endDate;
 }
 
 /**
@@ -117,16 +117,16 @@ QString Asset::getOrigin() const {
  * @brief Accessor to the first date defined.
  * @return The date of the first value defined.
  */
-QDateTime Asset::getFirstDate() const {
-	return this->firstDate;
+QDateTime Asset::getStartDate() const {
+	return this->startDate;
 }
 
 /**
  * @brief Accessor to the last date defined.
  * @return The date of the last value defined.
  */
-QDateTime Asset::getLastDate() const {
-	return this->lastDate;
+QDateTime Asset::getEndDate() const {
+	return this->endDate;
 }
 
 /**
@@ -138,11 +138,11 @@ void Asset::changeName(QString name) {
 }
 
 /**
- * @brief Retrieve the asset values between its firstDate and lastDate attributes
+ * @brief Retrieve the asset values between its startDate and endDate attributes
  * @return The values of the asset in the chronological order
  */
 QVector<double> Asset::retrieveValues() const {
-	return this->retrieveValues(this->firstDate, this->lastDate);
+	return this->retrieveValues(this->startDate, this->endDate);
 }
 
 /**
@@ -231,7 +231,6 @@ QMap<QDateTime, double> Asset::retrieveValuesByDate(const QDateTime& startDate, 
 		QTextStream in(&inputFile);
 
 		bool startDetected = false;
-
 		// Loop over each line
 		while(!in.atEnd()) {
 			QString line = in.readLine();
@@ -240,6 +239,7 @@ QMap<QDateTime, double> Asset::retrieveValuesByDate(const QDateTime& startDate, 
 			QString date = row.value(0);
 			QString value = row.value(1);
 			QDateTime readDate = QDateTime::fromString(date,"yyyy-MM-dd");
+
 
 			// If the ending date has not been read yet, it goes at the start of the loop
 			// and read the next line
@@ -257,7 +257,6 @@ QMap<QDateTime, double> Asset::retrieveValuesByDate(const QDateTime& startDate, 
 			if(readDate < startDate) {
 				break;
 			}
-
 			// Building the vector
 			values.insert(readDate, value.toDouble());
 		}

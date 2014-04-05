@@ -39,7 +39,17 @@ int PortfolioItemModel::rowCount(const QModelIndex &parent) const {
  */
 Qt::ItemFlags PortfolioItemModel::flags(const QModelIndex &index) const {
 	Q_UNUSED(index);
-	return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
+    return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
+}
+
+/**
+ * @brief Get the portfolio at the given ModelIndex, or NULL if the ModelIndex is not valid.
+ * @param index the ModelIndex of the portfolio
+ * @return A pointer to the Portfolio
+ */
+Portfolio *PortfolioItemModel::getPortfolio(const QModelIndex &index)
+{
+    return index.isValid() ? portfolioList[index.row()] : NULL;
 }
 
 Portfolio *PortfolioItemModel::getPortfolio(const QModelIndex &index)

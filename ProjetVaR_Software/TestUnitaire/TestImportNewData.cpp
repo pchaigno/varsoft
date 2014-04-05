@@ -24,8 +24,8 @@
 */
 TestImportNewData::TestImportNewData() {
 	TestImportNewData::stockName = "Gogole";
-	TestImportNewData::firstDate = "2014-02-07";
-	TestImportNewData::lastDate = "2014-01-01";
+	TestImportNewData::startDate = "2014-02-07";
+	TestImportNewData::endDate = "2014-01-01";
 	TestImportNewData::origin = "Yahoo";
 	QString data;
 	QFile importedCSV("../../CSV_examples/table.csv");
@@ -48,8 +48,8 @@ TestImportNewData::TestImportNewData() {
 	}
 	QTextStream flux(&fileCreated);
 	flux.setCodec("UTF-8");
-	const QDateTime &fiDate = QDateTime::fromString(TestImportNewData::firstDate,"yyyy-MM-dd");
-	const QDateTime &laDate = QDateTime::fromString(TestImportNewData::lastDate,"yyyy-MM-dd");
+	const QDateTime &fiDate = QDateTime::fromString(TestImportNewData::startDate,"yyyy-MM-dd");
+	const QDateTime &laDate = QDateTime::fromString(TestImportNewData::endDate,"yyyy-MM-dd");
 	for (int x =1; x < rowOfData.size()-1; x++)	{
 		rowData = rowOfData.at(x).split(",");
 		QDateTime currentDate = QDateTime::fromString(rowData[0],"yyyy-MM-dd");
@@ -66,7 +66,7 @@ TestImportNewData::TestImportNewData() {
 }
 
 /**
- * @brief Checks that the firstDate and the lastDate of the generated file correspond to the params
+ * @brief Checks that the startDate and the endDate of the generated file correspond to the params
  */
 void TestImportNewData::testDates() {
 	QString data;
@@ -83,11 +83,11 @@ void TestImportNewData::testDates() {
 	}
 	//first date
 	rowData = rowOfData.at(0).split(",");
-	QVERIFY((QDateTime::fromString(TestImportNewData::firstDate,"yyyy-MM-dd")) >= (QDateTime::fromString(rowData[0],"yyyy-MM-dd")));
+	QVERIFY((QDateTime::fromString(TestImportNewData::startDate,"yyyy-MM-dd")) >= (QDateTime::fromString(rowData[0],"yyyy-MM-dd")));
 
 	//last date
 	rowData = rowOfData.at(rowOfData.size()-2).split(",");
-	QVERIFY((QDateTime::fromString(TestImportNewData::lastDate,"yyyy-MM-dd")) <= (QDateTime::fromString(rowData[0],"yyyy-MM-dd")));
+	QVERIFY((QDateTime::fromString(TestImportNewData::endDate,"yyyy-MM-dd")) <= (QDateTime::fromString(rowData[0],"yyyy-MM-dd")));
 }
 
 /**
@@ -96,8 +96,8 @@ void TestImportNewData::testDates() {
 void TestImportNewData::testDB() {
 	Asset *a = SessionBuilder::getInstance()->buildAsset("Gogole");
 	QVERIFY(a->getFile() == TestImportNewData::newFile);
-	QVERIFY(a->getFirstDate() <= QDateTime::fromString(TestImportNewData::firstDate,"yyyy-MM-dd"));
-	QVERIFY(a->getLastDate() >= QDateTime::fromString(TestImportNewData::lastDate,"yyyy-MM-dd"));
+	QVERIFY(a->getStartDate() <= QDateTime::fromString(TestImportNewData::startDate,"yyyy-MM-dd"));
+	QVERIFY(a->getEndDate() >= QDateTime::fromString(TestImportNewData::endDate,"yyyy-MM-dd"));
 	QVERIFY(a->getName() == TestImportNewData::stockName);
 	QVERIFY(a->getOrigin() == TestImportNewData::origin);
 

@@ -19,7 +19,6 @@
 
 #include <QtAlgorithms>
 #include <QDateTime>
-#include <QDebug>
 #include <qmath.h>
 #include "Portfolio.h"
 #include "VaRAlgorithm.h"
