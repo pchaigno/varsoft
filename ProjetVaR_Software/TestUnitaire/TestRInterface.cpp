@@ -18,10 +18,27 @@
 
 #include "TestRInterface.h"
 
-TestRInterface::TestRInterface()
-{
+/**
+ * @brief Initializes a portfolio for the tests.
+ */
+TestRInterface::TestRInterface() {
+	QString assetFolder = "../../CSV_examples/";
+
+	// FIRST ASSET DEFINITION
+	QDateTime startDate1(QDate(2014, 1, 2), QTime(0, 0, 0));
+	QDateTime endDate1(QDate(2014, 3, 11), QTime(0, 0, 0));
+	Asset* asset1 = new Asset("asset1", assetFolder+"dax.csv", "YAHOO", startDate1, endDate1);
+
+	// TEST PORTFOLIO DEFINITION
+	QMap<Asset*, int> assets;
+	assets.insert(asset1, 1);
+	QVector<Report*> reports;
+	this->father = Portfolio("Father", assets, reports);
 }
 
 void TestRInterface::testComputeGarchModel() {
-	RInterface::computeGarchModel()
+
+	int period = 20;
+
+	RInterface::computeGarchModel(this->father, this->father.retrieveEndDate(), period);
 }

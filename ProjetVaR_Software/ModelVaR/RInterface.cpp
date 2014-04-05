@@ -68,7 +68,6 @@ GarchModel RInterface::computeGarchModel(const Portfolio& portfolio, QDateTime d
 	// Writes to R standard input the previously created string
 	process.write(parameters.toStdString().c_str());
 	process.closeWriteChannel();
-
 	process.waitForFinished();
 
 	// Reads R output
@@ -82,10 +81,15 @@ GarchModel RInterface::computeGarchModel(const Portfolio& portfolio, QDateTime d
 	QStringList tokens;
 	tokens = output.split(QRegExp("[\r\n]"),QString::SkipEmptyParts);
 
-	// Gets the coefficient values
-	double omega = tokens.value(2).mid(6).toDouble();
-	double alpha = tokens.value(5).mid(6).toDouble();
-	double beta;
+	qDebug() << tokens;
+	// Retrieves the coefficient from the right line
+	QStringList coefficients;
+	coefficients = tokens.value(4).split(QRegExp("\\s"), QString::SkipEmptyParts);
+
+	// Gets the coefficient values	
+	double omega = coefficients.value(0).toDouble();
+	double alpha = coefficients.value(1).toDouble();
+	double beta = coefficients.value(2).toDouble();
 
 	return GarchModel(omega, alpha, beta);
 }

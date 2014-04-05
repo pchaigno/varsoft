@@ -23,6 +23,7 @@
 #include "TestReport.h"
 #include "TestSQLiteManagers.h"
 #include "TestPortfolioItemModel.h"
+#include "TestRInterface.h"
 
 int main() {
 	int result = 0;
@@ -42,5 +43,7 @@ int main() {
 	result += QTest::qExec(&data);
 	TestPortfolioItemModel portfolioModel;
 	result += QTest::qExec(&portfolioModel);
+	TestRInterface rInterface;
+	result += QTest::qExec(&rInterface);
 	return result;
 }

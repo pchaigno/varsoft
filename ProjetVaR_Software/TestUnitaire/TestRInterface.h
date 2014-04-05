@@ -24,6 +24,7 @@
 #include "RInterface.h"
 
 class TestRInterface: public QObject {
+	Q_OBJECT
 
 private:
 	Portfolio father;

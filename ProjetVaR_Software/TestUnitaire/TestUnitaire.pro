@@ -34,7 +34,7 @@ HEADERS += \
 	TestSQLiteManagers.h \
 	TestPortfolioItemModel.h \
     TestVaRHistorical.h \
-    TestRInterface.h
+	TestRInterface.h
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 DEFINES += UNITTEST
