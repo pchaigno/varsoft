@@ -24,6 +24,7 @@
 #include "Asset.h"
 #include <QDateTime>
 #include <QDebug>
+#include <QtMath>
 #include "IdAlreadyAttributedException.h"
 #include "ModelVaR_global.h"
 #include "PortfolioCalculationException.h"
@@ -56,6 +57,7 @@ public:
 	QDateTime retrieveEndDate() const;
 	static QVector<double> getReturns(QVector<double> &values);
 	QVector<double> retrieveReturns(QDateTime endingPeriodDate, int period) const;
+	QVector<double> retrieveLogReturns(QDateTime endingPeriodDate, int period) const;
 	QVector<double> retrieveValues() const;
 	QVector<double> retrieveValues(const QDateTime &startDate, const QDateTime &endDate) const;
 	QMap<QDateTime, double> retrieveValuesByDate(const QDateTime& startDate, const QDateTime& endDate) const;

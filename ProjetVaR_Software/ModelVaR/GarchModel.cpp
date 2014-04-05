@@ -20,6 +20,4 @@
 /**
  * @brief Constructor
  */
-GarchModel::GarchModel() {
-
-}
+GarchModel::GarchModel(double _omega, double _alpha, double _beta): omega(_omega), alpha(_alpha), beta(_beta) {}

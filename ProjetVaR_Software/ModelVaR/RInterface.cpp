@@ -42,7 +42,50 @@ bool RInterface::checkSquareCorrelation(const Portfolio& portfolio) {
  * @param portfolio The portfolio.
  * @return The GARCH model.
  */
-GarchModel RInterface::computeGarchModel(const Portfolio& portfolio) {
-	// TODO
-	return GarchModel();
+GarchModel RInterface::computeGarchModel(const Portfolio& portfolio, QDateTime date, int period) {
+
+	QVector<double> logReturns;
+	QProcess process;
+	QStringList arguments;
+
+	logReturns = portfolio.retrieveLogReturns(date, period);
+
+	QString rScriptFilePath = "../../R_scripts/garch.r";
+
+	// The only command line argument passed to Rscript is
+	// the R script file
+	arguments << rScriptFilePath;
+
+	// Makes the string sent to the Rscript standard input
+	// Made of a single line containing the log-returns separated by space characters
+	QString parameters;
+	for(QVector<double>::const_iterator it=logReturns.begin(); it!=logReturns.end(); ++it) {
+		parameters += QString::number(*it) + " ";
+	}
+
+	process.start("Rscript", arguments);
+
+	// Writes to R standard input the previously created string
+	process.write(parameters.toStdString().c_str());
+	process.closeWriteChannel();
+
+	process.waitForFinished();
+
+	// Reads R output
+	QByteArray rawOutput = process.readAllStandardOutput();
+
+	// Convert it to QString
+	QString output = QString::fromUtf8(rawOutput);
+
+	// Splits the output by newline
+	// Removes empty lines as well
+	QStringList tokens;
+	tokens = output.split(QRegExp("[\r\n]"),QString::SkipEmptyParts);
+
+	// Gets the coefficient values
+	double omega = tokens.value(2).mid(6).toDouble();
+	double alpha = tokens.value(5).mid(6).toDouble();
+	double beta;
+
+	return GarchModel(omega, alpha, beta);
 }

@@ -187,3 +187,14 @@ void TestPortfolio::testRetrieveReturns() {
 	// among the assets.
 	qDebug() << result;
 }
+
+void TestPortfolio::testRetrieveLogReturns() {
+	QVector<double> logReturns;
+
+	logReturns = this->son.retrieveLogReturns(QDateTime(QDate(2014, 1, 8), QTime(0, 0, 0)), 4);
+
+	QCOMPARE(logReturns.at(0), 0.00966191091173689009519165438177878968417644500732421875);
+	QCOMPARE(logReturns.at(1), 0.00956945101615067246492163377524775569327175617218017578125);
+	QCOMPARE(logReturns.at(2), 0.00790517950711324725310280570056420401670038700103759765625);
+	QCOMPARE(logReturns.at(3), 0.00471328445209813658156594584625054267235100269317626953125);
+}

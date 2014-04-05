@@ -321,6 +321,34 @@ QVector<double> Portfolio::retrieveReturns(QDateTime endingPeriodDate, int perio
 }
 
 /**
+ * @brief Calculates the log-returns associated with the values. It does not guarantee that
+ * the returned vector size is period.
+ * @param endingPeriodDate The ending date of the log-returns
+ * @param period The number of desired log-returns
+ * @return The log-returns in a chronological order
+ */
+QVector<double> Portfolio::retrieveLogReturns(QDateTime endingPeriodDate, int period) const {
+	QVector<double> logReturns;
+
+	QDateTime startingPeriodDate = endingPeriodDate.addDays(-period+1);
+	QVector<double> values = this->retrieveValues(startingPeriodDate, endingPeriodDate);
+
+	// Make sure there is there is the exact number of returns
+	while(values.size() <= period && startingPeriodDate > this->retrieveStartDate()) {
+		startingPeriodDate = startingPeriodDate.addDays(-1);
+		if(!this->retrieveValues(startingPeriodDate, startingPeriodDate).isEmpty()) {
+			values.push_front(this->retrieveValues(startingPeriodDate, startingPeriodDate).at(0));
+		}
+	}
+
+	for(int i=1; i < values.size(); i++) {
+		logReturns.push_back(qLn(values.at(i)/values.at(i-1)));
+	}
+
+	return logReturns;
+}
+
+/**
  * @brief Checks if two portfolios are equal.
  * @param a The first portfolio.
  * @param b The second asset.

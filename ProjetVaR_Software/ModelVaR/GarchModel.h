@@ -18,6 +18,12 @@
 #pragma once
 
 class GarchModel {
+
+private:
+	double omega;
+	double alpha;
+	double beta;
+
 public:
-	GarchModel();
+	GarchModel(double _omega, double _alpha, double _beta);
 };
