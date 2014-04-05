@@ -18,8 +18,13 @@
 #pragma once
 
 #include "ReportFactory.h"
+#include "BacktestingReport.h"
 
 class BacktestingReportFactory: public ReportFactory {
 public:
-    BacktestingReportFactory(QString docxFile, QString pdfFile);
+    BacktestingReportFactory();
+
+protected:
+    virtual Report *getReport();
+    virtual ReportDataJson createJson();
 };

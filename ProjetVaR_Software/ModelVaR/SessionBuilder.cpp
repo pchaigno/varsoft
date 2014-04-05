@@ -172,32 +172,31 @@ QVector<Report*> SessionBuilder::buildReports(int idPortfolio) {
 
 	int id;
 	ReportType type;
-	QString docxFile, pdfFile;
+    QString file;
 	QVector<Report*> reports;
 	while(query.next()) {
 		id = query.value(0).toInt();
-		docxFile = query.value(1).toString();
-		pdfFile = query.value(2).toString();
+        file = query.value(1).toString();
 		type = (ReportType)query.value(3).toInt();
 		Report* report;
 		switch(type) {
 			case GARCH:
-				report = new GarchReport(id, docxFile, pdfFile);
+                report = new GarchReport(id, file);
 				break;
 			case VAR:
-				report = new VaRReport(id, docxFile, pdfFile);
+                report = new VaRReport(id, file);
 				break;
 			case STATISTICS:
-				report = new StatisticsReport(id, docxFile, pdfFile);
+                report = new StatisticsReport(id, file);
 				break;
 			case CORRELATION:
-				report = new CorrelationReport(id, docxFile, pdfFile);
+                report = new CorrelationReport(id, file);
 				break;
 			case BACKTESTING:
-				report = new BacktestingReport(id, docxFile, pdfFile);
+                report = new BacktestingReport(id, file);
 				break;
 			default:
-				// TODO Throw exception?
+                // TODO Throw exception? - oui
 				break;
 		}
 		reports.append(report);

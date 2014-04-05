@@ -45,7 +45,9 @@ SOURCES += \
 	IImport.cpp \
 	PortfolioItemModel.cpp \
 	CorrelationReportFactory.cpp \
-	PortfolioViewModel.cpp
+	PortfolioViewModel.cpp \
+	ReportDataJson.cpp \
+    ReportGenerator.cpp
 
 HEADERS +=\
 	Asset.h \
@@ -84,7 +86,8 @@ HEADERS +=\
 	IImport.h \
 	PortfolioItemModel.h \
 	PortfolioViewModel.h \
-	PortfolioCalculationException.h
+	PortfolioCalculationException.h \
+	ReportDataJson.h
 
 unix:!symbian {
 	maemo5 {

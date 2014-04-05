@@ -99,7 +99,7 @@ void MainWindow::generateStatsReport()
 {
     // retrieve the current portfolio
     Portfolio * port = ui->listView->getCurrentPortfolio();
-    // build its stats report
+    // build the stats report
     Report * report = buildReport(new StatisticsReportFactory(port));
     port->getReports().append(report);
     // generate it in Docx format
@@ -120,7 +120,7 @@ Report *MainWindow::buildReport(ReportFactory * factory)
  */
 void MainWindow::generateReport(ReportGenerator *gen)
 {
-    gen->generate();
+    gen->start();
 }
 
 /**

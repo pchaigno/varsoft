@@ -52,10 +52,6 @@ Portfolio *PortfolioItemModel::getPortfolio(const QModelIndex &index)
     return index.isValid() ? portfolioList[index.row()] : NULL;
 }
 
-Portfolio *PortfolioItemModel::getPortfolio(const QModelIndex &index)
-{
-    return index.isValid() ? portfolioList[index.row()] : NULL;
-}
 /**
  * @brief Return the data associate by the index with the specified role
  * (this method is call by Qt and should never be called by user, see Qt'doc)

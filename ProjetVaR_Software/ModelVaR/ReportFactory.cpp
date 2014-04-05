@@ -24,11 +24,6 @@ ReportFactory::ReportFactory(){
 
 }
 
-ReportFactory::ReportFactory(QString &, QString &)
-{
-
-}
-
 Report *ReportFactory::buildReport()
 {
     Report * report = getReport();

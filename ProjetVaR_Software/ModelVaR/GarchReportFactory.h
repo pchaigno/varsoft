@@ -18,8 +18,13 @@
 #pragma once
 
 #include "ReportFactory.h"
+#include "GarchReport.h"
 
 class GarchReportFactory: public ReportFactory {
 public:
-    GarchReportFactory(QString docxFile, QString pdfFile);
+    GarchReportFactory();
+
+protected:
+    virtual Report *getReport();
+    virtual ReportDataJson createJson();
 };

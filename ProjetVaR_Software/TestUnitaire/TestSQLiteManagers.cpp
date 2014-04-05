@@ -32,8 +32,8 @@ TestSQLiteManagers::TestSQLiteManagers() {
 
 	// The reports for the portfolio:
 	QVector<Report*> reports;
-	reports.append(new GarchReport("somefolder\\garch.docx", "somefolder\\garch.pdf"));
-	reports.append(new VaRReport("somefolder\\var.docx", "somefolder\\var.pdf"));
+    reports.append(new GarchReport("somefolder\\garch"));
+    reports.append(new VaRReport("somefolder\\var"));
 
 	// The portfolio:
 	Portfolio portfolio = Portfolio("Test", assets, reports);

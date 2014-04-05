@@ -27,7 +27,6 @@
 
 class DocxGenerator: public ReportGenerator {
 public:
-    DocxGenerator();
     DocxGenerator(Report * report);
     virtual void generate();
 private:

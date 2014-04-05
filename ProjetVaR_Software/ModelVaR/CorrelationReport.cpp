@@ -30,7 +30,7 @@ CorrelationReport::CorrelationReport() {
  * @param docxPath The location of the DOCX file on the disk.
  * @param pdfPath The location of the PDF file on the disk.
  */
-CorrelationReport::CorrelationReport(QString docxPath, QString pdfPath): Report(docxPath, pdfPath) {
+CorrelationReport::CorrelationReport(QString file): Report(file) {
 
 }
 
@@ -40,7 +40,7 @@ CorrelationReport::CorrelationReport(QString docxPath, QString pdfPath): Report(
  * @param docxPath The location of the DOCX file on the disk.
  * @param pdfPath The location of the PDF file on the disk.
  */
-CorrelationReport::CorrelationReport(int id, QString docxFile, QString pdfFile): Report(id, docxFile, pdfFile) {
+CorrelationReport::CorrelationReport(int id, QString file): Report(id, file) {
 
 }
 

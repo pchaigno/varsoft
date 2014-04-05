@@ -24,7 +24,6 @@
 class ReportFactory {
 public:
     ReportFactory();
-    ReportFactory(QString&,QString &);
 
     Report *buildReport();
 

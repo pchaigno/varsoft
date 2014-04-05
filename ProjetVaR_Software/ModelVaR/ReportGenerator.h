@@ -18,8 +18,10 @@
 #pragma once
 
 #include <QString>
+#include <QThread>
 
-class ReportGenerator {
+class ReportGenerator : public QThread {
 public:
     virtual void generate() =0;
+    virtual void run();
 };

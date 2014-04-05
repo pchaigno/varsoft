@@ -18,9 +18,14 @@
 #pragma once
 
 #include "ReportFactory.h"
+#include "VaRReport.h"
 #include <QString>
 
 class VaRReportFactory: public ReportFactory {
 public:
-    VaRReportFactory(QString docxFile, QString pdfFile);
+    VaRReportFactory();
+
+protected:
+    virtual Report *getReport();
+    virtual ReportDataJson createJson();
 };

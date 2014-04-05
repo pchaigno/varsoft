@@ -25,7 +25,7 @@ StatisticsReport::StatisticsReport() {
 
 }
 
-StatisticsReport::StatisticsReport(QString docxFile, QString pdfFile) : Report(docxFile,pdfFile)
+StatisticsReport::StatisticsReport(QString file) : Report(file)
 {
 
 }
@@ -34,7 +34,7 @@ StatisticsReport::StatisticsReport(QString docxFile, QString pdfFile) : Report(d
  * @brief Constructor
  * @param id The id of the report in the database.
  */
-StatisticsReport::StatisticsReport(int id,  QString docxFile, QString pdfFile): Report(id,docxFile,pdfFile) {
+StatisticsReport::StatisticsReport(int id,  QString file): Report(id,file) {
 
 }
 

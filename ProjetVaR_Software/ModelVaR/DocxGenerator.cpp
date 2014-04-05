@@ -17,17 +17,6 @@
  */
 #include "DocxGenerator.h"
 
-/**
- * @brief Constructor
- * @param location The path to the DOCX file to generate.
- * @param templateFile The template file of the report
- * @param data the json data
- */
-DocxGenerator::DocxGenerator()
-{
-
-}
-
 DocxGenerator::DocxGenerator(Report *report) {
     this->report=report;
 }
@@ -37,7 +26,7 @@ DocxGenerator::DocxGenerator(Report *report) {
  */
 void DocxGenerator::generate() {
     QProcess docx;
-    docx.start("java", QStringList() << "-jar" << "../DocxGenerator/DocxGenerator.jar" << report->getTemplateFile() << report->getDOCXFile());
+    docx.start("java", QStringList() << "-jar" << "../DocxGenerator/DocXGenerator.jar" << report->getTemplateFile() << report->getFile());
     docx.waitForStarted();
 
     QString data = report->getDataJson().toString();

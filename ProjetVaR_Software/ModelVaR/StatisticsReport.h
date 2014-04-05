@@ -24,8 +24,8 @@
 class MODELVARSHARED_EXPORT StatisticsReport: public Report {
 public:
     StatisticsReport();
-    StatisticsReport(QString docxFile, QString pdfFile);
-    StatisticsReport(int id, QString docxFile, QString pdfFile);
+    StatisticsReport(QString file);
+    StatisticsReport(int id, QString file);
 	virtual ReportType getType() const;
     virtual QString getTemplateFile() const;
 };

@@ -21,6 +21,7 @@
 #include <QString>
 #include "Portfolio.h"
 #include "StatisticsReport.h"
+#include "QtMath"
 
 class StatisticsReportFactory: public ReportFactory {
 public:
@@ -31,7 +32,8 @@ protected:
     virtual Report * getReport();
     virtual ReportDataJson createJson();
 
-    double getMoyenne(QVector<double> values);
+    double getAverage(QVector<double> values);
+    double getVariance(QVector<double> values);
 
     Portfolio * portfolio;
 

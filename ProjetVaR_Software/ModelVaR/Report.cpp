@@ -30,8 +30,8 @@ Report::Report() {
  * @param docxPath The location of the DOCX file on the disk.
  * @param pdfPath The location of the PDF file on the disk.
  */
-Report::Report(QString docxFile, QString pdfFile) {
-    this->init(-1, docxFile, pdfFile);
+Report::Report(QString file) {
+    this->init(-1, file);
 }
 
 /**
@@ -40,8 +40,8 @@ Report::Report(QString docxFile, QString pdfFile) {
  * @param docxPath The location of the DOCX file on the disk.
  * @param pdfPath The location of the PDF file on the disk.
  */
-Report::Report(int id, QString docxFile, QString pdfFile) {
-    this->init(id, docxFile, pdfFile);
+Report::Report(int id, QString file) {
+    this->init(id, file);
 }
 
 /**
@@ -49,10 +49,9 @@ Report::Report(int id, QString docxFile, QString pdfFile) {
  * @param docxPath The location of the DOCX file on the disk.
  * @param pdfPath The location of the PDF file on the disk.
  */
-void Report::init(int id, QString docxFile, QString pdfFile) {
+void Report::init(int id, QString file) {
     this->id = id;
-    this->docxFile = docxFile;
-    this->pdfFile = pdfFile;
+    this->file = file;
 }
 
 /**
@@ -73,46 +72,32 @@ void Report::setId(int id) {
 		// TODO Improve error message.
 		throw IdAlreadyAttributedException("An id has already been attributed to this report.");
 	}
-	this->id = id;
+    this->id = id;
 }
 
 /**
- * @brief Accessor to the DOCX file.
- * @return The location of the DOCX file on the disk.
+ * @brief Accessor to the file without the extension
+ * @return
  */
-QString Report::getDOCXFile() const {
-    return this->docxFile;
+QString Report::getFile() const
+{
+    return this->file;
 }
-
 /**
- * @brief Accessor to the PDF file.
- * @return The location of the PDF file on the disk.
+ * @brief Accessor of the Json data of the report
+ * @return
  */
-QString Report::getPDFFile() const {
-    return this->pdfFile;
-}
-
-/**
- * @brief Accessor to the type of the report.
- * @return The type of the report.
- */
-ReportType Report::getType() const {
-    return NONE;
-}
-
 ReportDataJson Report::getDataJson() const
 {
     return dataJson;
 }
-
+/**
+ * @brief Setter of the Json data of the report
+ * @param data the new json data
+ */
 void Report::setDataJson(ReportDataJson data)
 {
     dataJson=data;
-}
-
-QString Report::getTemplateFile() const
-{
-    return "A ENLEVER PLUS TARD";
 }
 
 /**
@@ -122,7 +107,7 @@ QString Report::getTemplateFile() const
  */
 bool Report::operator==(const Report& report) const {
 	if(this->id == -1) {
-		return this->docxFile==report.docxFile && this->pdfFile==report.pdfFile;
+        return this->file==report.file;
 	}
 	return this->id == report.id;
 }

@@ -18,9 +18,14 @@
 #pragma once
 
 #include "ReportFactory.h"
+#include "CorrelationReport.h"
 #include <QString>
 
 class CorrelationReportFactory: public ReportFactory {
 public:
-    CorrelationReportFactory(QString docxFile, QString pdfFile);
+    CorrelationReportFactory();
+
+protected:
+    virtual Report *getReport();
+    virtual ReportDataJson createJson();
 };
