@@ -19,9 +19,10 @@
 
 /**
 * @brief Import Constructor
+* @param the name of the asset file
 * @param parent QDialog Widget to use
 */
-Import::Import(QWidget *parent): QDialog(parent), ui(new Ui::Import) {
+Import::Import(QString fileName, QWidget *parent): QDialog(parent), ui(new Ui::Import) {
 	ui->setupUi(this);
 	//Date of the day
     ui->endDate->setDate(QDate::currentDate());
@@ -29,6 +30,11 @@ Import::Import(QWidget *parent): QDialog(parent), ui(new Ui::Import) {
     ui->startDate->setCalendarPopup(true);
 	connect(ui->pushButton, SIGNAL(clicked()),this, SLOT(on_pushButton_clicked()));
     connect(ui->pushButton_2, SIGNAL(clicked()),this, SLOT(on_pushButton_2_clicked()));
+
+    this->fileName=fileName;
+
+    //delete automatically the QDialog
+    this->setAttribute(Qt::WA_DeleteOnClose);
 }
 
 Import::~Import() {
@@ -41,8 +47,9 @@ Import::~Import() {
 */
 void Import::on_pushButton_clicked() {
 	// TODO : check the field is not empty and print a message to force the user to give a name
-    emit this->dataEntered(ui->textEdit->toPlainText(), ui->endDate->dateTime(),
-                            ui->startDate->dateTime(), ui->comboBox->currentText());
+    ImportNewData algo = ImportNewData();
+    algo.import(ui->textEdit->toPlainText(), fileName, ui->comboBox->currentText(), ui->startDate->dateTime(), ui->endDate->dateTime());
+
 	this->close();
 }
 

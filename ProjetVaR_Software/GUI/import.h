@@ -18,6 +18,7 @@
 #pragma once
 
 #include "ui_import.h"
+#include "ImportNewData.h"
 #include <QDateTime>
 #include <QDialog>
 
@@ -31,16 +32,16 @@ class Import : public QDialog {
 	Q_OBJECT
 
 public:
-	explicit Import(QWidget *parent = 0);
+    explicit Import(QString fileName, QWidget *parent = 0);
 	~Import();
 
 private:
 	Ui::Import *ui;
+    QString fileName;
 
 private slots:
 	void on_pushButton_clicked();
 	void on_pushButton_2_clicked();
 
 signals:
-	void dataEntered(const QString &name, const QDateTime &fDate,const QDateTime &lDate, const QString &source);
 };

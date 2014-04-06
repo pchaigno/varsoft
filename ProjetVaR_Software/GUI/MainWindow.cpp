@@ -24,10 +24,7 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
 	ui->setupUi(this);
 	//for the import button in the main window
 	connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(setImportCSV()));
-	//to connect the signal sent from the import window
-	connect(&import_win, SIGNAL(dataEntered(const QString&, const QDateTime&, const QDateTime&, const QString&)),
-						 this, SLOT(onDataEntered(const QString&, const QDateTime&, const QDateTime&, const QString&)));
-	ui->listView->setModel(portfolioModel);
+    ui->listView->setModel(portfolioModel);
 }
 
 MainWindow::~MainWindow() {
@@ -46,36 +43,24 @@ void MainWindow::newPortfolio() {
 }
 
 /**
-* @brief Set up variables to import
-* Select the write algorithm to import according to the origin
-* @param name The name of the stock
-* @param startDate The date of the first value to import.
-* @param endDate The date of the last value to import.
-*/
-void MainWindow::onDataEntered(const QString &name, const QDateTime &lDate ,const QDateTime &fDate, const QString &origin){
-	MainWindow::stockName = name;
-    MainWindow::startDate = lDate;
-    MainWindow::endDate = fDate;
-	MainWindow::origin = origin;
-	ImportNewData algo = ImportNewData();
-	algo.import(MainWindow::stockName, fileName, MainWindow::origin, MainWindow::startDate, MainWindow::endDate);
-}
-
-/**
 * @brief Allows to browse the computer to select the file to import
 * Shows the window to set up the import file
 */
 void MainWindow::setImportCSV(){
-    if (MainWindow::path != ""){
-        MainWindow::fileName = QFileDialog::getOpenFileName(this, ("Ouvrir fichier"), MainWindow::path, ("Texte CSV (*.csv *.txt)") );
+    QString fileName;
+    if (this->path != ""){
+        fileName = QFileDialog::getOpenFileName(this, ("Ouvrir fichier"), this->path, ("Texte CSV (*.csv *.txt)") );
         //qDebug() << MainWindow::fileName;
     }
     else
-        MainWindow::fileName = QFileDialog::getOpenFileName(this, ("Ouvrir fichier"), "C:/", ("Texte CSV (*.csv *.txt)") );
-    MainWindow::path = MainWindow::fileName.left(MainWindow::fileName.lastIndexOf("/"));
-    qDebug() << MainWindow::path;
-    qDebug() << MainWindow::fileName;
+        fileName = QFileDialog::getOpenFileName(this, ("Ouvrir fichier"), "C:/", ("Texte CSV (*.csv *.txt)") );
+    this->path = fileName.left(fileName.lastIndexOf("/"));
+    qDebug() << this->path;
+    qDebug() << fileName;
     //TODO: ne pas ouvrir la fenêtre de paramétrage de l'importation si elle a été annulée
-    if (MainWindow::fileName != "")
-        import_win.show();
+    if (fileName != "")
+    {
+        Import* importDialog = new Import(fileName,this);
+        importDialog->show();
+    }
 }

@@ -43,17 +43,10 @@ private slots:
 	void setImportCSV();
 
 public slots:
-	void onDataEntered(const QString &text, const QDateTime &fDate ,const QDateTime &lDate, const QString &source);
-	void newPortfolio();
+    void newPortfolio();
 
 private:
-	Ui::MainWindow *ui;
-	Import import_win;
-	QString stockName;
-	QDateTime startDate;
-	QDateTime endDate;
-	QString fileName;
-	QString origin;
+    Ui::MainWindow *ui;
     QString path;
 	PortfolioItemModel * portfolioModel;
 };
