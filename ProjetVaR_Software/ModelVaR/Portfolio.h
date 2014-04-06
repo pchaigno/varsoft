@@ -24,7 +24,7 @@
 #include "Asset.h"
 #include <QDateTime>
 #include <QDebug>
-#include <QtMath>
+#include <QtCore/qmath.h>
 #include "IdAlreadyAttributedException.h"
 #include "ModelVaR_global.h"
 #include "PortfolioCalculationException.h"
