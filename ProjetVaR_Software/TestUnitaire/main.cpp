@@ -24,6 +24,7 @@
 #include "TestSQLiteManagers.h"
 #include "TestPortfolioItemModel.h"
 #include "TestRInterface.h"
+#include "TestVaRGarch.h"
 
 int main() {
 	int result = 0;
@@ -45,5 +46,7 @@ int main() {
 	result += QTest::qExec(&portfolioModel);
 	TestRInterface rInterface;
 	result += QTest::qExec(&rInterface);
+//	TestVaRGarch varGarch;
+//	result += QTest::qExec(&varGarch);
 	return result;
 }

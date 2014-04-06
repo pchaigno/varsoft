@@ -19,5 +19,27 @@
 
 /**
  * @brief Constructor
+ * @param _omega The omega coefficient
+ * @param _alpha The alpha coefficient
+ * @param _beta The beta coefficient
  */
 GarchModel::GarchModel(double _omega, double _alpha, double _beta): omega(_omega), alpha(_alpha), beta(_beta) {}
+
+
+/**
+ * @brief Accessor to the omega coefficient
+ * @return The omega coeffcient of the garch model
+ */
+double GarchModel::getOmega() const {return this->omega;}
+
+/**
+ * @brief Accessor to the alpha coefficient
+ * @return The alpha coeffcient of the garch model
+ */
+double GarchModel::getAlpha() const {return this->alpha;}
+
+/**
+ * @brief Accessor to the beta coefficient
+ * @return The beta coeffcient of the garch model
+ */
+double GarchModel::getBeta() const {return this->getBeta();}

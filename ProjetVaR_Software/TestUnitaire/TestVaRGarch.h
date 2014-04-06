@@ -15,23 +15,22 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 #pragma once
 
-#include "ModelVaR_global.h"
-#include "Portfolio.h"
-#include <stdexcept>
-#include <ctime>
+#include <QtTest>
+#include "TestRInterface.h"
+#include "VaRGarch.h"
 
-class MODELVARSHARED_EXPORT VaRAlgorithm {
-protected:
-	const Portfolio& portfolio;
-	double risk;
-	int timeHorizon;
+class TestVaRGarch: public QObject {
+	Q_OBJECT
+
+private:
+	Portfolio father;
 
 public:
-	VaRAlgorithm(const Portfolio& portfolio, double risk, int timeHorizon);
-	virtual double execute(QDateTime date) const =0;
-    const Portfolio& getPortfolio() const;
-    double getRisk() const;
-	int getTimeHorizon() const;
+	TestVaRGarch();
+
+private Q_SLOTS:
+	void testExecute();
 };

@@ -24,8 +24,9 @@
 class MODELVARSHARED_EXPORT VaRGarch: public VaRAlgorithm {
 private:
 	const GarchModel& garchModel;
+	int nbScenarios;
 
 public:
-	VaRGarch(const Portfolio& portfolio, double risk, int timeHorizon, const GarchModel& garchModel);
-	virtual double execute(QDateTime timeHorizon) const;
+	VaRGarch(const Portfolio& portfolio, double risk, int timeHorizon, const GarchModel& garchModel, int nbScenarios);
+	virtual double execute(QDateTime date) const;
 };

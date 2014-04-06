@@ -17,13 +17,20 @@
  */
 #pragma once
 
-class GarchModel {
+#include "ModelVaR_global.h"
+#include <QVector>
 
+class MODELVARSHARED_EXPORT GarchModel {
 private:
 	double omega;
 	double alpha;
 	double beta;
+	QVector<double> residuals;
+	QVector<double> stddev;
 
 public:
 	GarchModel(double _omega, double _alpha, double _beta);
+	double getOmega() const;
+	double getAlpha() const;
+	double getBeta() const;
 };

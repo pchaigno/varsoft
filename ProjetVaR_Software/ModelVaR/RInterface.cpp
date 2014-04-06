@@ -47,6 +47,8 @@ GarchModel RInterface::computeGarchModel(const Portfolio& portfolio, QDateTime d
 	QVector<double> logReturns;
 	QProcess process;
 	QStringList arguments;
+	QVector<double> residuals;
+	QVector<double> stddev;
 
 	logReturns = portfolio.retrieveLogReturns(date, period);
 
@@ -81,15 +83,30 @@ GarchModel RInterface::computeGarchModel(const Portfolio& portfolio, QDateTime d
 	QStringList tokens;
 	tokens = output.split(QRegExp("[\r\n]"),QString::SkipEmptyParts);
 
-	qDebug() << tokens;
 	// Retrieves the coefficient from the right line
 	QStringList coefficients;
-	coefficients = tokens.value(4).split(QRegExp("\\s"), QString::SkipEmptyParts);
+	coefficients = tokens.value(1).split(QRegExp("\\s"), QString::SkipEmptyParts);
 
-	// Gets the coefficient values	
+	// Gets the coefficient values
 	double omega = coefficients.value(0).toDouble();
 	double alpha = coefficients.value(1).toDouble();
 	double beta = coefficients.value(2).toDouble();
+
+	// Residuals (eta)
+	QStringList residualsList;
+	residualsList = tokens.value(2).split(QRegExp("\\s"), QString::SkipEmptyParts);
+
+	for(int i=2; i < residualsList.size(); i++) {
+		residuals.push_back(residualsList.value(i).toDouble());
+	}
+
+	// Standard deviation
+	QStringList stddevList;
+	stddevList = tokens.value(3).split(QRegExp("\\s"), QString::SkipEmptyParts);
+
+	for(int i=2; i < stddevList.size(); i++) {
+		stddev.push_back(stddevList.value(i).toDouble());
+	}
 
 	return GarchModel(omega, alpha, beta);
 }
