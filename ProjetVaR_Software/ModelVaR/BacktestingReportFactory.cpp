@@ -28,7 +28,7 @@ BacktestingReportFactory::BacktestingReportFactory():
  * @brief Getter of the backtesting report objet
  * @return a pointer to the backtesting report juste created
  */
-Report *BacktestingReportFactory::getReport()
+Report *BacktestingReportFactory::createReport()
 {
     return new BacktestingReport();
 }

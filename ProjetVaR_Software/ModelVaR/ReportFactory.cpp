@@ -23,10 +23,13 @@
 ReportFactory::ReportFactory(){
 
 }
-
+/**
+ * @brief Create the appropriate report and create its Json before returning it.
+ * @return the report which just generated
+ */
 Report *ReportFactory::buildReport()
 {
-    Report * report = getReport();
+    Report * report = createReport();
     report->setDataJson(createJson());
     return report;
 }

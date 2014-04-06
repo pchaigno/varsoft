@@ -33,9 +33,7 @@ enum ReportType {
 
 class MODELVARSHARED_EXPORT Report {
 private:
-	int id;
-	QString docxFile;
-	QString pdfFile;
+    int id;
     QString file;
     ReportDataJson dataJson;
 
@@ -47,13 +45,15 @@ public:
 
 	int getId() const;
     void setId(int id);
+
     QString getFile() const;
+
     virtual ReportType getType() const =0;
 
     ReportDataJson getDataJson() const;
     void setDataJson(ReportDataJson data);
-    virtual QString getTemplateFile() const =0;
 
+    virtual QString getTemplateFile() const =0;
 
 	bool operator==(const Report& report) const;
 };

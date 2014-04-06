@@ -22,6 +22,7 @@
 
 class ReportGenerator : public QThread {
 public:
-    virtual void generate() =0;
     virtual void run();
+protected:
+    virtual void generate() =0;
 };

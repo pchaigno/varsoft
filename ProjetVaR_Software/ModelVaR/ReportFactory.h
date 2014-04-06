@@ -28,7 +28,7 @@ public:
     Report *buildReport();
 
 protected:
-    virtual Report * getReport() =0;
+    virtual Report * createReport() =0;
     virtual ReportDataJson createJson() = 0;
 
 };

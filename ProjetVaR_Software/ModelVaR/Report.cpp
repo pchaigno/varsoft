@@ -107,7 +107,7 @@ void Report::setDataJson(ReportDataJson data)
  */
 bool Report::operator==(const Report& report) const {
 	if(this->id == -1) {
-        return this->file==report.file;
+        return this->file==report.file && this->dataJson==report.dataJson;
 	}
 	return this->id == report.id;
 }

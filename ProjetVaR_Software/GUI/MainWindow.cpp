@@ -40,7 +40,7 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
     connect(ui->actionGenerate_Stats_Report,SIGNAL(triggered()),this,SLOT(generateStatsReport()));
 
 	ui->listView->setModel(portfolioListModel);
-	connect(ui->removePushButton, SIGNAL(clicked()), ui->listView, SLOT(removeSelectedPortfolio()));
+    connect(ui->removePushButton, SIGNAL(clicked()), this, SLOT(removeSelectedPortfolio()));
 
 	connect(ui->listView,SIGNAL(portfolioSelected(Portfolio*)),this,SLOT(showPortfolio(Portfolio*)));
 
@@ -90,10 +90,21 @@ void MainWindow::onDataEntered(const QString &name, const QDateTime &fDate ,cons
 	//    algo = ImportNewData();
 	//else
 	//    algo = ImportData();;
-	algo.import(MainWindow::stockName, fileName, MainWindow::origin, MainWindow::startDate, MainWindow::endDate);
+    algo.import(MainWindow::stockName, fileName, MainWindow::origin, MainWindow::startDate, MainWindow::endDate);
 }
 /**
- * @brief Generate the statistics report of the selected portfolio
+ * @brief Display a message in the status bar when the generating of a report is done
+ * and delete the reportGenerator which called this slot.
+ * It also enable the button which started the thread.
+ */
+void MainWindow::reportGenerationDone()
+{
+    this->statusBar()->showMessage("Generation done.",1500);
+    delete ((ReportGenerator*) sender());
+}
+/**
+ * @brief Generates the statistics report of the selected portfolio and add it to the vector
+ * of report of the selected portfolio.
  */
 void MainWindow::generateStatsReport()
 {
@@ -106,20 +117,30 @@ void MainWindow::generateStatsReport()
     generateReport(new DocxGenerator(report));
 }
 /**
- * @brief Build a report with the specified factory
- * @param factory
+ * @brief Build a report with the specified factory and delete the factory
+ * @param factory the factory which will be used to make the report
+ * @param deleteAfter
  * @return The report
  */
-Report *MainWindow::buildReport(ReportFactory * factory)
+Report *MainWindow::buildReport(ReportFactory * factory, bool deleteAfter)
 {
-    return factory->buildReport();
+    Report * report = factory->buildReport();
+    if (deleteAfter)
+        delete factory;
+    return report;
 }
 /**
- * @brief Generate the report file with the specified ReportGenerator
+ * @brief Generate the report file with the specified ReportGenerator.
+ * This slot starts a thread for the generating.
+ * Show a message in the display bar and connect the finish signal of the thread
+ * to the slot reportGenerationDone of MainWindow.
  * @param gen
  */
 void MainWindow::generateReport(ReportGenerator *gen)
 {
+    reportGenerator = gen;
+    this->statusBar()->showMessage("Generation of the report ...",0);
+    connect(gen,SIGNAL(finished()),this,SLOT(reportGenerationDone()));
     gen->start();
 }
 
@@ -139,5 +160,15 @@ void MainWindow::setImportCSV(){
  */
 void MainWindow::addPortfolio(Portfolio * portfolio) {
 	portfoliosModels[portfolio] = new PortfolioViewModel(portfolio);
-	portfolioListModel->addPortfolio(portfolio);
+    portfolioListModel->addPortfolio(portfolio);
+}
+
+/**
+ * @brief Remove the portfolio selected from the PortfolioListView and delete its PortfolioViewModel
+ */
+void MainWindow::removeSelectedPortfolio()
+{
+    Portfolio * portfolio = ui->listView->getCurrentPortfolio();
+    delete portfoliosModels[portfolio];
+    ui->listView->removeSelectedPortfolio();
 }

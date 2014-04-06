@@ -27,7 +27,7 @@ CorrelationReportFactory::CorrelationReportFactory():
 
 }
 
-Report *CorrelationReportFactory::getReport()
+Report *CorrelationReportFactory::createReport()
 {
     return new CorrelationReport();
 }

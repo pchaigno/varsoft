@@ -48,12 +48,13 @@ private slots:
 	void setImportCSV();
     void generateStatsReport();
 	void addPortfolio(Portfolio *);
+    void removeSelectedPortfolio();
 	void onDataEntered(const QString &text, const QDateTime &fDate, const QDateTime &lDate, const QString &source);
-
+    void reportGenerationDone();
 
 private:
 
-    Report* buildReport(ReportFactory * );
+    Report* buildReport(ReportFactory * factory, bool deleteAfter=true);
     void generateReport(ReportGenerator * gen);
 
 	Ui::MainWindow *ui;
@@ -64,5 +65,5 @@ private:
 	QString fileName;
 	QString origin;
 	PortfolioItemModel * portfolioListModel;
-	QHash<Portfolio*, PortfolioViewModel*> portfoliosModels;
+    QHash<Portfolio*, PortfolioViewModel*> portfoliosModels;
 };

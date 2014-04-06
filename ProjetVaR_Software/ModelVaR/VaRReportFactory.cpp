@@ -19,15 +19,13 @@
 
 /**
  * @brief Constructor
- * @param docxPath The location of the DOCX file on the disk.
- * @param pdfPath The location of the PDF file on the disk.
  */
 VaRReportFactory::VaRReportFactory():
     ReportFactory() {
 
 }
 
-Report *VaRReportFactory::getReport()
+Report *VaRReportFactory::createReport()
 {
     return new VaRReport();
 }

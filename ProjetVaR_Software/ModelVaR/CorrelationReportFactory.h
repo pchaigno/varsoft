@@ -26,6 +26,6 @@ public:
     CorrelationReportFactory();
 
 protected:
-    virtual Report *getReport();
+    virtual Report *createReport();
     virtual ReportDataJson createJson();
 };

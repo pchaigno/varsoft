@@ -29,7 +29,7 @@ public:
 
 protected:
 
-    virtual Report * getReport();
+    virtual Report * createReport();
     virtual ReportDataJson createJson();
 
     double getAverage(QVector<double> values);

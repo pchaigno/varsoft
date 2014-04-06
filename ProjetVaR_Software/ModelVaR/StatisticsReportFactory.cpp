@@ -25,10 +25,10 @@ StatisticsReportFactory::StatisticsReportFactory(Portfolio * portfolio):
     this->portfolio=portfolio;
 }
 /**
- * @brief Get the statistic report
+ * @brief Generate a name and return a new statistic report
  * @return a pointer to the report
  */
-Report *StatisticsReportFactory::getReport()
+Report *StatisticsReportFactory::createReport()
 {
     QString file = QString("../resources/Reports/statisticReport");
     QDateTime startDate = portfolio->retrieveStartDate();
