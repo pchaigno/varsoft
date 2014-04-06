@@ -38,5 +38,13 @@ private Q_SLOTS:
 	void testId();
 	void testName();
 	void testRetrieveValues();
+	void testRetrieveValuesIncorrectDates();
 	void testRetrieveValuesByDate();
+	void testRetrieveValuesNonexistingFile();
+	void testRetrieveValuesSpecialDates();
+	void testRetrieveValuesUnavailableDates();
+	void testRetrieveValuesNoParameters();
+	void testRetrieveValuesByDateIncorrectDates();
+	void testRetrieveValuesByDateSpecialDates();
+	void testRetrieveValuesByDateNonexistingFile();
 };

@@ -96,33 +96,31 @@ void TestPortfolio::testName() {
  * @brief Tests the method getValues that retrieve and compute values of a portfolio.
  */
 void TestPortfolio::testRetrieveValues() {
-	// SHARED DATE DEFINITION
 	QDate startDate(2014, 1, 3);
 	QDate endDate(2014, 1, 6);
-
 	QVector<double> result;
-
-	// DATE PARAMETERS FUNCTION TESTS
-	// EXPECTED USE CASE
 	try {
 		result = this->son.retrieveValues(startDate, endDate);
 	} catch(PortfolioCalculationException& e) {
 		qDebug() << e.what();
 	}
-
 	QCOMPARE(result.size(), 4);
 	QCOMPARE(result.at(0), 612.0);
 	QCOMPARE(result.at(1), 618.0);
 	QCOMPARE(result.at(2), 624.0);
 	QCOMPARE(result.at(3), 630.0);
+}
 
-	// NO PARAMETER FUNCTION TESTS
+/**
+ * @brief Successful test of retrieveValues without parameters.
+ */
+void TestPortfolio::testRetrieveValuesNoParameters() {
+	QVector<double> result;
 	try {
 		result = this->son.retrieveValues();
 	} catch(PortfolioCalculationException& e) {
 		qDebug() << e.what();
 	}
-
 	QCOMPARE(result.size(), 6);
 	QCOMPARE(result.at(0), 612.0);
 	QCOMPARE(result.at(1), 618.0);
@@ -147,7 +145,6 @@ void TestPortfolio::testRetrieveValuesByDate() {
 	// 2014-01-06	105		210		315		630
 	// 2014-01-07	UNDEF	212		318		635 << using previous value for a1
 	// 2014-01-08	UNDEF	UNDEF	321		638 << using previous values for a1 and a2
-
 	QMap<QDate, double> result;
 
 	// EXPECTED USE CASE
@@ -164,8 +161,13 @@ void TestPortfolio::testRetrieveValuesByDate() {
 	QCOMPARE(result.value(QDate(2014, 1, 6)), 630.0);
 	QCOMPARE(result.value(QDate(2014, 1, 7)), 635.0);
 	QCOMPARE(result.value(QDate(2014, 1, 8)), 638.0);
+}
 
-	// UNDEFINED USE CASE
+/**
+ * @brief retrieveValuesByDate should throws an exception when asset's values are missing.
+ */
+void TestPortfolio::testRetrieveValuesByDateMissingValues() {
+	QMap<QDate, double> result;
 	try {
 		result = this->son.retrieveValuesByDate(QDate(2014, 1, 2), QDate(2014, 1, 8));
 		QFAIL("retrieveValuesByDate succedded in computing portfolio values despite missing asset values");
@@ -176,11 +178,8 @@ void TestPortfolio::testRetrieveValuesByDate() {
 
 void TestPortfolio::testRetrieveReturns() {
 	QVector<double> result;
-
 	result = this->son.retrieveReturns(QDate(2014, 1, 8), 4);
-
 	qDebug() << result;
-
 	qDebug() << this->son.retrieveEndDate();
 	result = this->son.retrieveReturns(this->son.retrieveEndDate(), 4);
 	// In that case retrieveEndDate() is 2014-01-06 because it is the last shared date

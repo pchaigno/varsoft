@@ -53,49 +53,58 @@ void TestAsset::testName() {
 }
 
 /**
- * @brief Tests the method retrieveValues that retrieves all values of an asset.
+ * @brief Successful test on retrieveValues.
  */
 void TestAsset::testRetrieveValues() {
-
-	qDebug() << "Current dir: " << QDir::currentPath();
-
 	QVector<double> result;
-
-	// DATE PARAMETERS FUNCTION TESTS:
-	// QVector<double> Asset::RetrieveValues(const Date& startDate, const Date& endDate) const
 	try {
 		result = this->google.retrieveValues(this->google.getStartDate(), this->google.getEndDate());
 	} catch(CannotOpenFileException& e) {
 		qDebug() << e.what();
 	}
-
 	QCOMPARE(result.size(), 4);
 	QCOMPARE(result.at(0), 101.0);
 	QCOMPARE(result.at(1), 102.0);
 	QCOMPARE(result.at(2), 103.0);
 	QCOMPARE(result.at(3), 104.0);
+}
 
-	// INCORRECT DATE PARAMETERS CASE
-	// startDate is after endDate
+/**
+ * @brief Checks that the retrieveValues throws an exception
+ * if the dates are in inversed.
+ */
+void TestAsset::testRetrieveValuesIncorrectDates() {
+	QVector<double> result;
 	try {
 		result = this->google.retrieveValues(this->google.getEndDate(), this->google.getStartDate());
 		QFAIL("retrieveValues was able to execute with incorrect date paramaters");
 	} catch(std::exception& e) {
 		qDebug() << e.what();
 	}
+}
 
-	// NONEXISTING FILE CASE
+/**
+ * @brief Checks that retrieveValues throws an exception
+ * if the file with the values doesn't exist.
+ */
+void TestAsset::testRetrieveValuesNonexistingFile() {
+	QVector<double> result;
 	try {
 		result = this->missing.retrieveValues(this->missing.getStartDate(), this->missing.getEndDate());
 		QFAIL("retrieveValuesByDate() was able to open a file that should not exist");
 	} catch(CannotOpenFileException& e) {
 		qDebug() << e.what();
 	}
+}
 
-	// SPECIAL DATE PARAMETERS CASE
-	// The first date can be older than the actual oldest date in the file.
-	// The returned vector will simply start with the actual oldest date.
-	// The same goes with the last date in its opposite way.
+/**
+ * @brief Test a special date parameters case.
+ * The first date can be older than the actual oldest date in the file.
+ * The returned vector will simply start with the actual oldest date.
+ * The same goes with the last date in its opposite way.
+ */
+void TestAsset::testRetrieveValuesSpecialDates() {
+	QVector<double> result;
 	QDate startDate(2013, 12, 25);
 	QDate endDate(2014, 1, 10);
 	try {
@@ -103,7 +112,6 @@ void TestAsset::testRetrieveValues() {
 	} catch(CannotOpenFileException& e) {
 		qDebug() << e.what();
 	}
-
 	QCOMPARE(result.size(), 6);
 	QCOMPARE(result.at(0), 100.0);
 	QCOMPARE(result.at(1), 101.0);
@@ -111,25 +119,32 @@ void TestAsset::testRetrieveValues() {
 	QCOMPARE(result.at(3), 103.0);
 	QCOMPARE(result.at(4), 104.0);
 	QCOMPARE(result.at(5), 105.0);
+}
 
-	// UNAVAILABLE DATES IN THE MIDDLE CASE
+/**
+ * @brief Tries to retrieveValues for a day unavailable
+ * between the dates of definition.
+ */
+void TestAsset::testRetrieveValuesUnavailableDates() {
+	QVector<double> result;
 	try {
 		result = this->apple.retrieveValues(QDate(2014, 1, 3), QDate(2014, 1, 3));
 	} catch(CannotOpenFileException& e) {
 		qDebug() << e.what();
 	}
-
 	QVERIFY(result.isEmpty());
+}
 
-	// NO PARAMETER FUNCTION TESTS:
-	// QVector<double> Asset::RetrieveValues() const
-
+/**
+ * @brief Successful test on the retrieveValues without parameters.
+ */
+void TestAsset::testRetrieveValuesNoParameters() {
+	QVector<double> result;
 	try {
 		result = this->google.retrieveValues();
 	} catch(CannotOpenFileException& e) {
 		qDebug() << e.what();
 	}
-
 	QCOMPARE(result.size(), 4);
 	QCOMPARE(result.at(0), 101.0);
 	QCOMPARE(result.at(1), 102.0);
@@ -139,45 +154,58 @@ void TestAsset::testRetrieveValues() {
 
 /**
  * @brief Tests the method retrieveValuesByDate that retrieves all date-values of an asset.
+ * Successful test
  */
 void TestAsset::testRetrieveValuesByDate() {
 	QMap<QDate, double> result;
-
-
-	// EXPECTED AND SUCCESSFUL CASE
 	try {
 		result = this->google.retrieveValuesByDate(this->google.getStartDate(), this->google.getEndDate());
 	} catch(CannotOpenFileException& e) {
 		qDebug() << e.what();
 	}
-
 	QCOMPARE(result.size(), 4);
 	QCOMPARE(result.value(QDate(2014, 1, 2)), 101.0);
 	QCOMPARE(result.value(QDate(2014, 1, 3)), 102.0);
 	QCOMPARE(result.value(QDate(2014, 1, 4)), 103.0);
 	QCOMPARE(result.value(QDate(2014, 1, 5)), 104.0);
+}
 
-	// INCORRECT DATE PARAMETERS CASE
-	// startDate is after endDate
+/**
+ * @brief Checks that the retrieveValuesByDate throws an exception
+ * if the dates are in inversed.
+ */
+void TestAsset::testRetrieveValuesByDateIncorrectDates() {
+	QMap<QDate, double> result;
 	try {
 		result = this->google.retrieveValuesByDate(this->google.getEndDate(), this->google.getStartDate());
 		QFAIL("retrieveValuesByDate was able to execute with incorrect date paramaters");
 	} catch(std::exception& e) {
 		qDebug() << e.what();
 	}
+}
 
-	// NONEXISTING FILE CASE
+/**
+ * @brief Checks that retrieveValuesByDate throws an exception
+ * if the file with the values doesn't exist.
+ */
+void TestAsset::testRetrieveValuesByDateNonexistingFile() {
+	QMap<QDate, double> result;
 	try {
 		result = this->missing.retrieveValuesByDate(this->missing.getStartDate(), this->missing.getEndDate());
 		QFAIL("retrieveValuesByDate() was able to open a file that should not exist");
 	} catch(CannotOpenFileException& e) {
 		qDebug() << e.what();
 	}
+}
 
-	// SPECIAL DATE PARAMETERS CASE
-	// The first date can be older than the actual oldest date in the file.
-	// The returned map will simply start with the actual oldest date.
-	// The same goes with the last date in its opposite way.
+/**
+ * Test a special date parameters case.
+ * The first date can be older than the actual oldest date in the file.
+ * The returned vector will simply start with the actual oldest date.
+ * The same goes with the last date in its opposite way.
+ */
+void TestAsset::testRetrieveValuesByDateSpecialDates() {
+	QMap<QDate, double> result;
 	QDate startDate(2013, 12, 25);
 	QDate endDate(2014, 1, 10);
 	try {
@@ -185,7 +213,6 @@ void TestAsset::testRetrieveValuesByDate() {
 	} catch(CannotOpenFileException& e) {
 		qDebug() << e.what();
 	}
-
 	QCOMPARE(result.size(), 6);
 	QCOMPARE(result.value(QDate(2014, 1, 1)), 100.0);
 	QCOMPARE(result.value(QDate(2014, 1, 2)), 101.0);
