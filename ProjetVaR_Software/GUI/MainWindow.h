@@ -30,6 +30,8 @@
 #include "StatisticsReportFactory.h"
 #include "DocxGenerator.h"
 #include "PortfolioViewModel.h"
+#include "NoneSelectedPortfolioException.h"
+#include <QMessageBox>
 
 namespace Ui {
 	class MainWindow;
@@ -53,7 +55,7 @@ private slots:
     void reportGenerationDone();
 
 private:
-
+    Portfolio *getCurrentPortfolio();
     Report* buildReport(ReportFactory * factory, bool deleteAfter=false);
     void generateReport(ReportGenerator * gen);
 

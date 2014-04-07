@@ -103,18 +103,37 @@ void MainWindow::reportGenerationDone()
     delete ((ReportGenerator*) sender());
 }
 /**
+ * @brief Return the current portfolio (the one which is selected in the list of portfolio)
+ * Throw a NoneSelectedPortfolioException if none portfolio has been selected.
+ * @return the current portfolio
+ */
+Portfolio *MainWindow::getCurrentPortfolio()
+{
+    Portfolio * port = ui->listView->getCurrentPortfolio();
+    if (port==NULL)
+        throw NoneSelectedPortfolioException("None current portfolio.");
+    return port;
+}
+/**
  * @brief Generates the statistics report of the selected portfolio and add it to the vector
  * of report of the selected portfolio.
  */
 void MainWindow::generateStatsReport()
 {
-    // get the current portfolio
-    Portfolio * port = ui->listView->getCurrentPortfolio();
-    // build the stats report
-    Report * report = buildReport(new StatisticsReportFactory(port));
-    port->getReports().append(report);
-    // generate it in Docx format
-    generateReport(new DocxGenerator(report));
+    try
+    {
+        // get the current portfolio
+        Portfolio * port = this->getCurrentPortfolio();
+        // build the stats report
+        Report * report = buildReport(new StatisticsReportFactory(port));
+        port->getReports().append(report);
+        // generate it in Docx format
+        generateReport(new DocxGenerator(report));
+    }
+    catch (NoneSelectedPortfolioException& )
+    {
+        QMessageBox::critical(this,"Error","None portfolio selected");
+    }
 }
 /**
  * @brief Build a report with the specified factory and delete the factory

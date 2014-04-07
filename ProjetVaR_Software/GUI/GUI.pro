@@ -28,7 +28,8 @@ HEADERS += MainWindow.h \
 		ShowAssetsWizardPage.h \
 		PortfolioListView.h \
 		PortfolioViewModel.h \
-		import.h
+		import.h \
+    NoneSelectedPortfolioException.h
 
 FORMS += MainWindow.ui \
 		NewPortfolioWizard.ui \

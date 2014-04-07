@@ -39,14 +39,6 @@ Import::~Import() {
 * Emit a signal with all data set in the window
 */
 void Import::on_pushButton_clicked() {
-	// TODO : check the field is not empty and print a message to force the user to give a name
-    ImportNewData algo = ImportNewData();
-    //if (origin == "Yahoo")
-    //    algo = ImportNewData();
-    //else
-    //    algo = ImportData();;
-    algo.import(MainWindow::stockName, fileName, MainWindow::origin, MainWindow::startDate, MainWindow::endDate);
-
 	emit this->dataEntered(ui->textEdit->toPlainText(), ui->dateEdit->dateTime(),
 							ui->dateEdit_2->dateTime(), ui->comboBox->currentText());
 	this->close();
