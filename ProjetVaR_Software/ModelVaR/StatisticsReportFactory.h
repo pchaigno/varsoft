@@ -21,7 +21,7 @@
 #include <QString>
 #include "Portfolio.h"
 #include "StatisticsReport.h"
-#include "QtMath"
+#include <qmath.h>
 
 class StatisticsReportFactory: public ReportFactory {
 public:
