@@ -108,7 +108,7 @@ void MainWindow::reportGenerationDone()
  */
 void MainWindow::generateStatsReport()
 {
-    // retrieve the current portfolio
+    // get the current portfolio
     Portfolio * port = ui->listView->getCurrentPortfolio();
     // build the stats report
     Report * report = buildReport(new StatisticsReportFactory(port));
@@ -125,7 +125,7 @@ void MainWindow::generateStatsReport()
 Report *MainWindow::buildReport(ReportFactory * factory, bool deleteAfter)
 {
     Report * report = factory->buildReport();
-    if (deleteAfter)
+    if (!deleteAfter)
         delete factory;
     return report;
 }
@@ -138,7 +138,6 @@ Report *MainWindow::buildReport(ReportFactory * factory, bool deleteAfter)
  */
 void MainWindow::generateReport(ReportGenerator *gen)
 {
-    reportGenerator = gen;
     this->statusBar()->showMessage("Generation of the report ...",0);
     connect(gen,SIGNAL(finished()),this,SLOT(reportGenerationDone()));
     gen->start();

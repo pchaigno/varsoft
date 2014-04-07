@@ -54,7 +54,7 @@ private slots:
 
 private:
 
-    Report* buildReport(ReportFactory * factory, bool deleteAfter=true);
+    Report* buildReport(ReportFactory * factory, bool deleteAfter=false);
     void generateReport(ReportGenerator * gen);
 
 	Ui::MainWindow *ui;
