@@ -44,6 +44,11 @@ Report::Report(int id, QString file) {
     this->init(id, file);
 }
 
+Report::~Report()
+{
+    delete dataJson;
+}
+
 /**
  * @brief Method called by the constructor to initiate the values.
  * @param docxPath The location of the DOCX file on the disk.
@@ -87,7 +92,7 @@ QString Report::getFile() const
  * @brief Accessor of the Json data of the report
  * @return
  */
-ReportDataJson Report::getDataJson() const
+ReportDataJson *Report::getDataJson() const
 {
     return dataJson;
 }
@@ -95,7 +100,7 @@ ReportDataJson Report::getDataJson() const
  * @brief Setter of the Json data of the report
  * @param data the new json data
  */
-void Report::setDataJson(ReportDataJson data)
+void Report::setDataJson(ReportDataJson* data)
 {
     dataJson=data;
 }

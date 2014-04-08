@@ -20,6 +20,14 @@
 ReportDataJson::ReportDataJson()
 {
 }
+
+ReportDataJson::~ReportDataJson()
+{
+    foreach(QTemporaryFile * file, tempFileList)
+    {
+        delete file;
+    }
+}
 /**
  * @brief Add the value with the given key to the Json document.
  * @param key The key in the template document.
@@ -46,6 +54,22 @@ void ReportDataJson::addImage(QString key, QString path)
 void ReportDataJson::addImage(QString key, QUrl path)
 {
     images[key]=path.toLocalFile();
+}
+
+/**
+ * @brief Creates a temporary file in the temp folder of the system
+ * and set the path of the image with the given key to the json document.
+ * The temporary file is deleted when this object(ReportDataJson) has been deleted.
+ * @param key The key in the template document.
+ * @param img a QPixmap of the image
+ */
+void ReportDataJson::addImage(QString key, QPixmap img)
+{
+    QTemporaryFile* tmpfile = new QTemporaryFile(QDir::tempPath()+"/XXXXXXXXX.png");
+    tempFileList.append(tmpfile);
+    tmpfile->open();
+    img.save(tmpfile,"PNG");
+    images[key]=tmpfile->fileName();
 }
 /**
  * @brief ReportDataJson::addList

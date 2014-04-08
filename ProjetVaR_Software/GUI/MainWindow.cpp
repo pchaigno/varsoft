@@ -51,7 +51,8 @@ MainWindow::~MainWindow() {
 	delete portfolioListModel;
 	foreach (Portfolio *portfolio, portfoliosModels.keys()) {
 		delete portfoliosModels[portfolio];
-	}
+        delete portfolio;
+    }
 }
 
 /**
@@ -126,7 +127,7 @@ void MainWindow::generateStatsReport()
         Portfolio * port = this->getCurrentPortfolio();
         // build the stats report
         Report * report = buildReport(new StatisticsReportFactory(port));
-        port->getReports().append(report);
+        port->addReport(report);
         // generate it in Docx format
         generateReport(new DocxGenerator(report));
     }

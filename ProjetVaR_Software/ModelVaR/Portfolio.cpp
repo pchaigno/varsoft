@@ -66,7 +66,20 @@ Portfolio::Portfolio(Portfolio* parent, int id, QString name, QMap<Asset*, int>&
  * @param reports The reports of the portfolio.
  */
 Portfolio::Portfolio(int id, QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports) {
-	this->init(NULL, id, name, composition, reports);
+    this->init(NULL, id, name, composition, reports);
+}
+
+Portfolio::~Portfolio()
+{
+    foreach(Report * report, reports)
+    {
+        delete report;
+    }
+
+    foreach(Asset* asset, composition.keys())
+    {
+        delete asset;
+    }
 }
 
 /**
@@ -130,7 +143,12 @@ int Portfolio::getParentId() const {
  * @return The reports for this portfolio.
  */
 QVector<Report*> Portfolio::getReports() const {
-	return this->reports;
+    return this->reports;
+}
+
+void Portfolio::addReport(Report *report)
+{
+    this->reports.append(report);
 }
 
 /**

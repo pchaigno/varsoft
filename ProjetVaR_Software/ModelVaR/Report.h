@@ -35,12 +35,13 @@ class MODELVARSHARED_EXPORT Report {
 private:
     int id;
     QString file;
-    ReportDataJson dataJson;
+    ReportDataJson* dataJson;
 
 public:
     Report();
     Report(QString file);
     Report(int id, QString file);
+    ~Report();
     void init(int id, QString file);
 
 	int getId() const;
@@ -50,8 +51,8 @@ public:
 
     virtual ReportType getType() const =0;
 
-    ReportDataJson getDataJson() const;
-    void setDataJson(ReportDataJson data);
+    ReportDataJson* getDataJson() const;
+    void setDataJson(ReportDataJson* data);
 
     virtual QString getTemplateFile() const =0;
 

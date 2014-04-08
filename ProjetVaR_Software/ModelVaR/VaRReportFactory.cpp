@@ -30,7 +30,7 @@ Report *VaRReportFactory::createReport()
     return new VaRReport();
 }
 
-ReportDataJson VaRReportFactory::createJson()
+ReportDataJson *VaRReportFactory::createJson()
 {
 
 }

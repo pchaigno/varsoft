@@ -32,7 +32,7 @@ Report *CorrelationReportFactory::createReport()
     return new CorrelationReport();
 }
 
-ReportDataJson CorrelationReportFactory::createJson()
+ReportDataJson *CorrelationReportFactory::createJson()
 {
 
 }

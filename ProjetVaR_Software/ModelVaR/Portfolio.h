@@ -41,13 +41,15 @@ public:
 	Portfolio(QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports);
 	Portfolio(Portfolio* parent, int id, QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports);
 	Portfolio(int id, QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports);
-	void init(Portfolio* parent, int id, QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports);
+    ~Portfolio();
+    void init(Portfolio* parent, int id, QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports);
 
 	QString getName() const;
 	int getId() const;
 	void setId(int id);
 	int getParentId() const;
 	QVector<Report*> getReports() const;
+    void addReport(Report* report);
 	QVector<Asset*> getAssets() const;
 	QMap<Asset*, int> getComposition() const;
 	void changeName(QString name);

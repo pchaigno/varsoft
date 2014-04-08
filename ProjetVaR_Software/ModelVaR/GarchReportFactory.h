@@ -26,5 +26,5 @@ public:
 
 protected:
     virtual Report *getReport();
-    virtual ReportDataJson createJson();
+    virtual ReportDataJson* createJson();
 };

@@ -37,7 +37,7 @@ Report *BacktestingReportFactory::createReport()
  * @brief Create the Json of the backtesting report
  * @return
  */
-ReportDataJson BacktestingReportFactory::createJson()
+ReportDataJson *BacktestingReportFactory::createJson()
 {
 
 }

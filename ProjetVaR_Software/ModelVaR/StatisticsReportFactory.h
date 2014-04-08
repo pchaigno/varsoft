@@ -22,6 +22,7 @@
 #include "Portfolio.h"
 #include "StatisticsReport.h"
 #include <qmath.h>
+#include "qcustomplot.h"
 
 class StatisticsReportFactory: public ReportFactory {
 public:
@@ -30,10 +31,15 @@ public:
 protected:
 
     virtual Report * createReport();
-    virtual ReportDataJson createJson();
+    virtual ReportDataJson* createJson();
 
+    QPixmap generateChart1(QMap<QDateTime, double> values);
+    QPixmap generateChart2(QList<Asset *> compo, QDateTime start,QDateTime end);
     double getAverage(QVector<double> values);
     double getVariance(QVector<double> values);
+    double getMax(QVector<double> values);
+    double getMin(QVector<double> values);
+    double getKurtosis(QVector<double> values);
 
     Portfolio * portfolio;
 

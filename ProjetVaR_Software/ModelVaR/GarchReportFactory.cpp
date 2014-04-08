@@ -32,7 +32,7 @@ Report *GarchReportFactory::getReport()
     return new GarchReport();
 }
 
-ReportDataJson GarchReportFactory::createJson()
+ReportDataJson *GarchReportFactory::createJson()
 {
 
 }

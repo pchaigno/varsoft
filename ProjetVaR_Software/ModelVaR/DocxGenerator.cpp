@@ -29,7 +29,8 @@ void DocxGenerator::generate() {
     docx.start("java", QStringList() << "-jar" << "../DocxGenerator/DocXGenerator.jar" << report->getTemplateFile() << report->getFile());
     docx.waitForStarted();
 
-    QString data = report->getDataJson().toString();
+    QString data = report->getDataJson()->toString();
+    qDebug() << data;
     docx.write(data.toLatin1(),data.length());
     docx.closeWriteChannel();
 
