@@ -54,10 +54,9 @@ void MainWindow::setImportCSV(){
     }
     else
         fileName = QFileDialog::getOpenFileName(this, ("Ouvrir fichier"), "C:/", ("Texte CSV (*.csv *.txt)") );
-    this->path = fileName.left(fileName.lastIndexOf("/"));
+    if(fileName != "")
+        this->path = fileName.left(fileName.lastIndexOf("/"));
     qDebug() << this->path;
-    qDebug() << fileName;
-    //TODO: ne pas ouvrir la fenêtre de paramétrage de l'importation si elle a été annulée
     if (fileName != "")
     {
         Import* importDialog = new Import(fileName,this);
