@@ -30,7 +30,6 @@ void DocxGenerator::generate() {
     docx.waitForStarted();
 
     QString data = report->getDataJson()->toString();
-    qDebug() << data;
     docx.write(data.toLatin1(),data.length());
     docx.closeWriteChannel();
 

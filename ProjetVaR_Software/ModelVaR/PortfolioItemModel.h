@@ -20,7 +20,6 @@
 #include <QAbstractListModel>
 #include "Portfolio.h"
 #include <stdexcept>
-#include <QDebug>
 
 #ifdef UNITTEST
 	class TestPortfolioItemModel;
