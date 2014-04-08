@@ -40,9 +40,14 @@ public:
 private Q_SLOTS:
 	void testId();
 	void testName();
+	void testRetrieveStartDate();
+	void testRetrieveEndDate();
 	void testRetrieveValues();
 	void testRetrieveValuesByDate();
-	void testRetrieveReturns();
 	void testRetrieveValuesByDateMissingValues();
 	void testRetrieveValuesNoParameters();
+	void testRetrieveReturns();
+	void testRetrieveNbReturnsNotEnough();
+	void testRetrieveNbReturnsAll();
+	void testRetrieveNbReturnsSome();
 };

@@ -84,7 +84,8 @@ HEADERS +=\
 	IImport.h \
 	PortfolioItemModel.h \
 	PortfolioViewModel.h \
-	PortfolioCalculationException.h
+	PortfolioCalculationException.h \
+    InvalidDefinitionPeriodException.h
 
 unix:!symbian {
 	maemo5 {

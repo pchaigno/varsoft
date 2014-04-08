@@ -53,8 +53,8 @@ public:
 	QDate getEndDate() const;
 	void changeName(QString name);
 	QVector<double> retrieveValues() const;
-	QVector<double> retrieveValues(const QDate &startDate, const QDate &endDate) const;
-	QMap<QDate, double> retrieveValuesByDate(const QDate& startDate, const QDate& endDate) const;
+	QVector<double> retrieveValues(const QDate &startPeriod, const QDate &endPeriod) const;
+	QMap<QDate, double> retrieveValuesByDate(const QDate& startPeriod, const QDate& endPeriod) const;
 
 	bool operator==(const Asset& asset) const;
 };

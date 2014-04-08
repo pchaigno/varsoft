@@ -24,8 +24,11 @@
 #include "Asset.h"
 #include <QDate>
 #include "IdAlreadyAttributedException.h"
+#include "InvalidDefinitionPeriodException.h"
 #include "ModelVaR_global.h"
 #include "PortfolioCalculationException.h"
+#include <string>
+#include <sstream>
 
 class MODELVARSHARED_EXPORT Portfolio {
 private:
@@ -53,11 +56,12 @@ public:
 	void changeName(QString name);
 	QDate retrieveStartDate() const;
 	QDate retrieveEndDate() const;
-	static QVector<double> getReturns(QVector<double> &values);
-	QVector<double> retrieveReturns(QDate endingPeriodDate, int period) const;
 	QVector<double> retrieveValues() const;
-	QVector<double> retrieveValues(const QDate &startDate, const QDate &endDate) const;
-	QMap<QDate, double> retrieveValuesByDate(const QDate& startDate, const QDate& endDate) const;
+	QVector<double> retrieveValues(const QDate &startPeriod, const QDate &endPeriod) const;
+	QMap<QDate, double> retrieveValuesByDate(const QDate& startPeriod, const QDate& endPeriod) const;
+	QVector<double> retrieveReturns() const;
+	QVector<double> retrieveReturns(const QDate& startPeriod, const QDate& endPeriod) const;
+	QVector<double> retrieveReturns(const QDate& endPeriod, int nbValues) const;
 
 	bool operator==(const Portfolio& portfolio) const;
 };

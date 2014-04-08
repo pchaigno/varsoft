@@ -24,8 +24,9 @@ TestAsset::TestAsset() {
 	QDate startDate(2014, 1, 2);
 	QDate endDate(2014, 1, 5);
 	this->google = Asset("Google", "../../CSV_examples/asset1.txt", "YAHOO", startDate, endDate);
-	this->apple = Asset("Apple", "../../CSV_examples/asset4.txt", "YAHOO", QDate(2014, 1, 1), QDate(2014, 1, 4));
+	this->apple = Asset("Apple", "../../CSV_examples/asset4.txt", "YAHOO", QDate(2013, 12, 30), QDate(2014, 1, 2));
 	this->missing = Asset("test", "../../CSV_examples/nonexistingfile.txt", "YAHOO", startDate, endDate);
+	this->asset1 = Asset("Asset1", "../../CSV_examples/asset1.txt", "YAHOO", QDate(2014, 01, 01), QDate(2014, 01, 06));
 }
 
 /**
@@ -54,24 +55,37 @@ void TestAsset::testName() {
 
 /**
  * @brief Successful test on retrieveValues.
+ * The definition period of the asset contains a weekend.
+ */
+void TestAsset::testRetrieveValuesWeekend() {
+	QVector<double> result;
+	try {
+		result = this->asset1.retrieveValues(QDate(2014, 1, 3), QDate(2014, 1, 6));
+	} catch(CannotOpenFileException& e) {
+		qDebug() << e.what();
+	}
+	QCOMPARE(result.size(), 2);
+	QCOMPARE(result.at(0), 102.0);
+	QCOMPARE(result.at(1), 105.0);
+}
+
+/**
+ * @brief Successful test on retrieveValues.
  */
 void TestAsset::testRetrieveValues() {
 	QVector<double> result;
 	try {
-		result = this->google.retrieveValues(this->google.getStartDate(), this->google.getEndDate());
+		result = this->google.retrieveValues(QDate(2014, 1, 3), QDate(2014, 1, 5));
 	} catch(CannotOpenFileException& e) {
 		qDebug() << e.what();
 	}
-	QCOMPARE(result.size(), 4);
-	QCOMPARE(result.at(0), 101.0);
-	QCOMPARE(result.at(1), 102.0);
-	QCOMPARE(result.at(2), 103.0);
-	QCOMPARE(result.at(3), 104.0);
+	QCOMPARE(result.size(), 1);
+	QCOMPARE(result.at(0), 102.0);
 }
 
 /**
  * @brief Checks that the retrieveValues throws an exception
- * if the dates are in inversed.
+ * if the dates are inversed.
  */
 void TestAsset::testRetrieveValuesIncorrectDates() {
 	QVector<double> result;
@@ -112,27 +126,24 @@ void TestAsset::testRetrieveValuesSpecialDates() {
 	} catch(CannotOpenFileException& e) {
 		qDebug() << e.what();
 	}
-	QCOMPARE(result.size(), 6);
-	QCOMPARE(result.at(0), 100.0);
-	QCOMPARE(result.at(1), 101.0);
-	QCOMPARE(result.at(2), 102.0);
-	QCOMPARE(result.at(3), 103.0);
-	QCOMPARE(result.at(4), 104.0);
-	QCOMPARE(result.at(5), 105.0);
+	QCOMPARE(result.size(), 2);
+	QCOMPARE(result.at(0), 101.0);
+	QCOMPARE(result.at(1), 102.0);
 }
 
 /**
- * @brief Tries to retrieveValues for a day unavailable
- * between the dates of definition.
+ * @brief Tries to retrieveValues for a day unavailable between the dates of definition.
+ * The value of the preceding day should be returned.
  */
 void TestAsset::testRetrieveValuesUnavailableDates() {
 	QVector<double> result;
 	try {
-		result = this->apple.retrieveValues(QDate(2014, 1, 3), QDate(2014, 1, 3));
+		result = this->apple.retrieveValues(QDate(2013, 12, 31), QDate(2013, 12, 31));
 	} catch(CannotOpenFileException& e) {
 		qDebug() << e.what();
 	}
-	QVERIFY(result.isEmpty());
+	QCOMPARE(result.size(), 1);
+	QCOMPARE(result.at(0), 98.0);
 }
 
 /**
@@ -145,11 +156,25 @@ void TestAsset::testRetrieveValuesNoParameters() {
 	} catch(CannotOpenFileException& e) {
 		qDebug() << e.what();
 	}
-	QCOMPARE(result.size(), 4);
+	QCOMPARE(result.size(), 2);
 	QCOMPARE(result.at(0), 101.0);
 	QCOMPARE(result.at(1), 102.0);
-	QCOMPARE(result.at(2), 103.0);
-	QCOMPARE(result.at(3), 104.0);
+}
+
+/**
+ * @brief Successful test on retrieveValuesByDate.
+ * The definition period of the asset contains a weekend.
+ */
+void TestAsset::testRetrieveValuesByDateWeekend() {
+	QMap<QDate, double> result;
+	try {
+		result = this->asset1.retrieveValuesByDate(QDate(2014, 1, 3), QDate(2014, 1, 6));
+	} catch(CannotOpenFileException& e) {
+		qDebug() << e.what();
+	}
+	QCOMPARE(result.size(), 2);
+	QCOMPARE(result.value(QDate(2014, 01, 03)), 102.0);
+	QCOMPARE(result.value(QDate(2014, 01, 06)), 105.0);
 }
 
 /**
@@ -159,15 +184,12 @@ void TestAsset::testRetrieveValuesNoParameters() {
 void TestAsset::testRetrieveValuesByDate() {
 	QMap<QDate, double> result;
 	try {
-		result = this->google.retrieveValuesByDate(this->google.getStartDate(), this->google.getEndDate());
+		result = this->google.retrieveValuesByDate(QDate(2014, 1, 3), QDate(2014, 1, 5));
 	} catch(CannotOpenFileException& e) {
 		qDebug() << e.what();
 	}
-	QCOMPARE(result.size(), 4);
-	QCOMPARE(result.value(QDate(2014, 1, 2)), 101.0);
+	QCOMPARE(result.size(), 1);
 	QCOMPARE(result.value(QDate(2014, 1, 3)), 102.0);
-	QCOMPARE(result.value(QDate(2014, 1, 4)), 103.0);
-	QCOMPARE(result.value(QDate(2014, 1, 5)), 104.0);
 }
 
 /**
@@ -213,11 +235,22 @@ void TestAsset::testRetrieveValuesByDateSpecialDates() {
 	} catch(CannotOpenFileException& e) {
 		qDebug() << e.what();
 	}
-	QCOMPARE(result.size(), 6);
-	QCOMPARE(result.value(QDate(2014, 1, 1)), 100.0);
+	QCOMPARE(result.size(), 2);
 	QCOMPARE(result.value(QDate(2014, 1, 2)), 101.0);
 	QCOMPARE(result.value(QDate(2014, 1, 3)), 102.0);
-	QCOMPARE(result.value(QDate(2014, 1, 4)), 103.0);
-	QCOMPARE(result.value(QDate(2014, 1, 5)), 104.0);
-	QCOMPARE(result.value(QDate(2014, 1, 6)), 105.0);
+}
+
+/**
+ * @brief Tries to retrieveValuesByDate for a day unavailable between the dates of definition.
+ * The value of the preceding day should be returned.
+ */
+void TestAsset::testRetrieveValuesByDateUnavailableDates() {
+	QMap<QDate, double> result;
+	try {
+		result = this->apple.retrieveValuesByDate(QDate(2013, 12, 31), QDate(2013, 12, 31));
+	} catch(CannotOpenFileException& e) {
+		qDebug() << e.what();
+	}
+	QCOMPARE(result.size(), 1);
+	QCOMPARE(result.value(QDate(2013, 12, 31)), 98.0);
 }

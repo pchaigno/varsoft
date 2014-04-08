@@ -146,123 +146,210 @@ QVector<double> Asset::retrieveValues() const {
 }
 
 /**
- * @brief Retrieve the asset values between startDate and endDate. It reads the
- * corresponding file located in the database
- * @param startDate The starting date
- * @param endDate The ending date
- * @return The values of the asset in the chronological order, empty if parameters
- * don't match any dates in the file
+ * @brief Retrieves the asset values between startDate and endDate from the asset file.
+ * Fills in values for dates missing (public holidays).
+ * Skips week-ends' days.
+ * @param startPeriod Starts retrieving values from this date.
+ * @param endPeriod Retrieves to this date maximum.
+ * @return The values of the asset between the two dates in the chronogical order.
  */
-QVector<double> Asset::retrieveValues(const QDate& startDate, const QDate& endDate) const {
-	QVector<double> values;
-	QFile inputFile(this->getFile());
-
-	// Throw an exception if the startDate is after the endDate.
-	if(startDate > endDate) {
-		throw std::invalid_argument("startDate: "+ startDate.toString().toStdString() + " is after endDate: " +
-									endDate.toString().toStdString());
+QVector<double> Asset::retrieveValues(const QDate& startPeriod, const QDate& endPeriod) const {
+	// Throws an exception if the startDate is after the endDate.
+	if(startPeriod > endPeriod) {
+		throw std::invalid_argument("startPeriod: "+ startPeriod.toString().toStdString() + " is after endPeriod: " +
+									endPeriod.toString().toStdString());
 	}
 
+	// Nothing to return if the dates are outside the asset's period of definition.
+	if(startPeriod>this->endDate || endPeriod<this->startDate) {
+		return QVector<double>();
+	}
+
+	// If the user entered dates too large, we must resize:
+	// We make copies of the period's dates to keep them const.
+	QDate realStartPeriod = QDate(startPeriod);
+	QDate realEndPeriod = QDate(endPeriod);
+	if(realStartPeriod < this->startDate) {
+		realStartPeriod = this->startDate;
+	}
+	if(realEndPeriod > this->endDate) {
+		realEndPeriod = this->endDate;
+	}
+
+	// Opens the file stream:
+	QFile inputFile(this->getFile());
 	if(!inputFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
 		throw CannotOpenFileException("Could not open file: " + this->getFile().toStdString());
-	} else {
-		QTextStream in(&inputFile);
+	}
+	QTextStream in(&inputFile);
 
-		bool startDetected = false;
+	// Loops over each line:
+	QVector<double> values;
+	QDate lastDate, date = QDate();
+	bool endDetected = false;
+	while(!in.atEnd()) {
+		QString line = in.readLine();
+		QRegExp rx("\\s*,\\s*");
+		QStringList row = line.split(rx);
+		lastDate = date;
+		date = QDate::fromString(row.value(0), "yyyy-MM-dd");
+		QString value = row.value(1);
 
-		// Loop over each line
-		while(!in.atEnd()) {
-			QString line = in.readLine();
-			QRegExp rx("\\s*,\\s*");
-			QStringList row = line.split(rx);
-			QString date = row.value(0);
-			QString value = row.value(1);
-			QDate readDate = QDate::fromString(date,"yyyy-MM-dd");
-
-			// If the ending date has not been read yet, it goes at the start of the loop
-			// and read the next line
-			if(!startDetected && readDate > endDate) {
-				continue;
-			}
-
-			// If execution reaches that point, it means that the start date has been read
-			if(startDetected == false) {
-				startDetected = true;
-			}
-
-			// If the end date has been reached, it exits the loop
-			// Otherwise it reads the file till the end
-			if(readDate < startDate) {
-				break;
-			}
-
-			// Building the vector
-			values.push_front(value.toDouble());
-
-
+		// Searches for the end of the period:
+		if(date > realEndPeriod) {
+			continue;
 		}
-		inputFile.close();
+
+		// If we've reached the start of the period, we stop:
+		if(date < realStartPeriod) {
+			// Fills the days missing if there are any:
+			while(lastDate.addDays(-1)!=date && lastDate!=realStartPeriod) {
+				if(lastDate.addDays(-1).dayOfWeek() < 6) {
+				// It's a weekday.
+					values.push_front(value.toDouble());
+				}
+				lastDate = lastDate.addDays(-1);
+			}
+			break;
+		}
+
+		if(!endDetected) {
+		// The end of the searched period as just been detected.
+			endDetected = true;
+			// Fills the days missing at the end of the period if there are any:
+			QDate lastMissingDay = QDate(realEndPeriod);
+			while(lastMissingDay != date) {
+				if(lastMissingDay.dayOfWeek() < 6) {
+				// It's a weekday.
+					values.push_front(value.toDouble());
+					lastDate = QDate(lastMissingDay);
+				}
+				lastMissingDay = lastMissingDay.addDays(-1);
+			}
+		}
+
+		// Fills the days missing if there are any:
+		// If lastDate is null it means that we still are on the first date.
+		// Therefore there aren't any missing days...
+		while(!lastDate.isNull() && lastDate.addDays(-1)!=date) {
+			if(lastDate.addDays(-1).dayOfWeek() < 6) {
+			// It's a weekday.
+				values.push_front(value.toDouble());
+			}
+			lastDate = lastDate.addDays(-1);
+		}
+
+		if(date.dayOfWeek() < 6) {
+		// It's a weekday.
+			values.push_front(value.toDouble());
+		}
 	}
 
+	inputFile.close();
 	return values;
 }
 
 /**
- * @brief Retrieve the associations of dates and asset values between startDate and endDate.
- * It reads the corresponding file located in the database
- * @param startDate The starting date
- * @param endDate The ending date
- * @return The date and value associations of the asset in the chronological order
+ * @brief Retrieves the asset values between startDate and endDate from the asset file.
+ * Fills in values for dates missing (public holidays).
+ * Skips week-ends' days.
+ * @param startPeriod Starts retrieving values from this date.
+ * @param endPeriod Retrieves to this date maximum.
+ * @return The values of the asset for each dates between the two dates in the chronogical order.
  */
-// BUG
-QMap<QDate, double> Asset::retrieveValuesByDate(const QDate& startDate, const QDate& endDate) const {
-	QMap<QDate, double> values;
-	QFile inputFile(this->getFile());
-
-	// Throw an exception if the startDate is after the endDate.
-	if(startDate > endDate) {
-		throw std::invalid_argument("startDate: "+ startDate.toString().toStdString() + " is after endDate: " +
-									endDate.toString().toStdString());
+QMap<QDate, double> Asset::retrieveValuesByDate(const QDate& startPeriod, const QDate& endPeriod) const {
+	// Throws an exception if the startDate is after the endDate.
+	if(startPeriod > endPeriod) {
+		throw std::invalid_argument("startPeriod: "+ startPeriod.toString().toStdString() + " is after endPeriod: " +
+									endPeriod.toString().toStdString());
 	}
 
+	// Nothing to return if the dates are outside the asset's period of definition.
+	if(startPeriod>this->endDate || endPeriod<this->startDate) {
+		return QMap<QDate, double>();
+	}
+
+	// If the user entered dates too large, we must resize:
+	// We make copies of the period's dates to keep them const.
+	QDate realStartPeriod = QDate(startPeriod);
+	QDate realEndPeriod = QDate(endPeriod);
+	if(realStartPeriod < this->startDate) {
+		realStartPeriod = this->startDate;
+	}
+	if(realEndPeriod > this->endDate) {
+		realEndPeriod = this->endDate;
+	}
+
+	// Opens the file stream:
+	QFile inputFile(this->getFile());
 	if(!inputFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
 		throw CannotOpenFileException("Could not open file: " + this->getFile().toStdString());
-	} else {
-		QTextStream in(&inputFile);
+	}
+	QTextStream in(&inputFile);
 
-		bool startDetected = false;
-		// Loop over each line
-		while(!in.atEnd()) {
-			QString line = in.readLine();
-			QRegExp rx("\\s*,\\s*");
-			QStringList row = line.split(rx);
-			QString date = row.value(0);
-			QString value = row.value(1);
-			QDate readDate = QDate::fromString(date, "yyyy-MM-dd");
+	// Loops over each line:
+	QMap<QDate, double> values;
+	QDate lastDate, date = QDate();
+	bool endDetected = false;
+	while(!in.atEnd()) {
+		QString line = in.readLine();
+		QRegExp rx("\\s*,\\s*");
+		QStringList row = line.split(rx);
+		lastDate = date;
+		date = QDate::fromString(row.value(0), "yyyy-MM-dd");
+		QString value = row.value(1);
 
-
-			// If the ending date has not been read yet, it goes at the start of the loop
-			// and read the next line
-			if(!startDetected && readDate > endDate) {
-				continue;
-			}
-
-			// If execution reaches that point, it means that the start date has been read
-			if(startDetected == false) {
-				startDetected = true;
-			}
-
-			// If the end date has been reached, it exits the loop
-			// Otherwise it reads the file till the end
-			if(readDate < startDate) {
-				break;
-			}
-			// Building the vector
-			values.insert(readDate, value.toDouble());
+		// Searches for the end of the period:
+		if(date > realEndPeriod) {
+			continue;
 		}
-		inputFile.close();
+
+		// If we've reached the start of the period, we stop:
+		if(date < realStartPeriod) {
+			// Fills the days missing if there are any:
+			while(lastDate.addDays(-1)!=date && lastDate!=realStartPeriod) {
+				if(lastDate.addDays(-1).dayOfWeek() < 6) {
+				// It's a weekday.
+					values.insert(lastDate.addDays(-1), value.toDouble());
+				}
+				lastDate = lastDate.addDays(-1);
+			}
+			break;
+		}
+
+		if(!endDetected) {
+		// The end of the searched period as just been detected.
+			endDetected = true;
+			// Fills the days missing at the end of the period if there are any:
+			QDate lastMissingDay = QDate(realEndPeriod);
+			while(lastMissingDay != date) {
+				if(lastMissingDay.dayOfWeek() < 6) {
+				// It's a weekday.
+					values.insert(lastMissingDay, value.toDouble());
+					lastDate = QDate(lastMissingDay);
+				}
+				lastMissingDay = lastMissingDay.addDays(-1);
+			}
+		}
+
+		// Fills the days missing if there are any:
+		// If lastDate is null it means that we still are on the first date.
+		// Therefore there aren't any missing days...
+		while(!lastDate.isNull() && lastDate.addDays(-1) != date) {
+			if(lastDate.addDays(-1).dayOfWeek() < 6) {
+			// It's a weekday.
+				values.insert(lastDate.addDays(-1), value.toDouble());
+			}
+			lastDate = lastDate.addDays(-1);
+		}
+
+		if(date.dayOfWeek() < 6) {
+		// It's a weekday.
+			values.insert(date, value.toDouble());
+		}
 	}
 
+	inputFile.close();
 	return values;
 }
 
