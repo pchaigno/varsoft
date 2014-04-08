@@ -233,7 +233,9 @@ QVector<double> Portfolio::retrieveValues(const QDate& startPeriod, const QDate&
 
 		if(values.size() == 0) {
 		// First asset retrieved.
-			values = assetValues;
+			for(int i=0; i<assetValues.size(); i++) {
+				values.append(assetValues[i] * weight);
+			}
 
 		} else {
 		// Not the first asset retrieved.
@@ -285,7 +287,9 @@ QMap<QDate, double> Portfolio::retrieveValuesByDate(const QDate& startPeriod, co
 
 		if(values.size() == 0) {
 		// First asset retrieved.
-			values = assetValues;
+			for(QMap<QDate, double>::const_iterator assetValuesIt=assetValues.begin(); assetValuesIt!=assetValues.end(); assetValuesIt++) {
+				values.insert(assetValuesIt.key(), assetValuesIt.value() * weight);
+			}
 
 		} else {
 		// Not the first asset retrieved.
