@@ -58,12 +58,7 @@ void TestAsset::testName() {
  * The definition period of the asset contains a weekend.
  */
 void TestAsset::testRetrieveValuesWeekend() {
-	QVector<double> result;
-	try {
-		result = this->asset1.retrieveValues(QDate(2014, 1, 3), QDate(2014, 1, 6));
-	} catch(CannotOpenFileException& e) {
-		qDebug() << e.what();
-	}
+	QVector<double> result = this->asset1.retrieveValues(QDate(2014, 1, 3), QDate(2014, 1, 6));
 	QCOMPARE(result.size(), 2);
 	QCOMPARE(result.at(0), 102.0);
 	QCOMPARE(result.at(1), 105.0);
@@ -73,12 +68,7 @@ void TestAsset::testRetrieveValuesWeekend() {
  * @brief Successful test on retrieveValues.
  */
 void TestAsset::testRetrieveValues() {
-	QVector<double> result;
-	try {
-		result = this->google.retrieveValues(QDate(2014, 1, 3), QDate(2014, 1, 5));
-	} catch(CannotOpenFileException& e) {
-		qDebug() << e.what();
-	}
+	QVector<double> result = this->google.retrieveValues(QDate(2014, 1, 3), QDate(2014, 1, 5));
 	QCOMPARE(result.size(), 1);
 	QCOMPARE(result.at(0), 102.0);
 }
@@ -88,12 +78,11 @@ void TestAsset::testRetrieveValues() {
  * if the dates are inversed.
  */
 void TestAsset::testRetrieveValuesIncorrectDates() {
-	QVector<double> result;
 	try {
-		result = this->google.retrieveValues(this->google.getEndDate(), this->google.getStartDate());
+		QVector<double> result = this->google.retrieveValues(this->google.getEndDate(), this->google.getStartDate());
 		QFAIL("retrieveValues was able to execute with incorrect date paramaters");
 	} catch(std::exception& e) {
-		qDebug() << e.what();
+
 	}
 }
 
@@ -102,12 +91,11 @@ void TestAsset::testRetrieveValuesIncorrectDates() {
  * if the file with the values doesn't exist.
  */
 void TestAsset::testRetrieveValuesNonexistingFile() {
-	QVector<double> result;
 	try {
-		result = this->missing.retrieveValues(this->missing.getStartDate(), this->missing.getEndDate());
+		QVector<double> result = this->missing.retrieveValues(this->missing.getStartDate(), this->missing.getEndDate());
 		QFAIL("retrieveValuesByDate() was able to open a file that should not exist");
 	} catch(CannotOpenFileException& e) {
-		qDebug() << e.what();
+
 	}
 }
 
@@ -118,14 +106,7 @@ void TestAsset::testRetrieveValuesNonexistingFile() {
  * The same goes with the last date in its opposite way.
  */
 void TestAsset::testRetrieveValuesSpecialDates() {
-	QVector<double> result;
-	QDate startDate(2013, 12, 25);
-	QDate endDate(2014, 1, 10);
-	try {
-		result = this->google.retrieveValues(startDate, endDate);
-	} catch(CannotOpenFileException& e) {
-		qDebug() << e.what();
-	}
+	QVector<double> result = this->google.retrieveValues(QDate(2013, 12, 25), QDate(2014, 1, 10));
 	QCOMPARE(result.size(), 2);
 	QCOMPARE(result.at(0), 101.0);
 	QCOMPARE(result.at(1), 102.0);
@@ -136,12 +117,7 @@ void TestAsset::testRetrieveValuesSpecialDates() {
  * The value of the preceding day should be returned.
  */
 void TestAsset::testRetrieveValuesUnavailableDates() {
-	QVector<double> result;
-	try {
-		result = this->apple.retrieveValues(QDate(2013, 12, 31), QDate(2013, 12, 31));
-	} catch(CannotOpenFileException& e) {
-		qDebug() << e.what();
-	}
+	QVector<double> result = this->apple.retrieveValues(QDate(2013, 12, 31), QDate(2013, 12, 31));
 	QCOMPARE(result.size(), 1);
 	QCOMPARE(result.at(0), 98.0);
 }
@@ -150,12 +126,7 @@ void TestAsset::testRetrieveValuesUnavailableDates() {
  * @brief Successful test on the retrieveValues without parameters.
  */
 void TestAsset::testRetrieveValuesNoParameters() {
-	QVector<double> result;
-	try {
-		result = this->google.retrieveValues();
-	} catch(CannotOpenFileException& e) {
-		qDebug() << e.what();
-	}
+	QVector<double> result = this->google.retrieveValues();
 	QCOMPARE(result.size(), 2);
 	QCOMPARE(result.at(0), 101.0);
 	QCOMPARE(result.at(1), 102.0);
@@ -166,12 +137,7 @@ void TestAsset::testRetrieveValuesNoParameters() {
  * The definition period of the asset contains a weekend.
  */
 void TestAsset::testRetrieveValuesByDateWeekend() {
-	QMap<QDate, double> result;
-	try {
-		result = this->asset1.retrieveValuesByDate(QDate(2014, 1, 3), QDate(2014, 1, 6));
-	} catch(CannotOpenFileException& e) {
-		qDebug() << e.what();
-	}
+	QMap<QDate, double> result = this->asset1.retrieveValuesByDate(QDate(2014, 1, 3), QDate(2014, 1, 6));
 	QCOMPARE(result.size(), 2);
 	QCOMPARE(result.value(QDate(2014, 01, 03)), 102.0);
 	QCOMPARE(result.value(QDate(2014, 01, 06)), 105.0);
@@ -182,12 +148,7 @@ void TestAsset::testRetrieveValuesByDateWeekend() {
  * Successful test
  */
 void TestAsset::testRetrieveValuesByDate() {
-	QMap<QDate, double> result;
-	try {
-		result = this->google.retrieveValuesByDate(QDate(2014, 1, 3), QDate(2014, 1, 5));
-	} catch(CannotOpenFileException& e) {
-		qDebug() << e.what();
-	}
+	QMap<QDate, double> result = this->google.retrieveValuesByDate(QDate(2014, 1, 3), QDate(2014, 1, 5));
 	QCOMPARE(result.size(), 1);
 	QCOMPARE(result.value(QDate(2014, 1, 3)), 102.0);
 }
@@ -197,12 +158,11 @@ void TestAsset::testRetrieveValuesByDate() {
  * if the dates are in inversed.
  */
 void TestAsset::testRetrieveValuesByDateIncorrectDates() {
-	QMap<QDate, double> result;
 	try {
-		result = this->google.retrieveValuesByDate(this->google.getEndDate(), this->google.getStartDate());
+		QMap<QDate, double> result = this->google.retrieveValuesByDate(this->google.getEndDate(), this->google.getStartDate());
 		QFAIL("retrieveValuesByDate was able to execute with incorrect date paramaters");
 	} catch(std::exception& e) {
-		qDebug() << e.what();
+
 	}
 }
 
@@ -211,12 +171,11 @@ void TestAsset::testRetrieveValuesByDateIncorrectDates() {
  * if the file with the values doesn't exist.
  */
 void TestAsset::testRetrieveValuesByDateNonexistingFile() {
-	QMap<QDate, double> result;
 	try {
-		result = this->missing.retrieveValuesByDate(this->missing.getStartDate(), this->missing.getEndDate());
+		QMap<QDate, double> result = this->missing.retrieveValuesByDate(this->missing.getStartDate(), this->missing.getEndDate());
 		QFAIL("retrieveValuesByDate() was able to open a file that should not exist");
 	} catch(CannotOpenFileException& e) {
-		qDebug() << e.what();
+
 	}
 }
 
@@ -227,14 +186,7 @@ void TestAsset::testRetrieveValuesByDateNonexistingFile() {
  * The same goes with the last date in its opposite way.
  */
 void TestAsset::testRetrieveValuesByDateSpecialDates() {
-	QMap<QDate, double> result;
-	QDate startDate(2013, 12, 25);
-	QDate endDate(2014, 1, 10);
-	try {
-		result = this->google.retrieveValuesByDate(startDate, endDate);
-	} catch(CannotOpenFileException& e) {
-		qDebug() << e.what();
-	}
+	QMap<QDate, double> result = this->google.retrieveValuesByDate(QDate(2013, 12, 25), QDate(2014, 1, 10));
 	QCOMPARE(result.size(), 2);
 	QCOMPARE(result.value(QDate(2014, 1, 2)), 101.0);
 	QCOMPARE(result.value(QDate(2014, 1, 3)), 102.0);
@@ -245,12 +197,7 @@ void TestAsset::testRetrieveValuesByDateSpecialDates() {
  * The value of the preceding day should be returned.
  */
 void TestAsset::testRetrieveValuesByDateUnavailableDates() {
-	QMap<QDate, double> result;
-	try {
-		result = this->apple.retrieveValuesByDate(QDate(2013, 12, 31), QDate(2013, 12, 31));
-	} catch(CannotOpenFileException& e) {
-		qDebug() << e.what();
-	}
+	QMap<QDate, double> result = this->apple.retrieveValuesByDate(QDate(2013, 12, 31), QDate(2013, 12, 31));
 	QCOMPARE(result.size(), 1);
 	QCOMPARE(result.value(QDate(2013, 12, 31)), 98.0);
 }

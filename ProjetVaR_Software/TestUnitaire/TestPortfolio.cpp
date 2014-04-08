@@ -77,10 +77,10 @@ void TestPortfolio::testId() {
 	QCOMPARE(this->son.getParentId(), 42);
 	try {
 		this->father.setId(43);
+		QFAIL("No exception thrown when attributed an id to a porfolio twice.");
 	} catch(const IdAlreadyAttributedException e) {
-		return;
+
 	}
-	QFAIL("No exception thrown when attributed an id to a porfolio twice.");
 }
 
 /**
@@ -114,12 +114,7 @@ void TestPortfolio::testRetrieveEndDate() {
  * @brief Tests the method getValues that retrieve and compute values of a portfolio.
  */
 void TestPortfolio::testRetrieveValues() {
-	QVector<double> result;
-	try {
-		result = this->son.retrieveValues(QDate(2014, 1, 4), QDate(2014, 1, 6));
-	} catch(PortfolioCalculationException& e) {
-		qDebug() << e.what();
-	}
+	QVector<double> result = this->son.retrieveValues(QDate(2014, 1, 4), QDate(2014, 1, 6));
 	QCOMPARE(result.size(), 1);
 	QCOMPARE(result.at(0), 630.0);
 }
@@ -128,12 +123,7 @@ void TestPortfolio::testRetrieveValues() {
  * @brief Successful test of retrieveValues without parameters.
  */
 void TestPortfolio::testRetrieveValuesNoParameters() {
-	QVector<double> result;
-	try {
-		result = this->son.retrieveValues();
-	} catch(PortfolioCalculationException& e) {
-		qDebug() << e.what();
-	}
+	QVector<double> result = this->son.retrieveValues();
 	QCOMPARE(result.size(), 2);
 	QCOMPARE(result.at(0), 612.0);
 	QCOMPARE(result.at(1), 630.0);
@@ -143,12 +133,7 @@ void TestPortfolio::testRetrieveValuesNoParameters() {
  * @brief Tests the method retrieveValuesByDate that retrieve and compute date-values of a portfolio
  */
 void TestPortfolio::testRetrieveValuesByDate() {
-	QMap<QDate, double> result;
-	try {
-		result = this->son.retrieveValuesByDate(QDate(2014, 1, 4), QDate(2014, 1, 6));
-	} catch(PortfolioCalculationException& e) {
-		qDebug() << e.what();
-	}
+	QMap<QDate, double> result = this->son.retrieveValuesByDate(QDate(2014, 1, 4), QDate(2014, 1, 6));
 	QCOMPARE(result.size(), 1);
 	QCOMPARE(result.value(QDate(2014, 1, 6)), 630.0);
 }
@@ -157,12 +142,7 @@ void TestPortfolio::testRetrieveValuesByDate() {
  * @brief Tests of retrieveValuesByDate when the period is larger than the portfolio's period.
  */
 void TestPortfolio::testRetrieveValuesByDateMissingValues() {
-	QMap<QDate, double> result;
-	try {
-		result = this->son.retrieveValuesByDate(QDate(2014, 1, 2), QDate(2014, 1, 8));
-	} catch(PortfolioCalculationException& e) {
-		qDebug() << e.what();
-	}
+	QMap<QDate, double> result = this->son.retrieveValuesByDate(QDate(2014, 1, 2), QDate(2014, 1, 8));
 	QCOMPARE(result.size(), 2);
 	QCOMPARE(result.value(QDate(2014, 1, 3)), 612.0);
 	QCOMPARE(result.value(QDate(2014, 1, 6)), 630.0);
@@ -173,12 +153,7 @@ void TestPortfolio::testRetrieveValuesByDateMissingValues() {
  * This method calls directly the eponymous method on the whole definition period of the portfolio.
  */
 void TestPortfolio::testRetrieveReturns() {
-	QVector<double> result;
-	try {
-		result = this->son.retrieveReturns();
-	} catch(PortfolioCalculationException& e) {
-		qDebug() << e.what();
-	}
+	QVector<double> result = this->son.retrieveReturns();
 	QCOMPARE(result.size(), 1);
 	QCOMPARE(result.at(0), 18.0);
 }
@@ -188,8 +163,7 @@ void TestPortfolio::testRetrieveReturns() {
  * The portfolio son only contains 2 values (so only 1 returns).
  */
 void TestPortfolio::testRetrieveNbReturnsNotEnough() {
-	QVector<double> result;
-	result = this->son.retrieveReturns(this->son.retrieveEndDate(), 2);
+	QVector<double> result = this->son.retrieveReturns(this->son.retrieveEndDate(), 2);
 	QCOMPARE(result.size(), 1);
 	QCOMPARE(result.at(0), 18.0);
 }
@@ -200,8 +174,7 @@ void TestPortfolio::testRetrieveNbReturnsNotEnough() {
  * This test retrieves all returns.
  */
 void TestPortfolio::testRetrieveNbReturnsAll() {
-	QVector<double> result;
-	result = this->uncle.retrieveReturns(this->uncle.retrieveEndDate(), 10);
+	QVector<double> result = this->uncle.retrieveReturns(this->uncle.retrieveEndDate(), 10);
 	QCOMPARE(result.size(), 10);
 	QCOMPARE(result.at(0), 20.0);
 	QCOMPARE(result.at(1), 2.0);
@@ -221,8 +194,7 @@ void TestPortfolio::testRetrieveNbReturnsAll() {
  * This test only retrieves 4 returns.
  */
 void TestPortfolio::testRetrieveNbReturnsSome() {
-	QVector<double> result;
-	result = this->uncle.retrieveReturns(this->uncle.retrieveEndDate(), 4);
+	QVector<double> result = this->uncle.retrieveReturns(this->uncle.retrieveEndDate(), 4);
 	QCOMPARE(result.size(), 4);
 	QCOMPARE(result.at(0), 11.0);
 	QCOMPARE(result.at(1), 0.0);
