@@ -103,7 +103,7 @@ QString ReportDataJson::toString()
     document["images"]=images;
     document["list"]=lists;
     data.setObject(document);
-    return data.toJson(QJsonDocument::Compact);
+    return data.toJson();
 }
 
 bool ReportDataJson::operator==(const ReportDataJson &other) const
