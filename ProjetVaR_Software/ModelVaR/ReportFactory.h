@@ -21,7 +21,7 @@
 #include "DocxGenerator.h"
 #include <QString>
 
-class ReportFactory {
+class MODELVARSHARED_EXPORT ReportFactory {
 public:
     ReportFactory();
 

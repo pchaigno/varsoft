@@ -40,12 +40,9 @@ void ImportData::import(const QString &name, const QString &file, const QString 
 		data = importedCSV.readAll();
 		rowOfData = data.split("\n");
 		importedCSV.close();
-	}
-	qDebug() << "Données importées";
+    }
 
 	for (int x =0; x < rowOfData.size(); x++) {
 		rowData = rowOfData.at(x).split(",");
-
-		qDebug() << rowData[1];
 	}
 }

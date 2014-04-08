@@ -24,7 +24,7 @@
 #include "ReportGenerator.h"
 #include <QFile>
 
-class DocxGenerator: public ReportGenerator {
+class MODELVARSHARED_EXPORT DocxGenerator: public ReportGenerator {
 public:
     DocxGenerator(Report * report);
     virtual void generate();

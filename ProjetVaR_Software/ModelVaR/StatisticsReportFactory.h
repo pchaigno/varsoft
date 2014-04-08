@@ -24,7 +24,7 @@
 #include <qmath.h>
 #include "qcustomplot.h"
 
-class StatisticsReportFactory: public ReportFactory {
+class MODELVARSHARED_EXPORT StatisticsReportFactory: public ReportFactory {
 public:
     StatisticsReportFactory(Portfolio *portfolio);
 
