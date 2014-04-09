@@ -23,10 +23,8 @@ ReportDataJson::ReportDataJson()
 
 ReportDataJson::~ReportDataJson()
 {
-    foreach(QTemporaryFile * file, tempFileList)
-    {
-        delete file;
-    }
+    qDeleteAll(tempFileList);
+    tempFileList.clear();
 }
 /**
  * @brief Add the value with the given key to the Json document.

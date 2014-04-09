@@ -25,22 +25,22 @@
 #include "TestPortfolioItemModel.h"
 
 int main() {
-	int result = 0;
-	TestAsset asset;
-	result += QTest::qExec(&asset);
-	TestPortfolio portfolio;
-	result += QTest::qExec(&portfolio);
-	TestReport report;
-	result += QTest::qExec(&report);
-	TestSQLiteManagers sqlite;
-	result += QTest::qExec(&sqlite);
+    int result = 0;
+    TestAsset asset;
+    result += QTest::qExec(&asset);
+    TestPortfolio portfolio;
+    result += QTest::qExec(&portfolio);
+    TestReport report;
+    result += QTest::qExec(&report);
+    TestSQLiteManagers sqlite;
+    result += QTest::qExec(&sqlite);
+    TestImportNewData newdata;
+    result += QTest::qExec(&newdata);
+    TestImportData data;
+    result += QTest::qExec(&data);
 	TestVaRHistorical testVaRHistorical;
-	result += QTest::qExec(&testVaRHistorical);
-	TestImportNewData newdata;
-	result += QTest::qExec(&newdata);
-	TestImportData data;
-	result += QTest::qExec(&data);
-	TestPortfolioItemModel portfolioModel;
-	result += QTest::qExec(&portfolioModel);
+    result += QTest::qExec(&testVaRHistorical);
+    TestPortfolioItemModel portfolioModel;
+    result += QTest::qExec(&portfolioModel);
 	return result;
 }

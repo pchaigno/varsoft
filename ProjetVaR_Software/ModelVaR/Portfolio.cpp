@@ -71,15 +71,6 @@ Portfolio::Portfolio(int id, QString name, QMap<Asset*, int>& composition, QVect
 
 Portfolio::~Portfolio()
 {
-    foreach(Report * report, reports)
-    {
-        delete report;
-    }
-
-    foreach(Asset* asset, composition.keys())
-    {
-        delete asset;
-    }
 }
 
 /**

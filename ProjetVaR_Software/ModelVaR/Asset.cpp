@@ -47,7 +47,12 @@ Asset::Asset(QString name, QString file, QString origin, QDateTime startDate, QD
  * @param endDate The date of the last value defined.
  */
 Asset::Asset(int id, QString name, QString file, QString origin, QDateTime startDate, QDateTime endDate) {
-	this->init(id, name, file, origin, startDate, endDate);
+    this->init(id, name, file, origin, startDate, endDate);
+}
+
+Asset::~Asset()
+{
+
 }
 
 /**

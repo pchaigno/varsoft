@@ -46,7 +46,6 @@ Report::Report(int id, QString file) {
 
 Report::~Report()
 {
-    delete dataJson;
 }
 
 /**
@@ -57,6 +56,7 @@ Report::~Report()
 void Report::init(int id, QString file) {
     this->id = id;
     this->file = file;
+    dataJson=NULL;
 }
 
 /**
