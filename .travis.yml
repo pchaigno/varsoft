@@ -2,9 +2,7 @@ language: cpp
 compiler:
   - gcc
 env:
-  - CONFIG=debug QT=Qt4
   - CONFIG=debug QT=Qt5
-  - CONFIG=release QT=Qt4
   - CONFIG=release QT=Qt5
 
 before_install:
