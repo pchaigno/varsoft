@@ -79,4 +79,5 @@ private:
 	PortfolioItemModel * portfolioListModel;
 	QHash<Portfolio*, PortfolioViewModel*> portfoliosModels;
 	QHash<Portfolio*, QList<ReportWidget*> > portfolioReportWidgets;
+	FlowLayout * layoutReports;
 };

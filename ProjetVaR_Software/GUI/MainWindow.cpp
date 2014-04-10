@@ -46,6 +46,9 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
 
 	connect(this,SIGNAL(newReportCreated()),this,SLOT(updateReportWidgets()));
 
+	layoutReports = new FlowLayout;
+	ui->reportScrollArea->setLayout(layoutReports);
+
 }
 
 MainWindow::~MainWindow() {
@@ -122,13 +125,13 @@ void MainWindow::updateReportWidgets()
 void MainWindow::updateReportWidgets(Portfolio *portfolio)
 {
 	//delete all ReportWidget
-	clearLayout(ui->reportsLayout,false);
+	clearLayout(layoutReports,false);
 
 	//add the
 	QList<ReportWidget*> listReportWidget = portfolioReportWidgets[portfolio];
 	foreach(ReportWidget * reportWidget, listReportWidget)
 	{
-		ui->reportsLayout->addWidget(reportWidget);
+		layoutReports->addWidget(reportWidget);
 	}
 }
 
