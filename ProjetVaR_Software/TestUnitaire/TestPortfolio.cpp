@@ -54,7 +54,7 @@ TestPortfolio::TestPortfolio() {
 	assets.insert(asset2, 2);
 	assets.insert(asset3, 3);
 
-	QVector<Report*> reports;
+	QList<Report*> reports;
 	this->father = Portfolio("Father", assets, reports);
     this->son = Portfolio(&father, "Son", assets, reports);
 
@@ -62,7 +62,7 @@ TestPortfolio::TestPortfolio() {
 	QMap<Asset*, int> assets2;
 	assets2.insert(asset4, 1);
 	assets2.insert(asset5, 2);
-	QVector<Report*> reports2;
+	QList<Report*> reports2;
 	this->uncle = Portfolio("uncle", assets2, reports2);
 }
 

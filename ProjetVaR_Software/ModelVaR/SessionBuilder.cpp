@@ -108,7 +108,7 @@ QVector<Portfolio> SessionBuilder::buildPortfolios() {
 
 	QVector<Portfolio> portfolios;
 	QMap<int, Portfolio*> portfoliosById;
-	QVector<Report*> reports;
+	QList<Report*> reports;
 	QMap<Asset*, int> assets;
 	QString name;
 	int id, parent;
@@ -164,7 +164,7 @@ QMap<Asset*, int> SessionBuilder::buildPortfolioComposition(int idPortfolio) {
 * @param idPortfolio The id of the portfolio.
 * @return The reports.
 */
-QVector<Report*> SessionBuilder::buildReports(int idPortfolio) {
+QList<Report *> SessionBuilder::buildReports(int idPortfolio) {
 	QSqlQuery query(this->db);
 	query.prepare("SELECT id, docx_file, pdf_file, type FROM reports WHERE portfolio = :id_portfolio;");
 	query.bindValue(":id_portfolio", idPortfolio);
@@ -173,7 +173,7 @@ QVector<Report*> SessionBuilder::buildReports(int idPortfolio) {
 	int id;
 	ReportType type;
     QString file;
-	QVector<Report*> reports;
+	QList<Report*> reports;
 	while(query.next()) {
 		id = query.value(0).toInt();
         file = query.value(1).toString();

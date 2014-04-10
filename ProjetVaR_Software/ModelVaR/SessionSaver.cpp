@@ -124,7 +124,7 @@ void SessionSaver::savePortfolios(QVector<Portfolio>& portfolios) {
  * @param portfolio The porfolios owner of the reports.
  * @param reports The reports to save.
  */
-void SessionSaver::saveReports(const Portfolio& portfolio, const QVector<Report*>& reports) {
+void SessionSaver::saveReports(const Portfolio& portfolio, const QList<Report *> &reports) {
 	QSqlQuery query(this->db);
 	query.prepare("INSERT INTO reports(id, portfolio, pdf_file, docx_file, type) VALUES(NULL, :portfolio, :pdf_file, :docx_file, :type);");
 	for(int i=0; i<reports.size(); i++) {

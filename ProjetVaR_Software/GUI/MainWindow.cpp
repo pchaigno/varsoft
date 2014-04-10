@@ -135,6 +135,23 @@ void MainWindow::updateReportWidgets(Portfolio *portfolio)
 	}
 }
 
+void MainWindow::addReportWidget(Portfolio *portfolio, ReportWidget *reportWidget)
+{
+	portfolioReportWidgets[portfolio].append(reportWidget);
+	layoutReports->addWidget(reportWidget);
+	connect(reportWidget,SIGNAL(deleteRequest()),this,SLOT(deleteReportWidget()));
+}
+
+void MainWindow::deleteReportWidget()
+{
+	ReportWidget* reportWidget = (ReportWidget*)sender();
+	Report * report = reportWidget->getReport();
+	portfolioReportWidgets[getCurrentPortfolio()].removeOne(reportWidget);
+	getCurrentPortfolio()->removeReport(report);
+	updateReportWidgets();
+	delete reportWidget;
+}
+
 void MainWindow::clearLayout(QLayout* layout, bool deleteWidgets)
 {
 	while (QLayoutItem* item = layout->takeAt(0))
@@ -170,12 +187,11 @@ Portfolio *MainWindow::getCurrentPortfolio()
 void MainWindow::generateStatsReport()
 {
     try
-    {
-        // get the current portfolio
-        Portfolio * port = this->getCurrentPortfolio();
+	{
+		// get the current portfolio
+		Portfolio * port = this->getCurrentPortfolio();
         // build the stats report
-        Report * report = buildReport(new StatisticsReportFactory(port));
-        port->addReport(report);
+		Report * report = buildReport(port, new StatisticsReportFactory(port));
         // generate it in Docx format
         generateReport(new DocxGenerator(report));
     }
@@ -186,17 +202,24 @@ void MainWindow::generateStatsReport()
 }
 /**
  * @brief Build a report with the specified factory and delete the factory if deleteAfter is false (by default).
- * The report is added to the portfolioReportWidgets for the current portfolio, and emit the signal newReportCreated().
+ * The report is added to the porttoflio and to the portfolioReportWidgets for the given portfolio, and emit the signal newReportCreated().
+ * @param portfolio
  * @param factory the factory which will be used to make the report
  * @param deleteAfter
  * @return The report
  */
-Report *MainWindow::buildReport(ReportFactory * factory, bool deleteAfter)
+Report *MainWindow::buildReport(Portfolio *portfolio, ReportFactory * factory, bool deleteAfter)
 {
+	//build the report
     Report * report = factory->buildReport();
-	portfolioReportWidgets[getCurrentPortfolio()].append(ReportWidgetFactory::buildReportWidget(report));
-	emit newReportCreated();
-    if (!deleteAfter)
+	// add it to the portfolio
+	portfolio->addReport(report);
+	//create the ReportWidget for the portfolio
+	ReportWidget * reportWidget = ReportWidgetFactory::buildReportWidget(report);
+	//add the ReportWidget to the layout
+	addReportWidget(portfolio,reportWidget);
+
+	if (!deleteAfter) // delete the factory if it's necessary
         delete factory;
     return report;
 }

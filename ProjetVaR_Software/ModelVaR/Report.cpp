@@ -86,7 +86,16 @@ void Report::setId(int id) {
  */
 QString Report::getFile() const
 {
-    return this->file;
+	return this->file;
+}
+
+void Report::removeFiles()
+{
+	if (QFile::exists(this->file+".pdf"))
+		QFile::remove(this->file+".pdf");
+
+	if (QFile::exists(this->file+".docx"))
+		QFile::remove(this->file+".docx");
 }
 /**
  * @brief Accessor of the Json data of the report

@@ -33,23 +33,26 @@ private:
 	QString name;
 	Portfolio* parent;
 	QMap<Asset*, int> composition;
-	QVector<Report*> reports;
+	QList<Report*> reports;
 
 public:
 	Portfolio();
-	Portfolio(Portfolio* parent, QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports);
-	Portfolio(QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports);
-	Portfolio(Portfolio* parent, int id, QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports);
-	Portfolio(int id, QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports);
+	Portfolio(Portfolio* parent, QString name, QMap<Asset*, int>& composition, QList<Report*>& reports);
+	Portfolio(QString name, QMap<Asset*, int>& composition, QList<Report*>& reports);
+	Portfolio(Portfolio* parent, int id, QString name, QMap<Asset*, int>& composition, QList<Report*>& reports);
+	Portfolio(int id, QString name, QMap<Asset*, int>& composition, QList<Report*>& reports);
     ~Portfolio();
-    void init(Portfolio* parent, int id, QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports);
+	void init(Portfolio* parent, int id, QString name, QMap<Asset*, int>& composition, QList<Report*>& reports);
 
 	QString getName() const;
 	int getId() const;
 	void setId(int id);
 	int getParentId() const;
-	QVector<Report*> getReports() const;
+
+	QList<Report*> getReports() const;
     void addReport(Report* report);
+	void removeReport(Report * report);
+
 	QVector<Asset*> getAssets() const;
 	QMap<Asset*, int> getComposition() const;
 	void changeName(QString name);

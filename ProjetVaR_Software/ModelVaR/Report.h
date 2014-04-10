@@ -49,6 +49,8 @@ public:
 
     QString getFile() const;
 
+	void removeFiles();
+
     virtual ReportType getType() const =0;
 
     ReportDataJson* getDataJson() const;

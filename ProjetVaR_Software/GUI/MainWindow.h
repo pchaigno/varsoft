@@ -48,9 +48,6 @@ public:
 	explicit MainWindow(QWidget* parent = 0);
 	~MainWindow();
 
-signals:
-	void newReportCreated();
-
 private slots:
 	void newPortfolio();
 	void showPortfolio(Portfolio* portfolio);
@@ -62,10 +59,12 @@ private slots:
     void reportGenerationDone();
 	void updateReportWidgets();
 	void updateReportWidgets(Portfolio * portfolio);
+	void addReportWidget(Portfolio * portfolio, ReportWidget * reportWidget);
+	void deleteReportWidget();
 
 private:
     Portfolio *getCurrentPortfolio();
-    Report* buildReport(ReportFactory * factory, bool deleteAfter=false);
+	Report* buildReport(Portfolio * portfolio, ReportFactory * factory, bool deleteAfter=false);
     void generateReport(ReportGenerator * gen);
 	void clearLayout(QLayout* layout, bool deleteWidgets = true);
 

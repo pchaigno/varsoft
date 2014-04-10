@@ -42,7 +42,7 @@ void TestPortfolioItemModel::cleanup() {
  */
 void TestPortfolioItemModel::testAdd() {
 	QMap<Asset*,int> compo;
-	QVector<Report*> reports;
+	QList<Report*> reports;
 	Portfolio* portfolioTest = new Portfolio(QString("test"),compo,reports);
 
 	model->addPortfolio(portfolioTest);
@@ -67,7 +67,7 @@ void TestPortfolioItemModel::testAdd() {
  */
 void TestPortfolioItemModel::testInsert() {
 	QMap<Asset*,int> compo;
-	QVector<Report*> reports;
+	QList<Report*> reports;
 	Portfolio* portfolioTest = new Portfolio(QString("test"),compo,reports);
 
 	model->addPortfolio(portfolioTest);
@@ -135,7 +135,7 @@ void TestPortfolioItemModel::testInsert() {
  */
 void TestPortfolioItemModel::testRemove() {
 	QMap<Asset*,int> compo;
-	QVector<Report*> reports;
+	QList<Report*> reports;
 	Portfolio* portfolioTest = new Portfolio(QString("test"),compo,reports);
 	model->addPortfolio(portfolioTest);
 	model->removePortfolio(portfolioTest);
@@ -184,7 +184,7 @@ void TestPortfolioItemModel::testRemove() {
  */
 void TestPortfolioItemModel::testData() {
 	QMap<Asset*,int> compo;
-	QVector<Report*> reports;
+	QList<Report*> reports;
 	Portfolio* portfolioTest = new Portfolio(QString("test"),compo,reports);
 	model->addPortfolio(portfolioTest);
 
@@ -199,10 +199,3 @@ void TestPortfolioItemModel::testData() {
 	data = model->data(index,Qt::DisplayRole);
 	QCOMPARE(data.toString(),QString("test2"));
 }
-
-/*
-	 ____  ____  ____  ____  ____  _________  ____  ____  ____  ____  ____
-	||B ||||e ||||n ||||j ||||i ||||       ||||R ||||o ||||c ||||k ||||s ||
-	||__||||__||||__||||__||||__||||_______||||__||||__||||__||||__||||__||
-	|/__\||/__\||/__\||/__\||/__\||/_______\||/__\||/__\||/__\||/__\||/__\|
-*/
