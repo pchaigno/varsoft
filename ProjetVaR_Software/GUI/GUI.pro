@@ -19,6 +19,9 @@ SOURCES += main.cpp\
 		SetWeightAssetWizardPage.cpp \
 		ShowAssetsWizardPage.cpp \
 		PortfolioListView.cpp \
+    ReportWidget.cpp \
+    FlowLayout.cpp \
+    ReportWidgetFactory.cpp
 
 HEADERS += MainWindow.h \
 		NewPortfolioWizard.h \
@@ -27,13 +30,17 @@ HEADERS += MainWindow.h \
 		PortfolioListView.h \
 		PortfolioViewModel.h \
 		import.h \
-    NoneSelectedPortfolioException.h
+    NoneSelectedPortfolioException.h \
+    ReportWidget.h \
+    FlowLayout.h \
+    ReportWidgetFactory.h
 
 FORMS += MainWindow.ui \
 		NewPortfolioWizard.ui \
 		SetWeightAssetWizardPage.ui \
 		ShowAssetsWizardPage.ui\
-		import.ui
+		import.ui \
+    ReportWidget.ui
 
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../ModelVaR/release/ -lModelVaR

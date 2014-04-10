@@ -32,6 +32,10 @@
 #include "PortfolioViewModel.h"
 #include "NoneSelectedPortfolioException.h"
 #include <QMessageBox>
+#include "FlowLayout.h"
+#include "ReportWidget.h"
+#include <QDebug>
+#include "ReportWidgetFactory.h"
 
 namespace Ui {
 	class MainWindow;
@@ -44,6 +48,9 @@ public:
 	explicit MainWindow(QWidget* parent = 0);
 	~MainWindow();
 
+signals:
+	void newReportCreated();
+
 private slots:
 	void newPortfolio();
 	void showPortfolio(Portfolio* portfolio);
@@ -53,11 +60,14 @@ private slots:
     void removeSelectedPortfolio();
 	void onDataEntered(const QString &text, const QDateTime &fDate, const QDateTime &lDate, const QString &source);
     void reportGenerationDone();
+	void updateReportWidgets();
+	void updateReportWidgets(Portfolio * portfolio);
 
 private:
     Portfolio *getCurrentPortfolio();
     Report* buildReport(ReportFactory * factory, bool deleteAfter=false);
     void generateReport(ReportGenerator * gen);
+	void clearLayout(QLayout* layout, bool deleteWidgets = true);
 
 	Ui::MainWindow *ui;
 	Import import_win;
@@ -67,5 +77,6 @@ private:
 	QString fileName;
 	QString origin;
 	PortfolioItemModel * portfolioListModel;
-    QHash<Portfolio*, PortfolioViewModel*> portfoliosModels;
+	QHash<Portfolio*, PortfolioViewModel*> portfoliosModels;
+	QHash<Portfolio*, QList<ReportWidget*> > portfolioReportWidgets;
 };

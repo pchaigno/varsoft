@@ -44,6 +44,8 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
 
 	connect(ui->listView,SIGNAL(portfolioSelected(Portfolio*)),this,SLOT(showPortfolio(Portfolio*)));
 
+	connect(this,SIGNAL(newReportCreated()),this,SLOT(updateReportWidgets()));
+
 }
 
 MainWindow::~MainWindow() {
@@ -72,6 +74,7 @@ void MainWindow::newPortfolio() {
 void MainWindow::showPortfolio(Portfolio * portfolio){
 	// set the model
 	ui->tableView->setModel(portfoliosModels[portfolio]);
+	updateReportWidgets(portfolio);
 }
 
 /**
@@ -101,8 +104,50 @@ void MainWindow::onDataEntered(const QString &name, const QDateTime &fDate ,cons
 void MainWindow::reportGenerationDone()
 {
     this->statusBar()->showMessage("Generation done.",1500);
-    delete ((ReportGenerator*) sender());
+	delete ((ReportGenerator*) sender());
 }
+
+/**
+ * Clear all the ReportWidget in the Report tab
+ * and fill it with the ReportWidget of the current portfolio
+ */
+void MainWindow::updateReportWidgets()
+{
+	updateReportWidgets(getCurrentPortfolio());
+}
+/**
+ * @brief Same as updateReportWidgets() but with the ReportWidgets of the given portfolio
+ * @param portfolio
+ */
+void MainWindow::updateReportWidgets(Portfolio *portfolio)
+{
+	//delete all ReportWidget
+	clearLayout(ui->reportsLayout,false);
+
+	//add the
+	QList<ReportWidget*> listReportWidget = portfolioReportWidgets[portfolio];
+	foreach(ReportWidget * reportWidget, listReportWidget)
+	{
+		ui->reportsLayout->addWidget(reportWidget);
+	}
+}
+
+void MainWindow::clearLayout(QLayout* layout, bool deleteWidgets)
+{
+	while (QLayoutItem* item = layout->takeAt(0))
+	{
+		if (deleteWidgets)
+		{
+			if (QWidget* widget = item->widget())
+				delete widget;
+		}
+		item->widget()->setParent(NULL);
+		if (QLayout* childLayout = item->layout())
+			clearLayout(childLayout, deleteWidgets);
+		delete item;
+	}
+}
+
 /**
  * @brief Return the current portfolio (the one which is selected in the list of portfolio)
  * Throw a NoneSelectedPortfolioException if none portfolio has been selected.
@@ -137,7 +182,8 @@ void MainWindow::generateStatsReport()
     }
 }
 /**
- * @brief Build a report with the specified factory and delete the factory
+ * @brief Build a report with the specified factory and delete the factory if deleteAfter is false (by default).
+ * The report is added to the portfolioReportWidgets for the current portfolio, and emit the signal newReportCreated().
  * @param factory the factory which will be used to make the report
  * @param deleteAfter
  * @return The report
@@ -145,6 +191,8 @@ void MainWindow::generateStatsReport()
 Report *MainWindow::buildReport(ReportFactory * factory, bool deleteAfter)
 {
     Report * report = factory->buildReport();
+	portfolioReportWidgets[getCurrentPortfolio()].append(ReportWidgetFactory::buildReportWidget(report));
+	emit newReportCreated();
     if (!deleteAfter)
         delete factory;
     return report;

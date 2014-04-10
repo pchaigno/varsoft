@@ -125,11 +125,11 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
-      <widget class="QWidget" name="tab">
+      <widget class="QWidget" name="tabData">
        <attribute name="title">
-        <string>Données</string>
+        <string>Data</string>
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
@@ -137,13 +137,47 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_2">
+      <widget class="QWidget" name="tabReports">
        <attribute name="title">
-        <string>Rapports et Graphiques</string>
+        <string>Reports</string>
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
-         <layout class="QGridLayout" name="gridLayout"/>
+         <widget class="QScrollArea" name="reportScrollArea">
+          <property name="styleSheet">
+           <string notr="true">#scrollAreaWidgetContents
+{
+	background-color: rgb(199, 199, 199);
+}</string>
+          </property>
+          <property name="verticalScrollBarPolicy">
+           <enum>Qt::ScrollBarAsNeeded</enum>
+          </property>
+          <property name="horizontalScrollBarPolicy">
+           <enum>Qt::ScrollBarAsNeeded</enum>
+          </property>
+          <property name="sizeAdjustPolicy">
+           <enum>QAbstractScrollArea::AdjustIgnored</enum>
+          </property>
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>520</width>
+             <height>301</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_2">
+            <item>
+             <layout class="QVBoxLayout" name="reportsLayout"/>
+            </item>
+           </layout>
+          </widget>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -157,12 +191,12 @@
      <x>0</x>
      <y>0</y>
      <width>826</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFichier">
     <property name="title">
-     <string>Fichier</string>
+     <string>File</string>
     </property>
     <addaction name="actionNouveau"/>
     <addaction name="actionOuvrir"/>
@@ -189,7 +223,7 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionOuvrir">
    <property name="text">
-    <string>Ouvrir</string>
+    <string>Open</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
@@ -197,7 +231,7 @@
   </action>
   <action name="actionSauvegarder">
    <property name="text">
-    <string>Sauvegarder</string>
+    <string>Save</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
@@ -205,7 +239,7 @@
   </action>
   <action name="actionSauvegarder_sous">
    <property name="text">
-    <string>Sauvegarder sous ...</string>
+    <string>Save as ...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+S</string>
@@ -229,12 +263,12 @@
   </action>
   <action name="actionNouveau">
    <property name="text">
-    <string>Nouveau</string>
+    <string>New</string>
    </property>
   </action>
   <action name="actionQuitter">
    <property name="text">
-    <string>Quitter</string>
+    <string>Exit</string>
    </property>
   </action>
   <action name="actionGenerate_Stats_Report">
