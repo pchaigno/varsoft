@@ -130,7 +130,7 @@ QPixmap StatisticsReportFactory::generateChart2(QList<Asset*> compo, QDateTime s
     QCustomPlot* customPlot = new QCustomPlot();
     customPlot->setLocale(QLocale(QLocale::French, QLocale::France));
     int gi = 0;
-    double min, max;
+	double min = INT_MAX, max=INT_MIN;
     foreach(Asset* asset, compo)
     {
       customPlot->addGraph();
@@ -164,8 +164,8 @@ QPixmap StatisticsReportFactory::generateChart2(QList<Asset*> compo, QDateTime s
     customPlot->xAxis->setLabel("Date");
     customPlot->yAxis->setLabel("Value of each asset in the portfolio");
     // set axis ranges to show all data:
-    customPlot->xAxis->setRange(start.toTime_t(), end.toTime_t());
-    customPlot->yAxis->setRange(min, max*2);
+	customPlot->xAxis->setRange(start.toTime_t(), end.toTime_t());
+	customPlot->yAxis->setRange(min-((min/100)*10), max+((max/100)*10));
     // show legend:
     customPlot->legend->setVisible(true);
     QPixmap pix = customPlot->toPixmap();
