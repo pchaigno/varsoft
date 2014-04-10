@@ -22,15 +22,18 @@
 * @param the name of the asset file
 * @param parent QDialog Widget to use
 */
-Import::Import(QString fileName, QWidget *parent): QDialog(parent), ui(new Ui::Import) {
+Import::Import(QString fileName, QDate startDate, QDate endDate, QWidget *parent): QDialog(parent), ui(new Ui::Import) {
 	ui->setupUi(this);
-	//Date of the day
-    ui->endDate->setDate(QDate::currentDate());
-    ui->endDate->setCalendarPopup(true);
+    ui->endDate->setDate(endDate);
+	ui->endDate->setMaximumDate(endDate);
+	ui->endDate->setMinimumDate(startDate);
+	ui->endDate->setCalendarPopup(true);
+	ui->startDate->setMinimumDate(startDate);
+	ui->startDate->setMaximumDate(endDate);
+	ui->startDate->setDate(startDate);
     ui->startDate->setCalendarPopup(true);
-	connect(ui->pushButton, SIGNAL(clicked()),this, SLOT(on_pushButton_clicked()));
-    connect(ui->pushButton_2, SIGNAL(clicked()),this, SLOT(on_pushButton_2_clicked()));
-
+	//connect(ui->pushButton, SIGNAL(clicked()),this, SLOT(on_pushButton_clicked()));
+	//connect(ui->pushButton_2, SIGNAL(clicked()),this, SLOT(on_pushButton_2_clicked()));
     this->fileName=fileName;
 
     //delete automatically the QDialog
@@ -48,9 +51,13 @@ Import::~Import() {
 void Import::on_pushButton_clicked() {
 	// TODO : check the field is not empty and print a message to force the user to give a name
     ImportNewData algo = ImportNewData();
-    algo.import(ui->textEdit->toPlainText(), fileName, ui->comboBox->currentText(), ui->startDate->dateTime(), ui->endDate->dateTime());
-
-	this->close();
+	if(ui->startDate->dateTime() >= ui->endDate->dateTime()){
+		QMessageBox::warning(0, "Attention","Les dates ne sont pas valides");
+	}
+	else{
+		algo.import(ui->textEdit->toPlainText(), fileName, ui->comboBox->currentText(), ui->startDate->dateTime(), ui->endDate->dateTime());
+		this->close();
+	}
 }
 
 /**

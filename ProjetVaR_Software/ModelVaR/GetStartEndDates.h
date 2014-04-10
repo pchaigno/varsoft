@@ -15,33 +15,26 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 #pragma once
+#include "ModelVaR_global.h"
+#include <QDate>
+#include <QString>
+#include <QFile>
+#include <QStringList>
+#include <QRegExp>
 
-#include "ui_import.h"
-#include "ImportNewData.h"
-#include <QDateTime>
-#include <QDialog>
 
-namespace Ui {
-	class Import;
-}
 /**
-* @brief Useful for the import window links with the mainwindow
+* @brief Retreives the endDate and the startDate of a file
 */
-class Import : public QDialog {
-	Q_OBJECT
 
+class MODELVARSHARED_EXPORT GetStartEndDates{
 public:
-    explicit Import(QString fileName, QDate startDate, QDate endDate, QWidget *parent = 0);
-	~Import();
-
+    virtual void retreiveDates(const QString &file);
+    QDate getStartDate();
+    QDate getEndDate();
 private:
-	Ui::Import *ui;
-    QString fileName;
-
-private slots:
-	void on_pushButton_clicked();
-	void on_pushButton_2_clicked();
-
-signals:
+    QDate startDate;
+    QDate endDate;
 };

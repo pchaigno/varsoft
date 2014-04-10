@@ -65,7 +65,6 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
 
 	// x = 1 to avoid the first line with labels
 	// rowOfData.size()-1 to avoid a blank line a the end of the file
-
     for (int x =row_index; x < rowOfData.size()-1; x++) {
 		rowData = rowOfData.at(x).split(",");
 		//TODO : Check that the date is correct

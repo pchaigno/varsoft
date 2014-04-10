@@ -19,6 +19,7 @@
 #include "ui_MainWindow.h"
 #include <QDebug>
 #include "ImportNewData.h"
+#include "GetStartEndDates.h"
 
 MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWindow), portfolioModel(new PortfolioItemModel(this)) {
 	ui->setupUi(this);
@@ -48,18 +49,18 @@ void MainWindow::newPortfolio() {
 */
 void MainWindow::setImportCSV(){
     QString fileName;
-    if (this->path != ""){
-        fileName = QFileDialog::getOpenFileName(this, ("Ouvrir fichier"), this->path, ("Texte CSV (*.csv *.txt)") );
-        //qDebug() << MainWindow::fileName;
-    }
+    if (this->path != "")
+		fileName = QFileDialog::getOpenFileName(this, ("Ouvrir fichier"), this->path, ("CSV Texte (*.csv *.txt)") );
     else
-        fileName = QFileDialog::getOpenFileName(this, ("Ouvrir fichier"), "C:/", ("Texte CSV (*.csv *.txt)") );
+		fileName = QFileDialog::getOpenFileName(this, ("Ouvrir fichier"), "C:/", ("CSV Texte (*.csv *.txt)") );
     if(fileName != "")
         this->path = fileName.left(fileName.lastIndexOf("/"));
-    qDebug() << this->path;
     if (fileName != "")
     {
-        Import* importDialog = new Import(fileName,this);
+        //get startDate and endDate before calling the import function
+        GetStartEndDates* gsed = new GetStartEndDates();
+        gsed->retreiveDates(fileName);
+        Import* importDialog = new Import(fileName,gsed->getStartDate(),gsed->getEndDate(),this);
         importDialog->show();
     }
 }
