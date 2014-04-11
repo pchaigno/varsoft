@@ -49,7 +49,7 @@ Qt::ItemFlags PortfolioItemModel::flags(const QModelIndex &index) const {
  */
 Portfolio *PortfolioItemModel::getPortfolio(const QModelIndex &index)
 {
-    return index.isValid() ? portfolioList[index.row()] : NULL;
+	return index.isValid() ? portfolioList[index.row()] : NULL;
 }
 
 /**

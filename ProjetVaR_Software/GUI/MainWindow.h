@@ -61,6 +61,8 @@ private slots:
 	void updateReportWidgets(Portfolio * portfolio);
 	void addReportWidget(Portfolio * portfolio, ReportWidget * reportWidget);
 	void deleteReportWidget();
+	void deleteReportWidget(ReportWidget* reportWidget);
+	void clearReportWidgets(Portfolio * portfolio);
 
 private:
     Portfolio *getCurrentPortfolio();

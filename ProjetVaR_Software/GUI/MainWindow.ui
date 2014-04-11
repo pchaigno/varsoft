@@ -306,22 +306,6 @@
     </hint>
    </hints>
   </connection>
-  <connection>
-   <sender>removePushButton</sender>
-   <signal>clicked()</signal>
-   <receiver>listView</receiver>
-   <slot>removeSelectedPortfolio()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>137</x>
-     <y>59</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>137</x>
-     <y>242</y>
-    </hint>
-   </hints>
-  </connection>
  </connections>
  <slots>
   <slot>newPortfolio()</slot>

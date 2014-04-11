@@ -88,7 +88,9 @@ QString Report::getFile() const
 {
 	return this->file;
 }
-
+/**
+ * @brief Remove the report file on the disk
+ */
 void Report::removeFiles()
 {
 	if (QFile::exists(this->file+".pdf"))

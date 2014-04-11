@@ -136,12 +136,18 @@ int Portfolio::getParentId() const {
 QList<Report *> Portfolio::getReports() const {
     return this->reports;
 }
-
+/**
+ * @brief Add the given report to the list of report
+ * @param report
+ */
 void Portfolio::addReport(Report *report)
 {
 	this->reports.append(report);
 }
-
+/**
+ * @brief Remove the given report
+ * @param report
+ */
 void Portfolio::removeReport(Report *report)
 {
 	report->removeFiles();

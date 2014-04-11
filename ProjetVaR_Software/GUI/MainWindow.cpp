@@ -44,8 +44,6 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
 
 	connect(ui->listView,SIGNAL(portfolioSelected(Portfolio*)),this,SLOT(showPortfolio(Portfolio*)));
 
-	connect(this,SIGNAL(newReportCreated()),this,SLOT(updateReportWidgets()));
-
 	layoutReports = new FlowLayout;
 	ui->reportScrollArea->setLayout(layoutReports);
 
@@ -124,7 +122,7 @@ void MainWindow::updateReportWidgets()
  */
 void MainWindow::updateReportWidgets(Portfolio *portfolio)
 {
-	//delete all ReportWidget
+	//remove all the reportWidget in the layout
 	clearLayout(layoutReports,false);
 
 	//add the
@@ -134,24 +132,55 @@ void MainWindow::updateReportWidgets(Portfolio *portfolio)
 		layoutReports->addWidget(reportWidget);
 	}
 }
-
+/**
+ * @brief add a ReportWidget to the given portfolio
+ * @param portfolio
+ * @param reportWidget
+ */
 void MainWindow::addReportWidget(Portfolio *portfolio, ReportWidget *reportWidget)
 {
 	portfolioReportWidgets[portfolio].append(reportWidget);
 	layoutReports->addWidget(reportWidget);
 	connect(reportWidget,SIGNAL(deleteRequest()),this,SLOT(deleteReportWidget()));
 }
-
+/**
+ * @brief same as deleteReportWidget(ReportWidget* reportWidget) but
+ * called by a signal emit by a ReportWidget
+ */
 void MainWindow::deleteReportWidget()
 {
-	ReportWidget* reportWidget = (ReportWidget*)sender();
+	deleteReportWidget((ReportWidget*)sender());
+}
+/**
+ * @brief delete the given ReportWidget and update the list of ReportWidget
+ * @param reportWidget
+ */
+void MainWindow::deleteReportWidget(ReportWidget* reportWidget)
+{
 	Report * report = reportWidget->getReport();
 	portfolioReportWidgets[getCurrentPortfolio()].removeOne(reportWidget);
 	getCurrentPortfolio()->removeReport(report);
 	updateReportWidgets();
 	delete reportWidget;
 }
-
+/**
+ * @brief Remove all the ReportWidget of the current selected portfolio
+ * @param portfolio
+ */
+void MainWindow::clearReportWidgets(Portfolio *portfolio)
+{
+	foreach(ReportWidget * reportWidget, portfolioReportWidgets[portfolio])
+	{
+		deleteReportWidget(reportWidget);
+	}
+	portfolioReportWidgets[portfolio].clear();
+	portfolioReportWidgets.remove(portfolio);
+}
+/**
+ * @brief Clear all the item in the given layout
+ * @param layout
+ * @param deleteWidgets
+ */
 void MainWindow::clearLayout(QLayout* layout, bool deleteWidgets)
 {
 	while (QLayoutItem* item = layout->takeAt(0))
@@ -161,7 +190,8 @@ void MainWindow::clearLayout(QLayout* layout, bool deleteWidgets)
 			if (QWidget* widget = item->widget())
 				delete widget;
 		}
-		item->widget()->setParent(NULL);
+		else
+			item->widget()->setParent(NULL);
 		if (QLayout* childLayout = item->layout())
 			clearLayout(childLayout, deleteWidgets);
 		delete item;
@@ -261,7 +291,22 @@ void MainWindow::addPortfolio(Portfolio * portfolio) {
  */
 void MainWindow::removeSelectedPortfolio()
 {
-    Portfolio * portfolio = ui->listView->getCurrentPortfolio();
-    delete portfoliosModels[portfolio];
-    ui->listView->removeSelectedPortfolio();
+	try
+	{
+		//get the current portfolio
+		Portfolio * portfolio = this->getCurrentPortfolio();
+		//delete its ReportWidget
+		clearReportWidgets(portfolio);
+		//remove the portfolio in the ListView
+		ui->listView->removeSelectedPortfolio();
+		//delete the model
+		delete portfoliosModels[portfolio];
+		portfoliosModels.remove(portfolio);
+		//delete the portfolio
+		delete portfolio;
+	}
+	catch (NoneSelectedPortfolioException& )
+	{
+		QMessageBox::critical(this,"Error","None portfolio selected");
+	}
 }
