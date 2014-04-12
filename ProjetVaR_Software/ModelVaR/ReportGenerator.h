@@ -21,6 +21,7 @@
 #include <QThread>
 
 class ReportGenerator : public QThread {
+	Q_OBJECT
 public:
     virtual void run();
 protected:

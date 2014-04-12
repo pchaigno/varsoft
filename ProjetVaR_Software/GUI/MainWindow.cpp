@@ -100,12 +100,13 @@ void MainWindow::onDataEntered(const QString &name, const QDateTime &fDate ,cons
 /**
  * @brief Display a message in the status bar when the generating of a report is done
  * and delete the reportGenerator which called this slot.
- * It also enable the button which started the thread.
  */
 void MainWindow::reportGenerationDone()
 {
     this->statusBar()->showMessage("Generation done.",1500);
-	delete ((ReportGenerator*) sender());
+	ReportGenerator * obj = qobject_cast<ReportGenerator*>(sender());
+	if (obj)
+		delete obj;
 }
 
 /**
@@ -140,16 +141,22 @@ void MainWindow::updateReportWidgets(Portfolio *portfolio)
 void MainWindow::addReportWidget(Portfolio *portfolio, ReportWidget *reportWidget)
 {
 	portfolioReportWidgets[portfolio].append(reportWidget);
+	reportWidget->setParent(NULL);
 	layoutReports->addWidget(reportWidget);
+	if (ui->tabWidget->currentWidget()!=ui->tabReports)
+		updateReportWidgets(portfolio);
 	connect(reportWidget,SIGNAL(deleteRequest()),this,SLOT(deleteReportWidget()));
 }
 /**
  * @brief same as deleteReportWidget(ReportWidget* reportWidget) but
- * called by a signal emit by a ReportWidget
+ * called by a signal emit by a ReportWidget. If the sender of the signal is not a ReportWidget*
+ * the slot does nothing.
  */
 void MainWindow::deleteReportWidget()
 {
-	deleteReportWidget((ReportWidget*)sender());
+	ReportWidget * obj = qobject_cast<ReportWidget*>(sender());
+	if (obj)
+		deleteReportWidget(obj);
 }
 /**
  * @brief delete the given ReportWidget and update the list of ReportWidget
@@ -284,6 +291,7 @@ void MainWindow::setImportCSV(){
 void MainWindow::addPortfolio(Portfolio * portfolio) {
 	portfoliosModels[portfolio] = new PortfolioViewModel(portfolio);
     portfolioListModel->addPortfolio(portfolio);
+	portfolioReportWidgets[portfolio] = QList<ReportWidget*>();
 }
 
 /**

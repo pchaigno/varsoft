@@ -53,8 +53,10 @@ private slots:
 	void showPortfolio(Portfolio* portfolio);
 	void setImportCSV();
     void generateStatsReport();
+
 	void addPortfolio(Portfolio *);
     void removeSelectedPortfolio();
+
 	void onDataEntered(const QString &text, const QDateTime &fDate, const QDateTime &lDate, const QString &source);
     void reportGenerationDone();
 	void updateReportWidgets();
