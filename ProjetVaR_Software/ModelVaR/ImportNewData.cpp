@@ -37,6 +37,9 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
 	data.clear();
 	rowOfData.clear();
 	rowData.clear();
+	QRegExp date_regex("^(20|19)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$");
+	QRegExp value_regex("^([0-9]+)([.])([0-9][0-9])$");
+	QDateTime previousDate = QDateTime::fromString("2999-01-01","yyyy-MM-dd");
 
     int data_index = 6;
     int row_index = 1;
@@ -64,27 +67,42 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
 	flux.setCodec("UTF-8");
 
 	// x = 1 to avoid the first line with labels
-	// rowOfData.size()-1 to avoid a blank line a the end of the file
     for (int x =row_index; x < rowOfData.size()-1; x++) {
 		rowData = rowOfData.at(x).split(",");
 		//TODO : Check that the date is correct
-        if((rowData.count() != data_index)) {
-			 QMessageBox::warning(0, "Attention","Le fichier que vous avez essayé d'importer n'est pas valide");
+		/*
+		if((rowData.count() >= data_index)) {
+			 QMessageBox::warning(0, "Warning","The file is not valid");
 			 fileCreated.close();
 			 fileCreated.remove();
 			 break;
 		}
-
-		QDateTime currentDate = QDateTime::fromString(rowData[0],"yyyy-MM-dd");
-		if ((startDate >= currentDate)) {
-			if(endDate >= currentDate) {
+		*/
+		if(date_regex.exactMatch(rowData[0]) && value_regex.exactMatch(rowData[data_index])){
+			QDateTime currentDate = QDateTime::fromString(rowData[0],"yyyy-MM-dd");
+			//checks the order of dates
+			if(previousDate > currentDate){
+				previousDate = currentDate;
+				//checks if we are on still in the range of dates
+				if ((startDate >= currentDate)) {
+					if(endDate >= currentDate) {
+						break;
+					}
+					flux << rowData[0] << "," << rowData[data_index] << "\n";
+				}
+			}
+			else{
+				QMessageBox::warning(0, "Warning","Dates are not sorted");
 				break;
 			}
-            flux << rowData[0] << "," << rowData[data_index] << "\n";
+
+		}
+		else{
+			QMessageBox::warning(0, "Warning","The data is invalid");
+			break;
 		}
 	}
 	fileCreated.close();
-
     Asset a = Asset(name,namealea,origin,endDate,startDate);
 	SessionSaver::getInstance()->saveAsset(a);
 }

@@ -19,6 +19,7 @@
 
 /**
 * @brief Import Constructor
+* Ranges of dates or limited by the range file
 * @param the name of the asset file
 * @param parent QDialog Widget to use
 */
@@ -32,8 +33,6 @@ Import::Import(QString fileName, QDate startDate, QDate endDate, QWidget *parent
 	ui->startDate->setMaximumDate(endDate);
 	ui->startDate->setDate(startDate);
     ui->startDate->setCalendarPopup(true);
-	//connect(ui->pushButton, SIGNAL(clicked()),this, SLOT(on_pushButton_clicked()));
-	//connect(ui->pushButton_2, SIGNAL(clicked()),this, SLOT(on_pushButton_2_clicked()));
     this->fileName=fileName;
 
     //delete automatically the QDialog

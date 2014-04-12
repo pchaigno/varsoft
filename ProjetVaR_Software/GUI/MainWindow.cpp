@@ -46,6 +46,7 @@ void MainWindow::newPortfolio() {
 /**
 * @brief Allows to browse the computer to select the file to import
 * Shows the window to set up the import file
+* The last import path is saved when a new import is done
 */
 void MainWindow::setImportCSV(){
     QString fileName;
