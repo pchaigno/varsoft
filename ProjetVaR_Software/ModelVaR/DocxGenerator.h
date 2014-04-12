@@ -27,7 +27,5 @@
 class MODELVARSHARED_EXPORT DocxGenerator: public ReportGenerator {
 public:
     DocxGenerator(Report * report);
-    virtual void generate();
-private:
-    Report * report;
+	virtual void generate();
 };

@@ -17,6 +17,7 @@
  */
 #pragma once
 
+#include <QObject>
 #include <QString>
 #include "IdAlreadyAttributedException.h"
 #include "ModelVaR_global.h"
@@ -31,11 +32,18 @@ enum ReportType {
 	VAR
 };
 
-class MODELVARSHARED_EXPORT Report {
+class MODELVARSHARED_EXPORT Report : public QObject {
+	Q_OBJECT
 private:
     int id;
     QString file;
     ReportDataJson* dataJson;
+
+signals:
+	void filesOk();
+
+public slots:
+	void filesGenerationFinish();
 
 public:
     Report();
@@ -47,8 +55,7 @@ public:
 	int getId() const;
     void setId(int id);
 
-    QString getFile() const;
-
+	QString getFile() const;
 	void removeFiles();
 
     virtual ReportType getType() const =0;

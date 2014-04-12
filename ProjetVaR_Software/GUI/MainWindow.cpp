@@ -106,7 +106,10 @@ void MainWindow::reportGenerationDone()
     this->statusBar()->showMessage("Generation done.",1500);
 	ReportGenerator * obj = qobject_cast<ReportGenerator*>(sender());
 	if (obj)
+	{
+		Report * report = obj->getReport();
 		delete obj;
+	}
 }
 
 /**
@@ -205,6 +208,16 @@ void MainWindow::clearLayout(QLayout* layout, bool deleteWidgets)
 	}
 }
 
+void MainWindow::disableGenerationButton()
+{
+	ui->actionGenerate_Stats_Report->setEnabled(false);
+}
+
+void MainWindow::enableGenerationButton()
+{
+	ui->actionGenerate_Stats_Report->setEnabled(true);
+}
+
 /**
  * @brief Return the current portfolio (the one which is selected in the list of portfolio)
  * Throw a NoneSelectedPortfolioException if none portfolio has been selected.
@@ -240,10 +253,10 @@ void MainWindow::generateStatsReport()
 /**
  * @brief Build a report with the specified factory and delete the factory if deleteAfter is false (by default).
  * The report is added to the porttoflio and to the portfolioReportWidgets for the given portfolio, and emit the signal newReportCreated().
- * @param portfolio
+ * @param portfolio the owner of the report
  * @param factory the factory which will be used to make the report
- * @param deleteAfter
- * @return The report
+ * @param deleteAfter delete the ReportFactory if false (by default), otherwise the factory is not deleted
+ * @return The report created by the given factory
  */
 Report *MainWindow::buildReport(Portfolio *portfolio, ReportFactory * factory, bool deleteAfter)
 {
@@ -269,8 +282,11 @@ Report *MainWindow::buildReport(Portfolio *portfolio, ReportFactory * factory, b
  */
 void MainWindow::generateReport(ReportGenerator *gen)
 {
+	disableGenerationButton();
     this->statusBar()->showMessage("Generation of the report ...",0);
     connect(gen,SIGNAL(finished()),this,SLOT(reportGenerationDone()));
+	connect(gen,SIGNAL(finished()),gen->getReport(),SIGNAL(filesOk()));
+	connect(gen,SIGNAL(finished()),this,SLOT(enableGenerationButton()));
     gen->start();
 }
 
@@ -310,8 +326,6 @@ void MainWindow::removeSelectedPortfolio()
 		//delete the model
 		delete portfoliosModels[portfolio];
 		portfoliosModels.remove(portfolio);
-		//delete the portfolio
-		delete portfolio;
 	}
 	catch (NoneSelectedPortfolioException& )
 	{

@@ -1,7 +1,17 @@
 #include "ReportGenerator.h"
 
 
+ReportGenerator::ReportGenerator(Report *report) : report(report)
+{
+
+}
+
 void ReportGenerator::run()
 {
-    generate();
+	generate();
+}
+
+Report *ReportGenerator::getReport()
+{
+	return report;
 }

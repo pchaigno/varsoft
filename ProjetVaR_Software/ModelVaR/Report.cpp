@@ -59,6 +59,12 @@ void Report::init(int id, QString file) {
     dataJson=NULL;
 }
 
+
+void Report::filesGenerationFinish()
+{
+	emit filesOk();
+}
+
 /**
  * @brief Accessor to id.
  * @return The id of the report in the database.

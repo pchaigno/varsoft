@@ -66,6 +66,10 @@ private slots:
 	void deleteReportWidget(ReportWidget* reportWidget);
 	void clearReportWidgets(Portfolio * portfolio);
 
+
+	void disableGenerationButton();
+	void enableGenerationButton();
+
 private:
     Portfolio *getCurrentPortfolio();
 	Report* buildReport(Portfolio * portfolio, ReportFactory * factory, bool deleteAfter=false);

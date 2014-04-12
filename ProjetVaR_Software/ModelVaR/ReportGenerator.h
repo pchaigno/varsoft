@@ -19,11 +19,16 @@
 
 #include <QString>
 #include <QThread>
+#include "Report.h"
 
 class ReportGenerator : public QThread {
 	Q_OBJECT
 public:
+	ReportGenerator(Report * report);
     virtual void run();
+	virtual Report *getReport();
 protected:
     virtual void generate() =0;
+
+	Report * report;
 };

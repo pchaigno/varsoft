@@ -38,6 +38,8 @@ public slots:
 	void openDocx();
 	void deleteReport();
 
+	void generationFinish();
+
 private:
 	void paintEvent(QPaintEvent *pe);
 

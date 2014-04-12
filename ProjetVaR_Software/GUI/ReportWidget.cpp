@@ -9,6 +9,8 @@ ReportWidget::ReportWidget(Report *report, QWidget *parent) :
 	connect(ui->docxButton,SIGNAL(clicked()),this,SLOT(openDocx()));
 	connect(ui->pdfButton,SIGNAL(clicked()),this,SLOT(openPDF()));
 	connect(ui->supprButton,SIGNAL(clicked()),this,SLOT(deleteReport()));
+
+	connect(report,SIGNAL(filesOk()),this,SLOT(generationFinish()));
 }
 
 ReportWidget::~ReportWidget()
@@ -33,6 +35,13 @@ void ReportWidget::deleteReport()
 	{
 		emit deleteRequest();
 	}
+}
+
+void ReportWidget::generationFinish()
+{
+	ui->docxButton->setEnabled(true);
+	ui->pdfButton->setEnabled(true);
+	ui->supprButton->setEnabled(true);
 }
 
 

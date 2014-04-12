@@ -96,6 +96,9 @@ background-color: rgb(240, 240, 240);
        </item>
        <item>
         <widget class="QPushButton" name="docxButton">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="maximumSize">
           <size>
            <width>26</width>
@@ -119,6 +122,9 @@ background-color: rgb(240, 240, 240);
        </item>
        <item>
         <widget class="QPushButton" name="pdfButton">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="maximumSize">
           <size>
            <width>26</width>
@@ -142,6 +148,9 @@ background-color: rgb(240, 240, 240);
        </item>
        <item>
         <widget class="QPushButton" name="supprButton">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="maximumSize">
           <size>
            <width>24</width>

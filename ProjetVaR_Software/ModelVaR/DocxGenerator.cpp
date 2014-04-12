@@ -17,8 +17,8 @@
  */
 #include "DocxGenerator.h"
 
-DocxGenerator::DocxGenerator(Report *report) {
-    this->report=report;
+DocxGenerator::DocxGenerator(Report *report) : ReportGenerator(report) {
+
 }
 
 /**
