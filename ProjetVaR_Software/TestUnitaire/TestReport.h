@@ -23,6 +23,9 @@
 #include "StatisticsReport.h"
 #include "GarchReport.h"
 #include <QtTest>
+#include "Portfolio.h"
+#include "StatisticsReportFactory.h"
+#include "DocxGenerator.h"
 
 class TestReport: public QObject {
 	Q_OBJECT
@@ -40,6 +43,5 @@ public:
 
 private Q_SLOTS:
 	void testId();
-    void testId(Report *report);
-	void testRemove();
+	void testId(Report *report);
 };
