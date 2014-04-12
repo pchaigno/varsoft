@@ -150,18 +150,6 @@
 	background-color: rgb(199, 199, 199);
 }</string>
           </property>
-          <property name="verticalScrollBarPolicy">
-           <enum>Qt::ScrollBarAsNeeded</enum>
-          </property>
-          <property name="horizontalScrollBarPolicy">
-           <enum>Qt::ScrollBarAsNeeded</enum>
-          </property>
-          <property name="sizeAdjustPolicy">
-           <enum>QAbstractScrollArea::AdjustIgnored</enum>
-          </property>
-          <property name="widgetResizable">
-           <bool>true</bool>
-          </property>
           <widget class="QWidget" name="scrollAreaWidgetContents">
            <property name="geometry">
             <rect>

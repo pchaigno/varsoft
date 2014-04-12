@@ -28,7 +28,6 @@ HEADERS += MainWindow.h \
 		SetWeightAssetWizardPage.h \
 		ShowAssetsWizardPage.h \
 		PortfolioListView.h \
-		PortfolioViewModel.h \
 		import.h \
     NoneSelectedPortfolioException.h \
     ReportWidget.h \
