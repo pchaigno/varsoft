@@ -40,6 +40,5 @@ public:
 
 private Q_SLOTS:
 	void testId();
-    void testId(Report *report);
-	void testRemove();
+	void testId(Report *report);
 };

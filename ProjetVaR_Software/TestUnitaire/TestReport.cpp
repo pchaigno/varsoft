@@ -63,7 +63,3 @@ void TestReport::testId(Report *report) {
 	QFAIL("No exception thrown when attributed an id to a report twice.");
 }
 
-void TestReport::testRemove()
-{
-	QFAIL("pas encore fait...");
-}
