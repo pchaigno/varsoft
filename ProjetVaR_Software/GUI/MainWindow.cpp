@@ -245,6 +245,10 @@ void MainWindow::generateStatsReport()
         // generate it in Docx format
         generateReport(new DocxGenerator(report));
     }
+	catch (ReportAvailableException & e)
+	{
+		QMessageBox::critical(this,"Error",e.what());
+	}
     catch (NoneSelectedPortfolioException& )
     {
         QMessageBox::critical(this,"Error","None portfolio selected");

@@ -22,7 +22,6 @@
  * Should only be used by Qt containers.
  */
 Report::Report() {
-
 }
 
 /**
@@ -55,7 +54,7 @@ Report::~Report()
  */
 void Report::init(int id, QString file) {
     this->id = id;
-    this->file = file;
+	this->file = file;
     dataJson=NULL;
 }
 
@@ -93,6 +92,14 @@ void Report::setId(int id) {
 QString Report::getFile() const
 {
 	return this->file;
+}
+/**
+ * @brief This method says if the file are available on the disk
+ * @return true if the files containing the report are available in the disk
+ */
+bool Report::filesAvailable()
+{
+	return QFile::exists(this->file+".pdf") && QFile::exists(this->file+".docx");
 }
 /**
  * @brief Remove the report file on the disk

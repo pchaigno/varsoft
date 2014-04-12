@@ -20,6 +20,7 @@
 #include "Report.h"
 #include "DocxGenerator.h"
 #include <QString>
+#include "ReportAvailableException.h"
 
 class MODELVARSHARED_EXPORT ReportFactory {
 public:

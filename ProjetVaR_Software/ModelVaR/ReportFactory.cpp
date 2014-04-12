@@ -30,6 +30,8 @@ ReportFactory::ReportFactory(){
 Report *ReportFactory::buildReport()
 {
     Report * report = createReport();
+	if (report->filesAvailable())
+		throw ReportAvailableException("Report files are available on the disk, maybe this report has already been created before.");
     report->setDataJson(createJson());
     return report;
 }

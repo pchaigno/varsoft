@@ -89,7 +89,8 @@ HEADERS +=\
 	PortfolioViewModel.h \
 	qcustomplot.h \
 	PortfolioCalculationException.h \
-	ReportDataJson.h
+	ReportDataJson.h \
+    ReportAvailableException.h
 
 unix:!symbian {
 	maemo5 {

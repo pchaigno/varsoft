@@ -31,6 +31,7 @@
 #include "DocxGenerator.h"
 #include "PortfolioViewModel.h"
 #include "NoneSelectedPortfolioException.h"
+#include "ReportAvailableException.h"
 #include <QMessageBox>
 #include "FlowLayout.h"
 #include "ReportWidget.h"

@@ -37,7 +37,7 @@ class MODELVARSHARED_EXPORT Report : public QObject {
 private:
     int id;
     QString file;
-    ReportDataJson* dataJson;
+	ReportDataJson* dataJson;
 
 signals:
 	void filesOk();
@@ -56,6 +56,7 @@ public:
     void setId(int id);
 
 	QString getFile() const;
+	bool filesAvailable();
 	void removeFiles();
 
     virtual ReportType getType() const =0;
