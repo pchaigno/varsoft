@@ -50,10 +50,20 @@ ReportDataJson* StatisticsReportFactory::createJson()
     QDateTime endDate = portfolio->retrieveEndDate();
     data->addText("dateFin",endDate.toString("dd/MM/yyyy"));
     data->addText("date",endDate.toString("dd/MM/yyyy"));
-    QMap<QDateTime,double> valuesPortfolio = portfolio->retrieveValuesByDate(endDate,endDate);
+	QMap<QDateTime,double> valuesPortfolio;
+	try {
+		valuesPortfolio = portfolio->retrieveValuesByDate(startDate, endDate);
+	} catch (std::exception & ) {
+		QDateTime tmp = startDate;
+		startDate = endDate;
+		endDate = tmp;
+		//bug des dates dans import ...
+		valuesPortfolio = portfolio->retrieveValuesByDate(startDate, endDate);
+	}
+
     data->addText("val",QString::number(valuesPortfolio[endDate]));
 
-    QVector<double> values = portfolio->retrieveValues();
+	QVector<double> values = valuesPortfolio.values().toVector();
     data->addText("moyenne",QString::number(getAverage(values)));
     data->addText("variance", QString::number(getVariance(values)));
     data->addText("kurtosis", QString::number(getKurtosis(values)));
