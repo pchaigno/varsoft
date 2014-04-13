@@ -21,17 +21,14 @@
 #include "DocxGenerator.h"
 #include <QString>
 
-class ReportFactory {
-protected:
-	DocxGenerator docxGenerator;
-
-private:
-	QString docxFile;
-	QString pdfFile;
-
+class MODELVARSHARED_EXPORT ReportFactory {
 public:
-	ReportFactory(QString docxFile, QString pdfFile);
-	Report generateReport();
-	virtual DocxGenerator& generateDOCX() const =0;
-	void generatePDF();
+    ReportFactory();
+
+    Report *buildReport();
+
+protected:
+    virtual Report * createReport() =0;
+    virtual ReportDataJson* createJson() = 0;
+
 };

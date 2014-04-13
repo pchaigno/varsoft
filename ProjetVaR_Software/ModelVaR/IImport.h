@@ -20,7 +20,6 @@
 #include <QString>
 #include <QFile>
 #include <QStringList>
-#include <QDebug>
 #include <QTableWidgetItem>
 #include "Asset.h"
 #include "ModelVaR_global.h"

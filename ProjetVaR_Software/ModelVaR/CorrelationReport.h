@@ -23,8 +23,9 @@
 
 class MODELVARSHARED_EXPORT CorrelationReport: public Report {
 public:
-	CorrelationReport();
-	CorrelationReport(QString docxFile, QString pdfFile);
-	CorrelationReport(int id, QString docxFile, QString pdfFile);
-	virtual ReportType getType() const;
+    CorrelationReport();
+    CorrelationReport(QString file);
+    CorrelationReport(int id, QString file);
+    virtual ReportType getType() const;
+    virtual QString getTemplateFile() const;
 };

@@ -184,6 +184,7 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionGenerate_Stats_Report"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionOuvrir">
@@ -234,6 +235,11 @@
   <action name="actionQuitter">
    <property name="text">
     <string>Quitter</string>
+   </property>
+  </action>
+  <action name="actionGenerate_Stats_Report">
+   <property name="text">
+    <string>Generate Stats Report</string>
    </property>
   </action>
  </widget>

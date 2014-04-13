@@ -19,29 +19,17 @@
 
 /**
  * @brief ReportFactory::ReportFactory
- * @param docxPath
- * @param pdfPath
  */
-ReportFactory::ReportFactory(QString docxFile, QString pdfFile):
-	docxGenerator(DocxGenerator(docxFile)) {
-	this->docxFile = docxFile;
-	this->pdfFile = pdfFile;
-}
+ReportFactory::ReportFactory(){
 
-/**
- * @brief Generates the report.
- * @return The report.
- */
-Report ReportFactory::generateReport() {
-	this->docxGenerator = this->generateDOCX();
-	this->generatePDF();
-	return Report(this->docxFile, this->pdfFile);
 }
-
 /**
- * @brief Generates the PDF.
- * Converts the DOCX file to a PDF.
+ * @brief Create the appropriate report and create its Json before returning it.
+ * @return the report which just generated
  */
-void ReportFactory::generatePDF() {
-	this->docxGenerator.convertToPDF();
+Report *ReportFactory::buildReport()
+{
+    Report * report = createReport();
+    report->setDataJson(createJson());
+    return report;
 }

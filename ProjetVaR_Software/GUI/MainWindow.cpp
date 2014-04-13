@@ -26,7 +26,9 @@
 #include "import.h"
 #include "QDateTime"
 
+
 MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWindow), portfolioListModel(new PortfolioItemModel(this)) {
+
 	ui->setupUi(this);
 
 	//for the import button in the main window
@@ -35,10 +37,13 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
 	connect(&import_win, SIGNAL(dataEntered(const QString&, const QDateTime&, const QDateTime&, const QString&)),
 						 this, SLOT(onDataEntered(const QString&, const QDateTime&, const QDateTime&, const QString&)));
 
+    connect(ui->actionGenerate_Stats_Report,SIGNAL(triggered()),this,SLOT(generateStatsReport()));
+
 	ui->listView->setModel(portfolioListModel);
-	connect(ui->removePushButton, SIGNAL(clicked()), ui->listView, SLOT(removeSelectedPortfolio()));
+    connect(ui->removePushButton, SIGNAL(clicked()), this, SLOT(removeSelectedPortfolio()));
 
 	connect(ui->listView,SIGNAL(portfolioSelected(Portfolio*)),this,SLOT(showPortfolio(Portfolio*)));
+
 }
 
 MainWindow::~MainWindow() {
@@ -46,7 +51,8 @@ MainWindow::~MainWindow() {
 	delete portfolioListModel;
 	foreach (Portfolio *portfolio, portfoliosModels.keys()) {
 		delete portfoliosModels[portfolio];
-	}
+        delete portfolio;
+    }
 }
 
 /**
@@ -85,7 +91,76 @@ void MainWindow::onDataEntered(const QString &name, const QDateTime &fDate ,cons
 	//    algo = ImportNewData();
 	//else
 	//    algo = ImportData();;
-	algo.import(MainWindow::stockName, fileName, MainWindow::origin, MainWindow::startDate, MainWindow::endDate);
+    algo.import(MainWindow::stockName, fileName, MainWindow::origin, MainWindow::startDate, MainWindow::endDate);
+}
+/**
+ * @brief Display a message in the status bar when the generating of a report is done
+ * and delete the reportGenerator which called this slot.
+ * It also enable the button which started the thread.
+ */
+void MainWindow::reportGenerationDone()
+{
+    this->statusBar()->showMessage("Generation done.",1500);
+    delete ((ReportGenerator*) sender());
+}
+/**
+ * @brief Return the current portfolio (the one which is selected in the list of portfolio)
+ * Throw a NoneSelectedPortfolioException if none portfolio has been selected.
+ * @return the current portfolio
+ */
+Portfolio *MainWindow::getCurrentPortfolio()
+{
+    Portfolio * port = ui->listView->getCurrentPortfolio();
+    if (port==NULL)
+        throw NoneSelectedPortfolioException("None current portfolio.");
+    return port;
+}
+/**
+ * @brief Generates the statistics report of the selected portfolio and add it to the vector
+ * of report of the selected portfolio.
+ */
+void MainWindow::generateStatsReport()
+{
+    try
+    {
+        // get the current portfolio
+        Portfolio * port = this->getCurrentPortfolio();
+        // build the stats report
+        Report * report = buildReport(new StatisticsReportFactory(port));
+        port->addReport(report);
+        // generate it in Docx format
+        generateReport(new DocxGenerator(report));
+    }
+    catch (NoneSelectedPortfolioException& )
+    {
+        QMessageBox::critical(this,"Error","None portfolio selected");
+    }
+}
+/**
+ * @brief Build a report with the specified factory and delete the factory
+ * @param factory the factory which will be used to make the report
+ * @param deleteAfter
+ * @return The report
+ */
+Report *MainWindow::buildReport(ReportFactory * factory, bool deleteAfter)
+{
+    Report * report = factory->buildReport();
+    if (!deleteAfter)
+        delete factory;
+    return report;
+}
+/**
+ * @brief Generate the report file with the specified ReportGenerator.
+ * This slot starts a thread for the generating.
+ * Show a message in the display bar and connect the finish signal of the thread
+ * to the slot reportGenerationDone of MainWindow.
+ * @param gen
+ */
+void MainWindow::generateReport(ReportGenerator *gen)
+{
+    this->statusBar()->showMessage("Generation of the report ...",0);
+    connect(gen,SIGNAL(finished()),this,SLOT(reportGenerationDone()));
+    gen->start();
 }
 
 /**
@@ -104,5 +179,15 @@ void MainWindow::setImportCSV(){
  */
 void MainWindow::addPortfolio(Portfolio * portfolio) {
 	portfoliosModels[portfolio] = new PortfolioViewModel(portfolio);
-	portfolioListModel->addPortfolio(portfolio);
+    portfolioListModel->addPortfolio(portfolio);
+}
+
+/**
+ * @brief Remove the portfolio selected from the PortfolioListView and delete its PortfolioViewModel
+ */
+void MainWindow::removeSelectedPortfolio()
+{
+    Portfolio * portfolio = ui->listView->getCurrentPortfolio();
+    delete portfoliosModels[portfolio];
+    ui->listView->removeSelectedPortfolio();
 }

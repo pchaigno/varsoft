@@ -30,7 +30,7 @@ GarchReport::GarchReport() {
  * @param docxPath The location of the DOCX file on the disk.
  * @param pdfPath The location of the PDF file on the disk.
  */
-GarchReport::GarchReport(QString docxFile, QString pdfFile): Report(docxFile, pdfFile) {
+GarchReport::GarchReport(QString file): Report(file) {
 
 }
 
@@ -40,7 +40,7 @@ GarchReport::GarchReport(QString docxFile, QString pdfFile): Report(docxFile, pd
  * @param docxPath The location of the DOCX file on the disk.
  * @param pdfPath The location of the PDF file on the disk.
  */
-GarchReport::GarchReport(int id, QString docxFile, QString pdfFile): Report(id, docxFile, pdfFile) {
+GarchReport::GarchReport(int id, QString file): Report(id, file) {
 
 }
 
@@ -49,5 +49,10 @@ GarchReport::GarchReport(int id, QString docxFile, QString pdfFile): Report(id, 
  * @return The type of the report.
  */
 ReportType GarchReport::getType() const {
-	return GARCH;
+    return GARCH;
+}
+
+QString GarchReport::getTemplateFile() const
+{
+    return "";
 }

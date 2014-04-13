@@ -20,6 +20,7 @@
 #include <QString>
 #include "IdAlreadyAttributedException.h"
 #include "ModelVaR_global.h"
+#include "ReportDataJson.h"
 
 enum ReportType {
 	NONE = 0,
@@ -32,22 +33,28 @@ enum ReportType {
 
 class MODELVARSHARED_EXPORT Report {
 private:
-	int id;
-	QString docxFile;
-	QString pdfFile;
+    int id;
+    QString file;
+    ReportDataJson* dataJson;
 
 public:
-	Report();
-	Report(QString docxFile, QString pdfFile);
-	Report(int id, QString docxFile, QString pdfFile);
-	void init(int id, QString docxFile, QString pdfFile);
+    Report();
+    Report(QString file);
+    Report(int id, QString file);
+    ~Report();
+    void init(int id, QString file);
 
 	int getId() const;
-	void setId(int id);
-	QString getDOCXFile() const;
-	QString getPDFFile() const;
-	// TODO Any way to make it abstract?
-	virtual ReportType getType() const;
+    void setId(int id);
+
+    QString getFile() const;
+
+    virtual ReportType getType() const =0;
+
+    ReportDataJson* getDataJson() const;
+    void setDataJson(ReportDataJson* data);
+
+    virtual QString getTemplateFile() const =0;
 
 	bool operator==(const Report& report) const;
 };

@@ -42,6 +42,7 @@ public:
 	Asset();
 	Asset(QString name, QString file, QString origin, QDateTime startDate, QDateTime endDate);
 	Asset(int id, QString name, QString file, QString origin, QDateTime startDate, QDateTime endDate);
+    ~Asset();
 	void init(int id, QString name, QString file, QString origin, QDateTime startDate, QDateTime endDate);
 
 	int getId() const;

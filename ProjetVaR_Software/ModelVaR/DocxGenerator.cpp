@@ -17,24 +17,21 @@
  */
 #include "DocxGenerator.h"
 
-/**
- * @brief Constructor
- * @param location The path to the DOCX file to generate.
- */
-DocxGenerator::DocxGenerator(QString location) {
-	// TODO
+DocxGenerator::DocxGenerator(Report *report) {
+    this->report=report;
 }
 
 /**
- * @brief Generates the DOCX file;
+ * @brief Generates the DOCX file
  */
 void DocxGenerator::generate() {
-	// TODO
-}
+    QProcess docx;
+    docx.start("java", QStringList() << "-jar" << "../DocxGenerator/DocXGenerator.jar" << report->getTemplateFile() << report->getFile());
+    docx.waitForStarted();
 
-/**
- * @brief Converts the DOCX file to a PDF.
- */
-void DocxGenerator::convertToPDF() {
-	// TODO
+    QString data = report->getDataJson()->toString();
+    docx.write(data.toLatin1(),data.length());
+    docx.closeWriteChannel();
+
+    docx.waitForFinished();
 }

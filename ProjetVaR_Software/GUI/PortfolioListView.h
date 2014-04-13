@@ -28,13 +28,18 @@ public:
 	void setModel(PortfolioItemModel * model);
 	PortfolioItemModel *model() const;
 
-protected:
-	void selectionChanged(const QItemSelection & selected, const QItemSelection & deselected);
+    void currentChanged(const QModelIndex & current,const QModelIndex & previous);
+
+    Portfolio * getCurrentPortfolio() const;
 
 signals:
-	void portfolioSelected(Portfolio *);
+    void portfolioSelected(Portfolio*);
+
 
 public slots:
 	void removeSelectedPortfolio();
+
+private:
+    QModelIndex current;
 
 };

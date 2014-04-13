@@ -25,7 +25,13 @@
 #include <string>
 #include "NewPortfolioWizard.h"
 #include "PortfolioItemModel.h"
+#include "ReportFactory.h"
+#include "ReportGenerator.h"
+#include "StatisticsReportFactory.h"
+#include "DocxGenerator.h"
 #include "PortfolioViewModel.h"
+#include "NoneSelectedPortfolioException.h"
+#include <QMessageBox>
 
 namespace Ui {
 	class MainWindow;
@@ -42,12 +48,17 @@ private slots:
 	void newPortfolio();
 	void showPortfolio(Portfolio* portfolio);
 	void setImportCSV();
-
+    void generateStatsReport();
 	void addPortfolio(Portfolio *);
-
+    void removeSelectedPortfolio();
 	void onDataEntered(const QString &text, const QDateTime &fDate, const QDateTime &lDate, const QString &source);
+    void reportGenerationDone();
 
 private:
+    Portfolio *getCurrentPortfolio();
+    Report* buildReport(ReportFactory * factory, bool deleteAfter=false);
+    void generateReport(ReportGenerator * gen);
+
 	Ui::MainWindow *ui;
 	Import import_win;
 	QString stockName;
@@ -56,5 +67,5 @@ private:
 	QString fileName;
 	QString origin;
 	PortfolioItemModel * portfolioListModel;
-	QHash<Portfolio*, PortfolioViewModel*> portfoliosModels;
+    QHash<Portfolio*, PortfolioViewModel*> portfoliosModels;
 };

@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT += sql
+QT += sql printsupport
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = ModelVaR
@@ -45,7 +45,10 @@ SOURCES += \
 	IImport.cpp \
 	PortfolioItemModel.cpp \
 	CorrelationReportFactory.cpp \
-	PortfolioViewModel.cpp
+	PortfolioViewModel.cpp \
+	ReportDataJson.cpp \
+	qcustomplot.cpp \
+    ReportGenerator.cpp
 
 HEADERS +=\
 	Asset.h \
@@ -84,7 +87,9 @@ HEADERS +=\
 	IImport.h \
 	PortfolioItemModel.h \
 	PortfolioViewModel.h \
-	PortfolioCalculationException.h
+	qcustomplot.h \
+	PortfolioCalculationException.h \
+	ReportDataJson.h
 
 unix:!symbian {
 	maemo5 {

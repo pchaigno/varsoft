@@ -14,7 +14,6 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
 		MainWindow.cpp \
-		qcustomplot.cpp \
 		import.cpp \
 		NewPortfolioWizard.cpp \
 		SetWeightAssetWizardPage.cpp \
@@ -22,13 +21,13 @@ SOURCES += main.cpp\
 		PortfolioListView.cpp \
 
 HEADERS += MainWindow.h \
-		qcustomplot.h \
 		NewPortfolioWizard.h \
 		SetWeightAssetWizardPage.h \
 		ShowAssetsWizardPage.h \
 		PortfolioListView.h \
 		PortfolioViewModel.h \
-		import.h
+		import.h \
+    NoneSelectedPortfolioException.h
 
 FORMS += MainWindow.ui \
 		NewPortfolioWizard.ui \
