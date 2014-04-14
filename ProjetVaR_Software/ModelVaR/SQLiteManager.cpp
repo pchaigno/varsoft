@@ -93,8 +93,7 @@ bool SQLiteManager::createDatabase() {
 	sqlReports = "CREATE TABLE reports("
 		"id INTEGER PRIMARY KEY AUTOINCREMENT,"
 		"portfolio INTEGER NOT NULL REFERENCES portfolios(id),"
-		"pdf_file TEXT UNIQUE NOT NULL,"
-		"docx_file TEXT UNIQUE NOT NULL,"
+		"file TEXT UNIQUE NOT NULL,"
 		"type INTEGER NOT NULL);";
 	result &= query.exec(sqlReports);
 	query.finish();

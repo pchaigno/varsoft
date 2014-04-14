@@ -126,11 +126,10 @@ void SessionSaver::savePortfolios(QVector<Portfolio>& portfolios) {
  */
 void SessionSaver::saveReports(const Portfolio& portfolio, const QList<Report *> &reports) {
 	QSqlQuery query(this->db);
-	query.prepare("INSERT INTO reports(id, portfolio, pdf_file, docx_file, type) VALUES(NULL, :portfolio, :pdf_file, :docx_file, :type);");
+	query.prepare("INSERT INTO reports(id, portfolio, file, type) VALUES(NULL, :portfolio, :file, :type);");
 	for(int i=0; i<reports.size(); i++) {
 		query.bindValue(":portfolio", portfolio.getId());
-        query.bindValue(":pdf_file", reports[i]->getFile());
-        query.bindValue(":docx_file", reports[i]->getFile());
+		query.bindValue(":file", reports[i]->getFile());
 		query.bindValue(":type", reports[i]->getType());
 		query.exec();
 		reports[i]->setId(query.lastInsertId().toInt());

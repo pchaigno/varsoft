@@ -166,7 +166,7 @@ QMap<Asset*, int> SessionBuilder::buildPortfolioComposition(int idPortfolio) {
 */
 QList<Report *> SessionBuilder::buildReports(int idPortfolio) {
 	QSqlQuery query(this->db);
-	query.prepare("SELECT id, docx_file, pdf_file, type FROM reports WHERE portfolio = :id_portfolio;");
+	query.prepare("SELECT id, file, type FROM reports WHERE portfolio = :id_portfolio;");
 	query.bindValue(":id_portfolio", idPortfolio);
 	query.exec();
 
@@ -177,7 +177,7 @@ QList<Report *> SessionBuilder::buildReports(int idPortfolio) {
 	while(query.next()) {
 		id = query.value(0).toInt();
         file = query.value(1).toString();
-		type = (ReportType)query.value(3).toInt();
+		type = (ReportType)query.value(2).toInt();
 		Report* report;
 		switch(type) {
 			case GARCH:
