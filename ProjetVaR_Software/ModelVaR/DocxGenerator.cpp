@@ -33,5 +33,11 @@ void DocxGenerator::generate() {
     docx.write(data.toLatin1(),data.length());
     docx.closeWriteChannel();
 
-    docx.waitForFinished();
+	docx.waitForFinished();
+	int exitCode=docx.exitCode();
+	bool hasCrashed = docx.exitStatus()==QProcess::CrashExit;
+	if (exitCode != 0 || hasCrashed)
+	{
+		emit error("exitcode: "+QString::number(exitCode));
+	}
 }

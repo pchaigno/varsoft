@@ -30,7 +30,7 @@ StatisticsReportFactory::StatisticsReportFactory(Portfolio * portfolio):
  */
 Report *StatisticsReportFactory::createReport()
 {
-    QString file = QString("../resources/Reports/statisticReport");
+	QString file = QString("../Resources/Reports/statisticReport");
     QDateTime startDate = portfolio->retrieveStartDate();
     QDateTime endDate = portfolio->retrieveEndDate();
     file += "_"+portfolio->getName()+"_"+startDate.toString("dd-MM-yy")+"_"+endDate.toString("dd-MM-yy");

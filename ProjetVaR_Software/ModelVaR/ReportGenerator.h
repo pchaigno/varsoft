@@ -27,6 +27,9 @@ public:
 	ReportGenerator(Report * report);
     virtual void run();
 	virtual Report *getReport();
+
+signals:
+	void error(const QString &);
 protected:
     virtual void generate() =0;
 

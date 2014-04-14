@@ -41,6 +41,7 @@ private:
 
 signals:
 	void filesOk();
+	void filesNotOk();
 
 public slots:
 	void filesGenerationFinish();

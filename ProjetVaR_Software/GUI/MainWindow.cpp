@@ -186,6 +186,16 @@ void MainWindow::clearReportWidgets(Portfolio *portfolio)
 	portfolioReportWidgets[portfolio].clear();
 	portfolioReportWidgets.remove(portfolio);
 }
+
+void MainWindow::errorInGeneratedFiles()
+{
+	showError("Error in the generation, report has not been created.");
+}
+
+void MainWindow::showError(const QString & errorMsg)
+{
+	QMessageBox::critical(this,"Error",errorMsg);
+}
 /**
  * @brief Clear all the item in the given layout
  * @param layout
@@ -247,11 +257,11 @@ void MainWindow::generateStatsReport()
     }
 	catch (ReportAvailableException & e)
 	{
-		QMessageBox::critical(this,"Error",e.what());
+		showError(e.what());
 	}
     catch (NoneSelectedPortfolioException& )
     {
-        QMessageBox::critical(this,"Error","None portfolio selected");
+		showError("None portfolio selected");
     }
 }
 /**
@@ -287,10 +297,17 @@ Report *MainWindow::buildReport(Portfolio *portfolio, ReportFactory * factory, b
 void MainWindow::generateReport(ReportGenerator *gen)
 {
 	disableGenerationButton();
-    this->statusBar()->showMessage("Generation of the report ...",0);
-    connect(gen,SIGNAL(finished()),this,SLOT(reportGenerationDone()));
-	connect(gen,SIGNAL(finished()),gen->getReport(),SIGNAL(filesOk()));
+	this->statusBar()->showMessage("Generation of the report ...",0);
+
+	//notify the report that the generation has been finished
+	connect(gen,SIGNAL(finished()),gen->getReport(),SLOT(filesGenerationFinish()));
 	connect(gen,SIGNAL(finished()),this,SLOT(enableGenerationButton()));
+	//display an error in dialog
+	connect(gen,SIGNAL(error(QString)),this,SLOT(showError(QString)));
+	//display a message ij the status bar if the generation was good
+	connect(gen->getReport(),SIGNAL(filesOk()),this,SLOT(reportGenerationDone()));
+	//display a error if not
+	connect(gen->getReport(),SIGNAL(filesNotOk()),this,SLOT(errorInGeneratedFiles()));
     gen->start();
 }
 

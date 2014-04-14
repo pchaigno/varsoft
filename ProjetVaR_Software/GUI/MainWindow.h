@@ -67,6 +67,8 @@ private slots:
 	void deleteReportWidget(ReportWidget* reportWidget);
 	void clearReportWidgets(Portfolio * portfolio);
 
+	void errorInGeneratedFiles();
+	void showError(const QString&errorMsg);
 
 	void disableGenerationButton();
 	void enableGenerationButton();

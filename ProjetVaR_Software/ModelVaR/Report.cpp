@@ -61,7 +61,10 @@ void Report::init(int id, QString file) {
 
 void Report::filesGenerationFinish()
 {
-	emit filesOk();
+	if (filesAvailable())
+		emit filesOk();
+	else
+		emit filesNotOk();
 }
 
 /**

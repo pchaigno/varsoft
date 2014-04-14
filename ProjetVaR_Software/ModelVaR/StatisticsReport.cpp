@@ -52,5 +52,5 @@ ReportType StatisticsReport::getType() const {
  */
 QString StatisticsReport::getTemplateFile() const
 {
-    return QString("../resources/ReportTemplate/statisticTemplate.docx");
+	return QString("../Resources/ReportTemplate/statisticTemplate.docx");
 }
