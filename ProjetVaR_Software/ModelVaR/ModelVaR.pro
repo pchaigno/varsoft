@@ -47,7 +47,8 @@ SOURCES += \
 	PortfolioViewModel.cpp \
 	ReportDataJson.cpp \
 	qcustomplot.cpp \
-    ReportGenerator.cpp
+	ReportGenerator.cpp \
+    ReportException.cpp
 
 HEADERS +=\
 	Asset.h \
@@ -89,7 +90,7 @@ HEADERS +=\
 	qcustomplot.h \
 	PortfolioCalculationException.h \
 	ReportDataJson.h \
-    ReportAvailableException.h
+    ReportException.h
 
 unix:!symbian {
 	maemo5 {

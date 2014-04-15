@@ -30,11 +30,11 @@ StatisticsReportFactory::StatisticsReportFactory(Portfolio * portfolio):
  */
 Report *StatisticsReportFactory::createReport()
 {
-	QString file = QString("../Resources/Reports/statisticReport");
+	QString file = this->getReportDir()+QString("statisticReport");
     QDateTime startDate = portfolio->retrieveStartDate();
     QDateTime endDate = portfolio->retrieveEndDate();
     file += "_"+portfolio->getName()+"_"+startDate.toString("dd-MM-yy")+"_"+endDate.toString("dd-MM-yy");
-	return new StatisticsReport(file);;
+	return new StatisticsReport(file);
 }
 /**
  * @brief Create the Json for the statistic report.

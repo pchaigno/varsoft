@@ -23,6 +23,7 @@
 #include "Report.h"
 #include "ReportGenerator.h"
 #include <QFile>
+#include <stdexcept>
 
 class MODELVARSHARED_EXPORT DocxGenerator: public ReportGenerator {
 public:

@@ -20,7 +20,8 @@
 #include "Report.h"
 #include "DocxGenerator.h"
 #include <QString>
-#include "ReportAvailableException.h"
+#include <QDir>
+#include "ReportException.h"
 
 class MODELVARSHARED_EXPORT ReportFactory {
 public:
@@ -31,5 +32,6 @@ public:
 protected:
     virtual Report * createReport() =0;
     virtual ReportDataJson* createJson() = 0;
+	QString getReportDir() const;
 
 };

@@ -31,7 +31,20 @@ Report *ReportFactory::buildReport()
 {
     Report * report = createReport();
 	if (report->filesAvailable())
-		throw ReportAvailableException("Report files are available on the disk, maybe this report has already been created before.");
+		throw ReportException("Report files are available on the disk, maybe this report has already been created before.");
     report->setDataJson(createJson());
-    return report;
+	return report;
+}
+
+QString ReportFactory::getReportDir() const
+{
+	QString path = QString("..")+QDir::separator()+QString("Resources")+QDir::separator()+QString("Reports")+QDir::separator();
+
+	if (!QDir(path).exists())
+	{
+		if (!QDir().mkpath(path))
+			throw ReportException("Error when creating the Report directory.");
+	}
+
+	return path;
 }

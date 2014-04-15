@@ -25,19 +25,30 @@ DocxGenerator::DocxGenerator(Report *report) : ReportGenerator(report) {
  * @brief Generates the DOCX file
  */
 void DocxGenerator::generate() {
-    QProcess docx;
-    docx.start("java", QStringList() << "-jar" << "../DocxGenerator/DocXGenerator.jar" << report->getTemplateFile() << report->getFile());
-    docx.waitForStarted();
-
-    QString data = report->getDataJson()->toString();
-    docx.write(data.toLatin1(),data.length());
-    docx.closeWriteChannel();
-
-	docx.waitForFinished();
-	int exitCode=docx.exitCode();
-	bool hasCrashed = docx.exitStatus()==QProcess::CrashExit;
-	if (exitCode != 0 || hasCrashed)
+	QString prog = "../DocxGenerator/DocXGenerator.jar";
+	if (QFile::exists(prog) && QFile::exists(report->getTemplateFile()))
 	{
-		emit error("exitcode: "+QString::number(exitCode));
+		QProcess docx;
+		docx.start("java", QStringList() << "-jar" << prog << report->getTemplateFile() << report->getFile());
+		docx.waitForStarted();
+
+		QString data = report->getDataJson()->toString();
+		docx.write(data.toLatin1(),data.length());
+		docx.closeWriteChannel();
+
+		docx.waitForFinished();
+		int exitCode=docx.exitCode();
+		bool hasCrashed = docx.exitStatus()==QProcess::CrashExit;
+		if (exitCode != 0 || hasCrashed)
+		{
+			throw std::runtime_error("exitcode: "+QString::number(exitCode).toStdString());
+		}
+	}
+	else
+	{
+		if (!QFile::exists(prog))
+			throw std::invalid_argument("DocXGenerator does not exists on the disk.");
+		else if (!QFile::exists(report->getTemplateFile()))
+			throw std::invalid_argument("Template report ("+report->getTemplateFile().toStdString()+") does not exist.");
 	}
 }

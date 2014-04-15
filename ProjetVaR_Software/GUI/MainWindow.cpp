@@ -255,7 +255,7 @@ void MainWindow::generateStatsReport()
         // generate it in Docx format
         generateReport(new DocxGenerator(report));
     }
-	catch (ReportAvailableException & e)
+	catch (ReportException & e)
 	{
 		showError(e.what());
 	}
@@ -304,7 +304,7 @@ void MainWindow::generateReport(ReportGenerator *gen)
 	connect(gen,SIGNAL(finished()),this,SLOT(enableGenerationButton()));
 	//display an error in dialog
 	connect(gen,SIGNAL(error(QString)),this,SLOT(showError(QString)));
-	//display a message ij the status bar if the generation was good
+	//display a message in the status bar if the generation was good
 	connect(gen->getReport(),SIGNAL(filesOk()),this,SLOT(reportGenerationDone()));
 	//display a error if not
 	connect(gen->getReport(),SIGNAL(filesNotOk()),this,SLOT(errorInGeneratedFiles()));

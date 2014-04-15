@@ -22,7 +22,6 @@
 #include <QDialog>
 #include <QComboBox>
 #include "import.h"
-#include <string>
 #include "NewPortfolioWizard.h"
 #include "PortfolioItemModel.h"
 #include "ReportFactory.h"
@@ -31,7 +30,7 @@
 #include "DocxGenerator.h"
 #include "PortfolioViewModel.h"
 #include "NoneSelectedPortfolioException.h"
-#include "ReportAvailableException.h"
+#include "ReportException.h"
 #include <QMessageBox>
 #include "FlowLayout.h"
 #include "ReportWidget.h"
