@@ -107,7 +107,6 @@ void MainWindow::reportGenerationDone()
 	ReportGenerator * obj = qobject_cast<ReportGenerator*>(sender());
 	if (obj)
 	{
-		Report * report = obj->getReport();
 		delete obj;
 	}
 }

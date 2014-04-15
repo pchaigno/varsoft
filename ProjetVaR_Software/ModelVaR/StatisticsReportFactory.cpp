@@ -66,7 +66,7 @@ ReportDataJson* StatisticsReportFactory::createJson()
 	QVector<double> values = valuesPortfolio.values().toVector();
     data->addText("moyenne",QString::number(getAverage(values)));
     data->addText("variance", QString::number(getVariance(values)));
-    data->addText("kurtosis", QString::number(getKurtosis(values)));
+	data->addText("kurtosis", QString::number(getKurtosis(portfolio->getReturns(values))));
     data->addText("min",QString::number(getMax(values)));
     data->addText("max",QString::number(getMin(values)));
 
@@ -248,5 +248,19 @@ double StatisticsReportFactory::getMin(QVector<double> values)
  */
 double StatisticsReportFactory::getKurtosis(QVector<double> values)
 {
-    return 0.;
+	int n=values.count();
+	double cu1 = 0.;
+	foreach(double val,values)
+	{
+		cu1+=qPow(val,4);
+	}
+	cu1/=n;
+	double cu2=0.;
+	foreach(double val,values)
+	{
+		cu2+=qPow(val,2);
+	}
+	cu2/=n;
+	cu2=cu2*cu2;
+	return cu1/cu2;
 }
