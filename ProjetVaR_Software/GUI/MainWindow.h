@@ -72,6 +72,8 @@ private slots:
 	void disableGenerationButton();
 	void enableGenerationButton();
 
+	void deleteReportGenerator();
+
 private:
     Portfolio *getCurrentPortfolio();
 	Report* buildReport(Portfolio * portfolio, ReportFactory * factory, bool deleteAfter=false);

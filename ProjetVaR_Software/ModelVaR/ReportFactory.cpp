@@ -35,7 +35,11 @@ Report *ReportFactory::buildReport()
     report->setDataJson(createJson());
 	return report;
 }
-
+/**
+ * @brief Get the path of the directory where the reports are placed.
+ * Create the directory if it does not exist.
+ * @return
+ */
 QString ReportFactory::getReportDir() const
 {
 	QString path = QString("..")+QDir::separator()+QString("Resources")+QDir::separator()+QString("Reports")+QDir::separator();

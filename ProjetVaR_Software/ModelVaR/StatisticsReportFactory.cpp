@@ -93,12 +93,15 @@ ReportDataJson* StatisticsReportFactory::createJson()
 
     return data;
 }
-
+/**
+ * @brief Create the Chart1 which display the value of the portfolio over the time.
+ * @param values the value of the portfolio
+ * @return a QPixmap with the chart
+ */
 QPixmap StatisticsReportFactory::generateChart1(QMap<QDateTime,double> values)
 {
     QCustomPlot* customPlot = new QCustomPlot();
-    customPlot->setLocale(QLocale(QLocale::French, QLocale::France));
-
+	customPlot->setLocale(QLocale(QLocale::English, QLocale::UnitedStates));
     customPlot->addGraph();
     QPen pen;
     pen.setColor(QColor(0, 0, 255, 200));
@@ -115,7 +118,7 @@ QPixmap StatisticsReportFactory::generateChart1(QMap<QDateTime,double> values)
     }
     val = values.values().toVector();
     customPlot->graph()->setData(keys, val);
-    customPlot->graph()->setName("values");
+	customPlot->graph()->setName("Values");
 
     // configure bottom axis to show date and time instead of number:
     customPlot->xAxis->setTickLabelType(QCPAxis::ltDateTime);
@@ -134,22 +137,31 @@ QPixmap StatisticsReportFactory::generateChart1(QMap<QDateTime,double> values)
     delete customPlot;
     return pix;
 }
-
+/**
+ * @brief Creates the chart2 which display the value of each assets in the portfolio over the time.
+ * @param compo the Composition of the portfolio
+ * @param start the startDate
+ * @param end the endDate
+ * @return
+ */
 QPixmap StatisticsReportFactory::generateChart2(QList<Asset*> compo, QDateTime start, QDateTime end)
 {
-    QCustomPlot* customPlot = new QCustomPlot();
-    customPlot->setLocale(QLocale(QLocale::French, QLocale::France));
-    int gi = 0;
+	QCustomPlot* customPlot = new QCustomPlot();
+	customPlot->setLocale(QLocale(QLocale::English, QLocale::UnitedStates));
+	int gi = 0;
+
 	double min = INT_MAX, max=INT_MIN;
     foreach(Asset* asset, compo)
     {
       customPlot->addGraph();
       QPen pen;
-      pen.setColor(QColor(0, 0, 255, 200));
+	  pen.setColor(QColor(255,255/compo.count()*gi,0,200));
+	  pen.setWidth(2);
+	  pen.setJoinStyle(Qt::RoundJoin);
       customPlot->graph()->setLineStyle(QCPGraph::lsLine);
       customPlot->graph()->setPen(pen);
-      customPlot->graph()->setBrush(QBrush(QColor(255/4.0*gi,160,50,150)));
-      QVector<double> time;
+
+	  QVector<double> time;
       QVector<double> value;
       QMap<QDateTime, double> mapData = asset->retrieveValuesByDate(start,end);
 

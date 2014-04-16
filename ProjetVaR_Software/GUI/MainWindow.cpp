@@ -104,11 +104,6 @@ void MainWindow::onDataEntered(const QString &name, const QDateTime &fDate ,cons
 void MainWindow::reportGenerationDone()
 {
     this->statusBar()->showMessage("Generation done.",1500);
-	ReportGenerator * obj = qobject_cast<ReportGenerator*>(sender());
-	if (obj)
-	{
-		delete obj;
-	}
 }
 
 /**
@@ -185,12 +180,17 @@ void MainWindow::clearReportWidgets(Portfolio *portfolio)
 	portfolioReportWidgets[portfolio].clear();
 	portfolioReportWidgets.remove(portfolio);
 }
-
+/**
+ * @brief Display a error message in a QMessageBox when the generation of a report has failed.
+ */
 void MainWindow::errorInGeneratedFiles()
 {
 	showError("Error in the generation, report has not been created.");
 }
-
+/**
+ * @brief Show a QMessageBox with the given message
+ * @param errorMsg the message to be displayed in the QMessageBox
+ */
 void MainWindow::showError(const QString & errorMsg)
 {
 	QMessageBox::critical(this,"Error",errorMsg);
@@ -217,14 +217,32 @@ void MainWindow::clearLayout(QLayout* layout, bool deleteWidgets)
 	}
 }
 
+/**
+ * @brief Disable all the buttons that generate report
+ * (only statistic report for now)
+ */
 void MainWindow::disableGenerationButton()
 {
 	ui->actionGenerate_Stats_Report->setEnabled(false);
 }
 
+/**
+ * @brief Enable all the buttons that generate report
+ * (only statistic report for now)
+ */
 void MainWindow::enableGenerationButton()
 {
 	ui->actionGenerate_Stats_Report->setEnabled(true);
+}
+/**
+ * @brief Delete the ReportGenerator which call this slot. (Does nothing if it's not a ReportGenerator
+ * which call this slot)
+ */
+void MainWindow::deleteReportGenerator()
+{
+	ReportGenerator* gen = qobject_cast<ReportGenerator*>(sender());
+	if (gen)
+		delete gen;
 }
 
 /**
@@ -277,10 +295,11 @@ Report *MainWindow::buildReport(Portfolio *portfolio, ReportFactory * factory, b
     Report * report = factory->buildReport();
 	// add it to the portfolio
 	portfolio->addReport(report);
+
 	//create the ReportWidget for the portfolio
 	ReportWidget * reportWidget = ReportWidgetFactory::buildReportWidget(report);
 	//add the ReportWidget to the layout
-	addReportWidget(portfolio,reportWidget);
+	addReportWidget(getCurrentPortfolio(),reportWidget);
 
 	if (!deleteAfter) // delete the factory if it's necessary
         delete factory;
@@ -301,6 +320,7 @@ void MainWindow::generateReport(ReportGenerator *gen)
 	//notify the report that the generation has been finished
 	connect(gen,SIGNAL(finished()),gen->getReport(),SLOT(filesGenerationFinish()));
 	connect(gen,SIGNAL(finished()),this,SLOT(enableGenerationButton()));
+	connect(gen,SIGNAL(finished()),this,SLOT(deleteReportGenerator()));
 	//display an error in dialog
 	connect(gen,SIGNAL(error(QString)),this,SLOT(showError(QString)));
 	//display a message in the status bar if the generation was good
@@ -331,7 +351,8 @@ void MainWindow::addPortfolio(Portfolio * portfolio) {
 }
 
 /**
- * @brief Remove the portfolio selected from the PortfolioListView and delete its PortfolioViewModel
+ * @brief Remove the portfolio selected from the PortfolioListView, delete its PortfolioViewModel
+ * and all its ReportWidgets
  */
 void MainWindow::removeSelectedPortfolio()
 {

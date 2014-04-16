@@ -58,7 +58,9 @@ void Report::init(int id, QString file) {
     dataJson=NULL;
 }
 
-
+/**
+ * @brief emit signal filesOk() if the report has been created correctly, otherwise it emits the signal filesNotOk()
+ */
 void Report::filesGenerationFinish()
 {
 	if (filesAvailable())
