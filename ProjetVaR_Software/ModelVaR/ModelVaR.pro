@@ -44,7 +44,8 @@ SOURCES += \
 	ImportData.cpp \
 	IImport.cpp \
 	PortfolioItemModel.cpp \
-	CorrelationReportFactory.cpp
+	CorrelationReportFactory.cpp \
+    CheckCorrelation.cpp
 
 HEADERS +=\
 	Asset.h \
@@ -82,7 +83,8 @@ HEADERS +=\
 	CannotOpenFileException.h \
 	IImport.h \
 	PortfolioItemModel.h \
-	PortfolioCalculationException.h
+	PortfolioCalculationException.h \
+    CheckCorrelation.h
 
 unix:!symbian {
 	maemo5 {

@@ -20,8 +20,36 @@
 #include <QDebug>
 #include "import.h"
 
+#include "RInterface.h"
+
 int main(int argc, char *argv[]) {
 	QApplication a(argc, argv);
+
+	QString assetFolder = "../../CSV_examples/";
+
+	// FIRST ASSET DEFINITION
+	QDateTime startDate1(QDate(2014, 1, 2), QTime(0, 0, 0));
+	QDateTime endDate1(QDate(2014, 3, 11), QTime(0, 0, 0));
+	Asset* asset1 = new Asset("asset1", assetFolder+"dax.csv", "YAHOO", startDate1, endDate1);
+
+	// TEST PORTFOLIO DEFINITION
+	QMap<Asset*, int> assets;
+	assets.insert(asset1, 1);
+	QVector<Report*> reports;
+	Portfolio father("Father", assets, reports);
+
+	int timeLag = 1;
+	QDateTime date = father.retrieveEndDate();
+	int period = 5;
+
+	qDebug() << father.retrieveReturns(father.retrieveEndDate(), period);
+
+	QPair<double, double> result = RInterface::checkCorrelation(father, timeLag, date, period);
+
+	qDebug() << result.first;
+	qDebug() << result.second;
+
+
 	MainWindow w;
 	w.showMaximized();
 	return a.exec();

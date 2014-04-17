@@ -49,7 +49,7 @@ QPair<double, double> RInterface::checkCorrelation(const Portfolio& portfolio, i
 		parameters += QString::number(*it) + " ";
 	}
 
-	process.start("Rscript", arguments);
+	process.start("rscript", arguments);
 	process.waitForStarted();
 
 	// Writes to R standard input the previously created string
