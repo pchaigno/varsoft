@@ -24,8 +24,8 @@
 */
 TestImportNewData::TestImportNewData() {
 	TestImportNewData::stockName = "Gogole";
-	TestImportNewData::startDate = "2014-02-07";
-	TestImportNewData::endDate = "2014-01-01";
+	TestImportNewData::endDate = "2014-02-07";
+	TestImportNewData::startDate = "2014-01-01";
 	TestImportNewData::origin = "Yahoo";
 	QString data;
 	QFile importedCSV("../../CSV_examples/table.csv");

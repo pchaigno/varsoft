@@ -60,6 +60,9 @@ Asset::Asset(int id, QString name, QString file, QString origin, QDate startDate
  * @param endDate The date of the last value defined.
  */
 void Asset::init(int id, QString name, QString file, QString origin, QDate startDate, QDate endDate) {
+	if(startDate > endDate) {
+		throw std::invalid_argument("The start and end dates for the asset are inverted.");
+	}
 	this->id = id;
 	this->name = name;
 	this->file = file;
