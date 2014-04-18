@@ -21,7 +21,6 @@
 #include <QString>
 #include "Portfolio.h"
 #include "StatisticsReport.h"
-#include <QtMath>
 #include "qcustomplot.h"
 #include <QDir>
 #include <QDebug>
