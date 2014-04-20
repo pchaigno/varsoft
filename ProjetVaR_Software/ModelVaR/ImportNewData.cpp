@@ -37,7 +37,7 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
 	data.clear();
 	rowOfData.clear();
 	rowData.clear();
-	QRegExp date_regex("^(20|19)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$");
+	QRegExp date_regex("^(20|19)[0-9]{2}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$");
 	QRegExp value_regex("^([0-9]+)([.])([0-9][0-9])$");
 	QDateTime previousDate = QDateTime::fromString("2999-01-01","yyyy-MM-dd");
 
@@ -84,8 +84,8 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
 			if(previousDate > currentDate){
 				previousDate = currentDate;
 				//checks if we are on still in the range of dates
-				if ((startDate >= currentDate)) {
-					if(endDate >= currentDate) {
+				if ((endDate >= currentDate)) {
+					if(startDate >= currentDate) {
 						break;
 					}
 					flux << rowData[0] << "," << rowData[data_index] << "\n";
