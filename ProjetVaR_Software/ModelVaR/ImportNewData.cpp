@@ -54,7 +54,8 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
 
 	//FILE CREATION OF IMPORTED DATA
 	// Do random names
-	QString namealea = name+".csv";
+	QString namealea = name+"_"+QString::number(QDateTime::currentMSecsSinceEpoch())+".csv";
+	qDebug() << namealea;
 	QFile fileCreated(namealea);
 	// The file is open in write-only mode and we check the opening
 	if (!fileCreated.open(QIODevice::WriteOnly | QIODevice::Text)) {
