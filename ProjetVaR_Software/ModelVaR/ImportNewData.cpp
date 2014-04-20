@@ -40,14 +40,11 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
 	QRegExp date_regex("^(20|19)[0-9]{2}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$");
 	QRegExp value_regex("^([0-9]+)([.])([0-9][0-9])$");
 	QDateTime previousDate = QDateTime::fromString("2999-01-01","yyyy-MM-dd");
-
-    int data_index = 6;
-    int row_index = 1;
-
-    if (origin == "ProjectVaR"){
+	int data_index;
+	if (origin == "ProjectVaR")
         data_index = 1;
-        row_index = 0;
-    }
+	else
+		data_index = 6;
 
 	if (importedCSV.open(QFile::ReadOnly)) {
 		data = importedCSV.readAll();
@@ -65,9 +62,12 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
 	}
 	QTextStream flux(&fileCreated);
 	flux.setCodec("UTF-8");
-
+	rowData = rowOfData.at(0).split(",");
+	if (!((QString) rowData[0]).isEmpty() && !((QString)rowData[data_index]).isEmpty()){
+		flux << rowData[0] << "," << rowData[data_index] << "\n";
+	}
 	// x = 1 to avoid the first line with labels
-    for (int x =row_index; x < rowOfData.size()-1; x++) {
+	for (int x =1; x < rowOfData.size()-1; x++) {
 		rowData = rowOfData.at(x).split(",");
 		//TODO : Check that the date is correct
 		/*
