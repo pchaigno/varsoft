@@ -75,7 +75,7 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
 			 QMessageBox::warning(0, "Warning","The file is not valid");
 			 fileCreated.close();
 			 fileCreated.remove();
-			 break;
+			 return;
 		}
 		*/
 		if(date_regex.exactMatch(rowData[0]) && value_regex.exactMatch(rowData[data_index])){
@@ -93,13 +93,13 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
 			}
 			else{
 				QMessageBox::warning(0, "Warning","Dates are not sorted");
-				break;
+				return;
 			}
 
 		}
 		else{
 			QMessageBox::warning(0, "Warning","The data is invalid");
-			break;
+			return;
 		}
 	}
 	fileCreated.close();
