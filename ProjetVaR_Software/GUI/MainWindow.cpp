@@ -299,7 +299,7 @@ Report *MainWindow::buildReport(Portfolio *portfolio, ReportFactory * factory, b
 	//create the ReportWidget for the portfolio
 	ReportWidget * reportWidget = ReportWidgetFactory::buildReportWidget(report);
 	//add the ReportWidget to the layout
-	addReportWidget(getCurrentPortfolio(),reportWidget);
+	addReportWidget(portfolio,reportWidget);
 
 	if (!deleteAfter) // delete the factory if it's necessary
         delete factory;
