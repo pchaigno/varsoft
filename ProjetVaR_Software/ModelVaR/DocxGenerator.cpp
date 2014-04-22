@@ -19,6 +19,19 @@
 
 DocxGenerator::DocxGenerator(Report *report, QString progPath) : ReportGenerator(report) {
 	prog=progPath;
+	errorTable.append("");
+	errorTable.append("Incorrect parameters for the program.");
+	errorTable.append("Invalid JSON");
+	errorTable.append("Error while reading the template file. ");
+	errorTable.append("Error while creating the context for the report.");
+	errorTable.append("Error from docxreport about the generation of the DOCX.");
+	errorTable.append("Error from docxreport about the convertion to PDF.");
+	errorTable.append("Error from docxreport about the generation of the PDF.");
+	errorTable.append("In/Out exception: file which can't be opened, written or read. ");
+	errorTable.append("The template file can't be found.");
+	errorTable.append("The text element in the JSON is missing.");
+	errorTable.append("The images element in the JSON is missing.");
+	errorTable.append("The list element in the JSON is missing.");
 }
 
 /**
@@ -40,7 +53,7 @@ void DocxGenerator::generate() {
 		bool hasCrashed = docx.exitStatus()==QProcess::CrashExit;
 		if (exitCode != 0 || hasCrashed)
 		{
-			throw std::runtime_error("exitcode: "+QString::number(exitCode).toStdString());
+			throw std::runtime_error("DocxGenerator error ("+QString::number(exitCode).toStdString()+") : "+errorTable[exitCode].toStdString());
 		}
 	}
 	else

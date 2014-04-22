@@ -21,7 +21,8 @@ SOURCES += main.cpp\
 		PortfolioListView.cpp \
     ReportWidget.cpp \
     FlowLayout.cpp \
-    ReportWidgetFactory.cpp
+    ReportWidgetFactory.cpp \
+    DocxGenPathDialog.cpp
 
 HEADERS += MainWindow.h \
 		NewPortfolioWizard.h \
@@ -32,14 +33,16 @@ HEADERS += MainWindow.h \
     NoneSelectedPortfolioException.h \
     ReportWidget.h \
     FlowLayout.h \
-    ReportWidgetFactory.h
+    ReportWidgetFactory.h \
+    DocxGenPathDialog.h
 
 FORMS += MainWindow.ui \
 		NewPortfolioWizard.ui \
 		SetWeightAssetWizardPage.ui \
 		ShowAssetsWizardPage.ui\
 		import.ui \
-    ReportWidget.ui
+    ReportWidget.ui \
+    DocxGenPathDialog.ui
 
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../ModelVaR/release/ -lModelVaR

@@ -32,4 +32,5 @@ public:
 
 private:
 	QString prog;
+	QVector<QString> errorTable;
 };

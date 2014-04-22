@@ -44,6 +44,8 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
 
 	connect(ui->listView,SIGNAL(portfolioSelected(Portfolio*)),this,SLOT(showPortfolio(Portfolio*)));
 
+	connect(ui->actionDocXGenerator_path,SIGNAL(triggered()),this,SLOT(docxGenPath()));
+
 	layoutReports = new FlowLayout;
 	ui->reportScrollArea->setLayout(layoutReports);
 
@@ -89,6 +91,13 @@ void MainWindow::closeEvent(QCloseEvent *event)
 {
 	Q_UNUSED(event);
 	writeSettings();
+}
+
+void MainWindow::docxGenPath()
+{
+	DocxGenPathDialog * fen = new DocxGenPathDialog(this);
+	fen->setAttribute(Qt::WA_DeleteOnClose);
+	fen->show();
 }
 
 /**

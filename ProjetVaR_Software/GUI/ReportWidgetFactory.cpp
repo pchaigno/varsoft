@@ -3,7 +3,11 @@
 ReportWidgetFactory::ReportWidgetFactory()
 {
 }
-
+/**
+ * @brief Create the ReportWidget in matching with the given report.
+ * @param report
+ * @return
+ */
 ReportWidget *ReportWidgetFactory::buildReportWidget(Report *report)
 {
 	ReportWidget * widget = new ReportWidget(report);

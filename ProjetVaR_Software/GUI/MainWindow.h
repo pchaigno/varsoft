@@ -37,6 +37,7 @@
 #include "ReportWidget.h"
 #include <QDebug>
 #include "ReportWidgetFactory.h"
+#include "DocxGenPathDialog.h"
 
 namespace Ui {
 	class MainWindow;
@@ -54,6 +55,7 @@ public:
 	void closeEvent(QCloseEvent *event);
 
 private slots:
+	void docxGenPath();
 	void newPortfolio();
 	void showPortfolio(Portfolio* portfolio);
 	void setImportCSV();

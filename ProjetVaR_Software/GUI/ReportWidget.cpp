@@ -25,12 +25,16 @@ void ReportWidget::openPDF()
 {
 	QDesktopServices::openUrl(QUrl(report->getFile()+".pdf"));
 }
-
+/**
+ * @brief Open the report in the Docx format with the usual software for reading Docx of the user.
+ */
 void ReportWidget::openDocx()
 {
 	QDesktopServices::openUrl(QUrl(report->getFile()+".docx"));
 }
-
+/**
+ * @brief Slot called when the user click on the delete button of the ReportWidget
+ */
 void ReportWidget::deleteReport()
 {
 	QMessageBox::StandardButton rep = QMessageBox::question(this,"Are you sure ?", "Are you sure to delete this report ?");
@@ -39,7 +43,9 @@ void ReportWidget::deleteReport()
 		emit deleteRequest();
 	}
 }
-
+/**
+ * @brief Slot called when the generation has finished.
+ */
 void ReportWidget::generationFinish()
 {
 	ui->docxButton->setEnabled(true);
@@ -47,17 +53,26 @@ void ReportWidget::generationFinish()
 	ui->supprButton->setEnabled(true);
 }
 
-
+/**
+ * @brief Setter of the title
+ * @param title
+ */
 void ReportWidget::setTitle(QString title)
 {
 	ui->titleLabel->setText(title);
 }
-
+/**
+ * @brief Getter of the title
+ * @return
+ */
 QString ReportWidget::getTile() const
 {
 	return ui->titleLabel->text();
 }
-
+/**
+ * @brief Setter of the icon
+ * @param path
+ */
 void ReportWidget::setIcon(QString path)
 {
 	QPixmap img(path);
@@ -68,17 +83,26 @@ void ReportWidget::setIcon(QPixmap &img)
 {
 	ui->imgLabel->setPixmap(img);
 }
-
+/**
+ * @brief Return the enum type of the report
+ * @return
+ */
 ReportType ReportWidget::getTypeReport() const
 {
 	return report->getType();
 }
-
+/**
+ * @brief Getter of the report
+ * @return
+ */
 Report *ReportWidget::getReport() const
 {
 	return report;
 }
-
+/**
+ * @brief To make work the css
+ * @param pe
+ */
 void ReportWidget::paintEvent(QPaintEvent *pe) {
   QStyleOption o;
   o.initFrom(this);
