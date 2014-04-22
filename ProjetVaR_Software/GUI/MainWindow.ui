@@ -200,7 +200,20 @@
     <addaction name="separator"/>
     <addaction name="actionQuitter"/>
    </widget>
+   <widget class="QMenu" name="menuTools">
+    <property name="title">
+     <string>Tools</string>
+    </property>
+    <widget class="QMenu" name="menuReport_Generation">
+     <property name="title">
+      <string>Report Generation</string>
+     </property>
+     <addaction name="actionDocXGenerator_path"/>
+    </widget>
+    <addaction name="menuReport_Generation"/>
+   </widget>
    <addaction name="menuFichier"/>
+   <addaction name="menuTools"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -265,6 +278,11 @@
   <action name="actionGenerate_Stats_Report">
    <property name="text">
     <string>Generate Stats Report</string>
+   </property>
+  </action>
+  <action name="actionDocXGenerator_path">
+   <property name="text">
+    <string>DocXGenerator path ...</string>
    </property>
   </action>
  </widget>

@@ -17,15 +17,14 @@
  */
 #include "DocxGenerator.h"
 
-DocxGenerator::DocxGenerator(Report *report) : ReportGenerator(report) {
-
+DocxGenerator::DocxGenerator(Report *report, QString progPath) : ReportGenerator(report) {
+	prog=progPath;
 }
 
 /**
  * @brief Generates the DOCX file
  */
 void DocxGenerator::generate() {
-	QString prog = "../DocxGenerator/DocXGenerator.jar";
 	if (QFile::exists(prog) && QFile::exists(report->getTemplateFile()))
 	{
 		QProcess docx;

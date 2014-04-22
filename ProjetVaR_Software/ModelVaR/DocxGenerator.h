@@ -27,6 +27,9 @@
 
 class MODELVARSHARED_EXPORT DocxGenerator: public ReportGenerator {
 public:
-    DocxGenerator(Report * report);
+	DocxGenerator(Report * report, QString progPath);
 	virtual void generate();
+
+private:
+	QString prog;
 };

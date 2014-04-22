@@ -21,6 +21,7 @@
 #include <QDateTime>
 #include <QDialog>
 #include <QComboBox>
+#include <QSettings>
 #include "import.h"
 #include "NewPortfolioWizard.h"
 #include "PortfolioItemModel.h"
@@ -48,6 +49,10 @@ public:
 	explicit MainWindow(QWidget* parent = 0);
 	~MainWindow();
 
+	void writeSettings();
+	void readSettings();
+	void closeEvent(QCloseEvent *event);
+
 private slots:
 	void newPortfolio();
 	void showPortfolio(Portfolio* portfolio);
@@ -66,7 +71,6 @@ private slots:
 	void deleteReportWidget(ReportWidget* reportWidget);
 	void clearReportWidgets(Portfolio * portfolio);
 
-	void errorInGeneratedFiles();
 	void showError(const QString&errorMsg);
 
 	void disableGenerationButton();

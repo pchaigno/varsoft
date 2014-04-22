@@ -47,6 +47,13 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
 	layoutReports = new FlowLayout;
 	ui->reportScrollArea->setLayout(layoutReports);
 
+	//for QSettings
+	QCoreApplication::setOrganizationName("INSA Rennes");
+	QCoreApplication::setOrganizationDomain("insa-rennes.fr");
+	QCoreApplication::setApplicationName("Projet VaR");
+
+	readSettings();
+
 }
 
 MainWindow::~MainWindow() {
@@ -56,6 +63,32 @@ MainWindow::~MainWindow() {
 		delete portfoliosModels[portfolio];
         delete portfolio;
     }
+}
+
+void MainWindow::writeSettings()
+{
+	QSettings settings;
+
+	settings.beginGroup("MainWindow");
+	settings.setValue("size", size());
+	settings.setValue("pos", pos());
+	settings.endGroup();
+}
+
+void MainWindow::readSettings()
+{
+	QSettings settings;
+
+	settings.beginGroup("MainWindow");
+	resize(settings.value("size", QSize(400, 400)).toSize());
+	move(settings.value("pos", QPoint(200, 200)).toPoint());
+	settings.endGroup();
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+	Q_UNUSED(event);
+	writeSettings();
 }
 
 /**
@@ -180,13 +213,7 @@ void MainWindow::clearReportWidgets(Portfolio *portfolio)
 	portfolioReportWidgets[portfolio].clear();
 	portfolioReportWidgets.remove(portfolio);
 }
-/**
- * @brief Display a error message in a QMessageBox when the generation of a report has failed.
- */
-void MainWindow::errorInGeneratedFiles()
-{
-	showError("Error in the generation, report has not been created.");
-}
+
 /**
  * @brief Show a QMessageBox with the given message
  * @param errorMsg the message to be displayed in the QMessageBox
@@ -269,8 +296,9 @@ void MainWindow::generateStatsReport()
 		Portfolio * port = this->getCurrentPortfolio();
         // build the stats report
 		Report * report = buildReport(port, new StatisticsReportFactory(port));
-        // generate it in Docx format
-        generateReport(new DocxGenerator(report));
+		// generate it in Docx format
+		QSettings settings;
+		generateReport(new DocxGenerator(report, settings.value("DocXGenPath","../Resources/DocxGenerator/DocXGenerator.jar").toString()));
     }
 	catch (ReportException & e)
 	{
@@ -318,15 +346,12 @@ void MainWindow::generateReport(ReportGenerator *gen)
 	this->statusBar()->showMessage("Generation of the report ...",0);
 
 	//notify the report that the generation has been finished
-	connect(gen,SIGNAL(finished()),gen->getReport(),SLOT(filesGenerationFinish()));
 	connect(gen,SIGNAL(finished()),this,SLOT(enableGenerationButton()));
 	connect(gen,SIGNAL(finished()),this,SLOT(deleteReportGenerator()));
 	//display an error in dialog
 	connect(gen,SIGNAL(error(QString)),this,SLOT(showError(QString)));
 	//display a message in the status bar if the generation was good
 	connect(gen->getReport(),SIGNAL(filesOk()),this,SLOT(reportGenerationDone()));
-	//display a error if not
-	connect(gen->getReport(),SIGNAL(filesNotOk()),this,SLOT(errorInGeneratedFiles()));
     gen->start();
 }
 

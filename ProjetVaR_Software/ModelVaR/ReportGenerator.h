@@ -30,6 +30,10 @@ public:
 
 signals:
 	void error(const QString &);
+
+private slots:
+	void errorReport();
+
 protected:
     virtual void generate() =0;
 

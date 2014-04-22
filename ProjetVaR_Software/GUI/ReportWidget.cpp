@@ -11,13 +11,16 @@ ReportWidget::ReportWidget(Report *report, QWidget *parent) :
 	connect(ui->supprButton,SIGNAL(clicked()),this,SLOT(deleteReport()));
 
 	connect(report,SIGNAL(filesOk()),this,SLOT(generationFinish()));
+	connect(report,SIGNAL(filesNotOk()),this,SIGNAL(deleteRequest()));
 }
 
 ReportWidget::~ReportWidget()
 {
 	delete ui;
 }
-
+/**
+ * @brief Open the report in the PDF format with the usual software for reading PDF of the user.
+ */
 void ReportWidget::openPDF()
 {
 	QDesktopServices::openUrl(QUrl(report->getFile()+".pdf"));

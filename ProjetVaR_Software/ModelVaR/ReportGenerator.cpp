@@ -3,7 +3,8 @@
 
 ReportGenerator::ReportGenerator(Report *report) : report(report)
 {
-
+	connect(this,SIGNAL(finished()),report,SLOT(filesGenerationFinish()));
+	connect(report,SIGNAL(filesNotOk()),this,SLOT(errorReport()));
 }
 /**
  * @brief Call the virtual pure method generate() and emits the signal error(QString) if
@@ -27,4 +28,9 @@ void ReportGenerator::run()
 Report *ReportGenerator::getReport()
 {
 	return report;
+}
+
+void ReportGenerator::errorReport()
+{
+	emit error("Error in the generation, report has not been created.");
 }
