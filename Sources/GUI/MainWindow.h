@@ -52,7 +52,8 @@ public:
 
 	void writeSettings();
 	void readSettings();
-	void initFolders();
+	void initResources();
+	void createFolderIfDoesnotExist(QString folder);
 	void closeEvent(QCloseEvent *event);
 
 private slots:

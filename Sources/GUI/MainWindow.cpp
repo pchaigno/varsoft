@@ -56,7 +56,7 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
 
 	readSettings();
 
-	initFolders();
+	initResources();
 
 }
 
@@ -96,11 +96,18 @@ void MainWindow::readSettings()
 /**
  * @brief Creates the folders that the application needs to work
  */
-void MainWindow::initFolders()
+void MainWindow::initResources()
 {
-	QFile resFolder(RES_FOLDER);
-	if (!resFolder.exists())
-		QDir().mkpath(RES_FOLDER);
+	createFolderIfDoesnotExist(RES_FOLDER);
+	createFolderIfDoesnotExist(TEMPLATE_FOLDER);
+	createFolderIfDoesnotExist(REPORT_FOLDER);
+}
+
+void MainWindow::createFolderIfDoesnotExist(QString folder)
+{
+	QFile dir(folder);
+	if (!dir.exists())
+		QDir().mkpath(folder);
 }
 
 /**
