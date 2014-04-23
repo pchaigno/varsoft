@@ -86,6 +86,7 @@ void MainWindow::setImportCSV(){
         GetStartEndDates* gsed = new GetStartEndDates();
         gsed->retreiveDates(fileName);
         Import* importDialog = new Import(fileName,gsed->getStartDate(),gsed->getEndDate(),this);
+        importDialog->setAttribute(Qt::WA_DeleteOnClose);
         importDialog->show();
     }
 }
