@@ -53,9 +53,8 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
 	}
 
 	//FILE CREATION OF IMPORTED DATA
-	// Do random names
+	// Do unique names
 	QString namealea = name+"_"+QString::number(QDateTime::currentMSecsSinceEpoch())+".csv";
-	qDebug() << namealea;
 	QFile fileCreated(namealea);
 	// The file is open in write-only mode and we check the opening
 	if (!fileCreated.open(QIODevice::WriteOnly | QIODevice::Text)) {
@@ -70,15 +69,7 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
 	// x = 1 to avoid the first line with labels
 	for (int x =1; x < rowOfData.size()-1; x++) {
 		rowData = rowOfData.at(x).split(",");
-		//TODO : Check that the date is correct
-		/*
-		if((rowData.count() >= data_index)) {
-			 QMessageBox::warning(0, "Warning","The file is not valid");
-			 fileCreated.close();
-			 fileCreated.remove();
-			 return;
-		}
-		*/
+		//TODO : Check dates and values are correct
 		if(date_regex.exactMatch(rowData[0]) && value_regex.exactMatch(rowData[data_index])){
 			QDateTime currentDate = QDateTime::fromString(rowData[0],"yyyy-MM-dd");
 			//checks the order of dates

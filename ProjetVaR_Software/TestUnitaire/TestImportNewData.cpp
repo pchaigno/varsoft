@@ -105,3 +105,11 @@ void TestImportNewData::testDB() {
 	QFile databaseFile(SessionSaver::getInstance()->getDatabaseFile());
 	databaseFile.remove();
 }
+
+/**
+ *	Test the regexp for dates and values
+ **/
+
+/**
+ *	Test the dates are sorted
+ **/
