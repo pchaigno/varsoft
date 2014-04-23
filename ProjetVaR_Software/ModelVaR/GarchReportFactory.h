@@ -20,7 +20,7 @@
 #include "ReportFactory.h"
 #include "GarchReport.h"
 
-class GarchReportFactory: public ReportFactory {
+class MODELVARSHARED_EXPORT GarchReportFactory: public ReportFactory {
 public:
     GarchReportFactory();
 

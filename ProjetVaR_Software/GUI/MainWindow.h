@@ -52,6 +52,7 @@ public:
 
 	void writeSettings();
 	void readSettings();
+	void initFolders();
 	void closeEvent(QCloseEvent *event);
 
 private slots:

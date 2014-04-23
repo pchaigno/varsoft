@@ -21,7 +21,7 @@
 #include <QThread>
 #include "Report.h"
 
-class ReportGenerator : public QThread {
+class MODELVARSHARED_EXPORT ReportGenerator : public QThread {
 	Q_OBJECT
 public:
 	ReportGenerator(Report * report);

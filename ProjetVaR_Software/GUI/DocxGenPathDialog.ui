@@ -7,13 +7,20 @@
     <x>0</x>
     <y>0</y>
     <width>406</width>
-    <height>72</height>
+    <height>93</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>DocXGenerator config</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Path of the DocXGenerator :</string>
+     </property>
+    </widget>
+   </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>

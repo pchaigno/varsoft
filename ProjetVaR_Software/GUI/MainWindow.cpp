@@ -56,6 +56,8 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
 
 	readSettings();
 
+	initFolders();
+
 }
 
 MainWindow::~MainWindow() {
@@ -67,6 +69,9 @@ MainWindow::~MainWindow() {
     }
 }
 
+/**
+ * @brief Saves the settings of the window
+ */
 void MainWindow::writeSettings()
 {
 	QSettings settings;
@@ -76,7 +81,9 @@ void MainWindow::writeSettings()
 	settings.setValue("pos", pos());
 	settings.endGroup();
 }
-
+/**
+ * @brief Read and set the settings of the window
+ */
 void MainWindow::readSettings()
 {
 	QSettings settings;
@@ -86,13 +93,29 @@ void MainWindow::readSettings()
 	move(settings.value("pos", QPoint(200, 200)).toPoint());
 	settings.endGroup();
 }
+/**
+ * @brief Creates the folders that the application needs to work
+ */
+void MainWindow::initFolders()
+{
+	QFile resFolder(RES_FOLDER);
+	if (!resFolder.exists())
+		QDir().mkpath(RES_FOLDER);
+}
 
+/**
+ * @brief Event called when the application is closed.
+ * It saves thr settings
+ * @param event
+ */
 void MainWindow::closeEvent(QCloseEvent *event)
 {
 	Q_UNUSED(event);
 	writeSettings();
 }
-
+/**
+ * @brief Open the window to change the DocXGenerator path
+ */
 void MainWindow::docxGenPath()
 {
 	DocxGenPathDialog * fen = new DocxGenPathDialog(this);

@@ -6,7 +6,7 @@ ReportWidgetFactory::ReportWidgetFactory()
 /**
  * @brief Create the ReportWidget in matching with the given report.
  * @param report
- * @return
+ * @return the ReportWidget for the given report
  */
 ReportWidget *ReportWidgetFactory::buildReportWidget(Report *report)
 {
@@ -15,23 +15,23 @@ ReportWidget *ReportWidgetFactory::buildReportWidget(Report *report)
 	{
 		case BACKTESTING:
 			widget->setTitle("Backtesting report");
-			widget->setIcon("../Resources/Icons/backtestingReport.png");
+			widget->setIcon(RES_FOLDER+"/Icons/backtestingReport.png");
 			break;
 		case CORRELATION:
 			widget->setTitle("Correlation report");
-			widget->setIcon("../Resources/Icons/correlationReport.png");
+			widget->setIcon(RES_FOLDER+"/Icons/correlationReport.png");
 			break;
 		case GARCH:
 			widget->setTitle("GARCH report");
-			widget->setIcon("../Resources/Icons/garchReport.png");
+			widget->setIcon(RES_FOLDER+"/Icons/garchReport.png");
 			break;
 		case STATISTICS:
 			widget->setTitle("Statistic report");
-			widget->setIcon("../Resources/Icons/statsReport.png");
+			widget->setIcon(RES_FOLDER+"/Icons/statsReport.png");
 			break;
 		case VAR:
 			widget->setTitle("VaR report");
-			widget->setIcon("../Resources/Icons/varReport.png");
+			widget->setIcon(RES_FOLDER+"/Icons/varReport.png");
 			break;
 	}
 

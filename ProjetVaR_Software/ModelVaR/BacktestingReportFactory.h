@@ -20,7 +20,7 @@
 #include "ReportFactory.h"
 #include "BacktestingReport.h"
 
-class BacktestingReportFactory: public ReportFactory {
+class MODELVARSHARED_EXPORT BacktestingReportFactory: public ReportFactory {
 public:
     BacktestingReportFactory();
 

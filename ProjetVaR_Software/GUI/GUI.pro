@@ -34,7 +34,8 @@ HEADERS += MainWindow.h \
     ReportWidget.h \
     FlowLayout.h \
     ReportWidgetFactory.h \
-    DocxGenPathDialog.h
+    DocxGenPathDialog.h \
+    Constantes.h
 
 FORMS += MainWindow.ui \
 		NewPortfolioWizard.ui \

@@ -20,7 +20,7 @@
 #include "Portfolio.h"
 #include "GarchModel.h"
 
-class RInterface {
+class MODELVARSHARED_EXPORT RInterface {
 public:
 	static bool checkCorrelation(const Portfolio& portfolio);
 	static bool checkSquareCorrelation(const Portfolio& portfolio);

@@ -21,7 +21,7 @@
 #include "VaRReport.h"
 #include <QString>
 
-class VaRReportFactory: public ReportFactory {
+class MODELVARSHARED_EXPORT VaRReportFactory: public ReportFactory {
 public:
     VaRReportFactory();
 

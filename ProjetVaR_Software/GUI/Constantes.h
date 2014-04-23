@@ -17,15 +17,5 @@
  */
 #pragma once
 
-#include "ReportFactory.h"
-#include "CorrelationReport.h"
-#include <QString>
-
-class MODELVARSHARED_EXPORT CorrelationReportFactory: public ReportFactory {
-public:
-    CorrelationReportFactory();
-
-protected:
-    virtual Report *createReport();
-    virtual ReportDataJson* createJson();
-};
+#define RES_FOLDER QString("../Resources")
+#define DOCXSETTINGS "DocXGenPath"

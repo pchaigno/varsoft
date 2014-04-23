@@ -33,7 +33,8 @@ void ReportWidget::openDocx()
 	QDesktopServices::openUrl(QUrl(report->getFile()+".docx"));
 }
 /**
- * @brief Slot called when the user click on the delete button of the ReportWidget
+ * @brief Slot called when the user click on the delete button of the ReportWidget.
+ * Ask the user if he is sure to delete the report, and send the signal to delete it
  */
 void ReportWidget::deleteReport()
 {
@@ -44,7 +45,7 @@ void ReportWidget::deleteReport()
 	}
 }
 /**
- * @brief Slot called when the generation has finished.
+ * @brief Slot called when the generation has finished. It enables all the buttons
  */
 void ReportWidget::generationFinish()
 {

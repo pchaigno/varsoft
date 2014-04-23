@@ -19,8 +19,9 @@
 
 #include <exception>
 #include <string>
+#include "ModelVaR_global.h"
 
-class ReportException : public std::exception
+class MODELVARSHARED_EXPORT ReportException : public std::exception
 {
 public:
 	ReportException(std::string msg) {
