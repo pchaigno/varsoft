@@ -15,11 +15,11 @@ TEMPLATE = app
 SOURCES += main.cpp\
 		MainWindow.cpp \
 		qcustomplot.cpp \
-		import.cpp \
 		NewPortfolioWizard.cpp \
 		SetWeightAssetWizardPage.cpp \
 		ShowAssetsWizardPage.cpp \
 		PortfolioListView.cpp \
+    ImportDialog.cpp
 
 HEADERS += MainWindow.h \
 		qcustomplot.h \
@@ -28,7 +28,7 @@ HEADERS += MainWindow.h \
 		ShowAssetsWizardPage.h \
 		PortfolioListView.h \
 		PortfolioViewModel.h \
-		import.h
+    ImportDialog.h
 
 FORMS += MainWindow.ui \
 		NewPortfolioWizard.ui \

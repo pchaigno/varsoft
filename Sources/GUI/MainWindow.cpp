@@ -25,8 +25,7 @@
 #include <QTableWidgetItem>
 #include <QDateTime>
 #include "ImportNewData.h"
-#include "ImportData.h"
-#include "import.h"
+#include "ImportDialog.h"
 #include "QDateTime"
 
 MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWindow), portfolioListModel(new PortfolioItemModel(this)) {

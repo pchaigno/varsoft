@@ -24,7 +24,7 @@
 #include <QFile>
 #include <QFileDialog>
 #include <QTableWidgetItem>
-#include "import.h"
+#include "ImportDialog.h"
 #include "NewPortfolioWizard.h"
 #include "PortfolioItemModel.h"
 #include "PortfolioViewModel.h"

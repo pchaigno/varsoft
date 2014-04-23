@@ -15,7 +15,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#include "TestImportData.h"
 #include "TestImportNewData.h"
 #include "TestAsset.h"
 #include "TestPortfolio.h"
@@ -38,8 +37,6 @@ int main() {
 	result += QTest::qExec(&testVaRHistorical);
 	TestImportNewData newdata;
 	result += QTest::qExec(&newdata);
-	TestImportData data;
-	result += QTest::qExec(&data);
 	TestPortfolioItemModel portfolioModel;
 	result += QTest::qExec(&portfolioModel);
 	return result;

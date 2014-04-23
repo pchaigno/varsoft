@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#include "import.h"
+#include "ImportDialog.h"
 
 /**
 * @brief Import Constructor
@@ -54,8 +54,14 @@ void Import::on_pushButton_clicked() {
 		QMessageBox::warning(0, "Attention","Les dates ne sont pas valides");
 	}
 	else{
-		algo.import(ui->textEdit->toPlainText(), fileName, ui->comboBox->currentText(), ui->startDate->dateTime(), ui->endDate->dateTime());
-		this->close();
+        //try{
+            algo.import(ui->textEdit->toPlainText(), fileName, ui->comboBox->currentText(), ui->startDate->dateTime(), ui->endDate->dateTime());
+        //}
+        /*catch(QException e){
+            QMessageBox::warning(0,e);
+        }
+        */
+        this->close();
 	}
 }
 

@@ -41,7 +41,6 @@ SOURCES += \
 	GarchReportFactory.cpp \
 	StatisticsReportFactory.cpp \
 	ImportNewData.cpp \
-	ImportData.cpp \
 	IImport.cpp \
 	PortfolioItemModel.cpp \
 	CorrelationReportFactory.cpp \
@@ -79,7 +78,6 @@ HEADERS +=\
 	GarchReportFactory.h \
 	StatisticsReportFactory.h \
 	CorrelationReportFactory.h \
-	ImportData.h \
 	ImportNewData.h \
 	CannotOpenFileException.h \
 	IImport.h \

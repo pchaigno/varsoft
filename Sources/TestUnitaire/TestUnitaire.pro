@@ -15,7 +15,6 @@ TEMPLATE = app
 
 SOURCES += \
 	TestImportNewData.cpp \
-	TestImportData.cpp \
 	TestAsset.cpp \
 	TestPortfolio.cpp \
 	main.cpp \
@@ -26,7 +25,6 @@ SOURCES += \
 
 HEADERS += \
 	TestImportNewData.h \
-	TestImportData.h \
 	TestAsset.h \
 	TestReport.h \
 	TestPortfolio.h \
