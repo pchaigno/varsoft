@@ -84,7 +84,8 @@ HEADERS +=\
 	PortfolioItemModel.h \
 	PortfolioCalculationException.h \
     GetStartEndDates.h \
-	PortfolioViewModel.h
+	PortfolioViewModel.h \
+    ImportException.h
 
 unix:!symbian {
 	maemo5 {

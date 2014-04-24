@@ -27,7 +27,7 @@
 * @param origin The origin of the file with the values.
 * @param startDate The date of the first value defined.
 * @param endDate The date of the last value defined.
-* @throw BadFile The file is not handled
+* @throw ImportException The data is not valid
 */
 void ImportNewData::import(const QString &name, const QString &file, const QString &origin, const QDateTime &startDate, const QDateTime &endDate) const{
 	QString data;
@@ -63,37 +63,47 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
 	QTextStream flux(&fileCreated);
 	flux.setCodec("UTF-8");
 	rowData = rowOfData.at(0).split(",");
-	if (!((QString) rowData[0]).isEmpty() && !((QString)rowData[data_index]).isEmpty()){
-		flux << rowData[0] << "," << rowData[data_index] << "\n";
-	}
-	// x = 1 to avoid the first line with labels
-	for (int x =1; x < rowOfData.size()-1; x++) {
-		rowData = rowOfData.at(x).split(",");
-		//TODO : Check dates and values are correct
-		if(date_regex.exactMatch(rowData[0]) && value_regex.exactMatch(rowData[data_index])){
-			QDateTime currentDate = QDateTime::fromString(rowData[0],"yyyy-MM-dd");
-			//checks the order of dates
-			if(previousDate > currentDate){
-				previousDate = currentDate;
-				//checks if we are on still in the range of dates
-				if ((endDate >= currentDate)) {
-					if(startDate >= currentDate) {
-						break;
-					}
-					flux << rowData[0] << "," << rowData[data_index] << "\n";
-				}
-			}
-			else{
-				QMessageBox::warning(0, "Warning","Dates are not sorted");
-				return;
-			}
+    if (!(rowData.count() < data_index)){
+        if (!((QString) rowData[0]).isEmpty() && !((QString)rowData[data_index]).isEmpty()){
+            flux << rowData[0] << "," << rowData[data_index] << "\n";
+            // x = 1 to avoid the first line with labels
+            for (int x =1; x < rowOfData.size()-1; x++) {
+                rowData = rowOfData.at(x).split(",");
+                //TODO : Check dates and values are correct
+                if(date_regex.exactMatch(rowData[0]) && value_regex.exactMatch(rowData[data_index])){
+                    QDateTime currentDate = QDateTime::fromString(rowData[0],"yyyy-MM-dd");
+                    //checks the order of dates
+                    if(previousDate > currentDate){
+                        previousDate = currentDate;
+                        //checks if we are on still in the range of dates
+                        if ((endDate >= currentDate)) {
+                            if(startDate >= currentDate) {
+                                break;
+                            }
+                            flux << rowData[0] << "," << rowData[data_index] << "\n";
+                        }
+                    }
+                    else{
+                        throw ImportException("Dates are not sorted");
+                        return;
+                    }
 
-		}
-		else{
-			QMessageBox::warning(0, "Warning","The data is invalid");
-			return;
-		}
-	}
+                }
+                else{
+                    throw ImportException("The data is invalid");
+                    return;
+                }
+            }
+        }
+        else{
+            throw ImportException("Header is missing");
+            return;
+        }
+    }
+    else{
+        throw ImportException("Wrong file type");
+        return;
+    }
 	fileCreated.close();
     Asset a = Asset(name,namealea,origin,endDate,startDate);
 	SessionSaver::getInstance()->saveAsset(a);

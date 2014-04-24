@@ -54,13 +54,13 @@ void Import::on_pushButton_clicked() {
 		QMessageBox::warning(0, "Attention","Les dates ne sont pas valides");
 	}
 	else{
-        //try{
+        try{
             algo.import(ui->textEdit->toPlainText(), fileName, ui->comboBox->currentText(), ui->startDate->dateTime(), ui->endDate->dateTime());
-        //}
-        /*catch(QException e){
-            QMessageBox::warning(0,e);
         }
-        */
+        catch(ImportException &e){
+            const QString& mes = QString(e.what());
+            QMessageBox::warning(0,"Attention",mes);
+        }
         this->close();
 	}
 }

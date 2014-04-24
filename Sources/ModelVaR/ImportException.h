@@ -16,13 +16,25 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #pragma once
-#include "IImport.h"
-#include "ModelVaR_global.h"
-#include "ImportException.h"
-#include <QMessageBox>
 
-class MODELVARSHARED_EXPORT ImportNewData : public IImport{
+#include <exception>
+#include <QString>
+#include "ModelVaR_global.h"
+
+class MODELVARSHARED_EXPORT ImportException: public std::exception {
 public:
-	virtual void import(const QString &name, const QString &file, const QString &origin,
-						const QDateTime &startDate, const QDateTime &endDate) const;
+    ImportException(std::string msg) {
+        this->msg = msg;
+    }
+
+    virtual ~ImportException() throw() {
+
+    }
+
+    virtual const char * what() const throw() {
+        return this->msg.c_str();
+    }
+
+private:
+    std::string msg;
 };
