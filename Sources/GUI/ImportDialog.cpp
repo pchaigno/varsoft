@@ -56,6 +56,10 @@ void Import::on_pushButton_clicked() {
         QMessageBox::warning(0, "Warning","Dates are not valid");
         return;
 	}
+    if(ui->textEdit->toPlainText().trimmed().isEmpty()){
+        QMessageBox::warning(0, "Warning","Please provide a name");
+        return;
+    }
 	else{
         try{
             QString namealea = ui->textEdit->toPlainText()+"_"+QString::number(QDateTime::currentMSecsSinceEpoch())+".csv";
