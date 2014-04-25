@@ -16,22 +16,16 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #include "ImportNewData.h"
-#include "SessionSaver.h"
-#include "SQLiteManager.h"
-#include "SessionBuilder.h"
 
 /**
 * @brief Import method for Yahoo files
-* @param name The name of the stock
+* @param asset The asset created
 * @param file The file where are located the values.
-* @param origin The origin of the file with the values.
-* @param startDate The date of the first value defined.
-* @param endDate The date of the last value defined.
 * @throw ImportException The data is not valid
 */
-void ImportNewData::import(const QString &name, const QString &file, const QString &origin, const QDateTime &startDate, const QDateTime &endDate) const{
+void ImportNewData::import(const Asset &asset, const QString& file) const{
 	QString data;
-	QFile importedCSV(file);
+    QFile importedCSV(file);
 	QStringList rowOfData;
 	QStringList rowData;
 	data.clear();
@@ -41,7 +35,7 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
 	QRegExp value_regex("^([0-9]+)([.])([0-9][0-9])$");
 	QDateTime previousDate = QDateTime::fromString("2999-01-01","yyyy-MM-dd");
 	int data_index;
-	if (origin == "ProjectVaR")
+    if (asset.getOrigin() == "ProjectVaR")
         data_index = 1;
 	else
 		data_index = 6;
@@ -54,8 +48,7 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
 
 	//FILE CREATION OF IMPORTED DATA
 	// Do unique names
-	QString namealea = name+"_"+QString::number(QDateTime::currentMSecsSinceEpoch())+".csv";
-	QFile fileCreated(namealea);
+    QFile fileCreated(asset.getFile());
 	// The file is open in write-only mode and we check the opening
 	if (!fileCreated.open(QIODevice::WriteOnly | QIODevice::Text)) {
 	   return;
@@ -69,15 +62,15 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
             // x = 1 to avoid the first line with labels
             for (int x =1; x < rowOfData.size()-1; x++) {
                 rowData = rowOfData.at(x).split(",");
-                //TODO : Check dates and values are correct
+                //Check dates and values are correct
                 if(date_regex.exactMatch(rowData[0]) && value_regex.exactMatch(rowData[data_index])){
                     QDateTime currentDate = QDateTime::fromString(rowData[0],"yyyy-MM-dd");
                     //checks the order of dates
                     if(previousDate > currentDate){
                         previousDate = currentDate;
                         //checks if we are on still in the range of dates
-                        if ((endDate >= currentDate)) {
-                            if(startDate >= currentDate) {
+                        if ((asset.getEndDate() >= currentDate)) {
+                            if(asset.getStartDate() >= currentDate) {
                                 break;
                             }
                             flux << rowData[0] << "," << rowData[data_index] << "\n";
@@ -105,6 +98,4 @@ void ImportNewData::import(const QString &name, const QString &file, const QStri
         return;
     }
 	fileCreated.close();
-    Asset a = Asset(name,namealea,origin,endDate,startDate);
-	SessionSaver::getInstance()->saveAsset(a);
 }

@@ -19,6 +19,9 @@
 
 #include "ui_import.h"
 #include "ImportNewData.h"
+#include "SessionSaver.h"
+#include "SQLiteManager.h"
+#include "SessionBuilder.h"
 #include <QDateTime>
 #include <QDialog>
 #include <QException>

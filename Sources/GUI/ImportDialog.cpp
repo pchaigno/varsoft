@@ -52,14 +52,19 @@ void Import::on_pushButton_clicked() {
     ImportNewData algo = ImportNewData();
 	if(ui->startDate->dateTime() >= ui->endDate->dateTime()){
 		QMessageBox::warning(0, "Attention","Les dates ne sont pas valides");
+        return;
 	}
 	else{
         try{
-            algo.import(ui->textEdit->toPlainText(), fileName, ui->comboBox->currentText(), ui->startDate->dateTime(), ui->endDate->dateTime());
+            QString namealea = ui->textEdit->toPlainText()+"_"+QString::number(QDateTime::currentMSecsSinceEpoch())+".csv";
+            Asset a = Asset(ui->textEdit->toPlainText(),namealea,ui->comboBox->currentText(),ui->startDate->dateTime(),ui->endDate->dateTime());
+            algo.import(a, fileName);
+            SessionSaver::getInstance()->saveAsset(a);
         }
         catch(ImportException &e){
             const QString& mes = QString(e.what());
             QMessageBox::warning(0,"Attention",mes);
+            return;
         }
         this->close();
 	}
