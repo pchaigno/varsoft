@@ -28,6 +28,8 @@
 #include "NewPortfolioWizard.h"
 #include "PortfolioItemModel.h"
 #include "PortfolioViewModel.h"
+#include "ImportNewData.h"
+#include "GetStartEndDates.h"
 
 namespace Ui {
 	class MainWindow;

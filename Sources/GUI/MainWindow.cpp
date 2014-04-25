@@ -17,16 +17,6 @@
  */
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
-#include <QDebug>
-#include "ImportNewData.h"
-#include "GetStartEndDates.h"
-#include <QFile>
-#include <QFileDialog>
-#include <QTableWidgetItem>
-#include <QDateTime>
-#include "ImportNewData.h"
-#include "ImportDialog.h"
-#include "QDateTime"
 
 MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWindow), portfolioListModel(new PortfolioItemModel(this)) {
 	ui->setupUi(this);
