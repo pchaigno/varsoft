@@ -19,8 +19,10 @@
 
 /**
 * @brief Import Constructor
-* Ranges of dates or limited by the range file
-* @param the name of the asset file
+* Ranges of dates are limited by the file's range dates
+* @param fileName The name of the asset file
+* @param startDate The oldest date in the file
+* @param endDate The latest date in the file
 * @param parent QDialog Widget to use
 */
 Import::Import(QString fileName, QDate startDate, QDate endDate, QWidget *parent): QDialog(parent), ui(new Ui::Import) {
@@ -51,7 +53,7 @@ void Import::on_pushButton_clicked() {
 	// TODO : check the field is not empty and print a message to force the user to give a name
     ImportNewData algo = ImportNewData();
 	if(ui->startDate->dateTime() >= ui->endDate->dateTime()){
-		QMessageBox::warning(0, "Attention","Les dates ne sont pas valides");
+        QMessageBox::warning(0, "Warning","Dates are not valid");
         return;
 	}
 	else{
@@ -63,7 +65,7 @@ void Import::on_pushButton_clicked() {
         }
         catch(ImportException &e){
             const QString& mes = QString(e.what());
-            QMessageBox::warning(0,"Attention",mes);
+            QMessageBox::warning(0,"Error",mes);
             return;
         }
         this->close();

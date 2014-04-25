@@ -18,7 +18,7 @@
 #include "ImportNewData.h"
 
 /**
-* @brief Import method for Yahoo files
+* @brief Creates a new file with selected data
 * @param asset The asset created
 * @param file The file where are located the values.
 * @throw ImportException The data is not valid
