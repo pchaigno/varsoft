@@ -35,4 +35,5 @@ public:
 private Q_SLOTS:
 	void testDates();
 	void testDB();
+    void testRegexp();
 };

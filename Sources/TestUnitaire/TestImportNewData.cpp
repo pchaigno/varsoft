@@ -109,7 +109,11 @@ void TestImportNewData::testDB() {
 /**
  *	Test the regexp for dates and values
  **/
-
-/**
- *	Test the dates are sorted
- **/
+void TestImportNewData::testRegexp() {
+    QRegExp date_regex("^(20|19)[0-9]{2}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$");
+    QRegExp value_regex("^([0-9]+)([.])([0-9][0-9])$");
+    QVERIFY(date_regex.exactMatch("2014-10-10") == true);
+    QVERIFY(value_regex.exactMatch("24.15") == true);
+    QVERIFY(date_regex.exactMatch("10-10-2014") == false);
+    QVERIFY(value_regex.exactMatch("2z.zd") == false);
+}
