@@ -19,7 +19,6 @@
 
 #include <QAbstractListModel>
 #include "Portfolio.h"
-#include <QDebug>
 #include <stdexcept>
 
 #ifdef UNITTEST

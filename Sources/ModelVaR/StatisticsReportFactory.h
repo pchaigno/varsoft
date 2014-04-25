@@ -23,7 +23,6 @@
 #include "StatisticsReport.h"
 #include "qcustomplot.h"
 #include <QDir>
-#include <QDebug>
 
 class MODELVARSHARED_EXPORT StatisticsReportFactory: public ReportFactory {
 public:

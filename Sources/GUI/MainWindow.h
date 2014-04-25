@@ -35,7 +35,6 @@
 #include <QMessageBox>
 #include "FlowLayout.h"
 #include "ReportWidget.h"
-#include <QDebug>
 #include "ReportWidgetFactory.h"
 #include "DocxGenPathDialog.h"
 
