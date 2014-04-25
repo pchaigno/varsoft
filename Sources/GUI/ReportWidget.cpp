@@ -23,14 +23,20 @@ ReportWidget::~ReportWidget()
  */
 void ReportWidget::openPDF()
 {
-	QDesktopServices::openUrl(QUrl(report->getFile()+".pdf"));
+	QFileInfo file(report->getFile()+".pdf");
+	QUrl url(file.absoluteFilePath());
+	url.setScheme("file");
+	QDesktopServices::openUrl(url);
 }
 /**
  * @brief Open the report in the Docx format with the usual software for reading Docx of the user.
  */
 void ReportWidget::openDocx()
 {
-	QDesktopServices::openUrl(QUrl(report->getFile()+".docx"));
+	QFileInfo file(report->getFile()+".docx");
+	QUrl url(file.absoluteFilePath());
+	url.setScheme("file");
+	QDesktopServices::openUrl(url);
 }
 /**
  * @brief Slot called when the user click on the delete button of the ReportWidget.

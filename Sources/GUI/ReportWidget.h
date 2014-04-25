@@ -23,6 +23,7 @@
 #include "Report.h"
 #include <QMessageBox>
 #include <QDebug>
+#include <QFileInfo>
 
 namespace Ui {
 class ReportWidget;
