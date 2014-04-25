@@ -16,8 +16,6 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #include "TestImportNewData.h"
-#include "SessionBuilder.h"
-#include "SessionSaver.h"
 
 /**
 * @brief Initializes an asset for the tests.
@@ -62,7 +60,7 @@ TestImportNewData::TestImportNewData() {
 	}
 	fileCreated.close();
 	Asset a = Asset("Gogole",TestImportNewData::newFile,TestImportNewData::origin,fiDate,laDate);
-	SessionSaver::getInstance()->saveAsset(a);
+    SessionSaver::getInstance()->saveAsset(a);
 }
 
 /**
@@ -100,7 +98,7 @@ void TestImportNewData::testDB() {
 	QVERIFY(a->getEndDate() >= QDateTime::fromString(TestImportNewData::endDate,"yyyy-MM-dd"));
 	QVERIFY(a->getName() == TestImportNewData::stockName);
 	QVERIFY(a->getOrigin() == TestImportNewData::origin);
-
+    QVERIFY((AssetsFactory::getInstance()->retrieveAsset("Gogole") != NULL) == true);
 	// Deletes the database file:
 	QFile databaseFile(SessionSaver::getInstance()->getDatabaseFile());
 	databaseFile.remove();
@@ -116,4 +114,12 @@ void TestImportNewData::testRegexp() {
     QVERIFY(value_regex.exactMatch("24.15") == true);
     QVERIFY(date_regex.exactMatch("10-10-2014") == false);
     QVERIFY(value_regex.exactMatch("2z.zd") == false);
+}
+
+/**
+ *	Checks the unicity of names
+ **/
+void TestImportNewData::testUnicityName() {
+   //QVERIFY((AssetsFactory::getInstance()->retrieveAsset("Gogole") != NULL) == true);
+   QVERIFY((AssetsFactory::getInstance()->retrieveAsset("Gogolea") != NULL) == false);
 }

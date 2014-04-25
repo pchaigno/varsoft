@@ -60,6 +60,10 @@ void Import::on_pushButton_clicked() {
         QMessageBox::warning(0, "Warning","Please provide a name");
         return;
     }
+    if(AssetsFactory::getInstance()->retrieveAsset(ui->textEdit->toPlainText()) != NULL){
+        QMessageBox::warning(0, "Error","This name is already used");
+        return;
+    }
 	else{
         try{
             QString namealea = ui->textEdit->toPlainText()+"_"+QString::number(QDateTime::currentMSecsSinceEpoch())+".csv";

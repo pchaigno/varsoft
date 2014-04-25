@@ -21,7 +21,7 @@
 #include "Asset.h"
 #include "SessionBuilder.h"
 
-class AssetsFactory {
+class MODELVARSHARED_EXPORT AssetsFactory {
 private:
 	static AssetsFactory* instance;
 	QMap<QString, Asset*> assets;

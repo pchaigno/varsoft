@@ -22,6 +22,7 @@
 #include "SessionSaver.h"
 #include "SQLiteManager.h"
 #include "SessionBuilder.h"
+#include "AssetsFactory.h"
 #include <QDateTime>
 #include <QDialog>
 #include <QException>
