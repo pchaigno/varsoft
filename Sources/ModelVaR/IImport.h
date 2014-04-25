@@ -29,5 +29,5 @@
 */
 class MODELVARSHARED_EXPORT IImport {
 public:
-    virtual void import(const Asset &asset,const QString &file) const =0;
+	virtual void import(const Asset &asset,const QString &file) const =0;
 };

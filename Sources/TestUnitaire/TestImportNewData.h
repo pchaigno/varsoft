@@ -38,6 +38,6 @@ public:
 private Q_SLOTS:
 	void testDates();
 	void testDB();
-    void testRegexp();
-    void testUnicityName();
+	void testRegexp();
+	void testUnicityName();
 };

@@ -31,10 +31,10 @@
 
 class MODELVARSHARED_EXPORT GetStartEndDates{
 public:
-    virtual void retreiveDates(const QString &file);
-    QDate getStartDate();
-    QDate getEndDate();
+	virtual void retreiveDates(const QString &file);
+	QDate getStartDate();
+	QDate getEndDate();
 private:
-    QDate startDate;
-    QDate endDate;
+	QDate startDate;
+	QDate endDate;
 };

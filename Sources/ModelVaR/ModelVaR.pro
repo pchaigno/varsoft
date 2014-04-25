@@ -44,7 +44,7 @@ SOURCES += \
 	IImport.cpp \
 	PortfolioItemModel.cpp \
 	CorrelationReportFactory.cpp \
-    GetStartEndDates.cpp \
+	GetStartEndDates.cpp \
 	PortfolioViewModel.cpp
 
 HEADERS +=\
@@ -83,9 +83,9 @@ HEADERS +=\
 	IImport.h \
 	PortfolioItemModel.h \
 	PortfolioCalculationException.h \
-    GetStartEndDates.h \
+	GetStartEndDates.h \
 	PortfolioViewModel.h \
-    ImportException.h
+	ImportException.h
 
 unix:!symbian {
 	maemo5 {

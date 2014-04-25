@@ -43,16 +43,16 @@ public:
 private slots:
 	void newPortfolio();
 	void showPortfolio(Portfolio* portfolio);
-    void setImportCSV();
+	void setImportCSV();
 	void addPortfolio(Portfolio *);
 private:
-    Ui::MainWindow *ui;
+	Ui::MainWindow *ui;
 	QString stockName;
 	QDateTime startDate;
 	QDateTime endDate;
 	QString fileName;
 	QString origin;
-    QString path;
+	QString path;
 	PortfolioItemModel * portfolioListModel;
 	QHash<Portfolio*, PortfolioViewModel*> portfoliosModels;
 };

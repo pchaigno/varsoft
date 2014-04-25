@@ -23,18 +23,18 @@
 
 class MODELVARSHARED_EXPORT ImportException: public std::exception {
 public:
-    ImportException(std::string msg) {
-        this->msg = msg;
-    }
+	ImportException(std::string msg) {
+		this->msg = msg;
+	}
 
-    virtual ~ImportException() throw() {
+	virtual ~ImportException() throw() {
 
-    }
+	}
 
-    virtual const char * what() const throw() {
-        return this->msg.c_str();
-    }
+	virtual const char * what() const throw() {
+		return this->msg.c_str();
+	}
 
 private:
-    std::string msg;
+	std::string msg;
 };

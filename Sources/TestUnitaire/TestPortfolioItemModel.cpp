@@ -178,6 +178,7 @@ void TestPortfolioItemModel::testRemove() {
 		QFAIL("Row error not handled.");
 	}
 }
+
 /**
  * @brief Add a portfolio, test the first element.
  * Do it again for fun ...

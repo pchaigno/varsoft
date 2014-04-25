@@ -23,9 +23,9 @@
 * @param file The file where are located the values.
 * @throw ImportException The data is not valid
 */
-void ImportNewData::import(const Asset &asset, const QString& file) const{
+void ImportNewData::import(const Asset &asset, const QString& file) const {
 	QString data;
-    QFile importedCSV(file);
+	QFile importedCSV(file);
 	QStringList rowOfData;
 	QStringList rowData;
 	data.clear();
@@ -35,10 +35,11 @@ void ImportNewData::import(const Asset &asset, const QString& file) const{
 	QRegExp value_regex("^([0-9]+)([.])([0-9][0-9])$");
 	QDateTime previousDate = QDateTime::fromString("2999-01-01","yyyy-MM-dd");
 	int data_index;
-    if (asset.getOrigin() == "ProjectVaR")
-        data_index = 1;
-	else
+	if (asset.getOrigin() == "ProjectVaR") {
+		data_index = 1;
+	} else {
 		data_index = 6;
+	}
 
 	if (importedCSV.open(QFile::ReadOnly)) {
 		data = importedCSV.readAll();
@@ -48,54 +49,50 @@ void ImportNewData::import(const Asset &asset, const QString& file) const{
 
 	//FILE CREATION OF IMPORTED DATA
 	// Do unique names
-    QFile fileCreated(asset.getFile());
+	QFile fileCreated(asset.getFile());
 	// The file is open in write-only mode and we check the opening
 	if (!fileCreated.open(QIODevice::WriteOnly | QIODevice::Text)) {
-	   return;
+		return;
 	}
 	QTextStream flux(&fileCreated);
 	flux.setCodec("UTF-8");
 	rowData = rowOfData.at(0).split(",");
-    if (!(rowData.count() < data_index)){
-        if (!((QString) rowData[0]).isEmpty() && !((QString)rowData[data_index]).isEmpty()){
-            flux << rowData[0] << "," << rowData[data_index] << "\n";
-            // x = 1 to avoid the first line with labels
-            for (int x =1; x < rowOfData.size()-1; x++) {
-                rowData = rowOfData.at(x).split(",");
-                //Check dates and values are correct
-                if(date_regex.exactMatch(rowData[0]) && value_regex.exactMatch(rowData[data_index])){
-                    QDateTime currentDate = QDateTime::fromString(rowData[0],"yyyy-MM-dd");
-                    //checks the order of dates
-                    if(previousDate > currentDate){
-                        previousDate = currentDate;
-                        //checks if we are on still in the range of dates
-                        if ((asset.getEndDate() >= currentDate)) {
-                            if(asset.getStartDate() >= currentDate) {
-                                break;
-                            }
-                            flux << rowData[0] << "," << rowData[data_index] << "\n";
-                        }
-                    }
-                    else{
-                        throw ImportException("Dates are not sorted");
-                        return;
-                    }
+	if (!(rowData.count() < data_index)) {
+		if (!((QString) rowData[0]).isEmpty() && !((QString)rowData[data_index]).isEmpty()) {
+			flux << rowData[0] << "," << rowData[data_index] << "\n";
+			// x = 1 to avoid the first line with labels
+			for (int x =1; x < rowOfData.size()-1; x++) {
+				rowData = rowOfData.at(x).split(",");
+				//Check dates and values are correct
+				if(date_regex.exactMatch(rowData[0]) && value_regex.exactMatch(rowData[data_index])) {
+					QDateTime currentDate = QDateTime::fromString(rowData[0],"yyyy-MM-dd");
+					//checks the order of dates
+					if(previousDate > currentDate) {
+						previousDate = currentDate;
+						//checks if we are on still in the range of dates
+						if ((asset.getEndDate() >= currentDate)) {
+							if(asset.getStartDate() >= currentDate) {
+								break;
+							}
+							flux << rowData[0] << "," << rowData[data_index] << "\n";
+						}
+					} else {
+						throw ImportException("Dates are not sorted");
+						return;
+					}
 
-                }
-                else{
-                    throw ImportException("The data is invalid");
-                    return;
-                }
-            }
-        }
-        else{
-            throw ImportException("Header is missing");
-            return;
-        }
-    }
-    else{
-        throw ImportException("Wrong file type");
-        return;
-    }
+				} else {
+					throw ImportException("The data is invalid");
+					return;
+				}
+			}
+		} else {
+			throw ImportException("Header is missing");
+			return;
+		}
+	} else {
+		throw ImportException("Wrong file type");
+		return;
+	}
 	fileCreated.close();
 }

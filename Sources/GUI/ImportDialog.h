@@ -37,12 +37,12 @@ class Import : public QDialog {
 	Q_OBJECT
 
 public:
-    explicit Import(QString fileName, QDate startDate, QDate endDate, QWidget *parent = 0);
+	explicit Import(QString fileName, QDate startDate, QDate endDate, QWidget *parent = 0);
 	~Import();
 
 private:
 	Ui::Import *ui;
-    QString fileName;
+	QString fileName;
 
 private slots:
 	void on_pushButton_clicked();
