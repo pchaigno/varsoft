@@ -40,7 +40,6 @@ SOURCES += \
 	GarchReportFactory.cpp \
 	StatisticsReportFactory.cpp \
 	ImportNewData.cpp \
-	ImportData.cpp \
 	IImport.cpp \
 	PortfolioItemModel.cpp \
 	CorrelationReportFactory.cpp \
@@ -48,7 +47,8 @@ SOURCES += \
 	ReportDataJson.cpp \
 	qcustomplot.cpp \
 	ReportGenerator.cpp \
-    ReportException.cpp
+	ReportException.cpp \
+	GetStartEndDates.cpp
 
 HEADERS +=\
 	Asset.h \
@@ -81,16 +81,18 @@ HEADERS +=\
 	GarchReportFactory.h \
 	StatisticsReportFactory.h \
 	CorrelationReportFactory.h \
-	ImportData.h \
 	ImportNewData.h \
 	CannotOpenFileException.h \
 	IImport.h \
 	PortfolioItemModel.h \
+	PortfolioCalculationException.h \
+	GetStartEndDates.h \
 	PortfolioViewModel.h \
 	qcustomplot.h \
 	PortfolioCalculationException.h \
 	ReportDataJson.h \
-    ReportException.h
+	ReportException.h \
+	ImportException.h
 
 unix:!symbian {
 	maemo5 {

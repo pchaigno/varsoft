@@ -17,14 +17,6 @@
  */
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
-#include <QFile>
-#include <QFileDialog>
-#include <QTableWidgetItem>
-#include <QDateTime>
-#include "ImportNewData.h"
-#include "ImportData.h"
-#include "import.h"
-#include "QDateTime"
 
 
 MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWindow), portfolioListModel(new PortfolioItemModel(this)) {
@@ -33,9 +25,6 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
 
 	//for the import button in the main window
 	connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(setImportCSV()));
-	//to connect the signal sent from the import window
-	connect(&import_win, SIGNAL(dataEntered(const QString&, const QDateTime&, const QDateTime&, const QString&)),
-						 this, SLOT(onDataEntered(const QString&, const QDateTime&, const QDateTime&, const QString&)));
 
     connect(ui->actionGenerate_Stats_Report,SIGNAL(triggered()),this,SLOT(generateStatsReport()));
 
@@ -134,10 +123,10 @@ void MainWindow::docxGenPath()
  * @brief MainWindow::newPortfolio open the PortfolioWizard
  */
 void MainWindow::newPortfolio() {
-   NewPortfolioWizard * fen = new NewPortfolioWizard(this);
-   connect(fen,SIGNAL(newPortfolioCreated(Portfolio*)),this,SLOT(addPortfolio(Portfolio*)));
-   fen->setAttribute(Qt::WA_DeleteOnClose);
-   fen->show();
+	NewPortfolioWizard * fen = new NewPortfolioWizard(this);
+	connect(fen,SIGNAL(newPortfolioCreated(Portfolio*)),this,SLOT(addPortfolio(Portfolio*)));
+	fen->setAttribute(Qt::WA_DeleteOnClose);
+	fen->show();
 }
 
 /**
@@ -150,25 +139,6 @@ void MainWindow::showPortfolio(Portfolio * portfolio){
 	updateReportWidgets(portfolio);
 }
 
-/**
-* @brief Set up variables to import
-* Select the write algorithm to import according to the origin
-* @param name The name of the stock
-* @param startDate The date of the first value to import.
-* @param endDate The date of the last value to import.
-*/
-void MainWindow::onDataEntered(const QString &name, const QDateTime &fDate ,const QDateTime &lDate, const QString &origin){
-	MainWindow::stockName = name;
-	MainWindow::startDate = fDate;
-	MainWindow::endDate = lDate;
-	MainWindow::origin = origin;
-	ImportNewData algo = ImportNewData();
-	//if (origin == "Yahoo")
-	//    algo = ImportNewData();
-	//else
-	//    algo = ImportData();;
-    algo.import(MainWindow::stockName, fileName, MainWindow::origin, MainWindow::startDate, MainWindow::endDate);
-}
 /**
  * @brief Display a message in the status bar when the generating of a report is done
  * and delete the reportGenerator which called this slot.
@@ -397,10 +367,25 @@ void MainWindow::generateReport(ReportGenerator *gen)
 /**
 * @brief Allows to browse the computer to select the file to import
 * Shows the window to set up the import file
+* The last import path is saved when a new import is done
 */
 void MainWindow::setImportCSV(){
-	MainWindow::fileName = QFileDialog::getOpenFileName(this, ("Ouvrir fichier"), "C:/", ("Texte CSV (*.csv *.txt)") );
-	import_win.show();
+	QString fileName;
+	if (this->path != "")
+		fileName = QFileDialog::getOpenFileName(this, ("Ouvrir fichier"), this->path, ("CSV Texte (*.csv *.txt);;Tous les fichiers (*.*)") );
+	else
+		fileName = QFileDialog::getOpenFileName(this, ("Ouvrir fichier"), "C:/", ("CSV Texte (*.csv *.txt);;Tous les fichiers (*.*)") );
+	if(fileName != "")
+		this->path = fileName.left(fileName.lastIndexOf("/"));
+	if (fileName != "")
+	{
+		//get startDate and endDate before calling the import function
+		GetStartEndDates* gsed = new GetStartEndDates();
+		gsed->retreiveDates(fileName);
+		Import* importDialog = new Import(fileName,gsed->getStartDate(),gsed->getEndDate(),this);
+		importDialog->setAttribute(Qt::WA_DeleteOnClose);
+		importDialog->show();
+	}
 }
 
 /**

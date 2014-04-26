@@ -22,7 +22,10 @@
 #include <QDialog>
 #include <QComboBox>
 #include <QSettings>
-#include "import.h"
+#include <QFile>
+#include <QFileDialog>
+#include <QTableWidgetItem>
+#include "ImportDialog.h"
 #include "NewPortfolioWizard.h"
 #include "PortfolioItemModel.h"
 #include "ReportFactory.h"
@@ -37,6 +40,8 @@
 #include "ReportWidget.h"
 #include "ReportWidgetFactory.h"
 #include "DocxGenPathDialog.h"
+#include "ImportNewData.h"
+#include "GetStartEndDates.h"
 
 namespace Ui {
 	class MainWindow;
@@ -64,9 +69,7 @@ private slots:
 
 	void addPortfolio(Portfolio *);
     void removeSelectedPortfolio();
-
-	void onDataEntered(const QString &text, const QDateTime &fDate, const QDateTime &lDate, const QString &source);
-    void reportGenerationDone();
+	void reportGenerationDone();
 	void updateReportWidgets();
 	void updateReportWidgets(Portfolio * portfolio);
 	void addReportWidget(Portfolio * portfolio, ReportWidget * reportWidget);
@@ -88,12 +91,12 @@ private:
 	void clearLayout(QLayout* layout, bool deleteWidgets = true);
 
 	Ui::MainWindow *ui;
-	Import import_win;
 	QString stockName;
 	QDateTime startDate;
 	QDateTime endDate;
 	QString fileName;
 	QString origin;
+	QString path;
 	PortfolioItemModel * portfolioListModel;
 	QHash<Portfolio*, PortfolioViewModel*> portfoliosModels;
 	QHash<Portfolio*, QList<ReportWidget*> > portfolioReportWidgets;

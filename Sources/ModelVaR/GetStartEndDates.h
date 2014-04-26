@@ -15,12 +15,26 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#pragma once
-#include "IImport.h"
-#include "ModelVaR_global.h"
 
-class MODELVARSHARED_EXPORT ImportData : public IImport {
+#pragma once
+#include "ModelVaR_global.h"
+#include <QDate>
+#include <QString>
+#include <QFile>
+#include <QStringList>
+#include <QRegExp>
+
+
+/**
+* @brief Retreives the endDate and the startDate of a file
+*/
+
+class MODELVARSHARED_EXPORT GetStartEndDates{
 public:
-	virtual void import(const QString &name, const QString &file, const QString &origin,
-						const QDateTime &startDate, const QDateTime &endDate) const;
+	virtual void retreiveDates(const QString &file);
+	QDate getStartDate();
+	QDate getEndDate();
+private:
+	QDate startDate;
+	QDate endDate;
 };

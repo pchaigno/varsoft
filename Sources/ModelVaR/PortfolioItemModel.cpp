@@ -39,7 +39,7 @@ int PortfolioItemModel::rowCount(const QModelIndex &parent) const {
  */
 Qt::ItemFlags PortfolioItemModel::flags(const QModelIndex &index) const {
 	Q_UNUSED(index);
-    return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
+	return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
 }
 
 /**
@@ -47,8 +47,7 @@ Qt::ItemFlags PortfolioItemModel::flags(const QModelIndex &index) const {
  * @param index the ModelIndex of the portfolio
  * @return A pointer to the Portfolio
  */
-Portfolio *PortfolioItemModel::getPortfolio(const QModelIndex &index)
-{
+Portfolio *PortfolioItemModel::getPortfolio(const QModelIndex &index) {
 	return index.isValid() ? portfolioList[index.row()] : NULL;
 }
 
@@ -101,6 +100,7 @@ void PortfolioItemModel::addPortfolio(Portfolio * portfolio) {
 	portfolioList << portfolio;
 	endInsertRows();
 }
+
 /**
  * @brief Insert a portfolio to the model at the specified row
  * @param portfolio the portfolio to insert
@@ -133,6 +133,7 @@ bool PortfolioItemModel::removePortfolio(Portfolio *portfolio) {
 	int pos = portfolioList.indexOf(portfolio);
 	return removePortfolio(pos);
 }
+
 /**
  * @brief Remove the portfolio at the specified row from the model and delete the portfolio.
  * @param row

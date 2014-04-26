@@ -17,6 +17,9 @@
  */
 #pragma once
 #include "ImportNewData.h"
+#include "AssetsFactory.h"
+#include "SessionBuilder.h"
+#include "SessionSaver.h"
 #include <QtTest>
  
 class TestImportNewData: public QObject {
@@ -35,4 +38,6 @@ public:
 private Q_SLOTS:
 	void testDates();
 	void testDB();
+	void testRegexp();
+	void testUnicityName();
 };
