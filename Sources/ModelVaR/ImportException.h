@@ -15,21 +15,26 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#include "TestImportData.h"
+#pragma once
 
-/**
-* @brief Initializes an asset for the tests.
-*/
-TestImportData::TestImportData() {
-	TestImportData::stockName = "Gogole";
-	TestImportData::startDate = "2014-01-02";
-	TestImportData::endDate = "2014-01-01";
-	TestImportData::origin = "Yahoo";
-}
+#include <exception>
+#include <QString>
+#include "ModelVaR_global.h"
 
-/**
-* @brief Checks that the startDate and the endDate of the generated file correspond to the params
-*/
-void TestImportData::testDates() {
-	
-}
+class MODELVARSHARED_EXPORT ImportException: public std::exception {
+public:
+	ImportException(std::string msg) {
+		this->msg = msg;
+	}
+
+	virtual ~ImportException() throw() {
+
+	}
+
+	virtual const char * what() const throw() {
+		return this->msg.c_str();
+	}
+
+private:
+	std::string msg;
+};

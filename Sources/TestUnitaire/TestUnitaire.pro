@@ -15,7 +15,6 @@ TEMPLATE = app
 
 SOURCES += \
 	TestImportNewData.cpp \
-	TestImportData.cpp \
 	TestAsset.cpp \
 	TestPortfolio.cpp \
 	main.cpp \
@@ -26,13 +25,12 @@ SOURCES += \
 
 HEADERS += \
 	TestImportNewData.h \
-	TestImportData.h \
 	TestAsset.h \
 	TestReport.h \
 	TestPortfolio.h \
 	TestSQLiteManagers.h \
 	TestPortfolioItemModel.h \
-    TestVaRHistorical.h
+	TestVaRHistorical.h
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 DEFINES += UNITTEST

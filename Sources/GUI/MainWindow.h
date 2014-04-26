@@ -21,11 +21,15 @@
 #include <QDateTime>
 #include <QDialog>
 #include <QComboBox>
-#include "import.h"
-#include <string>
+#include <QFile>
+#include <QFileDialog>
+#include <QTableWidgetItem>
+#include "ImportDialog.h"
 #include "NewPortfolioWizard.h"
 #include "PortfolioItemModel.h"
 #include "PortfolioViewModel.h"
+#include "ImportNewData.h"
+#include "GetStartEndDates.h"
 
 namespace Ui {
 	class MainWindow;
@@ -42,19 +46,15 @@ private slots:
 	void newPortfolio();
 	void showPortfolio(Portfolio* portfolio);
 	void setImportCSV();
-
 	void addPortfolio(Portfolio *);
-
-	void onDataEntered(const QString &text, const QDateTime &fDate, const QDateTime &lDate, const QString &source);
-
 private:
 	Ui::MainWindow *ui;
-	Import import_win;
 	QString stockName;
 	QDateTime startDate;
 	QDateTime endDate;
 	QString fileName;
 	QString origin;
+	QString path;
 	PortfolioItemModel * portfolioListModel;
 	QHash<Portfolio*, PortfolioViewModel*> portfoliosModels;
 };

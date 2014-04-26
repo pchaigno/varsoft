@@ -16,21 +16,37 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #pragma once
-#include "ImportData.h"
-#include <QtTest>
 
-class TestImportData: public QObject {
+#include "ui_import.h"
+#include "ImportNewData.h"
+#include "SessionSaver.h"
+#include "SQLiteManager.h"
+#include "SessionBuilder.h"
+#include "AssetsFactory.h"
+#include <QDateTime>
+#include <QDialog>
+#include <QException>
+
+namespace Ui {
+	class Import;
+}
+/**
+* @brief Useful for the import window links with the mainwindow
+*/
+class Import : public QDialog {
 	Q_OBJECT
 
-private:
-	QString stockName;
-	QString startDate;
-	QString endDate;
-	QString origin;
-
 public:
-	TestImportData();
+	explicit Import(QString fileName, QDate startDate, QDate endDate, QWidget *parent = 0);
+	~Import();
 
-private Q_SLOTS:
-	void testDates();
+private:
+	Ui::Import *ui;
+	QString fileName;
+
+private slots:
+	void on_pushButton_clicked();
+	void on_pushButton_2_clicked();
+
+signals:
 };
