@@ -25,16 +25,6 @@
     <widget class="QLineEdit" name="textEdit"/>
    </item>
    <item>
-    <widget class="QLabel" name="label_2">
-     <property name="text">
-      <string>Date la plus récente</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QDateEdit" name="endDate"/>
-   </item>
-   <item>
     <widget class="QLabel" name="label_3">
      <property name="text">
       <string>Date la plus ancienne</string>
@@ -43,6 +33,16 @@
    </item>
    <item>
     <widget class="QDateEdit" name="startDate"/>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Date la plus récente</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDateEdit" name="endDate"/>
    </item>
    <item>
     <widget class="QLabel" name="label_4">
