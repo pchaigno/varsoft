@@ -30,6 +30,7 @@ private:
 	Asset google;
 	Asset apple;
 	Asset missing;
+	Asset asset1;
 
 public:
 	TestAsset();
@@ -38,5 +39,16 @@ private Q_SLOTS:
 	void testId();
 	void testName();
 	void testRetrieveValues();
+	void testRetrieveValuesWeekend();
+	void testRetrieveValuesIncorrectDates();
+	void testRetrieveValuesNonexistingFile();
+	void testRetrieveValuesSpecialDates();
+	void testRetrieveValuesUnavailableDates();
+	void testRetrieveValuesNoParameters();
 	void testRetrieveValuesByDate();
+	void testRetrieveValuesByDateWeekend();
+	void testRetrieveValuesByDateIncorrectDates();
+	void testRetrieveValuesByDateNonexistingFile();
+	void testRetrieveValuesByDateSpecialDates();
+	void testRetrieveValuesByDateUnavailableDates();
 };

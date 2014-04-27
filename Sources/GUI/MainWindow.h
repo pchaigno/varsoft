@@ -18,7 +18,6 @@
 #pragma once
 
 #include <QMainWindow>
-#include <QDateTime>
 #include <QDialog>
 #include <QComboBox>
 #include <QFile>
@@ -28,6 +27,8 @@
 #include "NewPortfolioWizard.h"
 #include "PortfolioItemModel.h"
 #include "PortfolioViewModel.h"
+#include "ui_MainWindow.h"
+#include <QDate>
 #include "ImportNewData.h"
 #include "GetStartEndDates.h"
 
@@ -47,11 +48,12 @@ private slots:
 	void showPortfolio(Portfolio* portfolio);
 	void setImportCSV();
 	void addPortfolio(Portfolio *);
+
 private:
 	Ui::MainWindow *ui;
 	QString stockName;
-	QDateTime startDate;
-	QDateTime endDate;
+	QDate startDate;
+	QDate endDate;
 	QString fileName;
 	QString origin;
 	QString path;

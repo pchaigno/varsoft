@@ -18,7 +18,7 @@
 #pragma once
 
 #include <QtAlgorithms>
-#include <QDateTime>
+#include <QDate>
 #include <qmath.h>
 #include "Portfolio.h"
 #include "VaRAlgorithm.h"
@@ -29,5 +29,5 @@ private:
 	int period;
 public:
 	VaRHistorical(const Portfolio& portfolio, double risk, int timeHorizon, int period);
-	virtual double execute(QDateTime date) const;
+	virtual double execute(QDate date) const;
 };

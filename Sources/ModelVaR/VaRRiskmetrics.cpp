@@ -32,7 +32,7 @@ VaRRiskmetrics::VaRRiskmetrics(const Portfolio& portfolio, double risk, int time
  * @param timeHorizon The time horizon to calculate the VaR.
  * @return The VaR for this portfolio using the Riskmetrics method.
  */
-double VaRRiskmetrics::execute(QDateTime timeHorizon) const {
+double VaRRiskmetrics::execute(QDate timeHorizon) const {
 	// TODO
 	return 0;
 }

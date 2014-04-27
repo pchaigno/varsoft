@@ -15,10 +15,9 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
 #include "GetStartEndDates.h"
 
-void GetStartEndDates::retreiveDates(const QString &file){
+void GetStartEndDates::retreiveDates(const QString &file) {
 	QString data;
 	QFile importedCSV(file);
 	QStringList rowOfData;
@@ -33,16 +32,15 @@ void GetStartEndDates::retreiveDates(const QString &file){
 		importedCSV.close();
 	}
 	rowData = rowOfData.at(1).split(",");
-	this->startDate = QDate::fromString(rowData[0],"yyyy-MM-dd");
+	this->startDate = QDate::fromString(rowData[0], "yyyy-MM-dd");
 	rowData = rowOfData.at(rowOfData.size()-1).split(",");
-	this->endDate = QDate::fromString(rowData[0],"yyyy-MM-dd");
+	this->endDate = QDate::fromString(rowData[0], "yyyy-MM-dd");
 }
 
-QDate GetStartEndDates::getStartDate(){
+QDate GetStartEndDates::getStartDate() {
 	return this->endDate;
 }
 
-QDate GetStartEndDates::getEndDate(){
+QDate GetStartEndDates::getEndDate() {
 	return this->startDate;
 }
-

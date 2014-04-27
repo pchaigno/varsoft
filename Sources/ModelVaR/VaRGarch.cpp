@@ -33,7 +33,7 @@ VaRGarch::VaRGarch(const Portfolio& portfolio, double risk, int timeHorizon, con
  * @param timeHorizon The time horizon to calculate the VaR.
  * @return The VaR for this portfolio using a GARCH model.
  */
-double VaRGarch::execute(QDateTime timeHorizon) const {
+double VaRGarch::execute(QDate timeHorizon) const {
 	// TODO
-	return (double)timeHorizon.toTime_t();
+	return 0;
 }

@@ -17,30 +17,24 @@
  */
 #pragma once
 
-#include <QWizard>
-#include "ShowAssetsWizardPage.h"
-#include "SetWeightAssetWizardPage.h"
-#include "ui_NewPortfolioWizard.h"
-#include "Portfolio.h"
+#include <exception>
+#include <QString>
+#include "ModelVaR_global.h"
 
-namespace Ui {
-	class NewPortfolioWizard;
-}
-
-class NewPortfolioWizard : public QWizard {
-	Q_OBJECT
-
+class MODELVARSHARED_EXPORT InvalidDefinitionPeriodException: public std::exception {
 public:
-	explicit NewPortfolioWizard(QWidget *parent = 0);
-	~NewPortfolioWizard();
+	InvalidDefinitionPeriodException(std::string msg) {
+		this->msg = msg;
+	}
 
-	void accept();
+	virtual ~InvalidDefinitionPeriodException() throw() {
 
-signals:
-	void newPortfolioCreated(Portfolio *);
+	}
+
+	virtual const char * what() const throw() {
+		return this->msg.c_str();
+	}
 
 private:
-	Ui::NewPortfolioWizard *ui;
-	ShowAssetsWizardPage *showAssetPage;
-	SetWeightAssetWizardPage * setWeightPage;
+	std::string msg;
 };

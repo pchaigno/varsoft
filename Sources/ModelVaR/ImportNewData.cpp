@@ -33,7 +33,7 @@ void ImportNewData::import(const Asset &asset, const QString& file) const {
 	rowData.clear();
 	QRegExp date_regex("^(20|19)[0-9]{2}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$");
 	QRegExp value_regex("^([0-9]+)([.])([0-9][0-9])$");
-	QDateTime previousDate = QDateTime::fromString("2999-01-01","yyyy-MM-dd");
+	QDate previousDate = QDate::fromString("2999-01-01", "yyyy-MM-dd");
 	int data_index;
 	if (asset.getOrigin() == "ProjectVaR") {
 		data_index = 1;
@@ -65,7 +65,7 @@ void ImportNewData::import(const Asset &asset, const QString& file) const {
 				rowData = rowOfData.at(x).split(",");
 				//Check dates and values are correct
 				if(date_regex.exactMatch(rowData[0]) && value_regex.exactMatch(rowData[data_index])) {
-					QDateTime currentDate = QDateTime::fromString(rowData[0],"yyyy-MM-dd");
+					QDate currentDate = QDate::fromString(rowData[0], "yyyy-MM-dd");
 					//checks the order of dates
 					if(previousDate > currentDate) {
 						previousDate = currentDate;

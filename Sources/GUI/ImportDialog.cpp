@@ -53,25 +53,25 @@ void Import::on_pushButton_clicked() {
 	// TODO : check the field is not empty and print a message to force the user to give a name
 	ImportNewData algo = ImportNewData();
 	if(ui->startDate->dateTime() >= ui->endDate->dateTime()) {
-		QMessageBox::warning(0, "Warning","Dates are not valid");
+		QMessageBox::warning(0, "Warning", "Dates are not valid");
 		return;
 	}
 	if(ui->textEdit->text().trimmed().isEmpty()) {
-		QMessageBox::warning(0, "Warning","Please provide a name");
+		QMessageBox::warning(0, "Warning", "Please provide a name");
 		return;
 	}
 	if(AssetsFactory::getInstance()->retrieveAsset(ui->textEdit->text()) != NULL) {
-		QMessageBox::warning(0, "Error","This name is already used");
+		QMessageBox::warning(0, "Error", "This name is already used");
 		return;
 	} else {
 		try {
 			QString namealea = ui->textEdit->text()+"_"+QString::number(QDateTime::currentMSecsSinceEpoch())+".csv";
-			Asset a = Asset(ui->textEdit->text(),namealea,ui->comboBox->currentText(),ui->startDate->dateTime(),ui->endDate->dateTime());
+			Asset a = Asset(ui->textEdit->text(), namealea, ui->comboBox->currentText(), ui->startDate->date(), ui->endDate->date());
 			algo.import(a, fileName);
 			SessionSaver::getInstance()->saveAsset(a);
 		} catch(ImportException &e) {
 			const QString& mes = QString(e.what());
-			QMessageBox::warning(0,"Error",mes);
+			QMessageBox::warning(0, "Error", mes);
 			return;
 		}
 		this->close();

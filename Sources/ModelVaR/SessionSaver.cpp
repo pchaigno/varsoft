@@ -39,8 +39,8 @@ bool SessionSaver::saveAsset(Asset& asset) {
 	query.bindValue(":name", asset.getName());
 	query.bindValue(":file", asset.getFile());
 	query.bindValue(":origin", asset.getOrigin());
-	query.bindValue(":first_date", asset.getStartDate().toTime_t());
-	query.bindValue(":last_date", asset.getEndDate().toTime_t());
+	query.bindValue(":first_date", asset.getStartDate().toString("yyyyMMdd"));
+	query.bindValue(":last_date", asset.getEndDate().toString("yyyyMMdd"));
 	bool result = query.exec();
 	asset.setId(query.lastInsertId().toInt());
 
@@ -85,8 +85,8 @@ void SessionSaver::saveAssets(QVector<Asset*>& assets) {
 		query.bindValue(":name", asset->getName());
 		query.bindValue(":file", asset->getFile());
 		query.bindValue(":origin", asset->getOrigin());
-		query.bindValue(":first_date", asset->getStartDate().toTime_t());
-		query.bindValue(":last_date", asset->getEndDate().toTime_t());
+		query.bindValue(":first_date", asset->getStartDate().toString("yyyyMMdd"));
+		query.bindValue(":last_date", asset->getEndDate().toString("yyyyMMdd"));
 		query.exec();
 		asset->setId(query.lastInsertId().toInt());
 	}

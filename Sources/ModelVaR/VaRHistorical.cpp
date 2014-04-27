@@ -39,7 +39,7 @@ VaRHistorical::VaRHistorical(const Portfolio& portfolio, double risk, int timeHo
  * @param date Date on which the Value-at-Risk is calculated
  * @return Value-at-Risk
  */
-double VaRHistorical::execute(QDateTime date) const {
+double VaRHistorical::execute(QDate date) const {
 	if(date > getPortfolio().retrieveEndDate()) {
 		throw std::invalid_argument("Value-at-Risk cannot be computed at an undefined future date.");
 	}

@@ -19,7 +19,7 @@
 
 #include "Portfolio.h"
 #include <QtTest>
-#include <QDateTime>
+#include <QDate>
 #include <QDebug>
 #include <QDir>
 #include <QString>
@@ -40,7 +40,14 @@ public:
 private Q_SLOTS:
 	void testId();
 	void testName();
+	void testRetrieveStartDate();
+	void testRetrieveEndDate();
 	void testRetrieveValues();
 	void testRetrieveValuesByDate();
+	void testRetrieveValuesByDateMissingValues();
+	void testRetrieveValuesNoParameters();
 	void testRetrieveReturns();
+	void testRetrieveNbReturnsNotEnough();
+	void testRetrieveNbReturnsAll();
+	void testRetrieveNbReturnsSome();
 };
