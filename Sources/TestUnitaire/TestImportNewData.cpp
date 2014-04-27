@@ -77,11 +77,11 @@ void TestImportNewData::testDates() {
     }
     //first date
     rowData = rowOfData.at(0).split(",");
-    QVERIFY((QDateTime::fromString(TestImportNewData::startDate,"yyyy-MM-dd")) >= (QDateTime::fromString(rowData[0],"yyyy-MM-dd")));
+    QVERIFY((QDateTime::fromString(TestImportNewData::endDate,"yyyy-MM-dd")) >= (QDateTime::fromString(rowData[0],"yyyy-MM-dd")));
 
     //last date
     rowData = rowOfData.at(rowOfData.size()-2).split(",");
-    QVERIFY((QDateTime::fromString(TestImportNewData::endDate,"yyyy-MM-dd")) <= (QDateTime::fromString(rowData[0],"yyyy-MM-dd")));
+    QVERIFY((QDateTime::fromString(TestImportNewData::startDate,"yyyy-MM-dd")) <= (QDateTime::fromString(rowData[0],"yyyy-MM-dd")));
 }
 
 
