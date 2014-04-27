@@ -15,32 +15,20 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#include "TestImportData.h"
-#include "TestImportNewData.h"
-#include "TestAsset.h"
-#include "TestPortfolio.h"
-#include "TestVaRHistorical.h"
-#include "TestReport.h"
-#include "TestSQLiteManagers.h"
-#include "TestPortfolioItemModel.h"
+#pragma once
 
-int main() {
-	int result = 0;
-	TestAsset asset;
-	result += QTest::qExec(&asset);
-	TestPortfolio portfolio;
-	result += QTest::qExec(&portfolio);
-	TestReport report;
-	result += QTest::qExec(&report);
-	TestSQLiteManagers sqlite;
-	result += QTest::qExec(&sqlite);
-	TestVaRHistorical testVaRHistorical;
-	result += QTest::qExec(&testVaRHistorical);
-	TestImportNewData newdata;
-	result += QTest::qExec(&newdata);
-	TestImportData data;
-	result += QTest::qExec(&data);
-	TestPortfolioItemModel portfolioModel;
-	result += QTest::qExec(&portfolioModel);
-	return result;
-}
+#include <QDate>
+#include <QString>
+#include <QFile>
+#include <QStringList>
+#include <QTableWidgetItem>
+#include "Asset.h"
+#include "ModelVaR_global.h"
+
+/**
+* @brief Import Strategy Interface
+*/
+class MODELVARSHARED_EXPORT IImport {
+public:
+	virtual void import(const Asset &asset, const QString &file) const =0;
+};

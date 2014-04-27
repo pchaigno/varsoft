@@ -17,11 +17,24 @@
  */
 #pragma once
 
-#include "IImport.h"
-#include "ModelVaR_global.h"
+#include <QString>
+#include "Asset.h"
+#include "SessionBuilder.h"
 
-class MODELVARSHARED_EXPORT ImportNewData : public IImport{
+class MODELVARSHARED_EXPORT AssetsFactory {
+private:
+	static AssetsFactory* instance;
+	QMap<QString, Asset*> assets;
+
 public:
-	virtual void import(const QString &name, const QString &file, const QString &origin,
-						const QDate &startDate, const QDate &endDate) const;
+	Asset* retrieveAsset(QString name);
+	static AssetsFactory* getInstance() {
+		if(instance == NULL) {
+			instance = new AssetsFactory();
+		}
+		return instance;
+	}
+
+private:
+	AssetsFactory();
 };

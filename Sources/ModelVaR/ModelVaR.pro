@@ -41,10 +41,10 @@ SOURCES += \
 	GarchReportFactory.cpp \
 	StatisticsReportFactory.cpp \
 	ImportNewData.cpp \
-	ImportData.cpp \
 	IImport.cpp \
 	PortfolioItemModel.cpp \
 	CorrelationReportFactory.cpp \
+	GetStartEndDates.cpp \
 	PortfolioViewModel.cpp
 
 HEADERS +=\
@@ -78,14 +78,15 @@ HEADERS +=\
 	GarchReportFactory.h \
 	StatisticsReportFactory.h \
 	CorrelationReportFactory.h \
-	ImportData.h \
 	ImportNewData.h \
 	CannotOpenFileException.h \
 	IImport.h \
 	PortfolioItemModel.h \
-	PortfolioViewModel.h \
 	PortfolioCalculationException.h \
-    InvalidDefinitionPeriodException.h
+	GetStartEndDates.h \
+	PortfolioViewModel.h \
+    InvalidDefinitionPeriodException.h \
+	ImportException.h
 
 unix:!symbian {
 	maemo5 {

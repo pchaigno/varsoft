@@ -15,26 +15,29 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#pragma once
+#include "TestImportNewData.h"
+#include "TestAsset.h"
+#include "TestPortfolio.h"
+#include "TestVaRHistorical.h"
+#include "TestReport.h"
+#include "TestSQLiteManagers.h"
+#include "TestPortfolioItemModel.h"
 
-#include <QString>
-#include "Asset.h"
-#include "SessionBuilder.h"
-
-class AssetsFactory {
-private:
-	static AssetsFactory* instance;
-	QMap<QString, Asset*> assets;
-
-public:
-	Asset* retrieveAsset(QString name);
-	static AssetsFactory* getInstance() {
-		if(instance == NULL) {
-			instance = new AssetsFactory();
-		}
-		return instance;
-	}
-
-private:
-	AssetsFactory();
-};
+int main() {
+	int result = 0;
+	TestAsset asset;
+	result += QTest::qExec(&asset);
+	TestPortfolio portfolio;
+	result += QTest::qExec(&portfolio);
+	TestReport report;
+	result += QTest::qExec(&report);
+	TestSQLiteManagers sqlite;
+	result += QTest::qExec(&sqlite);
+	TestVaRHistorical testVaRHistorical;
+	result += QTest::qExec(&testVaRHistorical);
+	TestImportNewData newdata;
+	result += QTest::qExec(&newdata);
+	TestPortfolioItemModel portfolioModel;
+	result += QTest::qExec(&portfolioModel);
+	return result;
+}

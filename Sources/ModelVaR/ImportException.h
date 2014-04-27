@@ -16,23 +16,25 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #pragma once
-#include "ImportNewData.h"
-#include <QtTest>
- 
-class TestImportNewData: public QObject {
-	Q_OBJECT
+
+#include <exception>
+#include <QString>
+#include "ModelVaR_global.h"
+
+class MODELVARSHARED_EXPORT ImportException: public std::exception {
+public:
+	ImportException(std::string msg) {
+		this->msg = msg;
+	}
+
+	virtual ~ImportException() throw() {
+
+	}
+
+	virtual const char * what() const throw() {
+		return this->msg.c_str();
+	}
 
 private:
-	QString stockName;
-	QString startDate;
-	QString endDate;
-	QString origin;
-	QString newFile;
-
-public:
-	TestImportNewData();
-
-private Q_SLOTS:
-	void testDates();
-	void testDB();
+	std::string msg;
 };

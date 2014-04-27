@@ -15,26 +15,29 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
 #pragma once
-#include <QDebug>
-#include <QTest>
-#include "Asset.h"
-#include "Portfolio.h"
-#include "Report.h"
-#include "VaRHistorical.h"
 
-class TestVaRHistorical: public QObject {
+#include "AssetsFactory.h"
+#include "SessionBuilder.h"
+#include "SessionSaver.h"
+#include <QtTest>
+ 
+class TestImportNewData: public QObject {
 	Q_OBJECT
 
-public:
-	TestVaRHistorical();
-
 private:
-	Portfolio daxPortfolio;
+	QString stockName;
+	QString startDate;
+	QString endDate;
+	QString origin;
+	QString newFile;
+
+public:
+	TestImportNewData();
 
 private Q_SLOTS:
-	void testVaRHistoricalConstructor();
-	void testExecute();
+	void testDates();
+	void testDB();
+	void testRegexp();
+	void testUnicityName();
 };
-

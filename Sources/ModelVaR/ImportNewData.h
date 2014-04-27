@@ -17,20 +17,12 @@
  */
 #pragma once
 
-#include <QDate>
-#include <QString>
-#include <QFile>
-#include <QStringList>
-#include <QDebug>
-#include <QTableWidgetItem>
-#include "Asset.h"
+#include "IImport.h"
 #include "ModelVaR_global.h"
+#include "ImportException.h"
+#include <QMessageBox>
 
-/**
-* @brief Import Strategy Interface
-*/
-class MODELVARSHARED_EXPORT IImport {
+class MODELVARSHARED_EXPORT ImportNewData : public IImport {
 public:
-	virtual void import(const QString &name, const QString &file, const QString &origin,
-						const QDate &startDate, const QDate &endDate) const =0;
+	virtual void import(const Asset &asset, const QString& file) const;
 };

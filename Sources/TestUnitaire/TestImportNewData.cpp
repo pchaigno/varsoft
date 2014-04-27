@@ -16,8 +16,6 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #include "TestImportNewData.h"
-#include "SessionBuilder.h"
-#include "SessionSaver.h"
 
 /**
 * @brief Initializes an asset for the tests.
@@ -100,8 +98,28 @@ void TestImportNewData::testDB() {
 	QVERIFY(a->getEndDate() >= QDate::fromString(TestImportNewData::endDate, "yyyy-MM-dd"));
 	QVERIFY(a->getName() == TestImportNewData::stockName);
 	QVERIFY(a->getOrigin() == TestImportNewData::origin);
-
+	QVERIFY((AssetsFactory::getInstance()->retrieveAsset("Gogole") != NULL) == true);
 	// Deletes the database file:
 	QFile databaseFile(SessionSaver::getInstance()->getDatabaseFile());
 	databaseFile.remove();
+}
+
+/**
+ *	Test the regexp for dates and values
+ **/
+void TestImportNewData::testRegexp() {
+	QRegExp date_regex("^(20|19)[0-9]{2}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$");
+	QRegExp value_regex("^([0-9]+)([.])([0-9][0-9])$");
+	QVERIFY(date_regex.exactMatch("2014-10-10") == true);
+	QVERIFY(value_regex.exactMatch("24.15") == true);
+	QVERIFY(date_regex.exactMatch("10-10-2014") == false);
+	QVERIFY(value_regex.exactMatch("2z.zd") == false);
+}
+
+/**
+ *	Checks the unicity of names
+ **/
+void TestImportNewData::testUnicityName() {
+   //QVERIFY((AssetsFactory::getInstance()->retrieveAsset("Gogole") != NULL) == true);
+   QVERIFY((AssetsFactory::getInstance()->retrieveAsset("Gogolea") != NULL) == false);
 }

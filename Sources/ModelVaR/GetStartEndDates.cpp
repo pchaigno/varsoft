@@ -15,37 +15,32 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#include "ImportData.h"
+#include "GetStartEndDates.h"
 
-/**
-* @brief Import method for our own CSV files
-* @param name The name of the stock
-* @param file The file where are located the values.
-* @param origin The origin of the file with the values.
-* @param startDate The date of the first value defined.
-* @param endDate The date of the last value defined.
-*/
-void ImportData::import(const QString &name, const QString &file, const QString &origin, const QDate &startDate, const QDate &endDate) const {
-	QString fileName = file;
+void GetStartEndDates::retreiveDates(const QString &file) {
 	QString data;
-	QFile importedCSV(fileName);
+	QFile importedCSV(file);
 	QStringList rowOfData;
 	QStringList rowData;
-
 	data.clear();
 	rowOfData.clear();
 	rowData.clear();
 
 	if (importedCSV.open(QFile::ReadOnly)) {
 		data = importedCSV.readAll();
-		rowOfData = data.split("\n");
+		rowOfData = data.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
 		importedCSV.close();
 	}
-	qDebug() << "Données importées";
+	rowData = rowOfData.at(1).split(",");
+	this->startDate = QDate::fromString(rowData[0], "yyyy-MM-dd");
+	rowData = rowOfData.at(rowOfData.size()-1).split(",");
+	this->endDate = QDate::fromString(rowData[0], "yyyy-MM-dd");
+}
 
-	for (int x =0; x < rowOfData.size(); x++) {
-		rowData = rowOfData.at(x).split(",");
+QDate GetStartEndDates::getStartDate() {
+	return this->endDate;
+}
 
-		qDebug() << rowData[1];
-	}
+QDate GetStartEndDates::getEndDate() {
+	return this->startDate;
 }

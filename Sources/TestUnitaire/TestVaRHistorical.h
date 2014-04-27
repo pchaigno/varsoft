@@ -17,11 +17,23 @@
  */
 #pragma once
 
-#include "IImport.h"
-#include "ModelVaR_global.h"
+#include <QDebug>
+#include <QTest>
+#include "Asset.h"
+#include "Portfolio.h"
+#include "Report.h"
+#include "VaRHistorical.h"
 
-class MODELVARSHARED_EXPORT ImportData : public IImport {
+class TestVaRHistorical: public QObject {
+	Q_OBJECT
+
 public:
-	virtual void import(const QString &name, const QString &file, const QString &origin,
-						const QDate &startDate, const QDate &endDate) const;
+	TestVaRHistorical();
+
+private:
+	Portfolio daxPortfolio;
+
+private Q_SLOTS:
+	void testVaRHistoricalConstructor();
+	void testExecute();
 };
