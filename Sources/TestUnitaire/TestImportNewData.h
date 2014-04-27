@@ -20,24 +20,24 @@
 #include "AssetsFactory.h"
 #include "SessionBuilder.h"
 #include "SessionSaver.h"
+#include "ImportNewData.h"
 #include <QtTest>
- 
+
 class TestImportNewData: public QObject {
-	Q_OBJECT
+    Q_OBJECT
 
 private:
-	QString stockName;
-	QString startDate;
-	QString endDate;
-	QString origin;
-	QString newFile;
+    QString stockName;
+    QString startDate;
+    QString endDate;
+    QString origin;
+    QString newFile;
 
 public:
-	TestImportNewData();
+    TestImportNewData();
 
 private Q_SLOTS:
-	void testDates();
-	void testDB();
-	void testRegexp();
-	void testUnicityName();
+    void testDates();
+    void testRegexp();
+    void testUnicityName();
 };
