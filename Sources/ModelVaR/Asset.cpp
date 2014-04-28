@@ -157,102 +157,7 @@ QVector<double> Asset::retrieveValues() const {
  * @return The values of the asset between the two dates in the chronogical order.
  */
 QVector<double> Asset::retrieveValues(const QDate& startPeriod, const QDate& endPeriod) const {
-	// Throws an exception if the startDate is after the endDate.
-	if(startPeriod > endPeriod) {
-		throw std::invalid_argument("startPeriod: "+ startPeriod.toString().toStdString() + " is after endPeriod: " +
-									endPeriod.toString().toStdString());
-	}
-
-	// Nothing to return if the dates are outside the asset's period of definition.
-	if(startPeriod>this->endDate || endPeriod<this->startDate) {
-		return QVector<double>();
-	}
-
-	// If the user entered dates too large, we must resize:
-	// We make copies of the period's dates to keep them const.
-	QDate realStartPeriod = QDate(startPeriod);
-	QDate realEndPeriod = QDate(endPeriod);
-	if(realStartPeriod < this->startDate) {
-		realStartPeriod = this->startDate;
-	}
-	if(realEndPeriod > this->endDate) {
-		realEndPeriod = this->endDate;
-	}
-
-	// Opens the file stream:
-	QFile inputFile(this->getFile());
-	if(!inputFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
-		throw CannotOpenFileException("Could not open file: " + this->getFile().toStdString());
-	}
-	QTextStream in(&inputFile);
-
-	// Skips the first line as it's only a header.
-	in.readLine();
-
-	// Loops over each line:
-	QVector<double> values;
-	QDate lastDate, date = QDate();
-	bool endDetected = false;
-	while(!in.atEnd()) {
-		QString line = in.readLine();
-		QRegExp rx("\\s*,\\s*");
-		QStringList row = line.split(rx);
-		lastDate = date;
-		date = QDate::fromString(row.value(0), "yyyy-MM-dd");
-		QString value = row.value(1);
-
-		// Searches for the end of the period:
-		if(date > realEndPeriod) {
-			continue;
-		}
-
-		// If we've reached the start of the period, we stop:
-		if(date < realStartPeriod) {
-			// Fills the days missing if there are any:
-			while(lastDate.addDays(-1)!=date && lastDate!=realStartPeriod) {
-				if(lastDate.addDays(-1).dayOfWeek() < 6) {
-				// It's a weekday.
-					values.push_front(value.toDouble());
-				}
-				lastDate = lastDate.addDays(-1);
-			}
-			break;
-		}
-
-		if(!endDetected) {
-		// The end of the searched period as just been detected.
-			endDetected = true;
-			// Fills the days missing at the end of the period if there are any:
-			QDate lastMissingDay = QDate(realEndPeriod);
-			while(lastMissingDay != date) {
-				if(lastMissingDay.dayOfWeek() < 6) {
-				// It's a weekday.
-					values.push_front(value.toDouble());
-					lastDate = QDate(lastMissingDay);
-				}
-				lastMissingDay = lastMissingDay.addDays(-1);
-			}
-		}
-
-		// Fills the days missing if there are any:
-		// If lastDate is null it means that we still are on the first date.
-		// Therefore there aren't any missing days...
-		while(!lastDate.isNull() && lastDate.addDays(-1)!=date) {
-			if(lastDate.addDays(-1).dayOfWeek() < 6) {
-			// It's a weekday.
-				values.push_front(value.toDouble());
-			}
-			lastDate = lastDate.addDays(-1);
-		}
-
-		if(date.dayOfWeek() < 6) {
-		// It's a weekday.
-			values.push_front(value.toDouble());
-		}
-	}
-
-	inputFile.close();
-	return values;
+	return this->retrieveValuesByDate(startPeriod, endPeriod).values().toVector();
 }
 
 /**
@@ -344,7 +249,7 @@ QMap<QDate, double> Asset::retrieveValuesByDate(const QDate& startPeriod, const 
 		// Fills the days missing if there are any:
 		// If lastDate is null it means that we still are on the first date.
 		// Therefore there aren't any missing days...
-		while(!lastDate.isNull() && lastDate.addDays(-1) != date) {
+		while(!lastDate.isNull() && lastDate.addDays(-1)!=date) {
 			if(lastDate.addDays(-1).dayOfWeek() < 6) {
 			// It's a weekday.
 				values.insert(lastDate.addDays(-1), value.toDouble());

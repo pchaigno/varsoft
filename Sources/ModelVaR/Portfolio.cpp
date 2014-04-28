@@ -213,48 +213,7 @@ QVector<double> Portfolio::retrieveValues() const {
  * @return The values of the portfolio in the chronological order.
  */
 QVector<double> Portfolio::retrieveValues(const QDate& startPeriod, const QDate& endPeriod) const {
-	// If the user entered dates too large, we must resize:
-	// We make copies of the period's dates to keep them const.
-	QDate realStartPeriod = QDate(startPeriod);
-	QDate realEndPeriod = QDate(endPeriod);
-	QDate startDate = this->retrieveStartDate();
-	QDate endDate = this->retrieveEndDate();
-	if(realStartPeriod < startDate) {
-		realStartPeriod = startDate;
-	}
-	if(realEndPeriod > endDate) {
-		realEndPeriod = endDate;
-	}
-
-	QVector<double> values;
-	for(QMap<Asset*, int>::const_iterator assetIt=this->composition.begin(); assetIt!=this->composition.end(); ++assetIt) {
-		QVector<double> assetValues = assetIt.key()->retrieveValues(realStartPeriod, realEndPeriod);
-		int weight = assetIt.value();
-
-		if(values.size() == 0) {
-		// First asset retrieved.
-			for(int i=0; i<assetValues.size(); i++) {
-				values.append(assetValues[i] * weight);
-			}
-
-		} else {
-		// Not the first asset retrieved.
-
-			// All retrieveValues on assets should return the same number of values:
-			if(values.size() != assetValues.size()) {
-				std::ostringstream oss;
-				oss << "All assets don't return the same number of values (" << values.size() << " != " << assetValues.size() << ")";
-				throw InvalidDefinitionPeriodException(oss.str());
-			}
-
-			// Sums:
-			for(int i=0; i<values.size(); i++) {
-				values[i] += assetValues[i] * weight;
-			}
-		}
-	}
-
-	return values;
+	return this->retrieveValuesByDate(startPeriod, endPeriod).values().toVector();
 }
 
 /**
