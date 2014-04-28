@@ -186,6 +186,9 @@ QVector<double> Asset::retrieveValues(const QDate& startPeriod, const QDate& end
 	}
 	QTextStream in(&inputFile);
 
+	// Skips the first line as it's only a header.
+	in.readLine();
+
 	// Loops over each line:
 	QVector<double> values;
 	QDate lastDate, date = QDate();
@@ -289,6 +292,9 @@ QMap<QDate, double> Asset::retrieveValuesByDate(const QDate& startPeriod, const 
 		throw CannotOpenFileException("Could not open file: " + this->getFile().toStdString());
 	}
 	QTextStream in(&inputFile);
+
+	// Skips the first line as it's only a header.
+	in.readLine();
 
 	// Loops over each line:
 	QMap<QDate, double> values;
