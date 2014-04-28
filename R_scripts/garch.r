@@ -1,7 +1,7 @@
 f <- file("stdin")
 open(f)
 
-# Parse the line
+# Parse the input line
 firstline <- readLines(f,n=1)
 tmp <- strsplit(firstline, " ")
 logreturns <- as.numeric(unlist(tmp))
@@ -18,7 +18,10 @@ capture.output(res <- garch(logreturns), file='NUL')
 
 # Outputs the coefficients
 res$coef
-# Outputs the residuals (eta)
-res$residuals
-# Outputs the standard deviation (sigma)
-res$fitted.values[,1]
+# Outputs the residuals  without the first uninitialized value (eta)
+print("residuals")
+res$residuals[2:length(res$residuals)]
+
+# Outputs the standard deviation without the first uninitialized value (sigma)
+print("stddev")
+res$fitted.values[,1][2:length(res$fitted.values[,1])]

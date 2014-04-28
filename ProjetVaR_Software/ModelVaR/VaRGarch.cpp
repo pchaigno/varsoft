@@ -35,48 +35,69 @@ VaRGarch::VaRGarch(const Portfolio& portfolio, double risk, int timeHorizon, con
  */
 double VaRGarch::execute(QDateTime date) const {
 	double var;
-	QVector<double> residuals, stddev, logReturns;
+	QVector<double> residuals, stddev;
 
-	// It only needs the latest return
-	logReturns = portfolio.retrieveLogReturns(date, 1);
-	qDebug() << logReturns;
+	bool debug = true;
 
 	// Retrieves model coefficients for following computation
 	double omega = garchModel.getOmega();
 	double alpha = garchModel.getAlpha();
 	double beta = garchModel.getBeta();
 
-	//	residuals = garchModel.getResiduals();
-	//	stddev = garchModel.getStddev();
+	residuals = garchModel.getResiduals();
+	stddev = garchModel.getStddev();
+
+	qDebug() << "In VaR Garch";
+	qDebug() << "residuals";
+	qDebug() << residuals;
+	qDebug() << "stddev";
+	qDebug() << stddev;
 
 	// Create seed for the random
 	// That is needed only once on application startup
+	// Should be moved then
 	QTime time = QTime::currentTime();
 	qsrand((uint)time.msec());
 
-	QVector<double> futurReturns;
-	// Deboostrap process
-
-	for(int i = 0; i < nbScenarios; i++) {
-		double sigmaSquareFutur = omega + alpha*qPow(logReturns.last(), 2) + beta*qPow(stddev.last(), 2);
-		double futurReturnSum = 0;
+	QVector<double> generatedReturns;
+	// Boostrap process
+	for(int i=0; i < nbScenarios; i++) {
+		// Initialization with the latest real values
+		double previousReturn = portfolio.retrieveLogReturns(date, 1).at(0);
+		double previousStddev = stddev.last();
+		double horizonReturn = 0;
 		for(int h=0; h < timeHorizon; h++) {
 			// Draw with replacement of a residual
 			int randomIndex = qrand() % residuals.size();
-			double futurReturn = (qSqrt(sigmaSquareFutur)*residuals.at(randomIndex));
-			futurReturnSum += futurReturn;
-			sigmaSquareFutur = omega + alpha*qPow(futurReturn, 2) + beta*qPow(sigmaSquareFutur, 2);
+			double sigmaSquared = omega + alpha*qPow(previousReturn, 2) + beta*qPow(previousStddev, 2);
+			double partialReturn = qSqrt(sigmaSquared)*residuals.at(randomIndex);
+			horizonReturn += partialReturn;
+			// Initialization for the next iteration
+			previousReturn = partialReturn;
+			previousStddev = qSqrt(sigmaSquared);
 		}
-		futurReturns.push_back(futurReturnSum);
+		generatedReturns.push_back(horizonReturn);
 	}
 
 	// Return values are sorted
-	qSort(futurReturns.begin(), futurReturns.end());
+	qSort(generatedReturns.begin(), generatedReturns.end());
+
+	if(debug) {
+		qDebug() << "Sorted generatedReturns";
+		qDebug() << generatedReturns;
+	}
 
 	// Determine the best return of the risk*100 % worst returns
 	// Using floor(), we expect the worst case
-	int quantile = floor(getRisk()*futurReturns.size()-1);
-	var = (1 - qExp(futurReturns.at(quantile)))*getPortfolio().retrieveValues(date, date).at(0);
+	int quantile = floor(getRisk()*generatedReturns.size()-1);
+	if(debug) {
+		qDebug() << "quantile";
+		qDebug() << quantile;
+		qDebug() << generatedReturns.at(quantile);
+		qDebug() << "Latest value:";
+		qDebug() << getPortfolio().retrieveValues(date, date).at(0);
+	}
+	var = (1 - qExp(generatedReturns.at(quantile)))*getPortfolio().retrieveValues(date, date).at(0);
 
 	return var;
 }

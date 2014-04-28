@@ -21,6 +21,10 @@
 #include "Portfolio.h"
 #include "GarchModel.h"
 
+// Pour les tests
+#include <iostream>
+#include <random>
+
 class MODELVARSHARED_EXPORT RInterface {
 public:
 	static bool checkCorrelation(const Portfolio& portfolio);

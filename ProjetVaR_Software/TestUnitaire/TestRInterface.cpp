@@ -46,9 +46,11 @@ void TestRInterface::testComputeGarchModel() {
 //	QCOMPARE(testModel.getAlpha(), );
 //	QCOMPARE(testModel.getBeta(), );
 
-//	qDebug() << testModel.getOmega();
-//	qDebug() << testModel.getAlpha();
-//	qDebug() << testModel.getBeta();
+	qDebug() << "omega=" << testModel.getOmega();
+	qDebug() << "alpha=" << testModel.getAlpha();
+	qDebug() << "beta=" << testModel.getBeta();
+	qDebug() << "residuals=" << testModel.getResiduals();
+	qDebug() << "stddev=" << testModel.getStddev();
 
 //	qDebug() << QString::number(testModel.getOmega(), 'g', 1000);
 //	qDebug() << QString::number(testModel.getAlpha(), 'g', 1000);

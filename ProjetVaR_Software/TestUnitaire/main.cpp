@@ -46,7 +46,7 @@ int main() {
 	result += QTest::qExec(&portfolioModel);
 	TestRInterface rInterface;
 	result += QTest::qExec(&rInterface);
-//	TestVaRGarch varGarch;
-//	result += QTest::qExec(&varGarch);
+	TestVaRGarch varGarch;
+	result += QTest::qExec(&varGarch);
 	return result;
 }

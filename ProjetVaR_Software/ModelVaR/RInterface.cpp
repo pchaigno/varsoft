@@ -44,13 +44,19 @@ bool RInterface::checkSquareCorrelation(const Portfolio& portfolio) {
  */
 GarchModel RInterface::computeGarchModel(const Portfolio& portfolio, QDateTime date, int period) {
 
-	QVector<double> logReturns;
 	QProcess process;
 	QStringList arguments;
 	QVector<double> residuals;
 	QVector<double> stddev;
 
-	logReturns = portfolio.retrieveLogReturns(date, period);
+	bool debug = true;
+
+//	QVector<double> logReturns = portfolio.retrieveLogReturns(date, period);
+
+	if(debug) {
+		qDebug() << "logReturns";
+		qDebug() << logReturns;
+	}
 
 	QString rScriptFilePath = "../../R_scripts/garch.r";
 
@@ -75,17 +81,19 @@ GarchModel RInterface::computeGarchModel(const Portfolio& portfolio, QDateTime d
 	// Reads R output
 	QByteArray rawOutput = process.readAllStandardOutput();
 
+	if(debug) {
+		qDebug() << rawOutput;
+	}
+
 	// Convert it to QString
 	QString output = QString::fromUtf8(rawOutput);
 
 	// Splits the output by newline
 	// Removes empty lines as well
-	QStringList tokens;
-	tokens = output.split(QRegExp("[\r\n]"),QString::SkipEmptyParts);
+	QStringList lines = output.split(QRegExp("[\r\n]"),QString::SkipEmptyParts);
 
 	// Retrieves the coefficient from the right line
-	QStringList coefficients;
-	coefficients = tokens.value(1).split(QRegExp("\\s"), QString::SkipEmptyParts);
+	QStringList coefficients = lines.value(1).split(QRegExp("\\s"), QString::SkipEmptyParts);
 
 	// Gets the coefficient values
 	double omega = coefficients.value(0).toDouble();
@@ -93,20 +101,42 @@ GarchModel RInterface::computeGarchModel(const Portfolio& portfolio, QDateTime d
 	double beta = coefficients.value(2).toDouble();
 
 	// Residuals (eta)
+	// Retrieves the residuals from rscript output
 	QStringList residualsList;
-	residualsList = tokens.value(2).split(QRegExp("\\s"), QString::SkipEmptyParts);
+	int line;
+	bool residual = true;
+	for(line=3; residual; line++) {
+		residualsList = lines.value(line).split(QRegExp("\\s"), QString::SkipEmptyParts);
+		if(residualsList.value(1) == "\"stddev\"") {
+			residual = false;
+		}
+		if(residual) {
+			// Process the line itself
+			for(int i=1; i < residualsList.size(); i++) {
+				residuals.push_back(residualsList.value(i).toDouble());
+			}
+		}
+	}
 
-	for(int i=2; i < residualsList.size(); i++) {
-		residuals.push_back(residualsList.value(i).toDouble());
+	if(debug) {
+		qDebug() << "residuals";
+		qDebug() << residuals;
 	}
 
 	// Standard deviation
+	// Retrieves the standard deviation values from rscript output
 	QStringList stddevList;
-	stddevList = tokens.value(3).split(QRegExp("\\s"), QString::SkipEmptyParts);
-
-	for(int i=2; i < stddevList.size(); i++) {
-		stddev.push_back(stddevList.value(i).toDouble());
+	for(; line < lines.size(); line++) {
+		stddevList = lines.value(line).split(QRegExp("\\s"), QString::SkipEmptyParts);
+		for(int i=1; i < stddevList.size(); i++) {
+			stddev.push_back(stddevList.value(i).toDouble());
+		}
 	}
 
-	return GarchModel(omega, alpha, beta);
+	if(debug) {
+		qDebug() << "stddev";
+		qDebug() << stddev;
+	}
+
+	return GarchModel(omega, alpha, beta, residuals, stddev);
 }

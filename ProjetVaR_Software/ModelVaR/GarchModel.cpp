@@ -23,8 +23,7 @@
  * @param _alpha The alpha coefficient
  * @param _beta The beta coefficient
  */
-GarchModel::GarchModel(double _omega, double _alpha, double _beta): omega(_omega), alpha(_alpha), beta(_beta) {}
-
+GarchModel::GarchModel(double _omega, double _alpha, double _beta, QVector<double> _residuals, QVector<double> _stddev): omega(_omega), alpha(_alpha), beta(_beta), residuals(_residuals), stddev(_stddev) {}
 
 /**
  * @brief Accessor to the omega coefficient
@@ -42,4 +41,13 @@ double GarchModel::getAlpha() const {return this->alpha;}
  * @brief Accessor to the beta coefficient
  * @return The beta coeffcient of the garch model
  */
-double GarchModel::getBeta() const {return this->getBeta();}
+double GarchModel::getBeta() const {return this->beta;}
+
+QVector<double> GarchModel::getResiduals() const {
+	return residuals;
+}
+
+QVector<double> GarchModel::getStddev() const {
+	return stddev;
+
+}

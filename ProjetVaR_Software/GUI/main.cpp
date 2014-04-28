@@ -20,8 +20,32 @@
 #include <QDebug>
 #include "import.h"
 
+#include "RInterface.h"
+
 int main(int argc, char *argv[]) {
 	QApplication a(argc, argv);
+
+	QString assetFolder = "../../CSV_examples/";
+
+	// FIRST ASSET DEFINITION
+	QDateTime startDate1(QDate(2014, 1, 2), QTime(0, 0, 0));
+	QDateTime endDate1(QDate(2014, 3, 11), QTime(0, 0, 0));
+	Asset* asset1 = new Asset("asset1", assetFolder+"dax.csv", "YAHOO", startDate1, endDate1);
+
+	// TEST PORTFOLIO DEFINITION
+	QMap<Asset*, int> assets;
+	assets.insert(asset1, 1);
+	QVector<Report*> reports;
+	Portfolio father("Father", assets, reports);
+
+	int period = 5;
+
+	GarchModel testModel = RInterface::computeGarchModel(father, father.retrieveEndDate(), period);
+
+	qDebug() << testModel.getOmega();
+	qDebug() << testModel.getAlpha();
+	qDebug() << testModel.getBeta();
+
 	MainWindow w;
 	w.showMaximized();
 	return a.exec();
