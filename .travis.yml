@@ -20,6 +20,8 @@ script:
   - make
   - export LD_LIBRARY_PATH=ModelVaR
   - TestUnitaire/main
+  - cd ../..
+  - perl Travis/indentations.pl Sources/ModelVaR/ Sources/TestUnitaire/ Sources/GUI/
 
 notifications:
   email:
