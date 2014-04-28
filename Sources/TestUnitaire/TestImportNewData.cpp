@@ -20,106 +20,41 @@
 /**
 * @brief Initializes an asset for the tests.
 */
-TestImportNewData::TestImportNewData() {
-	TestImportNewData::stockName = "Gogole";
-	TestImportNewData::startDate = "2014-02-07";
-	TestImportNewData::endDate = "2014-01-01";
-	TestImportNewData::origin = "Yahoo";
+void TestImportNewData::testImport() {
+	QDateTime startDate = QDateTime::fromString("2014-01-01", "yyyy-MM-dd");
+	QDateTime endDate = QDateTime::fromString("2014-02-01", "yyyy-MM-dd");
+	Asset b = Asset("Gogolea", "../../CSV_examples/Gogolea_test.csv", "Yahoo", startDate, endDate);
+	ImportNewData algo = ImportNewData();
+	algo.import(b, "../../CSV_examples/table.csv");
+	SessionSaver::getInstance()->saveAsset(b);
+
 	QString data;
-	QFile importedCSV("../../CSV_examples/table.csv");
-	QStringList rowOfData;
-	QStringList rowData;
-	data.clear();
-	rowOfData.clear();
-	rowData.clear();
+	QFile importedCSV("../../CSV_examples/Gogolea_test.csv");
+	QStringList dataRows;
+	QStringList dataRow;
 
 	if (importedCSV.open(QFile::ReadOnly)) {
 		data = importedCSV.readAll();
-		rowOfData = data.split("\n");
+		dataRows = data.split("\n");
 		importedCSV.close();
 	}
+	QCOMPARE(dataRows.size(), 23);
+	// Checks first date:
+	dataRow = dataRows.at(0).split(",");
+	QVERIFY(endDate >= QDateTime::fromString(dataRow[0], "yyyy-MM-dd"));
+	// Checks last date:
+	dataRow = dataRows.at(dataRows.size()-2).split(",");
+	QVERIFY(startDate <= QDateTime::fromString(dataRow[0], "yyyy-MM-dd"));
 
-	TestImportNewData::newFile = "../../CSV_examples/"+TestImportNewData::stockName+"_test.csv";
-	QFile fileCreated(TestImportNewData::newFile);
-	if (!fileCreated.open(QIODevice::WriteOnly | QIODevice::Text)) {
-	   return;
-	}
-	QTextStream flux(&fileCreated);
-	flux.setCodec("UTF-8");
-	const QDateTime &fiDate = QDateTime::fromString(TestImportNewData::startDate,"yyyy-MM-dd");
-	const QDateTime &laDate = QDateTime::fromString(TestImportNewData::endDate,"yyyy-MM-dd");
-	for (int x =1; x < rowOfData.size()-1; x++)	{
-		rowData = rowOfData.at(x).split(",");
-		QDateTime currentDate = QDateTime::fromString(rowData[0],"yyyy-MM-dd");
-		if ((fiDate >= currentDate)) {
-			if(laDate >= currentDate) {
-				break;
-			}
-			flux << rowData[0] << "," << rowData[6] << "\n";
-		}
-	}
-	fileCreated.close();
-	Asset a = Asset("Gogole",TestImportNewData::newFile,TestImportNewData::origin,fiDate,laDate);
-	SessionSaver::getInstance()->saveAsset(a);
-}
+	Asset *a = SessionBuilder::getInstance()->buildAsset("Gogolea");
 
-/**
- * @brief Checks that the startDate and the endDate of the generated file correspond to the params
- */
-void TestImportNewData::testDates() {
-	QString data;
-	QFile importedCSV(TestImportNewData::newFile);
-	QStringList rowOfData;
-	QStringList rowData;
-	data.clear();
-	rowOfData.clear();
-	rowData.clear();
-	if (importedCSV.open(QFile::ReadOnly)) {
-		data = importedCSV.readAll();
-		rowOfData = data.split("\n");
-		importedCSV.close();
-	}
-	//first date
-	rowData = rowOfData.at(0).split(",");
-	QVERIFY((QDateTime::fromString(TestImportNewData::startDate,"yyyy-MM-dd")) >= (QDateTime::fromString(rowData[0],"yyyy-MM-dd")));
-
-	//last date
-	rowData = rowOfData.at(rowOfData.size()-2).split(",");
-	QVERIFY((QDateTime::fromString(TestImportNewData::endDate,"yyyy-MM-dd")) <= (QDateTime::fromString(rowData[0],"yyyy-MM-dd")));
-}
-
-/**
- * @brief Test the recording in the database at the importation.
- */
-void TestImportNewData::testDB() {
-	Asset *a = SessionBuilder::getInstance()->buildAsset("Gogole");
-	QVERIFY(a->getFile() == TestImportNewData::newFile);
-	QVERIFY(a->getStartDate() <= QDateTime::fromString(TestImportNewData::startDate,"yyyy-MM-dd"));
-	QVERIFY(a->getEndDate() >= QDateTime::fromString(TestImportNewData::endDate,"yyyy-MM-dd"));
-	QVERIFY(a->getName() == TestImportNewData::stockName);
-	QVERIFY(a->getOrigin() == TestImportNewData::origin);
-	QVERIFY((AssetsFactory::getInstance()->retrieveAsset("Gogole") != NULL) == true);
+	QVERIFY(a->getFile() == "../../CSV_examples/Gogolea_test.csv");
+	QVERIFY(a->getStartDate() == startDate);
+	QVERIFY(a->getEndDate() == endDate);
+	QVERIFY(a->getName() == "Gogolea");
+	QVERIFY(a->getOrigin() == "Yahoo");
+	QVERIFY(AssetsFactory::getInstance()->retrieveAsset("Gogolea") != NULL);
 	// Deletes the database file:
 	QFile databaseFile(SessionSaver::getInstance()->getDatabaseFile());
 	databaseFile.remove();
-}
-
-/**
- *	Test the regexp for dates and values
- **/
-void TestImportNewData::testRegexp() {
-	QRegExp date_regex("^(20|19)[0-9]{2}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$");
-	QRegExp value_regex("^([0-9]+)([.])([0-9][0-9])$");
-	QVERIFY(date_regex.exactMatch("2014-10-10") == true);
-	QVERIFY(value_regex.exactMatch("24.15") == true);
-	QVERIFY(date_regex.exactMatch("10-10-2014") == false);
-	QVERIFY(value_regex.exactMatch("2z.zd") == false);
-}
-
-/**
- *	Checks the unicity of names
- **/
-void TestImportNewData::testUnicityName() {
-   //QVERIFY((AssetsFactory::getInstance()->retrieveAsset("Gogole") != NULL) == true);
-   QVERIFY((AssetsFactory::getInstance()->retrieveAsset("Gogolea") != NULL) == false);
 }
