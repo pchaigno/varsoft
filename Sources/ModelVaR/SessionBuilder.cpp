@@ -172,31 +172,31 @@ QList<Report *> SessionBuilder::buildReports(int idPortfolio) {
 
 	int id;
 	ReportType type;
-    QString file;
+	QString file;
 	QList<Report*> reports;
 	while(query.next()) {
 		id = query.value(0).toInt();
-        file = query.value(1).toString();
+		file = query.value(1).toString();
 		type = (ReportType)query.value(2).toInt();
 		Report* report;
 		switch(type) {
 			case GARCH:
-                report = new GarchReport(id, file);
+				report = new GarchReport(id, file);
 				break;
 			case VAR:
-                report = new VaRReport(id, file);
+				report = new VaRReport(id, file);
 				break;
 			case STATISTICS:
-                report = new StatisticsReport(id, file);
+				report = new StatisticsReport(id, file);
 				break;
 			case CORRELATION:
-                report = new CorrelationReport(id, file);
+				report = new CorrelationReport(id, file);
 				break;
 			case BACKTESTING:
-                report = new BacktestingReport(id, file);
+				report = new BacktestingReport(id, file);
 				break;
 			default:
-                // TODO Throw exception? - oui
+				// TODO Throw exception? - oui
 				break;
 		}
 		reports.append(report);

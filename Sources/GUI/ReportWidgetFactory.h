@@ -20,8 +20,7 @@
 #include "Constantes.h"
 #include "ReportWidget.h"
 
-class ReportWidgetFactory
-{
+class ReportWidgetFactory {
 public:
 	static ReportWidget *buildReportWidget(Report * report);
 private:

@@ -61,7 +61,7 @@ TestPortfolio::TestPortfolio() {
 
 	QList<Report*> reports;
 	this->father = Portfolio("Father", assets, reports);
-    this->son = Portfolio(&father, "Son", assets, reports);
+	this->son = Portfolio(&father, "Son", assets, reports);
 
 	// SECOND PORTFOLIO DEFINITION
 	QMap<Asset*, int> assets2;

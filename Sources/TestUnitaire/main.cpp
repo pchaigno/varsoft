@@ -24,16 +24,16 @@
 #include "TestPortfolioItemModel.h"
 
 int main() {
-    int result = 0;
-    TestAsset asset;
-    result += QTest::qExec(&asset);
-    TestPortfolio portfolio;
-    result += QTest::qExec(&portfolio);
-    TestReport report;
-    result += QTest::qExec(&report);
-    TestSQLiteManagers sqlite;
-    result += QTest::qExec(&sqlite);
-    TestImportNewData newdata;
+	int result = 0;
+	TestAsset asset;
+	result += QTest::qExec(&asset);
+	TestPortfolio portfolio;
+	result += QTest::qExec(&portfolio);
+	TestReport report;
+	result += QTest::qExec(&report);
+	TestSQLiteManagers sqlite;
+	result += QTest::qExec(&sqlite);
+	TestImportNewData newdata;
 	result += QTest::qExec(&newdata);
 	TestVaRHistorical testVaRHistorical;
 	result += QTest::qExec(&testVaRHistorical);

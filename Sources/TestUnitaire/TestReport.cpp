@@ -21,20 +21,19 @@
  * @brief Initializes a few reports for the tests.
  */
 TestReport::TestReport() {
-    this->var = new VaRReport("C:\\somefolder\\var");
-    this->garch = new GarchReport("C:\\somefolder\\garch");
-    this->correlation = new CorrelationReport("C:\\somefolder\\correlation");
-    this->backtesting = new BacktestingReport("C:\\somefolder\\backtesting");
-    this->statistics = new StatisticsReport("C:\\somefolder\\statistics");
+	this->var = new VaRReport("C:\\somefolder\\var");
+	this->garch = new GarchReport("C:\\somefolder\\garch");
+	this->correlation = new CorrelationReport("C:\\somefolder\\correlation");
+	this->backtesting = new BacktestingReport("C:\\somefolder\\backtesting");
+	this->statistics = new StatisticsReport("C:\\somefolder\\statistics");
 }
 
-TestReport::~TestReport()
-{
-    delete var;
-    delete garch;
-    delete correlation;
-    delete backtesting;
-    delete statistics;
+TestReport::~TestReport() {
+	delete var;
+	delete garch;
+	delete correlation;
+	delete backtesting;
+	delete statistics;
 }
 
 /**
@@ -52,14 +51,13 @@ void TestReport::testId() {
  * @brief Checks that the id can only be set once.
  */
 void TestReport::testId(Report *report) {
-    QCOMPARE(report->getId(), -1);
-    report->setId(42);
-    QCOMPARE(report->getId(), 42);
+	QCOMPARE(report->getId(), -1);
+	report->setId(42);
+	QCOMPARE(report->getId(), 42);
 	try {
-        report->setId(43);
+		report->setId(43);
 	} catch(const IdAlreadyAttributedException e) {
 		return;
 	}
 	QFAIL("No exception thrown when attributed an id to a report twice.");
 }
-

@@ -25,8 +25,7 @@ StatisticsReport::StatisticsReport() {
 
 }
 
-StatisticsReport::StatisticsReport(QString file) : Report(file)
-{
+StatisticsReport::StatisticsReport(QString file) : Report(file) {
 
 }
 
@@ -43,14 +42,14 @@ StatisticsReport::StatisticsReport(int id,  QString file): Report(id,file) {
  * @return The type of the report.
  */
 ReportType StatisticsReport::getType() const {
-    return STATISTICS;
+	return STATISTICS;
 }
+
 /**
  * @brief StatisticsReport::getTemplateFile
  * Getter of the templateFile path
  * @return a QString of the template path
  */
-QString StatisticsReport::getTemplateFile() const
-{
+QString StatisticsReport::getTemplateFile() const {
 	return QString("../Resources/ReportTemplate/statisticTemplate.docx");
 }

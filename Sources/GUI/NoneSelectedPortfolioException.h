@@ -23,18 +23,18 @@
 
 class NoneSelectedPortfolioException: public std::exception {
 public:
-    NoneSelectedPortfolioException(std::string msg) {
-        this->msg = msg;
-    }
+	NoneSelectedPortfolioException(std::string msg) {
+		this->msg = msg;
+	}
 
-    virtual ~NoneSelectedPortfolioException() throw() {
+	virtual ~NoneSelectedPortfolioException() throw() {
 
-    }
+	}
 
-    virtual const char * what() const throw() {
-        return this->msg.c_str();
-    }
+	virtual const char * what() const throw() {
+		return this->msg.c_str();
+	}
 
 private:
-    std::string msg;
+	std::string msg;
 };

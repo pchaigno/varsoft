@@ -23,9 +23,9 @@
 
 class MODELVARSHARED_EXPORT CorrelationReportFactory: public ReportFactory {
 public:
-    CorrelationReportFactory();
+	CorrelationReportFactory();
 
 protected:
-    virtual Report *createReport();
-    virtual ReportDataJson* createJson();
+	virtual Report *createReport();
+	virtual ReportDataJson* createJson();
 };

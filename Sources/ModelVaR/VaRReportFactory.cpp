@@ -20,17 +20,14 @@
 /**
  * @brief Constructor
  */
-VaRReportFactory::VaRReportFactory():
-    ReportFactory() {
+VaRReportFactory::VaRReportFactory(): ReportFactory() {
 
 }
 
-Report *VaRReportFactory::createReport()
-{
-    return new VaRReport();
+Report *VaRReportFactory::createReport() {
+	return new VaRReport();
 }
 
-ReportDataJson *VaRReportFactory::createJson()
-{
+ReportDataJson *VaRReportFactory::createJson() {
 
 }

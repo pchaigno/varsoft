@@ -23,9 +23,9 @@
 
 class MODELVARSHARED_EXPORT VaRReportFactory: public ReportFactory {
 public:
-    VaRReportFactory();
+	VaRReportFactory();
 
 protected:
-    virtual Report *createReport();
-    virtual ReportDataJson* createJson();
+	virtual Report *createReport();
+	virtual ReportDataJson* createJson();
 };

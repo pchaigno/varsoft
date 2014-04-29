@@ -22,9 +22,9 @@
 
 class MODELVARSHARED_EXPORT GarchReportFactory: public ReportFactory {
 public:
-    GarchReportFactory();
+	GarchReportFactory();
 
 protected:
-    virtual Report *getReport();
-    virtual ReportDataJson* createJson();
+	virtual Report *getReport();
+	virtual ReportDataJson* createJson();
 };

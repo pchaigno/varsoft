@@ -49,10 +49,9 @@ CorrelationReport::CorrelationReport(int id, QString file): Report(id, file) {
  * @return The type of the report.
  */
 ReportType CorrelationReport::getType() const {
-    return CORRELATION;
+	return CORRELATION;
 }
 
-QString CorrelationReport::getTemplateFile() const
-{
-    return "";
+QString CorrelationReport::getTemplateFile() const {
+	return "";
 }

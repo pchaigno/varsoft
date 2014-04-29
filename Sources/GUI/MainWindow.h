@@ -66,10 +66,10 @@ private slots:
 	void newPortfolio();
 	void showPortfolio(Portfolio* portfolio);
 	void setImportCSV();
-    void generateStatsReport();
+	void generateStatsReport();
 
 	void addPortfolio(Portfolio *);
-    void removeSelectedPortfolio();
+	void removeSelectedPortfolio();
 	void reportGenerationDone();
 	void updateReportWidgets();
 	void updateReportWidgets(Portfolio * portfolio);
@@ -86,9 +86,9 @@ private slots:
 	void deleteReportGenerator();
 
 private:
-    Portfolio *getCurrentPortfolio();
+	Portfolio *getCurrentPortfolio();
 	Report* buildReport(Portfolio * portfolio, ReportFactory * factory, bool deleteAfter=false);
-    void generateReport(ReportGenerator * gen);
+	void generateReport(ReportGenerator * gen);
 	void clearLayout(QLayout* layout, bool deleteWidgets = true);
 
 	Ui::MainWindow *ui;

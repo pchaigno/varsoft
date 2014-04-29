@@ -20,24 +20,22 @@
 /**
  * @brief Constructor
  */
-BacktestingReportFactory::BacktestingReportFactory():
-    ReportFactory() {
+BacktestingReportFactory::BacktestingReportFactory(): ReportFactory() {
 
 }
+
 /**
  * @brief Getter of the backtesting report objet
  * @return a pointer to the backtesting report juste created
  */
-Report *BacktestingReportFactory::createReport()
-{
-    return new BacktestingReport();
+Report *BacktestingReportFactory::createReport() {
+	return new BacktestingReport();
 }
 
 /**
  * @brief Create the Json of the backtesting report
  * @return
  */
-ReportDataJson *BacktestingReportFactory::createJson()
-{
+ReportDataJson *BacktestingReportFactory::createJson() {
 
 }

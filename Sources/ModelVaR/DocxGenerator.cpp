@@ -38,8 +38,7 @@ DocxGenerator::DocxGenerator(Report *report, QString progPath) : ReportGenerator
  * @brief Generates the DOCX file
  */
 void DocxGenerator::generate() {
-	if (QFile::exists(prog) && QFile::exists(report->getTemplateFile()))
-	{
+	if (QFile::exists(prog) && QFile::exists(report->getTemplateFile())) {
 		QProcess docx;
 		docx.start("java", QStringList() << "-jar" << prog << report->getTemplateFile() << report->getFile());
 		docx.waitForStarted();
@@ -51,13 +50,10 @@ void DocxGenerator::generate() {
 		docx.waitForFinished();
 		int exitCode=docx.exitCode();
 		bool hasCrashed = docx.exitStatus()==QProcess::CrashExit;
-		if (exitCode != 0 || hasCrashed)
-		{
+		if (exitCode != 0 || hasCrashed) {
 			throw std::runtime_error("DocxGenerator error ("+QString::number(exitCode).toStdString()+") : "+errorTable[exitCode].toStdString());
 		}
-	}
-	else
-	{
+	} else {
 		if (!QFile::exists(prog))
 			throw std::invalid_argument("DocXGenerator does not exists on the disk.");
 		else if (!QFile::exists(report->getTemplateFile()))

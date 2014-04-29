@@ -49,10 +49,9 @@ VaRReport::VaRReport(int id, QString file): Report(id, file) {
  * @return The type of the report.
  */
 ReportType VaRReport::getType() const {
-    return VAR;
+	return VAR;
 }
 
-QString VaRReport::getTemplateFile() const
-{
-    return "";
+QString VaRReport::getTemplateFile() const {
+	return "";
 }

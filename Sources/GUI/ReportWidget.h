@@ -25,11 +25,10 @@
 #include <QFileInfo>
 
 namespace Ui {
-class ReportWidget;
+	class ReportWidget;
 }
 
-class ReportWidget : public QWidget
-{
+class ReportWidget : public QWidget {
 	Q_OBJECT
 signals:
 	void deleteRequest();
@@ -59,4 +58,3 @@ private:
 	Ui::ReportWidget *ui;
 	Report * report;
 };
-

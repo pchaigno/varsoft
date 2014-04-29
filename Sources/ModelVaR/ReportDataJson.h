@@ -31,28 +31,25 @@
 #include <QDir>
 #include "ModelVaR_global.h"
 
-class MODELVARSHARED_EXPORT ReportDataJson
-{
+class MODELVARSHARED_EXPORT ReportDataJson {
 public:
-    ReportDataJson();
-    ~ReportDataJson();
+	ReportDataJson();
+	~ReportDataJson();
 
-    void addText(QString key, QString value);
-    void addImage(QString key, QString path);
-    void addImage(QString key, QUrl path);
-    void addImage(QString key, QPixmap img);
-    void addList(QString key, QList<QMap<QString,QString> > list);
+	void addText(QString key, QString value);
+	void addImage(QString key, QString path);
+	void addImage(QString key, QUrl path);
+	void addImage(QString key, QPixmap img);
+	void addList(QString key, QList<QMap<QString,QString> > list);
 
-    QString toString();
+	QString toString();
 
-    bool operator==(const ReportDataJson & other) const;
+	bool operator==(const ReportDataJson & other) const;
 
 private:
-    QJsonObject texts;
-    QJsonObject images;
-    QJsonObject lists;
+	QJsonObject texts;
+	QJsonObject images;
+	QJsonObject lists;
 
-    QList<QTemporaryFile*> tempFileList;
-
-
+	QList<QTemporaryFile*> tempFileList;
 };

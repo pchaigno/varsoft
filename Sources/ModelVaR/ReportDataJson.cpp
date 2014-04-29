@@ -17,41 +17,40 @@
  */
 #include "ReportDataJson.h"
 
-ReportDataJson::ReportDataJson()
-{
+ReportDataJson::ReportDataJson() {
+
 }
 
-ReportDataJson::~ReportDataJson()
-{
-    qDeleteAll(tempFileList);
-    tempFileList.clear();
+ReportDataJson::~ReportDataJson() {
+	qDeleteAll(tempFileList);
+	tempFileList.clear();
 }
+
 /**
  * @brief Add the value with the given key to the Json document.
  * @param key The key in the template document.
  * @param value The value of the key in the generated document.
  */
-void ReportDataJson::addText(QString key, QString value)
-{
-    texts[key]=value;
+void ReportDataJson::addText(QString key, QString value) {
+	texts[key]=value;
 }
+
 /**
  * @brief Add the path of an image with the given key to the Json document.
  * @param key The key in the template document.
  * @param path The path of the image which will be displayed in the generated document.
  */
-void ReportDataJson::addImage(QString key, QString path)
-{
-    images[key]=path;
+void ReportDataJson::addImage(QString key, QString path) {
+	images[key]=path;
 }
+
 /**
  * @brief Same as addImage(QString key, QString path)
  * @param key
  * @param path
  */
-void ReportDataJson::addImage(QString key, QUrl path)
-{
-    images[key]=path.toLocalFile();
+void ReportDataJson::addImage(QString key, QUrl path) {
+	images[key]=path.toLocalFile();
 }
 
 /**
@@ -61,50 +60,46 @@ void ReportDataJson::addImage(QString key, QUrl path)
  * @param key The key in the template document.
  * @param img a QPixmap of the image
  */
-void ReportDataJson::addImage(QString key, QPixmap img)
-{
-    QTemporaryFile* tmpfile = new QTemporaryFile(QDir::tempPath()+"/XXXXXXXXX.png");
-    tempFileList.append(tmpfile);
-    tmpfile->open();
-    img.save(tmpfile,"PNG");
-    images[key]=tmpfile->fileName();
+void ReportDataJson::addImage(QString key, QPixmap img) {
+	QTemporaryFile* tmpfile = new QTemporaryFile(QDir::tempPath()+"/XXXXXXXXX.png");
+	tempFileList.append(tmpfile);
+	tmpfile->open();
+	img.save(tmpfile,"PNG");
+	images[key]=tmpfile->fileName();
 }
+
 /**
  * @brief ReportDataJson::addList
  * @param key
  * @param list
  */
-void ReportDataJson::addList(QString key, QList<QMap<QString, QString> > list)
-{
-    QJsonArray jsonArray;
-    QMap<QString, QString> map;
-    foreach(map, list)
-    {
-        QJsonObject jsonMap;
-        foreach(QString key, map.keys())
-        {
-            jsonMap[key]=map[key];
-        }
-        jsonArray.append(jsonMap);
-    }
-    lists[key]=jsonArray;
+void ReportDataJson::addList(QString key, QList<QMap<QString, QString> > list) {
+	QJsonArray jsonArray;
+	QMap<QString, QString> map;
+	foreach(map, list) {
+		QJsonObject jsonMap;
+		foreach(QString key, map.keys()) {
+			jsonMap[key]=map[key];
+		}
+		jsonArray.append(jsonMap);
+	}
+	lists[key]=jsonArray;
 }
+
 /**
  * @brief Gets the json string in compact format
  * @return the json document
  */
-QString ReportDataJson::toString()
-{
-    QJsonDocument data;
-    QJsonObject document;
-    document["text"]=texts;
-    document["images"]=images;
-    document["list"]=lists;
-    data.setObject(document);
-    return data.toJson();
+QString ReportDataJson::toString() {
+	QJsonDocument data;
+	QJsonObject document;
+	document["text"]=texts;
+	document["images"]=images;
+	document["list"]=lists;
+	data.setObject(document);
+	return data.toJson();
 }
 
-bool ReportDataJson::operator==(const ReportDataJson &other) const
-{
-    return this->texts==other.texts && this->images==other.images && this->lists==other.lists;
+bool ReportDataJson::operator==(const ReportDataJson &other) const {
+	return this->texts==other.texts && this->images==other.images && this->lists==other.lists;
 }

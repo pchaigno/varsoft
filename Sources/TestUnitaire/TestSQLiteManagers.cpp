@@ -32,8 +32,8 @@ TestSQLiteManagers::TestSQLiteManagers() {
 
 	// The reports for the portfolio:
 	QList<Report*> reports;
-    reports.append(new GarchReport("somefolder\\garch"));
-    reports.append(new VaRReport("somefolder\\var"));
+	reports.append(new GarchReport("somefolder\\garch"));
+	reports.append(new VaRReport("somefolder\\var"));
 
 	// The portfolio:
 	Portfolio portfolio = Portfolio("Test", assets, reports);

@@ -26,22 +26,22 @@
 
 class MODELVARSHARED_EXPORT StatisticsReportFactory: public ReportFactory {
 public:
-    StatisticsReportFactory(Portfolio *portfolio);
+	StatisticsReportFactory(Portfolio *portfolio);
 
 protected:
 
-    virtual Report * createReport();
-    virtual ReportDataJson* createJson();
+	virtual Report * createReport();
+	virtual ReportDataJson* createJson();
 
 	QPixmap generateChart1(QMap<QDate, double> values);
 	QPixmap generateChart2(QList<Asset*> compo, QDate start, QDate end);
-    double getAverage(QVector<double> values);
-    double getVariance(QVector<double> values);
-    double getMax(QVector<double> values);
-    double getMin(QVector<double> values);
-    double getKurtosis(QVector<double> values);
+	double getAverage(QVector<double> values);
+	double getVariance(QVector<double> values);
+	double getMax(QVector<double> values);
+	double getMin(QVector<double> values);
+	double getKurtosis(QVector<double> values);
 
-    Portfolio * portfolio;
+	Portfolio * portfolio;
 
 
 };

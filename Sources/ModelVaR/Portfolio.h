@@ -44,7 +44,7 @@ public:
 	Portfolio(QString name, QMap<Asset*, int>& composition, QList<Report*>& reports);
 	Portfolio(Portfolio* parent, int id, QString name, QMap<Asset*, int>& composition, QList<Report*>& reports);
 	Portfolio(int id, QString name, QMap<Asset*, int>& composition, QList<Report*>& reports);
-    ~Portfolio();
+	~Portfolio();
 	void init(Portfolio* parent, int id, QString name, QMap<Asset*, int>& composition, QList<Report*>& reports);
 
 	QString getName() const;
@@ -53,7 +53,7 @@ public:
 	int getParentId() const;
 
 	QList<Report*> getReports() const;
-    void addReport(Report* report);
+	void addReport(Report* report);
 	void removeReport(Report * report);
 
 	QVector<Asset*> getAssets() const;

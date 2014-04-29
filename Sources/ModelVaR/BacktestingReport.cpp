@@ -49,13 +49,13 @@ BacktestingReport::BacktestingReport(int id, QString file): Report(id, file) {
  * @return The type of the report.
  */
 ReportType BacktestingReport::getType() const {
-    return BACKTESTING;
+	return BACKTESTING;
 }
+
 /**
  * @brief Accesor to the template file of Backtesting report
  * @return a string with the path of the templateFile
  */
-QString BacktestingReport::getTemplateFile() const
-{
-    return "";
+QString BacktestingReport::getTemplateFile() const {
+	return "";
 }

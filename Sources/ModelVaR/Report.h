@@ -35,8 +35,8 @@ enum ReportType {
 class MODELVARSHARED_EXPORT Report : public QObject {
 	Q_OBJECT
 private:
-    int id;
-    QString file;
+	int id;
+	QString file;
 	ReportDataJson* dataJson;
 
 signals:
@@ -47,25 +47,25 @@ public slots:
 	void filesGenerationFinish();
 
 public:
-    Report();
-    Report(QString file);
-    Report(int id, QString file);
-    ~Report();
-    void init(int id, QString file);
+	Report();
+	Report(QString file);
+	Report(int id, QString file);
+	~Report();
+	void init(int id, QString file);
 
 	int getId() const;
-    void setId(int id);
+	void setId(int id);
 
 	QString getFile() const;
 	bool filesAvailable();
 	void removeFiles();
 
-    virtual ReportType getType() const =0;
+	virtual ReportType getType() const =0;
 
-    ReportDataJson* getDataJson() const;
-    void setDataJson(ReportDataJson* data);
+	ReportDataJson* getDataJson() const;
+	void setDataJson(ReportDataJson* data);
 
-    virtual QString getTemplateFile() const =0;
+	virtual QString getTemplateFile() const =0;
 
 	bool operator==(const Report& report) const;
 };

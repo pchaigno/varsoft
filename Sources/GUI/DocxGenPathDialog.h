@@ -23,11 +23,10 @@
 #include "Constantes.h"
 
 namespace Ui {
-class DocxGenPathDialog;
+	class DocxGenPathDialog;
 }
 
-class DocxGenPathDialog : public QDialog
-{
+class DocxGenPathDialog : public QDialog {
 	Q_OBJECT
 
 public:
@@ -41,4 +40,3 @@ public slots:
 private:
 	Ui::DocxGenPathDialog *ui;
 };
-

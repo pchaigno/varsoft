@@ -22,6 +22,7 @@
  * Should only be used by Qt containers.
  */
 Report::Report() {
+	
 }
 
 /**
@@ -30,7 +31,7 @@ Report::Report() {
  * @param pdfPath The location of the PDF file on the disk.
  */
 Report::Report(QString file) {
-    this->init(-1, file);
+	this->init(-1, file);
 }
 
 /**
@@ -40,11 +41,11 @@ Report::Report(QString file) {
  * @param pdfPath The location of the PDF file on the disk.
  */
 Report::Report(int id, QString file) {
-    this->init(id, file);
+	this->init(id, file);
 }
 
-Report::~Report()
-{
+Report::~Report() {
+	
 }
 
 /**
@@ -53,16 +54,15 @@ Report::~Report()
  * @param pdfPath The location of the PDF file on the disk.
  */
 void Report::init(int id, QString file) {
-    this->id = id;
+	this->id = id;
 	this->file = file;
-    dataJson=NULL;
+	dataJson=NULL;
 }
 
 /**
  * @brief emit signal filesOk() if the report has been created correctly, otherwise it emits the signal filesNotOk()
  */
-void Report::filesGenerationFinish()
-{
+void Report::filesGenerationFinish() {
 	if (filesAvailable())
 		emit filesOk();
 	else
@@ -87,51 +87,50 @@ void Report::setId(int id) {
 		// TODO Improve error message.
 		throw IdAlreadyAttributedException("An id has already been attributed to this report.");
 	}
-    this->id = id;
+	this->id = id;
 }
 
 /**
  * @brief Accessor to the file without the extension
  * @return
  */
-QString Report::getFile() const
-{
+QString Report::getFile() const {
 	return this->file;
 }
+
 /**
  * @brief This method says if the file are available on the disk
  * @return true if the files containing the report are available in the disk
  */
-bool Report::filesAvailable()
-{
+bool Report::filesAvailable() {
 	return QFile::exists(this->file+".pdf") && QFile::exists(this->file+".docx");
 }
+
 /**
  * @brief Remove the report file on the disk
  */
-void Report::removeFiles()
-{
+void Report::removeFiles() {
 	if (QFile::exists(this->file+".pdf"))
 		QFile::remove(this->file+".pdf");
 
 	if (QFile::exists(this->file+".docx"))
 		QFile::remove(this->file+".docx");
 }
+
 /**
  * @brief Accessor of the Json data of the report
  * @return
  */
-ReportDataJson *Report::getDataJson() const
-{
-    return dataJson;
+ReportDataJson *Report::getDataJson() const {
+	return dataJson;
 }
+
 /**
  * @brief Setter of the Json data of the report
  * @param data the new json data
  */
-void Report::setDataJson(ReportDataJson* data)
-{
-    dataJson=data;
+void Report::setDataJson(ReportDataJson* data) {
+	dataJson=data;
 }
 
 /**

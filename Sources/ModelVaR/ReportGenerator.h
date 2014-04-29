@@ -25,7 +25,7 @@ class MODELVARSHARED_EXPORT ReportGenerator : public QThread {
 	Q_OBJECT
 public:
 	ReportGenerator(Report * report);
-    virtual void run();
+	virtual void run();
 	virtual Report *getReport();
 
 signals:
@@ -35,7 +35,7 @@ private slots:
 	void errorReport();
 
 protected:
-    virtual void generate() =0;
+	virtual void generate() =0;
 
 	Report * report;
 };

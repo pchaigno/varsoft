@@ -22,17 +22,14 @@
  * @param docxPath The location of the DOCX file on the disk.
  * @param pdfPath The location of the PDF file on the disk.
  */
-GarchReportFactory::GarchReportFactory():
-    ReportFactory() {
+GarchReportFactory::GarchReportFactory(): ReportFactory() {
 
 }
 
-Report *GarchReportFactory::getReport()
-{
-    return new GarchReport();
+Report *GarchReportFactory::getReport() {
+	return new GarchReport();
 }
 
-ReportDataJson *GarchReportFactory::createJson()
-{
+ReportDataJson *GarchReportFactory::createJson() {
 
 }

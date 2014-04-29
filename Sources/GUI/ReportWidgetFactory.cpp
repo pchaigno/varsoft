@@ -1,18 +1,17 @@
 #include "ReportWidgetFactory.h"
 
-ReportWidgetFactory::ReportWidgetFactory()
-{
+ReportWidgetFactory::ReportWidgetFactory() {
+	
 }
+
 /**
  * @brief Create the ReportWidget in matching with the given report.
  * @param report
  * @return the ReportWidget for the given report
  */
-ReportWidget *ReportWidgetFactory::buildReportWidget(Report *report)
-{
+ReportWidget *ReportWidgetFactory::buildReportWidget(Report *report) {
 	ReportWidget * widget = new ReportWidget(report);
-	switch(report->getType())
-	{
+	switch(report->getType()) {
 		case BACKTESTING:
 			widget->setTitle("Backtesting report");
 			widget->setIcon(RES_FOLDER+"/Icons/backtestingReport.png");

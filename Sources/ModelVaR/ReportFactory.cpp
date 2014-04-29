@@ -20,32 +20,31 @@
 /**
  * @brief ReportFactory::ReportFactory
  */
-ReportFactory::ReportFactory(){
+ReportFactory::ReportFactory() {
 
 }
+
 /**
  * @brief Create the appropriate report and create its Json before returning it.
  * @return the report which just generated
  */
-Report *ReportFactory::buildReport()
-{
-    Report * report = createReport();
+Report *ReportFactory::buildReport() {
+	Report * report = createReport();
 	if (report->filesAvailable())
 		throw ReportException("Report files are available on the disk, maybe this report has already been created before.");
-    report->setDataJson(createJson());
+	report->setDataJson(createJson());
 	return report;
 }
+
 /**
  * @brief Get the path of the directory where the reports are placed.
  * Create the directory if it does not exist.
  * @return
  */
-QString ReportFactory::getReportDir() const
-{
+QString ReportFactory::getReportDir() const {
 	QString path = QString("..")+QDir::separator()+QString("Resources")+QDir::separator()+QString("Reports")+QDir::separator();
 
-	if (!QDir(path).exists())
-	{
+	if (!QDir(path).exists()) {
 		if (!QDir().mkpath(path))
 			throw ReportException("Error when creating the Report directory.");
 	}

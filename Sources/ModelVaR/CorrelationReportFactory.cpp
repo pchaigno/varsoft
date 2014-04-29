@@ -23,16 +23,14 @@
  * @param pdfPath The location of the PDF file on the disk.
  */
 CorrelationReportFactory::CorrelationReportFactory():
-    ReportFactory() {
+	ReportFactory() {
 
 }
 
-Report *CorrelationReportFactory::createReport()
-{
-    return new CorrelationReport();
+Report *CorrelationReportFactory::createReport() {
+	return new CorrelationReport();
 }
 
-ReportDataJson *CorrelationReportFactory::createJson()
-{
+ReportDataJson *CorrelationReportFactory::createJson() {
 
 }

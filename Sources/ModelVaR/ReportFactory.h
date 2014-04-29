@@ -25,13 +25,13 @@
 
 class MODELVARSHARED_EXPORT ReportFactory {
 public:
-    ReportFactory();
+	ReportFactory();
 
-    Report *buildReport();
+	Report *buildReport();
 
 protected:
-    virtual Report * createReport() =0;
-    virtual ReportDataJson* createJson() = 0;
+	virtual Report * createReport() =0;
+	virtual ReportDataJson* createJson() = 0;
 	QString getReportDir() const;
 
 };

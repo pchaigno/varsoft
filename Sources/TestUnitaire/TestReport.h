@@ -28,15 +28,15 @@ class TestReport: public QObject {
 	Q_OBJECT
 
 private:
-    Report *var;
-    Report *garch;
-    Report *correlation;
-    Report *statistics;
-    Report *backtesting;
+	Report *var;
+	Report *garch;
+	Report *correlation;
+	Report *statistics;
+	Report *backtesting;
 
 public:
 	TestReport();
-    ~TestReport();
+	~TestReport();
 
 private Q_SLOTS:
 	void testId();

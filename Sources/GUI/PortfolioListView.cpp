@@ -28,6 +28,7 @@ PortfolioListView::PortfolioListView(QWidget *parent): QListView(parent) {
 void PortfolioListView::setModel(PortfolioItemModel *model) {
 	this->QListView::setModel(model);
 }
+
 /**
  * @brief Redefinition of the model's getter
  * @return the model
@@ -36,16 +37,14 @@ PortfolioItemModel *PortfolioListView::model() const {
 	return (PortfolioItemModel*)QListView::model();
 }
 
-void PortfolioListView::currentChanged(const QModelIndex &current, const QModelIndex &previous)
-{
-    QListView::currentChanged(current,previous);
-    this->current=current;
-    emit portfolioSelected(model()->getPortfolio(current));
+void PortfolioListView::currentChanged(const QModelIndex &current, const QModelIndex &previous) {
+	QListView::currentChanged(current,previous);
+	this->current=current;
+	emit portfolioSelected(model()->getPortfolio(current));
 }
 
-Portfolio *PortfolioListView::getCurrentPortfolio() const
-{
-    return model()->getPortfolio(current);
+Portfolio *PortfolioListView::getCurrentPortfolio() const {
+	return model()->getPortfolio(current);
 }
 
 /**

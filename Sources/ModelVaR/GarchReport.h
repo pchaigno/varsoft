@@ -23,9 +23,9 @@
 
 class MODELVARSHARED_EXPORT GarchReport: public Report {
 public:
-    GarchReport();
-    GarchReport(QString file);
-    GarchReport(int id, QString file);
-    virtual ReportType getType() const;
-    virtual QString getTemplateFile() const;
+	GarchReport();
+	GarchReport(QString file);
+	GarchReport(int id, QString file);
+	virtual ReportType getType() const;
+	virtual QString getTemplateFile() const;
 };
