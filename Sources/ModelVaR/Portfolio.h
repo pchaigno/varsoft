@@ -22,10 +22,13 @@
 #include "Report.h"
 #include <QMap>
 #include "Asset.h"
-#include <QDateTime>
+#include <QDate>
 #include "IdAlreadyAttributedException.h"
+#include "InvalidDefinitionPeriodException.h"
 #include "ModelVaR_global.h"
 #include "PortfolioCalculationException.h"
+#include <string>
+#include <sstream>
 
 class MODELVARSHARED_EXPORT Portfolio {
 private:
@@ -51,13 +54,15 @@ public:
 	QVector<Asset*> getAssets() const;
 	QMap<Asset*, int> getComposition() const;
 	void changeName(QString name);
-	QDateTime retrieveStartDate() const;
-	QDateTime retrieveEndDate() const;
-	static QVector<double> getReturns(QVector<double> &values);
-	QVector<double> retrieveReturns(QDateTime endingPeriodDate, int period) const;
+	QDate retrieveStartDate() const;
+	QDate retrieveEndDate() const;
 	QVector<double> retrieveValues() const;
-	QVector<double> retrieveValues(const QDateTime &startDate, const QDateTime &endDate) const;
-	QMap<QDateTime, double> retrieveValuesByDate(const QDateTime& startDate, const QDateTime& endDate) const;
+	QVector<double> retrieveValues(const QDate &startPeriod, const QDate &endPeriod) const;
+	QMap<QDate, double> retrieveValuesByDate() const;
+	QMap<QDate, double> retrieveValuesByDate(const QDate& startPeriod, const QDate& endPeriod) const;
+	QVector<double> retrieveReturns() const;
+	QVector<double> retrieveReturns(const QDate& startPeriod, const QDate& endPeriod) const;
+	QVector<double> retrieveReturns(const QDate& endPeriod, int nbValues) const;
 
 	bool operator==(const Portfolio& portfolio) const;
 };

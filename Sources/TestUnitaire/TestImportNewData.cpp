@@ -18,11 +18,11 @@
 #include "TestImportNewData.h"
 
 /**
-* @brief Initializes an asset for the tests.
+* @brief Tests import of ImportNewData.
 */
 void TestImportNewData::testImport() {
-	QDateTime startDate = QDateTime::fromString("2014-01-01", "yyyy-MM-dd");
-	QDateTime endDate = QDateTime::fromString("2014-02-01", "yyyy-MM-dd");
+	QDate startDate = QDate::fromString("2014-01-01", "yyyy-MM-dd");
+	QDate endDate = QDate::fromString("2014-02-01", "yyyy-MM-dd");
 	Asset b = Asset("Gogolea", "../../CSV_examples/Gogolea_test.csv", "Yahoo", startDate, endDate);
 	ImportNewData algo = ImportNewData();
 	algo.import(b, "../../CSV_examples/table.csv");
@@ -41,10 +41,10 @@ void TestImportNewData::testImport() {
 	QCOMPARE(dataRows.size(), 23);
 	// Checks first date:
 	dataRow = dataRows.at(0).split(",");
-	QVERIFY(endDate >= QDateTime::fromString(dataRow[0], "yyyy-MM-dd"));
+	QVERIFY(endDate >= QDate::fromString(dataRow[0], "yyyy-MM-dd"));
 	// Checks last date:
 	dataRow = dataRows.at(dataRows.size()-2).split(",");
-	QVERIFY(startDate <= QDateTime::fromString(dataRow[0], "yyyy-MM-dd"));
+	QVERIFY(startDate <= QDate::fromString(dataRow[0], "yyyy-MM-dd"));
 
 	Asset *a = SessionBuilder::getInstance()->buildAsset("Gogolea");
 
@@ -54,6 +54,7 @@ void TestImportNewData::testImport() {
 	QVERIFY(a->getName() == "Gogolea");
 	QVERIFY(a->getOrigin() == "Yahoo");
 	QVERIFY(AssetsFactory::getInstance()->retrieveAsset("Gogolea") != NULL);
+
 	// Deletes the database file:
 	QFile databaseFile(SessionSaver::getInstance()->getDatabaseFile());
 	databaseFile.remove();

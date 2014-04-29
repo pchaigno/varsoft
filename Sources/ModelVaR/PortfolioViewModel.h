@@ -43,7 +43,7 @@ private:
 	void createDataStructure();
 	Portfolio * portfolio;
 	QVector<QString> headers;
-	QVector<QDateTime> datesRow;
+	QVector<QDate> datesRow;
 	QVector<QVector<QString> > mydata;
 };
 

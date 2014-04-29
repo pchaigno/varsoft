@@ -20,16 +20,16 @@
 #include "Portfolio.h"
 #include "VaRAlgorithm.h"
 #include <QPair>
-#include <QDateTime>
+#include <QDate>
 #include <QPair>
 
 class Backtesting {
 private:
 	const Portfolio& portfolio;
 	const VaRAlgorithm& varAlgo;
-	const QPair<QDateTime, QDateTime>& backtestperiod;
+	const QPair<QDate, QDate>& backtestperiod;
 
 public:
-	Backtesting(const Portfolio& portfolio, const VaRAlgorithm& varAlgo, const QPair<QDateTime, QDateTime>& backtestperiod);
+	Backtesting(const Portfolio& portfolio, const VaRAlgorithm& varAlgo, const QPair<QDate, QDate>& backtestperiod);
 	int compute() const;
 };

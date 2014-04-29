@@ -85,6 +85,7 @@ HEADERS +=\
 	PortfolioCalculationException.h \
 	GetStartEndDates.h \
 	PortfolioViewModel.h \
+	InvalidDefinitionPeriodException.h \
 	ImportException.h
 
 unix:!symbian {
