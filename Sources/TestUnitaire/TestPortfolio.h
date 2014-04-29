@@ -33,6 +33,7 @@ private:
 	Portfolio father;
 	Portfolio son;
 	Portfolio uncle;
+	Portfolio weekends;
 
 public:
 	TestPortfolio();
@@ -43,6 +44,7 @@ private Q_SLOTS:
 	void testRetrieveStartDate();
 	void testRetrieveEndDate();
 	void testRetrieveValues();
+	void testRetrieveValuesWeekends();
 	void testRetrieveValuesByDate();
 	void testRetrieveValuesByDateMissingValues();
 	void testRetrieveValuesNoParameters();

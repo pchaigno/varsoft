@@ -31,6 +31,7 @@ private:
 	Asset apple;
 	Asset missing;
 	Asset asset1;
+	Asset weekends;
 
 public:
 	TestAsset();
@@ -40,6 +41,7 @@ private Q_SLOTS:
 	void testName();
 	void testRetrieveValues();
 	void testRetrieveValuesWeekend();
+	void testRetrieveValuesWeekends();
 	void testRetrieveValuesIncorrectDates();
 	void testRetrieveValuesNonexistingFile();
 	void testRetrieveValuesSpecialDates();

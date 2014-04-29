@@ -24,29 +24,34 @@ TestPortfolio::TestPortfolio() {
 	QString assetFolder = "../../CSV_examples/";
 
 	// FIRST ASSET DEFINITION
-	QDate startDate1(2014, 1, 1);
-	QDate endDate1(2014, 1, 6);
+	QDate startDate1 = QDate(2014, 1, 1);
+	QDate endDate1 = QDate(2014, 1, 6);
 	Asset* asset1 = new Asset("asset1", assetFolder+"asset1.txt", "YAHOO", startDate1, endDate1);
 
 	// SECOND ASSET DEFINITION
-	QDate startDate2(2014, 1, 2);
-	QDate endDate2(2014, 1, 7);
+	QDate startDate2 = QDate(2014, 1, 2);
+	QDate endDate2 = QDate(2014, 1, 7);
 	Asset* asset2 = new Asset("asset2", assetFolder+"asset2.txt", "YAHOO", startDate2, endDate2);
 
 	// THIRD ASSET DEFINITION
-	QDate startDate3(QDate(2014, 1, 3));
-	QDate endDate3(QDate(2014, 1, 8));
+	QDate startDate3 = QDate(2014, 1, 3);
+	QDate endDate3 = QDate(2014, 1, 8);
 	Asset* asset3 = new Asset("asset3", assetFolder+"asset3.txt", "YAHOO", startDate3, endDate3);
 
 	// FOURTH ASSET DEFINITION
-	QDate startDate4(QDate(2013, 12, 19));
-	QDate endDate4(QDate(2014, 1, 2));
+	QDate startDate4 = QDate(2013, 12, 19);
+	QDate endDate4 = QDate(2014, 1, 2);
 	Asset* asset4 = new Asset("asset4", assetFolder+"asset4.txt", "YAHOO", startDate4, endDate4);
 
 	// FIFTH ASSET DEFINITION
-	QDate startDate5(QDate(2013, 12, 19));
-	QDate endDate5(QDate(2014, 1, 3));
+	QDate startDate5 = QDate(2013, 12, 19);
+	QDate endDate5 = QDate(2014, 1, 3);
 	Asset* asset5 = new Asset("asset5", assetFolder+"asset5.txt", "YAHOO", startDate5, endDate5);
+
+	// SIXTH ASSET DEFINITION
+	QDate startDate6 = QDate(2014, 01, 5);
+	QDate endDate6 = QDate(2014, 01, 26);
+	Asset* asset6 = new Asset("asset6", assetFolder+"asset6.txt", "ProjectVaR", startDate6, endDate6);
 
 	// TEST PORTFOLIO DEFINITION
 	QMap<Asset*, int> assets;
@@ -64,6 +69,12 @@ TestPortfolio::TestPortfolio() {
 	assets2.insert(asset5, 2);
 	QVector<Report*> reports2;
 	this->uncle = Portfolio("uncle", assets2, reports2);
+
+	// THIRD PORTFOLIO DEFINITION
+	QMap<Asset*, int> assets3;
+	assets3.insert(asset6, 10);
+	QVector<Report*> reports3;
+	this->weekends = Portfolio("weekends", assets3, reports3);
 }
 
 /**
@@ -117,6 +128,18 @@ void TestPortfolio::testRetrieveValues() {
 	QVector<double> result = this->son.retrieveValues(QDate(2014, 1, 4), QDate(2014, 1, 6));
 	QCOMPARE(result.size(), 1);
 	QCOMPARE(result.at(0), 630.0);
+}
+
+/**
+ * @brief Tests the method getValues that retrieve and compute values of a portfolio.
+ * The only asset of this portfolio is only defined on weekends.
+ */
+void TestPortfolio::testRetrieveValuesWeekends() {
+	QVector<double> result = this->weekends.retrieveValues();
+	QCOMPARE(result.size(), 15);
+	QMap<QDate, double> resultWithDates = this->weekends.retrieveValuesByDate();
+	qDebug() << this->weekends.getComposition().begin().key()->retrieveValues().size();
+	QCOMPARE(resultWithDates.size(), 15);
 }
 
 /**

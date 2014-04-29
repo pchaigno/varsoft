@@ -27,6 +27,7 @@ TestAsset::TestAsset() {
 	this->apple = Asset("Apple", "../../CSV_examples/asset4.txt", "YAHOO", QDate(2013, 12, 30), QDate(2014, 1, 2));
 	this->missing = Asset("test", "../../CSV_examples/nonexistingfile.txt", "YAHOO", startDate, endDate);
 	this->asset1 = Asset("Asset1", "../../CSV_examples/asset1.txt", "YAHOO", QDate(2014, 01, 01), QDate(2014, 01, 06));
+	this->weekends = Asset("Weekends", "../../CSV_examples/asset6.txt", "ProjectVaR", QDate(2014, 01, 5), QDate(2014, 01, 26));
 }
 
 /**
@@ -62,6 +63,15 @@ void TestAsset::testRetrieveValuesWeekend() {
 	QCOMPARE(result.size(), 2);
 	QCOMPARE(result.at(0), 102.0);
 	QCOMPARE(result.at(1), 105.0);
+}
+
+/**
+ * @brief Successful test on retrieveValues.
+ * The definition period of the asset is only defined on weekends.
+ */
+void TestAsset::testRetrieveValuesWeekends() {
+	QVector<double> result = this->weekends.retrieveValues();
+	QCOMPARE(result.size(), 15);
 }
 
 /**
