@@ -58,6 +58,7 @@ public:
 	QDate retrieveEndDate() const;
 	QVector<double> retrieveValues() const;
 	QVector<double> retrieveValues(const QDate &startPeriod, const QDate &endPeriod) const;
+	QMap<QDate, double> retrieveValuesByDate() const;
 	QMap<QDate, double> retrieveValuesByDate(const QDate& startPeriod, const QDate& endPeriod) const;
 	QVector<double> retrieveReturns() const;
 	QVector<double> retrieveReturns(const QDate& startPeriod, const QDate& endPeriod) const;

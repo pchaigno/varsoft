@@ -125,16 +125,7 @@ void PortfolioViewModel::createDataStructure() {
 	QMap<Asset*, int> compo = portfolio->getComposition();
 	QDate startDate = portfolio->retrieveStartDate();
 	QDate endDate = portfolio->retrieveEndDate();
-	QMap<QDate, double> dates;
-	try {
-		dates = portfolio->retrieveValuesByDate(startDate, endDate);
-	} catch (std::exception & ) {
-		QDate tmp = startDate;
-		startDate = endDate;
-		endDate = tmp;
-		//bug des dates dans import ...
-		dates = portfolio->retrieveValuesByDate(startDate, endDate);
-	}
+	QMap<QDate, double> dates = portfolio->retrieveValuesByDate();
 
 	mydata.clear();
 

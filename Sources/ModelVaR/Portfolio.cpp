@@ -196,7 +196,7 @@ QDate Portfolio::retrieveEndDate() const {
 }
 
 /**
- * @brief Retrieves the values of the portfolio on its largest time range
+ * @brief Retrieves the values of the portfolio on its largest time range.
  * @return The values of the portfolio in the chronological order
  */
 QVector<double> Portfolio::retrieveValues() const {
@@ -214,6 +214,17 @@ QVector<double> Portfolio::retrieveValues() const {
  */
 QVector<double> Portfolio::retrieveValues(const QDate& startPeriod, const QDate& endPeriod) const {
 	return this->retrieveValuesByDate(startPeriod, endPeriod).values().toVector();
+}
+
+/**
+ * @brief Retrieves the values of the portfolio on its largest time range.
+ * Calls the eponymous method in Asset.
+ * For a pair of dates, all assets should return the same number of values.
+ * Therefore it's safe to sum them all directly.
+ * @return The values of the portfolio by date in the chronological order.
+ */
+QMap<QDate, double> Portfolio::retrieveValuesByDate() const {
+	return this->retrieveValuesByDate(this->retrieveStartDate(), this->retrieveEndDate());
 }
 
 /**
