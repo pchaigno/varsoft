@@ -16,12 +16,13 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #pragma once
+
 #include "IImport.h"
 #include "ModelVaR_global.h"
 #include "ImportException.h"
 #include <QMessageBox>
 
-class MODELVARSHARED_EXPORT ImportNewData : public IImport{
+class MODELVARSHARED_EXPORT ImportNewData : public IImport {
 public:
 	virtual void import(const Asset &asset, const QString& file) const;
 };

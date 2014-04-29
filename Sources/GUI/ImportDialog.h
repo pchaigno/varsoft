@@ -30,6 +30,7 @@
 namespace Ui {
 	class Import;
 }
+
 /**
 * @brief Useful for the import window links with the mainwindow
 */
@@ -47,6 +48,4 @@ private:
 private slots:
 	void on_pushButton_clicked();
 	void on_pushButton_2_clicked();
-
-signals:
 };

@@ -31,8 +31,8 @@ StatisticsReportFactory::StatisticsReportFactory(Portfolio * portfolio):
 Report *StatisticsReportFactory::createReport()
 {
 	QString file = this->getReportDir()+QString("statisticReport");
-    QDateTime startDate = portfolio->retrieveStartDate();
-    QDateTime endDate = portfolio->retrieveEndDate();
+	QDate startDate = portfolio->retrieveStartDate();
+	QDate endDate = portfolio->retrieveEndDate();
     file += "_"+portfolio->getName()+"_"+startDate.toString("dd-MM-yy")+"_"+endDate.toString("dd-MM-yy");
 	return new StatisticsReport(file);
 }
@@ -46,27 +46,18 @@ ReportDataJson* StatisticsReportFactory::createJson()
 
     data->addText("portefeuilleName",portfolio->getName());
     data->addText("dateDeb",portfolio->retrieveStartDate().toString("dd/MM/yyyy"));
-    QDateTime startDate = portfolio->retrieveStartDate();
-    QDateTime endDate = portfolio->retrieveEndDate();
+	QDate startDate = portfolio->retrieveStartDate();
+	QDate endDate = portfolio->retrieveEndDate();
     data->addText("dateFin",endDate.toString("dd/MM/yyyy"));
     data->addText("date",endDate.toString("dd/MM/yyyy"));
-	QMap<QDateTime,double> valuesPortfolio;
-	try {
-		valuesPortfolio = portfolio->retrieveValuesByDate(startDate, endDate);
-	} catch (std::exception & ) {
-		QDateTime tmp = startDate;
-		startDate = endDate;
-		endDate = tmp;
-		//bug des dates dans import ...
-		valuesPortfolio = portfolio->retrieveValuesByDate(startDate, endDate);
-	}
+	QMap<QDate, double> valuesPortfolio = portfolio->retrieveValuesByDate();
 
     data->addText("val",QString::number(valuesPortfolio[endDate]));
 
 	QVector<double> values = valuesPortfolio.values().toVector();
     data->addText("moyenne",QString::number(getAverage(values)));
     data->addText("variance", QString::number(getVariance(values)));
-	data->addText("kurtosis", QString::number(getKurtosis(portfolio->getReturns(values))));
+	data->addText("kurtosis", QString::number(getKurtosis(portfolio->retrieveReturns())));
     data->addText("min",QString::number(getMax(values)));
     data->addText("max",QString::number(getMin(values)));
 
@@ -75,7 +66,7 @@ ReportDataJson* StatisticsReportFactory::createJson()
     QMap<Asset*,int> compo = portfolio->getComposition();
     foreach(Asset* asset, assets)
     {
-        QMap<QDateTime,double> values =  asset->retrieveValuesByDate(endDate,endDate);
+		QMap<QDate, double> values = asset->retrieveValuesByDate(endDate, endDate);
         QMap<QString,QString> map;
         map["Name"]=asset->getName();
         map["Qte"]=QString::number(compo[asset]);
@@ -87,7 +78,7 @@ ReportDataJson* StatisticsReportFactory::createJson()
 
     data->addList("asset",listAssets);
 
-    data->addImage("chart1",generateChart1(portfolio->retrieveValuesByDate(startDate,endDate)));
+	data->addImage("chart1",generateChart1(valuesPortfolio));
     data->addImage("chart2",generateChart2(compo.keys(),startDate,endDate));
 
 
@@ -98,7 +89,7 @@ ReportDataJson* StatisticsReportFactory::createJson()
  * @param values the value of the portfolio
  * @return a QPixmap with the chart
  */
-QPixmap StatisticsReportFactory::generateChart1(QMap<QDateTime,double> values)
+QPixmap StatisticsReportFactory::generateChart1(QMap<QDate, double> values)
 {
     QCustomPlot* customPlot = new QCustomPlot();
 	customPlot->setLocale(QLocale(QLocale::English, QLocale::UnitedStates));
@@ -112,9 +103,9 @@ QPixmap StatisticsReportFactory::generateChart1(QMap<QDateTime,double> values)
     QVector<double> keys;
     QVector<double> val;
 
-    foreach(QDateTime date, values.keys())
+	foreach(QDate date, values.keys())
     {
-        keys.append(date.toTime_t());
+		keys.append(date.toJulianDay());
     }
     val = values.values().toVector();
     customPlot->graph()->setData(keys, val);
@@ -129,7 +120,7 @@ QPixmap StatisticsReportFactory::generateChart1(QMap<QDateTime,double> values)
     customPlot->xAxis->setLabel("Date");
     customPlot->yAxis->setLabel("Values of the portfolio "+portfolio->getName());
     // set axis ranges to show all data:
-    customPlot->xAxis->setRange(portfolio->retrieveStartDate().toTime_t(), portfolio->retrieveEndDate().toTime_t());
+	customPlot->xAxis->setRange(portfolio->retrieveStartDate().toJulianDay(), portfolio->retrieveEndDate().toJulianDay());
     customPlot->yAxis->setRange(getMin(values.values().toVector())-10, getMax(values.values().toVector())+10);
     // show legend:
     customPlot->legend->setVisible(false);
@@ -144,7 +135,7 @@ QPixmap StatisticsReportFactory::generateChart1(QMap<QDateTime,double> values)
  * @param end the endDate
  * @return
  */
-QPixmap StatisticsReportFactory::generateChart2(QList<Asset*> compo, QDateTime start, QDateTime end)
+QPixmap StatisticsReportFactory::generateChart2(QList<Asset*> compo, QDate start, QDate end)
 {
 	QCustomPlot* customPlot = new QCustomPlot();
 	customPlot->setLocale(QLocale(QLocale::English, QLocale::UnitedStates));
@@ -163,11 +154,11 @@ QPixmap StatisticsReportFactory::generateChart2(QList<Asset*> compo, QDateTime s
 
 	  QVector<double> time;
       QVector<double> value;
-      QMap<QDateTime, double> mapData = asset->retrieveValuesByDate(start,end);
+	  QMap<QDate, double> mapData = asset->retrieveValuesByDate(start,end);
 
-      foreach(QDateTime date, mapData.keys())
+	  foreach(QDate date, mapData.keys())
       {
-          time.append(date.toTime_t());
+		  time.append(date.toJulianDay());
       }
       value = mapData.values().toVector();
       min = qMin(min,getMin(value));
@@ -186,7 +177,7 @@ QPixmap StatisticsReportFactory::generateChart2(QList<Asset*> compo, QDateTime s
     customPlot->xAxis->setLabel("Date");
     customPlot->yAxis->setLabel("Value of each asset in the portfolio");
     // set axis ranges to show all data:
-	customPlot->xAxis->setRange(start.toTime_t(), end.toTime_t());
+	customPlot->xAxis->setRange(start.toJulianDay(), end.toJulianDay());
 	customPlot->yAxis->setRange(min-((min/100)*10), max+((max/100)*10));
     // show legend:
     customPlot->legend->setVisible(true);

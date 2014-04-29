@@ -16,7 +16,6 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #include "NewPortfolioWizard.h"
-#include "ui_NewPortfolioWizard.h"
 
 NewPortfolioWizard::NewPortfolioWizard(QWidget *parent) :
 	QWizard(parent), ui(new Ui::NewPortfolioWizard) {

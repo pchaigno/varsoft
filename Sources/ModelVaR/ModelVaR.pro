@@ -89,9 +89,9 @@ HEADERS +=\
 	GetStartEndDates.h \
 	PortfolioViewModel.h \
 	qcustomplot.h \
-	PortfolioCalculationException.h \
 	ReportDataJson.h \
 	ReportException.h \
+	InvalidDefinitionPeriodException.h \
 	ImportException.h
 
 unix:!symbian {

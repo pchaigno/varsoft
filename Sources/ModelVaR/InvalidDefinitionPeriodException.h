@@ -17,39 +17,24 @@
  */
 #pragma once
 
-#include "Portfolio.h"
-#include <QtTest>
-#include <QDate>
-#include <QDebug>
-#include <QDir>
+#include <exception>
 #include <QString>
-#include <QVector>
-#include "Asset.h"
+#include "ModelVaR_global.h"
 
-class TestPortfolio: public QObject {
-	Q_OBJECT
+class MODELVARSHARED_EXPORT InvalidDefinitionPeriodException: public std::exception {
+public:
+	InvalidDefinitionPeriodException(std::string msg) {
+		this->msg = msg;
+	}
+
+	virtual ~InvalidDefinitionPeriodException() throw() {
+
+	}
+
+	virtual const char * what() const throw() {
+		return this->msg.c_str();
+	}
 
 private:
-	Portfolio father;
-	Portfolio son;
-	Portfolio uncle;
-	Portfolio weekends;
-
-public:
-	TestPortfolio();
-
-private Q_SLOTS:
-	void testId();
-	void testName();
-	void testRetrieveStartDate();
-	void testRetrieveEndDate();
-	void testRetrieveValues();
-	void testRetrieveValuesWeekends();
-	void testRetrieveValuesByDate();
-	void testRetrieveValuesByDateMissingValues();
-	void testRetrieveValuesNoParameters();
-	void testRetrieveReturns();
-	void testRetrieveNbReturnsNotEnough();
-	void testRetrieveNbReturnsAll();
-	void testRetrieveNbReturnsSome();
+	std::string msg;
 };

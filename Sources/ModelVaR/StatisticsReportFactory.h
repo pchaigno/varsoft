@@ -33,8 +33,8 @@ protected:
     virtual Report * createReport();
     virtual ReportDataJson* createJson();
 
-    QPixmap generateChart1(QMap<QDateTime, double> values);
-    QPixmap generateChart2(QList<Asset *> compo, QDateTime start,QDateTime end);
+	QPixmap generateChart1(QMap<QDate, double> values);
+	QPixmap generateChart2(QList<Asset*> compo, QDate start, QDate end);
     double getAverage(QVector<double> values);
     double getVariance(QVector<double> values);
     double getMax(QVector<double> values);

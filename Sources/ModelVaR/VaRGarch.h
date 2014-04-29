@@ -19,7 +19,7 @@
 
 #include "VaRAlgorithm.h"
 #include "GarchModel.h"
-#include <QDateTime>
+#include <QDate>
 
 class MODELVARSHARED_EXPORT VaRGarch: public VaRAlgorithm {
 private:
@@ -27,5 +27,5 @@ private:
 
 public:
 	VaRGarch(const Portfolio& portfolio, double risk, int timeHorizon, const GarchModel& garchModel);
-	virtual double execute(QDateTime timeHorizon) const;
+	virtual double execute(QDate timeHorizon) const;
 };

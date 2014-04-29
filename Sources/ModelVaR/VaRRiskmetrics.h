@@ -18,10 +18,10 @@
 #pragma once
 
 #include "VaRAlgorithm.h"
-#include <QDateTime>
+#include <QDate>
 
 class MODELVARSHARED_EXPORT VaRRiskmetrics: public VaRAlgorithm {
 public:
 	VaRRiskmetrics(const Portfolio& portfolio, double risk, int timeHorizon);
-	virtual double execute(QDateTime timeHorizon) const;
+	virtual double execute(QDate timeHorizon) const;
 };

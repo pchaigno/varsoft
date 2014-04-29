@@ -26,7 +26,7 @@
 #include "StatisticsReport.h"
 #include "CorrelationReport.h"
 #include "BacktestingReport.h"
-#include <QDateTime>
+#include <QDate>
 #include <QVector>
 #include "AssetsFactory.h"
 #include <QVariant>

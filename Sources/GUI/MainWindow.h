@@ -18,7 +18,6 @@
 #pragma once
 
 #include <QMainWindow>
-#include <QDateTime>
 #include <QDialog>
 #include <QComboBox>
 #include <QSettings>
@@ -40,6 +39,8 @@
 #include "ReportWidget.h"
 #include "ReportWidgetFactory.h"
 #include "DocxGenPathDialog.h"
+#include "ui_MainWindow.h"
+#include <QDate>
 #include "ImportNewData.h"
 #include "GetStartEndDates.h"
 
@@ -92,8 +93,8 @@ private:
 
 	Ui::MainWindow *ui;
 	QString stockName;
-	QDateTime startDate;
-	QDateTime endDate;
+	QDate startDate;
+	QDate endDate;
 	QString fileName;
 	QString origin;
 	QString path;
