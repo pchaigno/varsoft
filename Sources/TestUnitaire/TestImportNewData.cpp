@@ -40,7 +40,7 @@ void TestImportNewData::testImport() {
 	}
 	QCOMPARE(dataRows.size(), 23);
 	// Checks first date:
-	dataRow = dataRows.at(0).split(",");
+	dataRow = dataRows.at(1).split(",");
 	QVERIFY(endDate >= QDate::fromString(dataRow[0], "yyyy-MM-dd"));
 	// Checks last date:
 	dataRow = dataRows.at(dataRows.size()-2).split(",");
@@ -55,7 +55,15 @@ void TestImportNewData::testImport() {
 	QVERIFY(a->getOrigin() == "Yahoo");
 	QVERIFY(AssetsFactory::getInstance()->retrieveAsset("Gogolea") != NULL);
 
+	//Verify the day of week
+	int size = dataRows.size();
+	for (int x =1; x < size; x++) {
+		dataRow = dataRows.at(x).split(",");
+		QVERIFY((QDate::fromString(dataRow[0], "yyyy-MM-dd").dayOfWeek() != 6)&&(QDate::fromString(dataRow[0], "yyyy-MM-dd").dayOfWeek() != 7));
+	}
 	// Deletes the database file:
 	QFile databaseFile(SessionSaver::getInstance()->getDatabaseFile());
 	databaseFile.remove();
 }
+
+

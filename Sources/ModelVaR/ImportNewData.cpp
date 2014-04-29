@@ -16,7 +16,6 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #include "ImportNewData.h"
-
 /**
 * @brief Creates a new file with selected data
 * @param asset The asset created
@@ -63,33 +62,36 @@ void ImportNewData::import(const Asset &asset, const QString& file) const {
 		if (!((QString) rowData[0]).isEmpty() && !((QString)rowData[data_index]).isEmpty()) {
 			flux << rowData[0] << "," << rowData[data_index] << "\n";
 			// x = 1 to avoid the first line with labels
-			for (int x =1; x < rowOfData.size()-1; x++) {
+			int size = rowOfData.size();
+			for (int x =1; x < size; x++) {
 				rowData = rowOfData.at(x).split(",");
 				//Check dates and values are correct
 				if(date_regex.exactMatch(rowData[0]) && value_regex.exactMatch(rowData[data_index])) {
 					QDate currentDate = QDate::fromString(rowData[0], "yyyy-MM-dd");
-					//checks the order of dates
-					if(previousDate > currentDate) {
-						previousDate = currentDate;
-						//checks if we are on still in the range of dates
-						if ((endDate >= currentDate)) {
-							if(startDate > currentDate) {
-								break;
+					//Every week-end day will be avoided
+					if ((currentDate.dayOfWeek() != 6) && (currentDate.dayOfWeek() != 7)){
+						//checks the order of dates
+						if(previousDate > currentDate) {
+							previousDate = currentDate;
+							//checks if we are on still in the range of dates
+							if ((endDate >= currentDate)) {
+								if(startDate > currentDate) {
+									break;
+								}
+								flux << rowData[0] << "," << rowData[data_index] << "\n";
 							}
-							flux << rowData[0] << "," << rowData[data_index] << "\n";
+						} else {
+							throw ImportException("The dates are not sorted");
+							return;
 						}
-					} else {
-						throw ImportException("Dates are not sorted");
-						return;
 					}
-
 				} else {
 					throw ImportException("The data is invalid");
 					return;
 				}
 			}
 		} else {
-			throw ImportException("Header is missing");
+			throw ImportException("A header is missing");
 			return;
 		}
 	} else {
