@@ -44,7 +44,6 @@ SOURCES += \
 	IImport.cpp \
 	PortfolioItemModel.cpp \
 	CorrelationReportFactory.cpp \
-    CheckCorrelation.cpp
 	GetStartEndDates.cpp \
 	PortfolioViewModel.cpp
 
@@ -84,7 +83,6 @@ HEADERS +=\
 	IImport.h \
 	PortfolioItemModel.h \
 	PortfolioCalculationException.h \
-    CheckCorrelation.h
 	GetStartEndDates.h \
 	PortfolioViewModel.h \
 	InvalidDefinitionPeriodException.h \

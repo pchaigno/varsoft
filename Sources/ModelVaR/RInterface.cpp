@@ -25,7 +25,7 @@
  * @param period The number of returns
  * @return The statistical value and p-value couple
  */
-QPair<double, double> RInterface::checkCorrelation(const Portfolio& portfolio, int timeLag, QDateTime date, int period) {
+QPair<double, double> RInterface::checkCorrelation(const Portfolio& portfolio, int timeLag, QDate& date, int period) {
 
 	// Check that parameters are correct
 	if(timeLag <= 0) {
@@ -33,6 +33,9 @@ QPair<double, double> RInterface::checkCorrelation(const Portfolio& portfolio, i
 	}
 	if(period <= 0 ) {
 		throw std::invalid_argument("The period parameter must be strictly positive");
+	}
+	if(timeLag > period - 2) {
+		throw std::invalid_argument("The timeLag parameter cannot be greater than period minus two");
 	}
 
 	// The statistical value and p-value couple
@@ -73,8 +76,9 @@ QPair<double, double> RInterface::checkCorrelation(const Portfolio& portfolio, i
 	lines = output.split(QRegExp("[\r\n]"),QString::SkipEmptyParts);
 
 	// Gets only the values (removes matrix indices)
-	double qstat = lines.value(2).mid(6).toDouble();
-	double pvportm = lines.value(5).mid(6).toDouble();
+	QRegExp rx("\\s+");
+	double qstat = lines.value(2).split(rx).value(1).toDouble();
+	double pvportm = lines.value(5).split(rx).value(1).toDouble();
 
 	result.first = qstat;
 	result.second = pvportm;
@@ -90,7 +94,7 @@ QPair<double, double> RInterface::checkCorrelation(const Portfolio& portfolio, i
  * @param period The number of returns
  * @return The statistical value and p-value couple
  */
-QPair<double, double> RInterface::checkSquareCorrelation(const Portfolio& portfolio, int timeLag, QDateTime date, int period) {
+QPair<double, double> RInterface::checkSquareCorrelation(const Portfolio& portfolio, int timeLag, QDate& date, int period) {
 
 	// Check that parameters are correct
 	if(timeLag <= 0) {
@@ -98,6 +102,9 @@ QPair<double, double> RInterface::checkSquareCorrelation(const Portfolio& portfo
 	}
 	if(period <= 0 ) {
 		throw std::invalid_argument("The period parameter must be strictly positive");
+	}
+	if(timeLag > period - 1) {
+		throw std::invalid_argument("The timeLag parameter cannot be greater than period minus one");
 	}
 
 	// The statistical value and p-value couple
@@ -137,8 +144,9 @@ QPair<double, double> RInterface::checkSquareCorrelation(const Portfolio& portfo
 	QStringList lines = output.split(QRegExp("[\r\n]"),QString::SkipEmptyParts);
 
 	// Gets only the values (removes matrix indices)
-	double ststdport = lines.value(1).mid(4).toDouble();
-	double pvportcarre = lines.value(3).mid(4).toDouble();
+	QRegExp rx("\\s+");
+	double ststdport = lines.value(1).split(rx).value(1).toDouble();
+	double pvportcarre = lines.value(3).split(rx).value(1).toDouble();
 
 	result.first = ststdport;
 	result.second = pvportcarre;
