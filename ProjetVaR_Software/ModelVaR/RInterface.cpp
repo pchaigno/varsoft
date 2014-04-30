@@ -18,41 +18,45 @@
 #include "RInterface.h"
 
 /**
- * @brief Call the R script for the correlation test.
+ * @brief Call the R script performing the correlation test.
  * @param portfolio The portfolio on which the correlation test is performed
- * @param timeLag Time lag of the stastical test
- * @param date The date from which the previous returns will be taken
+ * @param timeLag Time lag of the statistical test
+ * @param date The date from which the historical returns will be taken
  * @param period The number of returns
  * @return The statistical value and p-value couple
  */
 QPair<double, double> RInterface::checkCorrelation(const Portfolio& portfolio, int timeLag, QDateTime date, int period) {
 
-	QVector<double> returns;
-	QProcess process;
-	QStringList arguments;
-	QString parameters;
+	// Check that parameters are correct
+	if(timeLag <= 0) {
+		throw std::invalid_argument("The timeLag parameter must be strictly positive");
+	}
+	if(period <= 0 ) {
+		throw std::invalid_argument("The period parameter must be strictly positive");
+	}
+
+	// The statistical value and p-value couple
 	QPair<double, double> result;
-
-	QString rScriptFilePath = "../../R_scripts/correlation-niveau.r";
-
-	returns = portfolio.retrieveReturns(date, period);
 
 	// The only command line argument passed to Rscript is
 	// the R script file
+	QString rScriptFilePath = "../../R_scripts/correlation-niveau.r";
+	QStringList arguments;
 	arguments << rScriptFilePath;
 
 	// Makes the string sent to the Rscript standard input
 	// Made of two lines, one paramater a line
 	// timeLag on the first, the returns on the second,separated by space characters
-	parameters = QString::number(timeLag) + "\n";
+	QString parameters = QString::number(timeLag) + "\n";
+	QVector<double> returns = portfolio.retrieveReturns(date, period);
 	for(QVector<double>::const_iterator it=returns.begin(); it!=returns.end(); ++it) {
 		parameters += QString::number(*it) + " ";
 	}
 
+	QProcess process;
 	process.start("rscript", arguments);
 	process.waitForStarted();
-
-	// Writes to R standard input the previously created string
+	// Writes to Rscript standard input the previously created string
 	process.write(parameters.toStdString().c_str());
 	process.closeWriteChannel();
 	process.waitForFinished();
@@ -65,12 +69,12 @@ QPair<double, double> RInterface::checkCorrelation(const Portfolio& portfolio, i
 
 	// Splits the output by newline
 	// Removes empty lines as well
-	QStringList tokens;
-	tokens = output.split(QRegExp("[\r\n]"),QString::SkipEmptyParts);
+	QStringList lines;
+	lines = output.split(QRegExp("[\r\n]"),QString::SkipEmptyParts);
 
 	// Gets only the values (removes matrix indices)
-	double qstat = tokens.value(2).mid(6).toDouble();
-	double pvportm = tokens.value(5).mid(6).toDouble();
+	double qstat = lines.value(2).mid(6).toDouble();
+	double pvportm = lines.value(5).mid(6).toDouble();
 
 	result.first = qstat;
 	result.second = pvportm;
@@ -79,40 +83,44 @@ QPair<double, double> RInterface::checkCorrelation(const Portfolio& portfolio, i
 }
 
 /**
- * @brief Call the R script for the square correlation test.
+ * @brief Call the R script performing the square correlation test.
  * @param portfolio The portfolio on which the correlation test is performed
- * @param timeLag Time lag of the stastical test
- * @param date The date from which the previous returns will be taken
+ * @param timeLag Time lag of the statistical test
+ * @param date The date from which the historical returns will be taken
  * @param period The number of returns
  * @return The statistical value and p-value couple
  */
 QPair<double, double> RInterface::checkSquareCorrelation(const Portfolio& portfolio, int timeLag, QDateTime date, int period) {
 
-	QVector<double> returns;
-	QProcess process;
-	QStringList arguments;
-	QString parameters;
+	// Check that parameters are correct
+	if(timeLag <= 0) {
+		throw std::invalid_argument("The timeLag parameter must be strictly positive");
+	}
+	if(period <= 0 ) {
+		throw std::invalid_argument("The period parameter must be strictly positive");
+	}
+
+	// The statistical value and p-value couple
 	QPair<double, double> result;
-
-	QString rScriptFilePath = "../../R_scripts/correlation-carre.r";
-
-	returns = portfolio.retrieveReturns(date, period);
 
 	// The only command line argument passed to Rscript is
 	// the R script file
+	QString rScriptFilePath = "../../R_scripts/correlation-carre.r";
+	QStringList arguments;
 	arguments << rScriptFilePath;
 
 	// Makes the string sent to the Rscript standard input
 	// Made of two lines, one paramater a line
-	// timeLag on the first, the returns on the second,separated by space characters
-	parameters = QString::number(timeLag) + "\n";
+	// timeLag on the first, the returns on the second, separated by space characters
+	QString parameters = QString::number(timeLag) + "\n";
+	QVector<double> returns = portfolio.retrieveReturns(date, period);
 	for(QVector<double>::const_iterator it=returns.begin(); it!=returns.end(); ++it) {
 		parameters += QString::number(*it) + " ";
 	}
 
+	QProcess process;
 	process.start("Rscript", arguments);
 	process.waitForStarted();
-
 	// Writes to R standard input the previously created string
 	process.write(parameters.toStdString().c_str());
 	process.closeWriteChannel();
@@ -126,12 +134,11 @@ QPair<double, double> RInterface::checkSquareCorrelation(const Portfolio& portfo
 
 	// Splits the output by newline
 	// Removes empty lines as well
-	QStringList tokens;
-	tokens = output.split(QRegExp("[\r\n]"),QString::SkipEmptyParts);
+	QStringList lines = output.split(QRegExp("[\r\n]"),QString::SkipEmptyParts);
 
 	// Gets only the values (removes matrix indices)
-	double ststdport = tokens.value(1).mid(4).toDouble();
-	double pvportcarre = tokens.value(3).mid(4).toDouble();
+	double ststdport = lines.value(1).mid(4).toDouble();
+	double pvportcarre = lines.value(3).mid(4).toDouble();
 
 	result.first = ststdport;
 	result.second = pvportcarre;
