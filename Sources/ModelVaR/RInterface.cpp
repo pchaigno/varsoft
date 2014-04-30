@@ -57,7 +57,7 @@ QPair<double, double> RInterface::checkCorrelation(const Portfolio& portfolio, i
 	}
 
 	QProcess process;
-	process.start("rscript", arguments);
+	process.start("Rscript", arguments);
 	process.waitForStarted();
 	// Writes to Rscript standard input the previously created string
 	process.write(parameters.toStdString().c_str());
