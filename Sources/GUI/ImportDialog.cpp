@@ -65,7 +65,11 @@ void Import::on_pushButton_clicked() {
 		return;
 	} else {
 		try {
-			QString namealea = ui->textEdit->text()+"_"+QString::number(QDateTime::currentMSecsSinceEpoch())+".csv";
+			QDir dir("../Resources/Assets/");
+			if (!dir.exists()) {
+				dir.mkpath(".");
+			}
+			QString namealea = "../Resources/Assets/"+ui->textEdit->text()+"_"+QString::number(QDateTime::currentMSecsSinceEpoch())+".csv";
 			Asset a = Asset(ui->textEdit->text(), namealea, ui->comboBox->currentText(), ui->startDate->date(), ui->endDate->date());
 			algo.import(a, fileName);
 			SessionSaver::getInstance()->saveAsset(a);

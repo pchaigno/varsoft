@@ -25,6 +25,7 @@
 #include "AssetsFactory.h"
 #include <QDateTime>
 #include <QDialog>
+#include <QDir>
 #include <QException>
 
 namespace Ui {

@@ -215,7 +215,7 @@
     <string>Créer un actif</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+I</string>
+    <string>Ctrl+A</string>
    </property>
   </action>
   <action name="actionExport">
