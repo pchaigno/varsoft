@@ -21,7 +21,6 @@
 #include "VaRAlgorithm.h"
 #include <QPair>
 #include <QDate>
-#include <QPair>
 
 class Backtesting {
 private:
