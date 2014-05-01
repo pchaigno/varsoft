@@ -23,9 +23,8 @@
  * @param risk The risk level.
  * @param garchModel The GARCH model estimated from the portfolio.
  */
-VaRGarch::VaRGarch(const Portfolio& portfolio, double risk, int timeHorizon, const GarchModel& garchModel, int nbScenarios):
-	VaRAlgorithm(portfolio, risk, timeHorizon), garchModel(garchModel), nbScenarios(nbScenarios) {
-
+VaRGarch::VaRGarch(const Portfolio& portfolio, double risk, int timeHorizon, const GarchModel& garchModel, int nbScenarios, bool initStddev, int initPeriod):
+	VaRAlgorithm(portfolio, risk, timeHorizon), garchModel(garchModel), nbScenarios(nbScenarios), initStddev(initStddev), initPeriod(initPeriod) {
 }
 
 /**
@@ -35,17 +34,34 @@ VaRGarch::VaRGarch(const Portfolio& portfolio, double risk, int timeHorizon, con
  */
 double VaRGarch::execute(QDateTime date) const {
 	double var;
-	QVector<double> residuals, stddev;
+	QVector<double> residuals;
 
 	bool debug = true;
 
-	// Retrieves model coefficients for following computation
+	// Retrieves model coefficients and residuals for VaR computation
 	double omega = garchModel.getOmega();
 	double alpha = garchModel.getAlpha();
 	double beta = garchModel.getBeta();
-
 	residuals = garchModel.getResiduals();
-	stddev = garchModel.getStddev();
+
+
+
+
+	// Initialization of stddev
+	double stddev;
+	if(initStddev) {
+		QVector<double> returns = portfolio.retrieveLogReturns(date, initPeriod);
+		qDebug() << "returns.size()";
+		qDebug() << returns.size();
+		stddev = 0;
+		qDebug() << "DEBUT";
+		for(int i=0; i < returns.size()-1; i++) {
+			qDebug() << stddev;
+			stddev = qSqrt(omega + alpha*qPow(returns.at(i), 2) + beta*qPow(stddev, 2));
+		}
+	} else {
+		stddev = garchModel.getStddev();
+	}
 
 	qDebug() << "In VaR Garch";
 	qDebug() << "residuals";
@@ -53,18 +69,22 @@ double VaRGarch::execute(QDateTime date) const {
 	qDebug() << "stddev";
 	qDebug() << stddev;
 
+
 	// Create seed for the random
-	// That is needed only once on application startup
-	// Should be moved then
-	QTime time = QTime::currentTime();
-	qsrand((uint)time.msec());
+	// The following makes sure it is executed only once
+	static bool initialized;
+	if (!initialized) {
+	   initialized = true;
+	   QTime time = QTime::currentTime();
+	   qsrand((uint)time.msec());
+	}
 
 	QVector<double> generatedReturns;
 	// Boostrap process
 	for(int i=0; i < nbScenarios; i++) {
 		// Initialization with the latest real values
 		double previousReturn = portfolio.retrieveLogReturns(date, 1).at(0);
-		double previousStddev = stddev.last();
+		double previousStddev = stddev;
 		double horizonReturn = 0;
 		for(int h=0; h < timeHorizon; h++) {
 			// Draw with replacement of a residual
@@ -87,7 +107,7 @@ double VaRGarch::execute(QDateTime date) const {
 		qDebug() << generatedReturns;
 	}
 
-	// Determine the best return of the risk*100 % worst returns
+	// Vector quantile calculation
 	// Using floor(), we expect the worst case
 	int quantile = floor(getRisk()*generatedReturns.size()-1);
 	if(debug) {

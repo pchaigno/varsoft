@@ -25,9 +25,9 @@ void TestVaRGarch::testExecute() {
 	double risk = 0.05;
 	int timeHorizon = 1;
 	GarchModel garchModel = RInterface::computeGarchModel(this->father, date, period);
-	int scenarios = 1000;
+	int scenarios = 200;
 
-	VaRGarch varGarch(this->father, risk, timeHorizon, garchModel, scenarios);
+	VaRGarch varGarch(this->father, risk, timeHorizon, garchModel, scenarios, false, 0);
 
 	double var = varGarch.execute(date);
 	qDebug() << "Value-at-Risk: " << var;

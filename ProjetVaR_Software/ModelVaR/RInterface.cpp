@@ -44,36 +44,31 @@ bool RInterface::checkSquareCorrelation(const Portfolio& portfolio) {
  */
 GarchModel RInterface::computeGarchModel(const Portfolio& portfolio, QDateTime date, int period) {
 
-	QProcess process;
-	QStringList arguments;
-	QVector<double> residuals;
-	QVector<double> stddev;
-
 	bool debug = true;
 
-//	QVector<double> logReturns = portfolio.retrieveLogReturns(date, period);
+	// The only command line argument passed to Rscript is
+	// the R script file
+	QStringList arguments;
+	QString rScriptFilePath = "../../R_scripts/garch.r";
+	arguments << rScriptFilePath;
+
+	// Makes the string that will be sent to the Rscript standard input
+	// Made of a single line containing the log-returns separated by space characters
+	QVector<double> logReturns = portfolio.retrieveLogReturns(date, period);
+	QString parameters;
+	for(QVector<double>::const_iterator it=logReturns.begin(); it!=logReturns.end(); ++it) {
+		parameters += QString::number(*it) + " ";
+	}
 
 	if(debug) {
 		qDebug() << "logReturns";
 		qDebug() << logReturns;
 	}
 
-	QString rScriptFilePath = "../../R_scripts/garch.r";
-
-	// The only command line argument passed to Rscript is
-	// the R script file
-	arguments << rScriptFilePath;
-
-	// Makes the string sent to the Rscript standard input
-	// Made of a single line containing the log-returns separated by space characters
-	QString parameters;
-	for(QVector<double>::const_iterator it=logReturns.begin(); it!=logReturns.end(); ++it) {
-		parameters += QString::number(*it) + " ";
-	}
-
+	// Launch Rscript
+	QProcess process;
 	process.start("Rscript", arguments);
-
-	// Writes to R standard input the previously created string
+	// Writes to Rscript standard input the previously created string
 	process.write(parameters.toStdString().c_str());
 	process.closeWriteChannel();
 	process.waitForFinished();
@@ -100,8 +95,8 @@ GarchModel RInterface::computeGarchModel(const Portfolio& portfolio, QDateTime d
 	double alpha = coefficients.value(1).toDouble();
 	double beta = coefficients.value(2).toDouble();
 
-	// Residuals (eta)
-	// Retrieves the residuals from rscript output
+	// Retrieves the residuals (eta) from Rscript output
+	QVector<double> residuals;
 	QStringList residualsList;
 	int line;
 	bool residual = true;
@@ -125,13 +120,18 @@ GarchModel RInterface::computeGarchModel(const Portfolio& portfolio, QDateTime d
 
 	// Standard deviation
 	// Retrieves the standard deviation values from rscript output
+	double stddev;
 	QStringList stddevList;
-	for(; line < lines.size(); line++) {
-		stddevList = lines.value(line).split(QRegExp("\\s"), QString::SkipEmptyParts);
-		for(int i=1; i < stddevList.size(); i++) {
-			stddev.push_back(stddevList.value(i).toDouble());
-		}
-	}
+	stddevList = lines.value(line).split(QRegExp("\\s"), QString::SkipEmptyParts);
+	stddev = stddevList.value(1).toDouble();
+
+	// Previous code
+//	for(; line < lines.size(); line++) {
+//		stddevList = lines.value(line).split(QRegExp("\\s"), QString::SkipEmptyParts);
+//		for(int i=1; i < stddevList.size(); i++) {
+//			stddev.push_back(stddevList.value(i).toDouble());
+//		}
+//	}
 
 	if(debug) {
 		qDebug() << "stddev";

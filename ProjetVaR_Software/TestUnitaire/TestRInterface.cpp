@@ -39,18 +39,18 @@ TestRInterface::TestRInterface() {
 void TestRInterface::testComputeGarchModel() {
 
 	int period = 5;
+	qDebug() << this->father.retrieveLogReturns(this->father.retrieveEndDate(), period);
+	GarchModel model = RInterface::computeGarchModel(this->father, this->father.retrieveEndDate(), period);
 
-	GarchModel testModel = RInterface::computeGarchModel(this->father, this->father.retrieveEndDate(), period);
-
-//	QCOMPARE(testModel.getOmega(), );
+//	QCOMPARE(QString::number(model.getOmega()), QString("0.000250406"));
 //	QCOMPARE(testModel.getAlpha(), );
 //	QCOMPARE(testModel.getBeta(), );
 
-	qDebug() << "omega=" << testModel.getOmega();
-	qDebug() << "alpha=" << testModel.getAlpha();
-	qDebug() << "beta=" << testModel.getBeta();
-	qDebug() << "residuals=" << testModel.getResiduals();
-	qDebug() << "stddev=" << testModel.getStddev();
+	qDebug() << "omega=" << model.getOmega();
+	qDebug() << "alpha=" << model.getAlpha();
+	qDebug() << "beta=" << model.getBeta();
+	qDebug() << "residuals=" << model.getResiduals();
+	qDebug() << "stddev=" << model.getStddev();
 
 //	qDebug() << QString::number(testModel.getOmega(), 'g', 1000);
 //	qDebug() << QString::number(testModel.getAlpha(), 'g', 1000);

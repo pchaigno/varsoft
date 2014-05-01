@@ -22,8 +22,8 @@
 #include "GarchModel.h"
 
 // Pour les tests
-#include <iostream>
-#include <random>
+//#include <iostream>
+//#include <random>
 
 class MODELVARSHARED_EXPORT RInterface {
 public:

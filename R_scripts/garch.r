@@ -22,6 +22,6 @@ res$coef
 print("residuals")
 res$residuals[2:length(res$residuals)]
 
-# Outputs the standard deviation without the first uninitialized value (sigma)
+# Outputs the latest standard deviation value (sigma)
 print("stddev")
-res$fitted.values[,1][2:length(res$fitted.values[,1])]
+res$fitted.values[,1][length(res$fitted.values[,1])]
