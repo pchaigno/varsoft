@@ -32,5 +32,6 @@ public:
 	TestVaRGarch();
 
 private Q_SLOTS:
-	void testExecute();
+	void testExecuteNoInit();
+	void testExecuteWithInit();
 };

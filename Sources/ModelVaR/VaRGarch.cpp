@@ -69,8 +69,6 @@ double VaRGarch::execute(QDate date) const {
 		stddev = garchModel.getStddev();
 	}
 
-	qDebug() << stddev;
-
 	// Create seed for the random draw
 	// The following makes sure it is executed only once
 	static bool initialized;

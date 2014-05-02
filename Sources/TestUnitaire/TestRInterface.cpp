@@ -55,3 +55,14 @@ void TestRInterface::testComputeGarchModel() {
 	QCOMPARE(model.getResiduals().at(8), 0.277749688);
 	QCOMPARE(model.getStddev(), 0.01639555);
 }
+
+void TestRInterface::testComputeGarchModelIncorrectParameter() {
+	int period = 2;
+	try {
+		GarchModel model = RInterface::computeGarchModel(this->father, this->father.retrieveEndDate(), period);
+		QFAIL("computeGarchModel() should not have succeeded in computing a Garch model");
+	} catch(std::invalid_argument& e) {
+
+	}
+
+}

@@ -34,4 +34,5 @@ public:
 
 private Q_SLOTS:
 	void testComputeGarchModel();
+	void testComputeGarchModelIncorrectParameter();
 };

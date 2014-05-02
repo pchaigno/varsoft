@@ -15,8 +15,7 @@ TestVaRGarch::TestVaRGarch() {
 	this->father = Portfolio("Father", assets, reports);
 }
 
-void TestVaRGarch::testExecute() {
-
+void TestVaRGarch::testExecuteNoInit() {
 	// GarchModel parameters
 	QDate date = this->father.retrieveEndDate();
 	// Period to compute garch model, 200 days
@@ -32,9 +31,23 @@ void TestVaRGarch::testExecute() {
 	VaRGarch varGarch(this->father, risk, timeHorizon, garchModel, scenarios, false, 0);
 	double var = varGarch.execute(date);
 	qDebug() << "Value-at-Risk: " << var;
+}
+
+void TestVaRGarch::testExecuteWithInit() {
+	// GarchModel parameters
+	QDate date = this->father.retrieveEndDate();
+	// Period to compute garch model, 200 days
+	int period = 200;
+
+	// VaRGarch parameters
+	double risk = 0.05;
+	int timeHorizon = 1;
+	GarchModel garchModel = RInterface::computeGarchModel(this->father, date, period);
+	// Number of sceniarios for the boostrap
+	int scenarios = 200;
 
 	// Standard deviation initialization case
-	VaRGarch varGarchInit(this->father, risk, timeHorizon, garchModel, scenarios, true, 20);
-	var = varGarchInit.execute(date);
+	VaRGarch varGarch(this->father, risk, timeHorizon, garchModel, scenarios, true, 20);
+	double var = varGarch.execute(date);
 	qDebug() << "Value-at-Risk: " << var;
 }
