@@ -211,3 +211,21 @@ void TestAsset::testRetrieveValuesByDateUnavailableDates() {
 	QCOMPARE(result.size(), 1);
 	QCOMPARE(result.value(QDate(2013, 12, 31)), 98.0);
 }
+
+/**
+ * @brief Compares a serialized/deserialized asset with the original asset.
+ */
+void TestAsset::testSerialize() {
+	QJsonObject json;
+	this->google.toJSON(json);
+	Asset test = Asset();
+	test.fromJSON(json);
+
+	QCOMPARE(test, this->google);
+	QCOMPARE(test.getId(), this->google.getId());
+	QCOMPARE(test.getName(), this->google.getName());
+	QCOMPARE(test.getOrigin(), this->google.getOrigin());
+	QCOMPARE(test.getFile(), this->google.getFile());
+	QCOMPARE(test.getStartDate(), this->google.getStartDate());
+	QCOMPARE(test.getEndDate(), this->google.getEndDate());
+}

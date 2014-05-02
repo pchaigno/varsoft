@@ -32,7 +32,7 @@ AssetsFactory::AssetsFactory() {
 /**
  * @brief Retrieves an asset by its name.
  * @param name The name of the asset to retrieve.
- * @return A pointer to the asset.
+ * @return A pointer to the asset or null if the asset doesn't exist.
  */
 Asset* AssetsFactory::retrieveAsset(QString name) {
 	if(!this->assets.contains(name)) {

@@ -28,6 +28,7 @@
 #include "ModelVaR_global.h"
 #include "CannotOpenFileException.h"
 #include <QDate>
+#include <QJsonObject>
 
 class MODELVARSHARED_EXPORT Asset {
 private:
@@ -57,4 +58,7 @@ public:
 	QMap<QDate, double> retrieveValuesByDate(const QDate& startPeriod, const QDate& endPeriod) const;
 
 	bool operator==(const Asset& asset) const;
+
+	void fromJSON(const QJsonObject &json);
+	void toJSON(QJsonObject &json) const;
 };

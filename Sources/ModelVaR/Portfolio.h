@@ -29,6 +29,9 @@
 #include "PortfolioCalculationException.h"
 #include <string>
 #include <sstream>
+#include "AssetsFactory.h"
+#include <QJsonArray>
+#include "NonexistentAssetException.h"
 
 class MODELVARSHARED_EXPORT Portfolio {
 private:
@@ -49,10 +52,12 @@ public:
 	QString getName() const;
 	int getId() const;
 	void setId(int id);
+	Portfolio* getParent() const;
 	int getParentId() const;
 	QVector<Report*> getReports() const;
 	QVector<Asset*> getAssets() const;
 	QMap<Asset*, int> getComposition() const;
+	int getWeight(Asset* const asset) const;
 	void changeName(QString name);
 	QDate retrieveStartDate() const;
 	QDate retrieveEndDate() const;
@@ -65,4 +70,7 @@ public:
 	QVector<double> retrieveReturns(const QDate& endPeriod, int nbValues) const;
 
 	bool operator==(const Portfolio& portfolio) const;
+
+	void fromJSON(const QJsonObject &json, QMap<int, Portfolio*>& portfoliosDeserialized);
+	void toJSON(QJsonObject &json) const;
 };

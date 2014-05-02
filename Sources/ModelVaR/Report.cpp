@@ -111,3 +111,23 @@ bool Report::operator==(const Report& report) const {
 	}
 	return this->id == report.id;
 }
+
+/**
+ * @brief Deserializes the report from a JSON document.
+ * @param json The JSON document.
+ */
+void Report::fromJSON(const QJsonObject &json) {
+	this->id = json["id"].toInt();
+	this->docxFile = json["docxFile"].toString();
+	this->pdfFile = json["pdfFile"].toString();
+}
+
+/**
+ * @brief Serializes the report into a JSON document.
+ * @param json The JSON document.
+ */
+void Report::toJSON(QJsonObject &json) const {
+	json["id"] = this->id;
+	json["docxFile"] = this->docxFile;
+	json["pdfFile"] = this->pdfFile;
+}

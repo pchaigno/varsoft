@@ -275,3 +275,29 @@ QMap<QDate, double> Asset::retrieveValuesByDate(const QDate& startPeriod, const 
 bool Asset::operator==(const Asset& asset) const {
 	return this->name == asset.name;
 }
+
+/**
+ * @brief Deserializes the asset from a JSON document.
+ * @param json The JSON document.
+ */
+void Asset::fromJSON(const QJsonObject &json) {
+	this->id = json["id"].toInt();
+	this->file = json["file"].toString();
+	this->name = json["name"].toString();
+	this->origin = json["origin"].toString();
+	this->startDate = QDate::fromJulianDay(json["startDate"].toInt());
+	this->endDate = QDate::fromJulianDay(json["endDate"].toInt());
+}
+
+/**
+ * @brief Serializes the asset into a JSON document.
+ * @param json The JSON document.
+ */
+void Asset::toJSON(QJsonObject &json) const {
+	json["id"] = this->id;
+	json["file"] = this->file;
+	json["name"] = this->name;
+	json["origin"] = this->origin;
+	json["startDate"] = this->startDate.toJulianDay();
+	json["endDate"] = this->endDate.toJulianDay();
+}

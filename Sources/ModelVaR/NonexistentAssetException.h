@@ -17,41 +17,25 @@
  */
 #pragma once
 
-#include <QString>
-#include "IdAlreadyAttributedException.h"
+#include <exception>
+#include <QDebug>
 #include "ModelVaR_global.h"
-#include <QJsonObject>
 
-enum ReportType {
-	NONE = 0,
-	BACKTESTING,
-	CORRELATION,
-	GARCH,
-	STATISTICS,
-	VAR
-};
-
-class MODELVARSHARED_EXPORT Report {
-private:
-	int id;
-	QString docxFile;
-	QString pdfFile;
-
+class MODELVARSHARED_EXPORT NonexistentAssetException: public std::exception {
 public:
-	Report();
-	Report(QString docxFile, QString pdfFile);
-	Report(int id, QString docxFile, QString pdfFile);
-	void init(int id, QString docxFile, QString pdfFile);
+	NonexistentAssetException(QString msg) {
+		this->msg = msg;
+	}
 
-	int getId() const;
-	void setId(int id);
-	QString getDOCXFile() const;
-	QString getPDFFile() const;
-	// TODO Any way to make it abstract?
-	virtual ReportType getType() const;
+	virtual ~NonexistentAssetException() throw() {
 
-	bool operator==(const Report& report) const;
+	}
 
-	void fromJSON(const QJsonObject &json);
-	void toJSON(QJsonObject &json) const;
+	virtual const char* what() const throw() {
+		QByteArray array = this->msg.toUtf8();
+		return array.data();
+	}
+
+private:
+	QString msg;
 };

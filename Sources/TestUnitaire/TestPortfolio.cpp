@@ -138,7 +138,6 @@ void TestPortfolio::testRetrieveValuesWeekends() {
 	QVector<double> result = this->weekends.retrieveValues();
 	QCOMPARE(result.size(), 15);
 	QMap<QDate, double> resultWithDates = this->weekends.retrieveValuesByDate();
-	qDebug() << this->weekends.getComposition().begin().key()->retrieveValues().size();
 	QCOMPARE(resultWithDates.size(), 15);
 }
 
@@ -223,4 +222,79 @@ void TestPortfolio::testRetrieveNbReturnsSome() {
 	QCOMPARE(result.at(1), 0.0);
 	QCOMPARE(result.at(2), 4.0);
 	QCOMPARE(result.at(3), 1.0);
+}
+
+/**
+ * @brief Compares two serialized/deserialized portfolios with the originals.
+ * The first one is the parent of the second one.
+ */
+void TestPortfolio::testSerialize() {
+	QJsonObject jsonParent;
+	QJsonObject jsonSon;
+	this->father.toJSON(jsonParent);
+	this->son.toJSON(jsonSon);
+	// We need to save the assets in the database to be able to deserialize them:
+	// The two portfolios share the same assets.
+	foreach(Asset* asset, this->father.getAssets()) {
+		SessionSaver::getInstance()->saveAsset(*asset);
+	}
+
+	Portfolio serializedFather = Portfolio();
+	Portfolio serializedSon = Portfolio();
+	QMap<int, Portfolio*> portfoliosDeserialized;
+	try {
+		serializedFather.fromJSON(jsonParent, portfoliosDeserialized);
+		serializedSon.fromJSON(jsonSon, portfoliosDeserialized);
+	} catch(NonexistentAssetException e) {
+		QFAIL(e.what());
+	}
+
+	comparePortfolios(serializedFather, this->father);
+	comparePortfolios(serializedSon, this->son);
+
+	// Deletes the database created at the beginning of the test:
+	QFile databaseFile(SessionSaver::getInstance()->getDatabaseFile());
+	databaseFile.remove();
+}
+
+/**
+ * @brief Compares a serialized/deserialized portfolio with its original.
+ * The assets, the reports and the attributes are compared.
+ * @param serializedPortfolio The serialized/deserialized portfolio.
+ * @param portfolio The original portfolio.
+ */
+void TestPortfolio::comparePortfolios(Portfolio& serializedPortfolio, Portfolio& portfolio) {
+	QCOMPARE(serializedPortfolio, portfolio);
+	QCOMPARE(serializedPortfolio.getId(), portfolio.getId());
+	QCOMPARE(serializedPortfolio.getName(), portfolio.getName());
+	if(portfolio.getParent() != NULL) {
+		QCOMPARE(*serializedPortfolio.getParent(), *portfolio.getParent());
+	}
+	QCOMPARE(serializedPortfolio.getParentId(), portfolio.getParentId());
+	// Compares the reports:
+	QCOMPARE(serializedPortfolio.getReports().size(), portfolio.getReports().size());
+	foreach(const Report* serializedReport, serializedPortfolio.getReports()) {
+		bool reportFound = false;
+		foreach(const Report* report, portfolio.getReports()) {
+			if(*report == *serializedReport) {
+				QCOMPARE(serializedReport->getType(), report->getType());
+				reportFound = false;
+				break;
+			}
+		}
+		QVERIFY(reportFound);
+	}
+	// Compares the assets and the weights:
+	QCOMPARE(serializedPortfolio.getAssets().size(), portfolio.getAssets().size());
+	foreach(Asset* const serializedAsset, serializedPortfolio.getAssets()) {
+		bool assetFound = false;
+		foreach(Asset* const asset, portfolio.getAssets()) {
+			if(*asset == *serializedAsset) {
+				QCOMPARE(serializedPortfolio.getWeight(serializedAsset), portfolio.getWeight(asset));
+				assetFound = true;
+				break;
+			}
+		}
+		QVERIFY(assetFound);
+	}
 }
