@@ -53,8 +53,8 @@ void TestRInterface::testCheckCorrelation() {
 	} catch(std::invalid_argument& e) {}
 	// The toDouble() method in checkCorrelation seems to slightly
 	// modify the precision, that is why the following test is performed
-	QCOMPARE(QString::number(result.first), QString("2.51273"));
-	QCOMPARE(QString::number(result.second), QString("0.11293"));
+	QCOMPARE(result.first, 2.633048);
+	QCOMPARE(result.second, 0.1046607);
 
 	timeLag = 3;
 	period = 20;
@@ -63,8 +63,8 @@ void TestRInterface::testCheckCorrelation() {
 	} catch(std::invalid_argument& e) {	}
 	// The toDouble() method in checkCorrelation seems to slightly
 	// modify the precision, that is why the following test is performed
-	QCOMPARE(QString::number(result.first), QString("6.44423"));
-	QCOMPARE(QString::number(result.second), QString("0.0918881"));
+	QCOMPARE(result.first, 6.277748);
+	QCOMPARE(result.second, 0.09885197);
 }
 
 /**
@@ -127,16 +127,16 @@ void TestRInterface::testCheckSquareCorrelation() {
 	try {
 		result = RInterface::checkSquareCorrelation(this->father, timeLag, date, period);
 	} catch(std::invalid_argument& e) {}
-	QCOMPARE(QString::number(result.first), QString("0.343539"));
-	QCOMPARE(QString::number(result.second), QString("0.557793"));
+	QCOMPARE(result.first, 0.3349454);
+	QCOMPARE(result.second, 0.5627615);
 
 	timeLag = 3;
 	period = 20;
 	try {
 		result = RInterface::checkSquareCorrelation(this->father, timeLag, date, period);
 	} catch(std::invalid_argument& e) {}
-	QCOMPARE(QString::number(result.first), QString("2.77258"));
-	QCOMPARE(QString::number(result.second), QString("0.428033"));
+	QCOMPARE(result.first, 2.762662);
+	QCOMPARE(result.second, 0.4296833);
 }
 
 /**
