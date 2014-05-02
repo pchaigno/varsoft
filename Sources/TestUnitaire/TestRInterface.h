@@ -35,5 +35,9 @@ public:
 
 private Q_SLOTS:
 	void testCheckCorrelation();
+	void testCheckCorrelationIncorrectTimeLag();
+	void testCheckCorrelationIncorrectPeriod();
+	void testCheckCorrelationIncompatibleParameters();
 	void testCheckSquareCorrelation();
+	void testCheckSquareCorrelationIncompatibleParameters();
 };
