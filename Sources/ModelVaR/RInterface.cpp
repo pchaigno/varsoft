@@ -26,64 +26,12 @@
  * @return The statistical value and p-value couple
  */
 QPair<double, double> RInterface::checkCorrelation(const Portfolio& portfolio, int timeLag, QDate& date, int period) {
-
-	// Check that parameters are correct
-	if(timeLag <= 0) {
-		throw std::invalid_argument("The timeLag parameter must be strictly positive");
-	}
-	if(period <= 0 ) {
-		throw std::invalid_argument("The period parameter must be strictly positive");
-	}
+	// Check the period parameter
 	if(timeLag > period - 2) {
 		throw std::invalid_argument("The timeLag parameter cannot be greater than period minus two");
 	}
 
-	// The statistical value and p-value couple
-	QPair<double, double> result;
-
-	// The only command line argument passed to Rscript is
-	// the R script file
-	QString rScriptFilePath = "../../R_scripts/correlation-niveau.r";
-	QStringList arguments;
-	arguments << rScriptFilePath;
-
-	// Makes the string sent to the Rscript standard input
-	// Made of two lines, one paramater a line
-	// timeLag on the first, the returns on the second,separated by space characters
-	QString parameters = QString::number(timeLag) + "\n";
-	QVector<double> returns = portfolio.retrieveReturns(date, period);
-	for(QVector<double>::const_iterator it=returns.begin(); it!=returns.end(); ++it) {
-		parameters += QString::number(*it) + " ";
-	}
-
-	QProcess process;
-	process.start("Rscript", arguments);
-	process.waitForStarted();
-	// Writes to Rscript standard input the previously created string
-	process.write(parameters.toStdString().c_str());
-	process.closeWriteChannel();
-	process.waitForFinished();
-
-	// Reads R output
-	QByteArray rawOutput = process.readAllStandardOutput();
-
-	// Convert it to QString
-	QString output = QString::fromUtf8(rawOutput);
-
-	// Splits the output by newline
-	// Removes empty lines as well
-	QStringList lines;
-	lines = output.split(QRegExp("[\r\n]"),QString::SkipEmptyParts);
-
-	// Gets only the values (removes matrix indices)
-	QRegExp rx("\\s+");
-	double qstat = lines.value(2).split(rx).value(1).toDouble();
-	double pvportm = lines.value(5).split(rx).value(1).toDouble();
-
-	result.first = qstat;
-	result.second = pvportm;
-
-	return result;
+	return executeCorrelationScript(portfolio, timeLag, date, period, "../../R_scripts/correlation-niveau.r");
 }
 
 /**
@@ -95,7 +43,24 @@ QPair<double, double> RInterface::checkCorrelation(const Portfolio& portfolio, i
  * @return The statistical value and p-value couple
  */
 QPair<double, double> RInterface::checkSquareCorrelation(const Portfolio& portfolio, int timeLag, QDate& date, int period) {
+	// Check the period parameter
+	if(timeLag > period - 1) {
+		throw std::invalid_argument("The timeLag parameter cannot be greater than period minus one");
+	}
 
+	return executeCorrelationScript(portfolio, timeLag, date, period, "../../R_scripts/correlation-carre.r");
+}
+
+/**
+ * @brief RInterface::executeCorrelationScript Generic call to the R script passed as rScriptFilePath parameter
+ * @param portfolio The portfolio on which the correlation test is performed
+ * @param timeLag Time lag of the statistical test
+ * @param date The date from which the historical returns will be taken
+ * @param period The number of returns
+ * @param rScriptFilePath R script file
+ * @return The statistical value and p-value couple
+ */
+QPair<double, double> RInterface::executeCorrelationScript(const Portfolio& portfolio, int timeLag, QDate& date, int period, QString rScriptFilePath) {
 	// Check that parameters are correct
 	if(timeLag <= 0) {
 		throw std::invalid_argument("The timeLag parameter must be strictly positive");
@@ -103,16 +68,9 @@ QPair<double, double> RInterface::checkSquareCorrelation(const Portfolio& portfo
 	if(period <= 0 ) {
 		throw std::invalid_argument("The period parameter must be strictly positive");
 	}
-	if(timeLag > period - 1) {
-		throw std::invalid_argument("The timeLag parameter cannot be greater than period minus one");
-	}
-
-	// The statistical value and p-value couple
-	QPair<double, double> result;
 
 	// The only command line argument passed to Rscript is
 	// the R script file
-	QString rScriptFilePath = "../../R_scripts/correlation-carre.r";
 	QStringList arguments;
 	arguments << rScriptFilePath;
 
@@ -148,11 +106,13 @@ QPair<double, double> RInterface::checkSquareCorrelation(const Portfolio& portfo
 	double ststdport = lines.value(1).split(rx).value(1).toDouble();
 	double pvportcarre = lines.value(3).split(rx).value(1).toDouble();
 
+	QPair<double, double> result;
 	result.first = ststdport;
 	result.second = pvportcarre;
 
 	return result;
 }
+
 
 /**
  * @brief Call the R script to compute the GARCH model of a portfolio.

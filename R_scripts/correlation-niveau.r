@@ -35,7 +35,7 @@ resid <- as.numeric(unlist(tmp))
 	}
 
 	Qstat = t(autocorr) %*% autocorr
-	Qstat = n * Qstat
+	Qstat = as.vector(n * Qstat)
 
 	pvportm = 1 - pchisq(Qstat, df = m)
 
