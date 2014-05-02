@@ -2,9 +2,7 @@ language: cpp
 compiler:
   - gcc
 env:
-  - CONFIG=debug QT=Qt4
   - CONFIG=debug QT=Qt5
-  - CONFIG=release QT=Qt4
   - CONFIG=release QT=Qt5
 
 before_install:
@@ -13,15 +11,18 @@ before_install:
 install:
   - if [ $QT == "Qt4" ]; then sudo apt-get install libqt4-dev qt4-qmake libqt4-sql-sqlite; fi
   - if [ $QT == "Qt5" ]; then sudo apt-get install -y qt5-default libqt5sql5-sqlite; fi
+  - sudo apt-get install -y r-base
 
 script:
-  - cd ProjetVaR_Software
+  - cd Sources
   - mkdir build
   - cd build
-  - qmake QMAKE_CXX=$CXX CONFIG+=$CONFIG ../ProjetVaR_Software.pro
+  - qmake QMAKE_CXX=$CXX CONFIG+=$CONFIG ../ProjetVaR.pro
   - make
   - export LD_LIBRARY_PATH=ModelVaR
   - TestUnitaire/main
+  - cd ../..
+  - python Travis/conventions.py Sources/ModelVaR/ Sources/TestUnitaire/ Sources/GUI/
 
 notifications:
   email:
