@@ -218,8 +218,7 @@ void TestAsset::testRetrieveValuesByDateUnavailableDates() {
 void TestAsset::testSerialize() {
 	QJsonObject json;
 	this->google.toJSON(json);
-	Asset test = Asset();
-	test.fromJSON(json);
+	Asset test = Asset(json);
 
 	QCOMPARE(test, this->google);
 	QCOMPARE(test.getId(), this->google.getId());

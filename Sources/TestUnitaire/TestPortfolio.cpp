@@ -239,12 +239,12 @@ void TestPortfolio::testSerialize() {
 		SessionSaver::getInstance()->saveAsset(*asset);
 	}
 
-	Portfolio serializedFather = Portfolio();
-	Portfolio serializedSon = Portfolio();
+	Portfolio serializedFather;
+	Portfolio serializedSon;
 	QMap<int, Portfolio*> portfoliosDeserialized;
 	try {
-		serializedFather.fromJSON(jsonParent, portfoliosDeserialized);
-		serializedSon.fromJSON(jsonSon, portfoliosDeserialized);
+		serializedFather = Portfolio(jsonParent, portfoliosDeserialized);
+		serializedSon = Portfolio(jsonSon, portfoliosDeserialized);
 	} catch(NonexistentAssetException e) {
 		QFAIL(e.what());
 	}

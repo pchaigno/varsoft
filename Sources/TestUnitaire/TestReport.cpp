@@ -60,8 +60,7 @@ void TestReport::testId(Report report) {
 void TestReport::testSerialize() {
 	QJsonObject json;
 	this->statistics.toJSON(json);
-	Report test = StatisticsReport();
-	test.fromJSON(json);
+	Report test = StatisticsReport(json);
 
 	QCOMPARE(test, this->statistics);
 	QCOMPARE(test.getId(), this->statistics.getId());

@@ -26,5 +26,6 @@ public:
 	VaRReport();
 	VaRReport(QString docxFile, QString pdfFile);
 	VaRReport(int id, QString docxFile, QString pdfFile);
+	VaRReport(const QJsonObject& json);
 	virtual ReportType getType() const;
 };

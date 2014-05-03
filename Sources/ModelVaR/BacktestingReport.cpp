@@ -45,6 +45,14 @@ BacktestingReport::BacktestingReport(int id, QString docxFile, QString pdfFile):
 }
 
 /**
+ * @brief Builds the report from a JSON document.
+ * @param json The JSON document.
+ */
+BacktestingReport::BacktestingReport(const QJsonObject& json): Report(json) {
+
+}
+
+/**
  * @brief Accessor to the type of the report.
  * @return The type of the report.
  */

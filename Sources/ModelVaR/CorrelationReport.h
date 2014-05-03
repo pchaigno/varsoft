@@ -26,5 +26,6 @@ public:
 	CorrelationReport();
 	CorrelationReport(QString docxFile, QString pdfFile);
 	CorrelationReport(int id, QString docxFile, QString pdfFile);
+	CorrelationReport(const QJsonObject& json);
 	virtual ReportType getType() const;
 };

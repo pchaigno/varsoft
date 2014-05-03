@@ -56,6 +56,14 @@ void Report::init(int id, QString docxFile, QString pdfFile) {
 }
 
 /**
+ * @brief Builds the report from a JSON document.
+ * @param json The JSON document.
+ */
+Report::Report(const QJsonObject& json) {
+	this->fromJSON(json);
+}
+
+/**
  * @brief Accessor to id.
  * @return The id of the report in the database.
  */

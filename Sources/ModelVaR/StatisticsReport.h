@@ -26,5 +26,6 @@ public:
 	StatisticsReport();
 	StatisticsReport(QString docxFile, QString pdfFile);
 	StatisticsReport(int id, QString docxFile, QString pdfFile);
+	StatisticsReport(const QJsonObject& json);
 	virtual ReportType getType() const;
 };

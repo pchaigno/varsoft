@@ -48,6 +48,7 @@ public:
 	Portfolio(Portfolio* parent, int id, QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports);
 	Portfolio(int id, QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports);
 	void init(Portfolio* parent, int id, QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports);
+	Portfolio(const QJsonObject& json, QMap<int, Portfolio*>& deserializedPortfolios);
 
 	QString getName() const;
 	int getId() const;

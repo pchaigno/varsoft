@@ -26,5 +26,6 @@ public:
 	BacktestingReport();
 	BacktestingReport(QString docxFile, QString pdfFile);
 	BacktestingReport(int id, QString docxFile, QString pdfFile);
+	BacktestingReport(const QJsonObject& json);
 	virtual ReportType getType() const;
 };

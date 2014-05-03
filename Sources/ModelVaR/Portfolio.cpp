@@ -86,6 +86,18 @@ void Portfolio::init(Portfolio* parent, int id, QString name, QMap<Asset*, int>&
 }
 
 /**
+ * @brief Builds the portfolio from a JSON document.
+ * The assets must be deserialized and saved to the database before the portfolio.
+ * @param json The JSON document.
+ * @param portfoliosDeserialized The portfolios already deserialized.
+ * This last param should contain the parent portfolio if one is needed.
+ * Portfolios should be deserialized by id order so that for every portfolio, the parent will always be deserilized first.
+ */
+Portfolio::Portfolio(const QJsonObject& json, QMap<int, Portfolio*>& deserializedPortfolios) {
+	this->fromJSON(json, deserializedPortfolios);
+}
+
+/**
  * @brief Accessor to name.
  * @return The name of the portfolio.
  */
@@ -381,7 +393,7 @@ bool Portfolio::operator==(const Portfolio& portfolio) const {
 
 /**
  * @brief Deserializes the portfolio from a JSON document.
- * The assets must be deserialized and saved to the database before the portfolios.
+ * The assets must be deserialized and saved to the database before the portfolio.
  * @param json The JSON document.
  * @param portfoliosDeserialized The portfolios already deserialized.
  * This last param should contain the parent portfolio if one is needed.

@@ -72,6 +72,14 @@ void Asset::init(int id, QString name, QString file, QString origin, QDate start
 }
 
 /**
+ * @brief Builds the asset from a JSON document.
+ * @param json The JSON document.
+ */
+Asset::Asset(const QJsonObject& json) {
+	this->fromJSON(json);
+}
+
+/**
  * @brief Accessor to id.
  * @return The id of the asset in the database.
  */

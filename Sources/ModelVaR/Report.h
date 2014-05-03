@@ -42,6 +42,7 @@ public:
 	Report(QString docxFile, QString pdfFile);
 	Report(int id, QString docxFile, QString pdfFile);
 	void init(int id, QString docxFile, QString pdfFile);
+	Report(const QJsonObject& json);
 
 	int getId() const;
 	void setId(int id);
