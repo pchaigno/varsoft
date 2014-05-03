@@ -285,16 +285,20 @@ Portfolio *MainWindow::getCurrentPortfolio() {
 void MainWindow::generateStatsReport() {
 	try {
 		// get the current portfolio
-		Portfolio * port = this->getCurrentPortfolio();
-		// build the stats report
-		Report * report = buildReport(port, new StatisticsReportFactory(port));
-		// generate it in Docx format
-		QSettings settings;
-		generateReport(new DocxGenerator(report, settings.value("DocXGenPath","../Resources/DocxGenerator/DocXGenerator.jar").toString()));
-	} catch (ReportException & e) {
-		showError(e.what());
-	} catch (NoneSelectedPortfolioException& ) {
-		showError("None portfolio selected");
+        Portfolio * port = this->getCurrentPortfolio();
+
+        // build the stats report
+        Report * report = buildReport(port, new StatisticsReportFactory(port));
+
+        // generate it in Docx format
+        QSettings settings;
+        generateReport(new DocxGenerator(report, settings.value("DocXGenPath","../Resources/DocxGenerator/DocXGenerator.jar").toString()));
+    } catch (ReportAlreadyCreatedException & e) {
+
+    } catch (ReportException & e) {
+        showError(e.what());
+    } catch (NoneSelectedPortfolioException& ) {
+        showError("None portfolio selected");
 	}
 }
 
@@ -307,9 +311,26 @@ void MainWindow::generateStatsReport() {
  * @return The report created by the given factory
  */
 Report *MainWindow::buildReport(Portfolio *portfolio, ReportFactory * factory, bool deleteAfter) {
-	//build the report
-	Report * report = factory->buildReport();
-	// add it to the portfolio
+    Report * report;
+    try
+    {
+        //build the report
+        report = factory->buildReport();
+    }
+    catch (ReportAlreadyCreatedException & e)
+    {
+        int button = QMessageBox::information(this,"Report already created","This report has already been created.\nDo you want to regenerate it ?",QMessageBox::Yes|QMessageBox::No,QMessageBox::No);
+        if (button==QMessageBox::Yes)
+        {
+            report = factory->forceBuildReport();
+        }
+        else
+        {
+            throw e;
+        }
+    }
+
+    // add it to the portfolio
 	portfolio->addReport(report);
 
 	//create the ReportWidget for the portfolio

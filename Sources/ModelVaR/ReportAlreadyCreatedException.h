@@ -17,24 +17,21 @@
  */
 #pragma once
 
-#include "Report.h"
-#include "DocxGenerator.h"
-#include <QString>
-#include <QDir>
-#include "ReportAlreadyCreatedException.h"
-#include "ReportException.h"
-#include <QDebug>
+#include <exception>
+#include <string>
+#include <ReportException.h>
+#include "ModelVaR_global.h"
 
-class MODELVARSHARED_EXPORT ReportFactory {
+class MODELVARSHARED_EXPORT ReportAlreadyCreatedException : public ReportException {
 public:
-	ReportFactory();
+    ReportAlreadyCreatedException(std::string msg) : ReportException(msg) {
 
-	Report *buildReport();
-    Report *forceBuildReport();
+    }
 
-protected:
-    virtual Report * createReport() =0;
-	virtual ReportDataJson* createJson() = 0;
-	QString getReportDir() const;
+    virtual ~ReportAlreadyCreatedException() throw() {
 
+    }
+
+
+private:
 };

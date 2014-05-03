@@ -95,7 +95,16 @@ void Report::setId(int id) {
  * @return
  */
 QString Report::getFile() const {
-	return this->file;
+    return this->file;
+}
+
+/**
+ * @brief Setter to the file without extension
+ * @param file
+ */
+void Report::setFile(QString file)
+{
+    this->file=file;
 }
 
 /**

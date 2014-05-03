@@ -31,9 +31,29 @@ ReportFactory::ReportFactory() {
 Report *ReportFactory::buildReport() {
 	Report * report = createReport();
 	if (report->filesAvailable())
-		throw ReportException("Report files are available on the disk, maybe this report has already been created before.");
+        throw ReportAlreadyCreatedException("Report files are available on the disk, maybe this report has already been created before.");
 	report->setDataJson(createJson());
-	return report;
+    return report;
+}
+
+Report *ReportFactory::forceBuildReport()
+{
+    Report * report = createReport();
+    if (report->filesAvailable())
+    {
+        QString tmp = report->getFile();
+        QString nameFile = report->getFile();
+        int i=1;
+        do
+        {
+            report->setFile(nameFile+"("+QString::number(i)+")");
+            i++;
+        }
+        while (report->filesAvailable());
+    }
+
+    report->setDataJson(createJson());
+    return report;
 }
 
 /**
