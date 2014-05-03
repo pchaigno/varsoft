@@ -281,12 +281,12 @@ bool Asset::operator==(const Asset& asset) const {
  * @param json The JSON document.
  */
 void Asset::fromJSON(const QJsonObject &json) {
-	this->id = json["id"].toInt();
+	this->id = (int)json["id"].toDouble();
 	this->file = json["file"].toString();
 	this->name = json["name"].toString();
 	this->origin = json["origin"].toString();
-	this->startDate = QDate::fromJulianDay(json["startDate"].toInt());
-	this->endDate = QDate::fromJulianDay(json["endDate"].toInt());
+	this->startDate = QDate::fromJulianDay((int)json["startDate"].toDouble());
+	this->endDate = QDate::fromJulianDay((int)json["endDate"].toDouble());
 }
 
 /**
@@ -298,6 +298,6 @@ void Asset::toJSON(QJsonObject &json) const {
 	json["file"] = this->file;
 	json["name"] = this->name;
 	json["origin"] = this->origin;
-	json["startDate"] = this->startDate.toJulianDay();
-	json["endDate"] = this->endDate.toJulianDay();
+	json["startDate"] = (double)this->startDate.toJulianDay();
+	json["endDate"] = (double)this->endDate.toJulianDay();
 }

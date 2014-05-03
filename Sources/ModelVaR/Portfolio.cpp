@@ -388,9 +388,9 @@ bool Portfolio::operator==(const Portfolio& portfolio) const {
  * Portfolios should be deserialized by id order so that for every portfolio, the parent will always be deserilized first.
  */
 void Portfolio::fromJSON(const QJsonObject &json, QMap<int, Portfolio*>& portfoliosDeserialized) {
-	this->id = json["id"].toInt();
+	this->id = (int)json["id"].toDouble();
 	this->name = json["name"].toString();
-	this->parent = portfoliosDeserialized[json["parent"].toInt()];
+	this->parent = portfoliosDeserialized[(int)json["parent"].toDouble()];
 	// Deserializes the composition:
 	QVariantMap jsonComposition = json["composition"].toObject().toVariantMap();
 	Asset* asset;
@@ -408,7 +408,7 @@ void Portfolio::fromJSON(const QJsonObject &json, QMap<int, Portfolio*>& portfol
 	for(int i=0; i<jsonReports.size(); i++) {
 		QJsonObject jsonReport = jsonReports[i].toObject();
 		Report* report;
-		switch(jsonReport["type"].toInt()) {
+		switch((int)jsonReport["type"].toDouble()) {
 			case GARCH:
 				report = new GarchReport();
 				break;

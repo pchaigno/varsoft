@@ -117,7 +117,7 @@ bool Report::operator==(const Report& report) const {
  * @param json The JSON document.
  */
 void Report::fromJSON(const QJsonObject &json) {
-	this->id = json["id"].toInt();
+	this->id = (int)json["id"].toDouble();
 	this->docxFile = json["docxFile"].toString();
 	this->pdfFile = json["pdfFile"].toString();
 }
