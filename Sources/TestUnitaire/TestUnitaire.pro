@@ -22,7 +22,7 @@ SOURCES += \
 	TestSQLiteManagers.cpp \
 	TestPortfolioItemModel.cpp \
 	TestVaRHistorical.cpp \
-    TestRInterface.cpp \
+	TestRInterface.cpp \
 	TestVaRGarch.cpp
 
 HEADERS += \
@@ -32,7 +32,7 @@ HEADERS += \
 	TestPortfolio.h \
 	TestSQLiteManagers.h \
 	TestPortfolioItemModel.h \
-    TestVaRHistorical.h \
+	TestVaRHistorical.h \
 	TestRInterface.h \
 	TestVaRGarch.h
 
