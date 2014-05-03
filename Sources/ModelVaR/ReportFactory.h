@@ -21,13 +21,16 @@
 #include "DocxGenerator.h"
 #include <QString>
 #include <QDir>
+#include "ReportAlreadyCreatedException.h"
 #include "ReportException.h"
+#include <QDebug>
 
 class MODELVARSHARED_EXPORT ReportFactory {
 public:
 	ReportFactory();
 
 	Report *buildReport();
+	Report *forceBuildReport();
 
 protected:
 	virtual Report * createReport() =0;

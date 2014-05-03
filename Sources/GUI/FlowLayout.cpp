@@ -38,8 +38,6 @@
  **
  ****************************************************************************/
 
- #include <QtGui>
-
  #include "FlowLayout.h"
 
  FlowLayout::FlowLayout(QWidget *parent, int margin, int hSpacing, int vSpacing)

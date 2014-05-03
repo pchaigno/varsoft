@@ -17,38 +17,21 @@
  */
 #pragma once
 
-#include <QObject>
-#include <QString>
-#include <QList>
-#include <QMap>
-#include <QJsonDocument>
-#include <QJsonObject>
-#include <QJsonArray>
-#include <QUrl>
-#include <QTemporaryFile>
-#include <QPixmap>
-#include <QDir>
+#include <exception>
+#include <string>
+#include <ReportException.h>
 #include "ModelVaR_global.h"
 
-class MODELVARSHARED_EXPORT ReportDataJson {
+class MODELVARSHARED_EXPORT ReportAlreadyCreatedException : public ReportException {
 public:
-	ReportDataJson();
-	~ReportDataJson();
+	ReportAlreadyCreatedException(std::string msg) : ReportException(msg) {
 
-	void addText(QString key, QString value);
-	void addImage(QString key, QString path);
-	void addImage(QString key, QUrl path);
-	void addImage(QString key, QPixmap img);
-	void addList(QString key, QList<QMap<QString,QString> > list);
+	}
 
-	QString toString();
+	virtual ~ReportAlreadyCreatedException() throw() {
 
-	bool operator==(const ReportDataJson & other) const;
+	}
+
 
 private:
-	QJsonObject texts;
-	QJsonObject images;
-	QJsonObject lists;
-
-	QList<QTemporaryFile*> tempFileList;
 };

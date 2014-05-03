@@ -92,7 +92,8 @@ HEADERS +=\
 	ReportDataJson.h \
 	ReportException.h \
 	InvalidDefinitionPeriodException.h \
-	ImportException.h
+	ImportException.h \
+	ReportAlreadyCreatedException.h
 
 unix:!symbian {
 	maemo5 {
