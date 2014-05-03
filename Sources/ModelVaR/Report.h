@@ -57,7 +57,7 @@ public:
 	void setId(int id);
 
 	QString getFile() const;
-    void setFile(QString);
+	void setFile(QString);
 	bool filesAvailable();
 	void removeFiles();
 

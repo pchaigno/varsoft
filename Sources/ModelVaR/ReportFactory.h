@@ -30,10 +30,9 @@ public:
 	ReportFactory();
 
 	Report *buildReport();
-    Report *forceBuildReport();
-
+	Report *forceBuildReport();
 protected:
-    virtual Report * createReport() =0;
+	virtual Report * createReport() =0;
 	virtual ReportDataJson* createJson() = 0;
 	QString getReportDir() const;
 

@@ -93,7 +93,7 @@ HEADERS +=\
 	ReportException.h \
 	InvalidDefinitionPeriodException.h \
 	ImportException.h \
-    ReportAlreadyCreatedException.h
+	ReportAlreadyCreatedException.h
 
 unix:!symbian {
 	maemo5 {

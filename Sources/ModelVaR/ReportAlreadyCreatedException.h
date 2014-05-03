@@ -24,13 +24,13 @@
 
 class MODELVARSHARED_EXPORT ReportAlreadyCreatedException : public ReportException {
 public:
-    ReportAlreadyCreatedException(std::string msg) : ReportException(msg) {
+	ReportAlreadyCreatedException(std::string msg) : ReportException(msg) {
 
-    }
+	}
 
-    virtual ~ReportAlreadyCreatedException() throw() {
+	virtual ~ReportAlreadyCreatedException() throw() {
 
-    }
+	}
 
 
 private:

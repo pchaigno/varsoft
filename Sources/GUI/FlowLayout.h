@@ -41,6 +41,7 @@
 #ifndef FLOWLAYOUT_H
 #define FLOWLAYOUT_H
 
+#include <QtGui>
 #include <QLayout>
 #include <QRect>
 #include <QWidget>

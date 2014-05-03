@@ -22,7 +22,7 @@
  * Should only be used by Qt containers.
  */
 Report::Report() {
-	
+
 }
 
 /**
@@ -95,7 +95,7 @@ void Report::setId(int id) {
  * @return
  */
 QString Report::getFile() const {
-    return this->file;
+	return this->file;
 }
 
 /**
@@ -104,7 +104,7 @@ QString Report::getFile() const {
  */
 void Report::setFile(QString file)
 {
-    this->file=file;
+	this->file=file;
 }
 
 /**

@@ -25,7 +25,6 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QUrl>
-#include <QList>
 #include <QTemporaryFile>
 #include <QPixmap>
 #include <QDir>

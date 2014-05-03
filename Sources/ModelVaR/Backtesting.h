@@ -21,7 +21,6 @@
 #include "VaRAlgorithm.h"
 #include <QPair>
 #include <QDate>
-#include <QPair>
 
 class MODELVARSHARED_EXPORT Backtesting {
 private:
