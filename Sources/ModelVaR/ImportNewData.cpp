@@ -58,7 +58,8 @@ void ImportNewData::import(const Asset &asset, const QString& file) const {
 	QDate endDate = asset.getEndDate();
 	QDate startDate = asset.getStartDate();
 	rowData = rowOfData.at(0).split(",");
-	if (!(rowData.count() < data_index)) {
+	//checks the file's type
+	if(data_index+1 ==rowData.count()){
 		if (!((QString) rowData[0]).isEmpty() && !((QString)rowData[data_index]).isEmpty()) {
 			flux << rowData[0] << "," << rowData[data_index] << "\n";
 			// x = 1 to avoid the first line with labels
@@ -95,7 +96,7 @@ void ImportNewData::import(const Asset &asset, const QString& file) const {
 			return;
 		}
 	} else {
-		throw ImportException("Wrong file type");
+		throw ImportException("Wrong file's type");
 		return;
 	}
 	fileCreated.close();
