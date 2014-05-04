@@ -17,7 +17,7 @@
  */
 #pragma once
 
-#include <QtMath>
+#include <QtCore/qmath.h>
 #include <QString>
 #include <stdexcept>
 #include "ModelVaR_global.h"
