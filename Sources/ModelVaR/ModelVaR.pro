@@ -46,7 +46,7 @@ SOURCES += \
 	CorrelationReportFactory.cpp \
 	GetStartEndDates.cpp \
 	PortfolioViewModel.cpp \
-    MathFunctions.cpp
+	MathFunctions.cpp
 
 HEADERS +=\
 	Asset.h \
@@ -88,7 +88,7 @@ HEADERS +=\
 	PortfolioViewModel.h \
 	InvalidDefinitionPeriodException.h \
 	ImportException.h \
-    MathFunctions.h
+	MathFunctions.h
 
 unix:!symbian {
 	maemo5 {
