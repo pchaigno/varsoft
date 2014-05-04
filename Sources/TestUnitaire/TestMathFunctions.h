@@ -17,16 +17,16 @@
  */
 #pragma once
 
-#include <QDate>
-#include "ModelVaR_global.h"
-#include "VaRAlgorithm.h"
+#include <QtTest>
 #include "MathFunctions.h"
-#include <QDebug>
 
-class MODELVARSHARED_EXPORT VaRRiskmetrics: public VaRAlgorithm {
-private:
-	int initPeriod;
+class TestMathFunctions : public QObject {
+	Q_OBJECT
+
 public:
-	VaRRiskmetrics(const Portfolio& portfolio, double risk, int timeHorizon, int initPeriod);
-	virtual double execute(QDate date) const;
+	TestMathFunctions();
+
+private Q_SLOTS:
+	void testNormalCDFInverse();
+	void testNormalCDFInverseUndefined();
 };

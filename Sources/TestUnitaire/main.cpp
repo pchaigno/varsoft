@@ -19,9 +19,11 @@
 #include "TestAsset.h"
 #include "TestPortfolio.h"
 #include "TestVaRHistorical.h"
+#include "TestVaRRiskmetrics.h"
 #include "TestReport.h"
 #include "TestSQLiteManagers.h"
 #include "TestPortfolioItemModel.h"
+#include "TestMathFunctions.h"
 
 int main() {
 	int result = 0;
@@ -35,6 +37,10 @@ int main() {
 	result += QTest::qExec(&sqlite);
 	TestVaRHistorical testVaRHistorical;
 	result += QTest::qExec(&testVaRHistorical);
+	TestVaRRiskmetrics TestVaRRiskmetrics;
+	result += QTest::qExec(&TestVaRRiskmetrics);
+	TestMathFunctions testMathFunctions;
+	result += QTest::qExec(&testMathFunctions);
 	TestImportNewData newdata;
 	result += QTest::qExec(&newdata);
 	TestPortfolioItemModel portfolioModel;

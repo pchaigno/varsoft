@@ -21,10 +21,15 @@
  * @brief Constructor
  * @param portfolio The portfolio to apply the algorithm to.
  * @param risk The risk level.
+ * @param timeHorizon the time of horizon of the computed VaR in number of days
+ * @param initPeriod The initialization period using previous returns for the VaR computation in number of days
  */
-VaRRiskmetrics::VaRRiskmetrics(const Portfolio& portfolio, double risk, int timeHorizon):
-	VaRAlgorithm(portfolio, risk, timeHorizon) {
+VaRRiskmetrics::VaRRiskmetrics(const Portfolio& portfolio, double risk, int timeHorizon, int initPeriod):
+	VaRAlgorithm(portfolio, risk, timeHorizon), initPeriod(initPeriod) {
 
+	if(initPeriod <= 0) {
+		throw std::invalid_argument("The initPeriod argument must be strictly positive");
+	}
 }
 
 /**
@@ -32,7 +37,22 @@ VaRRiskmetrics::VaRRiskmetrics(const Portfolio& portfolio, double risk, int time
  * @param timeHorizon The time horizon to calculate the VaR.
  * @return The VaR for this portfolio using the Riskmetrics method.
  */
-double VaRRiskmetrics::execute(QDate timeHorizon) const {
-	// TODO
-	return 0;
+double VaRRiskmetrics::execute(QDate date) const {
+
+	// Computes Sigma value using historical log-returns
+	QVector<double> logReturns = this->getPortfolio().retrieveLogReturns(date, initPeriod);
+	double sigmaSquarred = 0;
+	for(int i=0; i < logReturns.size(); i++) {
+		sigmaSquarred = 0.94*sigmaSquarred + 0.06*qPow(logReturns.at(i), 2);
+	}
+
+	// Computes 1-day time horizon VaR
+	double var = this->getPortfolio().retrieveValues(date, date).at(0)*qSqrt(sigmaSquarred)*MathFunctions::normalCDFInverse(1.0-getRisk());
+
+	// Adjusts VaR according to the time horizon
+	if(getTimeHorizon() >= 2) {
+		var *= qSqrt(getTimeHorizon());
+	}
+
+	return var;
 }
