@@ -31,7 +31,7 @@ void ImportNewData::import(const Asset &asset, const QString& file) const {
 	rowOfData.clear();
 	rowData.clear();
 	QRegExp date_regex("^(20|19)[0-9]{2}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$");
-	QRegExp value_regex("^([0-9]+)([.])([0-9][0-9])$");
+	QRegExp value_regex("^([0-9]+)([.])([0-9]+)$");
 	QDate previousDate = QDate::fromString("2999-01-01", "yyyy-MM-dd");
 	int data_index;
 	if (asset.getOrigin() == "ProjectVaR") {
