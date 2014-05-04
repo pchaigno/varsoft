@@ -14,23 +14,23 @@ CONFIG   -= app_bundle
 TEMPLATE = app
 
 SOURCES += \
-	TestImportNewData.cpp \
 	TestAsset.cpp \
 	TestPortfolio.cpp \
 	main.cpp \
 	TestReport.cpp \
 	TestSQLiteManagers.cpp \
 	TestPortfolioItemModel.cpp \
-	TestVaRHistorical.cpp
+	TestVaRHistorical.cpp \
+    TestCreateAsset.cpp
 
 HEADERS += \
-	TestImportNewData.h \
 	TestAsset.h \
 	TestReport.h \
 	TestPortfolio.h \
 	TestSQLiteManagers.h \
 	TestPortfolioItemModel.h \
-	TestVaRHistorical.h
+	TestVaRHistorical.h \
+    TestCreateAsset.h
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 DEFINES += UNITTEST

@@ -29,7 +29,7 @@
 #include "PortfolioViewModel.h"
 #include "ui_MainWindow.h"
 #include <QDate>
-#include "ImportNewData.h"
+#include "CreateAsset.h"
 #include "GetStartEndDates.h"
 
 namespace Ui {
@@ -38,7 +38,7 @@ namespace Ui {
 
 class MainWindow: public QMainWindow {
 	Q_OBJECT
-	
+
 public:
 	explicit MainWindow(QWidget* parent = 0);
 	~MainWindow();

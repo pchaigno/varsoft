@@ -15,16 +15,16 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#include "TestImportNewData.h"
+#include "TestCreateAsset.h"
 
 /**
 * @brief Tests import of ImportNewData.
 */
-void TestImportNewData::testImport() {
+void TestCreateAsset::testImport() {
 	QDate startDate = QDate::fromString("2014-01-01", "yyyy-MM-dd");
 	QDate endDate = QDate::fromString("2014-02-01", "yyyy-MM-dd");
 	Asset b = Asset("Gogolea", "../../CSV_examples/Gogolea_test.csv", "Yahoo", startDate, endDate);
-	ImportNewData algo = ImportNewData();
+	CreateAsset algo = CreateAsset();
 	algo.import(b, "../../CSV_examples/table.csv");
 	SessionSaver::getInstance()->saveAsset(b);
 

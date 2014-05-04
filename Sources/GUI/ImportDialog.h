@@ -18,7 +18,7 @@
 #pragma once
 
 #include "ui_import.h"
-#include "ImportNewData.h"
+#include "CreateAsset.h"
 #include "SessionSaver.h"
 #include "SQLiteManager.h"
 #include "SessionBuilder.h"

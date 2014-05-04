@@ -15,4 +15,17 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#include "IImport.h"
+#pragma once
+
+#include "AssetsFactory.h"
+#include "SessionBuilder.h"
+#include "SessionSaver.h"
+#include "CreateAsset.h"
+#include <QtTest>
+
+class TestCreateAsset: public QObject {
+	Q_OBJECT
+
+private Q_SLOTS:
+	void testImport();
+};

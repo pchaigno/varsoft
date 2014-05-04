@@ -17,15 +17,17 @@
  */
 #pragma once
 
-#include "AssetsFactory.h"
-#include "SessionBuilder.h"
-#include "SessionSaver.h"
-#include "ImportNewData.h"
-#include <QtTest>
+#include "ModelVaR_global.h"
+#include "ImportException.h"
+#include <QMessageBox>
+#include <QDate>
+#include <QString>
+#include <QFile>
+#include <QStringList>
+#include <QTableWidgetItem>
+#include "Asset.h"
 
-class TestImportNewData: public QObject {
-	Q_OBJECT
-
-private Q_SLOTS:
-	void testImport();
+class MODELVARSHARED_EXPORT CreateAsset{
+public:
+	virtual void import(const Asset &asset, const QString& file) const;
 };

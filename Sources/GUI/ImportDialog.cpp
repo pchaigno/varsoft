@@ -51,7 +51,7 @@ Import::~Import() {
 */
 void Import::on_pushButton_clicked() {
 	// TODO : check the field is not empty and print a message to force the user to give a name
-	ImportNewData algo = ImportNewData();
+	CreateAsset algo = CreateAsset();
 	if(ui->startDate->dateTime() >= ui->endDate->dateTime()) {
 		QMessageBox::warning(0, "Warning", "Dates are not valid");
 		return;

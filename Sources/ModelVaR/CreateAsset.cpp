@@ -15,14 +15,14 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#include "ImportNewData.h"
+#include "CreateAsset.h"
 /**
 * @brief Creates a new file with selected data
 * @param asset The asset created
 * @param file The file where are located the values.
 * @throw ImportException The data is not valid
 */
-void ImportNewData::import(const Asset &asset, const QString& file) const {
+void CreateAsset::import(const Asset &asset, const QString& file) const {
 	QString data;
 	QFile importedCSV(file);
 	QStringList rowOfData;
