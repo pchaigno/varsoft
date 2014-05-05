@@ -241,6 +241,38 @@ void MainWindow::clearLayout(QLayout* layout, bool deleteWidgets) {
 }
 
 /**
+ * @brief Return the ReportWidget associate with the given Report and the given Portfolio (optional).
+ * If the portfolio is not given, the algo will search in the entiere structure (may be a bit long...).
+ * @param report
+ * @param portfolio (optional)
+ * @return
+ */
+ReportWidget *MainWindow::getReportWidgetFromReport(Report *report, Portfolio *portfolio)
+{
+	if (portfolio==NULL)
+	{
+		foreach(QList<ReportWidget*> list, portfolioReportWidgets)
+		{
+			foreach(ReportWidget* widget, list)
+			{
+				if (*(widget->getReport())==*report)
+					return widget;
+			}
+		}
+	}
+	else
+	{
+		foreach(ReportWidget* widget, portfolioReportWidgets[portfolio])
+		{
+			if (*(widget->getReport())==*report)
+				return widget;
+		}
+
+	}
+	return NULL;
+}
+
+/**
  * @brief Disable all the buttons that generate report
  * (only statistic report for now)
  */
@@ -323,6 +355,7 @@ Report *MainWindow::buildReport(Portfolio *portfolio, ReportFactory * factory, b
 		int button = QMessageBox::information(this,"Report already created","This report has already been created.\nDo you want to regenerate it ?",QMessageBox::Yes|QMessageBox::No,QMessageBox::No);
 		if (button==QMessageBox::Yes)
 		{
+			this->deleteReportWidget(getReportWidgetFromReport(e.getReport()));
 			report = factory->forceBuildReport();
 		}
 		else

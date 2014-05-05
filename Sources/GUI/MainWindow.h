@@ -90,6 +90,7 @@ private:
 	Report* buildReport(Portfolio * portfolio, ReportFactory * factory, bool deleteAfter=false);
 	void generateReport(ReportGenerator * gen);
 	void clearLayout(QLayout* layout, bool deleteWidgets = true);
+	ReportWidget *getReportWidgetFromReport(Report * report, Portfolio * portfolio=NULL);
 
 	Ui::MainWindow *ui;
 	QString stockName;

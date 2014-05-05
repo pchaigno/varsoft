@@ -19,11 +19,18 @@
 
 #include <exception>
 #include <string>
+#include "Report.h"
 #include "ModelVaR_global.h"
 
 class MODELVARSHARED_EXPORT ReportException : public std::exception {
 public:
 	ReportException(std::string msg) {
+		this->report=NULL;
+		this->msg = msg;
+	}
+
+	ReportException(Report * report, std::string msg) {
+		this->report=report;
 		this->msg = msg;
 	}
 
@@ -35,6 +42,12 @@ public:
 		return this->msg.c_str();
 	}
 
+	Report * getReport() const
+	{
+		return report;
+	}
+
 private:
+	Report * report;
 	std::string msg;
 };

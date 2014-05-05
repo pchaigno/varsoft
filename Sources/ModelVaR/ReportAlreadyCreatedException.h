@@ -24,7 +24,7 @@
 
 class MODELVARSHARED_EXPORT ReportAlreadyCreatedException : public ReportException {
 public:
-	ReportAlreadyCreatedException(std::string msg) : ReportException(msg) {
+	ReportAlreadyCreatedException(Report * report,std::string msg) : ReportException(report,msg) {
 
 	}
 
