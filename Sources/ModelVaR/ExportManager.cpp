@@ -1,7 +1,5 @@
 #include "ExportManager.h"
 
-#include <QDebug>
-
 ExportManager::ExportManager(QString archivePath): ArchiveManager(archivePath) {
 
 }

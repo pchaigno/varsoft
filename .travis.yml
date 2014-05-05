@@ -11,14 +11,15 @@ before_install:
 install:
   - if [ $QT == "Qt4" ]; then sudo apt-get install libqt4-dev qt4-qmake libqt4-sql-sqlite; fi
   - if [ $QT == "Qt5" ]; then sudo apt-get install -y qt5-default libqt5sql5-sqlite; fi
+  - Travis/quazip.sh
 
 script:
-  - cd Sources
-  - mkdir build
-  - cd build
+  - mkdir Sources/build
+  - cd Sources/build
   - qmake QMAKE_CXX=$CXX CONFIG+=$CONFIG ../ProjetVaR.pro
   - make
   - export LD_LIBRARY_PATH=ModelVaR
+  - cp ../quazip/build/libquazip.so* ModelVaR/
   - TestUnitaire/main
   - cd ../..
   - python Travis/conventions.py Sources/ModelVaR/ Sources/TestUnitaire/ Sources/GUI/
