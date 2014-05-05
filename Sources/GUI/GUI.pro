@@ -53,3 +53,6 @@ else:unix: LIBS += -L$$OUT_PWD/../ModelVaR/ -lModelVaR
 
 INCLUDEPATH += $$PWD/../ModelVaR
 DEPENDPATH += $$PWD/../ModelVaR
+
+RESOURCES += \
+	Resources.qrc

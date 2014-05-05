@@ -42,7 +42,6 @@ Report *StatisticsReportFactory::createReport() {
  */
 ReportDataJson* StatisticsReportFactory::createJson() {
 	ReportDataJson* data = new ReportDataJson();
-
 	data->addText("portefeuilleName",portfolio->getName());
 	data->addText("dateDeb",portfolio->retrieveStartDate().toString("dd/MM/yyyy"));
 	QDate startDate = portfolio->retrieveStartDate();

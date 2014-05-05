@@ -109,8 +109,8 @@ background-color: rgb(240, 240, 240);
           <string/>
          </property>
          <property name="icon">
-          <iconset>
-           <normaloff>../Resources/Icons/word.png</normaloff>../Resources/Icons/word.png</iconset>
+          <iconset resource="Resources.qrc">
+           <normaloff>:/icons/word</normaloff>:/icons/word</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -135,8 +135,8 @@ background-color: rgb(240, 240, 240);
           <string/>
          </property>
          <property name="icon">
-          <iconset>
-           <normaloff>../Resources/Icons/pdf.png</normaloff>../Resources/Icons/pdf.png</iconset>
+          <iconset resource="Resources.qrc">
+           <normaloff>:/icons/pdf</normaloff>:/icons/pdf</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -161,8 +161,8 @@ background-color: rgb(240, 240, 240);
           <string/>
          </property>
          <property name="icon">
-          <iconset>
-           <normaloff>../Resources/Icons/delete.png</normaloff>../Resources/Icons/delete.png</iconset>
+          <iconset resource="Resources.qrc">
+           <normaloff>:/icons/delete</normaloff>:/icons/delete</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -191,6 +191,8 @@ background-color: rgb(240, 240, 240);
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="Resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

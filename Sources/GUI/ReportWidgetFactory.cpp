@@ -14,23 +14,23 @@ ReportWidget *ReportWidgetFactory::buildReportWidget(Report *report) {
 	switch(report->getType()) {
 		case BACKTESTING:
 			widget->setTitle("Backtesting report");
-			widget->setIcon(RES_FOLDER+"/Icons/backtestingReport.png");
+			widget->setIcon(":/icons/backtestingReport.png");
 			break;
 		case CORRELATION:
 			widget->setTitle("Correlation report");
-			widget->setIcon(RES_FOLDER+"/Icons/correlationReport.png");
+			widget->setIcon(":/icons/correlationReport.png");
 			break;
 		case GARCH:
 			widget->setTitle("GARCH report");
-			widget->setIcon(RES_FOLDER+"/Icons/garchReport.png");
+			widget->setIcon(":/icons/garchReport.png");
 			break;
 		case STATISTICS:
 			widget->setTitle("Statistic report");
-			widget->setIcon(RES_FOLDER+"/Icons/statsReport.png");
+			widget->setIcon(":/icons/statsReport.png");
 			break;
 		case VAR:
 			widget->setTitle("VaR report");
-			widget->setIcon(RES_FOLDER+"/Icons/varReport.png");
+			widget->setIcon(":/icons/varReport.png");
 			break;
 	}
 
