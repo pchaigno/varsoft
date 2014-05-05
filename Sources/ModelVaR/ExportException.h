@@ -17,12 +17,25 @@
  */
 #pragma once
 
-#include "IImport.h"
+#include <exception>
+#include <QDebug>
 #include "ModelVaR_global.h"
-#include "CreateAssetException.h"
-#include <QMessageBox>
 
-class MODELVARSHARED_EXPORT ImportNewData : public IImport {
+class MODELVARSHARED_EXPORT ExportException: public std::exception {
 public:
-	virtual void import(const Asset &asset, const QString& file) const;
+	ExportException(QString msg) {
+		this->msg = msg;
+	}
+
+	virtual ~ExportException() throw() {
+
+	}
+
+	virtual const char* what() const throw() {
+		QByteArray array = this->msg.toUtf8();
+		return array.data();
+	}
+
+private:
+	QString msg;
 };

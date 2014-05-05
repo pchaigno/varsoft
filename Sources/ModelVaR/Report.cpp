@@ -125,7 +125,7 @@ bool Report::operator==(const Report& report) const {
  * @param json The JSON document.
  */
 void Report::fromJSON(const QJsonObject &json) {
-	this->id = (int)json["id"].toDouble();
+	this->id = -1;
 	this->docxFile = json["docxFile"].toString();
 	this->pdfFile = json["pdfFile"].toString();
 }
@@ -134,8 +134,10 @@ void Report::fromJSON(const QJsonObject &json) {
  * @brief Serializes the report into a JSON document.
  * @param json The JSON document.
  */
-void Report::toJSON(QJsonObject &json) const {
-	json["id"] = this->id;
+QJsonObject Report::toJSON() const {
+	QJsonObject json;
+	json["type"] = this->getType();
 	json["docxFile"] = this->docxFile;
 	json["pdfFile"] = this->pdfFile;
+	return json;
 }

@@ -45,7 +45,10 @@ SOURCES += \
 	PortfolioItemModel.cpp \
 	CorrelationReportFactory.cpp \
 	GetStartEndDates.cpp \
-	PortfolioViewModel.cpp
+	PortfolioViewModel.cpp \
+	ArchiveManager.cpp \
+	ExportManager.cpp \
+	ImportManager.cpp
 
 HEADERS +=\
 	Asset.h \
@@ -86,8 +89,13 @@ HEADERS +=\
 	GetStartEndDates.h \
 	PortfolioViewModel.h \
 	InvalidDefinitionPeriodException.h \
+	NonexistentAssetException.h \
+	ArchiveManager.h \
+	ExportManager.h \
+	ImportManager.h \
+	CreateAssetException.h \
 	ImportException.h \
-	NonexistentAssetException.h
+	ExportException.h
 
 unix:!symbian {
 	maemo5 {
@@ -97,3 +105,9 @@ unix:!symbian {
 	}
 	INSTALLS += target
 }
+
+win32: LIBS += -L$$OUT_PWD/../../ -lquazip
+else:unix: LIBS += -L$$OUT_PWD/../../ -lquazip
+
+INCLUDEPATH += $$PWD/../quazip/quazip
+DEPENDPATH += $$PWD/../quazip/quazip

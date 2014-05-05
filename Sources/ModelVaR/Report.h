@@ -54,5 +54,5 @@ public:
 	bool operator==(const Report& report) const;
 
 	void fromJSON(const QJsonObject &json);
-	void toJSON(QJsonObject &json) const;
+	QJsonObject toJSON() const;
 };

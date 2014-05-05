@@ -21,7 +21,8 @@ SOURCES += \
 	TestReport.cpp \
 	TestSQLiteManagers.cpp \
 	TestPortfolioItemModel.cpp \
-	TestVaRHistorical.cpp
+	TestVaRHistorical.cpp \
+	TestArchiveManagers.cpp
 
 HEADERS += \
 	TestImportNewData.h \
@@ -30,7 +31,8 @@ HEADERS += \
 	TestPortfolio.h \
 	TestSQLiteManagers.h \
 	TestPortfolioItemModel.h \
-	TestVaRHistorical.h
+	TestVaRHistorical.h \
+	TestArchiveManagers.h
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 DEFINES += UNITTEST
@@ -41,3 +43,9 @@ else:unix: LIBS += -L$$OUT_PWD/../ModelVaR/ -lModelVaR
 
 INCLUDEPATH += $$PWD/../ModelVaR
 DEPENDPATH += $$PWD/../ModelVaR
+
+win32: LIBS += -L$$OUT_PWD/../../ -lquazip
+else:unix: LIBS += -L$$OUT_PWD/../../ -lquazip
+
+INCLUDEPATH += $$PWD/../quazip/quazip
+DEPENDPATH += $$PWD/../quazip/quazip

@@ -61,5 +61,5 @@ public:
 	bool operator==(const Asset& asset) const;
 
 	void fromJSON(const QJsonObject &json);
-	void toJSON(QJsonObject &json) const;
+	QJsonObject toJSON() const;
 };

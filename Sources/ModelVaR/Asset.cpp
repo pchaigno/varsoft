@@ -289,7 +289,7 @@ bool Asset::operator==(const Asset& asset) const {
  * @param json The JSON document.
  */
 void Asset::fromJSON(const QJsonObject &json) {
-	this->id = (int)json["id"].toDouble();
+	this->id = -1;
 	this->file = json["file"].toString();
 	this->name = json["name"].toString();
 	this->origin = json["origin"].toString();
@@ -301,11 +301,12 @@ void Asset::fromJSON(const QJsonObject &json) {
  * @brief Serializes the asset into a JSON document.
  * @param json The JSON document.
  */
-void Asset::toJSON(QJsonObject &json) const {
-	json["id"] = this->id;
+QJsonObject Asset::toJSON() const {
+	QJsonObject json;
 	json["file"] = this->file;
 	json["name"] = this->name;
 	json["origin"] = this->origin;
 	json["startDate"] = (double)this->startDate.toJulianDay();
 	json["endDate"] = (double)this->endDate.toJulianDay();
+	return json;
 }

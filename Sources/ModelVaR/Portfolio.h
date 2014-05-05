@@ -48,7 +48,7 @@ public:
 	Portfolio(Portfolio* parent, int id, QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports);
 	Portfolio(int id, QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports);
 	void init(Portfolio* parent, int id, QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports);
-	Portfolio(const QJsonObject& json, QMap<int, Portfolio*>& deserializedPortfolios);
+	Portfolio(const QJsonObject& json, QMap<QString, Portfolio*>& deserializedPortfolios);
 
 	QString getName() const;
 	int getId() const;
@@ -72,6 +72,6 @@ public:
 
 	bool operator==(const Portfolio& portfolio) const;
 
-	void fromJSON(const QJsonObject &json, QMap<int, Portfolio*>& portfoliosDeserialized);
-	void toJSON(QJsonObject &json) const;
+	void fromJSON(const QJsonObject &json, QMap<QString, Portfolio*>& portfoliosDeserialized);
+	QJsonObject toJSON() const;
 };

@@ -38,6 +38,7 @@ private:
 
 public:
 	TestPortfolio();
+	static void comparePortfolios(Portfolio& serializedPortfolio, Portfolio& portfolio);
 
 private Q_SLOTS:
 	void testId();
@@ -54,7 +55,4 @@ private Q_SLOTS:
 	void testRetrieveNbReturnsAll();
 	void testRetrieveNbReturnsSome();
 	void testSerialize();
-
-private:
-	static void comparePortfolios(Portfolio& serializedPortfolio, Portfolio& portfolio);
 };

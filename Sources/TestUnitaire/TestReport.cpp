@@ -58,12 +58,12 @@ void TestReport::testId(Report report) {
  * @brief Compares a serialized/deserialized report with the original report.
  */
 void TestReport::testSerialize() {
-	QJsonObject json;
-	this->statistics.toJSON(json);
+	// Sets an ID to check that it's not serialized.
+	this->statistics.setId(42);
+	QJsonObject json = this->statistics.toJSON();
 	Report test = StatisticsReport(json);
 
-	QCOMPARE(test, this->statistics);
-	QCOMPARE(test.getId(), this->statistics.getId());
+	QCOMPARE(test.getId(), -1);
 	QCOMPARE(test.getDOCXFile(), this->statistics.getDOCXFile());
 	QCOMPARE(test.getPDFFile(), this->statistics.getPDFFile());
 	QCOMPARE(test.getType(), this->statistics.getType());

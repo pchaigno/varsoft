@@ -229,10 +229,9 @@ void TestPortfolio::testRetrieveNbReturnsSome() {
  * The first one is the parent of the second one.
  */
 void TestPortfolio::testSerialize() {
-	QJsonObject jsonParent;
-	QJsonObject jsonSon;
-	this->father.toJSON(jsonParent);
-	this->son.toJSON(jsonSon);
+	// The portfolios father and son have IDs.
+	QJsonObject jsonParent = this->father.toJSON();
+	QJsonObject jsonSon = this->son.toJSON();
 	// We need to save the assets in the database to be able to deserialize them:
 	// The two portfolios share the same assets.
 	foreach(Asset* asset, this->father.getAssets()) {
@@ -241,7 +240,7 @@ void TestPortfolio::testSerialize() {
 
 	Portfolio serializedFather;
 	Portfolio serializedSon;
-	QMap<int, Portfolio*> portfoliosDeserialized;
+	QMap<QString, Portfolio*> portfoliosDeserialized;
 	try {
 		serializedFather = Portfolio(jsonParent, portfoliosDeserialized);
 		serializedSon = Portfolio(jsonSon, portfoliosDeserialized);
@@ -264,21 +263,20 @@ void TestPortfolio::testSerialize() {
  * @param portfolio The original portfolio.
  */
 void TestPortfolio::comparePortfolios(Portfolio& serializedPortfolio, Portfolio& portfolio) {
-	QCOMPARE(serializedPortfolio, portfolio);
-	QCOMPARE(serializedPortfolio.getId(), portfolio.getId());
+	QCOMPARE(serializedPortfolio.getId(), -1);
 	QCOMPARE(serializedPortfolio.getName(), portfolio.getName());
 	if(portfolio.getParent() != NULL) {
 		QCOMPARE(*serializedPortfolio.getParent(), *portfolio.getParent());
 	}
-	QCOMPARE(serializedPortfolio.getParentId(), portfolio.getParentId());
+	QCOMPARE(serializedPortfolio.getParentId(), -1);
 	// Compares the reports:
 	QCOMPARE(serializedPortfolio.getReports().size(), portfolio.getReports().size());
 	foreach(const Report* serializedReport, serializedPortfolio.getReports()) {
 		bool reportFound = false;
 		foreach(const Report* report, portfolio.getReports()) {
-			if(*report == *serializedReport) {
+			if(report->getPDFFile() == serializedReport->getPDFFile()) {
 				QCOMPARE(serializedReport->getType(), report->getType());
-				reportFound = false;
+				reportFound = true;
 				break;
 			}
 		}
@@ -289,7 +287,7 @@ void TestPortfolio::comparePortfolios(Portfolio& serializedPortfolio, Portfolio&
 	foreach(Asset* const serializedAsset, serializedPortfolio.getAssets()) {
 		bool assetFound = false;
 		foreach(Asset* const asset, portfolio.getAssets()) {
-			if(*asset == *serializedAsset) {
+			if(asset->getName() == serializedAsset->getName()) {
 				QCOMPARE(serializedPortfolio.getWeight(serializedAsset), portfolio.getWeight(asset));
 				assetFound = true;
 				break;

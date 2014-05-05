@@ -89,11 +89,11 @@ void Portfolio::init(Portfolio* parent, int id, QString name, QMap<Asset*, int>&
  * @brief Builds the portfolio from a JSON document.
  * The assets must be deserialized and saved to the database before the portfolio.
  * @param json The JSON document.
- * @param portfoliosDeserialized The portfolios already deserialized.
+ * @param portfoliosDeserialized The portfolios already deserialized; it will be completed.
  * This last param should contain the parent portfolio if one is needed.
  * Portfolios should be deserialized by id order so that for every portfolio, the parent will always be deserilized first.
  */
-Portfolio::Portfolio(const QJsonObject& json, QMap<int, Portfolio*>& deserializedPortfolios) {
+Portfolio::Portfolio(const QJsonObject& json, QMap<QString, Portfolio*>& deserializedPortfolios) {
 	this->fromJSON(json, deserializedPortfolios);
 }
 
@@ -395,14 +395,14 @@ bool Portfolio::operator==(const Portfolio& portfolio) const {
  * @brief Deserializes the portfolio from a JSON document.
  * The assets must be deserialized and saved to the database before the portfolio.
  * @param json The JSON document.
- * @param portfoliosDeserialized The portfolios already deserialized.
+ * @param portfoliosDeserialized The portfolios already deserialized; it will be completed.
  * This last param should contain the parent portfolio if one is needed.
  * Portfolios should be deserialized by id order so that for every portfolio, the parent will always be deserilized first.
  */
-void Portfolio::fromJSON(const QJsonObject &json, QMap<int, Portfolio*>& portfoliosDeserialized) {
-	this->id = (int)json["id"].toDouble();
+void Portfolio::fromJSON(const QJsonObject &json, QMap<QString, Portfolio*>& portfoliosDeserialized) {
+	this->id = -1;
 	this->name = json["name"].toString();
-	this->parent = portfoliosDeserialized[(int)json["parent"].toDouble()];
+	this->parent = portfoliosDeserialized[json["parent"].toString()];
 	// Deserializes the composition:
 	QVariantMap jsonComposition = json["composition"].toObject().toVariantMap();
 	Asset* asset;
@@ -444,17 +444,22 @@ void Portfolio::fromJSON(const QJsonObject &json, QMap<int, Portfolio*>& portfol
 		this->reports.append(report);
 	}
 
-	portfoliosDeserialized[this->id] = this;
+	portfoliosDeserialized[this->name] = this;
 }
 
 /**
  * @brief Serializes the asset into a JSON document.
  * @param json The JSON document.
  */
-void Portfolio::toJSON(QJsonObject &json) const {
-	json["id"] = this->id;
+QJsonObject Portfolio::toJSON() const {
+	QJsonObject json;
+
 	json["name"] = this->name;
-	json["parent"] = this->getParentId();
+	if(this->parent == NULL) {
+		json["parent"] = QString("");
+	} else {
+		json["parent"] = this->parent->getName();
+	}
 	// Serializes the composition:
 	QVariantMap jsonComposition;
 	foreach(Asset* asset, this->composition.keys()) {
@@ -464,9 +469,10 @@ void Portfolio::toJSON(QJsonObject &json) const {
 	// Serializes the reports:
 	QJsonArray jsonReports;
 	foreach(const Report* report, this->reports) {
-		QJsonObject jsonReport;
-		report->toJSON(jsonReport);
+		QJsonObject jsonReport = report->toJSON();
 		jsonReports.append(jsonReport);
 	}
 	json["reports"] = jsonReports;
+
+	return json;
 }
