@@ -102,7 +102,7 @@ QPixmap StatisticsReportFactory::generateChart1(QMap<QDate, double> values) {
 	QVector<double> val;
 
 	foreach(QDate date, values.keys()) {
-		keys.append(date.toJulianDay());
+		keys.append(QDateTime(date).toTime_t());
 	}
 	val = values.values().toVector();
 	customPlot->graph()->setData(keys, val);
@@ -117,7 +117,7 @@ QPixmap StatisticsReportFactory::generateChart1(QMap<QDate, double> values) {
 	customPlot->xAxis->setLabel("Date");
 	customPlot->yAxis->setLabel("Values of the portfolio "+portfolio->getName());
 	// set axis ranges to show all data:
-	customPlot->xAxis->setRange(portfolio->retrieveStartDate().toJulianDay(), portfolio->retrieveEndDate().toJulianDay());
+	customPlot->xAxis->setRange(QDateTime(portfolio->retrieveStartDate()).toTime_t(), QDateTime(portfolio->retrieveEndDate()).toTime_t());
 	customPlot->yAxis->setRange(getMin(values.values().toVector())-10, getMax(values.values().toVector())+10);
 	// show legend:
 	customPlot->legend->setVisible(false);
@@ -153,7 +153,7 @@ QPixmap StatisticsReportFactory::generateChart2(QList<Asset*> compo, QDate start
 		QMap<QDate, double> mapData = asset->retrieveValuesByDate(start,end);
 
 		foreach(QDate date, mapData.keys()) {
-		  time.append(date.toJulianDay());
+		  time.append(QDateTime(date).toTime_t());
 		}
 		value = mapData.values().toVector();
 		min = qMin(min,getMin(value));
@@ -172,7 +172,7 @@ QPixmap StatisticsReportFactory::generateChart2(QList<Asset*> compo, QDate start
 	customPlot->xAxis->setLabel("Date");
 	customPlot->yAxis->setLabel("Value of each asset in the portfolio");
 	// set axis ranges to show all data:
-	customPlot->xAxis->setRange(start.toJulianDay(), end.toJulianDay());
+	customPlot->xAxis->setRange(QDateTime(start).toTime_t(), QDateTime(end).toTime_t());
 	customPlot->yAxis->setRange(min-((min/100)*10), max+((max/100)*10));
 	// show legend:
 	customPlot->legend->setVisible(true);
