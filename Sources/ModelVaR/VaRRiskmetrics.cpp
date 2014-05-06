@@ -49,8 +49,12 @@ double VaRRiskmetrics::execute(QDate date) const {
 	// Computes 1-day time horizon VaR
 	double var = this->getPortfolio().retrieveValues(date, date).at(0)*qSqrt(sigmaSquarred)*MathFunctions::normalCDFInverse(1.0-getRisk());
 
+	// VaR is egal to zero in such a scenario according to the definition
+	if(var < 0) {
+		var = 0;
+	}
 	// Adjusts VaR according to the time horizon
-	if(getTimeHorizon() >= 2) {
+	else if(getTimeHorizon() >= 2) {
 		var *= qSqrt(getTimeHorizon());
 	}
 
