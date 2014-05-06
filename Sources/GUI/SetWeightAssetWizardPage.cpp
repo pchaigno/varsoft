@@ -34,6 +34,8 @@ void SetWeightAssetWizardPage::initializePage() {
 	QList<QString> listAssets = getAssetsSelected();
 	foreach(QString str, listAssets) {
 		QSpinBox* spinBox = new QSpinBox();
+		spinBox->setValue(0);
+		spinBox->setRange(1, INT_MAX);
 		weights[str]=spinBox;
 		ui->weightFormLayout->addRow(str,spinBox);
 	}

@@ -17,12 +17,14 @@
  */
 #pragma once
 
+#include <QProcess>
 #include "Portfolio.h"
 #include "GarchModel.h"
 
 class MODELVARSHARED_EXPORT RInterface {
 public:
-	static bool checkCorrelation(const Portfolio& portfolio);
-	static bool checkSquareCorrelation(const Portfolio& portfolio);
+	static QPair<double, double> checkCorrelation(const Portfolio& portfolio, int timeLag, QDate& date, int period);
+	static QPair<double, double> checkSquareCorrelation(const Portfolio& portfolio, int timeLag, QDate& date, int period);
+	static QPair<double, double> executeCorrelationScript(const Portfolio& portfolio, int timeLag, QDate& date, int period, QString rScriptFilePath);
 	static GarchModel computeGarchModel(const Portfolio& portfolio);
 };

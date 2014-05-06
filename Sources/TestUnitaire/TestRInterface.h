@@ -15,32 +15,29 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#include "TestImportNewData.h"
-#include "TestAsset.h"
-#include "TestPortfolio.h"
-#include "TestVaRHistorical.h"
-#include "TestReport.h"
-#include "TestSQLiteManagers.h"
-#include "TestPortfolioItemModel.h"
-#include "TestRInterface.h"
 
-int main() {
-	int result = 0;
-	TestAsset asset;
-	result += QTest::qExec(&asset);
-	TestPortfolio portfolio;
-	result += QTest::qExec(&portfolio);
-	TestReport report;
-	result += QTest::qExec(&report);
-	TestSQLiteManagers sqlite;
-	result += QTest::qExec(&sqlite);
-	TestImportNewData newdata;
-	result += QTest::qExec(&newdata);
-	TestVaRHistorical testVaRHistorical;
-	result += QTest::qExec(&testVaRHistorical);
-	TestPortfolioItemModel portfolioModel;
-	result += QTest::qExec(&portfolioModel);
-	TestRInterface rInterface;
-	result += QTest::qExec(&rInterface);
-	return result;
-}
+#pragma once
+
+#include <QtTest>
+#include <QDir>
+#include <QMap>
+#include <QVector>
+#include "RInterface.h"
+
+class TestRInterface: public QObject {
+	Q_OBJECT
+
+private:
+	Portfolio father;
+
+public:
+	TestRInterface();
+
+private Q_SLOTS:
+	void testCheckCorrelation();
+	void testCheckCorrelationIncorrectTimeLag();
+	void testCheckCorrelationIncorrectPeriod();
+	void testCheckCorrelationIncompatibleParameters();
+	void testCheckSquareCorrelation();
+	void testCheckSquareCorrelationIncompatibleParameters();
+};
