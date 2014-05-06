@@ -50,7 +50,9 @@ void TestRInterface::testCheckCorrelation() {
 	period = 10;
 	try {
 		result = RInterface::checkCorrelation(this->father, timeLag, date, period);
-	} catch(std::invalid_argument& e) {}
+	} catch(std::invalid_argument& e) {
+		QFAIL("checkCorrelation failed at computing a valid parameters test");
+	}
 	// The toDouble() method in checkCorrelation seems to slightly
 	// modify the precision, that is why the following test is performed
 	QCOMPARE(result.first, 2.633048);
@@ -60,7 +62,9 @@ void TestRInterface::testCheckCorrelation() {
 	period = 20;
 	try {
 		result = RInterface::checkCorrelation(this->father, timeLag, date, period);
-	} catch(std::invalid_argument& e) {	}
+	} catch(std::invalid_argument& e) {
+		QFAIL("checkCorrelation failed at computing a valid parameters test");
+	}
 	// The toDouble() method in checkCorrelation seems to slightly
 	// modify the precision, that is why the following test is performed
 	QCOMPARE(result.first, 6.277748);
@@ -126,7 +130,9 @@ void TestRInterface::testCheckSquareCorrelation() {
 	period = 10;
 	try {
 		result = RInterface::checkSquareCorrelation(this->father, timeLag, date, period);
-	} catch(std::invalid_argument& e) {}
+	} catch(std::invalid_argument& e) {
+		QFAIL("checkSquareCorrelation failed at computing a valid parameters test");
+	}
 	QCOMPARE(result.first, 0.3349454);
 	QCOMPARE(result.second, 0.5627615);
 
@@ -134,7 +140,9 @@ void TestRInterface::testCheckSquareCorrelation() {
 	period = 20;
 	try {
 		result = RInterface::checkSquareCorrelation(this->father, timeLag, date, period);
-	} catch(std::invalid_argument& e) {}
+	} catch(std::invalid_argument& e) {
+		QFAIL("checkSquareCorrelation failed at computing a valid parameters test");
+	}
 	QCOMPARE(result.first, 2.762662);
 	QCOMPARE(result.second, 0.4296833);
 }
