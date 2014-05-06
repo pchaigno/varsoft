@@ -15,15 +15,29 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#include "MainWindow.h"
-#include <QApplication>
-#include "ImportDialog.h"
 
+#pragma once
+
+#include <QtTest>
+#include <QDir>
+#include <QMap>
+#include <QVector>
 #include "RInterface.h"
 
-int main(int argc, char *argv[]) {
-	QApplication a(argc, argv);
-	MainWindow w;
-	w.showMaximized();
-	return a.exec();
-}
+class TestRInterface: public QObject {
+	Q_OBJECT
+
+private:
+	Portfolio father;
+
+public:
+	TestRInterface();
+
+private Q_SLOTS:
+	void testCheckCorrelation();
+	void testCheckCorrelationIncorrectTimeLag();
+	void testCheckCorrelationIncorrectPeriod();
+	void testCheckCorrelationIncompatibleParameters();
+	void testCheckSquareCorrelation();
+	void testCheckSquareCorrelationIncompatibleParameters();
+};

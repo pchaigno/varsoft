@@ -24,6 +24,7 @@
 #include "TestSQLiteManagers.h"
 #include "TestPortfolioItemModel.h"
 #include "TestMathFunctions.h"
+#include "TestRInterface.h"
 
 int main() {
 	int result = 0;
@@ -45,5 +46,7 @@ int main() {
 	result += QTest::qExec(&newdata);
 	TestPortfolioItemModel portfolioModel;
 	result += QTest::qExec(&portfolioModel);
+	TestRInterface rInterface;
+	result += QTest::qExec(&rInterface);
 	return result;
 }
