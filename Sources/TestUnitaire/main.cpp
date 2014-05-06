@@ -23,6 +23,7 @@
 #include "TestSQLiteManagers.h"
 #include "TestPortfolioItemModel.h"
 #include "TestArchiveManagers.h"
+#include "TestRInterface.h"
 
 int main() {
 	// Deletes the database file before starting the tests (just to be sure):
@@ -46,5 +47,7 @@ int main() {
 	result += QTest::qExec(&portfolioModel);
 	TestArchiveManagers archiveManager;
 	result += QTest::qExec(&archiveManager);
+	TestRInterface rInterface;
+	result += QTest::qExec(&rInterface);
 	return result;
 }
