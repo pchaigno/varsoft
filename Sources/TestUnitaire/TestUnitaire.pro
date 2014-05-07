@@ -21,7 +21,7 @@ SOURCES += \
 	TestSQLiteManagers.cpp \
 	TestPortfolioItemModel.cpp \
 	TestVaRHistorical.cpp \
-    TestCreateAsset.cpp
+	TestCreateAsset.cpp
 
 HEADERS += \
 	TestAsset.h \
@@ -30,7 +30,7 @@ HEADERS += \
 	TestSQLiteManagers.h \
 	TestPortfolioItemModel.h \
 	TestVaRHistorical.h \
-    TestCreateAsset.h
+	TestCreateAsset.h
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 DEFINES += UNITTEST

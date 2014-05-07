@@ -83,8 +83,8 @@ HEADERS +=\
 	GetStartEndDates.h \
 	PortfolioViewModel.h \
 	InvalidDefinitionPeriodException.h \
-    CreateAsset.h \
-    CreateAssetException.h
+	CreateAsset.h \
+	CreateAssetException.h
 
 unix:!symbian {
 	maemo5 {
