@@ -8,8 +8,8 @@ QT += testlib sql
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = main
-CONFIG   += console
-CONFIG   -= app_bundle
+CONFIG += console
+CONFIG -= app_bundle
 
 TEMPLATE = app
 
@@ -21,7 +21,8 @@ SOURCES += \
 	TestSQLiteManagers.cpp \
 	TestPortfolioItemModel.cpp \
 	TestVaRHistorical.cpp \
-	TestCreateAsset.cpp
+	TestCreateAsset.cpp \
+	TestRInterface.cpp
 
 HEADERS += \
 	TestAsset.h \
@@ -30,7 +31,8 @@ HEADERS += \
 	TestSQLiteManagers.h \
 	TestPortfolioItemModel.h \
 	TestVaRHistorical.h \
-	TestCreateAsset.h
+	TestCreateAsset.h \
+	TestRInterface.h
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 DEFINES += UNITTEST
