@@ -20,7 +20,7 @@
 * @brief Creates a new file with selected data
 * @param asset The asset created
 * @param file The file where are located the values.
-* @throw ImportException The data is not valid
+* @throw CreateAssetException The data is not valid
 */
 void CreateAsset::import(const Asset &asset, const QString& file) const {
 	QString data;
@@ -82,21 +82,21 @@ void CreateAsset::import(const Asset &asset, const QString& file) const {
 								flux << rowData[0] << "," << rowData[data_index] << "\n";
 							}
 						} else {
-							throw ImportException("The dates are not sorted");
+							throw CreateAssetException("The dates are not sorted");
 							return;
 						}
 					}
 				} else {
-					throw ImportException("The data is invalid");
+					throw CreateAssetException("The data is invalid");
 					return;
 				}
 			}
 		} else {
-			throw ImportException("A header is missing");
+			throw CreateAssetException("A header is missing");
 			return;
 		}
 	} else {
-		throw ImportException("Wrong file's type");
+		throw CreateAssetException("Wrong file's type");
 		return;
 	}
 	fileCreated.close();

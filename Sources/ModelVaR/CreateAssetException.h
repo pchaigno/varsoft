@@ -21,13 +21,13 @@
 #include <QString>
 #include "ModelVaR_global.h"
 
-class MODELVARSHARED_EXPORT ImportException: public std::exception {
+class MODELVARSHARED_EXPORT CreateAssetException: public std::exception {
 public:
-	ImportException(std::string msg) {
+	CreateAssetException(std::string msg) {
 		this->msg = msg;
 	}
 
-	virtual ~ImportException() throw() {
+	virtual ~CreateAssetException() throw() {
 
 	}
 

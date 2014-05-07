@@ -73,7 +73,7 @@ void Import::on_pushButton_clicked() {
 			Asset a = Asset(ui->textEdit->text(), namealea, ui->comboBox->currentText(), ui->startDate->date(), ui->endDate->date());
 			algo.import(a, fileName);
 			SessionSaver::getInstance()->saveAsset(a);
-		} catch(ImportException &e) {
+		} catch(CreateAssetException &e) {
 			const QString& mes = QString(e.what());
 			QMessageBox::warning(0, "Error", mes);
 			return;
