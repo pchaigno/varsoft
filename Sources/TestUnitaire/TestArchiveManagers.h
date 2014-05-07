@@ -18,5 +18,5 @@ public:
 	TestArchiveManagers();
 
 private Q_SLOTS:
-	void testExportPortfolios();
+	void testExportImportPortfolios();
 };

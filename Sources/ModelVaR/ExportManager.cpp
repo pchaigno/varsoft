@@ -24,12 +24,16 @@ void ExportManager::exportArchive() {
 	}
 
 	QuaZipFile archivedFile(&zip);
+
+	// Adds the descriptor file in the archive:
 	QByteArray data = writeDescriptor();
 	if(!archivedFile.open(QIODevice::WriteOnly, QuaZipNewInfo("portfolios.json"))) {
 		throw ExportException("Cannot create descriptor file in archive.");
 	}
 	archivedFile.write(data);
 	archivedFile.close();
+
+	// Adds the reports and assets' files to the archive:
 	addToArchive(QDir("Resources\\Reports"), archivedFile);
 	addToArchive(QDir("Resources\\Assets"), archivedFile);
 
@@ -39,6 +43,11 @@ void ExportManager::exportArchive() {
 	}
 }
 
+/**
+ * @brief Adds the content of a folder to the archive.
+ * @param folder Folder to add to the archive.
+ * @param archivedFile The archive file opened with QuaZip.
+ */
 void ExportManager::addToArchive(QDir folder, QuaZipFile& archivedFile) {
 	QDirIterator it(folder.absolutePath());
 	while(it.hasNext()) {
@@ -52,11 +61,15 @@ void ExportManager::addToArchive(QDir folder, QuaZipFile& archivedFile) {
 		if(!file.open(QIODevice::ReadOnly)) {
 			throw ExportException("Cannot open file "+filePath+".");
 		}
+
+		// Creates the file in the archive:
 		QString filePathInArchive = filePath;
-		filePathInArchive.remove(0, QDir("Resources").absolutePath().size()+1); // Removes 'Resources/'
+		filePathInArchive.remove(0, QDir("Resources").absolutePath().size()+1); // Removes 'Resources/'.
 		if(!archivedFile.open(QIODevice::WriteOnly, QuaZipNewInfo(filePathInArchive))) {
 			throw ExportException("Cannot create file "+filePathInArchive+" in archive.");
 		}
+
+		// Writes the file's content:
 		char c;
 		while(file.getChar(&c) && archivedFile.putChar(c));
 		archivedFile.close();

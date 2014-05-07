@@ -23,7 +23,7 @@ TestArchiveManagers::TestArchiveManagers() {
 /**
  * @brief Functional test: export then import a set of portfolios and compare them to the originals.
  */
-void TestArchiveManagers::testExportPortfolios() {
+void TestArchiveManagers::testExportImportPortfolios() {
 	// The assets need to be in the database to be serialized:
 	SessionSaver::getInstance()->saveAsset(this->apple);
 	SessionSaver::getInstance()->saveAsset(this->google);

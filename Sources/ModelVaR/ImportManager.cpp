@@ -28,8 +28,10 @@ void ImportManager::importArchive() {
 		QString filePath = file.getActualFileName();
 
 		if(filePath == "portfolios.json") {
+		// Loads the descriptor file (portfolios in memory and assets in database).
 			this->readDescriptor(file);
 		} else {
+		// Copies the files from the archive to the disk:
 			QFile destFile("Resources\\"+filePath);
 			if(!destFile.open(QIODevice::WriteOnly)) {
 				throw ImportException("Cannot create file "+filePath+" in Resources.");
@@ -45,6 +47,8 @@ void ImportManager::importArchive() {
 
 /**
  * @brief Imports/deserializes the portfolios from the archive.
+ * The assets are directly saved in the database.
+ * Sets the portfolios attribute of the manager.
  * @param data The JSON document as an array of bytes.
  */
 void ImportManager::readDescriptor(QuaZipFile& file) {
