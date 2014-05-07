@@ -44,7 +44,7 @@ SOURCES += \
 	CorrelationReportFactory.cpp \
 	GetStartEndDates.cpp \
 	PortfolioViewModel.cpp \
-    CreateAsset.cpp
+	CreateAsset.cpp
 
 HEADERS +=\
 	Asset.h \
