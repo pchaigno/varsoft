@@ -32,8 +32,7 @@ public:
 	}
 
 	virtual const char* what() const throw() {
-		QByteArray array = this->msg.toUtf8();
-		return array.data();
+		return this->msg.toStdString().c_str();
 	}
 
 private:
