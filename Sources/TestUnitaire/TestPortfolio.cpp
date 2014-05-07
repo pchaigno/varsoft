@@ -21,7 +21,7 @@
  * @brief Initializes a few portfolio for the tests.
  */
 TestPortfolio::TestPortfolio() {
-	QString assetFolder = "../../CSV_examples/";
+	QString assetFolder = "../../Examples/";
 
 	// FIRST ASSET DEFINITION
 	QDate startDate1 = QDate(2014, 1, 1);

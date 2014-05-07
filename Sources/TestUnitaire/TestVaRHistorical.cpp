@@ -18,7 +18,7 @@
 #include "TestVaRHistorical.h"
 
 TestVaRHistorical::TestVaRHistorical() {
-	QString assetFolder = "../../CSV_examples/";
+	QString assetFolder = "../../Examples/";
 
 	// ASSET DEFINITION
 	QDate startDate(QDate(2014, 1, 2));
