@@ -21,12 +21,14 @@
 MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWindow), portfolioListModel(new PortfolioItemModel(this)) {
 	ui->setupUi(this);
 
-	//for the import button in the main window
+	this->savePath = "";
+
 	connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(setImportCSV()));
 	ui->listView->setModel(portfolioListModel);
 	connect(ui->removePushButton, SIGNAL(clicked()), ui->listView, SLOT(removeSelectedPortfolio()));
-
 	connect(ui->listView,SIGNAL(portfolioSelected(Portfolio*)),this,SLOT(showPortfolio(Portfolio*)));
+	connect(ui->actionSauvegarder, SIGNAL(triggered()), this, SLOT(save()));
+	connect(ui->actionSauvegarder_sous, SIGNAL(triggered()), this, SLOT(saveAs()));
 }
 
 MainWindow::~MainWindow() {
@@ -64,9 +66,9 @@ void MainWindow::showPortfolio(Portfolio * portfolio){
 void MainWindow::setImportCSV(){
 	QString fileName;
 	if (this->path != "")
-		fileName = QFileDialog::getOpenFileName(this, ("Ouvrir fichier"), this->path, ("CSV Texte (*.csv *.txt);;Tous les fichiers (*.*)") );
+		fileName = QFileDialog::getOpenFileName(this, ("Open file"), this->path, ("CSV Text (*.csv *.txt);;All files (*.*)") );
 	else
-		fileName = QFileDialog::getOpenFileName(this, ("Ouvrir fichier"), "C:/", ("CSV Texte (*.csv *.txt);;Tous les fichiers (*.*)") );
+		fileName = QFileDialog::getOpenFileName(this, ("Open file"), "C:/", ("CSV Text (*.csv *.txt);;All files (*.*)") );
 	if(fileName != "")
 		this->path = fileName.left(fileName.lastIndexOf("/"));
 	if (fileName != "")
@@ -88,4 +90,35 @@ void MainWindow::setImportCSV(){
 void MainWindow::addPortfolio(Portfolio * portfolio) {
 	portfoliosModels[portfolio] = new PortfolioViewModel(portfolio);
 	portfolioListModel->addPortfolio(portfolio);
+}
+
+/**
+ * @brief Saves the portfolios to the last location used for the database.
+ * Ask for the location if none was selected before in a new window.
+ */
+void MainWindow::save() {
+	if(this->savePath == "") {
+		this->saveAs();
+	} else {
+		this->saveAs(this->savePath);
+	}
+}
+
+/**
+ * @brief Opens a dialog to ask the user where he wants to save his portfolios. Then saves them.
+ */
+void MainWindow::saveAs() {
+	this->savePath = QFileDialog::getSaveFileName(this, ("Save as"), this->path, ("Database file (*.db *.sqlite)"));
+	if(this->savePath != "") {
+		this->saveAs(this->savePath);
+	}
+}
+
+/**
+ * @brief Saves the portfolios.
+ * @param savePath The location of the database.
+ */
+void MainWindow::saveAs(QString savePath) {
+	// TODO Change the folder where everything is saved.
+	SessionSaver::getInstance()->saveSession(this->portfoliosModels.keys());
 }

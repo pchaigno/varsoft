@@ -31,6 +31,7 @@
 #include <QDate>
 #include "ImportNewData.h"
 #include "GetStartEndDates.h"
+#include "SessionSaver.h"
 
 namespace Ui {
 	class MainWindow;
@@ -48,6 +49,9 @@ private slots:
 	void showPortfolio(Portfolio* portfolio);
 	void setImportCSV();
 	void addPortfolio(Portfolio *);
+	void save();
+	void saveAs();
+	void saveAs(QString savePath);
 
 private:
 	Ui::MainWindow *ui;
@@ -59,4 +63,5 @@ private:
 	QString path;
 	PortfolioItemModel * portfolioListModel;
 	QHash<Portfolio*, PortfolioViewModel*> portfoliosModels;
+	QString savePath;
 };

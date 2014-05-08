@@ -36,8 +36,8 @@ TestSQLiteManagers::TestSQLiteManagers() {
 	reports.append(new VaRReport("somefolder\\var.docx", "somefolder\\var.pdf"));
 
 	// The portfolio:
-	Portfolio portfolio = Portfolio("Test", assets, reports);
-	this->portfolios = QVector<Portfolio>();
+	Portfolio* portfolio = new Portfolio("Test", assets, reports);
+	this->portfolios = QList<Portfolio*>();
 	this->portfolios.append(portfolio);
 }
 
@@ -46,9 +46,9 @@ void TestSQLiteManagers::testSaveSession() {
 	SessionSaver::getInstance()->saveSession(this->portfolios);
 
 	// Checks that all ids have been updated:
-	for(int i=0; i<this->portfolios.size(); i++) {
-		QVERIFY(this->portfolios[i].getId() > 0);
-		const QVector<Report*>& reports = this->portfolios[i].getReports();
+	foreach(Portfolio* portfolio, this->portfolios) {
+		QVERIFY(portfolio->getId() > 0);
+		const QVector<Report*>& reports = portfolio->getReports();
 		for(int j=0; j<reports.size(); j++) {
 			QVERIFY(reports[j]->getId() > 0);
 		}
@@ -72,21 +72,21 @@ void TestSQLiteManagers::testSaveSession() {
 	QCOMPARE(assets["Google"]->getEndDate(), this->google.getEndDate());
 
 	// Checks the portfolios:
-	QVector<Portfolio> savedPortfolios = SessionBuilder::getInstance()->buildSession();
+	QList<Portfolio*> savedPortfolios = SessionBuilder::getInstance()->buildSession();
 	QCOMPARE(savedPortfolios.size(), this->portfolios.size());
-	for(int i=0; i<this->portfolios.size(); i++) {
-		QVERIFY(savedPortfolios.contains(this->portfolios[i]));
+	foreach(Portfolio* portfolio, this->portfolios) {
+		QVERIFY(savedPortfolios.contains(portfolio));
 		int idPortfolio = -1;
 		for(int j=0; idPortfolio==-1 && j<savedPortfolios.size(); j++) {
-			if(savedPortfolios[j] == this->portfolios[i]) {
+			if(*savedPortfolios[j] == *portfolio) {
 				idPortfolio = j;
 			}
 		}
 		QVERIFY(idPortfolio != -1);
 
 		// Checks the reports:
-		const QVector<Report*>& savedReports = savedPortfolios[idPortfolio].getReports();
-		const QVector<Report*>& reports = this->portfolios[i].getReports();
+		const QVector<Report*>& savedReports = savedPortfolios[idPortfolio]->getReports();
+		const QVector<Report*>& reports = portfolio->getReports();
 		QCOMPARE(savedReports.size(), reports.size());
 		for(int j=0; j<savedReports.size(); j++) {
 			bool found = false;
@@ -100,8 +100,8 @@ void TestSQLiteManagers::testSaveSession() {
 		}
 
 		// Checks the compositions:
-		const QMap<Asset*, int>& savedComposition = savedPortfolios[idPortfolio].getComposition();
-		const QMap<Asset*, int>& composition = this->portfolios[i].getComposition();
+		const QMap<Asset*, int>& savedComposition = savedPortfolios[idPortfolio]->getComposition();
+		const QMap<Asset*, int>& composition = portfolio->getComposition();
 		for(QMap<Asset*, int>::const_iterator it=composition.begin(); it!=composition.end(); ++it) {
 			bool found = false;
 			for(QMap<Asset*, int>::const_iterator savedIt=savedComposition.begin(); savedIt!=savedComposition.end(); ++savedIt) {

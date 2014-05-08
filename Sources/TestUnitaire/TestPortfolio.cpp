@@ -138,7 +138,6 @@ void TestPortfolio::testRetrieveValuesWeekends() {
 	QVector<double> result = this->weekends.retrieveValues();
 	QCOMPARE(result.size(), 15);
 	QMap<QDate, double> resultWithDates = this->weekends.retrieveValuesByDate();
-	qDebug() << this->weekends.getComposition().begin().key()->retrieveValues().size();
 	QCOMPARE(resultWithDates.size(), 15);
 }
 

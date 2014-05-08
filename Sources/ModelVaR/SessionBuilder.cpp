@@ -89,10 +89,10 @@ QMap<QString, Asset*> SessionBuilder::buildAssets() {
 * @brief Retrieves a session from the database.
 * @return The portfolios of the session.
 */
-QVector<Portfolio> SessionBuilder::buildSession() {
+QList<Portfolio*> SessionBuilder::buildSession() {
 	AssetsFactory::getInstance();
 	this->openConnection();
-	QVector<Portfolio> portfolios = this->buildPortfolios();
+	QList<Portfolio*> portfolios = this->buildPortfolios();
 	this->closeConnection();
 	return portfolios;
 }
@@ -101,12 +101,11 @@ QVector<Portfolio> SessionBuilder::buildSession() {
 * @brief Retrieves all portfolios from the database.
 * @return The portfolios.
 */
-QVector<Portfolio> SessionBuilder::buildPortfolios() {
+QList<Portfolio*> SessionBuilder::buildPortfolios() {
 	// TODO Should we have a mechanism to prevent the portfolios to be loop-linked?
 	QSqlQuery query(this->db);
 	query.exec("SELECT id, name, parent FROM portfolios ORDER BY parent ASC;");
 
-	QVector<Portfolio> portfolios;
 	QMap<int, Portfolio*> portfoliosById;
 	QVector<Report*> reports;
 	QMap<Asset*, int> assets;
@@ -124,13 +123,12 @@ QVector<Portfolio> SessionBuilder::buildPortfolios() {
 		} else {
 			parent_ptr = portfoliosById[parent];
 		}
-		Portfolio portfolio = Portfolio(parent_ptr, id, name, assets, reports);
-		portfolios.append(portfolio);
-		portfoliosById[id] = &portfolio;
+		Portfolio* portfolio = new Portfolio(parent_ptr, id, name, assets, reports);
+		portfoliosById[id] = portfolio;
 	}
 
 	query.finish();
-	return portfolios;
+	return portfoliosById.values();
 }
 
 /**
