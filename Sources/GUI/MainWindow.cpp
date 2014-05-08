@@ -63,7 +63,7 @@ void MainWindow::showPortfolio(Portfolio * portfolio){
 */
 void MainWindow::setImportCSV(){
 	QString fileName;
-	fileName = QFileDialog::getOpenFileName(this, ("Ouvrir fichier"), this->path, ("CSV Texte (*.csv *.txt);;Tous les fichiers (*.*)") );
+	fileName = QFileDialog::getOpenFileName(this, ("Open file"), this->path, ("CSV Text (*.csv *.txt);;All files (*.*)") );
 	if(fileName != "")
 		this->path = fileName.left(fileName.lastIndexOf("/"));
 	if (fileName != "")
