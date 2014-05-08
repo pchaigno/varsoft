@@ -129,7 +129,7 @@
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
-        <string>Données</string>
+        <string>Values</string>
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
@@ -139,7 +139,7 @@
       </widget>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
-        <string>Rapports et Graphiques</string>
+        <string>Reports</string>
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
@@ -162,7 +162,7 @@
    </property>
    <widget class="QMenu" name="menuFichier">
     <property name="title">
-     <string>Fichier</string>
+     <string>File</string>
     </property>
     <addaction name="actionNouveau"/>
     <addaction name="actionOuvrir"/>
@@ -171,6 +171,8 @@
     <addaction name="actionSauvegarder_sous"/>
     <addaction name="separator"/>
     <addaction name="actionImport"/>
+    <addaction name="separator"/>
+    <addaction name="actionImport_2"/>
     <addaction name="actionExport"/>
     <addaction name="separator"/>
     <addaction name="actionQuitter"/>
@@ -188,7 +190,7 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionOuvrir">
    <property name="text">
-    <string>Ouvrir</string>
+    <string>Open</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
@@ -196,7 +198,7 @@
   </action>
   <action name="actionSauvegarder">
    <property name="text">
-    <string>Sauvegarder</string>
+    <string>Save</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
@@ -204,7 +206,7 @@
   </action>
   <action name="actionSauvegarder_sous">
    <property name="text">
-    <string>Sauvegarder sous ...</string>
+    <string>Save as...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+S</string>
@@ -212,7 +214,7 @@
   </action>
   <action name="actionImport">
    <property name="text">
-    <string>Créer un actif</string>
+    <string>Create an asset</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+I</string>
@@ -220,7 +222,7 @@
   </action>
   <action name="actionExport">
    <property name="text">
-    <string>Exporter</string>
+    <string>Export</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+E</string>
@@ -228,12 +230,17 @@
   </action>
   <action name="actionNouveau">
    <property name="text">
-    <string>Nouveau</string>
+    <string>New</string>
    </property>
   </action>
   <action name="actionQuitter">
    <property name="text">
-    <string>Quitter</string>
+    <string>Quit</string>
+   </property>
+  </action>
+  <action name="actionImport_2">
+   <property name="text">
+    <string>Import</string>
    </property>
   </action>
  </widget>
