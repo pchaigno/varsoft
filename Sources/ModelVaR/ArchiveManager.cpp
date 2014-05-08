@@ -4,7 +4,7 @@
  * @brief Constructor
  * @param archivePath The path to the archive file.
  */
-ArchiveManager::ArchiveManager(QString& archivePath) {
+ArchiveManager::ArchiveManager(QString archivePath) {
 	this->archivePath = archivePath;
 }
 

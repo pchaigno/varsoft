@@ -21,18 +21,26 @@ void ImportManager::importArchive() {
 
 	// Extracts files (assets and reports):
 	QuaZipFile file(&zip);
+	bool containsDescriptor = false;
 	for(bool f=zip.goToFirstFile(); f; f=zip.goToNextFile()) {
+		QString filePath = file.getActualFileName();
+
+		// Skips folder if encountered:
+		if(filePath[filePath.size()-1] == '/') {
+			continue;
+		}
+
 		if(!file.open(QIODevice::ReadOnly)) {
 			throw ImportException("Cannot open "+file.getActualFileName()+" from archive.");
 		}
-		QString filePath = file.getActualFileName();
 
 		if(filePath == "portfolios.json") {
 		// Loads the descriptor file (portfolios in memory and assets in database).
 			this->readDescriptor(file);
+			containsDescriptor = true;
 		} else {
 		// Copies the files from the archive to the disk:
-			QFile destFile("Resources\\"+filePath);
+			QFile destFile("Resources/"+filePath);
 			if(!destFile.open(QIODevice::WriteOnly)) {
 				throw ImportException("Cannot create file "+filePath+" in Resources.");
 			}
@@ -41,6 +49,11 @@ void ImportManager::importArchive() {
 			destFile.close();
 		}
 		file.close();
+	}
+
+	// Throws an exception if the archive contains no descriptor:
+	if(!containsDescriptor) {
+		throw ImportException("No descriptor file in the archive.");
 	}
 	zip.close();
 }

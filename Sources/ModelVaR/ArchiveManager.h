@@ -12,7 +12,7 @@ protected:
 	QVector<Portfolio*> portfolios;
 
 public:
-	ArchiveManager(QString& archivePath);
+	ArchiveManager(QString archivePath);
 	void addPortfolios(QVector<Portfolio*>& portfolios);
 	QVector<Portfolio*> getPortfolios() const;
 
