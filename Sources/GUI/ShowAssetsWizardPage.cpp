@@ -104,6 +104,7 @@ void ShowAssetsWizardPage::allRightButtonClicked() {
 	ui->leftAssets->clear();
 	emit completeChanged();
 }
+
 /**
  * @brief Add the selected items from the left list of assets to the right list and remove it in the left list.
  */
@@ -117,6 +118,7 @@ void ShowAssetsWizardPage::rightButtonClicked() {
 	}
 	emit completeChanged();
 }
+
 /**
  * @brief Add the selected items from the right list of assets to the left list and remove it in the right list.
  */

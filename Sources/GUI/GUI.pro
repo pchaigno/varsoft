@@ -12,32 +12,39 @@ GTCONFIG +=console
 TARGET = GUI
 TEMPLATE = app
 
-SOURCES += \
-	main.cpp \
-	MainWindow.cpp \
-	qcustomplot.cpp \
-	NewPortfolioWizard.cpp \
-	SetWeightAssetWizardPage.cpp \
-	ShowAssetsWizardPage.cpp \
-	PortfolioListView.cpp \
-	ImportDialog.cpp
+SOURCES += main.cpp\
+		MainWindow.cpp \
+		NewPortfolioWizard.cpp \
+		SetWeightAssetWizardPage.cpp \
+		ShowAssetsWizardPage.cpp \
+		PortfolioListView.cpp \
+		ReportWidget.cpp \
+		FlowLayout.cpp \
+		ReportWidgetFactory.cpp \
+		DocxGenPathDialog.cpp \
+		ImportDialog.cpp
 
-HEADERS += \
-	MainWindow.h \
-	qcustomplot.h \
-	NewPortfolioWizard.h \
-	SetWeightAssetWizardPage.h \
-	ShowAssetsWizardPage.h \
-	PortfolioListView.h \
-	PortfolioViewModel.h \
-	ImportDialog.h
+HEADERS += MainWindow.h \
+		NewPortfolioWizard.h \
+		SetWeightAssetWizardPage.h \
+		ShowAssetsWizardPage.h \
+		PortfolioListView.h \
+		NoneSelectedPortfolioException.h \
+		ReportWidget.h \
+		FlowLayout.h \
+		ReportWidgetFactory.h \
+		DocxGenPathDialog.h \
+		Constantes.h \
+		ImportDialog.h
 
-FORMS += \
-	MainWindow.ui \
-	NewPortfolioWizard.ui \
-	SetWeightAssetWizardPage.ui \
-	ShowAssetsWizardPage.ui\
-	import.ui
+FORMS += MainWindow.ui \
+		NewPortfolioWizard.ui \
+		SetWeightAssetWizardPage.ui \
+		ShowAssetsWizardPage.ui\
+		import.ui \
+		ReportWidget.ui \
+		DocxGenPathDialog.ui
+
 
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../ModelVaR/release/ -lModelVaR
@@ -46,3 +53,6 @@ else:unix: LIBS += -L$$OUT_PWD/../ModelVaR/ -lModelVaR
 
 INCLUDEPATH += $$PWD/../ModelVaR
 DEPENDPATH += $$PWD/../ModelVaR
+
+RESOURCES += \
+	Resources.qrc

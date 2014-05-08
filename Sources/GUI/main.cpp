@@ -17,7 +17,6 @@
  */
 #include "MainWindow.h"
 #include <QApplication>
-#include "ImportDialog.h"
 
 #include "RInterface.h"
 

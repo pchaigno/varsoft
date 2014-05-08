@@ -17,7 +17,25 @@
  */
 #pragma once
 
-class ReportGenerator {
+#include <QString>
+#include <QThread>
+#include "Report.h"
+
+class MODELVARSHARED_EXPORT ReportGenerator : public QThread {
+	Q_OBJECT
 public:
+	ReportGenerator(Report * report);
+	virtual void run();
+	virtual Report *getReport();
+
+signals:
+	void error(const QString &);
+
+private slots:
+	void errorReport();
+
+protected:
 	virtual void generate() =0;
+
+	Report * report;
 };
