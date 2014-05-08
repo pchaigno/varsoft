@@ -62,3 +62,25 @@ void TestArchiveManagers::testExportImportPortfolios() {
 	QFile databaseFile(SessionSaver::getInstance()->getDatabaseFile());
 	databaseFile.remove();
 }
+
+/**
+ * @brief Very simple test which tries to open a missing archive.
+ */
+void TestArchiveManagers::testMissingArchive() {
+	ImportManager importManager = ImportManager("missing.zip");
+	try {
+		importManager.importArchive();
+		QFAIL("ImportManager should have thrown an exception since the archive is missing.");
+	} catch(ImportException e) {}
+}
+
+/**
+ * @brief Very simple test which tries to open a missing archive.
+ */
+void TestArchiveManagers::testEmptyArchive() {
+	ImportManager importManager = ImportManager("../../Examples/nodescriptor.zip");
+	try {
+		importManager.importArchive();
+		QFAIL("ImportManager should have thrown an exception since the archive is empty.");
+	} catch(ImportException e) {}
+}

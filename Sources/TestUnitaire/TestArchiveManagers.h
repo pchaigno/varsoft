@@ -19,4 +19,6 @@ public:
 
 private Q_SLOTS:
 	void testExportImportPortfolios();
+	void testMissingArchive();
+	void testEmptyArchive();
 };
