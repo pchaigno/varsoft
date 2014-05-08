@@ -106,6 +106,7 @@ QList<Portfolio*> SessionBuilder::buildPortfolios() {
 	QSqlQuery query(this->db);
 	query.exec("SELECT id, name, parent FROM portfolios ORDER BY parent ASC;");
 
+	QList<Portfolio*> portfolios;
 	QMap<int, Portfolio*> portfoliosById;
 	QVector<Report*> reports;
 	QMap<Asset*, int> assets;
@@ -124,11 +125,12 @@ QList<Portfolio*> SessionBuilder::buildPortfolios() {
 			parent_ptr = portfoliosById[parent];
 		}
 		Portfolio* portfolio = new Portfolio(parent_ptr, id, name, assets, reports);
+		portfolios.append(portfolio);
 		portfoliosById[id] = portfolio;
 	}
 
 	query.finish();
-	return portfoliosById.values();
+	return portfolios;
 }
 
 /**

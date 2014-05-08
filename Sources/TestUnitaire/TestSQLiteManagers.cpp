@@ -75,7 +75,6 @@ void TestSQLiteManagers::testSaveSession() {
 	QList<Portfolio*> savedPortfolios = SessionBuilder::getInstance()->buildSession();
 	QCOMPARE(savedPortfolios.size(), this->portfolios.size());
 	foreach(Portfolio* portfolio, this->portfolios) {
-		QVERIFY(savedPortfolios.contains(portfolio));
 		int idPortfolio = -1;
 		for(int j=0; idPortfolio==-1 && j<savedPortfolios.size(); j++) {
 			if(*savedPortfolios[j] == *portfolio) {
