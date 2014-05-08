@@ -82,7 +82,7 @@
            </size>
           </property>
           <property name="text">
-           <string>edit</string>
+           <string>Edit</string>
           </property>
          </widget>
         </item>
@@ -125,11 +125,11 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
-        <string>Données</string>
+        <string>Data</string>
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
@@ -139,7 +139,7 @@
       </widget>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
-        <string>Rapports et Graphiques</string>
+        <string>Reports and Graphs</string>
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>

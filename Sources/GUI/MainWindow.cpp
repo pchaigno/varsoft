@@ -20,7 +20,7 @@
 
 MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWindow), portfolioListModel(new PortfolioItemModel(this)) {
 	ui->setupUi(this);
-
+	this->path = "C:/";
 	//for the import button in the main window
 	connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(setImportCSV()));
 	ui->listView->setModel(portfolioListModel);
@@ -63,10 +63,7 @@ void MainWindow::showPortfolio(Portfolio * portfolio){
 */
 void MainWindow::setImportCSV(){
 	QString fileName;
-	if (this->path != "")
-		fileName = QFileDialog::getOpenFileName(this, ("Ouvrir fichier"), this->path, ("CSV Texte (*.csv *.txt);;Tous les fichiers (*.*)") );
-	else
-		fileName = QFileDialog::getOpenFileName(this, ("Ouvrir fichier"), "C:/", ("CSV Texte (*.csv *.txt);;Tous les fichiers (*.*)") );
+	fileName = QFileDialog::getOpenFileName(this, ("Ouvrir fichier"), this->path, ("CSV Texte (*.csv *.txt);;Tous les fichiers (*.*)") );
 	if(fileName != "")
 		this->path = fileName.left(fileName.lastIndexOf("/"));
 	if (fileName != "")
