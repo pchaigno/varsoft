@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file alias="delete">Resources/Icons/delete.png</file>
+        <file alias="pdf">Resources/Icons/pdf.png</file>
+        <file alias="statsReport.png">Resources/Icons/statsReport.png</file>
+        <file alias="word">Resources/Icons/word.png</file>
+    </qresource>
+</RCC>

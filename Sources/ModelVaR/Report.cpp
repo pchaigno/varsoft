@@ -30,8 +30,8 @@ Report::Report() {
  * @param docxPath The location of the DOCX file on the disk.
  * @param pdfPath The location of the PDF file on the disk.
  */
-Report::Report(QString docxFile, QString pdfFile) {
-	this->init(-1, docxFile, pdfFile);
+Report::Report(QString file) {
+	this->init(-1, file);
 }
 
 /**
@@ -40,8 +40,12 @@ Report::Report(QString docxFile, QString pdfFile) {
  * @param docxPath The location of the DOCX file on the disk.
  * @param pdfPath The location of the PDF file on the disk.
  */
-Report::Report(int id, QString docxFile, QString pdfFile) {
-	this->init(id, docxFile, pdfFile);
+Report::Report(int id, QString file) {
+	this->init(id, file);
+}
+
+Report::~Report() {
+	
 }
 
 /**
@@ -49,10 +53,20 @@ Report::Report(int id, QString docxFile, QString pdfFile) {
  * @param docxPath The location of the DOCX file on the disk.
  * @param pdfPath The location of the PDF file on the disk.
  */
-void Report::init(int id, QString docxFile, QString pdfFile) {
+void Report::init(int id, QString file) {
 	this->id = id;
-	this->docxFile = docxFile;
-	this->pdfFile = pdfFile;
+	this->file = file;
+	dataJson=NULL;
+}
+
+/**
+ * @brief emit signal filesOk() if the report has been created correctly, otherwise it emits the signal filesNotOk()
+ */
+void Report::filesGenerationFinish() {
+	if (filesAvailable())
+		emit filesOk();
+	else
+		emit filesNotOk();
 }
 
 /**
@@ -77,27 +91,55 @@ void Report::setId(int id) {
 }
 
 /**
- * @brief Accessor to the DOCX file.
- * @return The location of the DOCX file on the disk.
+ * @brief Accessor to the file without the extension
+ * @return
  */
-QString Report::getDOCXFile() const {
-	return this->docxFile;
+QString Report::getFile() const {
+	return this->file;
 }
 
 /**
- * @brief Accessor to the PDF file.
- * @return The location of the PDF file on the disk.
+ * @brief Setter to the file without extension
+ * @param file
  */
-QString Report::getPDFFile() const {
-	return this->pdfFile;
+void Report::setFile(QString file)
+{
+	this->file=file;
 }
 
 /**
- * @brief Accessor to the type of the report.
- * @return The type of the report.
+ * @brief This method says if the file are available on the disk
+ * @return true if the files containing the report are available in the disk
  */
-ReportType Report::getType() const {
-	return NONE;
+bool Report::filesAvailable() {
+	return QFile::exists(this->file+".pdf") && QFile::exists(this->file+".docx");
+}
+
+/**
+ * @brief Remove the report file on the disk
+ */
+void Report::removeFiles() {
+	if (QFile::exists(this->file+".pdf"))
+		QFile::remove(this->file+".pdf");
+
+	if (QFile::exists(this->file+".docx"))
+		QFile::remove(this->file+".docx");
+}
+
+/**
+ * @brief Accessor of the Json data of the report
+ * @return
+ */
+ReportDataJson *Report::getDataJson() const {
+	return dataJson;
+}
+
+/**
+ * @brief Setter of the Json data of the report
+ * @param data the new json data
+ */
+void Report::setDataJson(ReportDataJson* data) {
+	dataJson=data;
 }
 
 /**
@@ -107,7 +149,7 @@ ReportType Report::getType() const {
  */
 bool Report::operator==(const Report& report) const {
 	if(this->id == -1) {
-		return this->docxFile==report.docxFile && this->pdfFile==report.pdfFile;
+		return this->file==report.file;
 	}
 	return this->id == report.id;
 }
