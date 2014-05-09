@@ -19,29 +19,55 @@
 
 /**
  * @brief ReportFactory::ReportFactory
- * @param docxPath
- * @param pdfPath
  */
-ReportFactory::ReportFactory(QString docxFile, QString pdfFile):
-	docxGenerator(DocxGenerator(docxFile)) {
-	this->docxFile = docxFile;
-	this->pdfFile = pdfFile;
+ReportFactory::ReportFactory() {
+
 }
 
 /**
- * @brief Generates the report.
- * @return The report.
+ * @brief Create the appropriate report and create its Json before returning it.
+ * @return the report which just generated
  */
-Report ReportFactory::generateReport() {
-	this->docxGenerator = this->generateDOCX();
-	this->generatePDF();
-	return Report(this->docxFile, this->pdfFile);
+Report *ReportFactory::buildReport() {
+	Report * report = createReport();
+	if (report->filesAvailable())
+		throw ReportAlreadyCreatedException(report,"Report files are available on the disk, maybe this report has already been created before.");
+	report->setDataJson(createJson());
+	return report;
+}
+
+Report *ReportFactory::forceBuildReport()
+{
+	Report * report = createReport();
+	if (report->filesAvailable())
+	{
+		QString tmp = report->getFile();
+		QString nameFile = report->getFile();
+		int i=1;
+		do
+		{
+			report->setFile(nameFile+"("+QString::number(i)+")");
+			i++;
+		}
+		while (report->filesAvailable());
+	}
+
+	report->setDataJson(createJson());
+	return report;
 }
 
 /**
- * @brief Generates the PDF.
- * Converts the DOCX file to a PDF.
+ * @brief Get the path of the directory where the reports are placed.
+ * Create the directory if it does not exist.
+ * @return
  */
-void ReportFactory::generatePDF() {
-	this->docxGenerator.convertToPDF();
+QString ReportFactory::getReportDir() const {
+	QString path = QString("..")+QDir::separator()+QString("Resources")+QDir::separator()+QString("Reports")+QDir::separator();
+
+	if (!QDir(path).exists()) {
+		if (!QDir().mkpath(path))
+			throw ReportException("Error when creating the Report directory.");
+	}
+
+	return path;
 }

@@ -59,21 +59,21 @@ TestPortfolio::TestPortfolio() {
 	assets.insert(asset2, 2);
 	assets.insert(asset3, 3);
 
-	QVector<Report*> reports;
+	QList<Report*> reports;
 	this->father = Portfolio("Father", assets, reports);
-	this->son = Portfolio(&this->father, "Son", assets, reports);
+	this->son = Portfolio(&father, "Son", assets, reports);
 
 	// SECOND PORTFOLIO DEFINITION
 	QMap<Asset*, int> assets2;
 	assets2.insert(asset4, 1);
 	assets2.insert(asset5, 2);
-	QVector<Report*> reports2;
+	QList<Report*> reports2;
 	this->uncle = Portfolio("uncle", assets2, reports2);
 
 	// THIRD PORTFOLIO DEFINITION
 	QMap<Asset*, int> assets3;
 	assets3.insert(asset6, 10);
-	QVector<Report*> reports3;
+	QList<Report*> reports3;
 	this->weekends = Portfolio("weekends", assets3, reports3);
 }
 
@@ -274,7 +274,7 @@ void TestPortfolio::comparePortfolios(Portfolio& serializedPortfolio, Portfolio&
 	foreach(const Report* serializedReport, serializedPortfolio.getReports()) {
 		bool reportFound = false;
 		foreach(const Report* report, portfolio.getReports()) {
-			if(report->getPDFFile() == serializedReport->getPDFFile()) {
+			if(report->getFile() == serializedReport->getFile()) {
 				QCOMPARE(serializedReport->getType(), report->getType());
 				reportFound = true;
 				break;

@@ -24,8 +24,10 @@
 class MODELVARSHARED_EXPORT BacktestingReport: public Report {
 public:
 	BacktestingReport();
-	BacktestingReport(QString docxFile, QString pdfFile);
-	BacktestingReport(int id, QString docxFile, QString pdfFile);
+	BacktestingReport(QString file);
+	BacktestingReport(int id, QString file);
 	BacktestingReport(const QJsonObject& json);
+	
 	virtual ReportType getType() const;
+	virtual QString getTemplateFile() const;
 };

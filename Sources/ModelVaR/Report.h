@@ -17,10 +17,12 @@
  */
 #pragma once
 
+#include <QObject>
 #include <QString>
 #include "IdAlreadyAttributedException.h"
 #include "ModelVaR_global.h"
 #include <QJsonObject>
+#include "ReportDataJson.h"
 
 enum ReportType {
 	NONE = 0,
@@ -31,25 +33,42 @@ enum ReportType {
 	VAR
 };
 
-class MODELVARSHARED_EXPORT Report {
+class MODELVARSHARED_EXPORT Report : public QObject {
+	Q_OBJECT
 private:
 	int id;
-	QString docxFile;
-	QString pdfFile;
+	QString file;
+	ReportDataJson* dataJson;
+
+signals:
+	void filesOk();
+	void filesNotOk();
+
+public slots:
+	void filesGenerationFinish();
 
 public:
 	Report();
-	Report(QString docxFile, QString pdfFile);
-	Report(int id, QString docxFile, QString pdfFile);
-	void init(int id, QString docxFile, QString pdfFile);
+	Report(QString file);
+	Report(int id, QString file);
+	void init(int id, QString file);
 	Report(const QJsonObject& json);
+	~Report();
 
 	int getId() const;
 	void setId(int id);
-	QString getDOCXFile() const;
-	QString getPDFFile() const;
-	// TODO Any way to make it abstract?
-	virtual ReportType getType() const;
+
+	QString getFile() const;
+	void setFile(QString);
+	bool filesAvailable();
+	void removeFiles();
+
+	virtual ReportType getType() const =0;
+
+	ReportDataJson* getDataJson() const;
+	void setDataJson(ReportDataJson* data);
+
+	virtual QString getTemplateFile() const =0;
 
 	bool operator==(const Report& report) const;
 

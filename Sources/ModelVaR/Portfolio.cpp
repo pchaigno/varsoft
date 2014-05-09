@@ -32,7 +32,7 @@ Portfolio::Portfolio() {
  * @param composition The assets composing the portfolio.
  * @param reports The reports of the portfolio.
  */
-Portfolio::Portfolio(Portfolio* parent, QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports) {
+Portfolio::Portfolio(Portfolio* parent, QString name, QMap<Asset*, int>& composition, QList<Report*>& reports) {
 	this->init(parent, -1, name, composition, reports);
 }
 
@@ -42,7 +42,7 @@ Portfolio::Portfolio(Portfolio* parent, QString name, QMap<Asset*, int>& composi
  * @param composition The assets composing the portfolio.
  * @param reports The reports of the portfolio.
  */
-Portfolio::Portfolio(QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports) {
+Portfolio::Portfolio(QString name, QMap<Asset*, int>& composition, QList<Report*>& reports) {
 	this->init(NULL, -1, name, composition, reports);
 }
 
@@ -54,7 +54,7 @@ Portfolio::Portfolio(QString name, QMap<Asset*, int>& composition, QVector<Repor
  * @param composition The assets composing the portfolio.
  * @param reports The reports of the portfolio.
  */
-Portfolio::Portfolio(Portfolio* parent, int id, QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports) {
+Portfolio::Portfolio(Portfolio* parent, int id, QString name, QMap<Asset*, int>& composition, QList<Report*>& reports) {
 	this->init(parent, id, name, composition, reports);
 }
 
@@ -65,8 +65,11 @@ Portfolio::Portfolio(Portfolio* parent, int id, QString name, QMap<Asset*, int>&
  * @param composition The assets composing the portfolio.
  * @param reports The reports of the portfolio.
  */
-Portfolio::Portfolio(int id, QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports) {
+Portfolio::Portfolio(int id, QString name, QMap<Asset*, int>& composition, QList<Report*>& reports) {
 	this->init(NULL, id, name, composition, reports);
+}
+
+Portfolio::~Portfolio() {
 }
 
 /**
@@ -77,7 +80,7 @@ Portfolio::Portfolio(int id, QString name, QMap<Asset*, int>& composition, QVect
  * @param composition The assets composing the portfolio.
  * @param reports The reports of the portfolio.
  */
-void Portfolio::init(Portfolio* parent, int id, QString name, QMap<Asset*, int>& composition, QVector<Report*>& reports) {
+void Portfolio::init(Portfolio* parent, int id, QString name, QMap<Asset*, int>& composition, QList<Report*>& reports) {
 	this->parent = parent;
 	this->id = id;
 	this->name = name;
@@ -149,8 +152,26 @@ int Portfolio::getParentId() const {
  * @brief Accessor to reports.
  * @return The reports for this portfolio.
  */
-QVector<Report*> Portfolio::getReports() const {
+QList<Report *> Portfolio::getReports() const {
 	return this->reports;
+}
+
+/**
+ * @brief Add the given report to the list of report
+ * @param report
+ */
+void Portfolio::addReport(Report *report) {
+	this->reports.append(report);
+}
+
+/**
+ * @brief Remove the given report
+ * @param report
+ */
+void Portfolio::removeReport(Report *report) {
+	report->removeFiles();
+	this->reports.removeOne(report);
+	delete report;
 }
 
 /**

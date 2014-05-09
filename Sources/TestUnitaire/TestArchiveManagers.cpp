@@ -28,9 +28,9 @@ TestArchiveManagers::TestArchiveManagers() {
 	assets[&(this->apple)] = 4;
 
 	// The reports for the portfolio:
-	QVector<Report*> reports;
-	reports.append(new GarchReport("somefolder\\garch.docx", "somefolder\\garch.pdf"));
-	reports.append(new VaRReport("somefolder\\var.docx", "somefolder\\var.pdf"));
+	QList<Report*> reports;
+	reports.append(new GarchReport("somefolder/garch"));
+	reports.append(new VaRReport("somefolder/var"));
 
 	// The portfolio:
 	Portfolio* portfolio = new Portfolio("Test", assets, reports);

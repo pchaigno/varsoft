@@ -30,7 +30,7 @@ BacktestingReport::BacktestingReport() {
  * @param docxPath The location of the DOCX file on the disk.
  * @param pdfPath The location of the PDF file on the disk.
  */
-BacktestingReport::BacktestingReport(QString docxFile, QString pdfFile): Report(docxFile, pdfFile) {
+BacktestingReport::BacktestingReport(QString file): Report(file) {
 
 }
 
@@ -40,7 +40,7 @@ BacktestingReport::BacktestingReport(QString docxFile, QString pdfFile): Report(
  * @param docxPath The location of the DOCX file on the disk.
  * @param pdfPath The location of the PDF file on the disk.
  */
-BacktestingReport::BacktestingReport(int id, QString docxFile, QString pdfFile): Report(id, docxFile, pdfFile) {
+BacktestingReport::BacktestingReport(int id, QString file): Report(id, file) {
 
 }
 
@@ -58,4 +58,12 @@ BacktestingReport::BacktestingReport(const QJsonObject& json): Report(json) {
  */
 ReportType BacktestingReport::getType() const {
 	return BACKTESTING;
+}
+
+/**
+ * @brief Accesor to the template file of Backtesting report
+ * @return a string with the path of the templateFile
+ */
+QString BacktestingReport::getTemplateFile() const {
+	return "";
 }

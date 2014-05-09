@@ -38,14 +38,23 @@ def countBadFiles(folderPath):
 # Counts the lines badly indentated in a file.
 def countBadLines(filePath):
 	fp = open(filePath, 'r')
-	nbBadIndentations = 0;
+	nbBadIndentations = 0
+	lines = []
+	numLine = 1
 	for line in fp:
 		if re.search('^[ ]{3}', line):
 			nbBadIndentations += 1
+			lines.append(numLine)
+		numLine += 1
 	fp.close()
 	
 	if nbBadIndentations > 0:
-		print("%s contains %d lines badly indentated." %(filePath, nbBadIndentations))
+		#print("%s contains %d lines badly indentated" %(filePath, nbBadIndentations))
+		sys.stdout.write("%s contains %d lines badly indentated (" %(filePath, nbBadIndentations))
+		for i in range(len(lines)-1):
+			sys.stdout.write("%d, " %(lines[i]))
+		sys.stdout.write("%d).\n" %(lines[len(lines)-1]))
+		sys.stdout.flush()
 	return nbBadIndentations
 
 

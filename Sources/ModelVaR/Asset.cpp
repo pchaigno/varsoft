@@ -71,6 +71,10 @@ void Asset::init(int id, QString name, QString file, QString origin, QDate start
 	this->endDate = endDate;
 }
 
+Asset::~Asset() {
+
+}
+
 /**
  * @brief Builds the asset from a JSON document.
  * @param json The JSON document.

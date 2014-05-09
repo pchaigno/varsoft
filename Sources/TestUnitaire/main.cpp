@@ -39,10 +39,10 @@ int main() {
 	result += QTest::qExec(&report);
 	TestSQLiteManagers sqlite;
 	result += QTest::qExec(&sqlite);
-	TestVaRHistorical testVaRHistorical;
-	result += QTest::qExec(&testVaRHistorical);
 	TestImportNewData newdata;
 	result += QTest::qExec(&newdata);
+	TestVaRHistorical testVaRHistorical;
+	result += QTest::qExec(&testVaRHistorical);
 	TestPortfolioItemModel portfolioModel;
 	result += QTest::qExec(&portfolioModel);
 	TestArchiveManagers archiveManager;

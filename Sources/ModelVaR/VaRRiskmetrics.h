@@ -20,7 +20,7 @@
 #include "VaRAlgorithm.h"
 #include <QDate>
 
-class VaRRiskmetrics: public VaRAlgorithm {
+class MODELVARSHARED_EXPORT VaRRiskmetrics: public VaRAlgorithm {
 public:
 	VaRRiskmetrics(const Portfolio& portfolio, double risk, int timeHorizon);
 	virtual double execute(QDate timeHorizon) const;

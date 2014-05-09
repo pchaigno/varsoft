@@ -55,6 +55,6 @@ public:
 private:
 	SessionBuilder(QString databaseFile);
 	QVector<Portfolio> buildPortfolios();
-	QVector<Report*> buildReports(int idPortfolio);
+	QList<Report*> buildReports(int idPortfolio);
 	QMap<Asset*, int> buildPortfolioComposition(int idPortfolio);
 };

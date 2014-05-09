@@ -30,7 +30,7 @@ VaRReport::VaRReport() {
  * @param docxPath The location of the DOCX file on the disk.
  * @param pdfPath The location of the PDF file on the disk.
  */
-VaRReport::VaRReport(QString docxFile, QString pdfFile): Report(docxFile, pdfFile) {
+VaRReport::VaRReport(QString file): Report(file) {
 
 }
 
@@ -40,7 +40,7 @@ VaRReport::VaRReport(QString docxFile, QString pdfFile): Report(docxFile, pdfFil
  * @param docxPath The location of the DOCX file on the disk.
  * @param pdfPath The location of the PDF file on the disk.
  */
-VaRReport::VaRReport(int id, QString docxFile, QString pdfFile): Report(id, docxFile, pdfFile) {
+VaRReport::VaRReport(int id, QString file): Report(id, file) {
 
 }
 
@@ -58,4 +58,8 @@ VaRReport::VaRReport(const QJsonObject& json): Report(json) {
  */
 ReportType VaRReport::getType() const {
 	return VAR;
+}
+
+QString VaRReport::getTemplateFile() const {
+	return "";
 }

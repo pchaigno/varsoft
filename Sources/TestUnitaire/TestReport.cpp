@@ -21,11 +21,19 @@
  * @brief Initializes a few reports for the tests.
  */
 TestReport::TestReport() {
-	this->var = VaRReport("C:\\somefolder\\var.docx", "C:\\somefolder\\var.pdf");
-	this->garch = GarchReport("C:\\somefolder\\garch.docx", "C:\\somefolder\\garch.pdf");
-	this->correlation = CorrelationReport("C:\\somefolder\\correlation.docx", "C:\\somefolder\\correlation.pdf");
-	this->backtesting = BacktestingReport("C:\\somefolder\\backtesting.docx", "C:\\somefolder\\backtesting.pdf");
-	this->statistics = StatisticsReport("C:\\somefolder\\statistics.docx", "C:\\somefolder\\statistics.pdf");
+	this->var = new VaRReport("C:\\somefolder\\var");
+	this->garch = new GarchReport("C:\\somefolder\\garch");
+	this->correlation = new CorrelationReport("C:\\somefolder\\correlation");
+	this->backtesting = new BacktestingReport("C:\\somefolder\\backtesting");
+	this->statistics = new StatisticsReport("C:\\somefolder\\statistics");
+}
+
+TestReport::~TestReport() {
+	delete var;
+	delete garch;
+	delete correlation;
+	delete backtesting;
+	delete statistics;
 }
 
 /**
@@ -42,12 +50,12 @@ void TestReport::testId() {
 /**
  * @brief Checks that the id can only be set once.
  */
-void TestReport::testId(Report report) {
-	QCOMPARE(report.getId(), -1);
-	report.setId(42);
-	QCOMPARE(report.getId(), 42);
+void TestReport::testId(Report *report) {
+	QCOMPARE(report->getId(), -1);
+	report->setId(42);
+	QCOMPARE(report->getId(), 42);
 	try {
-		report.setId(43);
+		report->setId(43);
 	} catch(const IdAlreadyAttributedException e) {
 		return;
 	}
@@ -58,13 +66,11 @@ void TestReport::testId(Report report) {
  * @brief Compares a serialized/deserialized report with the original report.
  */
 void TestReport::testSerialize() {
-	// Sets an ID to check that it's not serialized.
-	this->statistics.setId(42);
-	QJsonObject json = this->statistics.toJSON();
-	Report test = StatisticsReport(json);
+	// The report already has an ID.
+	QJsonObject json = this->statistics->toJSON();
+	StatisticsReport test(json);
 
 	QCOMPARE(test.getId(), -1);
-	QCOMPARE(test.getDOCXFile(), this->statistics.getDOCXFile());
-	QCOMPARE(test.getPDFFile(), this->statistics.getPDFFile());
-	QCOMPARE(test.getType(), this->statistics.getType());
+	QCOMPARE(test.getFile(), this->statistics->getFile());
+	QCOMPARE(test.getType(), this->statistics->getType());
 }

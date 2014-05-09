@@ -18,11 +18,19 @@
 #pragma once
 
 #include <QString>
+#include <QProcess>
+#include <QJsonDocument>
+#include "Report.h"
 #include "ReportGenerator.h"
+#include <QFile>
+#include <stdexcept>
 
-class DocxGenerator: public ReportGenerator {
+class MODELVARSHARED_EXPORT DocxGenerator: public ReportGenerator {
 public:
-	DocxGenerator(QString location);
+	DocxGenerator(Report * report, QString progPath);
 	virtual void generate();
-	void convertToPDF();
+
+private:
+	QString prog;
+	QVector<QString> errorTable;
 };
