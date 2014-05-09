@@ -46,8 +46,8 @@ public:
 
 private:
 	SessionSaver(QString databaseFile);
-	void saveAssets(QVector<Asset*> &assets) const;
-	void updateAssets(QVector<Asset*>& assets) const;
+	void saveAssets(QList<Asset*> &assets) const;
+	void updateAssets(QList<Asset*>& assets) const;
 	void savePortfolios(QList<Portfolio*> portfolios) const;
 	void updatePortfolios(QList<Portfolio*> portfolios) const;
 	void saveReports(const Portfolio* portfolio, const QList<Report*>& reports) const;

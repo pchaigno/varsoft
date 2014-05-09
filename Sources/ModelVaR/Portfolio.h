@@ -56,7 +56,7 @@ public:
 	void addReport(Report* report);
 	void removeReport(Report * report);
 
-	QVector<Asset*> getAssets() const;
+	QList<Asset*> getAssets() const;
 	QMap<Asset*, int> getComposition() const;
 	void changeName(QString name);
 	QDate retrieveStartDate() const;

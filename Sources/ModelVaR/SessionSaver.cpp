@@ -61,12 +61,9 @@ void SessionSaver::saveSession(QList<Portfolio*> portfolios) {
 	this->openConnection();
 
 	// The assets must be saved first:
-	QVector<Asset*> allAssets;
+	QList<Asset*> allAssets;
 	foreach(Portfolio* portfolio, portfolios) {
-		QVector<Asset*> assets = portfolio->getAssets();
-		for(int j=0; j<assets.size(); j++) {
-			allAssets.append(assets[j]);
-		}
+		allAssets.append(portfolio->getAssets());
 	}
 	this->saveAssets(allAssets);
 	this->updateAssets(allAssets);
@@ -91,7 +88,7 @@ void SessionSaver::saveSession(QList<Portfolio*> portfolios) {
  * The assets already in the database will be ignored.
  * @param assets The assets to save.
  */
-void SessionSaver::saveAssets(QVector<Asset*>& assets) const {
+void SessionSaver::saveAssets(QList<Asset*>& assets) const {
 	QSqlQuery query(this->db);
 	query.prepare("INSERT INTO assets(id, name, file, origin, first_date, last_date) VALUES(NULL, :name, :file, :origin, :first_date, :last_date);");
 	foreach(Asset* asset, assets) {
@@ -113,7 +110,7 @@ void SessionSaver::saveAssets(QVector<Asset*>& assets) const {
  * The assets which haven't been modified will be ignored.
  * @param assets The assets to update.
  */
-void SessionSaver::updateAssets(QVector<Asset*>& assets) const {
+void SessionSaver::updateAssets(QList<Asset*>& assets) const {
 	QSqlQuery query(this->db);
 	query.prepare("UPDATE assets SET name = :name WHERE id = :id;");
 	foreach(Asset* asset, assets) {

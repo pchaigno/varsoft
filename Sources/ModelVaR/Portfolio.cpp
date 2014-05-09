@@ -164,8 +164,8 @@ void Portfolio::removeReport(Report *report) {
  * @brief Accessor to the assets.
  * @return The assets composing the portfolio.
  */
-QVector<Asset*> Portfolio::getAssets() const {
-	QVector<Asset*> assets;
+QList<Asset*> Portfolio::getAssets() const {
+	QList<Asset*> assets;
 	for(QMap<Asset*, int>::const_iterator it=this->composition.begin(); it!=this->composition.end(); ++it) {
 		assets.append(it.key());
 	}
