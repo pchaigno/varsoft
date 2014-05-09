@@ -38,16 +38,20 @@ DocxGenerator::DocxGenerator(Report *report, QString progPath) : ReportGenerator
  * @brief Generates the DOCX file
  */
 void DocxGenerator::generate() {
+	QProcess docx;
 	if (QFile::exists(prog) && QFile::exists(report->getTemplateFile())) {
-		QProcess docx;
 		docx.start("java", QStringList() << "-jar" << prog << report->getTemplateFile() << report->getFile());
-		docx.waitForStarted();
+		if(!docx.waitForStarted())
+			throw std::runtime_error("An error has occurred during the starting of DocxGenerator.");
 
 		QString data = report->getDataJson()->toString();
-		docx.write(data.toLatin1(),data.length());
+		int res = docx.write(data.toLatin1(),data.length());
+		if (res==-1)
+			throw std::runtime_error("An error has occurred during writing in the input of DocxGenerator.");
 		docx.closeWriteChannel();
 
-		docx.waitForFinished();
+		if(!docx.waitForFinished())
+			throw std::runtime_error("An error has occurred during the finishing of DocxGenerator.");
 		int exitCode=docx.exitCode();
 		bool hasCrashed = docx.exitStatus()==QProcess::CrashExit;
 		if (exitCode != 0 || hasCrashed) {
