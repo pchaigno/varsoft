@@ -36,26 +36,6 @@ Report *ReportFactory::buildReport() {
 	return report;
 }
 
-Report *ReportFactory::forceBuildReport()
-{
-	Report * report = createReport();
-	if (report->filesAvailable())
-	{
-		QString tmp = report->getFile();
-		QString nameFile = report->getFile();
-		int i=1;
-		do
-		{
-			report->setFile(nameFile+"("+QString::number(i)+")");
-			i++;
-		}
-		while (report->filesAvailable());
-	}
-
-	report->setDataJson(createJson());
-	return report;
-}
-
 /**
  * @brief Get the path of the directory where the reports are placed.
  * Create the directory if it does not exist.

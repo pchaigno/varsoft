@@ -107,15 +107,6 @@ QString Report::getFile() const {
 }
 
 /**
- * @brief Setter to the file without extension
- * @param file
- */
-void Report::setFile(QString file)
-{
-	this->file=file;
-}
-
-/**
  * @brief This method says if the file are available on the disk
  * @return true if the files containing the report are available in the disk
  */

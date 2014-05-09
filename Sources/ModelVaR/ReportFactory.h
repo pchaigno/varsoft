@@ -30,7 +30,6 @@ public:
 	ReportFactory();
 
 	Report *buildReport();
-	Report *forceBuildReport();
 protected:
 	virtual Report * createReport() =0;
 	virtual ReportDataJson* createJson() = 0;
