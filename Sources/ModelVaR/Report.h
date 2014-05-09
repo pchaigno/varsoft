@@ -22,6 +22,7 @@
 #include "IdAlreadyAttributedException.h"
 #include "ModelVaR_global.h"
 #include "ReportDataJson.h"
+#include "Savable.h"
 
 enum ReportType {
 	NONE = 0,
@@ -32,7 +33,7 @@ enum ReportType {
 	VAR
 };
 
-class MODELVARSHARED_EXPORT Report : public QObject {
+class MODELVARSHARED_EXPORT Report : public QObject, public Savable {
 	Q_OBJECT
 private:
 	int id;

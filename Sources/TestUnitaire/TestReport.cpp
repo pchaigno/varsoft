@@ -54,6 +54,7 @@ void TestReport::testId(Report *report) {
 	QCOMPARE(report->getId(), -1);
 	report->setId(42);
 	QCOMPARE(report->getId(), 42);
+	QVERIFY(report->isUpToDate());
 	try {
 		report->setId(43);
 	} catch(const IdAlreadyAttributedException e) {

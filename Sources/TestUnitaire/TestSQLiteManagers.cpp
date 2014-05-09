@@ -48,13 +48,17 @@ void TestSQLiteManagers::testSaveSession() {
 	// Checks that all ids have been updated:
 	foreach(Portfolio* portfolio, this->portfolios) {
 		QVERIFY(portfolio->getId() > 0);
+		QVERIFY(portfolio->isUpToDate());
 		const QList<Report*>& reports = portfolio->getReports();
 		for(int j=0; j<reports.size(); j++) {
 			QVERIFY(reports[j]->getId() > 0);
+			QVERIFY(reports[j]->isUpToDate());
 		}
 	}
 	QVERIFY(this->apple.getId() > 0);
+	QVERIFY(this->apple.isUpToDate());
 	QVERIFY(this->google.getId() > 0);
+	QVERIFY(this->google.isUpToDate());
 
 	// Retrieves everything from the database:
 	QMap<QString, Asset*> assets = SessionBuilder::getInstance()->buildAssets();
@@ -62,6 +66,8 @@ void TestSQLiteManagers::testSaveSession() {
 	// Checks that the assets are here:
 	QVERIFY(*(assets["Apple"]) == this->apple);
 	QVERIFY(*(assets["Google"]) == this->google);
+	QVERIFY(assets["Apple"]->isUpToDate());
+	QVERIFY(assets["Google"]->isUpToDate());
 	QVERIFY(assets["Apple"]->getOrigin() == this->apple.getOrigin());
 	QVERIFY(assets["Google"]->getOrigin() == this->google.getOrigin());
 	QVERIFY(assets["Apple"]->getFile() == this->apple.getFile());

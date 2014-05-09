@@ -30,7 +30,7 @@
 #include <string>
 #include <sstream>
 
-class MODELVARSHARED_EXPORT Portfolio {
+class MODELVARSHARED_EXPORT Portfolio: public Savable {
 private:
 	int id;
 	QString name;

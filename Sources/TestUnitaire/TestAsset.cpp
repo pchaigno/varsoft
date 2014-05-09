@@ -37,6 +37,7 @@ void TestAsset::testId() {
 	QCOMPARE(this->google.getId(), -1);
 	this->google.setId(42);
 	QCOMPARE(this->google.getId(), 42);
+	QVERIFY(this->google.isUpToDate());
 	try {
 		this->google.setId(43);
 	} catch(const IdAlreadyAttributedException e) {
@@ -52,6 +53,7 @@ void TestAsset::testName() {
 	QVERIFY(this->google.getName() == "Google");
 	this->google.changeName("Googl");
 	QVERIFY(this->google.getName() == "Googl");
+	QVERIFY(this->google.isModified());
 }
 
 /**

@@ -21,7 +21,7 @@
 * @brief Empty constructor
 * Should only be used by Qt containers.
 */
-Asset::Asset() {
+Asset::Asset(): Savable(false) {
 
 }
 
@@ -33,7 +33,7 @@ Asset::Asset() {
  * @param startDate The date of the first value defined.
  * @param endDate The date of the last value defined.
  */
-Asset::Asset(QString name, QString file, QString origin, QDate startDate, QDate endDate) {
+Asset::Asset(QString name, QString file, QString origin, QDate startDate, QDate endDate): Savable(false) {
 	this->init(-1, name, file, origin, startDate, endDate);
 }
 
@@ -46,7 +46,7 @@ Asset::Asset(QString name, QString file, QString origin, QDate startDate, QDate 
  * @param startDate The date of the first value defined.
  * @param endDate The date of the last value defined.
  */
-Asset::Asset(int id, QString name, QString file, QString origin, QDate startDate, QDate endDate) {
+Asset::Asset(int id, QString name, QString file, QString origin, QDate startDate, QDate endDate): Savable(true) {
 	this->init(id, name, file, origin, startDate, endDate);
 }
 
@@ -94,6 +94,9 @@ void Asset::setId(int id) {
 		throw IdAlreadyAttributedException("An id has already been attributed to this asset.");
 	}
 	this->id = id;
+
+	// The asset has been saved to the database so it is up-to-date.
+	this->setStatusToUpToDate();
 }
 
 /**
@@ -142,6 +145,7 @@ QDate Asset::getEndDate() const {
  */
 void Asset::changeName(QString name) {
 	this->name = name;
+	this->setStatusToModified();
 }
 
 /**
