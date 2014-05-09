@@ -38,24 +38,31 @@ DocxGenerator::DocxGenerator(Report *report, QString progPath) : ReportGenerator
  * @brief Generates the DOCX file
  */
 void DocxGenerator::generate() {
-	QProcess docx;
 	if (QFile::exists(prog) && QFile::exists(report->getTemplateFile())) {
+		QProcess  docx;
+		connect(&docx,SIGNAL(error(QProcess::ProcessError)),this,SLOT(manageError(QProcess::ProcessError)));
 		docx.start("java", QStringList() << "-jar" << prog << report->getTemplateFile() << report->getFile());
 		if(!docx.waitForStarted())
+		{
 			throw std::runtime_error("An error has occurred during the starting of DocxGenerator.");
+		}
 
 		QString data = report->getDataJson()->toString();
 		int res = docx.write(data.toLatin1(),data.length());
 		if (res==-1)
+		{
 			throw std::runtime_error("An error has occurred during writing in the input of DocxGenerator.");
+		}
+		docx.waitForBytesWritten();
 		docx.closeWriteChannel();
 
-		if(!docx.waitForFinished())
-			throw std::runtime_error("An error has occurred during the finishing of DocxGenerator.");
-		int exitCode=docx.exitCode();
-		bool hasCrashed = docx.exitStatus()==QProcess::CrashExit;
-		if (exitCode != 0 || hasCrashed) {
-			throw std::runtime_error("DocxGenerator error ("+QString::number(exitCode).toStdString()+") : "+errorTable[exitCode].toStdString());
+		if (docx.waitForFinished())
+		{
+			int exitCode=docx.exitCode();
+			bool hasCrashed = docx.exitStatus()==QProcess::CrashExit;
+			if (exitCode != 0 || hasCrashed) {
+				throw std::runtime_error("DocxGenerator error ("+QString::number(exitCode).toStdString()+") : "+errorTable[exitCode].toStdString());
+			}
 		}
 	} else {
 		if (!QFile::exists(prog))
@@ -63,4 +70,32 @@ void DocxGenerator::generate() {
 		else if (!QFile::exists(report->getTemplateFile()))
 			throw std::invalid_argument("Template report ("+report->getTemplateFile().toStdString()+") does not exist.");
 	}
+}
+
+void DocxGenerator::manageError(QProcess::ProcessError error)
+{
+	QString message;
+	switch(error)
+	{
+		case QProcess::FailedToStart:
+			message="The process failed to start. Please try again or contact the administrator.";
+			break;
+		case QProcess::Crashed:
+			message="The program DocxGenerator has crashed. Please try again or contact the administrator.";
+			break;
+		case QProcess::Timedout:
+			message="The program DocxGenerator took too long to execute. Please try again or contact the administrator.";
+			break;
+		case QProcess::WriteError:
+			message="The program DocxGenerator got a error during the writing in the input. Please try again or contact the administrator.";
+			break;
+		case QProcess::ReadError:
+			message="The program DocxGenerator got a error during reading. Please try again or contact the administrator.";
+			break;
+		case QProcess::UnknownError:
+		default:
+			message="An unknow error has occurred. Please try again or contact the administrator.";
+			break;
+	}
+	throw std::runtime_error(message.toStdString());
 }
