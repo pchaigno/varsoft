@@ -51,7 +51,6 @@ private:
 	void savePortfolios(QList<Portfolio*> portfolios) const;
 	void updatePortfolios(QList<Portfolio*> portfolios) const;
 	void saveReports(const Portfolio* portfolio, const QList<Report*>& reports) const;
-	void updateReports(const QList<Report*>& reports) const;
 	QList<int> getReports(int portfolioID) const;
 	void removeReports(const QList<int> reportsID) const;
 };

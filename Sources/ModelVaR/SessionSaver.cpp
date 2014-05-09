@@ -73,12 +73,9 @@ void SessionSaver::saveSession(QList<Portfolio*> portfolios) {
 	this->updatePortfolios(portfolios);
 
 	// The reports are saved last because they have a reference to a portfolio:
-	QList<Report*> allReports;
 	foreach(Portfolio* portfolio, portfolios) {
 		this->saveReports(portfolio, portfolio->getReports());
-		allReports.append(portfolio->getReports());
 	}
-	this->updateReports(allReports);
 
 	this->closeConnection();
 }
@@ -240,25 +237,6 @@ void SessionSaver::saveReports(const Portfolio* portfolio, const QList<Report*>&
 			query.bindValue(":type", report->getType());
 			query.exec();
 			report->setId(query.lastInsertId().toInt());
-		}
-	}
-	query.finish();
-}
-
-/**
- * @brief Updates the reports in the database.
- * The reports which haven't been modified will be ignored.
- * @param reports The reports to update.
- */
-void SessionSaver::updateReports(const QList<Report*>& reports) const {
-	QSqlQuery query(this->db);
-	query.prepare("UPDATE reports SET file = :file WHERE id = :id;");
-	foreach(Report* report, reports) {
-		if(report->isModified()) {
-			query.bindValue(":file", report->getFile());
-			query.bindValue(":id", report->getId());
-			query.exec();
-			report->setStatusToUpToDate();
 		}
 	}
 	query.finish();

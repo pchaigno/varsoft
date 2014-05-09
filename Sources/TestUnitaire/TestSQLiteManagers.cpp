@@ -132,7 +132,6 @@ void TestSQLiteManagers::testUpdateSession() {
 	this->portfolios[0]->removeReport(this->varReport);
 	Report* statisticsReport = new StatisticsReport("somefolder/statisticsReport");
 	this->portfolios[0]->addReport(statisticsReport);
-	this->garchReport->setFile("somefolder/newname");
 	SessionSaver::getInstance()->saveSession(this->portfolios);
 
 	// Retrieves everything from the database:
