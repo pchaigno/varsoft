@@ -356,7 +356,8 @@ Report *MainWindow::buildReport(Portfolio *portfolio, ReportFactory * factory, b
 		if (button==QMessageBox::Yes)
 		{
 			this->deleteReportWidget(getReportWidgetFromReport(e.getReport()));
-			report = factory->forceBuildReport();
+			e.getReport()->removeFiles();
+			report = factory->buildReport();
 		}
 		else
 		{

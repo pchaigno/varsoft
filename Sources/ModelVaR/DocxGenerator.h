@@ -24,11 +24,15 @@
 #include "ReportGenerator.h"
 #include <QFile>
 #include <stdexcept>
+#include <QDebug>
 
 class MODELVARSHARED_EXPORT DocxGenerator: public ReportGenerator {
 public:
 	DocxGenerator(Report * report, QString progPath);
 	virtual void generate();
+
+public slots:
+	void manageError(QProcess::ProcessError error);
 
 private:
 	QString prog;
