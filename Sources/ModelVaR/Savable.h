@@ -16,9 +16,9 @@ public:
 	bool isUpToDate() const;
 	bool isModified() const;
 	bool isAbsent() const;
+	void setStatusToUpToDate();
 
 protected:
 	Savable(bool fromDatabase);
 	void setStatusToModified();
-	void setStatusToUpToDate();
 };

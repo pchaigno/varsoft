@@ -32,10 +32,13 @@ private:
 	QList<Portfolio*> portfolios;
 	Asset google;
 	Asset apple;
+	Report* garchReport;
+	Report* varReport;
 
 public:
 	TestSQLiteManagers();
 
 private Q_SLOTS:
 	void testSaveSession();
+	void testUpdateSession();
 };

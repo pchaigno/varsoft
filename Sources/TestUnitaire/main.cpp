@@ -25,6 +25,10 @@
 #include "TestRInterface.h"
 
 int main() {
+	// Deletes the database file before starting the tests (just to be sure):
+	QFile databaseFile(SessionSaver::getInstance()->getDatabaseFile());
+	databaseFile.remove();
+
 	int result = 0;
 	TestAsset asset;
 	result += QTest::qExec(&asset);

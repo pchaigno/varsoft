@@ -32,8 +32,10 @@ TestSQLiteManagers::TestSQLiteManagers() {
 
 	// The reports for the portfolio:
 	QList<Report*> reports;
-	reports.append(new GarchReport("somefolder\\garch"));
-	reports.append(new VaRReport("somefolder\\var"));
+	this->garchReport = new GarchReport("somefolder\\garch");
+	reports.append(this->garchReport);
+	this->varReport = new VaRReport("somefolder\\var");
+	reports.append(this->varReport);
 
 	// The portfolio:
 	Portfolio* portfolio = new Portfolio("Test", assets, reports);
@@ -75,6 +77,79 @@ void TestSQLiteManagers::testSaveSession() {
 	QCOMPARE(assets["Apple"]->getStartDate(), this->apple.getStartDate());
 	QCOMPARE(assets["Google"]->getStartDate(), this->google.getStartDate());
 	QCOMPARE(assets["Apple"]->getEndDate(), this->apple.getEndDate());
+	QCOMPARE(assets["Google"]->getEndDate(), this->google.getEndDate());
+
+	// Checks the portfolios:
+	QList<Portfolio*> savedPortfolios = SessionBuilder::getInstance()->buildSession();
+	QCOMPARE(savedPortfolios.size(), this->portfolios.size());
+	foreach(Portfolio* portfolio, this->portfolios) {
+		int idPortfolio = -1;
+		for(int j=0; idPortfolio==-1 && j<savedPortfolios.size(); j++) {
+			if(*savedPortfolios[j] == *portfolio) {
+				idPortfolio = j;
+			}
+		}
+		QVERIFY(idPortfolio != -1);
+
+		// Checks the reports:
+		const QList<Report*>& savedReports = savedPortfolios[idPortfolio]->getReports();
+		const QList<Report*>& reports = portfolio->getReports();
+		QCOMPARE(savedReports.size(), reports.size());
+		for(int j=0; j<savedReports.size(); j++) {
+			bool found = false;
+			for(int k=0; k<reports.size(); k++) {
+				if(*(reports[k]) == *(savedReports[j])) {
+					found = true;
+				}
+			}
+			QVERIFY(found);
+			QVERIFY(savedReports[j]->getType() != NONE);
+		}
+
+		// Checks the compositions:
+		const QMap<Asset*, int>& savedComposition = savedPortfolios[idPortfolio]->getComposition();
+		const QMap<Asset*, int>& composition = portfolio->getComposition();
+		for(QMap<Asset*, int>::const_iterator it=composition.begin(); it!=composition.end(); ++it) {
+			bool found = false;
+			for(QMap<Asset*, int>::const_iterator savedIt=savedComposition.begin(); savedIt!=savedComposition.end(); ++savedIt) {
+				if(*(it.key()) == *(savedIt.key())) {
+					QCOMPARE(savedIt.value(), it.value());
+					found = true;
+				}
+			}
+			QVERIFY(found);
+		}
+	}
+}
+
+/**
+ * @brief Tests the save mechanism when the session has been updated (name changed, reports deleted/added).
+ */
+void TestSQLiteManagers::testUpdateSession() {
+	// Modify the session:
+	this->apple.changeName("Pomme");
+	this->portfolios[0]->changeName("Updated");
+	this->portfolios[0]->removeReport(this->varReport);
+	Report* statisticsReport = new StatisticsReport("somefolder/statisticsReport");
+	this->portfolios[0]->addReport(statisticsReport);
+	this->garchReport->setFile("somefolder/newname");
+	SessionSaver::getInstance()->saveSession(this->portfolios);
+
+	// Retrieves everything from the database:
+	QMap<QString, Asset*> assets = SessionBuilder::getInstance()->buildAssets();
+
+	// Checks that the assets are here:
+	QVERIFY(*(assets["Pomme"]) == this->apple);
+	QVERIFY(*(assets["Google"]) == this->google);
+	QVERIFY(assets["Pomme"]->isUpToDate());
+	QVERIFY(assets["Google"]->isUpToDate());
+	QVERIFY(assets["Pomme"]->getOrigin() == this->apple.getOrigin());
+	QVERIFY(assets["Google"]->getOrigin() == this->google.getOrigin());
+	QVERIFY(assets["Pomme"]->getFile() == this->apple.getFile());
+	QVERIFY(assets["Google"]->getFile() == this->google.getFile());
+	QCOMPARE(assets["Pomme"]->getStartDate(), this->apple.getStartDate());
+	QCOMPARE(assets["Google"]->getStartDate(), this->google.getStartDate());
+	QCOMPARE(assets["Pomme"]->getEndDate(), this->apple.getEndDate());
 	QCOMPARE(assets["Google"]->getEndDate(), this->google.getEndDate());
 
 	// Checks the portfolios:
