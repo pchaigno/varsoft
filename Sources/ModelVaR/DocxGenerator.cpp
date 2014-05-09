@@ -40,20 +40,23 @@ DocxGenerator::DocxGenerator(Report *report, QString progPath) : ReportGenerator
 void DocxGenerator::generate() {
 	if (QFile::exists(prog) && QFile::exists(report->getTemplateFile())) {
 		QProcess  docx;
-		connect(&docx,SIGNAL(error(QProcess::ProcessError)),this,SLOT(manageError(QProcess::ProcessError)));
 		docx.start("java", QStringList() << "-jar" << prog << report->getTemplateFile() << report->getFile());
 		if(!docx.waitForStarted())
 		{
-			throw std::runtime_error("An error has occurred during the starting of DocxGenerator.");
+			manageError(docx.error());
 		}
 
 		QString data = report->getDataJson()->toString();
 		int res = docx.write(data.toLatin1(),data.length());
 		if (res==-1)
 		{
-			throw std::runtime_error("An error has occurred during writing in the input of DocxGenerator.");
+			manageError(docx.error());
 		}
-		docx.waitForBytesWritten();
+
+		if (!docx.waitForBytesWritten())
+		{
+			manageError(docx.error());
+		}
 		docx.closeWriteChannel();
 
 		if (docx.waitForFinished())
@@ -63,6 +66,10 @@ void DocxGenerator::generate() {
 			if (exitCode != 0 || hasCrashed) {
 				throw std::runtime_error("DocxGenerator error ("+QString::number(exitCode).toStdString()+") : "+errorTable[exitCode].toStdString());
 			}
+		}
+		else
+		{
+			manageError(docx.error());
 		}
 	} else {
 		if (!QFile::exists(prog))
