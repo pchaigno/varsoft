@@ -46,4 +46,3 @@ private:
 	QVector<QDate> datesRow;
 	QVector<QVector<QString> > mydata;
 };
-

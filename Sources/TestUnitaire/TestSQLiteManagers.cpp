@@ -31,9 +31,9 @@ TestSQLiteManagers::TestSQLiteManagers() {
 	assets[&(this->apple)] = 4;
 
 	// The reports for the portfolio:
-	QVector<Report*> reports;
-	reports.append(new GarchReport("somefolder\\garch.docx", "somefolder\\garch.pdf"));
-	reports.append(new VaRReport("somefolder\\var.docx", "somefolder\\var.pdf"));
+	QList<Report*> reports;
+	reports.append(new GarchReport("somefolder\\garch"));
+	reports.append(new VaRReport("somefolder\\var"));
 
 	// The portfolio:
 	Portfolio portfolio = Portfolio("Test", assets, reports);
@@ -48,7 +48,7 @@ void TestSQLiteManagers::testSaveSession() {
 	// Checks that all ids have been updated:
 	for(int i=0; i<this->portfolios.size(); i++) {
 		QVERIFY(this->portfolios[i].getId() > 0);
-		const QVector<Report*>& reports = this->portfolios[i].getReports();
+		const QList<Report*>& reports = this->portfolios[i].getReports();
 		for(int j=0; j<reports.size(); j++) {
 			QVERIFY(reports[j]->getId() > 0);
 		}
@@ -85,8 +85,8 @@ void TestSQLiteManagers::testSaveSession() {
 		QVERIFY(idPortfolio != -1);
 
 		// Checks the reports:
-		const QVector<Report*>& savedReports = savedPortfolios[idPortfolio].getReports();
-		const QVector<Report*>& reports = this->portfolios[i].getReports();
+		const QList<Report*>& savedReports = savedPortfolios[idPortfolio].getReports();
+		const QList<Report*>& reports = this->portfolios[i].getReports();
 		QCOMPARE(savedReports.size(), reports.size());
 		for(int j=0; j<savedReports.size(); j++) {
 			bool found = false;

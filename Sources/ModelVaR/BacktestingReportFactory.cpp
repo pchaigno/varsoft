@@ -19,19 +19,23 @@
 
 /**
  * @brief Constructor
- * @param docxPath The location of the DOCX file on the disk.
- * @param pdfPath The location of the PDF file on the disk.
  */
-BacktestingReportFactory::BacktestingReportFactory(QString docxFile, QString pdfFile):
-	ReportFactory(docxFile, pdfFile) {
+BacktestingReportFactory::BacktestingReportFactory(): ReportFactory() {
 
 }
 
 /**
- * @brief Generates the DOCX file using a DocxGenerator.
- * @return The DocxGenerator used.
+ * @brief Getter of the backtesting report objet
+ * @return a pointer to the backtesting report juste created
  */
-DocxGenerator& BacktestingReportFactory::generateDOCX() {
-	// TODO
-	return this->docxGenerator;
+Report *BacktestingReportFactory::createReport() {
+	return new BacktestingReport();
+}
+
+/**
+ * @brief Create the Json of the backtesting report
+ * @return
+ */
+ReportDataJson *BacktestingReportFactory::createJson() {
+
 }

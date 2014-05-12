@@ -45,7 +45,7 @@ void NewPortfolioWizard::accept() {
 		composition[assetsMap[str]]=weightsByName[str];
 	}
 
-	QVector<Report*> report;
+	QList<Report*> report;
 	Portfolio * portfolio = new Portfolio(field("name").toString(),composition,report);
 	emit newPortfolioCreated(portfolio);
 	this->QWizard::accept();

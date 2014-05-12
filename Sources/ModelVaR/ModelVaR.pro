@@ -4,8 +4,7 @@
 #
 #-------------------------------------------------
 
-QT += sql
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += sql printsupport
 
 TARGET = ModelVaR
 TEMPLATE = lib
@@ -43,8 +42,12 @@ SOURCES += \
 	PortfolioItemModel.cpp \
 	CorrelationReportFactory.cpp \
 	GetStartEndDates.cpp \
+	CreateAsset.cpp \
 	PortfolioViewModel.cpp \
-	CreateAsset.cpp
+	ReportDataJson.cpp \
+	qcustomplot.cpp \
+	ReportGenerator.cpp \
+	ReportException.cpp
 
 HEADERS +=\
 	Asset.h \
@@ -82,6 +85,9 @@ HEADERS +=\
 	PortfolioCalculationException.h \
 	GetStartEndDates.h \
 	PortfolioViewModel.h \
+	qcustomplot.h \
+	ReportDataJson.h \
+	ReportException.h \
 	InvalidDefinitionPeriodException.h \
 	CreateAsset.h \
 	CreateAssetException.h

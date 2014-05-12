@@ -34,10 +34,10 @@ int main() {
 	result += QTest::qExec(&report);
 	TestSQLiteManagers sqlite;
 	result += QTest::qExec(&sqlite);
-	TestVaRHistorical testVaRHistorical;
-	result += QTest::qExec(&testVaRHistorical);
 	TestCreateAsset newdata;
 	result += QTest::qExec(&newdata);
+	TestVaRHistorical testVaRHistorical;
+	result += QTest::qExec(&testVaRHistorical);
 	TestPortfolioItemModel portfolioModel;
 	result += QTest::qExec(&portfolioModel);
 	TestRInterface rInterface;

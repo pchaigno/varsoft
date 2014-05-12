@@ -108,7 +108,7 @@ QVector<Portfolio> SessionBuilder::buildPortfolios() {
 
 	QVector<Portfolio> portfolios;
 	QMap<int, Portfolio*> portfoliosById;
-	QVector<Report*> reports;
+	QList<Report*> reports;
 	QMap<Asset*, int> assets;
 	QString name;
 	int id, parent;
@@ -164,40 +164,39 @@ QMap<Asset*, int> SessionBuilder::buildPortfolioComposition(int idPortfolio) {
 * @param idPortfolio The id of the portfolio.
 * @return The reports.
 */
-QVector<Report*> SessionBuilder::buildReports(int idPortfolio) {
+QList<Report *> SessionBuilder::buildReports(int idPortfolio) {
 	QSqlQuery query(this->db);
-	query.prepare("SELECT id, docx_file, pdf_file, type FROM reports WHERE portfolio = :id_portfolio;");
+	query.prepare("SELECT id, file, type FROM reports WHERE portfolio = :id_portfolio;");
 	query.bindValue(":id_portfolio", idPortfolio);
 	query.exec();
 
 	int id;
 	ReportType type;
-	QString docxFile, pdfFile;
-	QVector<Report*> reports;
+	QString file;
+	QList<Report*> reports;
 	while(query.next()) {
 		id = query.value(0).toInt();
-		docxFile = query.value(1).toString();
-		pdfFile = query.value(2).toString();
-		type = (ReportType)query.value(3).toInt();
+		file = query.value(1).toString();
+		type = (ReportType)query.value(2).toInt();
 		Report* report;
 		switch(type) {
 			case GARCH:
-				report = new GarchReport(id, docxFile, pdfFile);
+				report = new GarchReport(id, file);
 				break;
 			case VAR:
-				report = new VaRReport(id, docxFile, pdfFile);
+				report = new VaRReport(id, file);
 				break;
 			case STATISTICS:
-				report = new StatisticsReport(id, docxFile, pdfFile);
+				report = new StatisticsReport(id, file);
 				break;
 			case CORRELATION:
-				report = new CorrelationReport(id, docxFile, pdfFile);
+				report = new CorrelationReport(id, file);
 				break;
 			case BACKTESTING:
-				report = new BacktestingReport(id, docxFile, pdfFile);
+				report = new BacktestingReport(id, file);
 				break;
 			default:
-				// TODO Throw exception?
+				// TODO Throw exception? - oui
 				break;
 		}
 		reports.append(report);
