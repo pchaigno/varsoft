@@ -21,7 +21,6 @@
 #include "ModelVaR_global.h"
 #include "VaRAlgorithm.h"
 #include "MathFunctions.h"
-#include <QDebug>
 
 class MODELVARSHARED_EXPORT VaRRiskmetrics: public VaRAlgorithm {
 private:

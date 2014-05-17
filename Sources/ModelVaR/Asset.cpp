@@ -71,6 +71,10 @@ void Asset::init(int id, QString name, QString file, QString origin, QDate start
 	this->endDate = endDate;
 }
 
+Asset::~Asset() {
+
+}
+
 /**
  * @brief Accessor to id.
  * @return The id of the asset in the database.

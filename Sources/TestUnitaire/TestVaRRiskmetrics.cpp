@@ -31,7 +31,7 @@ TestVaRRiskmetrics::TestVaRRiskmetrics() {
 	// TEST PORTFOLIO DEFINITION
 	QMap<Asset*, int> assets;
 	assets.insert(dax, 1);
-	QVector<Report*> reports;
+	QList<Report*> reports;
 	this->daxPortfolio = Portfolio("daxPortfolio", assets, reports);
 }
 

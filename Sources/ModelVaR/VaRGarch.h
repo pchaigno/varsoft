@@ -21,7 +21,7 @@
 #include "GarchModel.h"
 #include <QDate>
 
-class VaRGarch: public VaRAlgorithm {
+class MODELVARSHARED_EXPORT VaRGarch: public VaRAlgorithm {
 private:
 	const GarchModel& garchModel;
 
