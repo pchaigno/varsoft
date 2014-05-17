@@ -46,8 +46,10 @@ else:unix: LIBS += -L$$OUT_PWD/../ModelVaR/ -lModelVaR
 INCLUDEPATH += $$PWD/../ModelVaR
 DEPENDPATH += $$PWD/../ModelVaR
 
-win32: LIBS += -L$$OUT_PWD/../../ -lquazip
-else:unix: LIBS += -L$$OUT_PWD/../../ -lquazip
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../quazip/quazip/release/ -lquazip
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../quazip/quazip/debug/ -lquazip
+else:unix: LIBS += -L$$OUT_PWD/../quazip/quazip/ -lquazip
 
 INCLUDEPATH += $$PWD/../quazip/quazip
 DEPENDPATH += $$PWD/../quazip/quazip
