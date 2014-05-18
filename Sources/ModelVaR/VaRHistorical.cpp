@@ -56,12 +56,23 @@ double VaRHistorical::execute(QDate date) const {
 	// Return values are sorted
 	qSort(returns.begin(), returns.end());
 
-	// Determine the best return of the risk*100 % worst returns
-	// Using floor(), we expect the worst case
-	int quantile = floor(getRisk()*returns.size()-1);
+	// Determine the index of the risk-order quantile
+	// floor() is used to round down the index in case of non integer result
+	int quantileIndex = floor(getRisk()*returns.size())-1;
+	// Prevents the index from being negative in small returns size of risk cases
+	if(quantileIndex < 0) {
+		quantileIndex = 0;
+	}
 
-	// Take into account the time horizon
-	var = returns.at(quantile)*qSqrt(getTimeHorizon());
+	// The VaR is the opposite of the considered return (quantile)
+	double quantile = returns.at(quantileIndex);
+	if(quantile >= 0) { // By definition, the VaR equals zero if the worst return is positive
+		var = 0;
+	} else if(getTimeHorizon() > 1) { // Takes into account the time horizon
+	var = -quantile*qSqrt(getTimeHorizon());
+	} else {
+		var = -quantile;
+	}
 
 	// For future use
 	// VaRReportFactory report(getPortfolio(), getRisk(), getTimeHorizon(), period, date, var);

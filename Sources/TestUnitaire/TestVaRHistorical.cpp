@@ -17,6 +17,9 @@
  */
 #include "TestVaRHistorical.h"
 
+/**
+ * @brief Creates the portfolio to perform Value-at-Risk computation on it
+ */
 TestVaRHistorical::TestVaRHistorical() {
 	QString assetFolder = "../../CSV_examples/";
 
@@ -32,6 +35,9 @@ TestVaRHistorical::TestVaRHistorical() {
 	this->daxPortfolio = Portfolio("daxPortfolio", assets, reports);
 }
 
+/**
+ * @brief Tests the VaRHistorical consctructor and also indirectly the VaRAlgorithm one
+ */
 void TestVaRHistorical::testVaRHistoricalConstructor() {
 	// Value-at-Risk parameters
 	double risk = 0.05;
@@ -99,6 +105,9 @@ void TestVaRHistorical::testVaRHistoricalConstructor() {
 	}
 }
 
+/**
+ * @brief Tests a normal Value-at-Risk computation
+ */
 void TestVaRHistorical::testExecute() {
 	// Value-at-Risk parameters
 	double risk = 0.05;
@@ -109,33 +118,72 @@ void TestVaRHistorical::testExecute() {
 	double var;
 
 	try {
-		var = daxVaR.execute(this->daxPortfolio.retrieveEndDate());
+		var = daxVaR.execute(QDate(2014, 3, 11));
 		// Check that the computed VaR matches the manually found one
-		QCOMPARE(var, -239.02);
-		qDebug() << "At the following date: " + this->daxPortfolio.retrieveEndDate().toString();
+		QCOMPARE(var, 239.02);
+		qDebug() << "At the following date: " + QDate(2014, 3, 11).toString();
 		qDebug() << "For the asset: " + this->daxPortfolio.getName();
 		qDebug() << "Historical VaR parameters: risk=" << risk << ", timeHorizon=" << timeHorizon << "returnsPeriod=" << returnsPeriod;
 		qDebug() << "Value-at-Risk=" << var;
-	} catch(std::range_error& e) {
+	} catch(std::exception& e) {
 		qDebug() << e.what();
 	}
+}
 
-	// FUTURE DATE CASE
+/**
+ * @brief Tests the impossibilty to compute the Value-at-Risk at an undefined future date
+ */
+void TestVaRHistorical::testInvalidFutureDate() {
+	// Value-at-Risk parameters
+	double risk = 0.05;
+	int timeHorizon = 1;
+	int returnsPeriod = 45;
+	VaRHistorical daxVaR(this->daxPortfolio, risk, timeHorizon, returnsPeriod);
+
 	try {
-		var = daxVaR.execute(this->daxPortfolio.retrieveEndDate().addDays(10));
+		daxVaR.execute(this->daxPortfolio.retrieveEndDate().addDays(10));
 		QFAIL("Computation of Value-at-Risk at an undefined future date");
 	} catch(std::invalid_argument& e) {
 		qDebug() << e.what();
 	}
+}
 
-	// TOO LARGE returnsPeriod CASE
-	returnsPeriod = 100;
+/**
+ * @brief Tests the impossibilty to compute the Value-at-Risk because there are not enough
+ * portfolio values to satisfy the returnsPeriod parameter
+ */
+void TestVaRHistorical::testTooLargeReturnsPeriod() {
+	// Value-at-Risk parameters
+	double risk = 0.05;
+	int timeHorizon = 1;
+	int returnsPeriod = 100;
+
 	VaRHistorical incorrectDaxVaR(this->daxPortfolio, risk, timeHorizon, returnsPeriod);
 	try {
-		var = incorrectDaxVaR.execute(this->daxPortfolio.retrieveEndDate());
+		incorrectDaxVaR.execute(this->daxPortfolio.retrieveEndDate());
 		QFAIL("execute() succeeded despite too large returnsPeriod parameter");
 
 	} catch(std::range_error& e) {
 		qDebug() << e.what();
+	}
+}
+
+/**
+ * @brief Tests if the Value-at-Risk is actually zero when there are only
+ * positive returns
+ */
+void TestVaRHistorical::testExecuteNoNegativeReturns() {
+	// Value-at-Risk parameters
+	double risk = 0.05;
+	int timeHorizon = 1;
+	int returnsPeriod = 4;
+	VaRHistorical daxVaR(this->daxPortfolio, risk, timeHorizon, returnsPeriod);
+
+	try {
+		double var = daxVaR.execute(QDate(2014, 2, 14));
+		QCOMPARE(var, 0.0);
+	} catch(std::exception &e) {
+		qDebug() << e.what();
+		QFAIL("Computation of Value-at-Risk failed");
 	}
 }

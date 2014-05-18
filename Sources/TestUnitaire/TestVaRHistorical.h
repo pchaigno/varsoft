@@ -36,4 +36,7 @@ private:
 private Q_SLOTS:
 	void testVaRHistoricalConstructor();
 	void testExecute();
+	void testInvalidFutureDate();
+	void testTooLargeReturnsPeriod();
+	void testExecuteNoNegativeReturns();
 };
