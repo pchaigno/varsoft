@@ -40,14 +40,29 @@ VaRHistorical::VaRHistorical(const Portfolio& portfolio, double risk, int timeHo
  * @return Value-at-Risk
  */
 double VaRHistorical::execute(QDate date) const {
-	if(date > getPortfolio().retrieveEndDate()) {
-		throw std::invalid_argument("Value-at-Risk cannot be computed at an undefined future date.");
+	if(date.dayOfWeek() >= 6) {
+		throw std::invalid_argument("Value-at-Risk cannot be computed on weekends.");
+	}
+
+	// Finds out the date to be used with retrievesReturns
+	QDate lastDate;
+	// VaR computation on Tuesdays to fridays
+	if(date.dayOfWeek() >= 2) {
+		if(getPortfolio().retrieveEndDate().daysTo(date) > 1) {
+			throw std::invalid_argument("The Value-at-Risk cannot be computed at an undefined future date.");
+		}
+		lastDate = date.addDays(-1);
+	} else { // date.dayOfWeek() == 1 // VaR computation on monday
+		if(getPortfolio().retrieveEndDate().daysTo(date) > 3) {
+			throw std::invalid_argument("The Value-at-Risk cannot be computed at an undefined future date.");
+		}
+		lastDate = date.addDays(-3);
 	}
 
 	double var;
 	QVector<double> returns;
 
-	returns = getPortfolio().retrieveReturns(date, period);
+	returns = getPortfolio().retrieveReturns(lastDate, period);
 
 	if(returns.size() < period) {
 		throw std::range_error("Not enough portfolio values to satisfy the period parameter");
@@ -69,7 +84,7 @@ double VaRHistorical::execute(QDate date) const {
 	if(quantile >= 0) { // By definition, the VaR equals zero if the worst return is positive
 		var = 0;
 	} else if(getTimeHorizon() > 1) { // Takes into account the time horizon
-	var = -quantile*qSqrt(getTimeHorizon());
+		var = -quantile*qSqrt(getTimeHorizon());
 	} else {
 		var = -quantile;
 	}

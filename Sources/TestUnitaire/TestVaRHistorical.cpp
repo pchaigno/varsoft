@@ -115,10 +115,11 @@ void TestVaRHistorical::testExecute() {
 	int returnsPeriod = 45;
 	VaRHistorical daxVaR(this->daxPortfolio, risk, timeHorizon, returnsPeriod);
 
-	double var;
+	double var = 0;
 
 	try {
-		var = daxVaR.execute(QDate(2014, 3, 11));
+		var = daxVaR.execute(QDate(2014, 3, 12));
+		qDebug () << var;
 		// Check that the computed VaR matches the manually found one
 		QCOMPARE(var, 239.02);
 		qDebug() << "At the following date: " + QDate(2014, 3, 11).toString();
@@ -127,6 +128,7 @@ void TestVaRHistorical::testExecute() {
 		qDebug() << "Value-at-Risk=" << var;
 	} catch(std::exception& e) {
 		qDebug() << e.what();
+		QFAIL("Value-at-Risk should have been successfuly computed.");
 	}
 }
 
@@ -180,7 +182,7 @@ void TestVaRHistorical::testExecuteNoNegativeReturns() {
 	VaRHistorical daxVaR(this->daxPortfolio, risk, timeHorizon, returnsPeriod);
 
 	try {
-		double var = daxVaR.execute(QDate(2014, 2, 14));
+		double var = daxVaR.execute(QDate(2014, 2, 17));
 		QCOMPARE(var, 0.0);
 	} catch(std::exception &e) {
 		qDebug() << e.what();
