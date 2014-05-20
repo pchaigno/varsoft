@@ -45,7 +45,6 @@ SOURCES += \
 	CorrelationReportFactory.cpp \
 	PortfolioViewModel.cpp \
 	ReportDataJson.cpp \
-	qcustomplot.cpp \
 	ReportGenerator.cpp \
 	ReportException.cpp \
 	GetStartEndDates.cpp
@@ -88,7 +87,6 @@ HEADERS +=\
 	PortfolioCalculationException.h \
 	GetStartEndDates.h \
 	PortfolioViewModel.h \
-	qcustomplot.h \
 	ReportDataJson.h \
 	ReportException.h \
 	InvalidDefinitionPeriodException.h \
@@ -103,3 +101,10 @@ unix:!symbian {
 	}
 	INSTALLS += target
 }
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../qcustomplot/release/ -lqcustomplotd
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../qcustomplot/debug/ -lqcustomplotd
+else:unix: LIBS += -L$$OUT_PWD/../qcustomplot/ -lqcustomplotd
+
+INCLUDEPATH += $$PWD/../qcustomplot
+DEPENDPATH += $$PWD/../qcustomplot
