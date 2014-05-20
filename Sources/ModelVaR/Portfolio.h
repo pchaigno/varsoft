@@ -68,6 +68,7 @@ public:
 	QVector<double> retrieveReturns() const;
 	QVector<double> retrieveReturns(const QDate& startPeriod, const QDate& endPeriod) const;
 	QVector<double> retrieveReturns(const QDate& endPeriod, int nbValues) const;
+	double retrieveReturnHorizon(const QDate& date, int horizon) const;
 
 	bool operator==(const Portfolio& portfolio) const;
 };

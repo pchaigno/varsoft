@@ -52,4 +52,5 @@ private Q_SLOTS:
 	void testRetrieveNbReturnsNotEnough();
 	void testRetrieveNbReturnsAll();
 	void testRetrieveNbReturnsSome();
+	void testRetrieveReturnHorizon();
 };

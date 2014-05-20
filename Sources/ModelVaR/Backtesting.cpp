@@ -33,6 +33,16 @@ Backtesting::Backtesting(const Portfolio& portfolio, const VaRAlgorithm& varAlgo
  * @return The number of day for which the VaR is above what it should be.
  */
 int Backtesting::compute() const {
-	// TODO
-	return 0;
+	int nbDaysLossGreaterThanVaR = 0;
+
+	for(QDate date=QDate(backtestperiod.first); date <= backtestperiod.second; date=date.addDays(1)) {
+		if(date.dayOfWeek()<=5) { // Backtests only on week days
+			double var = varAlgo.execute(date);
+			if(portfolio.retrieveReturnHorizon(date, varAlgo.getTimeHorizon()) > -var) {
+				nbDaysLossGreaterThanVaR++;
+			}
+		}
+	}
+
+	return nbDaysLossGreaterThanVaR;
 }

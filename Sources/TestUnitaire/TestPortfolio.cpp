@@ -224,3 +224,5 @@ void TestPortfolio::testRetrieveNbReturnsSome() {
 	QCOMPARE(result.at(2), 4.0);
 	QCOMPARE(result.at(3), 1.0);
 }
+
+void TestPortfolio::testRetrieveReturnHorizon() {}

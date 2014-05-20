@@ -16,6 +16,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #include "Portfolio.h"
+#include <QDebug>
 
 /**
  * @brief Empty constructor
@@ -371,6 +372,39 @@ QVector<double> Portfolio::retrieveReturns(const QDate& endPeriod, int nbValues)
 	}
 
 	return this->retrieveReturns(startPeriod, endPeriod);
+}
+
+/**
+ * @brief Retrieves the return corresponding at the date and the horizon specified
+ * @param date The date of start
+ * @param horizon The horizon associated to the return
+ * @return The return from the date and considering the horizon
+ */
+double Portfolio::retrieveReturnHorizon(const QDate& date, int horizon) const {
+	// Finds out the start date
+	QDate startDate = QDate(date);
+	if(date.dayOfWeek()>=2) { // The previous day for Tuesday to Friday
+		startDate = startDate.addDays(-1);
+	} else if(date.dayOfWeek() == 1) { // The previous Friday for Monday
+		startDate = startDate.addDays(-3);
+	}
+
+	// Finds out the end date corresponding to the horizon
+	QDate endDate = QDate(date);
+	for(int h=0; h < horizon-1;) {
+		endDate = endDate.addDays(1);
+		if(endDate.dayOfWeek() <= 5) {
+			h++;
+		}
+	}
+
+	double totalReturn = 0;
+	QVector<double> returns = this->retrieveReturns(startDate, endDate);
+	for(QVector<double>::const_iterator i=returns.begin(); i!=returns.end(); i++) {
+		totalReturn += *i;
+	}
+
+	return totalReturn;
 }
 
 /**
