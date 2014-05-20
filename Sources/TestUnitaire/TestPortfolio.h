@@ -33,6 +33,7 @@ private:
 	Portfolio father;
 	Portfolio son;
 	Portfolio uncle;
+	Portfolio auntie;
 	Portfolio weekends;
 
 public:
@@ -53,4 +54,5 @@ private Q_SLOTS:
 	void testRetrieveNbReturnsAll();
 	void testRetrieveNbReturnsSome();
 	void testRetrieveReturnHorizon();
+	void testRetrieveReturnHorizonIncorrect();
 };
