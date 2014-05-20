@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>826</width>
-    <height>440</height>
+    <width>1005</width>
+    <height>577</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -49,6 +49,12 @@
         </item>
         <item>
          <widget class="QPushButton" name="addPushButton">
+          <property name="minimumSize">
+           <size>
+            <width>30</width>
+            <height>30</height>
+           </size>
+          </property>
           <property name="maximumSize">
            <size>
             <width>50</width>
@@ -56,12 +62,22 @@
            </size>
           </property>
           <property name="text">
-           <string>+</string>
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="Resources.qrc">
+            <normaloff>:/icons/plus</normaloff>:/icons/plus</iconset>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QPushButton" name="removePushButton">
+          <property name="minimumSize">
+           <size>
+            <width>30</width>
+            <height>30</height>
+           </size>
+          </property>
           <property name="maximumSize">
            <size>
             <width>50</width>
@@ -69,20 +85,11 @@
            </size>
           </property>
           <property name="text">
-           <string>-</string>
+           <string/>
           </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="editPushButton">
-          <property name="maximumSize">
-           <size>
-            <width>50</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>edit</string>
+          <property name="icon">
+           <iconset resource="Resources.qrc">
+            <normaloff>:/icons/delete</normaloff>:/icons/delete</iconset>
           </property>
          </widget>
         </item>
@@ -158,8 +165,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>520</width>
-             <height>301</height>
+             <width>699</width>
+             <height>438</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -181,7 +188,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>826</width>
+     <width>1005</width>
      <height>20</height>
     </rect>
    </property>
@@ -297,7 +304,9 @@
    </slots>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="Resources.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>addPushButton</sender>
