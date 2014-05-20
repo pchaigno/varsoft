@@ -51,7 +51,7 @@ double VaRRiskmetrics::execute(QDate date) const {
 	}
 
 	// Retrieves the portfolio value corresponding to the VaR computation
-	double portfolioValue = this->getPortfolio().retrieveValues(lastDate, lastDate).takeFirst();
+	double portfolioValue = this->getPortfolio().retrieveValues(lastDate, lastDate).at(0);
 	// Unsquares sigma
 	double sigma = qSqrt(sigmaSquarred);
 	// Computes the inverse value of the cumulative normal distribution according to the risk
