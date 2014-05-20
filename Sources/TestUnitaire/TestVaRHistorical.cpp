@@ -115,20 +115,79 @@ void TestVaRHistorical::testExecute() {
 	int returnsPeriod = 45;
 	VaRHistorical daxVaR(this->daxPortfolio, risk, timeHorizon, returnsPeriod);
 
-	double var = 0;
-
 	try {
-		var = daxVaR.execute(QDate(2014, 3, 12));
-		qDebug () << var;
-		// Check that the computed VaR matches the manually found one
+		double var = daxVaR.execute(QDate(2014, 3, 12));
+		// Compares the computed VaR matches with the manually found one
 		QCOMPARE(var, 239.02);
-		qDebug() << "At the following date: " + QDate(2014, 3, 11).toString();
-		qDebug() << "For the asset: " + this->daxPortfolio.getName();
-		qDebug() << "Historical VaR parameters: risk=" << risk << ", timeHorizon=" << timeHorizon << "returnsPeriod=" << returnsPeriod;
-		qDebug() << "Value-at-Risk=" << var;
 	} catch(std::exception& e) {
 		qDebug() << e.what();
 		QFAIL("Value-at-Risk should have been successfuly computed.");
+	}
+}
+
+/**
+ * @brief Tests a normal Value-at-Risk computation with a 3 days time horizon
+ */
+void TestVaRHistorical::testExecuteThreeDaysTimeHorizon() {
+	// Value-at-Risk parameters
+	double risk = 0.05;
+	int timeHorizon = 3;
+	int returnsPeriod = 45;
+	VaRHistorical daxVaR(this->daxPortfolio, risk, timeHorizon, returnsPeriod);
+
+	try {
+		double var = daxVaR.execute(QDate(2014, 3, 12));
+		// Compares the computed VaR matches with the manually found one
+		QCOMPARE(var, 413.994784025);
+	} catch(std::exception& e) {
+		qDebug() << e.what();
+		QFAIL("Value-at-Risk should have been successfuly computed.");
+	}
+}
+
+/**
+ * @brief Tests VaR computation on monday. It implies to find out the last date to consider
+ * for the returns which the previous friday
+ */
+void TestVaRHistorical::testExecuteOnMonday() {
+	// Value-at-Risk parameters
+	double risk = 0.20;
+	int timeHorizon = 1;
+	int returnsPeriod = 10;
+	VaRHistorical daxVaR(this->daxPortfolio, risk, timeHorizon, returnsPeriod);
+
+	try {
+		double var = daxVaR.execute(QDate(2014, 3, 10));
+		// Compares the computed VaR matches with the manually found one
+		QCOMPARE(var, 192.12);
+	} catch(std::exception& e) {
+		qDebug() << e.what();
+		QFAIL("Value-at-Risk should have been successfuly computed.");
+	}
+}
+
+/**
+ * @brief Tests that VaR cannot be computed on weekends.
+ */
+void TestVaRHistorical::testExecuteOnWeekend() {
+	// Value-at-Risk parameters
+	double risk = 0.20;
+	int timeHorizon = 1;
+	int returnsPeriod = 10;
+	VaRHistorical daxVaR(this->daxPortfolio, risk, timeHorizon, returnsPeriod);
+
+	try {
+		daxVaR.execute(QDate(2014, 3, 8));
+		QFAIL("Value-at-Risk should not have been computed on a weekend day.");
+	} catch(std::exception& e) {
+		qDebug() << e.what();
+	}
+
+	try {
+		daxVaR.execute(QDate(2014, 3, 9));
+		QFAIL("Value-at-Risk should not have been computed on a weekend day.");
+	} catch(std::exception& e) {
+		qDebug() << e.what();
 	}
 }
 
@@ -143,9 +202,55 @@ void TestVaRHistorical::testInvalidFutureDate() {
 	VaRHistorical daxVaR(this->daxPortfolio, risk, timeHorizon, returnsPeriod);
 
 	try {
-		daxVaR.execute(this->daxPortfolio.retrieveEndDate().addDays(10));
+		daxVaR.execute(QDate(2014, 3, 13));
 		QFAIL("Computation of Value-at-Risk at an undefined future date");
 	} catch(std::invalid_argument& e) {
+		qDebug() << e.what();
+	}
+}
+
+/**
+ * @brief Tests the computation of the the Value-at-Risk at dates preceding the first
+ * valid date (ie the third first day) and at the first valid day
+ *
+ */
+void TestVaRHistorical::testInvalidPastDate() {
+	// Value-at-Risk parameters
+	double risk = 0.05;
+	int timeHorizon = 10;
+	int returnsPeriod = 1;
+	VaRHistorical daxVaR(this->daxPortfolio, risk, timeHorizon, returnsPeriod);
+
+	try {
+		daxVaR.execute(QDate(2014, 1, 2));
+		QFAIL("Computation of Value-at-Risk at an undefined past date");
+	} catch(std::exception& e) {
+		qDebug() << e.what();
+	}
+
+	try {
+		daxVaR.execute(QDate(2014, 1, 3));
+		QFAIL("Computation of Value-at-Risk at an undefined past date");
+	} catch(std::exception& e) {
+		qDebug() << e.what();
+	}
+}
+
+/**
+ * @brief Tests the computation of the the Value-at-Risk at the first valid day
+ */
+void TestVaRHistorical::testFirstValidDate() {
+	// Value-at-Risk parameters
+	double risk = 0.05;
+	int timeHorizon = 1;
+	int returnsPeriod = 1;
+	VaRHistorical daxVaR(this->daxPortfolio, risk, timeHorizon, returnsPeriod);
+
+	try {
+		double var = daxVaR.execute(QDate(2014, 1, 6));
+		QCOMPARE(var, 0.0); // Because the first and only return is positive, thus VaR is zero
+	} catch(std::exception& e) {
+		QFAIL("Value-at-Risk should have been successfuly computed.");
 		qDebug() << e.what();
 	}
 }
@@ -162,7 +267,7 @@ void TestVaRHistorical::testTooLargeReturnsPeriod() {
 
 	VaRHistorical incorrectDaxVaR(this->daxPortfolio, risk, timeHorizon, returnsPeriod);
 	try {
-		incorrectDaxVaR.execute(this->daxPortfolio.retrieveEndDate());
+		incorrectDaxVaR.execute(QDate(2014, 3, 12));
 		QFAIL("execute() succeeded despite too large returnsPeriod parameter");
 
 	} catch(std::range_error& e) {

@@ -40,6 +40,7 @@ VaRHistorical::VaRHistorical(const Portfolio& portfolio, double risk, int timeHo
  * @return Value-at-Risk
  */
 double VaRHistorical::execute(QDate date) const {
+	// Makes it impossible to compute VaR on weekends
 	if(date.dayOfWeek() >= 6) {
 		throw std::invalid_argument("Value-at-Risk cannot be computed on weekends.");
 	}
@@ -53,19 +54,21 @@ double VaRHistorical::execute(QDate date) const {
 		}
 		lastDate = date.addDays(-1);
 	} else { // date.dayOfWeek() == 1 // VaR computation on monday
-		if(getPortfolio().retrieveEndDate().daysTo(date) > 3) {
+		if(getPortfolio().retrieveEndDate().daysTo(date) > 3) { // Period over the weekend
 			throw std::invalid_argument("The Value-at-Risk cannot be computed at an undefined future date.");
 		}
 		lastDate = date.addDays(-3);
 	}
 
-	double var;
-	QVector<double> returns;
+	// Makes sure the last date is compatible with the portfolio start date
+	if(lastDate <= getPortfolio().retrieveStartDate()) {
+		throw std::invalid_argument("The Value-at-Risk cannot be computed at such an early date such as there are no returns.");
+	}
 
-	returns = getPortfolio().retrieveReturns(lastDate, period);
-
+	QVector<double> returns = getPortfolio().retrieveReturns(lastDate, period);
+	// Makes sure the number of returns is satisfied
 	if(returns.size() < period) {
-		throw std::range_error("Not enough portfolio values to satisfy the period parameter");
+		throw std::range_error("There are not enough portfolio values to satisfy the period parameter.");
 	}
 
 	// Return values are sorted
@@ -79,9 +82,10 @@ double VaRHistorical::execute(QDate date) const {
 		quantileIndex = 0;
 	}
 
-	// The VaR is the opposite of the considered return (quantile)
+	// The VaR is the opposite of the considered return (risk-order quantile)
 	double quantile = returns.at(quantileIndex);
-	if(quantile >= 0) { // By definition, the VaR equals zero if the worst return is positive
+	double var;
+	if(quantile >= 0) { // By definition, the VaR equals zero if the considered return is positive
 		var = 0;
 	} else if(getTimeHorizon() > 1) { // Takes into account the time horizon
 		var = -quantile*qSqrt(getTimeHorizon());
