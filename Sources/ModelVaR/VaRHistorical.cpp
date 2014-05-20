@@ -45,7 +45,8 @@ double VaRHistorical::execute(QDate date) const {
 		throw std::invalid_argument("Value-at-Risk cannot be computed on weekends.");
 	}
 
-	// Finds out the date to be used with retrievesReturns
+	// Finds out the date to be used with retrievesReturns and checks it is compatible with the
+	// portfolio endate
 	QDate lastDate;
 	// VaR computation on Tuesdays to fridays
 	if(date.dayOfWeek() >= 2) {
