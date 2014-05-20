@@ -16,6 +16,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #include "Backtesting.h"
+#include <QDebug>
 
 /**
  * @brief Constructor
@@ -37,8 +38,9 @@ int Backtesting::compute() const {
 
 	for(QDate date=QDate(backtestperiod.first); date <= backtestperiod.second; date=date.addDays(1)) {
 		if(date.dayOfWeek()<=5) { // Backtests only on week days
+//			qDebug() << date;
 			double var = varAlgo.execute(date);
-			if(portfolio.retrieveReturnHorizon(date, varAlgo.getTimeHorizon()) > -var) {
+			if(portfolio.retrieveReturnHorizon(date, varAlgo.getTimeHorizon()) < -var) {
 				nbDaysLossGreaterThanVaR++;
 			}
 		}
