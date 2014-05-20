@@ -60,7 +60,7 @@ void TestVaRRiskmetrics::testExecuteCorrect1() {
 	int initPeriod = 20;
 	VaRRiskmetrics riskMetricsAlgo(this->daxPortfolio, risk, timeHorizon, initPeriod);
 
-	double var = riskMetricsAlgo.execute(this->daxPortfolio.retrieveEndDate());
+	double var = riskMetricsAlgo.execute(QDate(2014, 3, 12));
 	QCOMPARE(var, 165.7452256572);
 }
 
@@ -75,6 +75,6 @@ void TestVaRRiskmetrics::testExecuteCorrect2() {
 	int initPeriod = 20;
 	VaRRiskmetrics riskMetricsAlgo(this->daxPortfolio, risk, timeHorizon, initPeriod);
 
-	double var = riskMetricsAlgo.execute(this->daxPortfolio.retrieveEndDate());
+	double var = riskMetricsAlgo.execute(QDate(2014, 3, 12));
 	QCOMPARE(var, 287.0791519502);
 }

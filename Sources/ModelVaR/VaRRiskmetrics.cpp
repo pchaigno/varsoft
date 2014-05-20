@@ -16,6 +16,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #include "VaRRiskmetrics.h"
+#include <QDebug>
 
 /**
  * @brief Constructor
@@ -38,17 +39,25 @@ VaRRiskmetrics::VaRRiskmetrics(const Portfolio& portfolio, double risk, int time
  * @return The VaR for this portfolio using the Riskmetrics method.
  */
 double VaRRiskmetrics::execute(QDate date) const {
+	// Makes sure the date is valid and gets the appropriate date to perform computations
 	QDate lastDate = checkDate(date);
 
 	// Computes Sigma value using historical log-returns
 	QVector<double> logReturns = this->getPortfolio().retrieveLogReturns(lastDate, initPeriod);
 	double sigmaSquarred = 0;
+	const double lambda = 0.94;
 	for(int i=0; i < logReturns.size(); i++) {
-		sigmaSquarred = 0.94*sigmaSquarred + 0.06*qPow(logReturns.at(i), 2);
+		sigmaSquarred = lambda*sigmaSquarred + (1-lambda)*qPow(logReturns.at(i), 2);
 	}
 
-	// Computes 1-day time horizon VaR
-	double var = this->getPortfolio().retrieveValues(lastDate, lastDate).at(0)*qSqrt(sigmaSquarred)*MathFunctions::normalCDFInverse(1.0-getRisk());
+	// Retrieves the portfolio value corresponding to the VaR computation
+	double portfolioValue = this->getPortfolio().retrieveValues(lastDate, lastDate).takeFirst();
+	// Unsquares sigma
+	double sigma = qSqrt(sigmaSquarred);
+	// Computes the inverse value of the cumulative normal distribution according to the risk
+	double normalCDFInverse = MathFunctions::normalCDFInverse(1.0-getRisk());
+	// Computes the 1-day time horizon VaR according to the formula
+	double var = portfolioValue*sigma*normalCDFInverse;
 
 	// VaR is egal to zero in such a scenario according to the definition
 	if(var < 0) {
