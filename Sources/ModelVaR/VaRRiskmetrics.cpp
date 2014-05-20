@@ -38,23 +38,22 @@ VaRRiskmetrics::VaRRiskmetrics(const Portfolio& portfolio, double risk, int time
  * @return The VaR for this portfolio using the Riskmetrics method.
  */
 double VaRRiskmetrics::execute(QDate date) const {
+	QDate lastDate = checkDate(date);
 
 	// Computes Sigma value using historical log-returns
-	QVector<double> logReturns = this->getPortfolio().retrieveLogReturns(date, initPeriod);
+	QVector<double> logReturns = this->getPortfolio().retrieveLogReturns(lastDate, initPeriod);
 	double sigmaSquarred = 0;
 	for(int i=0; i < logReturns.size(); i++) {
 		sigmaSquarred = 0.94*sigmaSquarred + 0.06*qPow(logReturns.at(i), 2);
 	}
 
 	// Computes 1-day time horizon VaR
-	double var = this->getPortfolio().retrieveValues(date, date).at(0)*qSqrt(sigmaSquarred)*MathFunctions::normalCDFInverse(1.0-getRisk());
+	double var = this->getPortfolio().retrieveValues(lastDate, lastDate).at(0)*qSqrt(sigmaSquarred)*MathFunctions::normalCDFInverse(1.0-getRisk());
 
 	// VaR is egal to zero in such a scenario according to the definition
 	if(var < 0) {
 		var = 0;
-	}
-	// Adjusts VaR according to the time horizon
-	else if(getTimeHorizon() >= 2) {
+	} else if(getTimeHorizon() >= 2) { // Adjusts VaR according to the time horizon
 		var *= qSqrt(getTimeHorizon());
 	}
 
