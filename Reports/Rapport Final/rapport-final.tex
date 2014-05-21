@@ -197,10 +197,9 @@ Nous les avons ensuite appliqués à toutes les branches susceptibles de faire r
 
 \subsection{Estimation du modèle GARCH}
 
-Nous avions décrit dans le rapport de conception un moyen de tester les résultats de notre modélisation GARCH.
+Nous avions décrit dans le rapport de conception un moyen de tester les résultats de notre modélisation GARCH. Notre encadrant nous a finalement proposé un test différent ayant le même objectif.
 Ce test sera effectué manuellement et est actuellement en cours de développement.
-Il nécessite notamment de générer un ensemble de données à partir d'un modèle GARCH théorique à l'aide de R.
-
+Il nécessite notamment de générer un ensemble de valeurs suivant une loi normale. La Value-at-Risk calculée à partir telles données doit alors correspondre approximativement au quantile de l'ordre correspondant au risque.
 
 \subsection{Calcul de la Value-at-Risk à partir d'un modèle GARCH}
 
