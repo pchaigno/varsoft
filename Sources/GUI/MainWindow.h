@@ -41,6 +41,7 @@
 #include "DocxGenPathDialog.h"
 #include "ui_MainWindow.h"
 #include <QDate>
+#include <QSettings>
 #include "CreateAsset.h"
 #include "GetStartEndDates.h"
 
@@ -60,6 +61,8 @@ public:
 	void initResources();
 	void createFolderIfDoesnotExist(QString folder);
 	void closeEvent(QCloseEvent *event);
+	void setFilePath(QString s);
+	QString getFilePath();
 
 private slots:
 	void docxGenPath();

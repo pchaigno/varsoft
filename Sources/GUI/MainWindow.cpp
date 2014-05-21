@@ -405,18 +405,26 @@ void MainWindow::generateReport(ReportGenerator *gen) {
 * The last import path is saved when a new import is done
 */
 void MainWindow::setImportCSV() {
-	QString fileName;
+	/*QString fileName;
 	fileName = QFileDialog::getOpenFileName(this, ("Open file"), this->path, ("CSV Text (*.csv *.txt);;All files (*.*)") );
-	if(fileName != "")
+	if(fileName != ""){
 		this->path = fileName.left(fileName.lastIndexOf("/"));
-	if (fileName != "") {
 		//get startDate and endDate before calling the import function
 		GetStartEndDates* gsed = new GetStartEndDates();
 		gsed->retreiveDates(fileName);
-		Import* importDialog = new Import(fileName,gsed->getStartDate(),gsed->getEndDate(),this);
+		*/
+		Import* importDialog = new Import(this);
 		importDialog->setAttribute(Qt::WA_DeleteOnClose);
 		importDialog->show();
-	}
+	//}
+}
+
+void MainWindow::setFilePath(QString s){
+	this->path = s;
+}
+
+QString MainWindow::getFilePath(){
+	return this->path;
 }
 
 /**
