@@ -20,13 +20,13 @@
 \newcounter{cptspec}
 \setcounter{cptspec}{0}
  
-\title{INSA de Rennes \\ Quatrième année Informatique \\ \bigskip \hrule \bigskip Rapport de conception \\ \bigskip Projet Value-at-Risk \bigskip \hrule}
+\title{INSA de Rennes \\ Quatrième année Informatique \\ \bigskip \hrule \bigskip Rapport final \\ \bigskip Projet Value-at-Risk \bigskip \hrule}
 
 \author{Benjamin \bsc{Bouguet} - Damien \bsc{Carduner} \\Paul \bsc{Chaignon} - Eric \bsc{Chauty} - Xavier \bsc{Fraboulet} \\ Clément \bsc{Gautrais} - Ulysse \bsc{Goarant} \\ ~~\\
 Hamdi \bsc{Raissi} - Ivan \bsc{Le Plumey} \\ Quentin \bsc{Giai Gianetto}}
 
 
-\date{Janvier 2014}
+\date{Mai 2014}
 
 \begin{document}
 \maketitle
@@ -52,7 +52,7 @@ Nous n'avons effectué qu'une seule modification des spécifications sous la con
 Les autres rectifications sont plus résultat de discussions avec notre encadrant qui prend le rôle de client.
 
 Les rectifications pour la partie conception concernent essentiellement des changements dans les composants externes utilisés.
-Nous avons du remplacer deux des librairies que nous comptions utiliser, l'une pour des soucis techniques et l'autre pour trouver un moyen plus simple.
+Nous avons dû remplacer deux des librairies que nous comptions utiliser, l'une pour des soucis techniques et l'autre pour trouver un moyen plus simple.
 
 
 \chapter{Modifications apportées}
@@ -61,10 +61,10 @@ Nous avons du remplacer deux des librairies que nous comptions utiliser, l'une p
 
 \subsection{Importation et exportation}
 
-Dans un souci de respect des délais nous avons revu les fonctionnalités d'importation et d'exportation.
+Dans un souci de respect des délais, nous avons revu les fonctionnalités d'importation et d'exportation.
 Cette modification concerne les spécifications S1, S2, S9 et S10 (respectivement l'importation et l'exportation d'actifs ainsi que l'exportation et l'importation de portefeuilles).
 
-Nous avons fusionné ces fonctionnalités ensemble et l'utilisateur doit maintenant exporter l'entièreté de sa session.
+Nous avons fusionné ces fonctionnalités ensemble et l'utilisateur doit maintenant exporter l'intégralité de sa session.
 De même, pour l'importation, il n'est plus possible de choisir les éléments à importer depuis l'archive sélectionnée.
 
 La possibilité de choisir les éléments à exporter ou importer sera la première amélioration développée si les délais le permettent finalement.
@@ -72,15 +72,15 @@ La possibilité de choisir les éléments à exporter ou importer sera la premi�
 
 \subsection{Gestion des portefeuilles}
 
-Après plusieurs discussions avec notre encadrant nous avons décidé de modifier en profondeur la gestion des portefeuilles.
+Après plusieurs discussions avec notre encadrant, nous avons décidé de modifier en profondeur la gestion des portefeuilles.
 
-Tout d'abord, la restauration des portefeuilles supprimés ne constituant pas une priorité nous l'avons retiré des spécifications.
+Tout d'abord, la restauration des portefeuilles supprimés ne constituant pas une priorité, nous l'avons retirée des spécifications.
 
 De plus, il apparaît que l'utilisateur ne sera que rarement amené à changer la constitution d'un portefeuille.
 Il aura plutôt tendance à vouloir en créer un nouveau basé sur le premier.
 Nous avons donc introduit la notion de parent pour un portefeuille et retiré les spécifications S6 à S8.
 
-Ce changement ne réduit par le temps nécessaire pour développer la gestion des portefeuilles car la notion de parent amène de nouveaux problèmes de récurrence (notamment lors de la sauvegarde et de l'importation/exportation).
+Ce changement ne réduit pas le temps nécessaire pour développer la gestion des portefeuilles car la notion de parent amène de nouveaux problèmes de récurrence (notamment lors de la sauvegarde et de l'importation/exportation).
 
 
 \subsection{Sauvegarde de la session}
@@ -103,7 +103,7 @@ En effet, nous avons considéré que cette matrice faisait partie des informatio
 La modélisation - à la fois de la base de données et des classes - a été légèrement modifiée pour les rapports.
 Nous avions prévu d'avoir un attribut pour chaque type de rapport.
 Il est finalement plus simple d'avoir un seul attribut pour tous les types de rapport.
-L'attribut désigne alors le nom des fichiers rapports sans leur extension.
+L'attribut désigne alors le nom des fichiers des rapports sans leur extension.
 Cette modification nous évitera également d'avoir à changer le modèle si nous souhaitons ajouter un nouveau type de rapport.
 
 
@@ -115,7 +115,7 @@ Nous avions décidé dans le rapport de conception d'utiliser la librairie RInsi
 Nous nous sommes cependant heurté à de nombreuses incompatibilités entre versions sous Windows.
 La dernière version de RInside n'est pas complètement compatible avec Qt 5.0 \footnote{Or nous avons besoin de certaines fonctionnalités de cette dernière version de Qt, notamment pour importer et exporter au format JSON.}.
 
-Après des échanges avec un des contributeurs au projet RInside et de nombreuses essais \footnote{Nous avons tenté de recompiler RInside avec différentes versions de MinGW sous les conseils du contributeur RInside.}, nous avons décidé d'abandonner l'usage de cette librairie pour effectuer à la place un appel direct du programme Rscript dans un nouveau processus.
+Après des échanges avec un des contributeurs au projet RInside et de nombreux essais \footnote{Nous avons tenté de recompiler RInside avec différentes versions de MinGW sous les conseils du contributeur RInside.}, nous avons décidé d'abandonner l'usage de cette librairie pour effectuer à la place un appel direct du programme Rscript dans un nouveau processus.
 Ce dernier permet tout simplement d'exécuter des scripts R depuis le terminal.
 
 
@@ -125,7 +125,7 @@ Pour générer les rapports DOCX nous avions décidé d'utiliser la librairie li
 Finalement cette librairie est assez compliquée à utiliser.
 Elle présente un grand nombre de possibilités mais nécessite de la programmation bas niveau \footnote{Toujours en C++ mais très éloigné du code de Qt.}.
 
-Comme nous n'avons pas besoin d'autant de possibilités nous avons préféré utiliser une librairie plus simple, écrite en Java, xdocreport. % TODO Ajouter ref.
+Comme nous n'avons pas besoin d'autant de possibilités, nous avons préféré utiliser une librairie plus simple, écrite en Java, xdocreport. % TODO Ajouter ref.
 Nous avons donc développé un petit programme qui permet, à partir d'informations au format JSON et d'un template de DOCX, de générer notre rapport aux formats DOCX et PDF.
 Ce programme permet donc d'utiliser les fonctionnalités de la librairie depuis la ligne de commande.
 
@@ -167,7 +167,7 @@ Travis CI effectue aussi une rapide vérification des conventions de code à l'a
 
 \section{Tests fonctionnels}
 
-Lors de la phase de conception nous avions prévu d'écrire les tests fonctionnels vers la fin de la phase de développement.
+Lors de la phase de conception, nous avions prévu d'écrire les tests fonctionnels vers la fin de la phase de développement.
 Finalement nous avons commencé à en écrire beaucoup plus tôt pour des raisons de simplicité.
 
 En effet, certaines fonctionnalités utilisent des composants très dépendants entre eux et cela complique donc l'écriture de réels tests unitaires.
@@ -175,7 +175,7 @@ Par exemple, l'importation des rapports ne peut se faire sans avoir importé les
 
 Pour ces cas un peu particuliers \footnote{Cela concerne les fonctionnalités d'importation et d'exportation ainsi que la sauvegarde vers la base de données} nous avons décidé d'écrire des tests fonctionnels.
 La couverture du code n'en est pas modifiée pour autant.
-Cela a uniquement pour conséquence de compliquer le débogage lors des tests échouent.
+Cela a uniquement pour conséquence de compliquer le débogage lorsque des tests échouent.
 
 
 \section{Tests unitaires}
@@ -189,7 +189,7 @@ Celui-ci s'est maintenu à environ 80\% tout au long du projet, en prennant en c
 Nous avions décidé de ne pas développer de tests automatiques de l'interface graphique pour des raisons de temps.
 Nous avons donc à la place, au fur et à mesure du développement, défini des scénarios de tests manuels.
 
-Chaque scénario a pour but de valider une ou plusieurs fonctionnalitées.
+Chaque scénario a pour but de valider une ou plusieurs fonctionnalités.
 Nous les avons ensuite appliqués à toutes les branches susceptibles de faire régresser les fonctionnalités testées.
 
 
@@ -197,14 +197,14 @@ Nous les avons ensuite appliqués à toutes les branches susceptibles de faire r
 
 \subsection{Estimation du modèle GARCH}
 
-Nous avions décris dans le rapport de conception un moyen de tester les résultats de notre modélisation GARCH.
+Nous avions décrit dans le rapport de conception un moyen de tester les résultats de notre modélisation GARCH.
 Ce test sera effectué manuellement et est actuellement en cours de développement.
 Il nécessite notamment de générer un ensemble de données à partir d'un modèle GARCH théorique à l'aide de R.
 
 
 \subsection{Calcul de la Value-at-Risk à partir d'un modèle GARCH}
 
-Nous avions aussi décris un second test empirique permettant de valider les calculs de la Value-at-Risk.
+Nous avions aussi décrit un second test empirique permettant de valider les calculs de la Value-at-Risk.
 Ce test s'appuie sur la fonctionnalité de backtesting.
 Or cette dernière est sur une branche sur le point d'être fusionnée avec la branche principale.
 Nous effectuerons donc ce test dès que la branche aura été vérifiée et fusionnée.
@@ -216,12 +216,12 @@ Nous effectuerons donc ce test dès que la branche aura été vérifiée et fusi
 Nous avons eu quelques changements à effectuer dans les spécifications sous la contrainte du temps.
 En effet, nous avions légèrement surestimé le temps que nous pouvions consacrer au projet \footnote{Ou sous-estimé les contraintes des autres cours et projets suivant le point de vue.}.
 
-Cependant ces modifications restent très raisonnables et la plupart des changements sont liés à l'avancement du projet : en entrant plus dans les détails d'implémentation nous avons découvert des problèmes. Nous les avons résolu soit par de plus amples discussions avec le client \footnote{Dans notre cas notre encadrant.} et/ou par des changements techniques \footnote{Notamment les changements des deux librairies libopc et RInside.}.
+Cependant ces modifications restent très raisonnables et la plupart des changements sont liés à l'avancement du projet : en entrant plus dans les détails d'implémentation nous avons découvert des problèmes. Nous les avons résolus soit par de plus amples discussions avec le client \footnote{Dans notre cas notre encadrant.} et/ou par des changements techniques \footnote{Notamment les changements des deux librairies libopc et RInside.}.
 
 Notre méthode travail par intégration continue nous a permis de remplir les objectifs en matière de qualité logicielle.
 Le choix de cette méthode était justifiée par la grande importance, pour notre client, d'avoir un logiciel fonctionnel et correctement testé.
 
-Il nous reste encore quelques tests à effectuer mais cela était prévu dans la plannification pour les dernières semaines.
+Il nous reste encore quelques tests à effectuer mais cela était prévu dans la planification pour les dernières semaines.
 Nous avons donc, pour l'instant, rempli les objectifs de notre projet.
 
 
