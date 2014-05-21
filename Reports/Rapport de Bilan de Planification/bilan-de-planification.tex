@@ -18,7 +18,7 @@
 \newcounter{cptspec}
 \setcounter{cptspec}{0}
  
-\title{INSA de Rennes \\ Quatrième année Informatique \\ \bigskip \hrule \bigskip Rapport de Bilan de planification \\ \bigskip Projet VaR \bigskip \hrule}
+\title{INSA de Rennes \\ Quatrième année Informatique \\ \bigskip \hrule \bigskip Rapport bilan de planification \\ \bigskip Projet VaR \bigskip \hrule}
 
 \author{Benjamin \bsc{Bouguet} - Paul \bsc{Chaignon} \\Eric \bsc{Chauty} - Ulysse \bsc{Goarant} \\ ~~\\
 Hamdi \bsc{Raissi} - Ivan \bsc{Le Plumey} \\ Quentin \bsc{Giai Gianetto}}
@@ -42,23 +42,12 @@ Hamdi \bsc{Raissi} - Ivan \bsc{Le Plumey} \\ Quentin \bsc{Giai Gianetto}}
 
 
 \chapter{Introduction}
-Dans le milieu de la finance, les prises de décisions liées aux investissements sont en grande partie motivées par une estimation des risques associés.
-De plus, l'établissement des accords de Bâle dont le troisième et dernier a été publié fin 2010, obligent les banques à s'organiser dans ce sens.
-En effet, il s'agit d'accords de réglementations bancaires qui visent à garantir un niveau minimum de capitaux afin d'assurer la solidité financière des banques.
-Afin d'être en règle vis-à-vis de ces accords, des outils de gestion de risque, tels que la Value-at-Risk (VaR) peuvent être utilisés.
-La VaR correspond à la valeur de la perte associée à un actif qu'il est probable de ne pas excéder pour un niveau de confiance et un horizon de temps donnés.
-Par exemple, une banque peut déterminer une VaR de 100,000~€ pour un niveau de confiance de 95\% (équivalent à un risque de 5\%) et un horizon de temps d'un mois.
-Cela signifie qu'il y a une probabilité de 5\% de perdre plus de 100,000~€ d'ici un mois.
-
-Notre logiciel sera justement un outil d'aide à la décision qui permettra de calculer la VaR  par diverses méthodes statistiques.
-Il proposera également un ensemble de tests, comparaisons, tableaux récapitulatifs et backtesting\footnote{Le backtesting ou test rétroactif de validité consiste à tester la pertinence d'une modélisation ou d'une stratégie en s'appuyant sur un large ensemble de données historiques réelles.} entre les différentes méthodes statistiques.
-Avec cette multitude d'outils, les financiers seront en mesure de travailler sur leurs portefeuilles\footnote{Un portefeuille est une composition de plusieurs actifs financiers (actions, obligations, matières premières).} aisément, au moyen d’une interface simple, intuitive et ergonomique, pensée pour l'utilisation au quotidien.
 
 En décembre 2013, nous avions établi une estimation du temps de travail à réaliser sur chaque partie du logiciel, que ce soit du développement ou des tests, chaque point avait été détaillé.
 Durant les quelques mois qui ont suivi, un décompte du temps passé sur chaque étape du développement ou des tests a été effectué.
 
 Aujourd'hui nous sommes en mesure d'effectuer un bilan de notre planification initiale.
-Nous reprendrons les fonctionnalités précedemment détaillées dans le rapport de planification, en passant en revue sur les éventuelles différences observées entre la durée estimée et la durée réelle.
+Nous reprendrons les fonctionnalités précédemment détaillées dans le rapport de planification, en passant en revue sur les éventuelles différences observées entre la durée estimée et la durée réelle.
 
 Nous avions également effectué des prévisions de temps de travail sur la conception, la page HTML, la réalisation du rapport final et la préparation à la soutenance.
 Nous n'en parlerons pas dans ce document car ces dernières sont secondaires dans les enseignements à retenir des erreurs de planification.
@@ -66,7 +55,7 @@ En effet, ces étapes se sont toutes bien déroulées ou ne sont pas encore term
 
 
 \chapter{Développement}
-Le développement est composé de sept grandes parties :
+\noindent Le développement est composé de sept grandes parties :
 \begin{itemize}
   \item les données
   \item les calculs
@@ -86,12 +75,12 @@ Cependant, nous avons eu un surplus de travail (conflits) lors de la fusion des 
 Le calcul de la Value-At-Risk s'effectuant sur des données financières, il est nécessaire de commencer par implémenter la gestion des données.
 
 \subsection{Actifs}
-Les actifs constituent les éléments de base des données manipulées dans le logiciel.
+Les actifs constituent les éléments de base manipulés dans le logiciel.
 La première étape a été l'implémentation du modèle obtenu lors de la phase de conception.
-C'est à dire de créer une classe et les méthodes associées.
+C'est à dire créer la classe et les méthodes associées.
 
-Notre logiciel est capable d'importer des données provenant de Yahoo Finance aux formats CSV et TXT.
-L'importation est consitutée d'un ensemble de traitements sur le fichier des actifs et aboutit à la création d'un nouveau fichier ne contenant que les données sélectionées.
+Notre logiciel est capable d'importer des données provenant de Yahoo Finance aux formats CSV et texte.
+L'importation est consitutée d'un ensemble de traitements sur le fichier des actifs et résulte en la création d'un nouveau fichier ne contenant que les données sélectionées.
 
 \begin{table}[H]
 \centering
@@ -100,8 +89,6 @@ L'importation est consitutée d'un ensemble de traitements sur le fichier des ac
 	Tâches & Durée prévue & Durée réelle\\
     \hline
     Modélisation des actifs & 10h & 11h\\
-    Importation des actifs & 20h & 21h\\
-    Exportation des actifs & 10h & 4h\\
     \hline
   \end{tabularx}
   \caption{Durées des tâches liées aux actifs}
@@ -109,10 +96,8 @@ L'importation est consitutée d'un ensemble de traitements sur le fichier des ac
 
 Nous avons passé presque exactement le temps prévu sur l'importation des données.
 Cependant nous aurions pu être plus rapide.
-Cela s'expliquant par le fait qu'elle a été réalisée en trois itérations, chacune ayant demandé des vérifications et des relectures par les membres du groupe.
-Cela a été nécessaire car nous avons dû modifier le code pour le besoin d'autres branches de développement.
-
-L'exportation a été beaucoup plus rapide que prévu, car tout le travail a été réalisé lors de l'étape d'importation.
+En effet, nous avons réalisé cette fonctionnalité au cours de trois versions; les deux dernières constituant des améliroations de la première.
+Avec plus de discussions entre nous avant le développement, nous aurions peut-être pu nous passer des deux dernières versions.
 
 \subsection{Portefeuilles}
 Les portefeuilles sont constitués d'une composition d'actifs.
@@ -125,29 +110,50 @@ Il était donc nécessaire d'avoir préalablement implémenté la gestion des ac
 	Tâches & Durée prévue & Durée réelle \\
     \hline
      Modélisation des portefeuilles &  20h & 19h30\\
-     Importer un portefeuille &  15h & ?\\
-     Exporter un portefeuille &  10h & ?\\
     \hline
   \end{tabularx}
   \caption{Durées des tâches liées aux portefeuilles}
 \end{table}
 
-Aucun problème particulier n'ayant été rencontré durant la réalisation des différentes classes nécessaires à la gestion des portfeuilles, nous avons presque respecté le temps prévu, notre estimation était donc bonne.
+Aucun souci particulier n'ayant été rencontré durant la réalisation des différentes classes nécessaires à la gestion des portfeuilles, nous avons presque égalé le temps prévu, notre estimation était donc bonne.
 
-L'importation et l'exportation ont quant à elles été plus courtes que prévu à réaliser.
-Ces deux tâches s'incluent dans une étape d'import et d'export de toutes les données.
-Cet écart assez important se justifie par le fait qu'un temps important a déjà été passé sur la structuration des données, donc il ne "restait" plus qu'à collecter l'ensemble des données de tous les portefeuilles (fichiers d'actifs, rapports et la base de données en JSON) pour les ajouter dans une archive en zip.
+\section{Importation et exportation}
+
+\begin{table}[H]
+\centering
+  \begin{tabularx}{0.8\textwidth}{| X | c | c |}
+    \hline
+	Tâches & Durée prévue & Durée réelle \\
+    \hline
+     Importation &  35h & 4h30\\
+     Exportation &  20h & 9h\\
+    \hline
+  \end{tabularx}
+  \caption{Durées des tâches liées à l'importation/exportation}
+\end{table}
+
+Comme expliqué dans le rapport final, nous avons modifié la spécification associé à l'importation et l'exportation des données.
+Les données sont maintenant toutes importées et exportées en une seule fois sans que l'utilisateur puisse choisir lesquels.
+
+En conséquence, ces fonctionnalités ont été bien plus rapide que prévu à développer.
+
+Cependant nous avions prévu de passer plus de temps sur l'importation que l'exportation et, même si les deux ont été développées en même temps, l'exportation a été difficile à mettre en place.
+Cela est dû à la nécessité d'utiliser une librairie externe pour écrire l'archive.
+Nous avons donc installé et utilisé la librairie QuaZip.
+
 
 \section{Calculs}
+
 Les fonctionnalités de calcul contiennent principalement le calcul de la Value-at-Risk selon les différentes méthodes.
 Pour calculer cette dernière, nous avons utilisé le logiciel de statistiques R.
 Dans un premier temps, nous avons cherché à interfacer notre logiciel avec R en utilisant RInside, conformément aux spécifications.
-Cependant, cela s'est révélé être impossible malgré toutes nos recherches et essais.
+Cependant, cela s'est révélé être très compliqué \footnote{Le rapport final explique ce problème plus en détails et, rapidement, les démarches que nous avons entrepris pour essayer de le résoudre.} malgré toutes nos recherches et essais.
 Nous avons dû trouver une autre solution.
 
 Les tests de corrélation nous ont été fournis sous forme de scripts R par notre encadrant.
 Il nous a d'abord fallu les tester (ce qui correspond à la tâche de test des scripts externes) puis les appeler via R.
-Comme cet appel est différent d'une simple utilisation de R, nous avons prévu une durée un peu plus longue.
+Finalement, nous avons passé moins de temps que prévu sur l'interfaçage avec R.
+Notre solution risque cependant d'être moins stable dans le temps que si nous avions utilisé une librairie externe comme RInside.
 
 Enfin, les calculs statistiques se résument à de simples appels à des fonctions fournies par R.
 C'est pourquoi cette tâche est relativement courte.
@@ -170,20 +176,18 @@ C'est pourquoi cette tâche est relativement courte.
   \caption{Durées des tâches liées aux calculs}
 \end{table}
 
-Malgré de nombreuses difficultés et le changement de notre méthode d'interfacage de notre logiciel avec R, nous avons terminé cette tâche en moins de temps que prévu.
-La deuxième solution qui est d'utiliser RScript s'est révelée beaucoup plus simple que notre première.\\
-
-Bien que le temps passé sur la méthode historique excède celui prévu initialement, une partie du code développé a cependant servi à d'autres classes.
+Bien que le temps passé sur la méthode historique excède celui prévu initialement, cela se doit au fait qu'un code en commun à d'autres classes a été développé.
 De plus, des dépendances avec d'autres branches ont nécessité plusieurs modifications.
-En elle même, la méthode historique a été rapide à développer.\\
+En elle-même, la méthode historique a été rapide à développer.
 
-Comme nous le pensions, la réalisation de la méthode Riskmetrics devait être plus rapide, car grandement inspirée de la modélisation GARCH.
-Mais elle s'est révelée encore plus rapide, l'estimation a été vraiment sur-évaluée.
-Il possible qu'un peu plus de travail en amont sur les notions mathématiques à implémenter ait permis une meilleure prévision.
+Comme nous le pensions, la réalisation de la méthode Riskmetrics a été plus rapide, car grandement inspirée de la modélisation GARCH.
+Plus de travail en préparation sur les notions mathématiques à implémenter nous a permis de développer cette fonctionnalité encore plus rapidement que prévu.
 
-Même remarque que précédemment, la méthode GARCH s'est révelée plus rapide à réaliser, une connaissance moins floue sur Qt et les notions mathématiques utilisées, aurait pu donner une meilleure évaluation.
+De même que précédemment, la méthode GARCH s'est révelée plus rapide à réaliser, une connaissance moins floue sur Qt et les notions mathématiques utilisées, aurait pu donner une meilleure évaluation.
+
 
 \section{Backtesting}
+
 Le développement du backtesting a nécessité préalablement le fonctionnement du calcul de la VaR selon les différentes méthodes de calcul.
 
 \begin{table}[H]
@@ -200,11 +204,13 @@ Le développement du backtesting a nécessité préalablement le fonctionnement 
 
 Cette étape a été complètement sur-évaluée.
 Ceci pourrait peut être s'expliquer de nouveau par le manque de certaines notions mathématiques, mais aussi par la bonne réalisation des calculs de VaR précédemment.
-Le backtesting est totalement basé sur ces calculs. Aussi, il se contente de lancer des tests de comparaisons entre les méthodes de calcul de VaR.
+Le backtesting étant totalement basé dessus, et ne fait que lancer des tests de comparaisons entre les méthodes de calcul de VaR.
+
 
 \section{Rapports}
+
 De manière générale, les rapports résument les informations générées par les autres modules du logiciel.
-Il n'était cependant pas nécessaire que le module correspondant au rapport à générer, soit d'abord implémenté.
+Il n'était cependant pas nécessaire que le module correspondant au rapport à générer soit d'abord implémenté.
 Le développement en parallèle du module de la génération des rapports et des modules correspondants d'où sont extraites les données, a donc été possible.
 
 \begin{table}[H]
@@ -213,28 +219,32 @@ Le développement en parallèle du module de la génération des rapports et des
     \hline
 	Tâches & Durée prévue & Durée réelle \\
     \hline
-    Rapport au format \emph{DOCX} &  10h & 23h\\
-    Rapport au format \emph{PDF} &  10h & 16h\\
+    Rapport au format DOCX &  10h & 23h\\
+    Rapport au format PDF &  10h & 0h\\
     Rapport du calcul de la VaR & 5h & 2h\\
-    Rapport de statistiques générales & 5h & 2h\\
-    Rapport de matrice de covariance & 5h & 2h\\
+    Rapport de statistiques générales & 10h & 2h\\
     Rapport de backtesting & 5h & 2h\\
+    Rapport des tests de corrélation & 5h & 2h\\
     \hline
   \end{tabularx}
   \caption{Durées des tâches liées aux rapports}
 \end{table}
 
-Dans le rapport de spécification, nous avions prévu d'utiliser la librairie \emph{libopc} pour générer les rapports en PDF ou DOCX.
+Dans le rapport de spécification, nous avions prévu d'utiliser la librairie libopc pour générer les rapports en PDF ou DOCX.
 Cela s'est révelé être une mauvaise idée, cela était bien trop complexe.
 Nous avons opté pour l'utilisation et la réalisation d'un programme Java, auquel notre logiciel envoie un ensemble de paramètres représentant les données à ajouter dans le rapport.
-Cela explique donc pourquoi nous avons dépassé le temps prévu pour la réalisation des rapports en DOCX, car ce fut les premiers réalisés.\\
 
-Le format PDF a lui été plus rapide, car nous avons réutilisé les modèles prédéfinis des rapports DOCX.\\
+Cela explique donc pourquoi nous avons dépassé le temps prévu pour la réalisation des rapports en DOCX, car ce fût les premiers réalisés.
+Avec la librairie Java que nous avons utilisé, la conversion du format DOCX au format PDF est très simple.
+Nous avons donc fait cela en même temps que la génération du format DOCX.
 
-La construction des autres rapports n'a pas été compliquée.
-En effet, cela a juste consité à créer de nouveaux modèles et à leur passer en paramètres les résultats des différents calculs.
-Notre prévision s'étant établie avec une méthode plus compliquée, il est donc naturel d'observer un temps de réalisation plus rapide.
+Le développement de notre propre programme Java pour faire l'interface avec la librairie de génération nous a permis de gagner du temps sur la suite de la génération.
+En effet, grâce à ce programme, la génération de nouveaux rapports est très simple à mettre en place.
+Elle nécessite uniquement de modifier le \textit{template} \footnote{Plus d'explications sur le fonctionnement de notre programme sont données dans le rapport final.}.
+
+
 \section{Graphiques}
+
 Les graphiques nécessitent principalement l'implémentation de la gestion des données.
 L'implémentation des matrices de corrélation nécessite de plus celle des calculs correspondants.
 
@@ -245,7 +255,7 @@ L'implémentation des matrices de corrélation nécessite de plus celle des calc
 	Tâches & Durée prévue & Durée réelle \\
     \hline
     Matrice de corrélation &  15h & 6h\\
-    Histogramme &  15h & ?\\
+    Histogramme &  15h & 4h\\
     \hline
   \end{tabularx}
   \caption{Durées des tâches liées aux graphiques}
@@ -253,9 +263,9 @@ L'implémentation des matrices de corrélation nécessite de plus celle des calc
 
 
 \section{IHM}
+
 L'IHM contient toutes les actions que l'utilisateur peut effectuer, les formulaires que l'utilisateur devra remplir ainsi que les éléments graphiques tels que les tableaux.
 La durée des tâches comprend aussi la gestion des messages d'erreurs ainsi que leur affichage dans l'IHM.
-Il a été possible de démarrer le développement de l'IHM en parallèle de celui des autres modules.
 
 \begin{table}[H]
 \centering
@@ -283,16 +293,17 @@ Il a été possible de démarrer le développement de l'IHM en parallèle de cel
 \end{table}
 
 Pour la plupart des éléments graphiques, de simples intéractions entre les objets Qt ont été suffisantes.
-C'est pour cela que le temps prévu s'est révélé trop important.\\
+C'est pour cela que le temps prévu s'est révélé trop important.
 
-L'affichage du contenu des portefeuilles a été plus compliqué.
-Nous aurions pu nous limiter à une simple lecture à la base de données puis à un affichage dans un QTableWidget, mais nous avons cherché à avoir une solution plus évolutive. Nous donc sommes partis sur la réalisation d'un QAbstractItemModel, qui a demandé plus de développement que notre première solution.
+L'affichage du contenu des portefeuilles été plus compliqué.
+Nous aurions pu nous limiter à une simple lecture à la base de données puis à un affichage dans un QTableWidget, mais nous avons cherché à avoir une solution plus évolutive.Nous donc sommes partis sur la réalisation d'un QAbstractItemModel, qui a demandé plus de développement que notre première solution.
+
 
 \section{Session}
+
 Cette fonctionnalité ajoute la sauvegarde dans la base de données des portefeuilles, rapports et actifs.
 Les modifications sont aussi sauvegardées (changement de nom, suppression d'un rapport, changement de l'emplacement du fichier d'un rapport).
 Cette tâche a nécessité que la gestion des actifs et des portefeuilles soit en partie déjà réalisée.
-
 
 \begin{table}[H]
 \centering
@@ -300,20 +311,23 @@ Cette tâche a nécessité que la gestion des actifs et des portefeuilles soit e
     \hline
 	Tâches & Durée prévue & Durée réelle \\
     \hline
-    Sauvegarde de la session &  10h & 10h\\
-    Restaurer la session &  10h & 6h30\\
+    Sauvegarde de la session &  10h & 6h30\\
+    Restaurer la session &  10h & 10h\\
     \hline
   \end{tabularx}
   \caption{Durées des tâches liées à la session}
 \end{table}
 
+Nous avons devéloppé cette fonctionnalité vers la fin du projet.
+Nous maîtrisions donc mieux Qt et la librairie pour SQLite.
+Nous avons donc gagné un peu de temps sur cette tâche.
+
 
 \chapter{Tests}
 
-Nous avons effectué des tests au fur et à mesure de chaque branche de développement, et entièrement à la fin du projet.
-De plus, les tests unitaires de la gestion des données (et des algorithmes de calcul) ont été écrits dès qu'une fonctionnalité (respectivement un algorithme) a été écrite.
-L'IHM étant plus difficile à tester automatiquement, celle-ci a donc été testée manuellement suivant le même déroulement que les autres points de développement.
-
+Comme expliqué dans le rapport final, nous avons effectué les tests au fur et à mesure des branches de développement.
+L'IHM étant plus difficile à tester automatiquement, celle-ci a été testée (manuellement) en suivant des scénarios.
+Nous avons établis ces scénarios en même temps que nous développions les fonctionnalités.
 
 \begin{table}[H]
 \centering
@@ -321,13 +335,19 @@ L'IHM étant plus difficile à tester automatiquement, celle-ci a donc été tes
     \hline
 	Tâches & Durée prévue & Durée réelle \\
     \hline
-    Tests de la gestion des données & 20h & 14h\\
-    Tests des calculs (modèle et VaR) & 20h & 5h\\
-    Tests IHM & 20h & 4h\\
+    Tests de la gestion des données & 20h & 35h\\
+    Tests des calculs (modèle et VaR) & 20h & 5h + ?\\
+    Tests IHM & 20h & 5h + ?\\
     \hline
   \end{tabularx}
   \caption{Durées des tâches liées aux tests}
 \end{table}
+
+Nous avons passé plus de temps que prévu sur les tests uniatires et fonctionnels automatiques.
+En effet, nous avons notamment dû configurer l'outil d'intégration continue, Travis CI, qui nous permet maintenant de connaître les résultats des tests après tout changement.
+Cet outil nous assure cependant une plus grande qualité logicielle et simplifie le travail pour la relecture des branches.
+
+Les tests de l'interface graphique et des calculs ne sont pas encore complètement finis donc nous ne pouvons qu'estimer le temps qui y sera finalement consacré.
 
 
 \chapter{Diagramme de GANTT}
@@ -352,9 +372,13 @@ Le tableau ci-dessous permet de comparer la planification initiale du projet glo
   \caption{Durées des tâches principales}
 \end{table}
 
-Dans ce document, nous avons comparé les temps prévus à la réalisation des différentes parties de notre logiciel, en expliquant dans la mesure du possible, les raisons pour lesquelles nous avons observé des différences entre la durée prévue et la durée effective.
+Dans ce document, nous avons comparé les temps prévus à la réalisation des différentes parties de notre logiciel, en expliquant dans la mesure du possible les raisons pour lesquelles nous avons observé des différences entre la durée prévue et la durée effective.
 Globalement, le temps passé sur la réalisation de ce projet est inférieur au temps prévu.
-Non parce que moins de choses ont été réalisées, mais plutôt qu'elles ont été sur-évaluées en temps de développement ou que nous avons été plus efficaces.
+Cela ne signifie pas que moins de choses ont été réalisées, mais plutôt qu'elles avaient été sur-évaluées en temps de développement ou que nous avons été plus efficace.
+
+Cependant nous avons quand même dû réduire légèrement les possibilités de notre logiciel \footnote{Voir les changements apportés aux spécifications dans le rapport final.}.
+En effet, nous avions complètement surestimé le temps que nous pouvions consacrer à ce projet chaque semaine.
+Nous avions notamment sous-estimé le temps nécessaire pour les autres matières et projets à travailler au cours du second semestre.
 
 
 \end{document}
