@@ -61,7 +61,7 @@ Nous avons du remplacer deux des librairies que nous comptions utiliser, l'une p
 
 \subsection{Importation et exportation}
 
-Dans un soucis de respect des délais nous avons revu les fonctionnalités d'importation et d'exportation.
+Dans un souci de respect des délais nous avons revu les fonctionnalités d'importation et d'exportation.
 Cette modification concerne les spécifications S1, S2, S9 et S10 (respectivement l'importation et l'exportation d'actifs ainsi que l'exportation et l'importation de portefeuilles).
 
 Nous avons fusionné ces fonctionnalités ensemble et l'utilisateur doit maintenant exporter l'entièreté de sa session.
@@ -86,7 +86,7 @@ Ce changement ne réduit par le temps nécessaire pour développer la gestion de
 \subsection{Sauvegarde de la session}
 
 Cette modification concerne la spécification S11.
-Afin de simplifier l'implémentation les actifs sont directement enregistrés dans la base de données.
+Afin de simplifier l'implémentation, les actifs sont directement enregistrés dans la base de données.
 Lorsque l'utilisateur effectue une sauvegarde, il n'y a donc maintenant plus que les portefeuilles et leurs rapports qui nécessitent d'être sauvegardés.
 
 
@@ -126,12 +126,12 @@ Finalement cette librairie est assez compliquée à utiliser.
 Elle présente un grand nombre de possibilités mais nécessite de la programmation bas niveau \footnote{Toujours en C++ mais très éloigné du code de Qt.}.
 
 Comme nous n'avons pas besoin d'autant de possibilités nous avons préféré utiliser une librairie plus simple, écrite en Java, xdocreport. % TODO Ajouter ref.
-Nous avons donc développé un petit programme qui permet, à partir d'informations au format JSON et d'un template de DOCX, de générer notre rapport aux format DOCX et PDF.
+Nous avons donc développé un petit programme qui permet, à partir d'informations au format JSON et d'un template de DOCX, de générer notre rapport aux formats DOCX et PDF.
 Ce programme permet donc d'utiliser les fonctionnalités de la librairie depuis la ligne de commande.
 
-En effet, la librairie xdocreport permet d'écrire avec l'aide Word des \textit{templates} de rapport.
+En effet, la librairie xdocreport permet d'écrire avec l'aide de Word des \textit{templates} de rapport.
 Certains champs spéciaux de ces \textit{templates} sont ensuite remplacés par les informations du document JSON.
-Nous appelons ensuite, tout simplement, ce programme depuis notre logiciel avec les bons paramètres.
+Ensuite, nous appelons simplement ce programme depuis notre logiciel avec les bons paramètres.
 Le nouveau diagramme de classe pour la génération des rapports est visible en figure \ref{fig:class-diagram-report-generation}
 
 \begin{figure}[h]
@@ -141,7 +141,7 @@ Le nouveau diagramme de classe pour la génération des rapports est visible en 
 	\label{fig:class-diagram-report-generation}
 \end{figure}
 
-Notre programme Java est suffisamment générique pour être utilisé dans d'autre logiciel.
+Notre programme Java est suffisamment générique pour être utilisé avec d'autres logiciels.
 Nous l'avons donc placé sous licence libre MIT. % TODO Ajouter ref.
 
 Au vu du temps finalement économisé sur la génération des rapports, ce choix technique était judicieux.
@@ -152,8 +152,8 @@ De plus, notre programme Java est bien plus maintenable que ce que nous aurions 
 
 \section{Intégration continue}
 
-Nous avons décidé, dès le début de la phase de développement, de faire notre projet en intégration continue.
-Cela signifie que chaque nouvelle fonctionnalité ou amélioration est développée sur une branche séparé, en parallèle de la branche principale.
+Nous avions décidé, dès le début de la phase de développement, de faire notre projet en intégration continue.
+Cela signifie que chaque nouvelle fonctionnalité ou amélioration est développée sur une branche séparée, en parallèle de la branche principale.
 
 Au moment de fusionner les deux, l'intégralité du nouveau code est relu par au moins un autre développeur.
 Ce dernier doit alors s'assurer que la branche est bien couverte par de nouveaux tests unitaires (ou fonctionnels dans certains cas), effectuer quelques tests adaptés du logiciel manuellement et relire le code.
@@ -167,11 +167,11 @@ Travis CI effectue aussi une rapide vérification des conventions de code à l'a
 
 \section{Tests fonctionnels}
 
-Lors de la phase de conception nous prévoyons d'écrire les tests fonctionnels vers la fin de la phase de développement.
+Lors de la phase de conception nous avions prévu d'écrire les tests fonctionnels vers la fin de la phase de développement.
 Finalement nous avons commencé à en écrire beaucoup plus tôt pour des raisons de simplicité.
 
-En effet, certaines fonctionnalités utilisent des composants très dépendants entre eux et cela complique donc l'écriture de réel tests unitaires.
-Par exemple, l'importation des rapports ne peut se faire sans avoir importés les portefeuilles correspondants précédemment.
+En effet, certaines fonctionnalités utilisent des composants très dépendants entre eux et cela complique donc l'écriture de réels tests unitaires.
+Par exemple, l'importation des rapports ne peut se faire sans avoir importé les portefeuilles correspondants précédemment.
 
 Pour ces cas un peu particuliers \footnote{Cela concerne les fonctionnalités d'importation et d'exportation ainsi que la sauvegarde vers la base de données} nous avons décidé d'écrire des tests fonctionnels.
 La couverture du code n'en est pas modifiée pour autant.
@@ -213,10 +213,10 @@ Nous effectuerons donc ce test dès que la branche aura été vérifiée et fusi
 
 \chapter*{Conclusion}
 
-Nous avons quelques changements à effectuer dans les spécifications sous la contrainte du temps.
+Nous avons eu quelques changements à effectuer dans les spécifications sous la contrainte du temps.
 En effet, nous avions légèrement surestimé le temps que nous pouvions consacrer au projet \footnote{Ou sous-estimé les contraintes des autres cours et projets suivant le point de vue.}.
 
-Cependant ces modifications restent très raisonnables et la plupart des changements sont liés à l'avancement du projet : en entrant plus dans les détails d'implémentation nous avons découvert des problèmes. Nous les avons résolu soit par de plus amples discussions avec le client \footnote{Dans notre cas notre encadrant.} et par des changements techniques \footnote{Notamment les changements des deux librairies libopc et RInside.}.
+Cependant ces modifications restent très raisonnables et la plupart des changements sont liés à l'avancement du projet : en entrant plus dans les détails d'implémentation nous avons découvert des problèmes. Nous les avons résolu soit par de plus amples discussions avec le client \footnote{Dans notre cas notre encadrant.} et/ou par des changements techniques \footnote{Notamment les changements des deux librairies libopc et RInside.}.
 
 Notre méthode travail par intégration continue nous a permis de remplir les objectifs en matière de qualité logicielle.
 Le choix de cette méthode était justifiée par la grande importance, pour notre client, d'avoir un logiciel fonctionnel et correctement testé.
