@@ -405,27 +405,12 @@ void MainWindow::generateReport(ReportGenerator *gen) {
 * The last import path is saved when a new import is done
 */
 void MainWindow::setImportCSV() {
-	/*QString fileName;
-	fileName = QFileDialog::getOpenFileName(this, ("Open file"), this->path, ("CSV Text (*.csv *.txt);;All files (*.*)") );
-	if(fileName != ""){
-		this->path = fileName.left(fileName.lastIndexOf("/"));
-		//get startDate and endDate before calling the import function
-		GetStartEndDates* gsed = new GetStartEndDates();
-		gsed->retreiveDates(fileName);
-		*/
-		Import* importDialog = new Import(this);
-		importDialog->setAttribute(Qt::WA_DeleteOnClose);
-		importDialog->show();
-	//}
+	Import* importDialog = new Import(this);
+	importDialog->setAttribute(Qt::WA_DeleteOnClose);
+	importDialog->show();
 }
 
-void MainWindow::setFilePath(QString s){
-	this->path = s;
-}
 
-QString MainWindow::getFilePath(){
-	return this->path;
-}
 
 /**
  * @brief Add the portfolio to the ListView,

@@ -29,16 +29,7 @@ Import::Import(QWidget *parent): QDialog(parent), ui(new Ui::Import) {
 	ui->setupUi(this);
 	QSettings setting;
 	setting.setValue("path","C:/");
-	/*ui->endDate->setDate(endDate);
-	ui->endDate->setMaximumDate(endDate);
-	ui->endDate->setMinimumDate(startDate);
-	ui->endDate->setCalendarPopup(true);
-	ui->startDate->setMinimumDate(startDate);
-	ui->startDate->setMaximumDate(endDate);
-	ui->startDate->setDate(startDate);
-	ui->startDate->setCalendarPopup(true);
-	this->fileName=fileName;
-	*/
+
 	//delete automatically the QDialog
 	this->setAttribute(Qt::WA_DeleteOnClose);
 }
