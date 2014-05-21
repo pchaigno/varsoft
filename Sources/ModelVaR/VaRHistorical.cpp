@@ -40,31 +40,7 @@ VaRHistorical::VaRHistorical(const Portfolio& portfolio, double risk, int timeHo
  * @return Value-at-Risk
  */
 double VaRHistorical::execute(QDate date) const {
-//	// Makes it impossible to compute VaR on weekends
-//	if(date.dayOfWeek() >= 6) {
-//		throw std::invalid_argument("Value-at-Risk cannot be computed on weekends.");
-//	}
-
-//	// Finds out the date to be used with retrievesReturns and checks it is compatible with the
-//	// portfolio endate
-//	QDate lastDate;
-//	// VaR computation on Tuesdays to fridays
-//	if(date.dayOfWeek() >= 2) {
-//		if(getPortfolio().retrieveEndDate().daysTo(date) > 1) {
-//			throw std::invalid_argument("The Value-at-Risk cannot be computed at an undefined future date.");
-//		}
-//		lastDate = date.addDays(-1);
-//	} else { // date.dayOfWeek() == 1 // VaR computation on monday
-//		if(getPortfolio().retrieveEndDate().daysTo(date) > 3) { // Period over the weekend
-//			throw std::invalid_argument("The Value-at-Risk cannot be computed at an undefined future date.");
-//		}
-//		lastDate = date.addDays(-3);
-//	}
-
-//	// Makes sure the last date is compatible with the portfolio start date
-//	if(lastDate <= getPortfolio().retrieveStartDate()) {
-//		throw std::invalid_argument("The Value-at-Risk cannot be computed at such an early date such as there are no returns.");
-//	}
+	// Checks that the date is valid and finds out the date to perform following computations
 	QDate lastDate = VaRAlgorithm::checkDate(date);
 
 	QVector<double> returns = getPortfolio().retrieveReturns(lastDate, period);
