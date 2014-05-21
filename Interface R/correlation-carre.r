@@ -1,6 +1,7 @@
 ######################################
 #  Portmanteau test for the squares  #
 ######################################
+
 statstd<-function(q, resid) {
 	n<-length(resid)
 

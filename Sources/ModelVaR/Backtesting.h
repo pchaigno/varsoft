@@ -22,7 +22,7 @@
 #include <QPair>
 #include <QDate>
 
-class Backtesting {
+class MODELVARSHARED_EXPORT Backtesting {
 private:
 	const Portfolio& portfolio;
 	const VaRAlgorithm& varAlgo;

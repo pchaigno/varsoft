@@ -11,7 +11,7 @@ TestVaRGarch::TestVaRGarch() {
 	// TEST PORTFOLIO DEFINITION
 	QMap<Asset*, int> assets;
 	assets.insert(asset1, 1);
-	QVector<Report*> reports;
+	QList<Report*> reports;
 	this->father = Portfolio("Father", assets, reports);
 }
 

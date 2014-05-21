@@ -22,16 +22,14 @@
  * @param docxPath The location of the DOCX file on the disk.
  * @param pdfPath The location of the PDF file on the disk.
  */
-GarchReportFactory::GarchReportFactory(QString docxFile, QString pdfFile):
-	ReportFactory(docxFile, pdfFile) {
+GarchReportFactory::GarchReportFactory(): ReportFactory() {
 
 }
 
-/**
- * @brief Generates the DOCX file using a DocxGenerator.
- * @return The DocxGenerator used.
- */
-DocxGenerator& GarchReportFactory::generateDOCX() {
-	// TODO
-	return this->docxGenerator;
+Report *GarchReportFactory::getReport() {
+	return new GarchReport();
+}
+
+ReportDataJson *GarchReportFactory::createJson() {
+
 }

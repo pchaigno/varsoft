@@ -20,13 +20,25 @@
 #include <QMainWindow>
 #include <QDialog>
 #include <QComboBox>
+#include <QSettings>
 #include <QFile>
 #include <QFileDialog>
 #include <QTableWidgetItem>
 #include "ImportDialog.h"
 #include "NewPortfolioWizard.h"
 #include "PortfolioItemModel.h"
+#include "ReportFactory.h"
+#include "ReportGenerator.h"
+#include "StatisticsReportFactory.h"
+#include "DocxGenerator.h"
 #include "PortfolioViewModel.h"
+#include "NoneSelectedPortfolioException.h"
+#include "ReportException.h"
+#include <QMessageBox>
+#include "FlowLayout.h"
+#include "ReportWidget.h"
+#include "ReportWidgetFactory.h"
+#include "DocxGenPathDialog.h"
 #include "ui_MainWindow.h"
 #include <QDate>
 #include "ImportNewData.h"
@@ -43,13 +55,43 @@ public:
 	explicit MainWindow(QWidget* parent = 0);
 	~MainWindow();
 
+	void writeSettings();
+	void readSettings();
+	void initResources();
+	void createFolderIfDoesnotExist(QString folder);
+	void closeEvent(QCloseEvent *event);
+
 private slots:
+	void docxGenPath();
 	void newPortfolio();
 	void showPortfolio(Portfolio* portfolio);
 	void setImportCSV();
+	void generateStatsReport();
+
 	void addPortfolio(Portfolio *);
+	void removeSelectedPortfolio();
+	void reportGenerationDone();
+	void updateReportWidgets();
+	void updateReportWidgets(Portfolio * portfolio);
+	void addReportWidget(Portfolio * portfolio, ReportWidget * reportWidget);
+	void deleteReportWidget();
+	void deleteReportWidget(ReportWidget* reportWidget);
+	void clearReportWidgets(Portfolio * portfolio);
+
+	void showError(const QString&errorMsg);
+
+	void disableGenerationButton();
+	void enableGenerationButton();
+
+	void deleteReportGenerator();
 
 private:
+	Portfolio *getCurrentPortfolio();
+	Report* buildReport(Portfolio * portfolio, ReportFactory * factory, bool deleteAfter=false);
+	void generateReport(ReportGenerator * gen);
+	void clearLayout(QLayout* layout, bool deleteWidgets = true);
+	ReportWidget *getReportWidgetFromReport(Report * report, Portfolio * portfolio=NULL);
+
 	Ui::MainWindow *ui;
 	QString stockName;
 	QDate startDate;
@@ -59,4 +101,6 @@ private:
 	QString path;
 	PortfolioItemModel * portfolioListModel;
 	QHash<Portfolio*, PortfolioViewModel*> portfoliosModels;
+	QHash<Portfolio*, QList<ReportWidget*> > portfolioReportWidgets;
+	FlowLayout * layoutReports;
 };

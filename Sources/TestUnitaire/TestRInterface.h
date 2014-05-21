@@ -22,6 +22,9 @@
 #include "GarchModel.h"
 #include "Portfolio.h"
 #include "RInterface.h"
+#include <QDir>
+#include <QMap>
+#include <QVector>
 
 class TestRInterface: public QObject {
 	Q_OBJECT
@@ -35,4 +38,10 @@ public:
 private Q_SLOTS:
 	void testComputeGarchModel();
 	void testComputeGarchModelIncorrectParameter();
+	void testCheckCorrelation();
+	void testCheckCorrelationIncorrectTimeLag();
+	void testCheckCorrelationIncorrectPeriod();
+	void testCheckCorrelationIncompatibleParameters();
+	void testCheckSquareCorrelation();
+	void testCheckSquareCorrelationIncompatibleParameters();
 };

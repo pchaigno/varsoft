@@ -18,24 +18,101 @@
 #include "RInterface.h"
 
 /**
- * @brief Call the R script for the correlation test.
- * @param portfolio The portfolio to test.
- * @return True if the test succeed.
+ * @brief Call the R script performing the correlation test.
+ * @param portfolio The portfolio on which the correlation test is performed
+ * @param timeLag Time lag of the statistical test
+ * @param date The date from which the historical returns will be taken
+ * @param period The number of returns
+ * @return The statistical value and p-value couple
  */
-bool RInterface::checkCorrelation(const Portfolio& portfolio) {
-	// TODO
-	return false;
+QPair<double, double> RInterface::checkCorrelation(const Portfolio& portfolio, int timeLag, QDate& date, int period) {
+	// Check the period parameter
+	if(timeLag > period - 2) {
+		throw std::invalid_argument("The timeLag parameter cannot be greater than period minus two");
+	}
+
+	return executeCorrelationScript(portfolio, timeLag, date, period, "../../R_scripts/correlation-niveau.r");
 }
 
 /**
- * @brief Call the R script for the square correlation test.
- * @param portfolio The portfolio to test.
- * @return True if the test succeed.
+ * @brief Call the R script performing the square correlation test.
+ * @param portfolio The portfolio on which the correlation test is performed
+ * @param timeLag Time lag of the statistical test
+ * @param date The date from which the historical returns will be taken
+ * @param period The number of returns
+ * @return The statistical value and p-value couple
  */
-bool RInterface::checkSquareCorrelation(const Portfolio& portfolio) {
-	// TODO
-	return false;
+QPair<double, double> RInterface::checkSquareCorrelation(const Portfolio& portfolio, int timeLag, QDate& date, int period) {
+	// Check the period parameter
+	if(timeLag > period - 1) {
+		throw std::invalid_argument("The timeLag parameter cannot be greater than period minus one");
+	}
+
+	return executeCorrelationScript(portfolio, timeLag, date, period, "../../R_scripts/correlation-carre.r");
 }
+
+/**
+ * @brief RInterface::executeCorrelationScript Generic call to the R script passed as rScriptFilePath parameter
+ * @param portfolio The portfolio on which the correlation test is performed
+ * @param timeLag Time lag of the statistical test
+ * @param date The date from which the historical returns will be taken
+ * @param period The number of returns
+ * @param rScriptFilePath R script file
+ * @return The statistical value and p-value couple
+ */
+QPair<double, double> RInterface::executeCorrelationScript(const Portfolio& portfolio, int timeLag, QDate& date, int period, QString rScriptFilePath) {
+	// Check that parameters are correct
+	if(timeLag <= 0) {
+		throw std::invalid_argument("The timeLag parameter must be strictly positive");
+	}
+	if(period <= 0 ) {
+		throw std::invalid_argument("The period parameter must be strictly positive");
+	}
+
+	// The only command line argument passed to Rscript is
+	// the R script file
+	QStringList arguments;
+	arguments << rScriptFilePath;
+
+	// Makes the string sent to the Rscript standard input
+	// Made of two lines, one paramater a line
+	// timeLag on the first, the returns on the second, separated by space characters
+	QString parameters = QString::number(timeLag) + "\n";
+	QVector<double> returns = portfolio.retrieveReturns(date, period);
+	for(QVector<double>::const_iterator it=returns.begin(); it!=returns.end(); ++it) {
+		parameters += QString::number(*it) + " ";
+	}
+
+	QProcess process;
+	process.start("Rscript", arguments);
+	process.waitForStarted();
+	// Writes to R standard input the previously created string
+	process.write(parameters.toStdString().c_str());
+	process.closeWriteChannel();
+	process.waitForFinished();
+
+	// Reads R output
+	QByteArray rawOutput = process.readAllStandardOutput();
+
+	// Convert it to QString
+	QString output = QString::fromUtf8(rawOutput);
+
+	// Splits the output by newline
+	// Removes empty lines as well
+	QStringList lines = output.split(QRegExp("[\r\n]"),QString::SkipEmptyParts);
+
+	// Gets only the values (removes matrix indices)
+	QRegExp rx("\\s+");
+	double ststdport = lines.value(1).split(rx).value(1).toDouble();
+	double pvportcarre = lines.value(3).split(rx).value(1).toDouble();
+
+	QPair<double, double> result;
+	result.first = ststdport;
+	result.second = pvportcarre;
+
+	return result;
+}
+
 
 /**
  * @brief Call the R script to compute the GARCH model of a portfolio.

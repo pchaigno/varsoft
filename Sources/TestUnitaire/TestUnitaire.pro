@@ -8,8 +8,8 @@ QT += testlib sql
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = main
-CONFIG   += console
-CONFIG   -= app_bundle
+CONFIG += console
+CONFIG -= app_bundle
 
 TEMPLATE = app
 
