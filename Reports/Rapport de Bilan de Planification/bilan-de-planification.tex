@@ -336,7 +336,7 @@ Nous avons établis ces scénarios en même temps que nous développions les fon
 	Tâches & Durée prévue & Durée réelle \\
     \hline
     Tests de la gestion des données & 20h & 35h\\
-    Tests des calculs (modèle et VaR) & 20h & 5h + ?\\
+    Tests des calculs (modèle et VaR) & 20h & 6h30h + ?\\
     Tests IHM & 20h & 5h + ?\\
     \hline
   \end{tabularx}
@@ -346,6 +346,8 @@ Nous avons établis ces scénarios en même temps que nous développions les fon
 Nous avons passé plus de temps que prévu sur les tests uniatires et fonctionnels automatiques.
 En effet, nous avons notamment dû configurer l'outil d'intégration continue, Travis CI, qui nous permet maintenant de connaître les résultats des tests après tout changement.
 Cet outil nous assure cependant une plus grande qualité logicielle et simplifie le travail pour la relecture des branches.
+
+Deux principaux tests ont été prévus concernant la modélisation du modèle Garch. Le premier est basé sur le contrôle des données d'entrée pour comparer le résultat obtenu avec une valeur théorique pré-déterminée. Ce test est en cours et une partie de son temps a été décompté. Le deuxième test fait usage quant à lui du backtesting. Cette fonctionnalité étant sur le point d'être validée, ce test pourra être alors effectué.
 
 Les tests de l'interface graphique et des calculs ne sont pas encore complètement finis donc nous ne pouvons qu'estimer le temps qui y sera finalement consacré.
 
