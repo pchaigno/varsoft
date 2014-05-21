@@ -27,6 +27,7 @@ class TestVaRGarch: public QObject {
 
 private:
 	Portfolio father;
+	Portfolio uncle;
 
 public:
 	TestVaRGarch();
@@ -34,4 +35,5 @@ public:
 private Q_SLOTS:
 	void testExecuteNoInit();
 	void testExecuteWithInit();
+	void testExecuteNorm();
 };
