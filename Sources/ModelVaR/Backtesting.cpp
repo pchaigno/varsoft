@@ -16,7 +16,6 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #include "Backtesting.h"
-#include <QDebug>
 
 /**
  * @brief Constructor
@@ -30,7 +29,9 @@ Backtesting::Backtesting(const Portfolio& portfolio, const VaRAlgorithm& varAlgo
 }
 
 /**
- * @brief Compute the backtesting.
+ * @brief Computes the backtesting ie computes the Value-at-Risk every week day
+ * of the backtesting period. Counts the number of times, the actual return is worse
+ * than the Value-at-Risk
  * @return The number of day for which the VaR is above what it should be.
  */
 int Backtesting::compute() const {
@@ -38,8 +39,8 @@ int Backtesting::compute() const {
 
 	for(QDate date=QDate(backtestperiod.first); date <= backtestperiod.second; date=date.addDays(1)) {
 		if(date.dayOfWeek()<=5) { // Backtests only on week days
-//			qDebug() << date;
 			double var = varAlgo.execute(date);
+			// Compares the VaR to the actual return (taking into account the horizon)
 			if(portfolio.retrieveReturnHorizon(date, varAlgo.getTimeHorizon()) < -var) {
 				nbDaysLossGreaterThanVaR++;
 			}

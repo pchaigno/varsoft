@@ -16,7 +16,6 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #include "Portfolio.h"
-#include <QDebug>
 
 /**
  * @brief Empty constructor
@@ -404,7 +403,7 @@ double Portfolio::retrieveReturnHorizon(const QDate& date, int horizon) const {
 		throw std::invalid_argument("There are not enough historical values to compute the return given the specified date and the horizon");
 	}
 
-	return this->retrieveValues(endDate, endDate).takeFirst() - this->retrieveValues(startDate, startDate).takeFirst();
+	return this->retrieveValues(endDate, endDate).first() - this->retrieveValues(startDate, startDate).first();
 }
 
 /**
