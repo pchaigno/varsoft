@@ -25,6 +25,7 @@
 class MODELVARSHARED_EXPORT VaRRiskmetrics: public VaRAlgorithm {
 private:
 	int initPeriod;
+	const static double lambda = 0.94;
 public:
 	VaRRiskmetrics(const Portfolio& portfolio, double risk, int timeHorizon, int initPeriod);
 	virtual double execute(QDate date) const;

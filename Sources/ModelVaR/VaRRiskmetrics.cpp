@@ -44,7 +44,6 @@ double VaRRiskmetrics::execute(QDate date) const {
 	// Computes Sigma value using historical log-returns
 	QVector<double> logReturns = this->getPortfolio().retrieveLogReturns(lastDate, initPeriod);
 	double sigmaSquarred = 0;
-	const double lambda = 0.94;
 	for(int i=0; i < logReturns.size(); i++) {
 		sigmaSquarred = lambda*sigmaSquarred + (1-lambda)*qPow(logReturns.at(i), 2);
 	}
