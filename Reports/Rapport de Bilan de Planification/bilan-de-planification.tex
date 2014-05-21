@@ -296,9 +296,7 @@ Pour la plupart des éléments graphiques, de simples intéractions entre les ob
 C'est pour cela que le temps prévu s'est révélé trop important.
 
 L'affichage du contenu des portefeuilles été plus compliqué.
-Nous aurions pu nous limiter à une simple lecture à la base de données puis à un affichage dans un tableau, mais ceci n'était pas très adapté.
-Nous sommes partis sur la réalisation d'un QAbstractItemModel, car c'est plus propre comme cela.
-Par exemple, nous n'avons pas à gérer explicitement le bon nombre de ligne ou de colonnes à afficher.
+Nous aurions pu nous limiter à une simple lecture à la base de données puis à un affichage dans un QTableWidget, mais nous avons cherché à avoir une solution plus évolutive.Nous donc sommes partis sur la réalisation d'un QAbstractItemModel, qui a demandé plus de développement que notre première solution.
 
 
 \section{Session}
