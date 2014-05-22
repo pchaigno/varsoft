@@ -21,6 +21,7 @@
 #include "Portfolio.h"
 #include "Backtesting.h"
 #include "VaRHistorical.h"
+#include "VaRRiskmetrics.h"
 
 class TestBacktesting: public QObject {
 	Q_OBJECT
@@ -33,4 +34,5 @@ public:
 
 private Q_SLOTS:
 	void testCompute();
+	void testBacktestingRiskmetrics();
 };

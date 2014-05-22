@@ -29,6 +29,7 @@
 #include "PortfolioCalculationException.h"
 #include <string>
 #include <sstream>
+#include <QtCore/qmath.h>
 
 class MODELVARSHARED_EXPORT Portfolio {
 private:
@@ -69,6 +70,8 @@ public:
 	QVector<double> retrieveReturns(const QDate& startPeriod, const QDate& endPeriod) const;
 	QVector<double> retrieveReturns(const QDate& endPeriod, int nbValues) const;
 	double retrieveReturnHorizon(const QDate& date, int horizon) const;
+	QVector<double> retrieveLogReturns(const QDate& startPeriod, const QDate& endPeriod) const;
+	QVector<double> retrieveLogReturns(const QDate& endPeriod, int nbValues) const;
 
 	bool operator==(const Portfolio& portfolio) const;
 };

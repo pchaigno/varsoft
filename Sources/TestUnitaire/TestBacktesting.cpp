@@ -46,3 +46,16 @@ void TestBacktesting::testCompute() {
 	Backtesting backtest(this->portfolio, varAlgo, interval);
 	QCOMPARE(backtest.compute(), 4);
 }
+
+void TestBacktesting::testBacktestingRiskmetrics() {
+	double risk = 0.05;
+	int timeHorizon = 1;
+	int initPeriod = 30;
+	VaRRiskmetrics varAlgo(this->portfolio, risk, timeHorizon, initPeriod);
+	QPair<QDate, QDate> interval;
+	interval.first = QDate(2013, 1, 2);
+	interval.second = QDate(2013, 12, 31);
+	Backtesting backtest(this->portfolio, varAlgo, interval);
+//	QCOMPARE(backtest.compute(), 4);
+	qDebug() << backtest.compute();
+}

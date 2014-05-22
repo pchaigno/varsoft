@@ -43,6 +43,7 @@ SOURCES += \
 	IImport.cpp \
 	PortfolioItemModel.cpp \
 	CorrelationReportFactory.cpp \
+	MathFunctions.cpp \
 	PortfolioViewModel.cpp \
 	ReportDataJson.cpp \
 	qcustomplot.cpp \
@@ -93,6 +94,7 @@ HEADERS +=\
 	ReportException.h \
 	InvalidDefinitionPeriodException.h \
 	ImportException.h \
+	MathFunctions.h \
 	ReportAlreadyCreatedException.h
 
 unix:!symbian {
