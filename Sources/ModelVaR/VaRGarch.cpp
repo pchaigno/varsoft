@@ -48,16 +48,11 @@ VaRGarch::VaRGarch(const Portfolio& portfolio, double risk, int timeHorizon, con
  * @return The VaR for this portfolio using a GARCH model.
  */
 double VaRGarch::execute(QDate date) const {
-
 	// Retrieves model coefficients and residuals for VaR computation
 	double omega = garchModel.getOmega();
 	double alpha = garchModel.getAlpha();
 	double beta = garchModel.getBeta();
 	QVector<double> residuals = garchModel.getResiduals();
-
-	qDebug() << garchModel.getOmega();
-	qDebug() << garchModel.getAlpha();
-	qDebug() <<  garchModel.getBeta();
 
 	// Initialization of the last standard deviation value, stddev
 	double stddev;
@@ -82,8 +77,6 @@ double VaRGarch::execute(QDate date) const {
 	   qsrand((uint)time.msec());
 	}
 
-
-
 	QVector<double> generatedReturns;
 	// Boostrap process
 	for(int i=0; i < nbScenarios; i++) {
@@ -107,24 +100,11 @@ double VaRGarch::execute(QDate date) const {
 	// Return values are sorted
 	qSort(generatedReturns.begin(), generatedReturns.end());
 
-
-
 	// Vector quantile calculation
 	// Using floor(), we expect the worst case
 	int quantile = floor(getRisk()*generatedReturns.size()-1);
-	qDebug() << "quantile";
-	qDebug() << quantile;
-	qDebug() << "getRisk";
-	qDebug() << getRisk();
-	qDebug() << "generatedReturns.size()";
-	qDebug() << generatedReturns.size();
-
-	qDebug() << generatedReturns.at(quantile);
-	qDebug() << getPortfolio().retrieveValues(date, date).at(0);
 
 	double var = (1 - qExp(generatedReturns.at(quantile)))*getPortfolio().retrieveValues(date, date).at(0);
-
-	qDebug() << "la";
 
 	// There may be cases when the var is negative, we return 0 in such cases according to the VaR formula
 	if(var < 0) {

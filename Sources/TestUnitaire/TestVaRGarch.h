@@ -35,5 +35,5 @@ public:
 private Q_SLOTS:
 	void testExecuteNoInit();
 	void testExecuteWithInit();
-	void testExecuteNorm();
+	void testExecuteNormalReturns();
 };

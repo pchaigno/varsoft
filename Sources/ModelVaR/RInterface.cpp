@@ -136,7 +136,6 @@ GarchModel RInterface::computeGarchModel(const Portfolio& portfolio, QDate date,
 	// Makes the string that will be sent to the Rscript standard input
 	// Made of a single line containing the log-returns separated by space characters
 	QVector<double> logReturns = portfolio.retrieveLogReturns(date, period);
-	qDebug() << logReturns;
 	QString parameters;
 	for(QVector<double>::const_iterator it=logReturns.begin(); it!=logReturns.end(); ++it) {
 		parameters += QString::number(*it) + " ";
