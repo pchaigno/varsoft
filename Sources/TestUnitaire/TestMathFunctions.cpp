@@ -25,3 +25,18 @@ void TestMathFunctions::testNormalCDFInverseUndefined() {
 		MathFunctions::normalCDFInverse(1.0);
 	} catch(std::invalid_argument& e) {}
 }
+
+/**
+ * @brief Tests the correlation calculation function
+ */
+void TestMathFunctions::testCorrelation() {
+	QVector<double> x, y;
+	x.push_back(1);
+	x.push_back(2);
+	x.push_back(3);
+	y.push_back(1);
+	y.push_back(2);
+	y.push_back(3);
+
+	qDebug() << MathFunctions::correlation(x,y);
+}
