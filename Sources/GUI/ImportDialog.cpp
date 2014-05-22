@@ -19,16 +19,11 @@
 
 /**
 * @brief Import Constructor
-* Ranges of dates are limited by the file's range dates
-* @param fileName The name of the asset file
-* @param startDate The oldest date in the file
-* @param endDate The latest date in the file
 * @param parent QDialog Widget to use
 */
 Import::Import(QWidget *parent): QDialog(parent), ui(new Ui::Import) {
 	ui->setupUi(this);
-	QSettings setting;
-	setting.setValue("path","C:/");
+	this->setting.setValue("path","C:/");
 
 	//delete automatically the QDialog
 	this->setAttribute(Qt::WA_DeleteOnClose);
@@ -84,17 +79,17 @@ void Import::on_pushButton_2_clicked() {
 }
 
 void Import::on_importButton_clicked(){
-	QSettings setting;
-	QVariant path = setting.value("filePath");
-	fileName = QFileDialog::getOpenFileName(this, ("Open file"), path.toString(), ("CSV Text (*.csv *.txt);;All files (*.*)") );
-	if(fileName != ""){
-		setting.setValue("path",fileName.left(fileName.lastIndexOf("/")));
+	QVariant path = this->setting.value("path");
+	QFileInfo fileName = QFileDialog::getOpenFileName(this, ("Open file"), path.toString(), ("CSV Text (*.csv *.txt);;All files (*.*)") );
+	if(fileName.isFile()){
+		this->setting.setValue("path",fileName.absolutePath());
 		//get startDate and endDate before calling the import function
+		qDebug() << fileName.filePath();
 		GetStartEndDates* gsed = new GetStartEndDates();
-		gsed->retreiveDates(fileName);
+		gsed->retreiveDates(fileName.filePath());
 		QDate endDate = gsed->getEndDate();
 		QDate startDate = gsed->getStartDate();
-		ui->filePath->setText(fileName);
+		ui->filePath->setText(fileName.filePath());
 		ui->endDate->setDate(endDate);
 		ui->endDate->setMaximumDate(endDate);
 		ui->endDate->setMinimumDate(startDate);
@@ -103,6 +98,6 @@ void Import::on_importButton_clicked(){
 		ui->startDate->setMaximumDate(endDate);
 		ui->startDate->setDate(startDate);
 		ui->startDate->setCalendarPopup(true);
-		this->fileName=fileName;
+		this->fileName=fileName.filePath();
 	}
 }

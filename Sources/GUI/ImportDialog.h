@@ -30,6 +30,7 @@
 #include <QException>
 #include <QFileDialog>
 #include <QSettings>
+#include <QFileInfo>
 
 namespace Ui {
 	class Import;
@@ -48,6 +49,7 @@ public:
 private:
 	Ui::Import *ui;
 	QString fileName;
+	QSettings setting;
 
 private slots:
 	void on_pushButton_clicked();
