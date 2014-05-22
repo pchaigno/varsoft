@@ -35,9 +35,14 @@ TestRInterface::TestRInterface() {
 	this->father = Portfolio("Father", assets, reports);
 }
 
+/**
+ * @brief Tests the correct computation of a Garch model through R.
+ */
 void TestRInterface::testComputeGarchModel() {
-	int period = 10;
-	GarchModel model = RInterface::computeGarchModel(this->father, this->father.retrieveEndDate(), period);
+	QPair<QDate, QDate> period;
+	period.first = QDate(2014, 2, 25);
+	period.second = this->father.retrieveEndDate();
+	GarchModel model = RInterface::computeGarchModel(this->father, period);
 
 	QCOMPARE(model.getOmega(), 0.0002504062);
 	QCOMPARE(model.getAlpha(), 0.0500141719);
@@ -55,10 +60,16 @@ void TestRInterface::testComputeGarchModel() {
 	QCOMPARE(model.getStddev(), 0.01639555);
 }
 
+/**
+ * @brief Tests that a Garch model cannot be computed if the period parameter is too
+ * short and thus incompatible with R Garch model computation.
+ */
 void TestRInterface::testComputeGarchModelIncorrectParameter() {
-	int period = 2;
+	QPair<QDate, QDate> period;
+	period.first = QDate(2014, 2, 25);
+	period.second = QDate(2014, 2, 27);
 	try {
-		GarchModel model = RInterface::computeGarchModel(this->father, this->father.retrieveEndDate(), period);
+		GarchModel model = RInterface::computeGarchModel(this->father, period);
 		QFAIL("computeGarchModel() should not have succeeded in computing a Garch model");
 	} catch(std::invalid_argument& e) {
 

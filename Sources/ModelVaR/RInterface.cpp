@@ -117,15 +117,11 @@ QPair<double, double> RInterface::executeCorrelationScript(const Portfolio& port
 /**
  * @brief Call the R script to compute the GARCH model of a portfolio.
  * @param portfolio The portfolio.
- * @param date The date from which previous returns will be used to compute the Garch model
- * @param period The number of days to consider to compute the Garch model
+ * @param period Pair of QDate in chronological order defining the interval on which
+ * to perform the Garch model computation
  * @return The Garch model.
  */
-GarchModel RInterface::computeGarchModel(const Portfolio& portfolio, QDate date, int period) {
-
-	if(period < 3) {
-		throw std::invalid_argument("The period argument must at least 3 to initialize garch model computation");
-	}
+GarchModel RInterface::computeGarchModel(const Portfolio& portfolio, const QPair<QDate, QDate> &period) {
 
 	// The only command line argument passed to Rscript is
 	// the R script file
@@ -135,7 +131,10 @@ GarchModel RInterface::computeGarchModel(const Portfolio& portfolio, QDate date,
 
 	// Makes the string that will be sent to the Rscript standard input
 	// Made of a single line containing the log-returns separated by space characters
-	QVector<double> logReturns = portfolio.retrieveLogReturns(date, period);
+	QVector<double> logReturns = portfolio.retrieveLogReturns(period.first, period.second);
+	if(logReturns.size() <= 2) {
+		throw std::invalid_argument("The period argument must be larger than specified to perform garch model computation");
+	}
 	QString parameters;
 	for(QVector<double>::const_iterator it=logReturns.begin(); it!=logReturns.end(); ++it) {
 		parameters += QString::number(*it) + " ";

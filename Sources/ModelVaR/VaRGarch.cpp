@@ -24,20 +24,17 @@
  * @param timeHorizon the time horizon of the VaR in number of days.
  * @param garchModel The GARCH model estimated from the portfolio.
  * @param nbScenarios The number of scenarios to perform the bootstrap process
- * @param initStddev indicates if the first standard value should computed from historical returns
- * or the one included in the model should be used. Useful for the backtesting to not compute a Garch
- * model for every daylight
- * @param initPeriod number of returns to use to initialize the first standard deviation value
+ * @param nbInitIterations number of iterations to perform to initialize the first standard deviation value
  */
-VaRGarch::VaRGarch(const Portfolio& portfolio, double risk, int timeHorizon, const GarchModel& garchModel, int nbScenarios, bool initStddev, int initPeriod):
-	VaRAlgorithm(portfolio, risk, timeHorizon), garchModel(garchModel), nbScenarios(nbScenarios), initStddev(initStddev), initPeriod(initPeriod) {
+VaRGarch::VaRGarch(const Portfolio& portfolio, double risk, int timeHorizon, const GarchModel& garchModel, int nbScenarios, int nbInitIterations):
+	VaRAlgorithm(portfolio, risk, timeHorizon), garchModel(garchModel), nbScenarios(nbScenarios), initStddev(initStddev), nbInitIterations(nbInitIterations) {
 
 	if(nbScenarios < 1) {
 		throw std::invalid_argument("There must be at least one scenario for the VaR computation");
 	}
-	if(initPeriod) {
-		if(initPeriod < 2) {
-			throw std::invalid_argument("The initialization period must greater than two");
+	if(nbInitIterations) {
+		if(nbInitIterations < 2) {
+			throw std::invalid_argument("The number of iterations to initialize the standard deviation must be greater than one");
 		}
 	}
 }
@@ -48,28 +45,24 @@ VaRGarch::VaRGarch(const Portfolio& portfolio, double risk, int timeHorizon, con
  * @return The VaR for this portfolio using a GARCH model.
  */
 double VaRGarch::execute(QDate date) const {
+	// Makes sure the date is valid and gets the appropriate date to perform computations
+	QDate lastDate = checkDate(date);
+
 	// Retrieves model coefficients and residuals for VaR computation
 	double omega = garchModel.getOmega();
 	double alpha = garchModel.getAlpha();
 	double beta = garchModel.getBeta();
 	QVector<double> residuals = garchModel.getResiduals();
 
-	// Initialization of the last standard deviation value, stddev
-	double stddev;
-	if(initStddev) {
-		// Initializes stddev using the previous returns
-		QVector<double> returns = portfolio.retrieveLogReturns(date, initPeriod);
-		stddev = 0;
-		for(int i=0; i < returns.size()-1; i++) {
-			stddev = qSqrt(omega + alpha*qPow(returns.at(i), 2) + beta*qPow(stddev, 2));
-		}
-	} else {
-		// Initializes stddev to the model value
-		stddev = garchModel.getStddev();
+	// Initializes stddev using the previous returns
+	double stddev = 0;
+	QVector<double> returns = portfolio.retrieveLogReturns(lastDate, nbInitIterations);
+	for(int i=0; i < returns.size()-1; i++) {
+		stddev = qSqrt(omega + alpha*qPow(returns.at(i), 2) + beta*qPow(stddev, 2));
 	}
 
-	// Create seed for the random draw
-	// The following makes sure it is executed only once
+	// Create seed for the random draw during the bootsrap
+	// Makes sure it is executed only once
 	static bool initialized;
 	if (!initialized) {
 	   initialized = true;
@@ -78,10 +71,10 @@ double VaRGarch::execute(QDate date) const {
 	}
 
 	QVector<double> generatedReturns;
-	// Boostrap process
+	// Boostrap process : computes nbScenarios possible returns (time horizon taken into account)
 	for(int i=0; i < nbScenarios; i++) {
 		// Initialization with the latest real values
-		double previousReturn = portfolio.retrieveLogReturns(date, 1).at(0);
+		double previousReturn = portfolio.retrieveLogReturns(lastDate, 1).first();
 		double previousStddev = stddev;
 		double horizonReturn = 0;
 		for(int h=0; h < timeHorizon; h++) {
@@ -102,11 +95,16 @@ double VaRGarch::execute(QDate date) const {
 
 	// Vector quantile calculation
 	// Using floor(), we expect the worst case
-	int quantile = floor(getRisk()*generatedReturns.size()-1);
+	int quantile = floor(getRisk()*generatedReturns.size())-1;
+	// Prevents the index from being negative in small returns size of risk cases
+	if(quantile < 0) {
+		quantile = 0;
+	}
 
-	double var = (1 - qExp(generatedReturns.at(quantile)))*getPortfolio().retrieveValues(date, date).at(0);
+	// Calculates VaR according to the formula
+	double var = (1 - qExp(generatedReturns.at(quantile)))*getPortfolio().retrieveValues(lastDate, lastDate).first();
 
-	// There may be cases when the var is negative, we return 0 in such cases according to the VaR formula
+	// If the VaR is negative, we return 0 in such cases according to the VaR definition
 	if(var < 0) {
 		var = 0;
 	}

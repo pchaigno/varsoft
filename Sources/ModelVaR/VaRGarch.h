@@ -26,9 +26,9 @@ private:
 	const GarchModel& garchModel;
 	int nbScenarios;
 	bool initStddev;
-	int initPeriod;
+	int nbInitIterations;
 
 public:
-	VaRGarch(const Portfolio& portfolio, double risk, int timeHorizon, const GarchModel& garchModel, int nbScenarios, bool initStddev, int initPeriod);
+	VaRGarch(const Portfolio& portfolio, double risk, int timeHorizon, const GarchModel& garchModel, int nbScenarios, int nbInitIterations);
 	virtual double execute(QDate date) const;
 };

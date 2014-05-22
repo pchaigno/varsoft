@@ -32,52 +32,52 @@ TestVaRGarch::TestVaRGarch() {
 
 /**
  * @brief Tests the calculation of the Value-at-Risk using a Garch model.
- * initStddev is false because the model computation date parameter is the
- * same as the VaR computation one.
  */
-void TestVaRGarch::testExecuteNoInit() {
-	// GarchModel parameters
-	QDate date = this->father.retrieveEndDate();
-	// Period to compute garch model, 200 days
-	int period = 200;
-
-	// VaRGarch parameters
+void TestVaRGarch::testExecute() {
+	// VaR parameters
 	double risk = 0.05;
 	int timeHorizon = 1;
-	GarchModel garchModel = RInterface::computeGarchModel(this->father, date, period);
-	// Number of sceniarios for the boostrap
-	int scenarios = 200;
+	int scenarios = 200; // Number of sceniarios for the boostrap
+	int nbInitIterations = 20;
 
-	VaRGarch varGarch(this->father, risk, timeHorizon, garchModel, scenarios, false, 0);
+	// Garch model parameters
+	QPair<QDate, QDate> period;
+	period.first = QDate(2013,1,1);
+	period.second = QDate(2013,12,30);
+
+	// Garch model computation
+	GarchModel garchModel = RInterface::computeGarchModel(this->father, period);
+
 	// VaR value varies from one execution to another
-	double var = varGarch.execute(date);
+	VaRGarch varGarch(this->father, risk, timeHorizon, garchModel, scenarios, nbInitIterations);
+	double var = varGarch.execute(QDate(2014, 04, 18));
 	// In any case VaR should not be negative
 	QVERIFY(var >= 0);
 	qDebug() << "Value-at-Risk: " << var;
 }
 
 /**
- * @brief Tests the calculation of the Value-at-Risk using a Garch model.
- * initStddev is true because the model computation date parameter is not the
- * same as the VaR computation one.
+ * @brief Tests the calculation of the Value-at-Risk using a Garch model. The time horizon
+ * is three days in this case.
  */
-void TestVaRGarch::testExecuteWithInit() {
-	// GarchModel parameters
-	QDate date = this->father.retrieveEndDate();
-	// Period to compute garch model, 200 days
-	int period = 200;
-
-	// VaRGarch parameters
+void TestVaRGarch::testExecuteThreeDaysHorizon() {
+	// VaR parameters
 	double risk = 0.05;
-	int timeHorizon = 1;
-	GarchModel garchModel = RInterface::computeGarchModel(this->father, date, period);
-	// Number of sceniarios for the boostrap
-	int scenarios = 200;
+	int timeHorizon = 3;
+	int scenarios = 200; // Number of sceniarios for the boostrap
+	int nbInitIterations = 20;
 
-	// Standard deviation initialization case
-	VaRGarch varGarch(this->father, risk, timeHorizon, garchModel, scenarios, true, 20);
+	// Garch model parameters
+	QPair<QDate, QDate> period;
+	period.first = QDate(2013,1,1);
+	period.second = QDate(2013,12,30);
+
+	// Garch model computation
+	GarchModel garchModel = RInterface::computeGarchModel(this->father, period);
+
 	// VaR value varies from one execution to another
-	double var = varGarch.execute(date);
+	VaRGarch varGarch(this->father, risk, timeHorizon, garchModel, scenarios, nbInitIterations);
+	double var = varGarch.execute(QDate(2014, 04, 18));
 	// In any case VaR should not be negative
 	QVERIFY(var >= 0);
 	qDebug() << "Value-at-Risk: " << var;
@@ -88,23 +88,24 @@ void TestVaRGarch::testExecuteWithInit() {
  * resulting from normal distribution, is close to the (1-risk) quantile of the normal distribution.
  */
 void TestVaRGarch::testExecuteNormalReturns() {
-	// GarchModel parameters
-	QDate date = this->uncle.retrieveEndDate();
-	// Period to compute garch model, 200 days
-	int period = 1000;
-
-	// VaRGarch parameters
+	// VaR parameters
 	double risk = 0.05;
 	int timeHorizon = 1;
-	GarchModel garchModel = RInterface::computeGarchModel(this->uncle, date, period);
-	// Number of sceniarios for the boostrap
-	int scenarios = 500;
+	int scenarios = 500; // Number of sceniarios for the boostrap
+	int nbInitIterations = 20;
 
-	VaRGarch varGarch(this->uncle, risk, timeHorizon, garchModel, scenarios, false, 0);
+	// Garch model parameters
+	QPair<QDate, QDate> period;
+	period.first = this->uncle.retrieveStartDate();
+	period.second = this->uncle.retrieveEndDate();
+
+	// Garch model computation
+	GarchModel garchModel = RInterface::computeGarchModel(this->uncle, period);
 
 	// VaR value varies from one execution to another
 	// It should be around the 0.95-order quantile which is 1.644
-	double var = varGarch.execute(date);
+	VaRGarch varGarch(this->uncle, risk, timeHorizon, garchModel, scenarios, nbInitIterations);
+	double var = varGarch.execute(QDate(2014, 1, 1));
 	// In any case VaR should not be negative
 	QVERIFY(var >= 0);
 	qDebug() << var;

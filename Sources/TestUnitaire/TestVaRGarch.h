@@ -15,7 +15,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
 #pragma once
 
 #include <QtTest>
@@ -33,7 +32,7 @@ public:
 	TestVaRGarch();
 
 private Q_SLOTS:
-	void testExecuteNoInit();
-	void testExecuteWithInit();
+	void testExecute();
+	void testExecuteThreeDaysHorizon();
 	void testExecuteNormalReturns();
 };
