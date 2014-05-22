@@ -57,7 +57,6 @@ void TestRInterface::testComputeGarchModel() {
 	QCOMPARE(model.getResiduals().at(6), -1.252346813);
 	QCOMPARE(model.getResiduals().at(7), -0.543204489);
 	QCOMPARE(model.getResiduals().at(8), 0.277749688);
-	QCOMPARE(model.getStddev(), 0.01639555);
 }
 
 /**

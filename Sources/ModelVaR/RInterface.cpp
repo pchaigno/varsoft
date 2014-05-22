@@ -184,10 +184,5 @@ GarchModel RInterface::computeGarchModel(const Portfolio& portfolio, const QPair
 		}
 	}
 
-	// Standard deviation
-	// Retrieves the standard deviation values from rscript output
-	QStringList stddevList = lines.value(line).split(QRegExp("\\s"), QString::SkipEmptyParts);
-	double stddev = stddevList.value(1).toDouble();
-
-	return GarchModel(omega, alpha, beta, residuals, stddev);
+	return GarchModel(omega, alpha, beta, residuals);
 }

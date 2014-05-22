@@ -18,36 +18,42 @@
 #include "GarchModel.h"
 
 /**
- * @brief Constructor
+ * @brief Constructor of GarchModel
  * @param _omega The omega coefficient
  * @param _alpha The alpha coefficient
  * @param _beta The beta coefficient
+ * @param _residuals The residuals
  */
-GarchModel::GarchModel(double _omega, double _alpha, double _beta, QVector<double> _residuals, double _stddev): omega(_omega), alpha(_alpha), beta(_beta), residuals(_residuals), stddev(_stddev) {}
+GarchModel::GarchModel(double _omega, double _alpha, double _beta, QVector<double> _residuals): omega(_omega), alpha(_alpha), beta(_beta), residuals(_residuals) {}
 
 /**
  * @brief Accessor to the omega coefficient
- * @return The omega coeffcient of the garch model
+ * @return The omega coefficient of the Garch model
  */
-double GarchModel::getOmega() const {return this->omega;}
+double GarchModel::getOmega() const {
+	return this->omega;
+}
 
 /**
  * @brief Accessor to the alpha coefficient
- * @return The alpha coeffcient of the garch model
+ * @return The alpha coefficient of the Garch model
  */
-double GarchModel::getAlpha() const {return this->alpha;}
+double GarchModel::getAlpha() const {
+	return this->alpha;
+}
 
 /**
  * @brief Accessor to the beta coefficient
- * @return The beta coeffcient of the garch model
+ * @return The beta coefficient of the Garch model
  */
-double GarchModel::getBeta() const {return this->beta;}
-
-QVector<double> GarchModel::getResiduals() const {
-	return residuals;
+double GarchModel::getBeta() const {
+	return this->beta;
 }
 
-double GarchModel::getStddev() const {
-	return stddev;
-
+/**
+ * @brief Accessor to the residuals
+ * @return The residuals of the Garch model
+ */
+QVector<double> GarchModel::getResiduals() const {
+	return this->residuals;
 }

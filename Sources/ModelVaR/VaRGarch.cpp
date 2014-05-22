@@ -27,7 +27,7 @@
  * @param nbInitIterations number of iterations to perform to initialize the first standard deviation value
  */
 VaRGarch::VaRGarch(const Portfolio& portfolio, double risk, int timeHorizon, const GarchModel& garchModel, int nbScenarios, int nbInitIterations):
-	VaRAlgorithm(portfolio, risk, timeHorizon), garchModel(garchModel), nbScenarios(nbScenarios), initStddev(initStddev), nbInitIterations(nbInitIterations) {
+	VaRAlgorithm(portfolio, risk, timeHorizon), garchModel(garchModel), nbScenarios(nbScenarios), nbInitIterations(nbInitIterations) {
 
 	if(nbScenarios < 1) {
 		throw std::invalid_argument("There must be at least one scenario for the VaR computation");

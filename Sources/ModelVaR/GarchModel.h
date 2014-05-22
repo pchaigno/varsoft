@@ -26,13 +26,11 @@ private:
 	double alpha;
 	double beta;
 	QVector<double> residuals;
-	double stddev;
 
 public:
-	GarchModel(double _omega, double _alpha, double _beta, QVector<double> residuals, double stddev);
+	GarchModel(double _omega, double _alpha, double _beta, QVector<double> residuals);
 	double getOmega() const;
 	double getAlpha() const;
 	double getBeta() const;
 	QVector<double> getResiduals() const;
-	double getStddev() const;
 };
