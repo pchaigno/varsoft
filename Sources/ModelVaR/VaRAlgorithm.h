@@ -34,4 +34,5 @@ public:
 	const Portfolio& getPortfolio() const;
 	double getRisk() const;
 	int getTimeHorizon() const;
+	QDate checkDate(QDate date) const;
 };

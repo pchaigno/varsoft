@@ -181,7 +181,7 @@ Cela a uniquement pour conséquence de compliquer le débogage lorsque des tests
 \section{Tests unitaires}
 
 De part notre méthode de travail décrite ci-dessus, nous avons toujours conservé un taux de couverture du code très satisfaisant.
-Celui-ci s'est maintenu à environ 80\% tout au long du projet, en prennant en compte les tests fonctionnels décrit ci-dessus.
+Celui-ci s'est maintenu à environ 80\% tout au long du projet, en prenant en compte les tests fonctionnels décrit ci-dessus.
 
 
 \section{Tests manuels}
@@ -197,10 +197,9 @@ Nous les avons ensuite appliqués à toutes les branches susceptibles de faire r
 
 \subsection{Estimation du modèle GARCH}
 
-Nous avions décrit dans le rapport de conception un moyen de tester les résultats de notre modélisation GARCH.
+Nous avions décrit dans le rapport de conception un moyen de tester les résultats de notre modélisation GARCH. Notre encadrant nous a finalement proposé un test différent ayant le même objectif.
 Ce test sera effectué manuellement et est actuellement en cours de développement.
-Il nécessite notamment de générer un ensemble de données à partir d'un modèle GARCH théorique à l'aide de R.
-
+Il nécessite notamment de générer un ensemble de valeurs suivant une loi normale. La Value-at-Risk calculée à partir de telles données doit alors correspondre approximativement au quantile de l'ordre correspondant au risque.
 
 \subsection{Calcul de la Value-at-Risk à partir d'un modèle GARCH}
 
@@ -216,7 +215,7 @@ Nous effectuerons donc ce test dès que la branche aura été vérifiée et fusi
 Nous avons eu quelques changements à effectuer dans les spécifications sous la contrainte du temps.
 En effet, nous avions légèrement surestimé le temps que nous pouvions consacrer au projet \footnote{Ou sous-estimé les contraintes des autres cours et projets suivant le point de vue.}.
 
-Cependant ces modifications restent très raisonnables et la plupart des changements sont liés à l'avancement du projet : en entrant plus dans les détails d'implémentation nous avons découvert des problèmes. Nous les avons résolus soit par de plus amples discussions avec le client \footnote{Dans notre cas notre encadrant.} et/ou par des changements techniques \footnote{Notamment les changements des deux librairies libopc et RInside.}.
+Cependant ces modifications restent très raisonnables et la plupart des changements sont liés à l'avancement du projet : en entrant plus dans les détails d'implémentation nous avons découvert des problèmes. Nous les avons résolus soit par de plus amples discussions avec le client \footnote{Dans notre cas notre encadrant.} ou par des changements techniques \footnote{Notamment les changements des deux librairies libopc et RInside.}.
 
 Notre méthode travail par intégration continue nous a permis de remplir les objectifs en matière de qualité logicielle.
 Le choix de cette méthode était justifiée par la grande importance, pour notre client, d'avoir un logiciel fonctionnel et correctement testé.

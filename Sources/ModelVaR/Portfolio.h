@@ -31,6 +31,7 @@
 #include "PortfolioCalculationException.h"
 #include <string>
 #include <sstream>
+#include <QtCore/qmath.h>
 
 class MODELVARSHARED_EXPORT Portfolio {
 private:
