@@ -26,13 +26,21 @@
 Backtesting::Backtesting(const Portfolio& portfolio, const VaRAlgorithm& varAlgo, const QPair<QDate, QDate> &backtestperiod):
 	portfolio(portfolio), varAlgo(varAlgo), backtestperiod(backtestperiod) {
 
+	if(backtestperiod.first <= portfolio.retrieveStartDate()) {
+		throw std::invalid_argument("The backtesting cannot performed before the portfolio start date or at the start date itself.");
+	}
+
+	if(backtestperiod.second > portfolio.retrieveEndDate().addDays(-varAlgo.getTimeHorizon()+1)) {
+		throw std::invalid_argument("The backtesting cannot performed after the portfolio end date. This may be because of a too large time horizon regarding the period end date.");
+	}
+
 }
 
 /**
- * @brief Computes the backtesting ie computes the Value-at-Risk every week day
- * of the backtesting period. Counts the number of times, the actual return is worse
+ * @brief Computes the backtesting i.e. computes the Value-at-Risk every week day
+ * of the backtesting period. Counts the number of times the actual return is worse
  * than the Value-at-Risk
- * @return The number of day for which the VaR is above what it should be.
+ * @return The number of day for which the loss is greater than the VaR
  */
 int Backtesting::compute() const {
 	int nbDaysLossGreaterThanVaR = 0;

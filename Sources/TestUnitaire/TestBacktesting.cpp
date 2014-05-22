@@ -18,7 +18,7 @@
 #include "TestBacktesting.h"
 
 /**
- * @brief TestBacktesting::TestBacktesting
+ * @brief Builds a portfolio made of the single CAC40 index asset
  */
 TestBacktesting::TestBacktesting() {
 	QString assetFolder = "../../CSV_examples/";
@@ -35,7 +35,10 @@ TestBacktesting::TestBacktesting() {
 	this->portfolio = Portfolio("daxPortfolio", assets, reports);
 }
 
-void TestBacktesting::testCompute() {
+/**
+ * @brief Performs a backtesting using the historical method
+ */
+void TestBacktesting::testBacktestingHistorical() {
 	double risk = 0.01;
 	int timeHorizon = 1;
 	int returnsPeriod = 50;
@@ -47,15 +50,77 @@ void TestBacktesting::testCompute() {
 	QCOMPARE(backtest.compute(), 4);
 }
 
+/**
+ * @brief Performs a backtesting using the RiskMetrics method
+ */
 void TestBacktesting::testBacktestingRiskmetrics() {
 	double risk = 0.05;
 	int timeHorizon = 1;
 	int initPeriod = 30;
 	VaRRiskmetrics varAlgo(this->portfolio, risk, timeHorizon, initPeriod);
 	QPair<QDate, QDate> interval;
-	interval.first = QDate(2013, 1, 2);
-	interval.second = QDate(2013, 12, 31);
+	interval.first = QDate(2014, 1, 1);
+	interval.second = QDate(2014, 5, 19);
 	Backtesting backtest(this->portfolio, varAlgo, interval);
-//	QCOMPARE(backtest.compute(), 4);
-	qDebug() << backtest.compute();
+	QCOMPARE(backtest.compute(), 6);
+}
+
+/**
+ * @brief Tests that the incorrect start date of the interval prevents
+ * the backtesting from being executed
+ */
+void TestBacktesting::testBacktestingIncorrect1() {
+	double risk = 0.05;
+	int timeHorizon = 1;
+	int initPeriod = 30;
+	VaRRiskmetrics varAlgo(this->portfolio, risk, timeHorizon, initPeriod);
+	QPair<QDate, QDate> interval;
+	interval.first = QDate(1990, 3, 2);
+	interval.second = QDate(2013, 12, 31);
+	try {
+		Backtesting backtest(this->portfolio, varAlgo, interval);
+		QFAIL("The backtesting succeeded despite a wrong dates interval.");
+	} catch(std::invalid_argument& e) {
+		qDebug() << e.what();
+	}
+}
+
+/**
+ * @brief Tests that the incorrect end date of the interval prevents
+ * the backtesting from being executed
+ */
+void TestBacktesting::testBacktestingIncorrect2() {
+	double risk = 0.05;
+	int timeHorizon = 1;
+	int initPeriod = 30;
+	VaRRiskmetrics varAlgo(this->portfolio, risk, timeHorizon, initPeriod);
+	QPair<QDate, QDate> interval;
+	interval.first = QDate(2013, 1, 1);
+	interval.second = QDate(2014, 5, 20);
+	try {
+		Backtesting backtest(this->portfolio, varAlgo, interval);
+		QFAIL("The backtesting succeeded despite a wrong dates interval.");
+	} catch(std::invalid_argument& e) {
+		qDebug() << e.what();
+	}
+}
+
+/**
+ * @brief Tests that incompatible time horizon and end date of the interval prevents
+ * the backtesting from being executed
+ */
+void TestBacktesting::testBacktestingIncorrect3() {
+	double risk = 0.05;
+	int timeHorizon = 2;
+	int initPeriod = 30;
+	VaRRiskmetrics varAlgo(this->portfolio, risk, timeHorizon, initPeriod);
+	QPair<QDate, QDate> interval;
+	interval.first = QDate(2013, 1, 1);
+	interval.second = QDate(2014, 5, 19);
+	try {
+		Backtesting backtest(this->portfolio, varAlgo, interval);
+		QFAIL("The backtesting succeeded despite a wrong dates interval.");
+	} catch(std::invalid_argument& e) {
+		qDebug() << e.what();
+	}
 }

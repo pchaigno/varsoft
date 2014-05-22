@@ -33,6 +33,9 @@ public:
 	TestBacktesting();
 
 private Q_SLOTS:
-	void testCompute();
+	void testBacktestingHistorical();
 	void testBacktestingRiskmetrics();
+	void testBacktestingIncorrect1();
+	void testBacktestingIncorrect2();
+	void testBacktestingIncorrect3();
 };
