@@ -60,3 +60,39 @@ double VaRAlgorithm::getRisk() const {
 int VaRAlgorithm::getTimeHorizon() const {
 	return this->timeHorizon;
 }
+
+/**
+ * @brief Checks the date is valied to perform the Value-at-Risk computation. Returns the
+ * date to use with retrievers to perform actual computation
+ * @param date The date at which the Value-at-Risk is computed
+ * @return The date the retrievers must use to perform the given Value-at-Risk computation
+ */
+QDate VaRAlgorithm::checkDate(QDate date) const {
+	// Makes it impossible to compute VaR on weekends
+	if(date.dayOfWeek() >= 6) {
+		throw std::invalid_argument("Value-at-Risk cannot be computed on weekends.");
+	}
+
+	// Finds out the date to be used with retrievesReturns and checks it is compatible with the
+	// portfolio endate
+	QDate lastDate;
+	// VaR computation on Tuesdays to fridays
+	if(date.dayOfWeek() >= 2) {
+		if(this->getPortfolio().retrieveEndDate().daysTo(date) > 1) {
+			throw std::invalid_argument("The Value-at-Risk cannot be computed at an undefined future date.");
+		}
+		lastDate = date.addDays(-1);
+	} else { // date.dayOfWeek() == 1 // VaR computation on monday
+		if(getPortfolio().retrieveEndDate().daysTo(date) > 3) { // Period over the weekend
+			throw std::invalid_argument("The Value-at-Risk cannot be computed at an undefined future date.");
+		}
+		lastDate = date.addDays(-3);
+	}
+
+	// Makes sure the last date is compatible with the portfolio start date
+	if(lastDate <= getPortfolio().retrieveStartDate()) {
+		throw std::invalid_argument("The Value-at-Risk cannot be computed at such an early date such as there are no returns.");
+	}
+
+	return lastDate;
+}
