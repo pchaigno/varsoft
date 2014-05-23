@@ -75,6 +75,17 @@ TestPortfolio::TestPortfolio() {
 	assets3.insert(asset6, 10);
 	QList<Report*> reports3;
 	this->weekends = Portfolio("weekends", assets3, reports3);
+
+	// CORRELATION TEST PORTFOLIO
+	Asset* dax = new Asset("DAX", assetFolder+"dax.csv", "YAHOO", QDate(2014, 01, 2), QDate(2014, 03, 11));
+	Asset* sp500 = new Asset("SP500", assetFolder+"sp500.csv", "YAHOO", QDate(2000, 01, 4), QDate(2014, 05, 22));
+	Asset* gold = new Asset("Gold", assetFolder+"gold.csv", "YAHOO", QDate(2004, 11, 19), QDate(2014, 05, 22));
+	QMap<Asset*, int> assets4;
+	assets4.insert(dax, 1);
+	assets4.insert(sp500, 1);
+	assets4.insert(gold, 1);
+	QList<Report*> reports4;
+	this->correlation = Portfolio("correlations", assets4, reports4);
 }
 
 /**
@@ -223,4 +234,33 @@ void TestPortfolio::testRetrieveNbReturnsSome() {
 	QCOMPARE(result.at(1), 0.0);
 	QCOMPARE(result.at(2), 4.0);
 	QCOMPARE(result.at(3), 1.0);
+}
+
+/**
+ * @brief Tests the computation of the correlation matrix of a portfolio
+ */
+void TestPortfolio::testComputeCorrelatioMatrix() {
+	QVector<QVector<double> > correlationMatrix = this->correlation.computeCorrelationMatrix(QDate(2014, 1, 3), QDate(2014, 3, 1));
+	QCOMPARE(correlationMatrix[0][0], 1.0);
+	QCOMPARE(correlationMatrix[0][1], 0.8940312992194);
+	QCOMPARE(correlationMatrix[0][2], 0.3012977766994);
+	QCOMPARE(correlationMatrix[1][0], 0.8940312992194);
+	QCOMPARE(correlationMatrix[1][1], 1.0);
+	QCOMPARE(correlationMatrix[1][2], 0.3911263755366);
+	QCOMPARE(correlationMatrix[2][0], 0.3012977766994);
+	QCOMPARE(correlationMatrix[2][1], 0.3911263755366);
+	QCOMPARE(correlationMatrix[2][2], 1.0);
+}
+
+/**
+ * @brief Tests that incorrect date parameter prevents the function from
+ * computing the correlation matrix
+ */
+void TestPortfolio::testComputeCorrelatioMatrixIncorrect() {
+	try {
+		this->correlation.computeCorrelationMatrix(QDate(2014, 1, 3), QDate(2014, 3, 12));
+		QFAIL("computeCorrelatioMatrix computed the matrix correlation despite a wrong parameter");
+	} catch(std::invalid_argument& e) {
+		qDebug() << e.what();
+	}
 }

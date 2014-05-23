@@ -34,6 +34,7 @@ private:
 	Portfolio son;
 	Portfolio uncle;
 	Portfolio weekends;
+	Portfolio correlation;
 
 public:
 	TestPortfolio();
@@ -52,4 +53,6 @@ private Q_SLOTS:
 	void testRetrieveNbReturnsNotEnough();
 	void testRetrieveNbReturnsAll();
 	void testRetrieveNbReturnsSome();
+	void testComputeCorrelatioMatrix();
+	void testComputeCorrelatioMatrixIncorrect();
 };
