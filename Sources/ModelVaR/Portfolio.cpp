@@ -373,8 +373,7 @@ QVector<double> Portfolio::retrieveReturns(const QDate& endPeriod, int nbValues)
 	return this->retrieveReturns(startPeriod, endPeriod);
 }
 
-/**
- * @brief Retrieves the log-returns of the portfolio between the specified dates.
+/** @brief Retrieves the log-returns of the portfolio between the specified dates.
  * Calls the retrieveValues method and computes the log-return.
  * Reads the asset file for each call.
  * @param startPeriod Starts retrieving values from this date.
@@ -431,6 +430,39 @@ QVector<double> Portfolio::retrieveLogReturns(const QDate& endPeriod, int nbValu
 	}
 
 	return this->retrieveLogReturns(startPeriod, endPeriod);
+}
+
+/**
+ * @brief Retrieves the return corresponding at the date and the horizon specified
+ * @param date The date of start
+ * @param horizon The horizon associated to the return
+ * @return The return from the date and considering the horizon
+ */
+double Portfolio::retrieveReturnHorizon(const QDate& date, int horizon) const {
+	// Finds out the start date
+	QDate startDate = QDate(date);
+	if(date.dayOfWeek()>=2) { // The previous day for Tuesday to Friday
+		startDate = startDate.addDays(-1);
+	} else if(date.dayOfWeek() == 1) { // The previous Friday for Monday
+		startDate = startDate.addDays(-3);
+	}
+	if(startDate < this->retrieveStartDate()) {
+		throw std::invalid_argument("There are not enough historical values to compute the return at the specified date");
+	}
+
+	// Finds out the end date corresponding to the horizon
+	QDate endDate = QDate(date);
+	for(int h=0; h < horizon-1;) {
+		endDate = endDate.addDays(1);
+		if(endDate.dayOfWeek() <= 5) {
+			h++;
+		}
+	}
+	if(endDate > this->retrieveEndDate()) {
+		throw std::invalid_argument("There are not enough historical values to compute the return given the specified date and the horizon");
+	}
+
+	return this->retrieveValues(endDate, endDate).first() - this->retrieveValues(startDate, startDate).first();
 }
 
 /**

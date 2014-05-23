@@ -53,6 +53,11 @@ TestPortfolio::TestPortfolio() {
 	QDate endDate6 = QDate(2014, 01, 26);
 	Asset* asset6 = new Asset("asset6", assetFolder+"asset6.txt", "ProjectVaR", startDate6, endDate6);
 
+	// SEVENTH ASSET DEFINITION
+	QDate startDate7 = QDate(2014, 01, 2);
+	QDate endDate7 = QDate(2014, 03, 11);
+	Asset* asset7 = new Asset("asset7", assetFolder+"dax.csv", "YAHOO", startDate7, endDate7);
+
 	// TEST PORTFOLIO DEFINITION
 	QMap<Asset*, int> assets;
 	assets.insert(asset1, 1);
@@ -75,6 +80,12 @@ TestPortfolio::TestPortfolio() {
 	assets3.insert(asset6, 10);
 	QList<Report*> reports3;
 	this->weekends = Portfolio("weekends", assets3, reports3);
+
+	// FOURTH PORTFOLIO DEFINITION
+	QMap<Asset*, int> assets4;
+	assets4.insert(asset7, 1);
+	QList<Report*> reports4;
+	this->auntie = Portfolio("dax", assets4, reports4);
 }
 
 /**
@@ -243,4 +254,36 @@ void TestPortfolio::testRetrieveNbLogReturnsAll() {
 	QCOMPARE(result.at(7), 0.0);
 	QCOMPARE(result.at(8), 0.008032171697264);
 	QCOMPARE(result.at(9), 0.001998002662673);
+}
+
+/**
+* @brief Tests the testRetrieveReturnHorizon in normal cases
+*/
+void TestPortfolio::testRetrieveReturnHorizon() {
+   QCOMPARE(this->auntie.retrieveReturnHorizon(QDate(2014, 3, 11), 1), 42.29);
+   QCOMPARE(this->auntie.retrieveReturnHorizon(QDate(2014, 3, 10), 1), -85.25);
+   QCOMPARE(this->auntie.retrieveReturnHorizon(QDate(2014, 3, 7), 2), -277.37);
+   QCOMPARE(this->auntie.retrieveReturnHorizon(QDate(2014, 2, 28), 2), -229.44);
+   QCOMPARE(this->auntie.retrieveReturnHorizon(QDate(2014, 1, 3), 1), 35.11);
+   QCOMPARE(this->auntie.retrieveReturnHorizon(QDate(2014, 2, 11), 5), 366.9);
+}
+
+/**
+ * @brief Tests the testRetrieveReturnHorizon behaviour with wrong parameters combinaisons
+ */
+void TestPortfolio::testRetrieveReturnHorizonIncorrect() {
+	try {
+		this->auntie.retrieveReturnHorizon(QDate(2014, 1, 2), 1);
+		QFAIL("retrieveReturnHorizon was able to retrieve a return with wrong parameter");
+	} catch(std::exception& e) {}
+
+	try {
+		this->auntie.retrieveReturnHorizon(QDate(2014, 3, 11), 2);
+		QFAIL("retrieveReturnHorizon was able to retrieve a return with wrong parameters combinaison");
+	} catch(std::exception& e) {}
+
+	try {
+		this->auntie.retrieveReturnHorizon(QDate(2014, 3, 7), 4);
+		QFAIL("retrieveReturnHorizon was able to retrieve a return with wrong parameters combinaison");
+	} catch(std::exception& e) {}
 }
