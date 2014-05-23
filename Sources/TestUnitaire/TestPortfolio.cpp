@@ -260,12 +260,12 @@ void TestPortfolio::testRetrieveNbLogReturnsAll() {
 * @brief Tests the testRetrieveReturnHorizon in normal cases
 */
 void TestPortfolio::testRetrieveReturnHorizon() {
-   QCOMPARE(this->auntie.retrieveReturnHorizon(QDate(2014, 3, 11), 1), 42.29);
-   QCOMPARE(this->auntie.retrieveReturnHorizon(QDate(2014, 3, 10), 1), -85.25);
-   QCOMPARE(this->auntie.retrieveReturnHorizon(QDate(2014, 3, 7), 2), -277.37);
-   QCOMPARE(this->auntie.retrieveReturnHorizon(QDate(2014, 2, 28), 2), -229.44);
-   QCOMPARE(this->auntie.retrieveReturnHorizon(QDate(2014, 1, 3), 1), 35.11);
-   QCOMPARE(this->auntie.retrieveReturnHorizon(QDate(2014, 2, 11), 5), 366.9);
+	QCOMPARE(this->auntie.retrieveReturnHorizon(QDate(2014, 3, 11), 1), 42.29);
+	QCOMPARE(this->auntie.retrieveReturnHorizon(QDate(2014, 3, 10), 1), -85.25);
+	QCOMPARE(this->auntie.retrieveReturnHorizon(QDate(2014, 3, 7), 2), -277.37);
+	QCOMPARE(this->auntie.retrieveReturnHorizon(QDate(2014, 2, 28), 2), -229.44);
+	QCOMPARE(this->auntie.retrieveReturnHorizon(QDate(2014, 1, 3), 1), 35.11);
+	QCOMPARE(this->auntie.retrieveReturnHorizon(QDate(2014, 2, 11), 5), 366.9);
 }
 
 /**
