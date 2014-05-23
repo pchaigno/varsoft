@@ -240,15 +240,20 @@ void TestPortfolio::testRetrieveNbReturnsSome() {
  * @brief Tests the computation of the correlation matrix of a portfolio
  */
 void TestPortfolio::testComputeCorrelatioMatrix() {
-	QVector<QVector<double> > correlationMatrix = this->correlation.computeCorrelationMatrix(QDate(2014, 1, 3), QDate(2014, 3, 1));
+	QDate startDate(2014, 1, 3);
+	QDate endDate(2014, 3, 1);
+	QVector<QVector<double> > correlationMatrix = this->correlation.computeCorrelationMatrix(startDate, endDate);
+	QVector<double> values0 = this->correlation.getAssets().at(0)->retrieveValues(startDate, endDate);
+	QVector<double> values1 = this->correlation.getAssets().at(1)->retrieveValues(startDate, endDate);
+	QVector<double> values2 = this->correlation.getAssets().at(2)->retrieveValues(startDate, endDate);
 	QCOMPARE(correlationMatrix[0][0], 1.0);
-	QCOMPARE(correlationMatrix[0][1], 0.8940312992194);
-	QCOMPARE(correlationMatrix[0][2], 0.3012977766994);
-	QCOMPARE(correlationMatrix[1][0], 0.8940312992194);
+	QCOMPARE(correlationMatrix[0][1], MathFunctions::correlation(values0, values1));
+	QCOMPARE(correlationMatrix[0][2], MathFunctions::correlation(values0, values2));
+	QCOMPARE(correlationMatrix[1][0], MathFunctions::correlation(values1, values0));
 	QCOMPARE(correlationMatrix[1][1], 1.0);
-	QCOMPARE(correlationMatrix[1][2], 0.3911263755366);
-	QCOMPARE(correlationMatrix[2][0], 0.3012977766994);
-	QCOMPARE(correlationMatrix[2][1], 0.3911263755366);
+	QCOMPARE(correlationMatrix[1][2], MathFunctions::correlation(values1, values2));
+	QCOMPARE(correlationMatrix[2][0], MathFunctions::correlation(values2, values0));
+	QCOMPARE(correlationMatrix[2][1], MathFunctions::correlation(values2, values1));
 	QCOMPARE(correlationMatrix[2][2], 1.0);
 }
 
