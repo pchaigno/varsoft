@@ -30,6 +30,7 @@
 #include <string>
 #include <sstream>
 #include <QtCore/qmath.h>
+#include <QGenericMatrix>
 
 class MODELVARSHARED_EXPORT Portfolio {
 private:
@@ -71,6 +72,7 @@ public:
 	QVector<double> retrieveReturns(const QDate& endPeriod, int nbValues) const;
 	QVector<double> retrieveLogReturns(const QDate& startPeriod, const QDate& endPeriod) const;
 	QVector<double> retrieveLogReturns(const QDate& endPeriod, int nbValues) const;
+	QGenericMatrix<5, 5, double> calculateCorrelation(const QDate& startDate, const QDate& endDate) const;
 
 	bool operator==(const Portfolio& portfolio) const;
 };

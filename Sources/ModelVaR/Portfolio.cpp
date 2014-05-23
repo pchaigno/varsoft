@@ -433,6 +433,12 @@ QVector<double> Portfolio::retrieveLogReturns(const QDate& endPeriod, int nbValu
 	return this->retrieveLogReturns(startPeriod, endPeriod);
 }
 
+QGenericMatrix<5, 5, double> Portfolio::calculateCorrelation(const QDate& startDate, const QDate& endDate) const {
+	QGenericMatrix<5, 5, double> ah;
+
+	return ah;
+}
+
 /**
  * @brief Checks if two portfolios are equal.
  * @param a The first portfolio.
