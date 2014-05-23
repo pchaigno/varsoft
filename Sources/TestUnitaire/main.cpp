@@ -25,6 +25,7 @@
 #include "TestPortfolioItemModel.h"
 #include "TestMathFunctions.h"
 #include "TestRInterface.h"
+#include "TestBacktesting.h"
 
 int main() {
 	int result = 0;
@@ -48,5 +49,7 @@ int main() {
 	result += QTest::qExec(&portfolioModel);
 	TestRInterface rInterface;
 	result += QTest::qExec(&rInterface);
+	TestBacktesting backtesting;
+	result += QTest::qExec(&backtesting);
 	return result;
 }
