@@ -22,6 +22,7 @@ SOURCES += \
 	TestSQLiteManagers.cpp \
 	TestPortfolioItemModel.cpp \
 	TestVaRHistorical.cpp \
+	TestBacktesting.cpp \
 	TestVaRRiskmetrics.cpp \
 	TestMathFunctions.cpp \
 	TestRInterface.cpp
@@ -34,6 +35,7 @@ HEADERS += \
 	TestSQLiteManagers.h \
 	TestPortfolioItemModel.h \
 	TestVaRHistorical.h \
+	TestBacktesting.h \
 	TestVaRRiskmetrics.h \
 	TestMathFunctions.h \
 	TestRInterface.h

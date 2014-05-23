@@ -71,6 +71,7 @@ public:
 	QVector<double> retrieveReturns() const;
 	QVector<double> retrieveReturns(const QDate& startPeriod, const QDate& endPeriod) const;
 	QVector<double> retrieveReturns(const QDate& endPeriod, int nbValues) const;
+	double retrieveReturnHorizon(const QDate& date, int horizon) const;
 	QVector<double> retrieveLogReturns(const QDate& startPeriod, const QDate& endPeriod) const;
 	QVector<double> retrieveLogReturns(const QDate& endPeriod, int nbValues) const;
 	QVector<QVector<double> > computeCorrelationMatrix(const QDate& startDate, const QDate& endDate) const;

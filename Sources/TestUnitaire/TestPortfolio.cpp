@@ -53,6 +53,11 @@ TestPortfolio::TestPortfolio() {
 	QDate endDate6 = QDate(2014, 01, 26);
 	Asset* asset6 = new Asset("asset6", assetFolder+"asset6.txt", "ProjectVaR", startDate6, endDate6);
 
+	// SEVENTH ASSET DEFINITION
+	QDate startDate7 = QDate(2014, 01, 2);
+	QDate endDate7 = QDate(2014, 03, 11);
+	Asset* asset7 = new Asset("asset7", assetFolder+"dax.csv", "YAHOO", startDate7, endDate7);
+
 	// TEST PORTFOLIO DEFINITION
 	QMap<Asset*, int> assets;
 	assets.insert(asset1, 1);
@@ -76,16 +81,22 @@ TestPortfolio::TestPortfolio() {
 	QList<Report*> reports3;
 	this->weekends = Portfolio("weekends", assets3, reports3);
 
+	// FOURTH PORTFOLIO DEFINITION
+	QMap<Asset*, int> assets4;
+	assets4.insert(asset7, 1);
+	QList<Report*> reports4;
+	this->auntie = Portfolio("dax", assets4, reports4);
+
 	// CORRELATION TEST PORTFOLIO
 	Asset* dax = new Asset("DAX", assetFolder+"dax.csv", "YAHOO", QDate(2014, 01, 2), QDate(2014, 03, 11));
 	Asset* sp500 = new Asset("SP500", assetFolder+"sp500.csv", "YAHOO", QDate(2000, 01, 4), QDate(2014, 05, 22));
 	Asset* gold = new Asset("Gold", assetFolder+"gold.csv", "YAHOO", QDate(2004, 11, 19), QDate(2014, 05, 22));
-	QMap<Asset*, int> assets4;
-	assets4.insert(dax, 1);
-	assets4.insert(sp500, 1);
-	assets4.insert(gold, 1);
-	QList<Report*> reports4;
-	this->correlation = Portfolio("correlations", assets4, reports4);
+	QMap<Asset*, int> assets5;
+	assets5.insert(dax, 1);
+	assets5.insert(sp500, 1);
+	assets5.insert(gold, 1);
+	QList<Report*> reports5;
+	this->correlation = Portfolio("correlations", assets5, reports5);
 }
 
 /**
@@ -234,6 +245,38 @@ void TestPortfolio::testRetrieveNbReturnsSome() {
 	QCOMPARE(result.at(1), 0.0);
 	QCOMPARE(result.at(2), 4.0);
 	QCOMPARE(result.at(3), 1.0);
+}
+
+/**
+ * @brief Tests the testRetrieveReturnHorizon in normal cases
+ */
+void TestPortfolio::testRetrieveReturnHorizon() {
+	QCOMPARE(this->auntie.retrieveReturnHorizon(QDate(2014, 3, 11), 1), 42.29);
+	QCOMPARE(this->auntie.retrieveReturnHorizon(QDate(2014, 3, 10), 1), -85.25);
+	QCOMPARE(this->auntie.retrieveReturnHorizon(QDate(2014, 3, 7), 2), -277.37);
+	QCOMPARE(this->auntie.retrieveReturnHorizon(QDate(2014, 2, 28), 2), -229.44);
+	QCOMPARE(this->auntie.retrieveReturnHorizon(QDate(2014, 1, 3), 1), 35.11);
+	QCOMPARE(this->auntie.retrieveReturnHorizon(QDate(2014, 2, 11), 5), 366.9);
+}
+
+/**
+ * @brief Tests the testRetrieveReturnHorizon behaviour with wrong parameters combinaisons
+ */
+void TestPortfolio::testRetrieveReturnHorizonIncorrect() {
+	try {
+		this->auntie.retrieveReturnHorizon(QDate(2014, 1, 2), 1);
+		QFAIL("retrieveReturnHorizon was able to retrieve a return with wrong parameter");
+	} catch(std::exception& e) {}
+
+	try {
+		this->auntie.retrieveReturnHorizon(QDate(2014, 3, 11), 2);
+		QFAIL("retrieveReturnHorizon was able to retrieve a return with wrong parameters combinaison");
+	} catch(std::exception& e) {}
+
+	try {
+		this->auntie.retrieveReturnHorizon(QDate(2014, 3, 7), 4);
+		QFAIL("retrieveReturnHorizon was able to retrieve a return with wrong parameters combinaison");
+	} catch(std::exception& e) {}
 }
 
 /**

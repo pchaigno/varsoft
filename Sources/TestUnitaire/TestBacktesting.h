@@ -17,45 +17,25 @@
  */
 #pragma once
 
-#include "Portfolio.h"
 #include <QtTest>
-#include <QDate>
-#include <QDebug>
-#include <QDir>
-#include <QString>
-#include <QVector>
-#include "Asset.h"
+#include "Portfolio.h"
+#include "Backtesting.h"
+#include "VaRHistorical.h"
+#include "VaRRiskmetrics.h"
 
-class TestPortfolio: public QObject {
+class TestBacktesting: public QObject {
 	Q_OBJECT
 
 private:
-	Portfolio father;
-	Portfolio son;
-	Portfolio uncle;
-	Portfolio auntie;
-	Portfolio weekends;
-	Portfolio correlation;
+	Portfolio portfolio;
 
 public:
-	TestPortfolio();
+	TestBacktesting();
 
 private Q_SLOTS:
-	void testId();
-	void testName();
-	void testRetrieveStartDate();
-	void testRetrieveEndDate();
-	void testRetrieveValues();
-	void testRetrieveValuesWeekends();
-	void testRetrieveValuesByDate();
-	void testRetrieveValuesByDateMissingValues();
-	void testRetrieveValuesNoParameters();
-	void testRetrieveReturns();
-	void testRetrieveNbReturnsNotEnough();
-	void testRetrieveNbReturnsAll();
-	void testRetrieveNbReturnsSome();
-	void testRetrieveReturnHorizon();
-	void testRetrieveReturnHorizonIncorrect();
-	void testComputeCorrelatioMatrix();
-	void testComputeCorrelatioMatrixIncorrect();
+	void testBacktestingHistorical();
+	void testBacktestingRiskmetrics();
+	void testBacktestingIncorrect1();
+	void testBacktestingIncorrect2();
+	void testBacktestingIncorrect3();
 };
