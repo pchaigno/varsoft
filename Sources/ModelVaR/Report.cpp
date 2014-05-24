@@ -73,7 +73,7 @@ void Report::filesGenerationFinish() {
  * @brief Builds the report from a JSON document.
  * @param json The JSON document.
  */
-Report::Report(const QJsonObject& json) {
+Report::Report(const QJsonObject& json): Savable(false) {
 	this->fromJSON(json);
 }
 

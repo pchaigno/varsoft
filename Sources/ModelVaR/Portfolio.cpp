@@ -97,7 +97,7 @@ void Portfolio::init(Portfolio* parent, int id, QString name, QMap<Asset*, int>&
  * This last param should contain the parent portfolio if one is needed.
  * Portfolios should be deserialized by id order so that for every portfolio, the parent will always be deserilized first.
  */
-Portfolio::Portfolio(const QJsonObject& json, QMap<QString, Portfolio*>& deserializedPortfolios) {
+Portfolio::Portfolio(const QJsonObject& json, QMap<QString, Portfolio*>& deserializedPortfolios): Savable(false) {
 	this->fromJSON(json, deserializedPortfolios);
 }
 
