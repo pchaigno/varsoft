@@ -26,6 +26,8 @@ public:
 	GarchReport();
 	GarchReport(QString file);
 	GarchReport(int id, QString file);
+	GarchReport(const QJsonObject& json);
+
 	virtual ReportType getType() const;
 	virtual QString getTemplateFile() const;
 };

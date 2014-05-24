@@ -21,7 +21,7 @@
  * @brief Initializes a few portfolio for the tests.
  */
 TestPortfolio::TestPortfolio() {
-	QString assetFolder = "../../CSV_examples/";
+	QString assetFolder = "../../Examples/";
 
 	// FIRST ASSET DEFINITION
 	QDate startDate1 = QDate(2014, 1, 1);
@@ -311,5 +311,78 @@ void TestPortfolio::testComputeCorrelationMatrixIncorrect() {
 		QFAIL("computeCorrelatioMatrix computed the matrix correlation despite a wrong parameter");
 	} catch(std::invalid_argument& e) {
 
+	}
+}
+
+/**
+ * @brief Compares two serialized/deserialized portfolios with the originals.
+ * The first one is the parent of the second one.
+ */
+void TestPortfolio::testSerialize() {
+	// The portfolios father and son have IDs.
+	QJsonObject jsonParent = this->father.toJSON();
+	QJsonObject jsonSon = this->son.toJSON();
+	// We need to save the assets in the database to be able to deserialize them:
+	// The two portfolios share the same assets.
+	foreach(Asset* asset, this->father.getAssets()) {
+		SessionSaver::getInstance()->saveAsset(*asset);
+	}
+
+	Portfolio serializedFather;
+	Portfolio serializedSon;
+	QMap<QString, Portfolio*> portfoliosDeserialized;
+	try {
+		serializedFather = Portfolio(jsonParent, portfoliosDeserialized);
+		serializedSon = Portfolio(jsonSon, portfoliosDeserialized);
+	} catch(NonexistentAssetException e) {
+		QFAIL(e.what());
+	}
+
+	comparePortfolios(serializedFather, this->father);
+	comparePortfolios(serializedSon, this->son);
+
+	// Deletes the database created at the beginning of the test:
+	QFile databaseFile(SessionSaver::getInstance()->getDatabaseFile());
+	databaseFile.remove();
+}
+
+/**
+ * @brief Compares a serialized/deserialized portfolio with its original.
+ * The assets, the reports and the attributes are compared.
+ * @param serializedPortfolio The serialized/deserialized portfolio.
+ * @param portfolio The original portfolio.
+ */
+void TestPortfolio::comparePortfolios(Portfolio& serializedPortfolio, Portfolio& portfolio) {
+	QCOMPARE(serializedPortfolio.getId(), -1);
+	QCOMPARE(serializedPortfolio.getName(), portfolio.getName());
+	if(portfolio.getParent() != NULL) {
+		QCOMPARE(*serializedPortfolio.getParent(), *portfolio.getParent());
+	}
+	QCOMPARE(serializedPortfolio.getParentId(), -1);
+	// Compares the reports:
+	QCOMPARE(serializedPortfolio.getReports().size(), portfolio.getReports().size());
+	foreach(const Report* serializedReport, serializedPortfolio.getReports()) {
+		bool reportFound = false;
+		foreach(const Report* report, portfolio.getReports()) {
+			if(report->getFile() == serializedReport->getFile()) {
+				QCOMPARE(serializedReport->getType(), report->getType());
+				reportFound = true;
+				break;
+			}
+		}
+		QVERIFY(reportFound);
+	}
+	// Compares the assets and the weights:
+	QCOMPARE(serializedPortfolio.getAssets().size(), portfolio.getAssets().size());
+	foreach(Asset* const serializedAsset, serializedPortfolio.getAssets()) {
+		bool assetFound = false;
+		foreach(Asset* const asset, portfolio.getAssets()) {
+			if(asset->getName() == serializedAsset->getName()) {
+				QCOMPARE(serializedPortfolio.getWeight(serializedAsset), portfolio.getWeight(asset));
+				assetFound = true;
+				break;
+			}
+		}
+		QVERIFY(assetFound);
 	}
 }

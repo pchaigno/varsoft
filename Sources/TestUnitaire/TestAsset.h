@@ -53,4 +53,5 @@ private Q_SLOTS:
 	void testRetrieveValuesByDateNonexistingFile();
 	void testRetrieveValuesByDateSpecialDates();
 	void testRetrieveValuesByDateUnavailableDates();
+	void testSerialize();
 };

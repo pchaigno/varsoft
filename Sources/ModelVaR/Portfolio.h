@@ -30,6 +30,9 @@
 #include "MathFunctions.h"
 #include <string>
 #include <sstream>
+#include "AssetsFactory.h"
+#include <QJsonArray>
+#include "NonexistentAssetException.h"
 #include <QtCore/qmath.h>
 #include <QGenericMatrix>
 
@@ -47,12 +50,14 @@ public:
 	Portfolio(QString name, QMap<Asset*, int>& composition, QList<Report*>& reports);
 	Portfolio(Portfolio* parent, int id, QString name, QMap<Asset*, int>& composition, QList<Report*>& reports);
 	Portfolio(int id, QString name, QMap<Asset*, int>& composition, QList<Report*>& reports);
-	~Portfolio();
 	void init(Portfolio* parent, int id, QString name, QMap<Asset*, int>& composition, QList<Report*>& reports);
+	Portfolio(const QJsonObject& json, QMap<QString, Portfolio*>& deserializedPortfolios);
+	~Portfolio();
 
 	QString getName() const;
 	int getId() const;
 	void setId(int id);
+	Portfolio* getParent() const;
 	int getParentId() const;
 
 	QList<Report*> getReports() const;
@@ -61,6 +66,7 @@ public:
 
 	QList<Asset*> getAssets() const;
 	QMap<Asset*, int> getComposition() const;
+	int getWeight(Asset* const asset) const;
 	void changeName(QString name);
 	QDate retrieveStartDate() const;
 	QDate retrieveEndDate() const;
@@ -77,4 +83,7 @@ public:
 	QVector<QVector<double> > computeCorrelationMatrix(const QDate& startDate, const QDate& endDate) const;
 
 	bool operator==(const Portfolio& portfolio) const;
+
+	void fromJSON(const QJsonObject &json, QMap<QString, Portfolio*>& portfoliosDeserialized);
+	QJsonObject toJSON() const;
 };

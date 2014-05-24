@@ -76,6 +76,14 @@ Asset::~Asset() {
 }
 
 /**
+ * @brief Builds the asset from a JSON document.
+ * @param json The JSON document.
+ */
+Asset::Asset(const QJsonObject& json): Savable(false) {
+	this->fromJSON(json);
+}
+
+/**
  * @brief Accessor to id.
  * @return The id of the asset in the database.
  */
@@ -282,4 +290,31 @@ QMap<QDate, double> Asset::retrieveValuesByDate(const QDate& startPeriod, const 
  */
 bool Asset::operator==(const Asset& asset) const {
 	return this->name == asset.name;
+}
+
+/**
+ * @brief Deserializes the asset from a JSON document.
+ * @param json The JSON document.
+ */
+void Asset::fromJSON(const QJsonObject &json) {
+	this->id = -1;
+	this->file = json["file"].toString();
+	this->name = json["name"].toString();
+	this->origin = json["origin"].toString();
+	this->startDate = QDate::fromJulianDay((int)json["startDate"].toDouble());
+	this->endDate = QDate::fromJulianDay((int)json["endDate"].toDouble());
+}
+
+/**
+ * @brief Serializes the asset into a JSON document.
+ * @param json The JSON document.
+ */
+QJsonObject Asset::toJSON() const {
+	QJsonObject json;
+	json["file"] = this->file;
+	json["name"] = this->name;
+	json["origin"] = this->origin;
+	json["startDate"] = (double)this->startDate.toJulianDay();
+	json["endDate"] = (double)this->endDate.toJulianDay();
+	return json;
 }

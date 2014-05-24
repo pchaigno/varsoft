@@ -19,7 +19,7 @@
 
 #include "IImport.h"
 #include "ModelVaR_global.h"
-#include "ImportException.h"
+#include "CreateAssetException.h"
 #include <QMessageBox>
 
 class MODELVARSHARED_EXPORT ImportNewData : public IImport {

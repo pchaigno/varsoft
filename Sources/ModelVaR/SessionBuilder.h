@@ -31,6 +31,7 @@
 #include "AssetsFactory.h"
 #include <QVariant>
 
+class Portfolio;
 
 class MODELVARSHARED_EXPORT SessionBuilder: public SQLiteManager {
 private:

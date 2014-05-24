@@ -18,12 +18,11 @@
 #pragma once
 
 #include <exception>
-#include <QString>
 #include "ModelVaR_global.h"
 
 class MODELVARSHARED_EXPORT ImportException: public std::exception {
 public:
-	ImportException(std::string msg) {
+	ImportException(QString msg) {
 		this->msg = msg;
 	}
 
@@ -31,10 +30,10 @@ public:
 
 	}
 
-	virtual const char * what() const throw() {
-		return this->msg.c_str();
+	virtual const char* what() const throw() {
+		return this->msg.toStdString().c_str();
 	}
 
 private:
-	std::string msg;
+	QString msg;
 };

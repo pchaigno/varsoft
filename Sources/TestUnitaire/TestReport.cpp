@@ -62,3 +62,16 @@ void TestReport::testId(Report *report) {
 	}
 	QFAIL("No exception thrown when attributed an id to a report twice.");
 }
+
+/**
+ * @brief Compares a serialized/deserialized report with the original report.
+ */
+void TestReport::testSerialize() {
+	// The report already has an ID.
+	QJsonObject json = this->statistics->toJSON();
+	StatisticsReport test(json);
+
+	QCOMPARE(test.getId(), -1);
+	QCOMPARE(test.getFile(), this->statistics->getFile());
+	QCOMPARE(test.getType(), this->statistics->getType());
+}

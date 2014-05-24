@@ -38,6 +38,14 @@ StatisticsReport::StatisticsReport(int id,  QString file): Report(id,file) {
 }
 
 /**
+ * @brief Builds the report from a JSON document.
+ * @param json The JSON document.
+ */
+StatisticsReport::StatisticsReport(const QJsonObject& json): Report(json) {
+
+}
+
+/**
  * @brief Accessor to the type of the report.
  * @return The type of the report.
  */

@@ -23,6 +23,7 @@
 #include "TestReport.h"
 #include "TestSQLiteManagers.h"
 #include "TestPortfolioItemModel.h"
+#include "TestArchiveManagers.h"
 #include "TestMathFunctions.h"
 #include "TestRInterface.h"
 #include "TestBacktesting.h"
@@ -51,6 +52,8 @@ int main() {
 	result += QTest::qExec(&newdata);
 	TestPortfolioItemModel portfolioModel;
 	result += QTest::qExec(&portfolioModel);
+	TestArchiveManagers archiveManager;
+	result += QTest::qExec(&archiveManager);
 	TestRInterface rInterface;
 	result += QTest::qExec(&rInterface);
 	TestBacktesting backtesting;
