@@ -30,11 +30,11 @@ class TestPortfolio: public QObject {
 	Q_OBJECT
 
 private:
-	Portfolio father;
-	Portfolio son;
-	Portfolio uncle;
-	Portfolio auntie;
-	Portfolio weekends;
+	Portfolio* father;
+	Portfolio* son;
+	Portfolio* uncle;
+	Portfolio* auntie;
+	Portfolio* weekends;
 
 public:
 	TestPortfolio();

@@ -15,22 +15,3 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#pragma once
-
-#include <QtTest>
-#include "VaRRiskmetrics.h"
-
-class TestVaRRiskmetrics : public QObject {
-	Q_OBJECT
-
-private:
-	Portfolio* daxPortfolio;
-
-public:
-	TestVaRRiskmetrics();
-
-private Q_SLOTS:
-	void testConstructor();
-	void testExecuteCorrect1();
-	void testExecuteCorrect2();
-};

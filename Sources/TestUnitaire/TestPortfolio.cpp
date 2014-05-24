@@ -65,40 +65,40 @@ TestPortfolio::TestPortfolio() {
 	assets.insert(asset3, 3);
 
 	QList<Report*> reports;
-	this->father = Portfolio("Father", assets, reports);
-	this->son = Portfolio(&father, "Son", assets, reports);
+	this->father =new Portfolio("Father", assets, reports);
+	this->son = new Portfolio(father, "Son", assets, reports);
 
 	// SECOND PORTFOLIO DEFINITION
 	QMap<Asset*, int> assets2;
 	assets2.insert(asset4, 1);
 	assets2.insert(asset5, 2);
 	QList<Report*> reports2;
-	this->uncle = Portfolio("uncle", assets2, reports2);
+	this->uncle = new Portfolio("uncle", assets2, reports2);
 
 	// THIRD PORTFOLIO DEFINITION
 	QMap<Asset*, int> assets3;
 	assets3.insert(asset6, 10);
 	QList<Report*> reports3;
-	this->weekends = Portfolio("weekends", assets3, reports3);
+	this->weekends = new Portfolio("weekends", assets3, reports3);
 
 	// FOURTH PORTFOLIO DEFINITION
 	QMap<Asset*, int> assets4;
 	assets4.insert(asset7, 1);
 	QList<Report*> reports4;
-	this->auntie = Portfolio("dax", assets4, reports4);
+	this->auntie = new Portfolio("dax", assets4, reports4);
 }
 
 /**
  * @brief Checks that the id can only be set once.
  */
 void TestPortfolio::testId() {
-	QCOMPARE(this->father.getId(), -1);
-	QCOMPARE(this->son.getParentId(), -1);
-	this->father.setId(42);
-	QCOMPARE(this->father.getId(), 42);
-	QCOMPARE(this->son.getParentId(), 42);
+	QCOMPARE(this->father->getId(), -1);
+	QCOMPARE(this->son->getParentId(), -1);
+	this->father->setId(42);
+	QCOMPARE(this->father->getId(), 42);
+	QCOMPARE(this->son->getParentId(), 42);
 	try {
-		this->father.setId(43);
+		this->father->setId(43);
 		QFAIL("No exception thrown when attributed an id to a porfolio twice.");
 	} catch(const IdAlreadyAttributedException e) {
 
@@ -109,34 +109,34 @@ void TestPortfolio::testId() {
  * @brief Checks that the name can actually be changed.
  */
 void TestPortfolio::testName() {
-	QVERIFY(this->father.getName() == "Father");
-	this->father.changeName("John");
-	QVERIFY(this->father.getName() == "John");
+	QVERIFY(this->father->getName() == "Father");
+	this->father->changeName("John");
+	QVERIFY(this->father->getName() == "John");
 }
 
 /**
  * @brief Tests the retrieveStartDate method.
  */
 void TestPortfolio::testRetrieveStartDate() {
-	QCOMPARE(this->father.retrieveStartDate(), QDate(2014, 1, 3));
-	QCOMPARE(this->son.retrieveStartDate(), QDate(2014, 1, 3));
-	QCOMPARE(this->uncle.retrieveStartDate(), QDate(2013, 12, 19));
+	QCOMPARE(this->father->retrieveStartDate(), QDate(2014, 1, 3));
+	QCOMPARE(this->son->retrieveStartDate(), QDate(2014, 1, 3));
+	QCOMPARE(this->uncle->retrieveStartDate(), QDate(2013, 12, 19));
 }
 
 /**
  * @brief Tests the retrieveStartDate method.
  */
 void TestPortfolio::testRetrieveEndDate() {
-	QCOMPARE(this->father.retrieveEndDate(), QDate(2014, 1, 6));
-	QCOMPARE(this->son.retrieveEndDate(), QDate(2014, 1, 6));
-	QCOMPARE(this->uncle.retrieveEndDate(), QDate(2014, 1, 2));
+	QCOMPARE(this->father->retrieveEndDate(), QDate(2014, 1, 6));
+	QCOMPARE(this->son->retrieveEndDate(), QDate(2014, 1, 6));
+	QCOMPARE(this->uncle->retrieveEndDate(), QDate(2014, 1, 2));
 }
 
 /**
  * @brief Tests the method getValues that retrieve and compute values of a portfolio.
  */
 void TestPortfolio::testRetrieveValues() {
-	QVector<double> result = this->son.retrieveValues(QDate(2014, 1, 4), QDate(2014, 1, 6));
+	QVector<double> result = this->son->retrieveValues(QDate(2014, 1, 4), QDate(2014, 1, 6));
 	QCOMPARE(result.size(), 1);
 	QCOMPARE(result.at(0), 630.0);
 }
@@ -146,10 +146,10 @@ void TestPortfolio::testRetrieveValues() {
  * The only asset of this portfolio is only defined on weekends.
  */
 void TestPortfolio::testRetrieveValuesWeekends() {
-	QVector<double> result = this->weekends.retrieveValues();
+	QVector<double> result = this->weekends->retrieveValues();
 	QCOMPARE(result.size(), 15);
-	QMap<QDate, double> resultWithDates = this->weekends.retrieveValuesByDate();
-	qDebug() << this->weekends.getComposition().begin().key()->retrieveValues().size();
+	QMap<QDate, double> resultWithDates = this->weekends->retrieveValuesByDate();
+	qDebug() << this->weekends->getComposition().begin().key()->retrieveValues().size();
 	QCOMPARE(resultWithDates.size(), 15);
 }
 
@@ -157,7 +157,7 @@ void TestPortfolio::testRetrieveValuesWeekends() {
  * @brief Successful test of retrieveValues without parameters.
  */
 void TestPortfolio::testRetrieveValuesNoParameters() {
-	QVector<double> result = this->son.retrieveValues();
+	QVector<double> result = this->son->retrieveValues();
 	QCOMPARE(result.size(), 2);
 	QCOMPARE(result.at(0), 612.0);
 	QCOMPARE(result.at(1), 630.0);
@@ -167,7 +167,7 @@ void TestPortfolio::testRetrieveValuesNoParameters() {
  * @brief Tests the method retrieveValuesByDate that retrieve and compute date-values of a portfolio
  */
 void TestPortfolio::testRetrieveValuesByDate() {
-	QMap<QDate, double> result = this->son.retrieveValuesByDate(QDate(2014, 1, 4), QDate(2014, 1, 6));
+	QMap<QDate, double> result = this->son->retrieveValuesByDate(QDate(2014, 1, 4), QDate(2014, 1, 6));
 	QCOMPARE(result.size(), 1);
 	QCOMPARE(result.value(QDate(2014, 1, 6)), 630.0);
 }
@@ -176,7 +176,7 @@ void TestPortfolio::testRetrieveValuesByDate() {
  * @brief Tests of retrieveValuesByDate when the period is larger than the portfolio's period.
  */
 void TestPortfolio::testRetrieveValuesByDateMissingValues() {
-	QMap<QDate, double> result = this->son.retrieveValuesByDate(QDate(2014, 1, 2), QDate(2014, 1, 8));
+	QMap<QDate, double> result = this->son->retrieveValuesByDate(QDate(2014, 1, 2), QDate(2014, 1, 8));
 	QCOMPARE(result.size(), 2);
 	QCOMPARE(result.value(QDate(2014, 1, 3)), 612.0);
 	QCOMPARE(result.value(QDate(2014, 1, 6)), 630.0);
@@ -187,7 +187,7 @@ void TestPortfolio::testRetrieveValuesByDateMissingValues() {
  * This method calls directly the eponymous method on the whole definition period of the portfolio.
  */
 void TestPortfolio::testRetrieveReturns() {
-	QVector<double> result = this->son.retrieveReturns();
+	QVector<double> result = this->son->retrieveReturns();
 	QCOMPARE(result.size(), 1);
 	QCOMPARE(result.at(0), 18.0);
 }
@@ -197,7 +197,7 @@ void TestPortfolio::testRetrieveReturns() {
  * The portfolio son only contains 2 values (so only 1 returns).
  */
 void TestPortfolio::testRetrieveNbReturnsNotEnough() {
-	QVector<double> result = this->son.retrieveReturns(this->son.retrieveEndDate(), 2);
+	QVector<double> result = this->son->retrieveReturns(this->son->retrieveEndDate(), 2);
 	QCOMPARE(result.size(), 1);
 	QCOMPARE(result.at(0), 18.0);
 }
@@ -208,7 +208,7 @@ void TestPortfolio::testRetrieveNbReturnsNotEnough() {
  * This test retrieves all returns.
  */
 void TestPortfolio::testRetrieveNbReturnsAll() {
-	QVector<double> result = this->uncle.retrieveReturns(this->uncle.retrieveEndDate(), 10);
+	QVector<double> result = this->uncle->retrieveReturns(this->uncle->retrieveEndDate(), 10);
 	QCOMPARE(result.size(), 10);
 	QCOMPARE(result.at(0), 20.0);
 	QCOMPARE(result.at(1), 2.0);
@@ -228,7 +228,7 @@ void TestPortfolio::testRetrieveNbReturnsAll() {
  * This test only retrieves 4 returns.
  */
 void TestPortfolio::testRetrieveNbReturnsSome() {
-	QVector<double> result = this->uncle.retrieveReturns(this->uncle.retrieveEndDate(), 4);
+	QVector<double> result = this->uncle->retrieveReturns(this->uncle->retrieveEndDate(), 4);
 	QCOMPARE(result.size(), 4);
 	QCOMPARE(result.at(0), 11.0);
 	QCOMPARE(result.at(1), 0.0);
@@ -240,12 +240,12 @@ void TestPortfolio::testRetrieveNbReturnsSome() {
  * @brief Tests the testRetrieveReturnHorizon in normal cases
  */
 void TestPortfolio::testRetrieveReturnHorizon() {
-	QCOMPARE(this->auntie.retrieveReturnHorizon(QDate(2014, 3, 11), 1), 42.29);
-	QCOMPARE(this->auntie.retrieveReturnHorizon(QDate(2014, 3, 10), 1), -85.25);
-	QCOMPARE(this->auntie.retrieveReturnHorizon(QDate(2014, 3, 7), 2), -277.37);
-	QCOMPARE(this->auntie.retrieveReturnHorizon(QDate(2014, 2, 28), 2), -229.44);
-	QCOMPARE(this->auntie.retrieveReturnHorizon(QDate(2014, 1, 3), 1), 35.11);
-	QCOMPARE(this->auntie.retrieveReturnHorizon(QDate(2014, 2, 11), 5), 366.9);
+	QCOMPARE(this->auntie->retrieveReturnHorizon(QDate(2014, 3, 11), 1), 42.29);
+	QCOMPARE(this->auntie->retrieveReturnHorizon(QDate(2014, 3, 10), 1), -85.25);
+	QCOMPARE(this->auntie->retrieveReturnHorizon(QDate(2014, 3, 7), 2), -277.37);
+	QCOMPARE(this->auntie->retrieveReturnHorizon(QDate(2014, 2, 28), 2), -229.44);
+	QCOMPARE(this->auntie->retrieveReturnHorizon(QDate(2014, 1, 3), 1), 35.11);
+	QCOMPARE(this->auntie->retrieveReturnHorizon(QDate(2014, 2, 11), 5), 366.9);
 }
 
 /**
@@ -253,17 +253,17 @@ void TestPortfolio::testRetrieveReturnHorizon() {
  */
 void TestPortfolio::testRetrieveReturnHorizonIncorrect() {
 	try {
-		this->auntie.retrieveReturnHorizon(QDate(2014, 1, 2), 1);
+		this->auntie->retrieveReturnHorizon(QDate(2014, 1, 2), 1);
 		QFAIL("retrieveReturnHorizon was able to retrieve a return with wrong parameter");
 	} catch(std::exception& e) {}
 
 	try {
-		this->auntie.retrieveReturnHorizon(QDate(2014, 3, 11), 2);
+		this->auntie->retrieveReturnHorizon(QDate(2014, 3, 11), 2);
 		QFAIL("retrieveReturnHorizon was able to retrieve a return with wrong parameters combinaison");
 	} catch(std::exception& e) {}
 
 	try {
-		this->auntie.retrieveReturnHorizon(QDate(2014, 3, 7), 4);
+		this->auntie->retrieveReturnHorizon(QDate(2014, 3, 7), 4);
 		QFAIL("retrieveReturnHorizon was able to retrieve a return with wrong parameters combinaison");
 	} catch(std::exception& e) {}
 }

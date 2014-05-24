@@ -150,7 +150,7 @@
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
-         <widget class="QScrollArea" name="reportScrollArea">
+         <widget class="ReportListScrollArea" name="reportScrollArea">
           <property name="styleSheet">
            <string notr="true">#scrollAreaWidgetContents
 {
@@ -169,11 +169,7 @@
              <height>438</height>
             </rect>
            </property>
-           <layout class="QVBoxLayout" name="verticalLayout_2">
-            <item>
-             <layout class="QVBoxLayout" name="reportsLayout"/>
-            </item>
-           </layout>
+           <layout class="QVBoxLayout" name="verticalLayout_2"/>
           </widget>
          </widget>
         </item>
@@ -302,6 +298,12 @@
    <slots>
     <slot>removeSelectedPortfolio()</slot>
    </slots>
+  </customwidget>
+  <customwidget>
+   <class>ReportListScrollArea</class>
+   <extends>QScrollArea</extends>
+   <header>ReportListScrollArea.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>

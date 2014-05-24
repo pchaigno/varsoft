@@ -28,7 +28,7 @@ class TestRInterface: public QObject {
 	Q_OBJECT
 
 private:
-	Portfolio father;
+	Portfolio* father;
 
 public:
 	TestRInterface();

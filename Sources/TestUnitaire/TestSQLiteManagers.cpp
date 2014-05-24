@@ -36,8 +36,8 @@ TestSQLiteManagers::TestSQLiteManagers() {
 	reports.append(new VaRReport("somefolder\\var"));
 
 	// The portfolio:
-	Portfolio portfolio = Portfolio("Test", assets, reports);
-	this->portfolios = QVector<Portfolio>();
+	Portfolio* portfolio = new Portfolio("Test", assets, reports);
+	this->portfolios = QVector<Portfolio*>();
 	this->portfolios.append(portfolio);
 }
 
@@ -47,8 +47,8 @@ void TestSQLiteManagers::testSaveSession() {
 
 	// Checks that all ids have been updated:
 	for(int i=0; i<this->portfolios.size(); i++) {
-		QVERIFY(this->portfolios[i].getId() > 0);
-		const QList<Report*>& reports = this->portfolios[i].getReports();
+		QVERIFY(this->portfolios[i]->getId() > 0);
+		const QList<Report*>& reports = this->portfolios[i]->getReports();
 		for(int j=0; j<reports.size(); j++) {
 			QVERIFY(reports[j]->getId() > 0);
 		}
@@ -72,7 +72,7 @@ void TestSQLiteManagers::testSaveSession() {
 	QCOMPARE(assets["Google"]->getEndDate(), this->google.getEndDate());
 
 	// Checks the portfolios:
-	QVector<Portfolio> savedPortfolios = SessionBuilder::getInstance()->buildSession();
+	QVector<Portfolio*> savedPortfolios = SessionBuilder::getInstance()->buildSession();
 	QCOMPARE(savedPortfolios.size(), this->portfolios.size());
 	for(int i=0; i<this->portfolios.size(); i++) {
 		QVERIFY(savedPortfolios.contains(this->portfolios[i]));
@@ -85,8 +85,8 @@ void TestSQLiteManagers::testSaveSession() {
 		QVERIFY(idPortfolio != -1);
 
 		// Checks the reports:
-		const QList<Report*>& savedReports = savedPortfolios[idPortfolio].getReports();
-		const QList<Report*>& reports = this->portfolios[i].getReports();
+		const QList<Report*>& savedReports = savedPortfolios[idPortfolio]->getReports();
+		const QList<Report*>& reports = this->portfolios[i]->getReports();
 		QCOMPARE(savedReports.size(), reports.size());
 		for(int j=0; j<savedReports.size(); j++) {
 			bool found = false;
@@ -100,8 +100,8 @@ void TestSQLiteManagers::testSaveSession() {
 		}
 
 		// Checks the compositions:
-		const QMap<Asset*, int>& savedComposition = savedPortfolios[idPortfolio].getComposition();
-		const QMap<Asset*, int>& composition = this->portfolios[i].getComposition();
+		const QMap<Asset*, int>& savedComposition = savedPortfolios[idPortfolio]->getComposition();
+		const QMap<Asset*, int>& composition = this->portfolios[i]->getComposition();
 		for(QMap<Asset*, int>::const_iterator it=composition.begin(); it!=composition.end(); ++it) {
 			bool found = false;
 			for(QMap<Asset*, int>::const_iterator savedIt=savedComposition.begin(); savedIt!=savedComposition.end(); ++savedIt) {

@@ -31,13 +31,18 @@
 #include <sstream>
 #include <QtCore/qmath.h>
 
-class MODELVARSHARED_EXPORT Portfolio {
+class MODELVARSHARED_EXPORT Portfolio : public QObject {
+		Q_OBJECT
 private:
 	int id;
 	QString name;
 	Portfolio* parent;
 	QMap<Asset*, int> composition;
 	QList<Report*> reports;
+
+signals:
+	void reportAdded(Report*);
+	void reportRemoved();
 
 public:
 	Portfolio();
@@ -56,6 +61,7 @@ public:
 	QList<Report*> getReports() const;
 	void addReport(Report* report);
 	void removeReport(Report * report);
+	void removeReport(Report&report);
 
 	QVector<Asset*> getAssets() const;
 	QMap<Asset*, int> getComposition() const;

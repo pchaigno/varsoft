@@ -27,7 +27,7 @@ class TestBacktesting: public QObject {
 	Q_OBJECT
 
 private:
-	Portfolio portfolio;
+	Portfolio* portfolio;
 
 public:
 	TestBacktesting();

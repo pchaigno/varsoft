@@ -31,7 +31,7 @@ public:
 	TestVaRHistorical();
 
 private:
-	Portfolio daxPortfolio;
+	Portfolio* daxPortfolio;
 
 private Q_SLOTS:
 	void testVaRHistoricalConstructor();

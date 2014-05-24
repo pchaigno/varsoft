@@ -53,12 +53,12 @@ bool SessionSaver::saveAsset(Asset& asset) {
  * @brief Save an entire session in the database.
  * @param portfolios The portfolios of the session.
  */
-void SessionSaver::saveSession(QVector<Portfolio>& portfolios) {
+void SessionSaver::saveSession(QVector<Portfolio*>& portfolios) {
 	this->openConnection();
 	// The assets must be saved first:
 	QVector<Asset*> allAssets;
 	for(int i=0; i<portfolios.size(); i++) {
-		QVector<Asset*> assets = portfolios[i].getAssets();
+		QVector<Asset*> assets = portfolios[i]->getAssets();
 		for(int j=0; j<assets.size(); j++) {
 			allAssets.append(assets[j]);
 		}
@@ -68,7 +68,7 @@ void SessionSaver::saveSession(QVector<Portfolio>& portfolios) {
 	this->savePortfolios(portfolios);
 	// The reports are saved last because they have a reference to a portfolio:
 	for(int i=0; i<portfolios.size(); i++) {
-		this->saveReports(portfolios[i], portfolios[i].getReports());
+		this->saveReports(portfolios[i], portfolios[i]->getReports());
 	}
 	this->closeConnection();
 }
@@ -97,20 +97,20 @@ void SessionSaver::saveAssets(QVector<Asset*>& assets) {
  * @brief Save some portfolios in the database.
  * @param portfolios The portfolios to save.
  */
-void SessionSaver::savePortfolios(QVector<Portfolio>& portfolios) {
+void SessionSaver::savePortfolios(QVector<Portfolio *> &portfolios) {
 	QSqlQuery queryPortfolios(this->db);
 	QSqlQuery queryWeights(this->db);
 	queryPortfolios.prepare("INSERT INTO portfolios(id, name, parent) VALUES(NULL, :name, :parent);");
 	queryWeights.prepare("INSERT INTO weights(asset, portfolio, weight) VALUES(:asset, :portfolio, :weight);");
-	for(QVector<Portfolio>::iterator portfolio=portfolios.begin(); portfolio!=portfolios.end(); ++portfolio) {
-		queryPortfolios.bindValue(":name", portfolio->getName());
-		queryPortfolios.bindValue(":parent", portfolio->getParentId());
+	for(QVector<Portfolio*>::iterator portfolio=portfolios.begin(); portfolio!=portfolios.end(); ++portfolio) {
+		queryPortfolios.bindValue(":name", (*portfolio)->getName());
+		queryPortfolios.bindValue(":parent", (*portfolio)->getParentId());
 		queryPortfolios.exec();
-		portfolio->setId(queryPortfolios.lastInsertId().toInt());
-		QMap<Asset*, int> composition = portfolio->getComposition();
+		(*portfolio)->setId(queryPortfolios.lastInsertId().toInt());
+		QMap<Asset*, int> composition = (*portfolio)->getComposition();
 		for(QMap<Asset*, int>::iterator it=composition.begin(); it!=composition.end(); ++it) {
 			queryWeights.bindValue(":asset", it.key()->getId());
-			queryWeights.bindValue(":portfolio", portfolio->getId());
+			queryWeights.bindValue(":portfolio", (*portfolio)->getId());
 			queryWeights.bindValue(":weight", it.value());
 			queryWeights.exec();
 		}
@@ -124,11 +124,11 @@ void SessionSaver::savePortfolios(QVector<Portfolio>& portfolios) {
  * @param portfolio The porfolios owner of the reports.
  * @param reports The reports to save.
  */
-void SessionSaver::saveReports(const Portfolio& portfolio, const QList<Report *> &reports) {
+void SessionSaver::saveReports(const Portfolio *portfolio, const QList<Report *> &reports) {
 	QSqlQuery query(this->db);
 	query.prepare("INSERT INTO reports(id, portfolio, file, type) VALUES(NULL, :portfolio, :file, :type);");
 	for(int i=0; i<reports.size(); i++) {
-		query.bindValue(":portfolio", portfolio.getId());
+		query.bindValue(":portfolio", portfolio->getId());
 		query.bindValue(":file", reports[i]->getFile());
 		query.bindValue(":type", reports[i]->getType());
 		query.exec();

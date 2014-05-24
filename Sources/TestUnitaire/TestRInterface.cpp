@@ -32,7 +32,7 @@ TestRInterface::TestRInterface() {
 	QMap<Asset*, int> assets;
 	assets.insert(asset1, 1);
 	QList<Report*> reports;
-	this->father = Portfolio("Father", assets, reports);
+	this->father = new Portfolio("Father", assets, reports);
 }
 
 /**
@@ -41,7 +41,7 @@ TestRInterface::TestRInterface() {
  */
 void TestRInterface::testCheckCorrelation() {
 	int timeLag, period;
-	QDate date = this->father.retrieveEndDate();
+	QDate date = this->father->retrieveEndDate();
 	QPair<double, double> result;
 
 	// Normal cases
@@ -49,7 +49,7 @@ void TestRInterface::testCheckCorrelation() {
 	timeLag = 1;
 	period = 10;
 	try {
-		result = RInterface::checkCorrelation(this->father, timeLag, date, period);
+		result = RInterface::checkCorrelation(*father, timeLag, date, period);
 	} catch(std::invalid_argument& e) {
 		QFAIL("checkCorrelation failed at computing a valid parameters test");
 	}
@@ -61,7 +61,7 @@ void TestRInterface::testCheckCorrelation() {
 	timeLag = 3;
 	period = 20;
 	try {
-		result = RInterface::checkCorrelation(this->father, timeLag, date, period);
+		result = RInterface::checkCorrelation(*father, timeLag, date, period);
 	} catch(std::invalid_argument& e) {
 		QFAIL("checkCorrelation failed at computing a valid parameters test");
 	}
@@ -77,11 +77,11 @@ void TestRInterface::testCheckCorrelation() {
  */
 void TestRInterface::testCheckCorrelationIncorrectTimeLag() {
 	QPair<double, double> result;
-	QDate date = this->father.retrieveEndDate();
+	QDate date = this->father->retrieveEndDate();
 	int timeLag = -1;
 	int period = 10;
 	try {
-		result = RInterface::checkCorrelation(this->father, timeLag, date, period);
+		result = RInterface::checkCorrelation(*father, timeLag, date, period);
 		QFAIL("RInterface::checkCorrelation should have not executed");
 	} catch(std::invalid_argument& e) {}
 }
@@ -92,11 +92,11 @@ void TestRInterface::testCheckCorrelationIncorrectTimeLag() {
  */
 void TestRInterface::testCheckCorrelationIncorrectPeriod() {
 	QPair<double, double> result;
-	QDate date = this->father.retrieveEndDate();
+	QDate date = this->father->retrieveEndDate();
 	int timeLag = 1;
 	int period = -1;
 	try {
-		result = RInterface::checkCorrelation(this->father, timeLag, date, period);
+		result = RInterface::checkCorrelation(*father, timeLag, date, period);
 		QFAIL("RInterface::checkCorrelation should have not successfully executed");
 	} catch(std::invalid_argument& e) {}
 }
@@ -107,11 +107,11 @@ void TestRInterface::testCheckCorrelationIncorrectPeriod() {
  */
 void TestRInterface::testCheckCorrelationIncompatibleParameters() {
 	QPair<double, double> result;
-	QDate date = this->father.retrieveEndDate();
+	QDate date = this->father->retrieveEndDate();
 	int timeLag = 9;
 	int period = 10;
 	try {
-		result = RInterface::checkCorrelation(this->father, timeLag, date, period);
+		result = RInterface::checkCorrelation(*father, timeLag, date, period);
 		QFAIL("RInterface::checkCorrelation should have not executed");
 	} catch(std::invalid_argument& e) {}
 }
@@ -122,14 +122,14 @@ void TestRInterface::testCheckCorrelationIncompatibleParameters() {
  */
 void TestRInterface::testCheckSquareCorrelation() {
 	int timeLag, period;
-	QDate date = this->father.retrieveEndDate();
+	QDate date = this->father->retrieveEndDate();
 	QPair<double, double> result;
 
 	// Normal cases
 	timeLag = 1;
 	period = 10;
 	try {
-		result = RInterface::checkSquareCorrelation(this->father, timeLag, date, period);
+		result = RInterface::checkSquareCorrelation(*father, timeLag, date, period);
 	} catch(std::invalid_argument& e) {
 		QFAIL("checkSquareCorrelation failed at computing a valid parameters test");
 	}
@@ -139,7 +139,7 @@ void TestRInterface::testCheckSquareCorrelation() {
 	timeLag = 3;
 	period = 20;
 	try {
-		result = RInterface::checkSquareCorrelation(this->father, timeLag, date, period);
+		result = RInterface::checkSquareCorrelation(*father, timeLag, date, period);
 	} catch(std::invalid_argument& e) {
 		QFAIL("checkSquareCorrelation failed at computing a valid parameters test");
 	}
@@ -153,11 +153,11 @@ void TestRInterface::testCheckSquareCorrelation() {
  */
 void TestRInterface::testCheckSquareCorrelationIncompatibleParameters() {
 	QPair<double, double> result;
-	QDate date = this->father.retrieveEndDate();
+	QDate date = this->father->retrieveEndDate();
 	int timeLag = 10;
 	int period = 10;
 	try {
-		result = RInterface::checkSquareCorrelation(this->father, timeLag, date, period);
+		result = RInterface::checkSquareCorrelation(*father, timeLag, date, period);
 		QFAIL("RInterface::checkSquareCorrelation should have not successfully executed");
 	} catch(std::invalid_argument& e) {}
 }

@@ -142,6 +142,7 @@ QList<Report *> Portfolio::getReports() const {
  */
 void Portfolio::addReport(Report *report) {
 	this->reports.append(report);
+	emit reportAdded(report);
 }
 
 /**
@@ -152,6 +153,22 @@ void Portfolio::removeReport(Report *report) {
 	report->removeFiles();
 	this->reports.removeOne(report);
 	delete report;
+	emit reportRemoved();
+}
+
+void Portfolio::removeReport(Report &report)
+{
+	foreach(Report *rep,reports)
+	{
+		if (report==*rep)
+		{
+			reports.removeOne(rep);
+			rep->removeFiles();
+		}
+	}
+	report.removeFiles();
+
+	emit reportRemoved();
 }
 
 /**

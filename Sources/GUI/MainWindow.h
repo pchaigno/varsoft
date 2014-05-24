@@ -43,6 +43,7 @@
 #include <QDate>
 #include "ImportNewData.h"
 #include "GetStartEndDates.h"
+#include "ReportListScrollArea.h"
 
 namespace Ui {
 	class MainWindow;
@@ -70,13 +71,8 @@ private slots:
 
 	void addPortfolio(Portfolio *);
 	void removeSelectedPortfolio();
+
 	void reportGenerationDone();
-	void updateReportWidgets();
-	void updateReportWidgets(Portfolio * portfolio);
-	void addReportWidget(Portfolio * portfolio, ReportWidget * reportWidget);
-	void deleteReportWidget();
-	void deleteReportWidget(ReportWidget* reportWidget);
-	void clearReportWidgets(Portfolio * portfolio);
 
 	void showError(const QString&errorMsg);
 
@@ -87,10 +83,8 @@ private slots:
 
 private:
 	Portfolio *getCurrentPortfolio();
-	Report* buildReport(Portfolio * portfolio, ReportFactory * factory, bool deleteAfter=false);
+	Report* buildReport(Portfolio *portfolio, ReportFactory * factory, bool deleteAfter=false);
 	void generateReport(ReportGenerator * gen);
-	void clearLayout(QLayout* layout, bool deleteWidgets = true);
-	ReportWidget *getReportWidgetFromReport(Report * report, Portfolio * portfolio=NULL);
 
 	Ui::MainWindow *ui;
 	QString stockName;
@@ -101,6 +95,4 @@ private:
 	QString path;
 	PortfolioItemModel * portfolioListModel;
 	QHash<Portfolio*, PortfolioViewModel*> portfoliosModels;
-	QHash<Portfolio*, QList<ReportWidget*> > portfolioReportWidgets;
-	FlowLayout * layoutReports;
 };

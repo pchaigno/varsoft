@@ -31,7 +31,7 @@ private:
 
 public:
 	bool saveAsset(Asset& asset);
-	void saveSession(QVector<Portfolio>& portfolios);
+	void saveSession(QVector<Portfolio *> &portfolios);
 	/**
 	 * @brief Accessor to the only instance of SessionSaver.
 	 * @return The only instance of SessionSaver.
@@ -46,6 +46,6 @@ public:
 private:
 	SessionSaver(QString databaseFile);
 	void saveAssets(QVector<Asset*> &assets);
-	void savePortfolios(QVector<Portfolio>& portfolios);
-	void saveReports(const Portfolio& portfolio, const QList<Report*>& reports);
+	void savePortfolios(QVector<Portfolio*>& portfolios);
+	void saveReports(const Portfolio* portfolio, const QList<Report*>& reports);
 };

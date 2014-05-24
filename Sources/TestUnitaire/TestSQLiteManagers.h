@@ -29,7 +29,7 @@ class TestSQLiteManagers: public QObject {
 	Q_OBJECT
 
 private:
-	QVector<Portfolio> portfolios;
+	QVector<Portfolio*> portfolios;
 	Asset google;
 	Asset apple;
 

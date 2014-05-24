@@ -33,13 +33,11 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
 
 	connect(ui->actionDocXGenerator_path,SIGNAL(triggered()),this,SLOT(docxGenPath()));
 
-	layoutReports = new FlowLayout;
-	ui->reportScrollArea->setLayout(layoutReports);
 
 	//for QSettings
 	QCoreApplication::setOrganizationName("INSA Rennes");
 	QCoreApplication::setOrganizationDomain("insa-rennes.fr");
-	QCoreApplication::setApplicationName("Projet VaR");
+	QCoreApplication::setApplicationName("VaRSoft");
 
 	readSettings();
 
@@ -131,7 +129,8 @@ void MainWindow::newPortfolio() {
 void MainWindow::showPortfolio(Portfolio * portfolio) {
 	// set the model
 	ui->tableView->setModel(portfoliosModels[portfolio]);
-	updateReportWidgets(portfolio);
+	// set the current list of reports
+	ui->reportScrollArea->setCurrent(portfolio);
 }
 
 /**
@@ -142,77 +141,6 @@ void MainWindow::reportGenerationDone() {
 	this->statusBar()->showMessage("Generation done.",1500);
 }
 
-/**
- * Clear all the ReportWidget in the Report tab
- * and fill it with the ReportWidget of the current portfolio
- */
-void MainWindow::updateReportWidgets() {
-	updateReportWidgets(getCurrentPortfolio());
-}
-
-/**
- * @brief Same as updateReportWidgets() but with the ReportWidgets of the given portfolio
- * @param portfolio
- */
-void MainWindow::updateReportWidgets(Portfolio *portfolio) {
-	//remove all the reportWidget in the layout
-	clearLayout(layoutReports,false);
-
-	//add the
-	QList<ReportWidget*> listReportWidget = portfolioReportWidgets[portfolio];
-	foreach(ReportWidget * reportWidget, listReportWidget) {
-		layoutReports->addWidget(reportWidget);
-	}
-}
-
-/**
- * @brief add a ReportWidget to the given portfolio
- * @param portfolio
- * @param reportWidget
- */
-void MainWindow::addReportWidget(Portfolio *portfolio, ReportWidget *reportWidget) {
-	portfolioReportWidgets[portfolio].append(reportWidget);
-	reportWidget->setParent(NULL);
-	layoutReports->addWidget(reportWidget);
-	if (ui->tabWidget->currentWidget()!=ui->tabReports)
-		updateReportWidgets(portfolio);
-	connect(reportWidget,SIGNAL(deleteRequest()),this,SLOT(deleteReportWidget()));
-}
-
-/**
- * @brief same as deleteReportWidget(ReportWidget* reportWidget) but
- * called by a signal emit by a ReportWidget. If the sender of the signal is not a ReportWidget*
- * the slot does nothing.
- */
-void MainWindow::deleteReportWidget() {
-	ReportWidget * obj = qobject_cast<ReportWidget*>(sender());
-	if (obj)
-		deleteReportWidget(obj);
-}
-
-/**
- * @brief delete the given ReportWidget and update the list of ReportWidget
- * @param reportWidget
- */
-void MainWindow::deleteReportWidget(ReportWidget* reportWidget) {
-	Report * report = reportWidget->getReport();
-	portfolioReportWidgets[getCurrentPortfolio()].removeOne(reportWidget);
-	getCurrentPortfolio()->removeReport(report);
-	updateReportWidgets();
-	delete reportWidget;
-}
-
-/**
- * @brief Remove all the ReportWidget of the current selected portfolio
- * @param portfolio
- */
-void MainWindow::clearReportWidgets(Portfolio *portfolio) {
-	foreach(ReportWidget * reportWidget, portfolioReportWidgets[portfolio]) {
-		deleteReportWidget(reportWidget);
-	}
-	portfolioReportWidgets[portfolio].clear();
-	portfolioReportWidgets.remove(portfolio);
-}
 
 /**
  * @brief Show a QMessageBox with the given message
@@ -220,56 +148,6 @@ void MainWindow::clearReportWidgets(Portfolio *portfolio) {
  */
 void MainWindow::showError(const QString & errorMsg) {
 	QMessageBox::critical(this,"Error",errorMsg);
-}
-
-/**
- * @brief Clear all the item in the given layout
- * @param layout
- * @param deleteWidgets
- */
-void MainWindow::clearLayout(QLayout* layout, bool deleteWidgets) {
-	while (QLayoutItem* item = layout->takeAt(0)) {
-		if (deleteWidgets) {
-			if (QWidget* widget = item->widget())
-				delete widget;
-		} else
-			item->widget()->setParent(NULL);
-		if (QLayout* childLayout = item->layout())
-			clearLayout(childLayout, deleteWidgets);
-		delete item;
-	}
-}
-
-/**
- * @brief Return the ReportWidget associate with the given Report and the given Portfolio (optional).
- * If the portfolio is not given, the algo will search in the entiere structure (may be a bit long...).
- * @param report
- * @param portfolio (optional)
- * @return
- */
-ReportWidget *MainWindow::getReportWidgetFromReport(Report *report, Portfolio *portfolio)
-{
-	if (portfolio==NULL)
-	{
-		foreach(QList<ReportWidget*> list, portfolioReportWidgets)
-		{
-			foreach(ReportWidget* widget, list)
-			{
-				if (*(widget->getReport())==*report)
-					return widget;
-			}
-		}
-	}
-	else
-	{
-		foreach(ReportWidget* widget, portfolioReportWidgets[portfolio])
-		{
-			if (*(widget->getReport())==*report)
-				return widget;
-		}
-
-	}
-	return NULL;
 }
 
 /**
@@ -317,15 +195,18 @@ Portfolio *MainWindow::getCurrentPortfolio() {
 void MainWindow::generateStatsReport() {
 	try {
 		// get the current portfolio
-
 		Portfolio * port = this->getCurrentPortfolio();
 
 		// build the stats report
-		Report * report = buildReport(port, new StatisticsReportFactory(port));
+		Report * report = buildReport(port,new StatisticsReportFactory(port));
 
 		// generate it in Docx format
 		QSettings settings;
 		generateReport(new DocxGenerator(report, settings.value("DocXGenPath","../Resources/DocxGenerator/DocXGenerator.jar").toString()));
+
+		// add it to the portfolio
+		port->addReport(report);
+
 	} catch (ReportAlreadyCreatedException & e) {
 
 	} catch (ReportException & e) {
@@ -343,7 +224,7 @@ void MainWindow::generateStatsReport() {
  * @param deleteAfter delete the ReportFactory if false (by default), otherwise the factory is not deleted
  * @return The report created by the given factory
  */
-Report *MainWindow::buildReport(Portfolio *portfolio, ReportFactory * factory, bool deleteAfter) {
+Report *MainWindow::buildReport(Portfolio * portfolio, ReportFactory * factory, bool deleteAfter) {
 	Report * report;
 	try
 	{
@@ -355,23 +236,15 @@ Report *MainWindow::buildReport(Portfolio *portfolio, ReportFactory * factory, b
 		int button = QMessageBox::information(this,"Report already created","This report has already been created.\nDo you want to regenerate it ?",QMessageBox::Yes|QMessageBox::No,QMessageBox::No);
 		if (button==QMessageBox::Yes)
 		{
-			this->deleteReportWidget(getReportWidgetFromReport(e.getReport()));
-			e.getReport()->removeFiles();
+			portfolio->removeReport(*(e.getReport()));
 			report = factory->buildReport();
 		}
 		else
 		{
+			delete factory;
 			throw e;
 		}
 	}
-
-	// add it to the portfolio
-	portfolio->addReport(report);
-
-	//create the ReportWidget for the portfolio
-	ReportWidget * reportWidget = ReportWidgetFactory::buildReportWidget(report);
-	//add the ReportWidget to the layout
-	addReportWidget(portfolio,reportWidget);
 
 	if (!deleteAfter) // delete the factory if it's necessary
 		delete factory;
@@ -430,7 +303,6 @@ void MainWindow::setImportCSV() {
 void MainWindow::addPortfolio(Portfolio * portfolio) {
 	portfoliosModels[portfolio] = new PortfolioViewModel(portfolio);
 	portfolioListModel->addPortfolio(portfolio);
-	portfolioReportWidgets[portfolio] = QList<ReportWidget*>();
 }
 
 /**
@@ -441,8 +313,6 @@ void MainWindow::removeSelectedPortfolio() {
 	try {
 		//get the current portfolio
 		Portfolio * portfolio = this->getCurrentPortfolio();
-		//delete its ReportWidget
-		clearReportWidgets(portfolio);
 		//remove the portfolio in the ListView
 		ui->listView->removeSelectedPortfolio();
 		//delete the model
