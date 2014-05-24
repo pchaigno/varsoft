@@ -15,18 +15,15 @@ TEMPLATE = app
 SOURCES += main.cpp\
 		MainWindow.cpp \
 		FlowLayout.cpp \
-
 		windows/NewPortfolioWizard.cpp \
 		windows/SetWeightAssetWizardPage.cpp \
 		windows/ShowAssetsWizardPage.cpp \
 		windows/DocxGenPathDialog.cpp \
 		windows/ImportDialog.cpp \
-
 		portfolio/PortfolioListView.cpp \
 		portfolio/PortfolioViewMediator.cpp \
 		portfolio/PortfolioListModel.cpp \
-		portfolio/DataModel.cpp
-
+		portfolio/DataModel.cpp \
 		portfolio/report/ReportWidget.cpp \
 		portfolio/report/ReportWidgetFactory.cpp \
 		portfolio/report/ReportView.cpp \
@@ -34,22 +31,18 @@ SOURCES += main.cpp\
 HEADERS += MainWindow.h \
 		Constantes.h \
 		FlowLayout.h \
-
 		windows/NewPortfolioWizard.h \
 		windows/SetWeightAssetWizardPage.h \
 		windows/ShowAssetsWizardPage.h \
 		windows/DocxGenPathDialog.h \
 		windows/ImportDialog.h \
-
 		portfolio/PortfolioListView.h \
 		portfolio/PortfolioViewMediator.h \
 		portfolio/PortfolioListModel.h \
 		portfolio/DataModel.h \
-
 		portfolio/report/ReportWidget.h \
 		portfolio/report/ReportWidgetFactory.h \
 		portfolio/report/ReportView.h \
-
 		exceptions/NoneSelectedPortfolioException.h
 
 FORMS += MainWindow.ui \
@@ -60,6 +53,8 @@ FORMS += MainWindow.ui \
 		windows/DocxGenPathDialog.ui \
 		portfolio/report/ReportWidget.ui \
 		portfolio/report/ReportListScrollArea.ui
+
+INCLUDEPATH += portfolio/ windows/ portfolio/report exceptions
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../quazip/quazip/release/ -lquazip
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../quazip/quazip/debug/ -lquazip
