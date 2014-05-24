@@ -66,7 +66,6 @@ double MathFunctions::normalCDFInverse(double p) {
 double MathFunctions::correlation(const QVector<double>& x, const QVector<double>& y) {
 	size_t n = x.size();
 	double ex(0), ey(0), xt(0), yt(0), sxx(0), syy(0), sxy(0);
-	const double tinyValue = 1e-20;
 
 	for (size_t i = 0; i < n; i++) { // Find the means.
 		ex += x[i];

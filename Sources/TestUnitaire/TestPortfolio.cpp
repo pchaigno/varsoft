@@ -282,7 +282,7 @@ void TestPortfolio::testRetrieveReturnHorizonIncorrect() {
 /**
  * @brief Tests the computation of the correlation matrix of a portfolio
  */
-void TestPortfolio::testComputeCorrelatioMatrix() {
+void TestPortfolio::testComputeCorrelationMatrix() {
 	QDate startDate(2014, 1, 3);
 	QDate endDate(2014, 3, 1);
 	QVector<QVector<double> > correlationMatrix = this->correlation.computeCorrelationMatrix(startDate, endDate);
@@ -304,11 +304,11 @@ void TestPortfolio::testComputeCorrelatioMatrix() {
  * @brief Tests that incorrect date parameter prevents the function from
  * computing the correlation matrix
  */
-void TestPortfolio::testComputeCorrelatioMatrixIncorrect() {
+void TestPortfolio::testComputeCorrelationMatrixIncorrect() {
 	try {
 		this->correlation.computeCorrelationMatrix(QDate(2014, 1, 3), QDate(2014, 3, 12));
 		QFAIL("computeCorrelatioMatrix computed the matrix correlation despite a wrong parameter");
 	} catch(std::invalid_argument& e) {
-		qDebug() << e.what();
+
 	}
 }

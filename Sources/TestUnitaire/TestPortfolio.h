@@ -56,6 +56,6 @@ private Q_SLOTS:
 	void testRetrieveNbReturnsSome();
 	void testRetrieveReturnHorizon();
 	void testRetrieveReturnHorizonIncorrect();
-	void testComputeCorrelatioMatrix();
-	void testComputeCorrelatioMatrixIncorrect();
+	void testComputeCorrelationMatrix();
+	void testComputeCorrelationMatrixIncorrect();
 };
