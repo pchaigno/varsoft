@@ -17,16 +17,25 @@
  */
 #pragma once
 
-#include <QDate>
-#include "ModelVaR_global.h"
-#include "VaRAlgorithm.h"
-#include "MathFunctions.h"
+#include <QtTest>
+#include "Portfolio.h"
+#include "Backtesting.h"
+#include "VaRHistorical.h"
+#include "VaRRiskmetrics.h"
 
-class MODELVARSHARED_EXPORT VaRRiskmetrics: public VaRAlgorithm {
+class TestBacktesting: public QObject {
+	Q_OBJECT
+
 private:
-	int initPeriod;
-	const static double lambda = 0.94;
+	Portfolio portfolio;
+
 public:
-	VaRRiskmetrics(const Portfolio& portfolio, double risk, int timeHorizon, int initPeriod);
-	virtual double execute(QDate date) const;
+	TestBacktesting();
+
+private Q_SLOTS:
+	void testBacktestingHistorical();
+	void testBacktestingRiskmetrics();
+	void testBacktestingIncorrect1();
+	void testBacktestingIncorrect2();
+	void testBacktestingIncorrect3();
 };

@@ -43,6 +43,7 @@ SOURCES += \
 	CorrelationReportFactory.cpp \
 	GetStartEndDates.cpp \
 	CreateAsset.cpp \
+	MathFunctions.cpp \
 	PortfolioViewModel.cpp \
 	ReportDataJson.cpp \
 	qcustomplot.cpp \
@@ -91,6 +92,9 @@ HEADERS +=\
 	InvalidDefinitionPeriodException.h \
 	CreateAsset.h \
 	CreateAssetException.h
+	ImportException.h \
+	MathFunctions.h \
+	ReportAlreadyCreatedException.h
 
 unix:!symbian {
 	maemo5 {
