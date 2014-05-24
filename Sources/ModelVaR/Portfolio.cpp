@@ -277,13 +277,13 @@ QMap<QDate, double> Portfolio::retrieveValuesByDate(const QDate& startPeriod, co
 		int weight = assetIt.value();
 
 		if(values.size() == 0) {
-		// First asset retrieved.
+			// First asset retrieved.
 			for(QMap<QDate, double>::const_iterator assetValuesIt=assetValues.begin(); assetValuesIt!=assetValues.end(); assetValuesIt++) {
 				values.insert(assetValuesIt.key(), assetValuesIt.value() * weight);
 			}
 
 		} else {
-		// Not the first asset retrieved.
+			// Not the first asset retrieved.
 
 			// All retrieveValuesBydate on assets should return the same number of values:
 			if(values.size() != assetValues.size()) {
@@ -463,6 +463,52 @@ double Portfolio::retrieveReturnHorizon(const QDate& date, int horizon) const {
 	}
 
 	return this->retrieveValues(endDate, endDate).first() - this->retrieveValues(startDate, startDate).first();
+}
+
+/**
+ * @brief Computes the correlation matrix of the assets a the portfolio. Values used are the ones
+ * precised by the startDate and the endDate
+ * @param startDate The starting date to define the period used to compute the correlation
+ * @param endDate The ending date to define the period used to compute the correlation
+ * @return The correlation matrix
+ */
+QVector<QVector<double> > Portfolio::computeCorrelationMatrix(const QDate& startDate, const QDate& endDate) const {
+	if(startDate < this->retrieveStartDate()) {
+		throw std::invalid_argument("The startDate cannot be before the start date of the portfolio.");
+	}
+	if(endDate > this->retrieveEndDate()) {
+		throw std::invalid_argument("The endDate cannot be after the end date of the portfolio.");
+	}
+
+	QVector<QVector<double> > correlationMatrix = QVector< QVector<double> >(this->composition.size());
+
+	// Calculates the correlation between the assets, fills only the strict upper triangular part
+	// because the matrix is symetric
+	int i, j;
+	QMap<Asset*, int>::const_iterator assetIt1, assetIt2;
+	for(i=0, assetIt1=this->composition.begin(); assetIt1!=this->composition.end(); ++assetIt1, i++) {
+		QVector<double> assetValues1 = assetIt1.key()->retrieveValues(startDate, endDate);
+		correlationMatrix[i].resize(this->composition.size());
+		for(j=i+1, assetIt2=this->composition.begin()+j; assetIt2!=this->composition.end(), j<this->composition.size(); ++assetIt2, j++) {
+			QVector<double> assetValues2 = assetIt2.key()->retrieveValues(startDate, endDate);
+			correlationMatrix[i][j] = MathFunctions::correlation(assetValues1, assetValues2);
+		}
+	}
+
+	// The correlation of a asset with itself is always one
+	// Thus fills the diagonal of the matrix with 1
+	for(int i=0; i < correlationMatrix.size(); i++) {
+		correlationMatrix[i][i] = 1;
+	}
+
+	// Fills the strict lower triangular part by symetry
+	for(int i=1; i < correlationMatrix.size(); i++) {
+		for(j=0; j < i; j++) {
+			correlationMatrix[i][j] = correlationMatrix[j][i];
+		}
+	}
+
+	return correlationMatrix;
 }
 
 /**

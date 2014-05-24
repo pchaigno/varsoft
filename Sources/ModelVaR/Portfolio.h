@@ -27,9 +27,11 @@
 #include "InvalidDefinitionPeriodException.h"
 #include "ModelVaR_global.h"
 #include "PortfolioCalculationException.h"
+#include "MathFunctions.h"
 #include <string>
 #include <sstream>
 #include <QtCore/qmath.h>
+#include <QGenericMatrix>
 
 class MODELVARSHARED_EXPORT Portfolio {
 private:
@@ -72,6 +74,7 @@ public:
 	double retrieveReturnHorizon(const QDate& date, int horizon) const;
 	QVector<double> retrieveLogReturns(const QDate& startPeriod, const QDate& endPeriod) const;
 	QVector<double> retrieveLogReturns(const QDate& endPeriod, int nbValues) const;
+	QVector<QVector<double> > computeCorrelationMatrix(const QDate& startDate, const QDate& endDate) const;
 
 	bool operator==(const Portfolio& portfolio) const;
 };
