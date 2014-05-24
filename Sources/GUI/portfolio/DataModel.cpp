@@ -15,13 +15,13 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#include "PortfolioViewModel.h"
+#include "DataModel.h"
 
-PortfolioViewModel::PortfolioViewModel(QObject *parent): QAbstractTableModel(parent) {
+DataModel::DataModel(QObject *parent): QAbstractTableModel(parent) {
 
 }
 
-PortfolioViewModel::PortfolioViewModel(Portfolio* portfolio, QObject *parent): QAbstractTableModel(parent) {
+DataModel::DataModel(Portfolio* portfolio, QObject *parent): QAbstractTableModel(parent) {
 	this->portfolio = portfolio;
 	createDataStructure();
 }
@@ -32,7 +32,7 @@ PortfolioViewModel::PortfolioViewModel(Portfolio* portfolio, QObject *parent): Q
  * @param parent
  * @return
  */
-int PortfolioViewModel::rowCount(const QModelIndex &parent) const {
+int DataModel::rowCount(const QModelIndex &parent) const {
 	return parent.isValid() ? 0 : datesRow.count()+1;
 }
 
@@ -42,7 +42,7 @@ int PortfolioViewModel::rowCount(const QModelIndex &parent) const {
  * @param parent
  * @return
  */
-int PortfolioViewModel::columnCount(const QModelIndex &parent) const {
+int DataModel::columnCount(const QModelIndex &parent) const {
 	return parent.isValid() ? 0 : mydata.count();
 }
 
@@ -54,7 +54,7 @@ int PortfolioViewModel::columnCount(const QModelIndex &parent) const {
  * @param role
  * @return
  */
-QVariant PortfolioViewModel::data(const QModelIndex &index, int role) const {
+QVariant DataModel::data(const QModelIndex &index, int role) const {
 	if(!index.isValid())
 		return QVariant();
 
@@ -75,7 +75,7 @@ QVariant PortfolioViewModel::data(const QModelIndex &index, int role) const {
  * @param role
  * @return the QString for the specified section and orientation
  */
-QVariant PortfolioViewModel::headerData(int section, Qt::Orientation orientation, int role) const {
+QVariant DataModel::headerData(int section, Qt::Orientation orientation, int role) const {
 	if (role != Qt::DisplayRole) {
 		return QVariant();
 	}
@@ -94,13 +94,12 @@ QVariant PortfolioViewModel::headerData(int section, Qt::Orientation orientation
 }
 
 /**
- * @brief PortfolioItemModel::flags
- * Define the flags for the model, here is ItemIsSelectable and ItemIsEnable
+ * @brief Define the flags for the model, here is ItemIsSelectable and ItemIsEnable
  * (this method is call by Qt and should never be called by user, see Qt'doc)
  * @param index
  * @return the flags
  */
-Qt::ItemFlags PortfolioViewModel::flags(const QModelIndex &index) const {
+Qt::ItemFlags DataModel::flags(const QModelIndex &index) const {
 	Q_UNUSED(index);
 	return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
 }
@@ -110,9 +109,11 @@ Qt::ItemFlags PortfolioViewModel::flags(const QModelIndex &index) const {
  * Create the internal structure of the given portfolio.
  * @param portfolio the new portfolio
  */
-void PortfolioViewModel::setPortfolio(Portfolio *portfolio) {
+void DataModel::setPortfolio(Portfolio *portfolio) {
 	this->portfolio = portfolio;
+	beginResetModel();
 	createDataStructure();
+	endResetModel();
 }
 
 /**
@@ -121,7 +122,7 @@ void PortfolioViewModel::setPortfolio(Portfolio *portfolio) {
  * put the values of the portfolio in the first columns, et the
  * values of each assets of the portfolio to others columns in the private attribute mydata.
  */
-void PortfolioViewModel::createDataStructure() {
+void DataModel::createDataStructure() {
 	QMap<Asset*, int> compo = portfolio->getComposition();
 	QDate startDate = portfolio->retrieveStartDate();
 	QDate endDate = portfolio->retrieveEndDate();

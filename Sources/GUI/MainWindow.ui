@@ -132,7 +132,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tabData">
        <attribute name="title">
@@ -150,7 +150,7 @@
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
-         <widget class="ReportListScrollArea" name="reportScrollArea">
+         <widget class="ReportView" name="reportScrollArea">
           <property name="styleSheet">
            <string notr="true">#scrollAreaWidgetContents
 {
@@ -300,9 +300,9 @@
    </slots>
   </customwidget>
   <customwidget>
-   <class>ReportListScrollArea</class>
+   <class>ReportView</class>
    <extends>QScrollArea</extends>
-   <header>ReportListScrollArea.h</header>
+   <header>ReportView.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

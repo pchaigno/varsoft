@@ -15,11 +15,9 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+#include "ReportView.h"
 
-#include "ReportListScrollArea.h"
-#include "ui_ReportListScrollArea.h"
-
-ReportListScrollArea::ReportListScrollArea(QWidget *parent) :
+ReportView::ReportView(QWidget *parent) :
 	QScrollArea(parent),
 	ui(new Ui::ReportListScrollArea)
 {
@@ -29,12 +27,12 @@ ReportListScrollArea::ReportListScrollArea(QWidget *parent) :
 	current=NULL;
 }
 
-ReportListScrollArea::~ReportListScrollArea()
+ReportView::~ReportView()
 {
 	delete ui;
 }
 
-void ReportListScrollArea::removeReport(Report *report)
+void ReportView::removeReport(Report *report)
 {
 	foreach(ReportWidget * repWid, portfolioReportWidgets[current])
 	{
@@ -46,7 +44,7 @@ void ReportListScrollArea::removeReport(Report *report)
 	}
 }
 
-void ReportListScrollArea::deleteAll()
+void ReportView::deleteAll()
 {
 	foreach(ReportWidget * repWid, portfolioReportWidgets[current])
 	{
@@ -58,7 +56,7 @@ void ReportListScrollArea::deleteAll()
  * @brief Initialize the layout with the report of the portfolio given.
  * @param Portfolio which you want to display reports.
  */
-void ReportListScrollArea::setCurrent(Portfolio *portfolio)
+void ReportView::setCurrent(Portfolio *portfolio)
 {
 	if (current!=NULL)
 	{
@@ -76,7 +74,7 @@ void ReportListScrollArea::setCurrent(Portfolio *portfolio)
  * @brief Construct the ReportWidget of the report param and display for the current portfolio
  * @param report
  */
-void ReportListScrollArea::addReport(Report *report)
+void ReportView::addReport(Report *report)
 {
 	ReportWidget * reportWidget = ReportWidgetFactory::buildReportWidget(report);
 	connect(reportWidget,SIGNAL(deleteRequest()),this,SLOT(removeReportWidget()));
@@ -84,7 +82,7 @@ void ReportListScrollArea::addReport(Report *report)
 	addToLayout(reportWidget);
 }
 
-void ReportListScrollArea::removeReportWidget()
+void ReportView::removeReportWidget()
 {
 	ReportWidget *reportWidget = qobject_cast<ReportWidget *>(sender());
 	if (reportWidget)
@@ -94,7 +92,7 @@ void ReportListScrollArea::removeReportWidget()
  * @brief Remove the ReportWidget and its reports from the layout and the portfolio
  * @param reportWidget
  */
-void ReportListScrollArea::removeReportWidget(ReportWidget *reportWidget)
+void ReportView::removeReportWidget(ReportWidget *reportWidget)
 {
 	portfolioReportWidgets[current].removeOne(reportWidget);
 	Report * report = reportWidget->getReport();
@@ -106,7 +104,7 @@ void ReportListScrollArea::removeReportWidget(ReportWidget *reportWidget)
  * @brief Add the reportWidget to the layout
  * @param reportWidget
  */
-void ReportListScrollArea::addToLayout(ReportWidget *reportWidget)
+void ReportView::addToLayout(ReportWidget *reportWidget)
 {
 	layout->addWidget(reportWidget);
 }
@@ -114,7 +112,7 @@ void ReportListScrollArea::addToLayout(ReportWidget *reportWidget)
 /**
  * @brief Clear the layout and load the ReportWidget of the current Portfolio
  */
-void ReportListScrollArea::updateLayout()
+void ReportView::updateLayout()
 {
 	clearLayout(false);
 	QList<ReportWidget*> listReportCurrentPortfolio = portfolioReportWidgets[current];
@@ -124,7 +122,7 @@ void ReportListScrollArea::updateLayout()
 	}
 }
 
-void ReportListScrollArea::updateReportWidgetList()
+void ReportView::updateReportWidgetList()
 {
 	clearLayout(true);
 	portfolioReportWidgets[current].clear();
@@ -137,12 +135,12 @@ void ReportListScrollArea::updateReportWidgetList()
 /**
  * @brief Clear the main layout
  */
-void ReportListScrollArea::clearLayout(bool deleteWidgets)
+void ReportView::clearLayout(bool deleteWidgets)
 {
 	clearLayout(layout,deleteWidgets);
 }
 
-void ReportListScrollArea::clearLayout(QLayout *layout, bool deleteWidgets)
+void ReportView::clearLayout(QLayout *layout, bool deleteWidgets)
 {
 	while (QLayoutItem* item = layout->takeAt(0)) {
 		if (deleteWidgets) {

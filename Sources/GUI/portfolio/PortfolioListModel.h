@@ -17,26 +17,40 @@
  */
 #pragma once
 
-#include <QObject>
-#include <QtTest>
-#include <exception>
+#include <QAbstractListModel>
+#include "Portfolio.h"
+#include <stdexcept>
 
-class TestPortfolioItemModel : public QObject {
+#ifdef UNITTEST
+	class TestPortfolioItemModel;
+#endif
+
+class MODELVARSHARED_EXPORT PortfolioListModel : public QAbstractListModel {
 	Q_OBJECT
 public:
-	explicit TestPortfolioItemModel();
+	explicit PortfolioListModel(QObject *parent = 0);
+
+	int rowCount(const QModelIndex &parent) const;
+	QVariant data(const QModelIndex &index, int role) const;
+	QVariant headerData(int section, Qt::Orientation orientation, int role) const;
+	Qt::ItemFlags flags(const QModelIndex &index) const;
+
+#ifdef UNITTEST
+	friend class TestPortfolioItemModel;
+#endif
+
+	Portfolio *getPortfolio(const QModelIndex & index);
 
 signals:
 
-private Q_SLOTS:
-	void init();
-	void cleanup();
-	void testAdd();
-	void testInsert();
-	void testRemove();
-	void testData();
+public slots:
+	void addPortfolio(Portfolio *portfolio);
+	void insertPortfolio(Portfolio*portfolio,int row);
+
+	bool removePortfolio(Portfolio*portfolio);
+	bool removePortfolio(int row);
 
 private:
-//	PortfolioListModel * model;
+	QList<Portfolio*> portfolioList;
 
 };

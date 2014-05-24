@@ -14,39 +14,52 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
 		MainWindow.cpp \
-		NewPortfolioWizard.cpp \
-		SetWeightAssetWizardPage.cpp \
-		ShowAssetsWizardPage.cpp \
-		PortfolioListView.cpp \
-		ReportWidget.cpp \
 		FlowLayout.cpp \
-		ReportWidgetFactory.cpp \
-		DocxGenPathDialog.cpp \
-		ImportDialog.cpp \
-		ReportListScrollArea.cpp
+
+		windows/NewPortfolioWizard.cpp \
+		windows/SetWeightAssetWizardPage.cpp \
+		windows/ShowAssetsWizardPage.cpp \
+		windows/DocxGenPathDialog.cpp \
+		windows/ImportDialog.cpp \
+
+		portfolio/PortfolioListView.cpp \
+		portfolio/PortfolioViewMediator.cpp \
+		portfolio/PortfolioListModel.cpp \
+		portfolio/DataModel.cpp
+
+		portfolio/report/ReportWidget.cpp \
+		portfolio/report/ReportWidgetFactory.cpp \
+		portfolio/report/ReportView.cpp \
 
 HEADERS += MainWindow.h \
-		NewPortfolioWizard.h \
-		SetWeightAssetWizardPage.h \
-		ShowAssetsWizardPage.h \
-		PortfolioListView.h \
-		NoneSelectedPortfolioException.h \
-		ReportWidget.h \
-		FlowLayout.h \
-		ReportWidgetFactory.h \
-		DocxGenPathDialog.h \
 		Constantes.h \
-		ImportDialog.h \
-		ReportListScrollArea.h
+		FlowLayout.h \
+
+		windows/NewPortfolioWizard.h \
+		windows/SetWeightAssetWizardPage.h \
+		windows/ShowAssetsWizardPage.h \
+		windows/DocxGenPathDialog.h \
+		windows/ImportDialog.h \
+
+		portfolio/PortfolioListView.h \
+		portfolio/PortfolioViewMediator.h \
+		portfolio/PortfolioListModel.h \
+		portfolio/DataModel.h \
+
+		portfolio/report/ReportWidget.h \
+		portfolio/report/ReportWidgetFactory.h \
+		portfolio/report/ReportView.h \
+
+		exceptions/NoneSelectedPortfolioException.h
 
 FORMS += MainWindow.ui \
-		NewPortfolioWizard.ui \
-		SetWeightAssetWizardPage.ui \
-		ShowAssetsWizardPage.ui\
-		import.ui \
-		ReportWidget.ui \
-		DocxGenPathDialog.ui \
-		ReportListScrollArea.ui
+		windows/NewPortfolioWizard.ui \
+		windows/SetWeightAssetWizardPage.ui \
+		windows/ShowAssetsWizardPage.ui\
+		windows/import.ui \
+		windows/DocxGenPathDialog.ui \
+		portfolio/report/ReportWidget.ui \
+		portfolio/report/ReportListScrollArea.ui
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../quazip/quazip/release/ -lquazip
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../quazip/quazip/debug/ -lquazip

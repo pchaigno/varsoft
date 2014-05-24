@@ -26,18 +26,19 @@
 #include "Portfolio.h"
 #include "ReportWidget.h"
 #include "ReportWidgetFactory.h"
+#include "ui_ReportListScrollArea.h"
 
 namespace Ui {
 class ReportListScrollArea;
 }
 
-class ReportListScrollArea : public QScrollArea
+class ReportView : public QScrollArea
 {
 	Q_OBJECT
 	
 public:
-	explicit ReportListScrollArea(QWidget *parent = 0);
-	~ReportListScrollArea();
+	explicit ReportView(QWidget *parent = 0);
+	~ReportView();
 
 	void removeReport(Report * report);
 	void deleteAll();

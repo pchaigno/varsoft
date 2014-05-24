@@ -21,11 +21,11 @@
 #include "Asset.h"
 #include "Portfolio.h"
 
-class MODELVARSHARED_EXPORT PortfolioViewModel: public QAbstractTableModel {
+class MODELVARSHARED_EXPORT DataModel: public QAbstractTableModel {
 	Q_OBJECT
 public:
-	explicit PortfolioViewModel(QObject *parent = 0);
-	explicit PortfolioViewModel(Portfolio* portfolio, QObject *parent = 0);
+	explicit DataModel(QObject *parent = 0);
+	explicit DataModel(Portfolio* portfolio, QObject *parent = 0);
 
 	int rowCount(const QModelIndex &parent) const;
 	int columnCount(const QModelIndex &parent) const;

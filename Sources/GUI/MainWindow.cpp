@@ -18,7 +18,7 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 
-MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWindow), portfolioListModel(new PortfolioItemModel(this)) {
+MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWindow), portfolioListModel(new PortfolioListModel(this)) {
 	ui->setupUi(this);
 
 	//for the import button in the main window
@@ -29,9 +29,11 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
 	ui->listView->setModel(portfolioListModel);
 	connect(ui->removePushButton, SIGNAL(clicked()), this, SLOT(removeSelectedPortfolio()));
 
-	connect(ui->listView,SIGNAL(portfolioSelected(Portfolio*)),this,SLOT(showPortfolio(Portfolio*)));
-
 	connect(ui->actionDocXGenerator_path,SIGNAL(triggered()),this,SLOT(docxGenPath()));
+
+	dataModel = new DataModel();
+	ui->tableView->setModel(dataModel);
+	portfolioViewMediator = new PortfolioViewMediator(ui->listView,dataModel,ui->reportScrollArea);
 
 
 	//for QSettings
@@ -48,10 +50,6 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
 MainWindow::~MainWindow() {
 	delete ui;
 	delete portfolioListModel;
-	foreach (Portfolio *portfolio, portfoliosModels.keys()) {
-		delete portfoliosModels[portfolio];
-		delete portfolio;
-	}
 }
 
 /**
@@ -122,16 +120,6 @@ void MainWindow::newPortfolio() {
 	fen->show();
 }
 
-/**
- * @brief Set the model of the specified portfolio to the TableView to display it.
- * @param portfolio
- */
-void MainWindow::showPortfolio(Portfolio * portfolio) {
-	// set the model
-	ui->tableView->setModel(portfoliosModels[portfolio]);
-	// set the current list of reports
-	ui->reportScrollArea->setCurrent(portfolio);
-}
 
 /**
  * @brief Display a message in the status bar when the generating of a report is done
@@ -301,7 +289,6 @@ void MainWindow::setImportCSV() {
  * @param portfolio
  */
 void MainWindow::addPortfolio(Portfolio * portfolio) {
-	portfoliosModels[portfolio] = new PortfolioViewModel(portfolio);
 	portfolioListModel->addPortfolio(portfolio);
 }
 
@@ -315,9 +302,6 @@ void MainWindow::removeSelectedPortfolio() {
 		Portfolio * portfolio = this->getCurrentPortfolio();
 		//remove the portfolio in the ListView
 		ui->listView->removeSelectedPortfolio();
-		//delete the model
-		delete portfoliosModels[portfolio];
-		portfoliosModels.remove(portfolio);
 	} catch (NoneSelectedPortfolioException& ) {
 		QMessageBox::critical(this,"Error","None portfolio selected");
 	}

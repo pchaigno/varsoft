@@ -41,10 +41,8 @@ SOURCES += \
 	StatisticsReportFactory.cpp \
 	ImportNewData.cpp \
 	IImport.cpp \
-	PortfolioItemModel.cpp \
 	CorrelationReportFactory.cpp \
 	MathFunctions.cpp \
-	PortfolioViewModel.cpp \
 	ArchiveManager.cpp \
 	ExportManager.cpp \
 	ImportManager.cpp \
@@ -87,10 +85,8 @@ HEADERS +=\
 	ImportNewData.h \
 	CannotOpenFileException.h \
 	IImport.h \
-	PortfolioItemModel.h \
 	PortfolioCalculationException.h \
 	GetStartEndDates.h \
-	PortfolioViewModel.h \
 	ReportDataJson.h \
 	ReportException.h \
 	InvalidDefinitionPeriodException.h \

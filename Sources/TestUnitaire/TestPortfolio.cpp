@@ -355,7 +355,7 @@ void TestPortfolio::comparePortfolios(Portfolio* serializedPortfolio, Portfolio*
 	QCOMPARE(serializedPortfolio->getId(), -1);
 	QCOMPARE(serializedPortfolio->getName(), portfolio->getName());
 	if(portfolio->getParent() != NULL) {
-		QCOMPARE(serializedPortfolio->getParent(), portfolio->getParent());
+		QCOMPARE(*serializedPortfolio->getParent(), *portfolio->getParent());
 	}
 	QCOMPARE(serializedPortfolio->getParentId(), -1);
 	// Compares the reports:

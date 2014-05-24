@@ -26,12 +26,12 @@
 #include <QTableWidgetItem>
 #include "ImportDialog.h"
 #include "NewPortfolioWizard.h"
-#include "PortfolioItemModel.h"
+#include "PortfolioListModel.h"
 #include "ReportFactory.h"
 #include "ReportGenerator.h"
 #include "StatisticsReportFactory.h"
 #include "DocxGenerator.h"
-#include "PortfolioViewModel.h"
+#include "DataModel.h"
 #include "NoneSelectedPortfolioException.h"
 #include "ReportException.h"
 #include <QMessageBox>
@@ -43,7 +43,8 @@
 #include <QDate>
 #include "ImportNewData.h"
 #include "GetStartEndDates.h"
-#include "ReportListScrollArea.h"
+#include "ReportView.h"
+#include "PortfolioViewMediator.h"
 
 namespace Ui {
 	class MainWindow;
@@ -65,7 +66,6 @@ public:
 private slots:
 	void docxGenPath();
 	void newPortfolio();
-	void showPortfolio(Portfolio* portfolio);
 	void setImportCSV();
 	void generateStatsReport();
 
@@ -93,6 +93,7 @@ private:
 	QString fileName;
 	QString origin;
 	QString path;
-	PortfolioItemModel * portfolioListModel;
-	QHash<Portfolio*, PortfolioViewModel*> portfoliosModels;
+	PortfolioListModel * portfolioListModel;
+	DataModel * dataModel;
+	PortfolioViewMediator* portfolioViewMediator;
 };

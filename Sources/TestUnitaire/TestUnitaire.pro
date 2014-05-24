@@ -20,7 +20,7 @@ SOURCES += \
 	main.cpp \
 	TestReport.cpp \
 	TestSQLiteManagers.cpp \
-	TestPortfolioItemModel.cpp \
+	#TestPortfolioItemModel.cpp \
 	TestVaRHistorical.cpp \
 	TestArchiveManagers.cpp \
 	TestBacktesting.cpp \
@@ -34,7 +34,7 @@ HEADERS += \
 	TestReport.h \
 	TestPortfolio.h \
 	TestSQLiteManagers.h \
-	TestPortfolioItemModel.h \
+	#TestPortfolioItemModel.h \
 	TestVaRHistorical.h \
 	TestArchiveManagers.h \
 	TestBacktesting.h \

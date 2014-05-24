@@ -15,9 +15,9 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#include "PortfolioItemModel.h"
+#include "PortfolioListModel.h"
 
-PortfolioItemModel::PortfolioItemModel(QObject *parent): QAbstractListModel(parent) {
+PortfolioListModel::PortfolioListModel(QObject *parent): QAbstractListModel(parent) {
 
 }
 
@@ -27,7 +27,7 @@ PortfolioItemModel::PortfolioItemModel(QObject *parent): QAbstractListModel(pare
  * @param parent
  * @return the number of row
  */
-int PortfolioItemModel::rowCount(const QModelIndex &parent) const {
+int PortfolioListModel::rowCount(const QModelIndex &parent) const {
 	return parent.isValid() ? 0 : portfolioList.count();
 }
 
@@ -37,7 +37,7 @@ int PortfolioItemModel::rowCount(const QModelIndex &parent) const {
  * @param index
  * @return the flags
  */
-Qt::ItemFlags PortfolioItemModel::flags(const QModelIndex &index) const {
+Qt::ItemFlags PortfolioListModel::flags(const QModelIndex &index) const {
 	Q_UNUSED(index);
 	return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
 }
@@ -47,7 +47,7 @@ Qt::ItemFlags PortfolioItemModel::flags(const QModelIndex &index) const {
  * @param index the ModelIndex of the portfolio
  * @return A pointer to the Portfolio
  */
-Portfolio *PortfolioItemModel::getPortfolio(const QModelIndex &index) {
+Portfolio *PortfolioListModel::getPortfolio(const QModelIndex &index) {
 	return index.isValid() ? portfolioList[index.row()] : NULL;
 }
 
@@ -58,7 +58,7 @@ Portfolio *PortfolioItemModel::getPortfolio(const QModelIndex &index) {
  * @param role
  * @return the data at index
  */
-QVariant PortfolioItemModel::data(const QModelIndex &index, int role) const {
+QVariant PortfolioListModel::data(const QModelIndex &index, int role) const {
 	if (!index.isValid() || index.row() < 0 || index.row() >= portfolioList.count()) {
 		return QVariant();
 	}
@@ -79,7 +79,7 @@ QVariant PortfolioItemModel::data(const QModelIndex &index, int role) const {
  * @param role
  * @return the header
  */
-QVariant PortfolioItemModel::headerData(int section, Qt::Orientation orientation, int role) const {
+QVariant PortfolioListModel::headerData(int section, Qt::Orientation orientation, int role) const {
 	if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
 		return QString("Portfolio");
 	}
@@ -91,7 +91,7 @@ QVariant PortfolioItemModel::headerData(int section, Qt::Orientation orientation
  * @brief Add a portfolio to the model
  * @param portfolio the Portfolio to add
  */
-void PortfolioItemModel::addPortfolio(Portfolio * portfolio) {
+void PortfolioListModel::addPortfolio(Portfolio * portfolio) {
 	if (portfolio==NULL) {
 		throw std::invalid_argument("portfolio cannot be NULL");
 	}
@@ -106,7 +106,7 @@ void PortfolioItemModel::addPortfolio(Portfolio * portfolio) {
  * @param portfolio the portfolio to insert
  * @param row
  */
-void PortfolioItemModel::insertPortfolio(Portfolio *portfolio, int row) {
+void PortfolioListModel::insertPortfolio(Portfolio *portfolio, int row) {
 	if (portfolio==NULL) {
 		throw std::invalid_argument("portfolio cannot be NULL");
 	}
@@ -125,7 +125,7 @@ void PortfolioItemModel::insertPortfolio(Portfolio *portfolio, int row) {
  * @param portfolio
  * @return true if the portfolio has been removed, false otherwise
  */
-bool PortfolioItemModel::removePortfolio(Portfolio *portfolio) {
+bool PortfolioListModel::removePortfolio(Portfolio *portfolio) {
 	if (portfolio==NULL) {
 		throw std::invalid_argument("portfolio cannot be NULL");
 	}
@@ -139,7 +139,7 @@ bool PortfolioItemModel::removePortfolio(Portfolio *portfolio) {
  * @param row
  * @return true if the portfolio has been removed, false otherwise
  */
-bool PortfolioItemModel::removePortfolio(int row) {
+bool PortfolioListModel::removePortfolio(int row) {
 	if (row < 0 || row > portfolioList.count()-1) {
 		throw std::invalid_argument("row out of bound");
 	}

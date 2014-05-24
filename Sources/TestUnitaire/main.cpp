@@ -22,7 +22,6 @@
 #include "TestVaRRiskmetrics.h"
 #include "TestReport.h"
 #include "TestSQLiteManagers.h"
-#include "TestPortfolioItemModel.h"
 #include "TestArchiveManagers.h"
 #include "TestMathFunctions.h"
 #include "TestRInterface.h"
@@ -50,8 +49,9 @@ int main() {
 	result += QTest::qExec(&testMathFunctions);
 	TestImportNewData newdata;
 	result += QTest::qExec(&newdata);
+	/*
 	TestPortfolioItemModel portfolioModel;
-	result += QTest::qExec(&portfolioModel);
+	result += QTest::qExec(&portfolioModel);*/
 	TestArchiveManagers archiveManager;
 	result += QTest::qExec(&archiveManager);
 	TestRInterface rInterface;
