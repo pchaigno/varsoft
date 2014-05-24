@@ -91,7 +91,7 @@ HEADERS +=\
 	ReportException.h \
 	InvalidDefinitionPeriodException.h \
 	CreateAsset.h \
-	CreateAssetException.h
+	CreateAssetException.h \
 	ImportException.h \
 	MathFunctions.h \
 	ReportAlreadyCreatedException.h
