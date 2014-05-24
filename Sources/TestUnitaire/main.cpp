@@ -19,10 +19,13 @@
 #include "TestAsset.h"
 #include "TestPortfolio.h"
 #include "TestVaRHistorical.h"
+#include "TestVaRRiskmetrics.h"
 #include "TestReport.h"
 #include "TestSQLiteManagers.h"
 #include "TestPortfolioItemModel.h"
+#include "TestMathFunctions.h"
 #include "TestRInterface.h"
+#include "TestBacktesting.h"
 
 int main() {
 	// Deletes the database file before starting the tests (just to be sure):
@@ -38,13 +41,19 @@ int main() {
 	result += QTest::qExec(&report);
 	TestSQLiteManagers sqlite;
 	result += QTest::qExec(&sqlite);
-	TestImportNewData newdata;
-	result += QTest::qExec(&newdata);
 	TestVaRHistorical testVaRHistorical;
 	result += QTest::qExec(&testVaRHistorical);
+	TestVaRRiskmetrics TestVaRRiskmetrics;
+	result += QTest::qExec(&TestVaRRiskmetrics);
+	TestMathFunctions testMathFunctions;
+	result += QTest::qExec(&testMathFunctions);
+	TestImportNewData newdata;
+	result += QTest::qExec(&newdata);
 	TestPortfolioItemModel portfolioModel;
 	result += QTest::qExec(&portfolioModel);
 	TestRInterface rInterface;
 	result += QTest::qExec(&rInterface);
+	TestBacktesting backtesting;
+	result += QTest::qExec(&backtesting);
 	return result;
 }

@@ -43,6 +43,7 @@ SOURCES += \
 	IImport.cpp \
 	PortfolioItemModel.cpp \
 	CorrelationReportFactory.cpp \
+	MathFunctions.cpp \
 	PortfolioViewModel.cpp \
 	ReportDataJson.cpp \
 	qcustomplot.cpp \
@@ -95,7 +96,8 @@ HEADERS +=\
 	InvalidDefinitionPeriodException.h \
 	ImportException.h \
 	ReportAlreadyCreatedException.h \
-	Savable.h
+	Savable.h \
+	MathFunctions.h
 
 unix:!symbian {
 	maemo5 {
