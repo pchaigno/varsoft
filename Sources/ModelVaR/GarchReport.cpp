@@ -45,6 +45,14 @@ GarchReport::GarchReport(int id, QString file): Report(id, file) {
 }
 
 /**
+ * @brief Builds the report from a JSON document.
+ * @param json The JSON document.
+ */
+GarchReport::GarchReport(const QJsonObject& json): Report(json) {
+
+}
+
+/**
  * @brief Accessor to the type of the report.
  * @return The type of the report.
  */

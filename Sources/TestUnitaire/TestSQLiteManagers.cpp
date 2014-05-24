@@ -22,8 +22,8 @@
  */
 TestSQLiteManagers::TestSQLiteManagers() {
 	// The assets:
-	QDate startDate = QDate::fromString("01019800:01:02", "ddMMyyhh:mm:ss");
-	QDate endDate = QDate::fromString("0312201405:45:50", "ddMMyyyyhh:mm:ss");
+	QDate startDate = QDate::fromString("010198", "ddMMyy");
+	QDate endDate = QDate::fromString("03122014", "ddMMyyyy");
 	this->apple = Asset("Apple", "somefolder\\apple.csv", "YAHOO", startDate, endDate);
 	this->google = Asset("Google", "somefolder\\google.csv", "YAHOO", startDate, endDate);
 	QMap<Asset*, int> assets = QMap<Asset*, int>();

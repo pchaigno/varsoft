@@ -24,6 +24,7 @@
 #include <QDir>
 #include <QString>
 #include <QVector>
+#include "SessionSaver.h"
 #include "Asset.h"
 
 class TestPortfolio: public QObject {
@@ -39,6 +40,7 @@ private:
 
 public:
 	TestPortfolio();
+	static void comparePortfolios(Portfolio& serializedPortfolio, Portfolio& portfolio);
 
 private Q_SLOTS:
 	void testId();
@@ -58,4 +60,5 @@ private Q_SLOTS:
 	void testRetrieveReturnHorizonIncorrect();
 	void testComputeCorrelationMatrix();
 	void testComputeCorrelationMatrixIncorrect();
+	void testSerialize();
 };

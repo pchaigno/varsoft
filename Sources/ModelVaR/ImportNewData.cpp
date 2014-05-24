@@ -79,21 +79,21 @@ void ImportNewData::import(const Asset &asset, const QString& file) const {
 							flux << rowData[0] << "," << rowData[data_index] << "\n";
 						}
 					} else {
-						throw ImportException("Dates are not sorted");
+						throw CreateAssetException("Dates are not sorted");
 						return;
 					}
 
 				} else {
-					throw ImportException("The data is invalid");
+					throw CreateAssetException("The data is invalid");
 					return;
 				}
 			}
 		} else {
-			throw ImportException("Header is missing");
+			throw CreateAssetException("Header is missing");
 			return;
 		}
 	} else {
-		throw ImportException("Wrong file type");
+		throw CreateAssetException("Wrong file type");
 		return;
 	}
 	fileCreated.close();

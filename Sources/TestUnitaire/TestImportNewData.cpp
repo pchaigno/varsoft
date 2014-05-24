@@ -23,13 +23,13 @@
 void TestImportNewData::testImport() {
 	QDate startDate = QDate::fromString("2014-01-01", "yyyy-MM-dd");
 	QDate endDate = QDate::fromString("2014-02-01", "yyyy-MM-dd");
-	Asset b = Asset("Gogolea", "../../CSV_examples/Gogolea_test.csv", "Yahoo", startDate, endDate);
+	Asset b = Asset("Gogolea", "../../Examples/Gogolea_test.csv", "Yahoo", startDate, endDate);
 	ImportNewData algo = ImportNewData();
-	algo.import(b, "../../CSV_examples/table.csv");
+	algo.import(b, "../../Examples/table.csv");
 	SessionSaver::getInstance()->saveAsset(b);
 
 	QString data;
-	QFile importedCSV("../../CSV_examples/Gogolea_test.csv");
+	QFile importedCSV("../../Examples/Gogolea_test.csv");
 	QStringList dataRows;
 	QStringList dataRow;
 
@@ -48,7 +48,7 @@ void TestImportNewData::testImport() {
 
 	Asset *a = SessionBuilder::getInstance()->buildAsset("Gogolea");
 
-	QVERIFY(a->getFile() == "../../CSV_examples/Gogolea_test.csv");
+	QVERIFY(a->getFile() == "../../Examples/Gogolea_test.csv");
 	QVERIFY(a->getStartDate() == startDate);
 	QVERIFY(a->getEndDate() == endDate);
 	QVERIFY(a->getName() == "Gogolea");

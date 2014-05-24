@@ -21,6 +21,7 @@
 #include <QString>
 #include "IdAlreadyAttributedException.h"
 #include "ModelVaR_global.h"
+#include <QJsonObject>
 #include "ReportDataJson.h"
 
 enum ReportType {
@@ -50,8 +51,9 @@ public:
 	Report();
 	Report(QString file);
 	Report(int id, QString file);
-	~Report();
 	void init(int id, QString file);
+	Report(const QJsonObject& json);
+	~Report();
 
 	int getId() const;
 	void setId(int id);
@@ -68,4 +70,7 @@ public:
 	virtual QString getTemplateFile() const =0;
 
 	bool operator==(const Report& report) const;
+
+	void fromJSON(const QJsonObject &json);
+	QJsonObject toJSON() const;
 };
