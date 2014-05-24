@@ -15,12 +15,12 @@ DEFINES += MODELVAR_LIBRARY
 SOURCES += \
 	Asset.cpp \
 	Portfolio.cpp \
-	Report.cpp \
-	GarchReport.cpp \
-	VaRReport.cpp \
-	BacktestingReport.cpp \
-	StatisticsReport.cpp \
-	CorrelationReport.cpp \
+	report/Report.cpp \
+	report/GarchReport.cpp \
+	report/VaRReport.cpp \
+	report/BacktestingReport.cpp \
+	report/StatisticsReport.cpp \
+	report/CorrelationReport.cpp \
 	AssetsFactory.cpp \
 	VaRAlgorithm.cpp \
 	VaRHistorical.cpp \
@@ -34,14 +34,10 @@ SOURCES += \
 	RInterface.cpp \
 	Backtesting.cpp \
 	DocxGenerator.cpp \
-	ReportFactory.cpp \
-	BacktestingReportFactory.cpp \
 	VaRReportFactory.cpp \
 	GarchReportFactory.cpp \
-	StatisticsReportFactory.cpp \
 	ImportNewData.cpp \
 	IImport.cpp \
-	CorrelationReportFactory.cpp \
 	MathFunctions.cpp \
 	ArchiveManager.cpp \
 	ExportManager.cpp \
@@ -49,19 +45,22 @@ SOURCES += \
 	ReportDataJson.cpp \
 	ReportGenerator.cpp \
 	ReportException.cpp \
-	GetStartEndDates.cpp
+	GetStartEndDates.cpp \
+	reportFactory/ReportFactory.cpp \
+	reportFactory/BacktestingReportFactory.cpp \
+	reportFactory/StatisticsReportFactory.cpp \
+	reportFactory/CorrelationReportFactory.cpp
 
 HEADERS +=\
 	Asset.h \
 	Portfolio.h \
-	Report.h \
-	GarchReport.h \
-	VaRReport.h \
-	BacktestingReport.h \
-	StatisticsReport.h \
-	CorrelationReport.h \
+	report/Report.h \
+	report/GarchReport.h \
+	report/VaRReport.h \
+	report/BacktestingReport.h \
+	report/StatisticsReport.h \
+	report/CorrelationReport.h \
 	AssetsFactory.h \
-	IdAlreadyAttributedException.h \
 	VaRAlgorithm.h \
 	VaRHistorical.h \
 	VaRGarch.h \
@@ -76,29 +75,30 @@ HEADERS +=\
 	Backtesting.h \
 	DocxGenerator.h \
 	ReportGenerator.h \
-	ReportFactory.h \
-	BacktestingReportFactory.h \
 	VaRReportFactory.h \
 	GarchReportFactory.h \
-	StatisticsReportFactory.h \
-	CorrelationReportFactory.h \
 	ImportNewData.h \
-	CannotOpenFileException.h \
 	IImport.h \
-	PortfolioCalculationException.h \
 	GetStartEndDates.h \
 	ReportDataJson.h \
 	ReportException.h \
-	InvalidDefinitionPeriodException.h \
-	NonexistentAssetException.h \
 	ArchiveManager.h \
 	ExportManager.h \
 	ImportManager.h \
-	CreateAssetException.h \
 	ExportException.h \
 	ImportException.h \
 	MathFunctions.h \
-	ReportAlreadyCreatedException.h
+	reportFactory/ReportFactory.h \
+	reportFactory/BacktestingReportFactory.h \
+	reportFactory/StatisticsReportFactory.h \
+	reportFactory/CorrelationReportFactory.h \
+	exceptions/CannotOpenFileException.h \
+	exceptions/CreateAssetException.h \
+	exceptions/PortfolioCalculationException.h \
+	exceptions/InvalidDefinitionPeriodException.h \
+	exceptions/NonexistentAssetException.h \
+	exceptions/IdAlreadyAttributedException.h \
+	exceptions/ReportAlreadyCreatedException.h
 
 unix:!symbian {
 	maemo5 {
