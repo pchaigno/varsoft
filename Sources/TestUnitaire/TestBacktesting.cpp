@@ -21,7 +21,7 @@
  * @brief Builds a portfolio made of the single CAC40 index asset
  */
 TestBacktesting::TestBacktesting() {
-    QString assetFolder = "../../Examples/";
+	QString assetFolder = "../../Examples/";
 
 	// ASSET DEFINITION
 	QDate startDate(QDate(1990, 3, 2));
