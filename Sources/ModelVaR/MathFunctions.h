@@ -19,12 +19,17 @@
 
 #include <QtCore/qmath.h>
 #include <QString>
+#include <QVector>
 #include <stdexcept>
 #include "ModelVaR_global.h"
 
 class MODELVARSHARED_EXPORT MathFunctions {
+private:
+	const static double tinyValue = 1e-20;
+
 public:
 	MathFunctions();
 	static double rationalApproximation(double t);
 	static double normalCDFInverse(double p);
+	static double correlation(const QVector<double>& x, const QVector<double>& y);
 };

@@ -21,7 +21,7 @@
  * @brief Initializes a portfolio to perform VaR computation
  */
 TestVaRRiskmetrics::TestVaRRiskmetrics() {
-	QString assetFolder = "../../CSV_examples/";
+	QString assetFolder = "../../Examples/";
 
 	// ASSET DEFINITION
 	QDate startDate(QDate(2014, 1, 2));

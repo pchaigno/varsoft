@@ -70,6 +70,14 @@ void Report::filesGenerationFinish() {
 }
 
 /**
+ * @brief Builds the report from a JSON document.
+ * @param json The JSON document.
+ */
+Report::Report(const QJsonObject& json) {
+	this->fromJSON(json);
+}
+
+/**
  * @brief Accessor to id.
  * @return The id of the report in the database.
  */
@@ -143,4 +151,24 @@ bool Report::operator==(const Report& report) const {
 		return this->file==report.file;
 	}
 	return this->id == report.id;
+}
+
+/**
+ * @brief Deserializes the report from a JSON document.
+ * @param json The JSON document.
+ */
+void Report::fromJSON(const QJsonObject &json) {
+	this->id = -1;
+	this->file = json["file"].toString();
+}
+
+/**
+ * @brief Serializes the report into a JSON document.
+ * @param json The JSON document.
+ */
+QJsonObject Report::toJSON() const {
+	QJsonObject json;
+	json["type"] = this->getType();
+	json["file"] = this->file;
+	return json;
 }

@@ -26,6 +26,8 @@ public:
 	BacktestingReport();
 	BacktestingReport(QString file);
 	BacktestingReport(int id, QString file);
+	BacktestingReport(const QJsonObject& json);
+	
 	virtual ReportType getType() const;
 	virtual QString getTemplateFile() const;
 };

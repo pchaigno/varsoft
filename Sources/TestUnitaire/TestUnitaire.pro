@@ -22,6 +22,7 @@ SOURCES += \
 	TestSQLiteManagers.cpp \
 	TestPortfolioItemModel.cpp \
 	TestVaRHistorical.cpp \
+	TestArchiveManagers.cpp \
 	TestBacktesting.cpp \
 	TestVaRRiskmetrics.cpp \
 	TestMathFunctions.cpp \
@@ -35,6 +36,7 @@ HEADERS += \
 	TestSQLiteManagers.h \
 	TestPortfolioItemModel.h \
 	TestVaRHistorical.h \
+	TestArchiveManagers.h \
 	TestBacktesting.h \
 	TestVaRRiskmetrics.h \
 	TestMathFunctions.h \
@@ -56,3 +58,10 @@ else:unix: LIBS += -L$$OUT_PWD/../qcustomplot/ -lqcustomplotd
 
 INCLUDEPATH += $$PWD/../qcustomplot
 DEPENDPATH += $$PWD/../qcustomplot
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../quazip/quazip/release/ -lquazip
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../quazip/quazip/debug/ -lquazip
+else:unix: LIBS += -L$$OUT_PWD/../quazip/quazip/ -lquazip
+
+INCLUDEPATH += $$PWD/../quazip/quazip
+DEPENDPATH += $$PWD/../quazip/quazip

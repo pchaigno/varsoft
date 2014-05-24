@@ -45,6 +45,9 @@ SOURCES += \
 	CorrelationReportFactory.cpp \
 	MathFunctions.cpp \
 	PortfolioViewModel.cpp \
+	ArchiveManager.cpp \
+	ExportManager.cpp \
+	ImportManager.cpp \
 	ReportDataJson.cpp \
 	ReportGenerator.cpp \
 	ReportException.cpp \
@@ -91,6 +94,12 @@ HEADERS +=\
 	ReportDataJson.h \
 	ReportException.h \
 	InvalidDefinitionPeriodException.h \
+	NonexistentAssetException.h \
+	ArchiveManager.h \
+	ExportManager.h \
+	ImportManager.h \
+	CreateAssetException.h \
+	ExportException.h \
 	ImportException.h \
 	MathFunctions.h \
 	ReportAlreadyCreatedException.h
@@ -110,3 +119,10 @@ else:unix: LIBS += -L$$OUT_PWD/../qcustomplot/ -lqcustomplotd
 
 INCLUDEPATH += $$PWD/../qcustomplot
 DEPENDPATH += $$PWD/../qcustomplot
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../quazip/quazip/release/ -lquazip
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../quazip/quazip/debug/ -lquazip
+else:unix: LIBS += -L$$OUT_PWD/../quazip/quazip/ -lquazip
+
+INCLUDEPATH += $$PWD/../quazip/quazip
+DEPENDPATH += $$PWD/../quazip/quazip

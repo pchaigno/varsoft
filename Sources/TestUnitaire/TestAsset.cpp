@@ -23,11 +23,11 @@
 TestAsset::TestAsset() {
 	QDate startDate(2014, 1, 2);
 	QDate endDate(2014, 1, 5);
-	this->google = Asset("Google", "../../CSV_examples/asset1.txt", "YAHOO", startDate, endDate);
-	this->apple = Asset("Apple", "../../CSV_examples/asset4.txt", "YAHOO", QDate(2013, 12, 30), QDate(2014, 1, 2));
-	this->missing = Asset("test", "../../CSV_examples/nonexistingfile.txt", "YAHOO", startDate, endDate);
-	this->asset1 = Asset("Asset1", "../../CSV_examples/asset1.txt", "YAHOO", QDate(2014, 01, 01), QDate(2014, 01, 06));
-	this->weekends = Asset("Weekends", "../../CSV_examples/asset6.txt", "ProjectVaR", QDate(2014, 01, 5), QDate(2014, 01, 26));
+	this->google = Asset("Google", "../../Examples/asset1.txt", "YAHOO", startDate, endDate);
+	this->apple = Asset("Apple", "../../Examples/asset4.txt", "YAHOO", QDate(2013, 12, 30), QDate(2014, 1, 2));
+	this->missing = Asset("test", "../../Examples/nonexistingfile.txt", "YAHOO", startDate, endDate);
+	this->asset1 = Asset("Asset1", "../../Examples/asset1.txt", "YAHOO", QDate(2014, 01, 01), QDate(2014, 01, 06));
+	this->weekends = Asset("Weekends", "../../Examples/asset6.txt", "ProjectVaR", QDate(2014, 01, 5), QDate(2014, 01, 26));
 }
 
 /**
@@ -210,4 +210,20 @@ void TestAsset::testRetrieveValuesByDateUnavailableDates() {
 	QMap<QDate, double> result = this->apple.retrieveValuesByDate(QDate(2013, 12, 31), QDate(2013, 12, 31));
 	QCOMPARE(result.size(), 1);
 	QCOMPARE(result.value(QDate(2013, 12, 31)), 98.0);
+}
+
+/**
+ * @brief Compares a serialized/deserialized asset with the original asset.
+ */
+void TestAsset::testSerialize() {
+	// The asset google has an ID.
+	QJsonObject json = this->google.toJSON();
+	Asset test = Asset(json);
+
+	QCOMPARE(test.getId(), -1);
+	QCOMPARE(test.getName(), this->google.getName());
+	QCOMPARE(test.getOrigin(), this->google.getOrigin());
+	QCOMPARE(test.getFile(), this->google.getFile());
+	QCOMPARE(test.getStartDate(), this->google.getStartDate());
+	QCOMPARE(test.getEndDate(), this->google.getEndDate());
 }

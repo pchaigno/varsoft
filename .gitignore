@@ -96,7 +96,7 @@ build-*-Desktop*-Release/
 *.la
 *.lai
 *.so
-*.dll
+#*.dll
 *.dylib
 
 # Qt-es
@@ -158,7 +158,7 @@ local.properties
 # Compiled Dynamic libraries
 *.so
 *.dylib
-*.dll
+#*.dll
 
 # Compiled Static libraries
 *.lai
