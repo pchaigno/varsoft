@@ -72,6 +72,22 @@ void SessionSaver::saveSession(QList<Portfolio*> portfolios) {
 	this->savePortfolios(portfolios);
 	this->updatePortfolios(portfolios);
 
+	// Searches for deleted portfolios:
+	QList<int> deletedPortfolios;
+	QList<int> portfoliosID = this->getPortfolios();
+	foreach(int portfolioID, portfoliosID) {
+		bool found = false;
+		foreach(Portfolio* portfolio, portfolios) {
+			if(portfolioID == portfolio->getId()) {
+				found = true;
+			}
+		}
+		if(!found) {
+		// This portfolio has been deleted.
+			deletedPortfolios.append(portfolioID);
+		}
+	}
+
 	// The reports are saved last because they have a reference to a portfolio:
 	foreach(Portfolio* portfolio, portfolios) {
 		this->saveReports(portfolio, portfolio->getReports());
@@ -185,6 +201,49 @@ void SessionSaver::updatePortfolios(QList<Portfolio*> portfolios) const {
 	}
 	this->removeReports(deletedReports);
 
+	queryPortfolios.finish();
+}
+
+/**
+ * @brief Retrieves all portfolios' ID from the database.
+ * @return All portfolios' ID.
+ */
+QList<int> SessionSaver::getPortfolios() const {
+	QSqlQuery query(this->db);
+	query.prepare("SELECT id FROM portfolios;");
+	query.exec();
+
+	QList<int> portfoliosID;
+	while(query.next()) {
+		portfoliosID.append(query.value(0).toInt());
+	}
+
+	query.finish();
+	return portfoliosID;
+}
+
+/**
+ * @brief Removes somes portfolios from the database.
+ * Removes any references to the portfolios first in weights and reports.
+ * @param portfoliosID The ID of the portfolios to remove from the database.
+ */
+void SessionSaver::removePortfolios(const QList<int> portfoliosID) const {
+	QSqlQuery queryWeights(this->db);
+	queryWeights.prepare("DELETE FROM weights WHERE portfolio = :id;");
+	QSqlQuery queryReports(this->db);
+	queryReports.prepare("DELETE FROM reports WHERE portfolio = :id;");
+	QSqlQuery queryPortfolios(this->db);
+	queryPortfolios.prepare("DELETE FROM portfolios WHERE id = :id;");
+	foreach(int portfolioID, portfoliosID) {
+		queryWeights.bindValue(":id", portfolioID);
+		queryWeights.exec();
+		queryReports.bindValue(":id", portfolioID);
+		queryReports.exec();
+		queryPortfolios.bindValue(":id", portfolioID);
+		queryPortfolios.exec();
+	}
+	queryWeights.finish();
+	queryReports.finish();
 	queryPortfolios.finish();
 }
 

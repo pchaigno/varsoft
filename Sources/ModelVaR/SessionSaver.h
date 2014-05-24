@@ -50,6 +50,8 @@ private:
 	void updateAssets(QList<Asset*>& assets) const;
 	void savePortfolios(QList<Portfolio*> portfolios) const;
 	void updatePortfolios(QList<Portfolio*> portfolios) const;
+	QList<int> getPortfolios() const;
+	void removePortfolios(const QList<int> portfoliosID) const;
 	void saveReports(const Portfolio* portfolio, const QList<Report*>& reports) const;
 	QList<int> getReports(int portfolioID) const;
 	void removeReports(const QList<int> reportsID) const;

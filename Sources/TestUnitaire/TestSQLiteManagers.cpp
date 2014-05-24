@@ -40,6 +40,7 @@ TestSQLiteManagers::TestSQLiteManagers() {
 	// The portfolio:
 	Portfolio* portfolio = new Portfolio("Test", assets, reports);
 	this->portfolios = QList<Portfolio*>();
+	portfolio = new Portfolio("ToBeRemoved", assets, reports);
 	this->portfolios.append(portfolio);
 }
 
@@ -132,6 +133,7 @@ void TestSQLiteManagers::testUpdateSession() {
 	this->portfolios[0]->removeReport(this->varReport);
 	Report* statisticsReport = new StatisticsReport("somefolder/statisticsReport");
 	this->portfolios[0]->addReport(statisticsReport);
+	this->portfolios.removeAt(1);
 	SessionSaver::getInstance()->saveSession(this->portfolios);
 
 	// Retrieves everything from the database:
