@@ -17,16 +17,19 @@
  */
 #pragma once
 
-#include <QDate>
+#include <QtCore/qmath.h>
+#include <QString>
+#include <QVector>
+#include <stdexcept>
 #include "ModelVaR_global.h"
-#include "VaRAlgorithm.h"
-#include "MathFunctions.h"
 
-class MODELVARSHARED_EXPORT VaRRiskmetrics: public VaRAlgorithm {
+class MODELVARSHARED_EXPORT MathFunctions {
 private:
-	int initPeriod;
-	const static double lambda = 0.94;
+	const static double tinyValue = 1e-20;
+
 public:
-	VaRRiskmetrics(const Portfolio& portfolio, double risk, int timeHorizon, int initPeriod);
-	virtual double execute(QDate date) const;
+	MathFunctions();
+	static double rationalApproximation(double t);
+	static double normalCDFInverse(double p);
+	static double correlation(const QVector<double>& x, const QVector<double>& y);
 };

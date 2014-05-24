@@ -23,6 +23,9 @@ SOURCES += \
 	TestPortfolioItemModel.cpp \
 	TestVaRHistorical.cpp \
 	TestArchiveManagers.cpp \
+	TestBacktesting.cpp \
+	TestVaRRiskmetrics.cpp \
+	TestMathFunctions.cpp \
 	TestRInterface.cpp
 
 HEADERS += \
@@ -34,6 +37,9 @@ HEADERS += \
 	TestPortfolioItemModel.h \
 	TestVaRHistorical.h \
 	TestArchiveManagers.h \
+	TestBacktesting.h \
+	TestVaRRiskmetrics.h \
+	TestMathFunctions.h \
 	TestRInterface.h
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"

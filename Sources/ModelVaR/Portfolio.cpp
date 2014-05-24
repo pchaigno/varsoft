@@ -306,13 +306,13 @@ QMap<QDate, double> Portfolio::retrieveValuesByDate(const QDate& startPeriod, co
 		int weight = assetIt.value();
 
 		if(values.size() == 0) {
-		// First asset retrieved.
+			// First asset retrieved.
 			for(QMap<QDate, double>::const_iterator assetValuesIt=assetValues.begin(); assetValuesIt!=assetValues.end(); assetValuesIt++) {
 				values.insert(assetValuesIt.key(), assetValuesIt.value() * weight);
 			}
 
 		} else {
-		// Not the first asset retrieved.
+			// Not the first asset retrieved.
 
 			// All retrieveValuesBydate on assets should return the same number of values:
 			if(values.size() != assetValues.size()) {
@@ -400,6 +400,144 @@ QVector<double> Portfolio::retrieveReturns(const QDate& endPeriod, int nbValues)
 	}
 
 	return this->retrieveReturns(startPeriod, endPeriod);
+}
+
+/** @brief Retrieves the log-returns of the portfolio between the specified dates.
+ * Calls the retrieveValues method and computes the log-return.
+ * Reads the asset file for each call.
+ * @param startPeriod Starts retrieving values from this date.
+ * @param endPeriod Retrieves to this date maximum.
+ * @return The log-returns in a chronological order.
+ */
+QVector<double> Portfolio::retrieveLogReturns(const QDate& startPeriod, const QDate& endPeriod) const {
+	QVector<double> values = this->retrieveValues(startPeriod, endPeriod);
+	QVector<double> logReturns = QVector<double>();
+	for(int i=1; i<values.size(); i++) {
+		logReturns.append(qLn(values[i] / values[i-1]));
+	}
+	return logReturns;
+}
+
+/**
+ * @brief Retrieves nb_values log-returns of the portfolio before endPeriod.
+ * The returned vector can be smaller than asked (if there aren't enough values).
+ * @param endPeriod Retrieves to this date maximum.
+ * @param nbValues The number of desired log-returns.
+ * @return The log-returns in a chronological order.
+ */
+QVector<double> Portfolio::retrieveLogReturns(const QDate& endPeriod, int nbValues) const {
+	// Computes the start date of the period:
+	// The period should contain nb_values returns.
+	// The date computed could be before the start date of the portfolio,
+	// in which case retrieveReturns will return less returns than expected.
+	QDate startPeriod = QDate(endPeriod);
+	// We reduce to the last Monday:
+	int nbDaysToMonday = startPeriod.dayOfWeek()-1;
+	if(nbDaysToMonday < nbValues) {
+		// Linear to the last Monday:
+		startPeriod = startPeriod.addDays(-nbDaysToMonday);
+		nbValues -= nbDaysToMonday;
+
+		// We gets 5 values in a week:
+		int nbWeeks = nbValues / 5;
+		startPeriod = startPeriod.addDays(-nbWeeks * 7);
+		nbValues = nbValues % 5;
+
+		if(nbValues > 0) {
+			// We reduce to the last Friday:
+			startPeriod = startPeriod.addDays(-3);
+			nbValues--;
+
+			if(nbValues > 0) {
+				// Linear to the end:
+				startPeriod = startPeriod.addDays(-nbValues);
+			}
+		}
+	} else {
+		// No weekend between the two dates so it's linear.
+		startPeriod = startPeriod.addDays(-nbValues);
+	}
+
+	return this->retrieveLogReturns(startPeriod, endPeriod);
+}
+
+/**
+ * @brief Retrieves the return corresponding at the date and the horizon specified
+ * @param date The date of start
+ * @param horizon The horizon associated to the return
+ * @return The return from the date and considering the horizon
+ */
+double Portfolio::retrieveReturnHorizon(const QDate& date, int horizon) const {
+	// Finds out the start date
+	QDate startDate = QDate(date);
+	if(date.dayOfWeek()>=2) { // The previous day for Tuesday to Friday
+		startDate = startDate.addDays(-1);
+	} else if(date.dayOfWeek() == 1) { // The previous Friday for Monday
+		startDate = startDate.addDays(-3);
+	}
+	if(startDate < this->retrieveStartDate()) {
+		throw std::invalid_argument("There are not enough historical values to compute the return at the specified date");
+	}
+
+	// Finds out the end date corresponding to the horizon
+	QDate endDate = QDate(date);
+	for(int h=0; h < horizon-1;) {
+		endDate = endDate.addDays(1);
+		if(endDate.dayOfWeek() <= 5) {
+			h++;
+		}
+	}
+	if(endDate > this->retrieveEndDate()) {
+		throw std::invalid_argument("There are not enough historical values to compute the return given the specified date and the horizon");
+	}
+
+	return this->retrieveValues(endDate, endDate).first() - this->retrieveValues(startDate, startDate).first();
+}
+
+/**
+ * @brief Computes the correlation matrix of the assets a the portfolio. Values used are the ones
+ * precised by the startDate and the endDate
+ * @param startDate The starting date to define the period used to compute the correlation
+ * @param endDate The ending date to define the period used to compute the correlation
+ * @return The correlation matrix
+ */
+QVector<QVector<double> > Portfolio::computeCorrelationMatrix(const QDate& startDate, const QDate& endDate) const {
+	if(startDate < this->retrieveStartDate()) {
+		throw std::invalid_argument("The startDate cannot be before the start date of the portfolio.");
+	}
+	if(endDate > this->retrieveEndDate()) {
+		throw std::invalid_argument("The endDate cannot be after the end date of the portfolio.");
+	}
+
+	QVector<QVector<double> > correlationMatrix = QVector< QVector<double> >(this->composition.size());
+
+	// Calculates the correlation between the assets, fills only the strict upper triangular part
+	// because the matrix is symetric
+	int i, j;
+	QMap<Asset*, int>::const_iterator assetIt1, assetIt2;
+	for(i=0, assetIt1=this->composition.begin(); assetIt1!=this->composition.end(); ++assetIt1, i++) {
+		QVector<double> assetValues1 = assetIt1.key()->retrieveValues(startDate, endDate);
+		correlationMatrix[i].resize(this->composition.size());
+		for(j=i+1, assetIt2=this->composition.begin()+j; assetIt2!=this->composition.end(), j<this->composition.size(); ++assetIt2, j++) {
+			QVector<double> assetValues2 = assetIt2.key()->retrieveValues(startDate, endDate);
+			correlationMatrix[i][j] = MathFunctions::correlation(assetValues1, assetValues2);
+		}
+	}
+
+	// The correlation of a asset with itself is always one
+	// Thus fills the diagonal of the matrix with 1
+	for(int i=0; i < correlationMatrix.size(); i++) {
+		correlationMatrix[i][i] = 1;
+	}
+
+	// Fills the strict lower triangular part by symetry
+	for(int i=1; i < correlationMatrix.size(); i++) {
+		for(j=0; j < i; j++) {
+			correlationMatrix[i][j] = correlationMatrix[j][i];
+		}
+	}
+
+	return correlationMatrix;
 }
 
 /**
