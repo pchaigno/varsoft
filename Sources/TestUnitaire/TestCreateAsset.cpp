@@ -16,7 +16,6 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #include "TestCreateAsset.h"
-
 /**
 * @brief Tests import of ImportNewData.
 */
@@ -47,7 +46,7 @@ void TestCreateAsset::testImport() {
 	QVERIFY(startDate <= QDate::fromString(dataRow[0], "yyyy-MM-dd"));
 
 	Asset *a = SessionBuilder::getInstance()->buildAsset("Gogolea");
-	QVERIFY(a->getFile() == "../../Examples/Gogolea_test.csv");
+	QVERIFY(a->getFile() == "../../CSV_examples/Gogolea_test.csv");
 	QVERIFY(a->getStartDate() == startDate);
 	QVERIFY(a->getEndDate() == endDate);
 	QVERIFY(a->getName() == "Gogolea");
