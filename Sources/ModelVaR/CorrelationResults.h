@@ -15,20 +15,22 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#include "CorrelationTestsResultsCollector.h"
 
-CorrelationTestsResultsCollector::CorrelationTestsResultsCollector()
-{
-	this->results = new QVector<QString,QPair<double,double>>();
-}
+#pragma once
 
-CorrelationTestsResultsCollector::~CorrelationTestsResultsCollector()
-{
-	delete;
-}
+#include <QString>
+#include <QPair>
+#include <QList>
+#include "ModelVaR_global.h"
 
-CorrelationTestsResultsCollector::add(QString s,QPair<double,double> p){
-	this->results.append(s,p.first,p.second);
-}
+class MODELVARSHARED_EXPORT CorrelationResults{
 
+public:
+	CorrelationResults(QString s, double st_v, double p_v);
+	~CorrelationResults();
+private:
+	QString testType;
+	double statValue;
+	double pValue;
+};
 

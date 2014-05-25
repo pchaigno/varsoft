@@ -43,6 +43,7 @@
 #include <QDate>
 #include "ImportNewData.h"
 #include "GetStartEndDates.h"
+#include "CorrelationDialog.h"
 
 namespace Ui {
 	class MainWindow;
@@ -50,7 +51,7 @@ namespace Ui {
 
 class MainWindow: public QMainWindow {
 	Q_OBJECT
-	
+
 public:
 	explicit MainWindow(QWidget* parent = 0);
 	~MainWindow();
@@ -67,6 +68,7 @@ private slots:
 	void showPortfolio(Portfolio* portfolio);
 	void setImportCSV();
 	void generateStatsReport();
+	void generateCorrelationReport();
 
 	void addPortfolio(Portfolio *);
 	void removeSelectedPortfolio();

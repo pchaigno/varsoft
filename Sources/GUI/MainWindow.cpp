@@ -25,6 +25,7 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
 	connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(setImportCSV()));
 
 	connect(ui->actionGenerate_Stats_Report,SIGNAL(triggered()),this,SLOT(generateStatsReport()));
+	connect(ui->actionGenerate_Correlation_Report,SIGNAL(triggered()),this,SLOT(generateCorrelationReport()));
 
 	ui->listView->setModel(portfolioListModel);
 	connect(ui->removePushButton, SIGNAL(clicked()), this, SLOT(removeSelectedPortfolio()));
@@ -333,6 +334,36 @@ void MainWindow::generateStatsReport() {
 	} catch (NoneSelectedPortfolioException& ) {
 		showError("None portfolio selected");
 	}
+}
+
+/**
+ * @brief Generates the correlation report of the selected portfolio and add it to the vector
+ * of report of the selected portfolio.
+ */
+void MainWindow::generateCorrelationReport() {
+	//try {
+		// get the current portfolio
+
+		Portfolio * port = this->getCurrentPortfolio();
+
+		Correlation* correlationDialog = new Correlation(port,this);
+		correlationDialog->setAttribute(Qt::WA_DeleteOnClose);
+		correlationDialog->show();
+		/*
+		// build the stats report
+		Report * report = buildReport(port, new StatisticsReportFactory(port));
+
+		// generate it in Docx format
+		QSettings settings;
+		generateReport(new DocxGenerator(report, settings.value("DocXGenPath","../Resources/DocxGenerator/DocXGenerator.jar").toString()));
+	} catch (ReportAlreadyCreatedException & e) {
+
+	} catch (ReportException & e) {
+		showError(e.what());
+	} catch (NoneSelectedPortfolioException& ) {
+		showError("None portfolio selected");
+	}
+	*/
 }
 
 /**

@@ -26,21 +26,23 @@
 * @param endDate The latest date in the file
 * @param parent QDialog Widget to use
 */
-Correlation::Correlation(const Portfolio &portfolio, QWidget *parent): QDialog(parent), ui(new Ui::Correlation) {
+Correlation::Correlation(Portfolio *portfolio, QWidget *parent): QDialog(parent), ui(new Ui::Correlation) {
 	ui->setupUi(this);
-	this->portfolio = porfolio;
-	QDate date = portfolio.retrieveEndDate();
+	this->portfolio = portfolio;
+	QDate date = portfolio->retrieveEndDate();
 	ui->date->setMinimumDate(date);
-	ui->date->setMaximumDate(portfolio.retrieveStartDate());
+	ui->date->setMaximumDate(portfolio->retrieveStartDate());
 	ui->date->setDate(date);
 	ui->date->setCalendarPopup(true);
-
+	results = new QList<CorrelationResults>();
 	//delete automatically the QDialog
 	this->setAttribute(Qt::WA_DeleteOnClose);
 }
 
 Correlation::~Correlation() {
 	delete ui;
+	//delete portfolio;
+	delete results;
 }
 
 /**
@@ -48,37 +50,17 @@ Correlation::~Correlation() {
 * Emit a signal with all data set in the window
 */
 void Correlation::on_pushButton_clicked() {
-
-	RInterface ri = new RInterface();
+	QPair<double,double> res;
+	//QDate date = new QDate(ui->date->date());
+	const QDate &date = (const QDate&)(ui->date->date());
+	//QDate* pf = new QDate(ui->date->date());
+	//const QDate &date = (const QDate&)pf;
 	if(ui->comboBox->currentText() == "Correlation")
-		ri.checkCorrelation(this->portfolio,ui->timelag->value(),ui->date->)
-	/*
-	ImportNewData algo = ImportNewData();
-	if(ui->startDate->dateTime() >= ui->endDate->dateTime()) {
-		QMessageBox::warning(0, "Warning", "Dates are not valid");
-		return;
-	}
-	if(ui->textEdit->text().trimmed().isEmpty()) {
-		QMessageBox::warning(0, "Warning", "Please provide a name");
-		return;
-	}
-	if(AssetsFactory::getInstance()->retrieveAsset(ui->textEdit->text()) != NULL) {
-		QMessageBox::warning(0, "Error", "This name is already used");
-		return;
-	} else {
-		try {
-			QString namealea = ui->textEdit->text()+"_"+QString::number(QDateTime::currentMSecsSinceEpoch())+".csv";
-			Asset a = Asset(ui->textEdit->text(), namealea, ui->comboBox->currentText(), ui->startDate->date(), ui->endDate->date());
-			algo.import(a, fileName);
-			SessionSaver::getInstance()->saveAsset(a);
-		} catch(ImportException &e) {
-			const QString& mes = QString(e.what());
-			QMessageBox::warning(0, "Error", mes);
-			return;
-		}
-		this->close();
-	}
-	*/
+		res = RInterface::checkCorrelation(*this->portfolio,ui->timelag->value(),date,ui->period->value());
+	else
+		res = RInterface::checkSquareCorrelation(*this->portfolio,ui->timelag->value(),date,ui->period->value());
+	CorrelationResultsDialog *cr = new CorrelationResultsDialog(results, ui->comboBox->currentText(), res, this);
+	cr->show();
 }
 
 /**
@@ -89,3 +71,9 @@ void Correlation::on_pushButton_2_clicked() {
 	this->close();
 }
 
+/**
+ * @brief Correlation::quit
+ */
+void Correlation::quit(){
+	this->close();
+}

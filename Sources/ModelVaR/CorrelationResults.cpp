@@ -16,19 +16,17 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "CorrelationResults.h"
 
-#include <QString>
-#include <QPair>
-#include "ModelVaR_global.h"
+CorrelationResults::CorrelationResults(QString s, double st_v, double p_v)
+{
+	testType = s;
+	statValue = st_v;
+	pValue = p_v;
+}
 
-class MODELVARSHARED_EXPORT CorrelationTestsResultsCollector{
+CorrelationResults::~CorrelationResults()
+{
+}
 
-public:
-	CorrelationTestsResultsCollector();
-	~CorrelationTestsResultsCollector();
-	add(QString,QPair<double,double>)();
-private:
-	QVector<QString, QPair<double, double>> results;
-};
 

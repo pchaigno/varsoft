@@ -158,8 +158,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>520</width>
-             <height>301</height>
+             <width>518</width>
+             <height>312</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -182,7 +182,7 @@
      <x>0</x>
      <y>0</y>
      <width>826</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFichier">
@@ -223,6 +223,7 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionGenerate_Stats_Report"/>
+   <addaction name="actionGenerate_Correlation_Report"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionOuvrir">
@@ -283,6 +284,14 @@
   <action name="actionDocXGenerator_path">
    <property name="text">
     <string>DocXGenerator path ...</string>
+   </property>
+  </action>
+  <action name="actionGenerate_Correlation_Report">
+   <property name="text">
+    <string>Generate Correlation Report</string>
+   </property>
+   <property name="toolTip">
+    <string>Generate Correlation Report</string>
    </property>
   </action>
  </widget>

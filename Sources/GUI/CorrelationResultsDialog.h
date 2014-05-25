@@ -17,35 +17,32 @@
  */
 #pragma once
 
-#include "ui_correlation.h"
-#include "Portfolio.h"
-#include "RInterface.h"
-#include "CorrelationResults.h"
+#include "ui_correlationRes.h"
 #include "CorrelationResultsDialog.h"
-#include <QDate>
+#include "CorrelationResults.h"
+#include "CorrelationDialog.h"
 #include <QDialog>
 #include <QException>
 
 namespace Ui {
-	class Correlation;
+	class CorrelationResultsDialog;
 }
-class Correlation : public QDialog
+class CorrelationResultsDialog : public QDialog
 {
 	Q_OBJECT
 public:
-    Correlation(Portfolio *portfolio, QWidget *parent = 0);
-	~Correlation();
+	explicit CorrelationResultsDialog(QList<CorrelationResults> *results, QString testType, QPair<double,double> res, QWidget *parent = 0);
+	~CorrelationResultsDialog();
 private:
-	Ui::Correlation *ui;
-	QString fileName;
-    Portfolio *portfolio;
-    QList<CorrelationResults> *results;
-
+	Ui::CorrelationResultsDialog *ui;
+	QList<CorrelationResults> *results;
+	QPair<double, double> pair;
+	QString type;
 private slots:
-    void on_pushButton_clicked();
-    void on_pushButton_2_clicked();
+	void on_generate_clicked();
+	void on_save_clicked();
+	void on_quit_clicked();
+	void on_testAgain_clicked();
 
-public slots:
-    void quit();
 };
 
