@@ -52,7 +52,6 @@ SOURCES += \
 	qcustomplot.cpp \
 	ReportGenerator.cpp \
 	ReportException.cpp \
-	GetStartEndDates.cpp \
 	Savable.cpp
 
 HEADERS +=\
