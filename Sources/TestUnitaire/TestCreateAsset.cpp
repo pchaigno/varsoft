@@ -16,6 +16,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #include "TestCreateAsset.h"
+#include <QDebug>
 
 /**
 * @brief Tests import of ImportNewData.
@@ -47,8 +48,7 @@ void TestCreateAsset::testImport() {
 	QVERIFY(startDate <= QDate::fromString(dataRow[0], "yyyy-MM-dd"));
 
 	Asset *a = SessionBuilder::getInstance()->buildAsset("Gogolea");
-
-	QVERIFY(a->getFile() == "../../CSV_examples/Gogolea_test.csv");
+	QVERIFY(a->getFile() == "../../Examples/Gogolea_test.csv");
 	QVERIFY(a->getStartDate() == startDate);
 	QVERIFY(a->getEndDate() == endDate);
 	QVERIFY(a->getName() == "Gogolea");
@@ -59,7 +59,7 @@ void TestCreateAsset::testImport() {
 	int size = dataRows.size();
 	for (int x =1; x < size; x++) {
 		dataRow = dataRows.at(x).split(",");
-		QVERIFY((QDate::fromString(dataRow[0], "yyyy-MM-dd").dayOfWeek() != 6)&&(QDate::fromString(dataRow[0], "yyyy-MM-dd").dayOfWeek() != 7));
+		QVERIFY((QDate::fromString(dataRow[0], "yyyy-MM-dd").dayOfWeek() <= 5));
 	}
 	// Deletes the database file:
 	QFile databaseFile(SessionSaver::getInstance()->getDatabaseFile());

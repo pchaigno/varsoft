@@ -16,6 +16,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #include "CreateAsset.h"
+#include <QDebug>
 /**
 * @brief Creates a new file with selected data
 * @param asset The asset created
@@ -51,7 +52,8 @@ void CreateAsset::import(const Asset &asset, const QString& file) const {
 	QFile fileCreated(asset.getFile());
 	// The file is open in write-only mode and we check the opening
 	if (!fileCreated.open(QIODevice::WriteOnly | QIODevice::Text)) {
-		throw CreateAssetException("Error while opening the file");
+		//throw CreateAssetException("Error while opening the file");
+		return;
 	}
 	QTextStream flux(&fileCreated);
 	flux.setCodec("UTF-8");
@@ -70,7 +72,7 @@ void CreateAsset::import(const Asset &asset, const QString& file) const {
 				if(date_regex.exactMatch(rowData[0]) && value_regex.exactMatch(rowData[data_index])) {
 					QDate currentDate = QDate::fromString(rowData[0], "yyyy-MM-dd");
 					//Every week-end day will be avoided
-					if ((currentDate.dayOfWeek() > 5)){
+					if ((currentDate.dayOfWeek() <= 5)){
 						//checks the order of dates
 						if(previousDate > currentDate) {
 							previousDate = currentDate;
@@ -80,6 +82,7 @@ void CreateAsset::import(const Asset &asset, const QString& file) const {
 									break;
 								}
 								flux << rowData[0] << "," << rowData[data_index] << "\n";
+								//qDebug() << rowData[0] << "," << rowData[data_index] << "\n";
 							}
 						} else {
 							throw CreateAssetException("The dates are not sorted");
