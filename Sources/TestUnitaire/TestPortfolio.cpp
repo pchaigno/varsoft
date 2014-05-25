@@ -108,6 +108,7 @@ void TestPortfolio::testId() {
 	QCOMPARE(this->son->getParentId(), -1);
 	this->father->setId(42);
 	QCOMPARE(this->father->getId(), 42);
+	QVERIFY(this->father->isUpToDate());
 	QCOMPARE(this->son->getParentId(), 42);
 	try {
 		this->father->setId(43);
@@ -124,6 +125,7 @@ void TestPortfolio::testName() {
 	QVERIFY(this->father->getName() == "Father");
 	this->father->changeName("John");
 	QVERIFY(this->father->getName() == "John");
+	QVERIFY(this->father->isModified());
 }
 
 /**

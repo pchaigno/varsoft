@@ -43,6 +43,7 @@
 #include <QDate>
 #include "portfolio/report/ReportView.h"
 #include "portfolio/PortfolioViewMediator.h"
+#include "SessionSaver.h"
 
 namespace Ui {
 	class MainWindow;
@@ -66,6 +67,10 @@ private slots:
 	void newPortfolio();
 	void setImportCSV();
 	void generateStatsReport();
+
+	void save();
+	void saveAs();
+	void saveAs(QString savePath);
 
 	void removeSelectedPortfolio();
 
@@ -93,4 +98,5 @@ private:
 	PortfolioListModel * portfolioListModel;
 	DataModel * dataModel;
 	PortfolioViewMediator* portfolioViewMediator;
+	QString savePath;
 };

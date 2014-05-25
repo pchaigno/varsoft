@@ -21,7 +21,7 @@
  * @brief Empty constructor
  * Should only be used by Qt containers.
  */
-Portfolio::Portfolio() {
+Portfolio::Portfolio(): Savable(false) {
 
 }
 
@@ -32,7 +32,7 @@ Portfolio::Portfolio() {
  * @param composition The assets composing the portfolio.
  * @param reports The reports of the portfolio.
  */
-Portfolio::Portfolio(Portfolio* parent, QString name, QMap<Asset*, int>& composition, QList<Report*>& reports) {
+Portfolio::Portfolio(Portfolio* parent, QString name, QMap<Asset*, int>& composition, QList<Report*>& reports): Savable(false) {
 	this->init(parent, -1, name, composition, reports);
 }
 
@@ -42,7 +42,7 @@ Portfolio::Portfolio(Portfolio* parent, QString name, QMap<Asset*, int>& composi
  * @param composition The assets composing the portfolio.
  * @param reports The reports of the portfolio.
  */
-Portfolio::Portfolio(QString name, QMap<Asset*, int>& composition, QList<Report*>& reports) {
+Portfolio::Portfolio(QString name, QMap<Asset*, int>& composition, QList<Report*>& reports): Savable(false) {
 	this->init(NULL, -1, name, composition, reports);
 }
 
@@ -54,7 +54,7 @@ Portfolio::Portfolio(QString name, QMap<Asset*, int>& composition, QList<Report*
  * @param composition The assets composing the portfolio.
  * @param reports The reports of the portfolio.
  */
-Portfolio::Portfolio(Portfolio* parent, int id, QString name, QMap<Asset*, int>& composition, QList<Report*>& reports) {
+Portfolio::Portfolio(Portfolio* parent, int id, QString name, QMap<Asset*, int>& composition, QList<Report*>& reports): Savable(true) {
 	this->init(parent, id, name, composition, reports);
 }
 
@@ -65,11 +65,12 @@ Portfolio::Portfolio(Portfolio* parent, int id, QString name, QMap<Asset*, int>&
  * @param composition The assets composing the portfolio.
  * @param reports The reports of the portfolio.
  */
-Portfolio::Portfolio(int id, QString name, QMap<Asset*, int>& composition, QList<Report*>& reports) {
+Portfolio::Portfolio(int id, QString name, QMap<Asset*, int>& composition, QList<Report*>& reports): Savable(true) {
 	this->init(NULL, id, name, composition, reports);
 }
 
 Portfolio::~Portfolio() {
+
 }
 
 /**
@@ -96,7 +97,7 @@ void Portfolio::init(Portfolio* parent, int id, QString name, QMap<Asset*, int>&
  * This last param should contain the parent portfolio if one is needed.
  * Portfolios should be deserialized by id order so that for every portfolio, the parent will always be deserilized first.
  */
-Portfolio::Portfolio(const QJsonObject& json, QMap<QString, Portfolio*>& deserializedPortfolios) {
+Portfolio::Portfolio(const QJsonObject& json, QMap<QString, Portfolio*>& deserializedPortfolios): Savable(false) {
 	this->fromJSON(json, deserializedPortfolios);
 }
 
@@ -127,6 +128,9 @@ void Portfolio::setId(int id) {
 		throw IdAlreadyAttributedException("An id has already been attributed to this portfolio.");
 	}
 	this->id = id;
+
+	// The portfolio has been saved to the database so it is up-to-date.
+	this->setStatusToUpToDate();
 }
 
 /**
@@ -163,6 +167,7 @@ QList<Report *> Portfolio::getReports() const {
 void Portfolio::addReport(Report *report) {
 	this->reports.append(report);
 	emit reportAdded(report);
+	this->setStatusToModified();
 }
 
 /**
@@ -189,14 +194,15 @@ void Portfolio::removeReport(Report &report)
 	report.removeFiles();
 
 	emit reportRemoved();
+	this->setStatusToModified();
 }
 
 /**
  * @brief Accessor to the assets.
  * @return The assets composing the portfolio.
  */
-QVector<Asset*> Portfolio::getAssets() const {
-	QVector<Asset*> assets;
+QList<Asset*> Portfolio::getAssets() const {
+	QList<Asset*> assets;
 	for(QMap<Asset*, int>::const_iterator it=this->composition.begin(); it!=this->composition.end(); ++it) {
 		assets.append(it.key());
 	}
@@ -226,6 +232,7 @@ int Portfolio::getWeight(Asset* const asset) const {
  */
 void Portfolio::changeName(QString name) {
 	this->name = name;
+	this->setStatusToModified();
 }
 
 /**

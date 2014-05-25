@@ -40,7 +40,7 @@ private:
 public:
 	Asset *buildAsset(QString name);
 	QMap<QString, Asset*> buildAssets();
-	QVector<Portfolio*> buildSession();
+	QList<Portfolio*> buildSession();
 	/**
 	 * @brief Accessor to the only instance of SessionBuilder.
 	 * @return The only instance of SessionBuilder.
@@ -54,7 +54,7 @@ public:
 
 private:
 	SessionBuilder(QString databaseFile);
-	QVector<Portfolio*> buildPortfolios();
+	QList<Portfolio*> buildPortfolios();
 	QList<Report*> buildReports(int idPortfolio);
 	QMap<Asset*, int> buildPortfolioComposition(int idPortfolio);
 };

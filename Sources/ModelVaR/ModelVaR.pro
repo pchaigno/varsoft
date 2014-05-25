@@ -49,7 +49,8 @@ SOURCES += \
 	reportFactory/BacktestingReportFactory.cpp \
 	reportFactory/StatisticsReportFactory.cpp \
 	reportFactory/CorrelationReportFactory.cpp \
-	exceptions/ReportException.cpp
+	exceptions/ReportException.cpp \
+	Savable.cpp
 
 HEADERS +=\
 	Asset.h \
@@ -102,7 +103,8 @@ HEADERS +=\
 	ReportFactory \
 	Import \
 	Math \
-	Report
+	Report \
+	Savable.h
 
 unix:!symbian {
 	maemo5 {
