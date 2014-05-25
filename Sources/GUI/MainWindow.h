@@ -44,6 +44,7 @@
 #include "ImportNewData.h"
 #include "GetStartEndDates.h"
 #include "CorrelationDialog.h"
+#include "CorrelationReportFactory.h"
 
 namespace Ui {
 	class MainWindow;
@@ -61,6 +62,7 @@ public:
 	void initResources();
 	void createFolderIfDoesnotExist(QString folder);
 	void closeEvent(QCloseEvent *event);
+	void generateCorrelationReport(Portfolio *port, QList<CorrelationResults> *results);
 
 private slots:
 	void docxGenPath();
@@ -68,7 +70,7 @@ private slots:
 	void showPortfolio(Portfolio* portfolio);
 	void setImportCSV();
 	void generateStatsReport();
-	void generateCorrelationReport();
+	void showCorrelationWindow();
 
 	void addPortfolio(Portfolio *);
 	void removeSelectedPortfolio();

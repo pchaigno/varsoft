@@ -21,19 +21,26 @@
 #include <QString>
 #include <QPair>
 #include <QList>
+#include <QDate>
 #include "ModelVaR_global.h"
 
 class MODELVARSHARED_EXPORT CorrelationResults{
 
 public:
-	CorrelationResults(QString s, double st_v, double p_v);
+	CorrelationResults(QString s, double st_v, double p_v, int lag, int per, QString d);
 	~CorrelationResults();
 	QString getType() const;
 	double getStatValue() const;
 	double getPValue() const;
+	int getTimeLag() const;
+	int getPeriod() const;
+	QString getDate() const;
 private:
 	QString testType;
 	double statValue;
 	double pValue;
+	int timeLag;
+	int period;
+	QString date;
 };
 

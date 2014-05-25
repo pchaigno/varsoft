@@ -16,7 +16,6 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #include "CorrelationResultsDialog.h"
-#include <QDebug>
 
 /**
 * @brief CorrelationRes Constructor
@@ -26,7 +25,7 @@
 * @param endDate The latest date in the file
 * @param parent QDialog Widget to use
 */
-CorrelationResultsDialog::CorrelationResultsDialog(QList<CorrelationResults> *results, QString testType, QPair<double,double> res, QWidget *parent): QDialog(parent), ui(new Ui::CorrelationResultsDialog) {
+CorrelationResultsDialog::CorrelationResultsDialog(Portfolio *port,QList<CorrelationResults> *results, QString testType, QPair<double,double> res, int lag, QString date, int period , QWidget *parent): QDialog(parent), ui(new Ui::CorrelationResultsDialog) {
 	ui->setupUi(this);
 	ui->testType->setText("Test's type: "+ testType);
 	ui->pValue->setText("p-value: "+QString::number(res.second));
@@ -34,6 +33,10 @@ CorrelationResultsDialog::CorrelationResultsDialog(QList<CorrelationResults> *re
 	this->results = results;
 	this->pair = res;
 	this->type = testType;
+	this->portfolio = port;
+	this->date = date;
+	this->timeLag = lag;
+	this->period = period;
 	//delete automatically the QDialog
 	this->setAttribute(Qt::WA_DeleteOnClose);
 }
@@ -49,11 +52,14 @@ CorrelationResultsDialog::~CorrelationResultsDialog() {
 * @brief Save a test
 */
 void CorrelationResultsDialog::on_save_clicked() {
-	results->append(CorrelationResults(type,pair.first,pair.second));
+	results->append(CorrelationResults(type,pair.first,pair.second,this->timeLag,this->period,this->date));
 	for(int i =0; i < results->size(); i++){
 		qDebug() << QString::number(results->at(i).getPValue());
 		qDebug() << QString::number(results->at(i).getStatValue());
 		qDebug() << results->at(i).getType();
+		qDebug() << results->at(i).getDate();
+		qDebug() << QString::number(results->at(i).getPeriod());
+		qDebug() << QString::number(results->at(i).getTimeLag());
 	}
 	ui->save->setEnabled(false);
 }
@@ -79,6 +85,8 @@ void CorrelationResultsDialog::on_testAgain_clicked() {
 */
 void CorrelationResultsDialog::on_generate_clicked() {
 	//generer le rapport
+	qobject_cast<MainWindow*>((qobject_cast<Correlation*>(this->parentWidget()))->parentWidget())->generateCorrelationReport(this->portfolio,this->results);
+	this->close();
 }
 
 

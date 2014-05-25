@@ -21,6 +21,7 @@
 #include "CorrelationResultsDialog.h"
 #include "CorrelationResults.h"
 #include "CorrelationDialog.h"
+#include "MainWindow.h"
 #include <QDialog>
 #include <QException>
 
@@ -31,13 +32,17 @@ class CorrelationResultsDialog : public QDialog
 {
 	Q_OBJECT
 public:
-	explicit CorrelationResultsDialog(QList<CorrelationResults> *results, QString testType, QPair<double,double> res, QWidget *parent = 0);
+	explicit CorrelationResultsDialog(Portfolio *port,QList<CorrelationResults> *results, QString testType, QPair<double,double> res, int lag, QString date, int period, QWidget *parent = 0);
 	~CorrelationResultsDialog();
 private:
 	Ui::CorrelationResultsDialog *ui;
 	QList<CorrelationResults> *results;
 	QPair<double, double> pair;
 	QString type;
+	Portfolio *portfolio;
+	QString date;
+	int timeLag;
+	int period;
 private slots:
 	void on_generate_clicked();
 	void on_save_clicked();

@@ -18,11 +18,14 @@
 
 #include "CorrelationResults.h"
 
-CorrelationResults::CorrelationResults(QString s, double st_v, double p_v)
+CorrelationResults::CorrelationResults(QString s, double st_v, double p_v, int lag, int per, QString d)
 {
 	testType = s;
 	statValue = st_v;
 	pValue = p_v;
+	timeLag = lag;
+	period = per;
+	date = d;
 }
 
 CorrelationResults::~CorrelationResults()
@@ -40,5 +43,15 @@ double CorrelationResults::getStatValue() const{
 double CorrelationResults::getPValue() const{
 	return pValue;
 }
+int CorrelationResults::getTimeLag() const{
+	return timeLag;
+}
+int CorrelationResults::getPeriod() const{
+	return period;
+}
+QString CorrelationResults::getDate() const{
+	return date;
+}
+
 
 

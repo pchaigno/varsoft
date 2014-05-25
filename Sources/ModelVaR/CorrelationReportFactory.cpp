@@ -22,15 +22,44 @@
  * @param docxPath The location of the DOCX file on the disk.
  * @param pdfPath The location of the PDF file on the disk.
  */
-CorrelationReportFactory::CorrelationReportFactory():
+CorrelationReportFactory::CorrelationReportFactory(Portfolio *port, QList<CorrelationResults> *results):
 	ReportFactory() {
-
+	this->portfolio = port;
+	this->results = results;
 }
 
 Report *CorrelationReportFactory::createReport() {
-	return new CorrelationReport();
+	QString file = this->getReportDir()+QString("correlationReport");
+	QDate startDate = portfolio->retrieveStartDate();
+	QDate endDate = portfolio->retrieveEndDate();
+	file += "_"+portfolio->getName()+"_"+startDate.toString("dd-MM-yy")+"_"+endDate.toString("dd-MM-yy");
+	return new CorrelationReport(file);
 }
 
 ReportDataJson *CorrelationReportFactory::createJson() {
+
+	ReportDataJson* data = new ReportDataJson();
+	data->addText("portefeuilleName",portfolio->getName());
+	data->addText("dateDeb",portfolio->retrieveStartDate().toString("dd/MM/yyyy"));
+	QDate startDate = portfolio->retrieveStartDate();
+	QDate endDate = portfolio->retrieveEndDate();
+	data->addText("dateFin",endDate.toString("dd/MM/yyyy"));
+	data->addText("date",startDate.toString("dd/MM/yyyy"));
+
+	QList<QMap<QString,QString> > listResults;
+	for(int i =0; i < results->size(); i++) {
+		QMap<QString,QString> map;
+		map["Type"]=results->at(i).getType();
+		map["Date"]=results->at(i).getDate();
+		map["Lag"]=QString::number(results->at(i).getTimeLag());
+		map["Period"]=QString::number(results->at(i).getPeriod());
+		map["PValue"]=QString::number(results->at(i).getPValue());
+		map["StatValue"]=QString::number(results->at(i).getStatValue());
+
+		listResults.append(map);
+	}
+
+	data->addList("asset",listResults);
+	return data;
 
 }

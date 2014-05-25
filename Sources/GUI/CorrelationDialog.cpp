@@ -52,15 +52,12 @@ Correlation::~Correlation() {
 */
 void Correlation::on_pushButton_clicked() {
 	QPair<double,double> res;
-	//QDate date = new QDate(ui->date->date());
 	const QDate &date = (const QDate&)(ui->date->date());
-	//QDate* pf = new QDate(ui->date->date());
-	//const QDate &date = (const QDate&)pf;
 	if(ui->comboBox->currentText() == "Correlation")
 		res = RInterface::checkCorrelation(*this->portfolio,ui->timelag->value(),date,ui->period->value());
 	else
 		res = RInterface::checkSquareCorrelation(*this->portfolio,ui->timelag->value(),date,ui->period->value());
-	CorrelationResultsDialog *cr = new CorrelationResultsDialog(results, ui->comboBox->currentText(), res, this);
+	CorrelationResultsDialog *cr = new CorrelationResultsDialog(this->portfolio,results, ui->comboBox->currentText(), res,ui->timelag->value(),date.toString("dd/MM/yyyy"),ui->period->value(), this);
 	cr->show();
 }
 

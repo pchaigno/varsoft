@@ -33,19 +33,19 @@ class Correlation : public QDialog
 {
 	Q_OBJECT
 public:
-    Correlation(Portfolio *portfolio, QWidget *parent = 0);
+	Correlation(Portfolio *portfolio, QWidget *parent = 0);
 	~Correlation();
 private:
 	Ui::Correlation *ui;
 	QString fileName;
-    Portfolio *portfolio;
-    QList<CorrelationResults> *results;
+	Portfolio *portfolio;
+	QList<CorrelationResults> *results;
 
 private slots:
-    void on_pushButton_clicked();
-    void on_pushButton_2_clicked();
+	void on_pushButton_clicked();
+	void on_pushButton_2_clicked();
 
 public slots:
-    void quit();
+	void quit();
 };
 
