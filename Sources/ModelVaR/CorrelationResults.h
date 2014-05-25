@@ -28,6 +28,9 @@ class MODELVARSHARED_EXPORT CorrelationResults{
 public:
 	CorrelationResults(QString s, double st_v, double p_v);
 	~CorrelationResults();
+	QString getType() const;
+	double getStatValue() const;
+	double getPValue() const;
 private:
 	QString testType;
 	double statValue;

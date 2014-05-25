@@ -16,6 +16,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #include "CorrelationResultsDialog.h"
+#include <QDebug>
 
 /**
 * @brief CorrelationRes Constructor
@@ -49,6 +50,11 @@ CorrelationResultsDialog::~CorrelationResultsDialog() {
 */
 void CorrelationResultsDialog::on_save_clicked() {
 	results->append(CorrelationResults(type,pair.first,pair.second));
+	for(int i =0; i < results->size(); i++){
+		qDebug() << QString::number(results->at(i).getPValue());
+		qDebug() << QString::number(results->at(i).getStatValue());
+		qDebug() << results->at(i).getType();
+	}
 	ui->save->setEnabled(false);
 }
 

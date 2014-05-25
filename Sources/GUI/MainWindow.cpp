@@ -341,7 +341,7 @@ void MainWindow::generateStatsReport() {
  * of report of the selected portfolio.
  */
 void MainWindow::generateCorrelationReport() {
-	//try {
+	try {
 		// get the current portfolio
 
 		Portfolio * port = this->getCurrentPortfolio();
@@ -356,6 +356,7 @@ void MainWindow::generateCorrelationReport() {
 		// generate it in Docx format
 		QSettings settings;
 		generateReport(new DocxGenerator(report, settings.value("DocXGenPath","../Resources/DocxGenerator/DocXGenerator.jar").toString()));
+		*/
 	} catch (ReportAlreadyCreatedException & e) {
 
 	} catch (ReportException & e) {
@@ -363,7 +364,6 @@ void MainWindow::generateCorrelationReport() {
 	} catch (NoneSelectedPortfolioException& ) {
 		showError("None portfolio selected");
 	}
-	*/
 }
 
 /**

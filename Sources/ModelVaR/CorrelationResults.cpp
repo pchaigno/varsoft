@@ -29,4 +29,16 @@ CorrelationResults::~CorrelationResults()
 {
 }
 
+QString CorrelationResults::getType()const{
+	return testType;
+}
+
+double CorrelationResults::getStatValue() const{
+	return statValue;
+}
+
+double CorrelationResults::getPValue() const{
+	return pValue;
+}
+
 
