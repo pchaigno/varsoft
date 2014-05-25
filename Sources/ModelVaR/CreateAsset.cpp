@@ -16,7 +16,6 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #include "CreateAsset.h"
-#include <QDebug>
 /**
 * @brief Creates a new file with selected data
 * @param asset The asset created
