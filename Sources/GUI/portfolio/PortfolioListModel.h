@@ -41,6 +41,8 @@ public:
 
 	Portfolio *getPortfolio(const QModelIndex & index);
 
+	QList<Portfolio*> getPortfolios() const;
+
 signals:
 
 public slots:

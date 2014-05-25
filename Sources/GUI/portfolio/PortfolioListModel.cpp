@@ -51,6 +51,11 @@ Portfolio *PortfolioListModel::getPortfolio(const QModelIndex &index) {
 	return index.isValid() ? portfolioList[index.row()] : NULL;
 }
 
+QList<Portfolio *> PortfolioListModel::getPortfolios() const
+{
+	return portfolioList;
+}
+
 /**
  * @brief Return the data associate by the index with the specified role
  * (this method is call by Qt and should never be called by user, see Qt'doc)

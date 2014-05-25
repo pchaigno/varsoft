@@ -115,7 +115,7 @@ void MainWindow::docxGenPath() {
  */
 void MainWindow::newPortfolio() {
 	NewPortfolioWizard * fen = new NewPortfolioWizard(this);
-	connect(fen,SIGNAL(newPortfolioCreated(Portfolio*)),this,SLOT(addPortfolio(Portfolio*)));
+	connect(fen,SIGNAL(newPortfolioCreated(Portfolio*)),portfolioListModel,SLOT(addPortfolio(Portfolio*)));
 	fen->setAttribute(Qt::WA_DeleteOnClose);
 	fen->show();
 }
@@ -283,14 +283,6 @@ void MainWindow::setImportCSV() {
 	}
 }
 
-/**
- * @brief Add the portfolio to the ListView,
- * create the TableModel, and add it to the Map "portfoliosModels"
- * @param portfolio
- */
-void MainWindow::addPortfolio(Portfolio * portfolio) {
-	portfolioListModel->addPortfolio(portfolio);
-}
 
 /**
  * @brief Remove the portfolio selected from the PortfolioListView, delete its PortfolioViewModel
@@ -298,8 +290,6 @@ void MainWindow::addPortfolio(Portfolio * portfolio) {
  */
 void MainWindow::removeSelectedPortfolio() {
 	try {
-		//get the current portfolio
-		Portfolio * portfolio = this->getCurrentPortfolio();
 		//remove the portfolio in the ListView
 		ui->listView->removeSelectedPortfolio();
 	} catch (NoneSelectedPortfolioException& ) {

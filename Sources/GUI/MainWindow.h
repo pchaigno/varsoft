@@ -67,7 +67,6 @@ private slots:
 	void setImportCSV();
 	void generateStatsReport();
 
-	void addPortfolio(Portfolio *);
 	void removeSelectedPortfolio();
 
 	void reportGenerationDone();

@@ -112,7 +112,14 @@ Qt::ItemFlags DataModel::flags(const QModelIndex &index) const {
 void DataModel::setPortfolio(Portfolio *portfolio) {
 	this->portfolio = portfolio;
 	beginResetModel();
-	createDataStructure();
+	if (portfolio==NULL)
+	{
+		mydata.clear();
+		headers.clear();
+		datesRow.clear();
+	}
+	else
+		createDataStructure();
 	endResetModel();
 }
 
