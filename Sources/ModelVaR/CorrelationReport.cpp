@@ -61,5 +61,5 @@ ReportType CorrelationReport::getType() const {
 }
 
 QString CorrelationReport::getTemplateFile() const {
-	return "C:/Users/Eric/Documents/GitHub/ProjetVaR/DocxGenerator/resources/Correlation.docx";
+	return "C:/Users/Eric/Documents/GitHub/ProjetVaR/DocxGenerator/resources/corre.docx";
 }

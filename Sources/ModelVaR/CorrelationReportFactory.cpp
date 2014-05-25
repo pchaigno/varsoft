@@ -48,15 +48,14 @@ ReportDataJson *CorrelationReportFactory::createJson() {
 
 	QList<QMap<QString,QString> > listResults;
 	for(int i =0; i < results->size(); i++) {
-		QMap<QString,QString> map;
-		map["Type"]=results->at(i).getType();
-		map["Date"]=results->at(i).getDate();
-		map["Lag"]=QString::number(results->at(i).getTimeLag());
-		map["Period"]=QString::number(results->at(i).getPeriod());
-		map["PValue"]=QString::number(results->at(i).getPValue());
-		map["StatValue"]=QString::number(results->at(i).getStatValue());
-
-		listResults.append(map);
+			QMap<QString,QString> map;
+			map["Name"]=results->at(i).getType();
+			map["Qte"]=results->at(i).getDate();
+			map["Unit"]=QString::number(results->at(i).getTimeLag());
+			map["Total"]=QString::number(results->at(i).getPeriod());
+			map["Pvalue"]=QString::number(results->at(i).getPValue());
+			map["Statvalue"]=QString::number(results->at(i).getStatValue());
+			listResults.append(map);
 	}
 
 	data->addList("asset",listResults);
