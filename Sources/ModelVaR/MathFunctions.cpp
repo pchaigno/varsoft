@@ -56,3 +56,29 @@ double MathFunctions::normalCDFInverse(double p) {
 		return rationalApproximation(qSqrt(-2.0*qLn(1-p)));
 	}
 }
+
+/**
+ * @brief Calculates the correlation between the two vectors
+ * @param x The first vector part of the correlation calculation
+ * @param y The second vector part of the correlation calculation
+ * @return The correlation value
+ */
+double MathFunctions::correlation(const QVector<double>& x, const QVector<double>& y) {
+	size_t n = x.size();
+	double ex(0), ey(0), xt(0), yt(0), sxx(0), syy(0), sxy(0);
+
+	for (size_t i = 0; i < n; i++) { // Find the means.
+		ex += x[i];
+		ey += y[i];
+	}
+	ex /= n;
+	ey /= n;
+	for (size_t i = 0; i < n; i++) { // Compute the correlation coeﬃcient.
+		xt = x[i] - ex;
+		yt = y[i] - ey;
+		sxx += xt * xt;
+		syy += yt * yt;
+		sxy += xt * yt;
+	}
+	return sxy/(sqrt(sxx*syy)+tinyValue);
+}

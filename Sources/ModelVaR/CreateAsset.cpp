@@ -81,7 +81,6 @@ void CreateAsset::import(const Asset &asset, const QString& file) const {
 									break;
 								}
 								flux << rowData[0] << "," << rowData[data_index] << "\n";
-								//qDebug() << rowData[0] << "," << rowData[data_index] << "\n";
 							}
 						} else {
 							throw CreateAssetException("The dates are not sorted");

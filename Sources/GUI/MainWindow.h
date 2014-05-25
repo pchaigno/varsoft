@@ -43,6 +43,7 @@
 #include "ui_MainWindow.h"
 #include "CreateAsset.h"
 #include "GetStartEndDates.h"
+#include "SessionSaver.h"
 
 namespace Ui {
 	class MainWindow;
@@ -67,6 +68,10 @@ private slots:
 	void showPortfolio(Portfolio* portfolio);
 	void setImportCSV();
 	void generateStatsReport();
+
+	void save();
+	void saveAs();
+	void saveAs(QString savePath);
 
 	void addPortfolio(Portfolio *);
 	void removeSelectedPortfolio();
@@ -99,6 +104,7 @@ private:
 	QString fileName;
 	QString origin;
 	QString path;
+	QString savePath;
 	PortfolioItemModel * portfolioListModel;
 	QHash<Portfolio*, PortfolioViewModel*> portfoliosModels;
 	QHash<Portfolio*, QList<ReportWidget*> > portfolioReportWidgets;

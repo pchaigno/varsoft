@@ -60,7 +60,7 @@ ReportDataJson* StatisticsReportFactory::createJson() {
 	data->addText("max",QString::number(getMin(values)));
 
 	QList<QMap<QString,QString> > listAssets;
-	QVector<Asset*> assets = portfolio->getAssets();
+	QList<Asset*> assets = portfolio->getAssets();
 	QMap<Asset*,int> compo = portfolio->getComposition();
 	foreach(Asset* asset, assets) {
 		QMap<QDate, double> values = asset->retrieveValuesByDate(endDate, endDate);

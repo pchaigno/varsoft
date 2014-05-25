@@ -26,6 +26,8 @@ public:
 	VaRReport();
 	VaRReport(QString file);
 	VaRReport(int id, QString file);
+	VaRReport(const QJsonObject& json);
+
 	virtual ReportType getType() const;
 	virtual QString getTemplateFile() const;
 };

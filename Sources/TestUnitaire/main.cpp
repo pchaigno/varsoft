@@ -23,11 +23,16 @@
 #include "TestReport.h"
 #include "TestSQLiteManagers.h"
 #include "TestPortfolioItemModel.h"
+#include "TestArchiveManagers.h"
 #include "TestMathFunctions.h"
 #include "TestRInterface.h"
 #include "TestBacktesting.h"
 
 int main() {
+	// Deletes the database file before starting the tests (just to be sure):
+	QFile databaseFile(SessionSaver::getInstance()->getDatabaseFile());
+	databaseFile.remove();
+
 	int result = 0;
 	TestAsset asset;
 	result += QTest::qExec(&asset);
@@ -47,6 +52,8 @@ int main() {
 	result += QTest::qExec(&newdata);
 	TestPortfolioItemModel portfolioModel;
 	result += QTest::qExec(&portfolioModel);
+	TestArchiveManagers archiveManager;
+	result += QTest::qExec(&archiveManager);
 	TestRInterface rInterface;
 	result += QTest::qExec(&rInterface);
 	TestBacktesting backtesting;

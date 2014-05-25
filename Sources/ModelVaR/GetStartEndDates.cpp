@@ -44,3 +44,4 @@ QDate GetStartEndDates::getStartDate() {
 QDate GetStartEndDates::getEndDate() {
 	return this->startDate;
 }
+
