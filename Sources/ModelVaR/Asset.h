@@ -28,9 +28,10 @@
 #include "ModelVaR_global.h"
 #include "CannotOpenFileException.h"
 #include <QDate>
+#include "Savable.h"
 #include <QJsonObject>
 
-class MODELVARSHARED_EXPORT Asset {
+class MODELVARSHARED_EXPORT Asset: public Savable {
 private:
 	int id;
 	QString file;

@@ -52,7 +52,8 @@ SOURCES += \
 	qcustomplot.cpp \
 	ReportGenerator.cpp \
 	ReportException.cpp \
-	GetStartEndDates.cpp
+	GetStartEndDates.cpp \
+	Savable.cpp
 
 HEADERS +=\
 	Asset.h \
@@ -103,8 +104,9 @@ HEADERS +=\
 	CreateAssetException.h \
 	ExportException.h \
 	ImportException.h \
-	MathFunctions.h \
-	ReportAlreadyCreatedException.h
+	ReportAlreadyCreatedException.h \
+	Savable.h \
+	MathFunctions.h
 
 unix:!symbian {
 	maemo5 {

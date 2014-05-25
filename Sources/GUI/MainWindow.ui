@@ -129,7 +129,7 @@
       </property>
       <widget class="QWidget" name="tabData">
        <attribute name="title">
-        <string>Data</string>
+        <string>Values</string>
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
@@ -196,6 +196,8 @@
     <addaction name="actionSauvegarder_sous"/>
     <addaction name="separator"/>
     <addaction name="actionImport"/>
+    <addaction name="separator"/>
+    <addaction name="actionImport_2"/>
     <addaction name="actionExport"/>
     <addaction name="separator"/>
     <addaction name="actionQuitter"/>
@@ -243,7 +245,7 @@
   </action>
   <action name="actionSauvegarder_sous">
    <property name="text">
-    <string>Save as ...</string>
+    <string>Save as...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+S</string>
@@ -251,7 +253,7 @@
   </action>
   <action name="actionImport">
    <property name="text">
-    <string>Créer un actif</string>
+    <string>Create an asset</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+I</string>
@@ -259,7 +261,7 @@
   </action>
   <action name="actionExport">
    <property name="text">
-    <string>Exporter</string>
+    <string>Export</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+E</string>
@@ -272,7 +274,12 @@
   </action>
   <action name="actionQuitter">
    <property name="text">
-    <string>Exit</string>
+    <string>Quit</string>
+   </property>
+  </action>
+  <action name="actionImport_2">
+   <property name="text">
+    <string>Import</string>
    </property>
   </action>
   <action name="actionGenerate_Stats_Report">
@@ -282,7 +289,7 @@
   </action>
   <action name="actionDocXGenerator_path">
    <property name="text">
-    <string>DocXGenerator path ...</string>
+    <string>DocXGenerator path...</string>
    </property>
   </action>
  </widget>

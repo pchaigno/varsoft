@@ -21,7 +21,7 @@
  * @brief Empty constructor
  * Should only be used by Qt containers.
  */
-Report::Report() {
+Report::Report(): Savable(false) {
 
 }
 
@@ -30,7 +30,7 @@ Report::Report() {
  * @param docxPath The location of the DOCX file on the disk.
  * @param pdfPath The location of the PDF file on the disk.
  */
-Report::Report(QString file) {
+Report::Report(QString file): Savable(false) {
 	this->init(-1, file);
 }
 
@@ -40,7 +40,7 @@ Report::Report(QString file) {
  * @param docxPath The location of the DOCX file on the disk.
  * @param pdfPath The location of the PDF file on the disk.
  */
-Report::Report(int id, QString file) {
+Report::Report(int id, QString file): Savable(true) {
 	this->init(id, file);
 }
 
@@ -73,7 +73,7 @@ void Report::filesGenerationFinish() {
  * @brief Builds the report from a JSON document.
  * @param json The JSON document.
  */
-Report::Report(const QJsonObject& json) {
+Report::Report(const QJsonObject& json): Savable(false) {
 	this->fromJSON(json);
 }
 
@@ -96,6 +96,9 @@ void Report::setId(int id) {
 		throw IdAlreadyAttributedException("An id has already been attributed to this report.");
 	}
 	this->id = id;
+
+	// The report has been saved to the database so it is up-to-date.
+	this->setStatusToUpToDate();
 }
 
 /**
@@ -115,7 +118,7 @@ bool Report::filesAvailable() {
 }
 
 /**
- * @brief Remove the report file on the disk
+ * @brief Removes the report files from the disk.
  */
 void Report::removeFiles() {
 	if (QFile::exists(this->file+".pdf"))
