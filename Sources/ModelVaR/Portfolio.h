@@ -19,20 +19,20 @@
 
 #include <QString>
 #include <QVector>
-#include "Report.h"
+#include "report/Report.h"
 #include <QMap>
 #include "Asset.h"
 #include <QDate>
-#include "IdAlreadyAttributedException.h"
-#include "InvalidDefinitionPeriodException.h"
+#include "exceptions/IdAlreadyAttributedException.h"
+#include "exceptions/InvalidDefinitionPeriodException.h"
 #include "ModelVaR_global.h"
-#include "PortfolioCalculationException.h"
-#include "MathFunctions.h"
+#include "exceptions/PortfolioCalculationException.h"
+#include "math/MathFunctions.h"
 #include <string>
 #include <sstream>
 #include "AssetsFactory.h"
 #include <QJsonArray>
-#include "NonexistentAssetException.h"
+#include "exceptions/NonexistentAssetException.h"
 #include <QtCore/qmath.h>
 #include <QGenericMatrix>
 

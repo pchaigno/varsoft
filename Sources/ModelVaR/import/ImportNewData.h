@@ -17,31 +17,12 @@
  */
 #pragma once
 
-#include "ReportFactory.h"
-#include <QString>
-#include "Portfolio.h"
-#include "report/StatisticsReport.h"
-#include "qcustomplot.h"
-#include <QDir>
+#include "IImport.h"
+#include "ModelVaR_global.h"
+#include "exceptions/CreateAssetException.h"
+#include <QMessageBox>
 
-class MODELVARSHARED_EXPORT StatisticsReportFactory: public ReportFactory {
+class MODELVARSHARED_EXPORT ImportNewData : public IImport {
 public:
-	StatisticsReportFactory(Portfolio *portfolio);
-
-protected:
-
-	virtual Report * createReport();
-	virtual ReportDataJson* createJson();
-
-	QPixmap generateChart1(QMap<QDate, double> values);
-	QPixmap generateChart2(QList<Asset*> compo, QDate start, QDate end);
-	double getAverage(QVector<double> values);
-	double getVariance(QVector<double> values);
-	double getMax(QVector<double> values);
-	double getMin(QVector<double> values);
-	double getKurtosis(QVector<double> values);
-
-	Portfolio * portfolio;
-
-
+	virtual void import(const Asset &asset, const QString& file) const;
 };

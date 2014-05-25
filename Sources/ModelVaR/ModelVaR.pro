@@ -15,90 +15,94 @@ DEFINES += MODELVAR_LIBRARY
 SOURCES += \
 	Asset.cpp \
 	Portfolio.cpp \
+	AssetsFactory.cpp \
+	ModelVaR.cpp \
+	SQLiteManager.cpp \
+	SessionSaver.cpp \
+	SessionBuilder.cpp \
+	ArchiveManager.cpp \
+	ExportManager.cpp \
+	ImportManager.cpp \
 	report/Report.cpp \
 	report/GarchReport.cpp \
 	report/VaRReport.cpp \
 	report/BacktestingReport.cpp \
 	report/StatisticsReport.cpp \
 	report/CorrelationReport.cpp \
-	AssetsFactory.cpp \
-	VaRAlgorithm.cpp \
-	VaRHistorical.cpp \
-	VaRGarch.cpp \
-	VaRRiskmetrics.cpp \
-	GarchModel.cpp \
-	ModelVaR.cpp \
-	SQLiteManager.cpp \
-	SessionSaver.cpp \
-	SessionBuilder.cpp \
-	RInterface.cpp \
-	Backtesting.cpp \
-	DocxGenerator.cpp \
-	VaRReportFactory.cpp \
-	GarchReportFactory.cpp \
-	ImportNewData.cpp \
-	IImport.cpp \
-	MathFunctions.cpp \
-	ArchiveManager.cpp \
-	ExportManager.cpp \
-	ImportManager.cpp \
-	ReportDataJson.cpp \
-	ReportGenerator.cpp \
-	ReportException.cpp \
-	GetStartEndDates.cpp \
+	report/ReportDataJson.cpp \
+	report/DocxGenerator.cpp \
+	report/ReportGenerator.cpp \
+	math/VaRAlgorithm.cpp \
+	math/VaRHistorical.cpp \
+	math/VaRGarch.cpp \
+	math/VaRRiskmetrics.cpp \
+	math/GarchModel.cpp \
+	math/RInterface.cpp \
+	math/Backtesting.cpp \
+	math/MathFunctions.cpp \
+	import/ImportNewData.cpp \
+	import/IImport.cpp \
+	import/GetStartEndDates.cpp \
 	reportFactory/ReportFactory.cpp \
+	reportFactory/GarchReportFactory.cpp \
+	reportFactory/VaRReportFactory.cpp \
 	reportFactory/BacktestingReportFactory.cpp \
 	reportFactory/StatisticsReportFactory.cpp \
-	reportFactory/CorrelationReportFactory.cpp
+	reportFactory/CorrelationReportFactory.cpp \
+	exceptions/ReportException.cpp
 
 HEADERS +=\
 	Asset.h \
 	Portfolio.h \
-	report/Report.h \
-	report/GarchReport.h \
-	report/VaRReport.h \
-	report/BacktestingReport.h \
-	report/StatisticsReport.h \
-	report/CorrelationReport.h \
 	AssetsFactory.h \
-	VaRAlgorithm.h \
-	VaRHistorical.h \
-	VaRGarch.h \
-	VaRRiskmetrics.h \
-	GarchModel.h \
 	ModelVaR.h \
 	ModelVaR_global.h \
 	SQLiteManager.h \
 	SessionSaver.h \
 	SessionBuilder.h \
-	RInterface.h \
-	Backtesting.h \
-	DocxGenerator.h \
-	ReportGenerator.h \
-	VaRReportFactory.h \
-	GarchReportFactory.h \
-	ImportNewData.h \
-	IImport.h \
-	GetStartEndDates.h \
-	ReportDataJson.h \
-	ReportException.h \
 	ArchiveManager.h \
 	ExportManager.h \
 	ImportManager.h \
-	ExportException.h \
-	ImportException.h \
-	MathFunctions.h \
+	report/Report.h \
+	report/ReportGenerator.h \
+	report/ReportDataJson.h \
+	report/GarchReport.h \
+	report/VaRReport.h \
+	report/BacktestingReport.h \
+	report/StatisticsReport.h \
+	report/CorrelationReport.h \
+	report/DocxGenerator.h \
+	import/ImportNewData.h \
+	import/IImport.h \
+	import/GetStartEndDates.h \
+	import/ImportException.h \
+	math/VaRAlgorithm.h \
+	math/VaRHistorical.h \
+	math/VaRGarch.h \
+	math/VaRRiskmetrics.h \
+	math/GarchModel.h \
+	math/RInterface.h \
+	math/Backtesting.h \
+	math/MathFunctions.h \
+	reportFactoryVaRReportFactory.h \
 	reportFactory/ReportFactory.h \
 	reportFactory/BacktestingReportFactory.h \
 	reportFactory/StatisticsReportFactory.h \
 	reportFactory/CorrelationReportFactory.h \
+	reportFactory/GarchReportFactory.h \
 	exceptions/CannotOpenFileException.h \
 	exceptions/CreateAssetException.h \
 	exceptions/PortfolioCalculationException.h \
 	exceptions/InvalidDefinitionPeriodException.h \
 	exceptions/NonexistentAssetException.h \
 	exceptions/IdAlreadyAttributedException.h \
-	exceptions/ReportAlreadyCreatedException.h
+	exceptions/ExportException.h \
+	exceptions/ReportException.h \
+	exceptions/ReportAlreadyCreatedException.h \
+	ReportFactory \
+	Import \
+	Math \
+	Report
 
 unix:!symbian {
 	maemo5 {

@@ -18,7 +18,7 @@
 #include "MainWindow.h"
 #include <QApplication>
 
-#include "RInterface.h"
+#include "math/RInterface.h"
 
 int main(int argc, char *argv[]) {
 	QApplication a(argc, argv);

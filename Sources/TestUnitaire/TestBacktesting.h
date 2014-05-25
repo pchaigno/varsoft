@@ -19,9 +19,9 @@
 
 #include <QtTest>
 #include "Portfolio.h"
-#include "Backtesting.h"
-#include "VaRHistorical.h"
-#include "VaRRiskmetrics.h"
+#include "math/Backtesting.h"
+#include "math/VaRHistorical.h"
+#include "math/VaRRiskmetrics.h"
 
 class TestBacktesting: public QObject {
 	Q_OBJECT

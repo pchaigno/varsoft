@@ -18,7 +18,7 @@
 #pragma once
 
 #include "ReportFactory.h"
-#include "GarchReport.h"
+#include "report/GarchReport.h"
 
 class MODELVARSHARED_EXPORT GarchReportFactory: public ReportFactory {
 public:

@@ -19,7 +19,7 @@
 
 #include <exception>
 #include <string>
-#include "Report.h"
+#include "report/Report.h"
 #include "ModelVaR_global.h"
 
 class MODELVARSHARED_EXPORT ReportException : public std::exception {

@@ -54,8 +54,6 @@ FORMS += MainWindow.ui \
 		portfolio/report/ReportWidget.ui \
 		portfolio/report/ReportListScrollArea.ui
 
-INCLUDEPATH += portfolio/ windows/ portfolio/report exceptions
-
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../quazip/quazip/release/ -lquazip
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../quazip/quazip/debug/ -lquazip
 else:unix: LIBS += -L$$OUT_PWD/../quazip/quazip/ -lquazip

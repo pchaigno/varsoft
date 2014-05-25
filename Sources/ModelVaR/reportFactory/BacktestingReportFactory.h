@@ -18,7 +18,7 @@
 #pragma once
 
 #include "ReportFactory.h"
-#include "BacktestingReport.h"
+#include "report/BacktestingReport.h"
 
 class MODELVARSHARED_EXPORT BacktestingReportFactory: public ReportFactory {
 public:

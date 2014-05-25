@@ -18,7 +18,7 @@
 #pragma once
 
 #include <QtTest>
-#include "VaRRiskmetrics.h"
+#include "math/VaRRiskmetrics.h"
 
 class TestVaRRiskmetrics : public QObject {
 	Q_OBJECT

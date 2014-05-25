@@ -23,7 +23,7 @@
 #include <QHash>
 #include "PortfolioListView.h"
 #include <QTableView>
-#include "ReportView.h"
+#include "report/ReportView.h"
 #include "DataModel.h"
 
 class PortfolioViewMediator : public QObject

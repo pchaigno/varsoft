@@ -17,31 +17,21 @@
  */
 #pragma once
 
-#include "ReportFactory.h"
-#include <QString>
-#include "Portfolio.h"
-#include "report/StatisticsReport.h"
-#include "qcustomplot.h"
-#include <QDir>
+#include <exception>
+#include <string>
+#include <exceptions/ReportException.h>
+#include "ModelVaR_global.h"
 
-class MODELVARSHARED_EXPORT StatisticsReportFactory: public ReportFactory {
+class MODELVARSHARED_EXPORT ReportAlreadyCreatedException : public ReportException {
 public:
-	StatisticsReportFactory(Portfolio *portfolio);
+	ReportAlreadyCreatedException(Report * report,std::string msg) : ReportException(report,msg) {
 
-protected:
+	}
 
-	virtual Report * createReport();
-	virtual ReportDataJson* createJson();
+	virtual ~ReportAlreadyCreatedException() throw() {
 
-	QPixmap generateChart1(QMap<QDate, double> values);
-	QPixmap generateChart2(QList<Asset*> compo, QDate start, QDate end);
-	double getAverage(QVector<double> values);
-	double getVariance(QVector<double> values);
-	double getMax(QVector<double> values);
-	double getMin(QVector<double> values);
-	double getKurtosis(QVector<double> values);
-
-	Portfolio * portfolio;
+	}
 
 
+private:
 };

@@ -22,7 +22,7 @@
 #include <QDir>
 #include <QMap>
 #include <QVector>
-#include "RInterface.h"
+#include "math/RInterface.h"
 
 class TestRInterface: public QObject {
 	Q_OBJECT

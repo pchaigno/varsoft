@@ -132,7 +132,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tabData">
        <attribute name="title">
@@ -294,7 +294,7 @@
   <customwidget>
    <class>PortfolioListView</class>
    <extends>QListView</extends>
-   <header>PortfolioListView.h</header>
+   <header>portfolio/PortfolioListView.h</header>
    <slots>
     <slot>removeSelectedPortfolio()</slot>
    </slots>
@@ -302,7 +302,7 @@
   <customwidget>
    <class>ReportView</class>
    <extends>QScrollArea</extends>
-   <header>ReportView.h</header>
+   <header>portfolio/report/ReportView.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

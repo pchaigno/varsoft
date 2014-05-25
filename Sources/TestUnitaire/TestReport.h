@@ -17,11 +17,7 @@
  */
 #pragma once
 
-#include "VaRReport.h"
-#include "CorrelationReport.h"
-#include "BacktestingReport.h"
-#include "StatisticsReport.h"
-#include "GarchReport.h"
+#include <Report>
 #include <QtTest>
 
 class TestReport: public QObject {

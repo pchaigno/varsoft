@@ -17,12 +17,12 @@
  */
 #pragma once
 
-#include "Report.h"
-#include "DocxGenerator.h"
+#include "report/Report.h"
+#include "report/DocxGenerator.h"
 #include <QString>
 #include <QDir>
-#include "ReportAlreadyCreatedException.h"
-#include "ReportException.h"
+#include "exceptions/ReportAlreadyCreatedException.h"
+#include "exceptions/ReportException.h"
 #include <QDebug>
 
 class MODELVARSHARED_EXPORT ReportFactory {

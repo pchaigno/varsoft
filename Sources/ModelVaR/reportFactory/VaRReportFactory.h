@@ -18,7 +18,7 @@
 #pragma once
 
 #include "ReportFactory.h"
-#include "VaRReport.h"
+#include "report/VaRReport.h"
 #include <QString>
 
 class MODELVARSHARED_EXPORT VaRReportFactory: public ReportFactory {

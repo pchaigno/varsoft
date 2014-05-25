@@ -20,7 +20,7 @@
 #include "AssetsFactory.h"
 #include "SessionBuilder.h"
 #include "SessionSaver.h"
-#include "ImportNewData.h"
+#include "import/ImportNewData.h"
 #include <QtTest>
 
 class TestImportNewData: public QObject {

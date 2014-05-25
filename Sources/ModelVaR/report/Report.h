@@ -19,7 +19,7 @@
 
 #include <QObject>
 #include <QString>
-#include "IdAlreadyAttributedException.h"
+#include "exceptions/IdAlreadyAttributedException.h"
 #include "ModelVaR_global.h"
 #include <QJsonObject>
 #include "ReportDataJson.h"

@@ -21,8 +21,8 @@
 #include <QTest>
 #include "Asset.h"
 #include "Portfolio.h"
-#include "Report.h"
-#include "VaRHistorical.h"
+#include "report/Report.h"
+#include "math/VaRHistorical.h"
 
 class TestVaRHistorical: public QObject {
 	Q_OBJECT

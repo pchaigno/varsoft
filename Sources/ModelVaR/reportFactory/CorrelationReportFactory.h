@@ -18,7 +18,7 @@
 #pragma once
 
 #include "ReportFactory.h"
-#include "CorrelationReport.h"
+#include "report/CorrelationReport.h"
 #include <QString>
 
 class MODELVARSHARED_EXPORT CorrelationReportFactory: public ReportFactory {
