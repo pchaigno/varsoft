@@ -43,6 +43,7 @@
 #include <QDate>
 #include "portfolio/report/ReportView.h"
 #include "portfolio/PortfolioViewMediator.h"
+#include "CreateAsset.h"
 #include "SessionSaver.h"
 #include "windows/VarDialog.h"
 
@@ -52,7 +53,7 @@ namespace Ui {
 
 class MainWindow: public QMainWindow {
 	Q_OBJECT
-	
+
 public:
 	explicit MainWindow(QWidget* parent = 0);
 	~MainWindow();

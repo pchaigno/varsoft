@@ -14,7 +14,6 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 SOURCES += \
-	TestImportNewData.cpp \
 	TestAsset.cpp \
 	TestPortfolio.cpp \
 	main.cpp \
@@ -22,6 +21,7 @@ SOURCES += \
 	TestSQLiteManagers.cpp \
 	#TestPortfolioItemModel.cpp \
 	TestVaRHistorical.cpp \
+	TestCreateAsset.cpp \
 	TestArchiveManagers.cpp \
 	TestBacktesting.cpp \
 	TestVaRRiskmetrics.cpp \
@@ -29,13 +29,13 @@ SOURCES += \
 	TestRInterface.cpp
 
 HEADERS += \
-	TestImportNewData.h \
 	TestAsset.h \
 	TestReport.h \
 	TestPortfolio.h \
 	TestSQLiteManagers.h \
 	#TestPortfolioItemModel.h \
 	TestVaRHistorical.h \
+	TestCreateAsset.h \
 	TestArchiveManagers.h \
 	TestBacktesting.h \
 	TestVaRRiskmetrics.h \

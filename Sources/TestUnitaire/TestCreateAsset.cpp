@@ -15,16 +15,15 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#include "TestImportNewData.h"
-
+#include "TestCreateAsset.h"
 /**
 * @brief Tests import of ImportNewData.
 */
-void TestImportNewData::testImport() {
+void TestCreateAsset::testImport() {
 	QDate startDate = QDate::fromString("2014-01-01", "yyyy-MM-dd");
 	QDate endDate = QDate::fromString("2014-02-01", "yyyy-MM-dd");
 	Asset b = Asset("Gogolea", "../../Examples/Gogolea_test.csv", "Yahoo", startDate, endDate);
-	ImportNewData algo = ImportNewData();
+	CreateAsset algo = CreateAsset();
 	algo.import(b, "../../Examples/table.csv");
 	SessionSaver::getInstance()->saveAsset(b);
 
@@ -40,14 +39,13 @@ void TestImportNewData::testImport() {
 	}
 	QCOMPARE(dataRows.size(), 23);
 	// Checks first date:
-	dataRow = dataRows.at(0).split(",");
+	dataRow = dataRows.at(1).split(",");
 	QVERIFY(endDate >= QDate::fromString(dataRow[0], "yyyy-MM-dd"));
 	// Checks last date:
 	dataRow = dataRows.at(dataRows.size()-2).split(",");
 	QVERIFY(startDate <= QDate::fromString(dataRow[0], "yyyy-MM-dd"));
 
 	Asset *a = SessionBuilder::getInstance()->buildAsset("Gogolea");
-
 	QVERIFY(a->getFile() == "../../Examples/Gogolea_test.csv");
 	QVERIFY(a->getStartDate() == startDate);
 	QVERIFY(a->getEndDate() == endDate);
@@ -55,7 +53,15 @@ void TestImportNewData::testImport() {
 	QVERIFY(a->getOrigin() == "Yahoo");
 	QVERIFY(AssetsFactory::getInstance()->retrieveAsset("Gogolea") != NULL);
 
+	//Verify the day of week
+	int size = dataRows.size();
+	for (int x =1; x < size; x++) {
+		dataRow = dataRows.at(x).split(",");
+		QVERIFY((QDate::fromString(dataRow[0], "yyyy-MM-dd").dayOfWeek() <= 5));
+	}
 	// Deletes the database file:
 	QFile databaseFile(SessionSaver::getInstance()->getDatabaseFile());
 	databaseFile.remove();
 }
+
+

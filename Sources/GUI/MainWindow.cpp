@@ -20,7 +20,8 @@
 
 MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWindow), portfolioListModel(new PortfolioListModel(this)) {
 	ui->setupUi(this);
-
+	this->path = "C:/";
+	//for the import button in the main window
 	this->savePath = "";
 
 	connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(setImportCSV()));
@@ -283,21 +284,9 @@ void MainWindow::generateReport(ReportGenerator *gen) {
 * The last import path is saved when a new import is done
 */
 void MainWindow::setImportCSV() {
-	QString fileName;
-	if (this->path != "")
-		fileName = QFileDialog::getOpenFileName(this, ("Open file"), this->path, ("CSV Text (*.csv *.txt);;All files (*.*)") );
-	else
-		fileName = QFileDialog::getOpenFileName(this, ("Open file"), "C:/", ("CSV Text (*.csv *.txt);;All files (*.*)") );
-	if(fileName != "")
-		this->path = fileName.left(fileName.lastIndexOf("/"));
-	if (fileName != "") {
-		//get startDate and endDate before calling the import function
-		GetStartEndDates* gsed = new GetStartEndDates();
-		gsed->retreiveDates(fileName);
-		Import* importDialog = new Import(fileName,gsed->getStartDate(),gsed->getEndDate(),this);
-		importDialog->setAttribute(Qt::WA_DeleteOnClose);
-		importDialog->show();
-	}
+	Import* importDialog = new Import(this);
+	importDialog->setAttribute(Qt::WA_DeleteOnClose);
+	importDialog->show();
 }
 
 

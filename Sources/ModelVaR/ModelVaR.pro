@@ -50,6 +50,7 @@ SOURCES += \
 	reportFactory/StatisticsReportFactory.cpp \
 	reportFactory/CorrelationReportFactory.cpp \
 	exceptions/ReportException.cpp \
+	CreateAsset.cpp \
 	Savable.cpp
 
 HEADERS +=\
@@ -61,6 +62,7 @@ HEADERS +=\
 	SQLiteManager.h \
 	SessionSaver.h \
 	SessionBuilder.h \
+	CreateAsset.h \
 	ArchiveManager.h \
 	ExportManager.h \
 	ImportManager.h \

@@ -17,42 +17,15 @@
  */
 #pragma once
 
-#include "ui_import.h"
-#include "CreateAsset.h"
-#include "SessionSaver.h"
-#include "SQLiteManager.h"
-#include "SessionBuilder.h"
 #include "AssetsFactory.h"
-#include "MainWindow.h"
-#include <QDateTime>
-#include <QDialog>
-#include <QDir>
-#include <QException>
-#include <QFileDialog>
-#include <QSettings>
-#include <QFileInfo>
+#include "SessionBuilder.h"
+#include "SessionSaver.h"
+#include "CreateAsset.h"
+#include <QtTest>
 
-namespace Ui {
-	class Import;
-}
-
-/**
-* @brief Useful for the import window links with the mainwindow
-*/
-class Import : public QDialog {
+class TestCreateAsset: public QObject {
 	Q_OBJECT
 
-public:
-	explicit Import(QWidget *parent = 0);
-	~Import();
-
-private:
-	Ui::Import *ui;
-	QString fileName;
-	QSettings setting;
-
-private slots:
-	void on_pushButton_clicked();
-	void on_pushButton_2_clicked();
-	void on_importButton_clicked();
+private Q_SLOTS:
+	void testImport();
 };
