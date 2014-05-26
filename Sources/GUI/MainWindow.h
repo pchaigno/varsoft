@@ -47,6 +47,7 @@
 #include "windows/CorrelationDialog.h"
 #include "SessionSaver.h"
 #include "windows/VarDialog.h"
+#include "Constantes.h"
 
 namespace Ui {
 	class MainWindow;
@@ -64,27 +65,26 @@ public:
 	void initResources();
 	void createFolderIfDoesnotExist(QString folder);
 	void closeEvent(QCloseEvent *event);
-	void generateCorrelationReport(Portfolio *port, QList<CorrelationResults> *results);
 
 private slots:
-	void docxGenPath();
-	void newPortfolio();
-	void setImportCSV();
 	void generateStatsReport();
-	void generateVaR();
-	void showCorrelationWindow();
+
+	void openVarDialog();
+	void openCorrelationDialog();
+	void openImportDialog();
+	void openDocxGenPathDialog();
+	void openNewPortfolioDialog();
 
 	void save();
 	void saveAs();
 	void saveAs(QString savePath);
 
-	void removeSelectedPortfolio();
+
+	void showError(const QString& errorMsg);
 
 
 private:
-	Portfolio *getCurrentPortfolio();
-	Report* buildReport(Portfolio *portfolio, ReportFactory * factory, bool deleteAfter=false);
-	void generateReport(ReportGenerator * gen);
+	Portfolio *getCurrentPortfolio() const;
 
 	Ui::MainWindow *ui;
 	QString stockName;

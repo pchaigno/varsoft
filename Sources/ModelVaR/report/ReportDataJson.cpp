@@ -35,6 +35,16 @@ void ReportDataJson::addText(QString key, QString value) {
 	texts[key]=value;
 }
 
+void ReportDataJson::addText(QString key, int value)
+{
+	addText(key,QString::number(value));
+}
+
+void ReportDataJson::addText(QString key, double value)
+{
+	addText(key,QString::number(value));
+}
+
 /**
  * @brief Add the path of an image with the given key to the Json document.
  * @param key The key in the template document.

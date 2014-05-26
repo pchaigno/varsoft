@@ -36,6 +36,46 @@ TestRInterface::TestRInterface() {
 }
 
 /**
+ * @brief Tests the correct computation of a Garch model through R.
+ */
+void TestRInterface::testComputeGarchModel() {
+	QPair<QDate, QDate> period;
+	period.first = QDate(2014, 2, 25);
+	period.second = this->father->retrieveEndDate();
+	GarchModel model = RInterface::computeGarchModel(*father, period);
+
+	QCOMPARE(model.getOmega(), 0.0002504062);
+	QCOMPARE(model.getAlpha(), 0.0500141719);
+	QCOMPARE(model.getBeta(), 0.0499956054);
+	QCOMPARE(model.getResiduals().size(), 9);
+	QCOMPARE(model.getResiduals().at(0), -0.468397283);
+	QCOMPARE(model.getResiduals().at(1), 0.659176463);
+	QCOMPARE(model.getResiduals().at(2), -2.130830688);
+	QCOMPARE(model.getResiduals().at(3), 1.348051460);
+	QCOMPARE(model.getResiduals().at(4), -0.286279545);
+	QCOMPARE(model.getResiduals().at(5), 0.005457179);
+	QCOMPARE(model.getResiduals().at(6), -1.252346813);
+	QCOMPARE(model.getResiduals().at(7), -0.543204489);
+	QCOMPARE(model.getResiduals().at(8), 0.277749688);
+}
+
+/**
+ * @brief Tests that a Garch model cannot be computed if the period parameter is too
+ * short and thus incompatible with R Garch model computation.
+ */
+void TestRInterface::testComputeGarchModelIncorrectParameter() {
+	QPair<QDate, QDate> period;
+	period.first = QDate(2014, 2, 25);
+	period.second = QDate(2014, 2, 27);
+	try {
+		GarchModel model = RInterface::computeGarchModel(*father, period);
+		QFAIL("computeGarchModel() should not have succeeded in computing a Garch model");
+	} catch(std::invalid_argument& e) {
+
+	}
+}
+
+/**
  * @brief Tests the method checkCorrelation that computes the correlation of portfolio returns
  * in normal cases.
  */

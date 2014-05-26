@@ -78,7 +78,7 @@ void CorrelationResultsDialog::on_testAgain_clicked() {
 */
 void CorrelationResultsDialog::on_generate_clicked() {
 	//generer le rapport
-	qobject_cast<MainWindow*>((qobject_cast<CorrelationDialog*>(this->parentWidget()))->parentWidget())->generateCorrelationReport(this->portfolio,this->results);
+	GenerateReport(new CorrelationReportFactory(portfolio, results),portfolio);
 	this->close();
 }
 

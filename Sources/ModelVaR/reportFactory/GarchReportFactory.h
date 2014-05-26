@@ -24,13 +24,13 @@
 
 class MODELVARSHARED_EXPORT GarchReportFactory: public ReportFactory {
 public:
-	GarchReportFactory(Portfolio * portfolio, GarchModel& garchModel);
+	GarchReportFactory(Portfolio * portfolio, GarchModel& garch);
 
 protected:
-	virtual Report *getReport();
+	virtual Report *createReport();
 	virtual ReportDataJson* createJson();
 
 private:
 	Portfolio * portfolio;
-	GarchModel & garchModel;
+	GarchModel garchModel;
 };

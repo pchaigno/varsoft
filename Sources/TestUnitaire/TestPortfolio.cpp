@@ -250,8 +250,28 @@ void TestPortfolio::testRetrieveNbReturnsSome() {
 }
 
 /**
- * @brief Tests the testRetrieveReturnHorizon in normal cases
+ * @brief Tests the the retrieveLogReturns methods with a small number of values to return.
+ * The portfolio uncle contains 11 values (so 10 log-returns).
+ * This test retrieves all log-returns.
  */
+void TestPortfolio::testRetrieveNbLogReturnsAll() {
+	QVector<double> result = this->uncle->retrieveLogReturns(this->uncle->retrieveEndDate(), 10);
+	QCOMPARE(result.size(), 10);
+	QCOMPARE(result.at(0), 0.04132819549285);
+	QCOMPARE(result.at(1), 0.004040409537005);
+	QCOMPARE(result.at(2), 0.004024150299726);
+	QCOMPARE(result.at(3), 0.004008021397539);
+	QCOMPARE(result.at(4), 0.009950330853168);
+	QCOMPARE(result.at(5), -0.04040953833788);
+	QCOMPARE(result.at(6), 0.02242703578744);
+	QCOMPARE(result.at(7), 0.0);
+	QCOMPARE(result.at(8), 0.008032171697264);
+	QCOMPARE(result.at(9), 0.001998002662673);
+}
+
+/**
+* @brief Tests the testRetrieveReturnHorizon in normal cases
+*/
 void TestPortfolio::testRetrieveReturnHorizon() {
 	QCOMPARE(this->auntie->retrieveReturnHorizon(QDate(2014, 3, 11), 1), 42.29);
 	QCOMPARE(this->auntie->retrieveReturnHorizon(QDate(2014, 3, 10), 1), -85.25);

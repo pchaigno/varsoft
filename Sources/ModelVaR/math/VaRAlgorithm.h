@@ -22,16 +22,27 @@
 #include <stdexcept>
 #include <ctime>
 #include <QDebug>
+#include "report/ReportDataJson.h"
+
+
+#define HISTORICAL 0
+#define RISKMETRICS 1
+#define GARCHMETHOD 2
 
 class MODELVARSHARED_EXPORT VaRAlgorithm {
-private:
+protected:
 	const Portfolio& portfolio;
 	double risk;
 	int timeHorizon;
 
+
 public:
+	virtual void setParamJson(ReportDataJson*) = 0;
+	virtual QString getNameMethod()= 0;
+	virtual int getEnumMethod() = 0;
 	VaRAlgorithm(const Portfolio& portfolio, double risk, int timeHorizon);
 	virtual double execute(QDate date) const =0;
+
 	const Portfolio& getPortfolio() const;
 	double getRisk() const;
 	int getTimeHorizon() const;

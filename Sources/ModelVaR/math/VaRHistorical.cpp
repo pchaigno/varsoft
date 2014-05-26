@@ -77,3 +77,24 @@ double VaRHistorical::execute(QDate date) const {
 
 	return var;
 }
+
+
+void VaRHistorical::setParamJson(ReportDataJson * data)
+{
+	QList<QMap<QString,QString> > listParam;
+	QMap<QString,QString> param;
+	param["Title"]="Period";
+	param["Value"]=period;
+	listParam.append(param);
+	data->addList("params",listParam);
+}
+
+QString VaRHistorical::getNameMethod()
+{
+	return "Historical method";
+}
+
+int VaRHistorical::getEnumMethod()
+{
+	return HISTORICAL;
+}

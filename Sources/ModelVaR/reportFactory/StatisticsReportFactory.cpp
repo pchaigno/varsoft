@@ -55,7 +55,7 @@ ReportDataJson* StatisticsReportFactory::createJson() {
 	QVector<double> values = valuesPortfolio.values().toVector();
 	data->addText("moyenne",QString::number(getAverage(values)));
 	data->addText("variance", QString::number(getVariance(values)));
-	data->addText("kurtosis", QString::number(getKurtosis(portfolio->retrieveReturns())));
+	data->addText("kurtosis", QString::number(getKurtosis(portfolio->retrieveLogReturns(startDate,endDate))));
 	data->addText("min",QString::number(getMax(values)));
 	data->addText("max",QString::number(getMin(values)));
 

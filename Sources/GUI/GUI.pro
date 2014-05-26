@@ -30,7 +30,8 @@ SOURCES += main.cpp\
 		windows/VarDialog.cpp \
 		windows/CorrelationResultsDialog.cpp \
 		windows/CorrelationDialog.cpp \
-    ReportCreatorSingleton.cpp
+		ReportCreatorSingleton.cpp \
+		windows/VaRResultsDialog.cpp
 
 HEADERS += MainWindow.h \
 		Constantes.h \
@@ -51,7 +52,8 @@ HEADERS += MainWindow.h \
 		windows/VarDialog.h \
 		windows/CorrelationResultsDialog.h \
 		windows/CorrelationDialog.h \
-    ReportCreatorSingleton.h
+		ReportCreatorSingleton.h \
+		windows/VaRResultsDialog.h
 
 FORMS += MainWindow.ui \
 		windows/NewPortfolioWizard.ui \
@@ -63,7 +65,8 @@ FORMS += MainWindow.ui \
 		portfolio/report/ReportListScrollArea.ui \
 		windows/VarDialog.ui \
 		windows/correlationRes.ui \
-		windows/correlation.ui
+		windows/correlation.ui \
+		windows/VaRResultsDialog.ui
 
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../quazip/quazip/release/ -lquazip

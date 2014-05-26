@@ -23,9 +23,8 @@
 #include "Portfolio.h"
 #include <Math>
 #include "QMessageBox"
-#define HISTORICAL 0
-#define RISKMETRICS 1
-#define GARCH 2
+#include "Constantes.h"
+#include "ReportFactory"
 
 namespace Ui {
 class VarDialog;

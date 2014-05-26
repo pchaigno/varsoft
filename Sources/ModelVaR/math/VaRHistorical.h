@@ -27,7 +27,11 @@
 class MODELVARSHARED_EXPORT VaRHistorical: public VaRAlgorithm {
 private:
 	int period;
+
 public:
 	VaRHistorical(const Portfolio& portfolio, double risk, int timeHorizon, int period);
 	virtual double execute(QDate date) const;
+	virtual void setParamJson(ReportDataJson*);
+	virtual QString getNameMethod();
+	virtual int getEnumMethod();
 };

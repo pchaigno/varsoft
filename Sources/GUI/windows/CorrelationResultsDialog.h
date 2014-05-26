@@ -22,6 +22,8 @@
 #include "CorrelationResults.h"
 #include "CorrelationDialog.h"
 #include "MainWindow.h"
+#include "Constantes.h"
+#include <ReportFactory>
 #include <QDialog>
 #include <QException>
 

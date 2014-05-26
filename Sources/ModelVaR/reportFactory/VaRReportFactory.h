@@ -25,7 +25,7 @@
 
 class MODELVARSHARED_EXPORT VaRReportFactory: public ReportFactory {
 public:
-	VaRReportFactory(Portfolio * portfolio, double var, VaRAlgorithm * varAlgo);
+	VaRReportFactory(Portfolio * portfolio, double var, VaRAlgorithm * varAlgo, QDate date);
 
 protected:
 	virtual Report *createReport();
@@ -35,4 +35,5 @@ private:
 	Portfolio * portfolio;
 	double var;
 	VaRAlgorithm * varAlgo;
+	QDate date;
 };

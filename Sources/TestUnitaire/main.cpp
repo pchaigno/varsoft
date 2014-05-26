@@ -25,6 +25,7 @@
 #include "TestArchiveManagers.h"
 #include "TestMathFunctions.h"
 #include "TestRInterface.h"
+#include "TestVaRGarch.h"
 #include "TestBacktesting.h"
 
 int main() {
@@ -45,6 +46,8 @@ int main() {
 	result += QTest::qExec(&testVaRHistorical);
 	TestVaRRiskmetrics TestVaRRiskmetrics;
 	result += QTest::qExec(&TestVaRRiskmetrics);
+	TestVaRGarch varGarch;
+	result += QTest::qExec(&varGarch);
 	TestMathFunctions testMathFunctions;
 	result += QTest::qExec(&testMathFunctions);
 	TestCreateAsset newdata;

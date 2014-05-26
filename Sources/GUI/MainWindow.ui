@@ -84,7 +84,7 @@
             <height>16777215</height>
            </size>
           </property>
-		  <property name="text">
+          <property name="text">
            <string/>
           </property>
           <property name="icon">
@@ -164,9 +164,9 @@
            <property name="geometry">
             <rect>
              <x>0</x>
-			 <y>0</y>
+             <y>0</y>
              <width>699</width>
-			 <height>438</height>
+             <height>438</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_2"/>
@@ -183,9 +183,9 @@
    <property name="geometry">
     <rect>
      <x>0</x>
-	 <y>0</y>
+     <y>0</y>
      <width>1005</width>
-	 <height>20</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFichier">
@@ -296,10 +296,9 @@
   </action>
   <action name="actionGenerate_VaR">
    <property name="text">
-	<string>Generate VaR</string>
-	</property>
-   </action>
-
+    <string>Generate VaR</string>
+   </property>
+  </action>
   <action name="actionGenerate_Correlation_Report">
    <property name="text">
     <string>Generate Correlation Report</string>
@@ -311,7 +310,7 @@
     <bool>true</bool>
    </property>
    <property name="iconVisibleInMenu">
-	<bool>true</bool>
+    <bool>true</bool>
    </property>
   </action>
  </widget>
@@ -335,24 +334,7 @@
  <resources>
   <include location="Resources.qrc"/>
  </resources>
- <connections>
-  <connection>
-   <sender>addPushButton</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>newPortfolio()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>81</x>
-     <y>59</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>412</x>
-     <y>219</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
  <slots>
   <slot>newPortfolio()</slot>
  </slots>

@@ -17,40 +17,22 @@
  */
 #pragma once
 
-#include <QObject>
-#include <QString>
-#include <QList>
-#include <QMap>
-#include <QJsonDocument>
-#include <QJsonObject>
-#include <QJsonArray>
-#include <QUrl>
-#include <QTemporaryFile>
-#include <QPixmap>
-#include <QDir>
-#include "ModelVaR_global.h"
+#include <QtTest>
+#include "TestRInterface.h"
+#include "math/VaRGarch.h"
 
-class MODELVARSHARED_EXPORT ReportDataJson {
-public:
-	ReportDataJson();
-	~ReportDataJson();
-
-	void addText(QString key, QString value);
-	void addText(QString key, int value);
-	void addText(QString key, double value);
-	void addImage(QString key, QString path);
-	void addImage(QString key, QUrl path);
-	void addImage(QString key, QPixmap img);
-	void addList(QString key, QList<QMap<QString,QString> > list);
-
-	QString toString();
-
-	bool operator==(const ReportDataJson & other) const;
+class TestVaRGarch: public QObject {
+	Q_OBJECT
 
 private:
-	QJsonObject texts;
-	QJsonObject images;
-	QJsonObject lists;
+	Portfolio* father;
+	Portfolio* uncle;
 
-	QList<QTemporaryFile*> tempFileList;
+public:
+	TestVaRGarch();
+
+private Q_SLOTS:
+	void testExecute();
+	void testExecuteThreeDaysHorizon();
+	void testExecuteNormalReturns();
 };

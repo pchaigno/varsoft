@@ -16,20 +16,20 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef REPORTCREATORSINGLETON_H
-#define REPORTCREATORSINGLETON_H
+#pragma once
 
 #include <Report>
 #include <ReportFactory>
 #include <QObject>
 #include "Portfolio.h"
+#include <QMessageBox>
 
 class ReportCreatorSingleton : public QObject
 {
 	Q_OBJECT
 private:
 	ReportCreatorSingleton();
-	ReportCreatorSingleton * instance = NULL;
+	static ReportCreatorSingleton * instance;
 
 public:
 	static ReportCreatorSingleton* get()
@@ -46,6 +46,11 @@ public:
 
 signals:
 
+public slots:
+	void deleteGenerator();
+	void showError(const QString& errorMsg);
+
+
 };
 
-#endif // REPORTCREATORSINGLETON_H
+

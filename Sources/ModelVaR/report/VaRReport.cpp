@@ -61,5 +61,5 @@ ReportType VaRReport::getType() const {
 }
 
 QString VaRReport::getTemplateFile() const {
-	return "../Resources/TemplateReport/varGarchTemplate.docx";
+	return "../Resources/ReportTemplate/varTemplate.docx";
 }

@@ -19,6 +19,8 @@
 #pragma once
 
 #include <QtTest>
+#include <Math>
+#include "Portfolio.h"
 #include <QDir>
 #include <QMap>
 #include <QVector>
@@ -34,6 +36,8 @@ public:
 	TestRInterface();
 
 private Q_SLOTS:
+	void testComputeGarchModel();
+	void testComputeGarchModelIncorrectParameter();
 	void testCheckCorrelation();
 	void testCheckCorrelationIncorrectTimeLag();
 	void testCheckCorrelationIncorrectPeriod();

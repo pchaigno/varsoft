@@ -66,3 +66,24 @@ double VaRRiskmetrics::execute(QDate date) const {
 
 	return var;
 }
+
+
+void VaRRiskmetrics::setParamJson(ReportDataJson * data)
+{
+	QList<QMap<QString,QString> > listParam;
+	QMap<QString,QString> param;
+	param["Title"]="Initial period";
+	param["Value"]=initPeriod;
+	listParam.append(param);
+	data->addList("params",listParam);
+}
+
+QString VaRRiskmetrics::getNameMethod()
+{
+	return "Riskmetrics method";
+}
+
+int VaRRiskmetrics::getEnumMethod()
+{
+	return RISKMETRICS;
+}
