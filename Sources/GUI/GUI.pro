@@ -47,9 +47,9 @@ FORMS += MainWindow.ui \
 		ShowAssetsWizardPage.ui\
 		ReportWidget.ui \
 		DocxGenPathDialog.ui \
-    CorrelationRes.ui \
-    Correlation.ui \
-    Import.ui
+		CorrelationRes.ui \
+		Correlation.ui \
+		Import.ui
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../quazip/quazip/release/ -lquazip
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../quazip/quazip/debug/ -lquazip
