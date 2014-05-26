@@ -61,5 +61,5 @@ ReportType CorrelationReport::getType() const {
 }
 
 QString CorrelationReport::getTemplateFile() const {
-	return "";
+	return "../Resources/ReportTemplate/correlationTemplate.docx";
 }

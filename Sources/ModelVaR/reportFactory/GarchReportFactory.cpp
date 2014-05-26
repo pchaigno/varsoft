@@ -22,14 +22,29 @@
  * @param docxPath The location of the DOCX file on the disk.
  * @param pdfPath The location of the PDF file on the disk.
  */
-GarchReportFactory::GarchReportFactory(): ReportFactory() {
-
+GarchReportFactory::GarchReportFactory(Portfolio *portfolio, GarchModel &garchModel): ReportFactory() {
+	this->portfolio=portfolio;
+	this->garchModel=garchModel;
 }
 
 Report *GarchReportFactory::getReport() {
-	return new GarchReport();
+	QString file = this->getReportDir()+QString("garModelReport");
+	QDate startDate = portfolio->retrieveStartDate();
+	QDate endDate = portfolio->retrieveEndDate();
+	file += "_"+portfolio->getName()+"_"+startDate.toString("dd-MM-yy")+"_"+endDate.toString("dd-MM-yy");
+	return new GarchReport(file);
 }
 
 ReportDataJson *GarchReportFactory::createJson() {
 
+	ReportDataJson* data = new ReportDataJson();
+	data->addText("portefeuilleName",portfolio->getName());
+	data->addText("dateDeb",portfolio->retrieveStartDate().toString("dd/MM/yyyy"));
+	QDate startDate = portfolio->retrieveStartDate();
+	QDate endDate = portfolio->retrieveEndDate();
+	data->addText("dateFin",endDate.toString("dd/MM/yyyy"));
+	data->addText("date",endDate.toString("dd/MM/yyyy"));
+
+
+	return data;
 }

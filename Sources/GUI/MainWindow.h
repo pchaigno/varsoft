@@ -44,6 +44,7 @@
 #include "portfolio/report/ReportView.h"
 #include "portfolio/PortfolioViewMediator.h"
 #include "CreateAsset.h"
+#include "windows/CorrelationDialog.h"
 #include "SessionSaver.h"
 #include "windows/VarDialog.h"
 
@@ -63,6 +64,7 @@ public:
 	void initResources();
 	void createFolderIfDoesnotExist(QString folder);
 	void closeEvent(QCloseEvent *event);
+	void generateCorrelationReport(Portfolio *port, QList<CorrelationResults> *results);
 
 private slots:
 	void docxGenPath();
@@ -70,6 +72,7 @@ private slots:
 	void setImportCSV();
 	void generateStatsReport();
 	void generateVaR();
+	void showCorrelationWindow();
 
 	void save();
 	void saveAs();

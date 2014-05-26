@@ -15,23 +15,37 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#include "VaRReportFactory.h"
+#pragma once
 
-/**
- * @brief Constructor
- */
-VaRReportFactory::VaRReportFactory(Portfolio *portfolio): ReportFactory() {
-	this->portfolio=portfolio;
+#include "ui_correlation.h"
+#include "Portfolio.h"
+#include "math/RInterface.h"
+#include "CorrelationResults.h"
+#include "CorrelationResultsDialog.h"
+#include <QDate>
+#include <QDialog>
+#include <QException>
+
+namespace Ui {
+	class Correlation;
 }
+class CorrelationDialog : public QDialog
+{
+	Q_OBJECT
+public:
+	CorrelationDialog(Portfolio *portfolio, QWidget *parent = 0);
+	~CorrelationDialog();
+private:
+	Ui::Correlation *ui;
+	QString fileName;
+	Portfolio *portfolio;
+	QList<CorrelationResults> *results;
 
-Report *VaRReportFactory::createReport() {
-	QString file = this->getReportDir()+QString("statisticReport");
-	QDate startDate = portfolio->retrieveStartDate();
-	QDate endDate = portfolio->retrieveEndDate();
-	file += "_"+portfolio->getName()+"_"+startDate.toString("dd-MM-yy")+"_"+endDate.toString("dd-MM-yy");
-	return new StatisticsReport(file);
-}
+private slots:
+	void on_pushButton_clicked();
+	void on_pushButton_2_clicked();
 
-ReportDataJson *VaRReportFactory::createJson() {
+public slots:
+	void quit();
+};
 
-}

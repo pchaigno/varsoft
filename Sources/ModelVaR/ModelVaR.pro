@@ -51,7 +51,9 @@ SOURCES += \
 	reportFactory/CorrelationReportFactory.cpp \
 	exceptions/ReportException.cpp \
 	CreateAsset.cpp \
+	CorrelationResults.cpp \
 	Savable.cpp
+
 
 HEADERS +=\
 	Asset.h \
@@ -66,6 +68,16 @@ HEADERS +=\
 	ArchiveManager.h \
 	ExportManager.h \
 	ImportManager.h \
+	exceptions/ReportException.h \
+	exceptions/ReportAlreadyCreatedException.h \
+	exceptions/PortfolioCalculationException.h \
+	exceptions/NonexistentAssetException.h \
+	exceptions/InvalidDefinitionPeriodException.h \
+	exceptions/ImportException.h \
+	exceptions/IdAlreadyAttributedException.h \
+	exceptions/ExportException.h \
+	exceptions/CreateAssetException.h \
+	exceptions/CannotOpenFileException.h \
 	report/Report.h \
 	report/ReportGenerator.h \
 	report/ReportDataJson.h \
@@ -106,6 +118,8 @@ HEADERS +=\
 	Import \
 	Math \
 	Report \
+	Savable.h \
+	CorrelationResults.h \
 	Savable.h
 
 unix:!symbian {
@@ -130,3 +144,5 @@ else:unix: LIBS += -L$$OUT_PWD/../quazip/quazip/ -lquazip
 
 INCLUDEPATH += $$PWD/../quazip/quazip
 DEPENDPATH += $$PWD/../quazip/quazip
+
+RESOURCES +=

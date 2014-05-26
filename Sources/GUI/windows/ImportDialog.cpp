@@ -84,7 +84,6 @@ void Import::on_importButton_clicked(){
 	if(fileName.isFile()){
 		this->setting.setValue("path",fileName.absolutePath());
 		//get startDate and endDate before calling the import function
-		qDebug() << fileName.filePath();
 		GetStartEndDates* gsed = new GetStartEndDates();
 		gsed->retreiveDates(fileName.filePath());
 		QDate endDate = gsed->getEndDate();

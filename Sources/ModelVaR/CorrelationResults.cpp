@@ -15,23 +15,43 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#include "VaRReportFactory.h"
 
-/**
- * @brief Constructor
- */
-VaRReportFactory::VaRReportFactory(Portfolio *portfolio): ReportFactory() {
-	this->portfolio=portfolio;
+#include "CorrelationResults.h"
+
+CorrelationResults::CorrelationResults(QString s, double st_v, double p_v, int lag, int per, QString d)
+{
+	testType = s;
+	statValue = st_v;
+	pValue = p_v;
+	timeLag = lag;
+	period = per;
+	date = d;
 }
 
-Report *VaRReportFactory::createReport() {
-	QString file = this->getReportDir()+QString("statisticReport");
-	QDate startDate = portfolio->retrieveStartDate();
-	QDate endDate = portfolio->retrieveEndDate();
-	file += "_"+portfolio->getName()+"_"+startDate.toString("dd-MM-yy")+"_"+endDate.toString("dd-MM-yy");
-	return new StatisticsReport(file);
+CorrelationResults::~CorrelationResults()
+{
 }
 
-ReportDataJson *VaRReportFactory::createJson() {
-
+QString CorrelationResults::getType()const{
+	return testType;
 }
+
+double CorrelationResults::getStatValue() const{
+	return statValue;
+}
+
+double CorrelationResults::getPValue() const{
+	return pValue;
+}
+int CorrelationResults::getTimeLag() const{
+	return timeLag;
+}
+int CorrelationResults::getPeriod() const{
+	return period;
+}
+QString CorrelationResults::getDate() const{
+	return date;
+}
+
+
+

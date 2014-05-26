@@ -145,8 +145,8 @@
        </layout>
       </widget>
       <widget class="QWidget" name="tabReports">
-	   <attribute name="title">
-		<string>Reports and Graphs</string>
+       <attribute name="title">
+        <string>Reports and Graphs</string>
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
@@ -164,9 +164,9 @@
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>0</y>
+			 <y>0</y>
              <width>699</width>
-             <height>438</height>
+			 <height>438</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_2"/>
@@ -183,9 +183,9 @@
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>0</y>
+	 <y>0</y>
      <width>1005</width>
-     <height>20</height>
+	 <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFichier">
@@ -203,7 +203,6 @@
     <addaction name="separator"/>
     <addaction name="actionImport"/>
     <addaction name="separator"/>
-    <addaction name="actionImport_2"/>
     <addaction name="actionExport"/>
     <addaction name="separator"/>
     <addaction name="actionQuitter"/>
@@ -232,6 +231,7 @@
    </attribute>
    <addaction name="actionGenerate_Stats_Report"/>
    <addaction name="actionGenerate_VaR"/>
+   <addaction name="actionGenerate_Correlation_Report"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionOuvrir">
@@ -281,7 +281,7 @@
   </action>
   <action name="actionQuitter">
    <property name="text">
-	<string>Exit</string>
+    <string>Exit</string>
    </property>
   </action>
   <action name="actionGenerate_Stats_Report">
@@ -296,7 +296,22 @@
   </action>
   <action name="actionGenerate_VaR">
    <property name="text">
-    <string>Generate VaR</string>
+	<string>Generate VaR</string>
+	</property>
+   </action>
+
+  <action name="actionGenerate_Correlation_Report">
+   <property name="text">
+    <string>Generate Correlation Report</string>
+   </property>
+   <property name="toolTip">
+    <string>Generate Correlation Report</string>
+   </property>
+   <property name="visible">
+    <bool>true</bool>
+   </property>
+   <property name="iconVisibleInMenu">
+	<bool>true</bool>
    </property>
   </action>
  </widget>

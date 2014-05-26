@@ -61,5 +61,5 @@ ReportType GarchReport::getType() const {
 }
 
 QString GarchReport::getTemplateFile() const {
-	return "";
+	return "../Resources/TemplateReport/garchModelTemplate.docx";
 }

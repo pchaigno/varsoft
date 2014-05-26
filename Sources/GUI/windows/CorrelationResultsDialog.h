@@ -17,20 +17,37 @@
  */
 #pragma once
 
-#include "ReportFactory.h"
-#include "report/GarchReport.h"
-#include "math/GarchModel.h"
-#include "Portfolio.h"
+#include "ui_correlationRes.h"
+#include "CorrelationResultsDialog.h"
+#include "CorrelationResults.h"
+#include "CorrelationDialog.h"
+#include "MainWindow.h"
+#include <QDialog>
+#include <QException>
 
-class MODELVARSHARED_EXPORT GarchReportFactory: public ReportFactory {
+namespace Ui {
+	class CorrelationResultsDialog;
+}
+class CorrelationResultsDialog : public QDialog
+{
+	Q_OBJECT
 public:
-	GarchReportFactory(Portfolio * portfolio, GarchModel& garchModel);
-
-protected:
-	virtual Report *getReport();
-	virtual ReportDataJson* createJson();
-
+	explicit CorrelationResultsDialog(Portfolio *port,QList<CorrelationResults> *results, QString testType, QPair<double,double> res, int lag, QString date, int period, QWidget *parent = 0);
+	~CorrelationResultsDialog();
 private:
-	Portfolio * portfolio;
-	GarchModel & garchModel;
+	Ui::CorrelationResultsDialog *ui;
+	QList<CorrelationResults> *results;
+	QPair<double, double> pair;
+	QString type;
+	Portfolio *portfolio;
+	QString date;
+	int timeLag;
+	int period;
+private slots:
+	void on_generate_clicked();
+	void on_save_clicked();
+	void on_quit_clicked();
+	void on_testAgain_clicked();
+
 };
+

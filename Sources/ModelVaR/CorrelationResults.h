@@ -15,23 +15,32 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#include "VaRReportFactory.h"
 
-/**
- * @brief Constructor
- */
-VaRReportFactory::VaRReportFactory(Portfolio *portfolio): ReportFactory() {
-	this->portfolio=portfolio;
-}
+#pragma once
 
-Report *VaRReportFactory::createReport() {
-	QString file = this->getReportDir()+QString("statisticReport");
-	QDate startDate = portfolio->retrieveStartDate();
-	QDate endDate = portfolio->retrieveEndDate();
-	file += "_"+portfolio->getName()+"_"+startDate.toString("dd-MM-yy")+"_"+endDate.toString("dd-MM-yy");
-	return new StatisticsReport(file);
-}
+#include <QString>
+#include <QPair>
+#include <QList>
+#include <QDate>
+#include "ModelVaR_global.h"
 
-ReportDataJson *VaRReportFactory::createJson() {
+class MODELVARSHARED_EXPORT CorrelationResults{
 
-}
+public:
+	CorrelationResults(QString s, double st_v, double p_v, int lag, int per, QString d);
+	~CorrelationResults();
+	QString getType() const;
+	double getStatValue() const;
+	double getPValue() const;
+	int getTimeLag() const;
+	int getPeriod() const;
+	QString getDate() const;
+private:
+	QString testType;
+	double statValue;
+	double pValue;
+	int timeLag;
+	int period;
+	QString date;
+};
+

@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
 	connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(setImportCSV()));
 
 	connect(ui->actionGenerate_Stats_Report,SIGNAL(triggered()),this,SLOT(generateStatsReport()));
+	connect(ui->actionGenerate_Correlation_Report,SIGNAL(triggered()),this,SLOT(showCorrelationWindow()));
 
 	ui->listView->setModel(portfolioListModel);
 	connect(ui->removePushButton, SIGNAL(clicked()), ui->listView, SLOT(removeSelectedPortfolio()));
@@ -217,6 +218,46 @@ void MainWindow::generateVaR()
 		VarDialog * fen = new VarDialog(port);
 		fen->setAttribute(Qt::WA_DeleteOnClose);
 		fen->show();
+	} catch (NoneSelectedPortfolioException& ) {
+		showError("None portfolio selected");
+	}
+}
+
+/**
+ * @brief Generates the correlation report of the selected portfolio and add it to the vector
+ * of report of the selected portfolio.
+ * @param port The Portfolio owner of the report
+ * @param results The Results of the preceeding correlation tests
+ */
+void MainWindow::generateCorrelationReport(Portfolio *port, QList<CorrelationResults> *results) {
+	try {
+		// build the stats report
+		Report * report = buildReport(port, new CorrelationReportFactory(port, results));
+
+		// generate it in Docx format
+		QSettings settings;
+		generateReport(new DocxGenerator(report, settings.value("DocXGenPath","../Resources/DocxGenerator/DocXGenerator.jar").toString()));
+	} catch (ReportAlreadyCreatedException & e) {
+
+	} catch (ReportException & e) {
+		showError(e.what());
+	}
+}
+
+/** Display the window to set up the correlation test
+ * @brief MainWindow::showCorrelationWindow
+ */
+void MainWindow::showCorrelationWindow(){
+	try {
+		// get the current portfolio
+		Portfolio * port = this->getCurrentPortfolio();
+
+		CorrelationDialog* correlationDialog = new CorrelationDialog(port,this);
+		correlationDialog->setAttribute(Qt::WA_DeleteOnClose);
+		correlationDialog->show();
+
+	} catch (ReportException & e) {
+		showError(e.what());
 	} catch (NoneSelectedPortfolioException& ) {
 		showError("None portfolio selected");
 	}

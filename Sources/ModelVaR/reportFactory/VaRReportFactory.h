@@ -19,13 +19,17 @@
 
 #include "ReportFactory.h"
 #include "report/VaRReport.h"
+#include "Portfolio.h"
 #include <QString>
 
 class MODELVARSHARED_EXPORT VaRReportFactory: public ReportFactory {
 public:
-	VaRReportFactory();
+	VaRReportFactory(Portfolio * portfolio);
 
 protected:
 	virtual Report *createReport();
 	virtual ReportDataJson* createJson();
+
+private:
+	Portfolio * portfolio;
 };
