@@ -29,7 +29,8 @@ SOURCES += main.cpp\
 		portfolio/report/ReportView.cpp \
 		windows/VarDialog.cpp \
 		windows/CorrelationResultsDialog.cpp \
-		windows/CorrelationDialog.cpp
+		windows/CorrelationDialog.cpp \
+    ReportCreatorSingleton.cpp
 
 HEADERS += MainWindow.h \
 		Constantes.h \
@@ -49,7 +50,8 @@ HEADERS += MainWindow.h \
 		exceptions/NoneSelectedPortfolioException.h \
 		windows/VarDialog.h \
 		windows/CorrelationResultsDialog.h \
-		windows/CorrelationDialog.h
+		windows/CorrelationDialog.h \
+    ReportCreatorSingleton.h
 
 FORMS += MainWindow.ui \
 		windows/NewPortfolioWizard.ui \

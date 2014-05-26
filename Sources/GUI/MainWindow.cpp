@@ -126,50 +126,6 @@ void MainWindow::newPortfolio() {
 	fen->show();
 }
 
-
-/**
- * @brief Display a message in the status bar when the generating of a report is done
- * and delete the reportGenerator which called this slot.
- */
-void MainWindow::reportGenerationDone() {
-	this->statusBar()->showMessage("Generation done.",1500);
-}
-
-
-/**
- * @brief Show a QMessageBox with the given message
- * @param errorMsg the message to be displayed in the QMessageBox
- */
-void MainWindow::showError(const QString & errorMsg) {
-	QMessageBox::critical(this,"Error",errorMsg);
-}
-
-/**
- * @brief Disable all the buttons that generate report
- * (only statistic report for now)
- */
-void MainWindow::disableGenerationButton() {
-	ui->actionGenerate_Stats_Report->setEnabled(false);
-}
-
-/**
- * @brief Enable all the buttons that generate report
- * (only statistic report for now)
- */
-void MainWindow::enableGenerationButton() {
-	ui->actionGenerate_Stats_Report->setEnabled(true);
-}
-
-/**
- * @brief Delete the ReportGenerator which call this slot. (Does nothing if it's not a ReportGenerator
- * which call this slot)
- */
-void MainWindow::deleteReportGenerator() {
-	ReportGenerator* gen = qobject_cast<ReportGenerator*>(sender());
-	if (gen)
-		delete gen;
-}
-
 /**
  * @brief Return the current portfolio (the one which is selected in the list of portfolio)
  * Throw a NoneSelectedPortfolioException if none portfolio has been selected.

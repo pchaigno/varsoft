@@ -80,14 +80,6 @@ private slots:
 
 	void removeSelectedPortfolio();
 
-	void reportGenerationDone();
-
-	void showError(const QString&errorMsg);
-
-	void disableGenerationButton();
-	void enableGenerationButton();
-
-	void deleteReportGenerator();
 
 private:
 	Portfolio *getCurrentPortfolio();

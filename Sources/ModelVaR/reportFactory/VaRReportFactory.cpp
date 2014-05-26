@@ -20,18 +20,30 @@
 /**
  * @brief Constructor
  */
-VaRReportFactory::VaRReportFactory(Portfolio *portfolio): ReportFactory() {
+VaRReportFactory::VaRReportFactory(Portfolio *portfolio, double var, VaRAlgorithm * varAlgo): ReportFactory() {
 	this->portfolio=portfolio;
+	this->var=var;
+	this->varAlgo=varAlgo;
 }
 
 Report *VaRReportFactory::createReport() {
-	QString file = this->getReportDir()+QString("statisticReport");
+	QString file = this->getReportDir()+QString("VaRReport");
 	QDate startDate = portfolio->retrieveStartDate();
 	QDate endDate = portfolio->retrieveEndDate();
 	file += "_"+portfolio->getName()+"_"+startDate.toString("dd-MM-yy")+"_"+endDate.toString("dd-MM-yy");
-	return new StatisticsReport(file);
+	return new VaRReport(file);
 }
 
 ReportDataJson *VaRReportFactory::createJson() {
+
+	ReportDataJson* data = new ReportDataJson();
+	data->addText("portfolioName",portfolio->getName());
+	data->addText("portfolioEndDateValue",portfolio->retrieveValuesByDate().take(portfolio->retrieveEndDate()));
+	data->addText("portfolioEndDate",portfolio->retrieveEndDate().toString("dd/MM/yyyy"));
+
+	data->addText("risk",varAlgo->getRisk());
+	data->addText("timeHorizon", varAlgo->getTimeHorizon());
+
+	return data;
 
 }

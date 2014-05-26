@@ -38,12 +38,12 @@ Report *GarchReportFactory::getReport() {
 ReportDataJson *GarchReportFactory::createJson() {
 
 	ReportDataJson* data = new ReportDataJson();
-	data->addText("portefeuilleName",portfolio->getName());
-	data->addText("dateDeb",portfolio->retrieveStartDate().toString("dd/MM/yyyy"));
+	data->addText("portfolioName",portfolio->getName());
+	data->addText("startDate",portfolio->retrieveStartDate().toString("dd/MM/yyyy"));
 	QDate startDate = portfolio->retrieveStartDate();
 	QDate endDate = portfolio->retrieveEndDate();
-	data->addText("dateFin",endDate.toString("dd/MM/yyyy"));
-	data->addText("date",endDate.toString("dd/MM/yyyy"));
+	data->addText("endDate",endDate.toString("dd/MM/yyyy"));
+
 
 
 	return data;
