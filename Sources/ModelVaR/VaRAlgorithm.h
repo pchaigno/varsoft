@@ -23,7 +23,7 @@
 #include <ctime>
 
 class MODELVARSHARED_EXPORT VaRAlgorithm {
-private:
+protected:
 	const Portfolio& portfolio;
 	double risk;
 	int timeHorizon;

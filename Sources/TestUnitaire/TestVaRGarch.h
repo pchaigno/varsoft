@@ -15,16 +15,24 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#include "MainWindow.h"
-#include <QApplication>
+#pragma once
 
-#include "RInterface.h"
+#include <QtTest>
+#include "TestRInterface.h"
+#include "VaRGarch.h"
 
-#include "RInterface.h"
+class TestVaRGarch: public QObject {
+	Q_OBJECT
 
-int main(int argc, char *argv[]) {
-	QApplication a(argc, argv);
-	MainWindow w;
-	w.showMaximized();
-	return a.exec();
-}
+private:
+	Portfolio father;
+	Portfolio uncle;
+
+public:
+	TestVaRGarch();
+
+private Q_SLOTS:
+	void testExecute();
+	void testExecuteThreeDaysHorizon();
+	void testExecuteNormalReturns();
+};

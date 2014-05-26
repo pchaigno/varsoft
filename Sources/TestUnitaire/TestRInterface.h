@@ -19,10 +19,12 @@
 #pragma once
 
 #include <QtTest>
+#include "GarchModel.h"
+#include "Portfolio.h"
+#include "RInterface.h"
 #include <QDir>
 #include <QMap>
 #include <QVector>
-#include "RInterface.h"
 
 class TestRInterface: public QObject {
 	Q_OBJECT
@@ -34,6 +36,8 @@ public:
 	TestRInterface();
 
 private Q_SLOTS:
+	void testComputeGarchModel();
+	void testComputeGarchModelIncorrectParameter();
 	void testCheckCorrelation();
 	void testCheckCorrelationIncorrectTimeLag();
 	void testCheckCorrelationIncorrectPeriod();

@@ -23,6 +23,8 @@
 #include <QMap>
 #include "Asset.h"
 #include <QDate>
+#include <QDebug>
+#include <QtCore/qmath.h>
 #include "IdAlreadyAttributedException.h"
 #include "InvalidDefinitionPeriodException.h"
 #include "ModelVaR_global.h"
@@ -33,8 +35,6 @@
 #include "AssetsFactory.h"
 #include <QJsonArray>
 #include "NonexistentAssetException.h"
-#include <QtCore/qmath.h>
-#include <QGenericMatrix>
 
 class MODELVARSHARED_EXPORT Portfolio: public Savable {
 private:

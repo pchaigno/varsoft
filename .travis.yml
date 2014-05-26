@@ -11,7 +11,7 @@ before_install:
 install:
   - if [ $QT == "Qt4" ]; then sudo apt-get install libqt4-dev qt4-qmake libqt4-sql-sqlite; fi
   - if [ $QT == "Qt5" ]; then sudo apt-get install -y qt5-default libqt5sql5-sqlite; fi
-  - sudo apt-get install -y r-base
+  - sudo apt-get install -y r-base r-cran-tseries
   - rm Sources/quazip/quazip/zconf.h Sources/quazip/quazip/zlib.h
 
 script:
