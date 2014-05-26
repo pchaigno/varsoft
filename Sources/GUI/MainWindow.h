@@ -44,6 +44,7 @@
 #include "portfolio/report/ReportView.h"
 #include "portfolio/PortfolioViewMediator.h"
 #include "SessionSaver.h"
+#include "windows/VarDialog.h"
 
 namespace Ui {
 	class MainWindow;
@@ -67,6 +68,7 @@ private slots:
 	void newPortfolio();
 	void setImportCSV();
 	void generateStatsReport();
+	void generateVaR();
 
 	void save();
 	void saveAs();

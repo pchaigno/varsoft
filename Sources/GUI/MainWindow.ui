@@ -228,6 +228,7 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionGenerate_Stats_Report"/>
+   <addaction name="actionGenerate_VaR"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionOuvrir">
@@ -293,6 +294,11 @@
   <action name="actionDocXGenerator_path">
    <property name="text">
     <string>DocXGenerator path...</string>
+   </property>
+  </action>
+  <action name="actionGenerate_VaR">
+   <property name="text">
+    <string>Generate VaR</string>
    </property>
   </action>
  </widget>

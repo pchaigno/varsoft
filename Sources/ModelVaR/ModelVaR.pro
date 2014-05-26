@@ -85,7 +85,7 @@ HEADERS +=\
 	math/RInterface.h \
 	math/Backtesting.h \
 	math/MathFunctions.h \
-	reportFactoryVaRReportFactory.h \
+	reportFactory/VaRReportFactory.h \
 	reportFactory/ReportFactory.h \
 	reportFactory/BacktestingReportFactory.h \
 	reportFactory/StatisticsReportFactory.h \

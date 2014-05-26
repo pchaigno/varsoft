@@ -27,6 +27,7 @@ SOURCES += main.cpp\
 		portfolio/report/ReportWidget.cpp \
 		portfolio/report/ReportWidgetFactory.cpp \
 		portfolio/report/ReportView.cpp \
+		windows/VarDialog.cpp
 
 HEADERS += MainWindow.h \
 		Constantes.h \
@@ -43,7 +44,8 @@ HEADERS += MainWindow.h \
 		portfolio/report/ReportWidget.h \
 		portfolio/report/ReportWidgetFactory.h \
 		portfolio/report/ReportView.h \
-		exceptions/NoneSelectedPortfolioException.h
+		exceptions/NoneSelectedPortfolioException.h \
+		windows/VarDialog.h
 
 FORMS += MainWindow.ui \
 		windows/NewPortfolioWizard.ui \
@@ -52,7 +54,8 @@ FORMS += MainWindow.ui \
 		windows/import.ui \
 		windows/DocxGenPathDialog.ui \
 		portfolio/report/ReportWidget.ui \
-		portfolio/report/ReportListScrollArea.ui
+		portfolio/report/ReportListScrollArea.ui \
+		windows/VarDialog.ui
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../quazip/quazip/release/ -lquazip
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../quazip/quazip/debug/ -lquazip

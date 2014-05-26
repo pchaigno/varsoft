@@ -29,9 +29,10 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
 
 	ui->listView->setModel(portfolioListModel);
 	connect(ui->removePushButton, SIGNAL(clicked()), ui->listView, SLOT(removeSelectedPortfolio()));
-	connect(ui->listView,SIGNAL(portfolioSelected(Portfolio*)),this,SLOT(showPortfolio(Portfolio*)));
 	connect(ui->actionSauvegarder, SIGNAL(triggered()), this, SLOT(save()));
 	connect(ui->actionSauvegarder_sous, SIGNAL(triggered()), this, SLOT(saveAs()));
+
+	connect(ui->actionGenerate_VaR,SIGNAL(triggered()),this,SLOT(generateVaR()));
 
 	connect(ui->actionDocXGenerator_path,SIGNAL(triggered()),this,SLOT(docxGenPath()));
 
@@ -202,6 +203,19 @@ void MainWindow::generateStatsReport() {
 
 	} catch (ReportException & e) {
 		showError(e.what());
+	} catch (NoneSelectedPortfolioException& ) {
+		showError("None portfolio selected");
+	}
+}
+
+void MainWindow::generateVaR()
+{
+	try
+	{
+		Portfolio * port = this->getCurrentPortfolio();
+		VarDialog * fen = new VarDialog(port);
+		fen->setAttribute(Qt::WA_DeleteOnClose);
+		fen->show();
 	} catch (NoneSelectedPortfolioException& ) {
 		showError("None portfolio selected");
 	}
