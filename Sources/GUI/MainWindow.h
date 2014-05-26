@@ -46,6 +46,7 @@
 #include "SessionSaver.h"
 #include "ImportManager.h"
 #include "ExportManager.h"
+#include "SessionFolderDialog.h"
 
 namespace Ui {
 	class MainWindow;
@@ -63,10 +64,6 @@ public:
 	void initResources();
 	void createFolderIfDoesnotExist(QString folder);
 	void closeEvent(QCloseEvent *event);
-
-public slots:
-	void save();
-	void saveAs();
 
 private slots:
 	void docxGenPath();
@@ -92,6 +89,8 @@ private slots:
 	void enableGenerationButton();
 
 	void deleteReportGenerator();
+
+	void save();
 
 	void importArchive();
 	void exportArchive();

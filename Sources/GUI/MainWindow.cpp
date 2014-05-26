@@ -21,7 +21,10 @@
 MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWindow), portfolioListModel(new PortfolioItemModel(this)) {
 	ui->setupUi(this);
 	this->path = "C:/";
-	//for the import button in the main window
+
+	SessionFolderDialog* sessionFolderDialog = new SessionFolderDialog(this);
+	sessionFolderDialog->setAttribute(Qt::WA_DeleteOnClose);
+	sessionFolderDialog->show();
 
 	connect(ui->actionCreateAsset, SIGNAL(triggered()), this, SLOT(setImportCSV()));
 
@@ -31,7 +34,6 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
 	connect(ui->removePushButton, SIGNAL(clicked()), ui->listView, SLOT(removeSelectedPortfolio()));
 	connect(ui->listView,SIGNAL(portfolioSelected(Portfolio*)),this,SLOT(showPortfolio(Portfolio*)));
 	connect(ui->actionSauvegarder, SIGNAL(triggered()), this, SLOT(save()));
-	connect(ui->actionSauvegarder_sous, SIGNAL(triggered()), this, SLOT(saveAs()));
 	connect(ui->removePushButton, SIGNAL(clicked()), this, SLOT(removeSelectedPortfolio()));
 	connect(ui->listView,SIGNAL(portfolioSelected(Portfolio*)),this,SLOT(showPortfolio(Portfolio*)));
 	connect(ui->actionDocXGenerator_path,SIGNAL(triggered()),this,SLOT(docxGenPath()));
@@ -453,22 +455,7 @@ void MainWindow::removeSelectedPortfolio() {
  * Ask for the location if none was selected before in a new window.
  */
 void MainWindow::save() {
-	if(SQLiteManager::getSessionFolder() == "") {
-		this->saveAs();
-	} else {
-		SessionSaver::getInstance()->saveSession(this->portfoliosModels.keys());
-	}
-}
-
-/**
- * @brief Opens a dialog to ask the user where he wants to save his portfolios. Then saves them.
- */
-void MainWindow::saveAs() {
-	QString sessionFolder = QFileDialog::getExistingDirectory(this, ("Save in"), this->path, QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
-	if(sessionFolder != "") {
-		SessionSaver::setSessionFolder(QDir(sessionFolder));
-		SessionSaver::getInstance()->saveSession(this->portfoliosModels.keys());
-	}
+	SessionSaver::getInstance()->saveSession(this->portfoliosModels.keys());
 }
 
 /**
@@ -486,13 +473,6 @@ void MainWindow::exportArchive() {
  * @brief Opens a dialog to ask the user for the location of the archive to import.
  */
 void MainWindow::importArchive() {
-	// Checks that a session folder has been defined first:
-	if(SQLiteManager::getSessionFolder() == "") {
-		QMessageBox::warning(0, "Warning", "Please choose a location to save the session first.");
-		this->saveAs();
-		return;
-	}
-
 	QString archivePath = QFileDialog::getOpenFileName(this, ("Import an archive"), this->path, ("ZIP archive (*.zip)") );
 	if(archivePath != "") {
 		ImportManager importManager = ImportManager(archivePath);

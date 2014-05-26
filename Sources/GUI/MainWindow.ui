@@ -196,7 +196,6 @@
     <addaction name="actionOuvrir"/>
     <addaction name="separator"/>
     <addaction name="actionSauvegarder"/>
-    <addaction name="actionSauvegarder_sous"/>
     <addaction name="separator"/>
     <addaction name="actionCreateAsset"/>
     <addaction name="separator"/>

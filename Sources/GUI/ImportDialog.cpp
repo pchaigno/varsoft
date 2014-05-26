@@ -49,22 +49,10 @@ void Import::on_pushButton_clicked() {
 		return;
 	}
 
-	// We need to make sure first that the session folder has been defined:
-	if(SQLiteManager::getSessionFolder() == "") {
-		QMessageBox::warning(0, "Warning", "Please choose a location to save the session first.");
-		qobject_cast<MainWindow*>(this->parentWidget())->saveAs();
-		return;
-	}
-
 	if(AssetsFactory::getInstance()->retrieveAsset(ui->textEdit->text()) != NULL) {
 		QMessageBox::warning(0, "Error", "This name is already used");
 		return;
 	} else {
-		// We need to make sure first that the session folder has been defined:
-		if(SQLiteManager::getSessionFolder() == "") {
-			qobject_cast<MainWindow*>(this->parentWidget())->saveAs();
-		}
-
 		try {
 			QDir resourcesFolder(SessionSaver::getSessionFolder() + QDir::separator() + "Resources");
 			if (!resourcesFolder.exists("Assets")) {
