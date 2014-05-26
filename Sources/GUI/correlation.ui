@@ -20,7 +20,7 @@
       <bool>false</bool>
      </property>
      <property name="text">
-      <string>Correlation test's parameters</string>
+      <string>Correlation test parameters</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -97,7 +97,7 @@
      <item>
       <widget class="QPushButton" name="pushButton">
        <property name="text">
-        <string>Generate</string>
+        <string>Test</string>
        </property>
       </widget>
      </item>

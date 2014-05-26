@@ -37,15 +37,15 @@ CorrelationResultsDialog::CorrelationResultsDialog(Portfolio *port,QList<Correla
 	this->date = date;
 	this->timeLag = lag;
 	this->period = period;
+	if(results->size() == 0){
+		ui->generate->setEnabled(false);
+	}
 	//delete automatically the QDialog
 	this->setAttribute(Qt::WA_DeleteOnClose);
 }
 
 CorrelationResultsDialog::~CorrelationResultsDialog() {
 	delete ui;
-	//delete pair;
-	//delete type;
-	//delete results;
 }
 
 /**
@@ -53,15 +53,8 @@ CorrelationResultsDialog::~CorrelationResultsDialog() {
 */
 void CorrelationResultsDialog::on_save_clicked() {
 	results->append(CorrelationResults(type,pair.first,pair.second,this->timeLag,this->period,this->date));
-	for(int i =0; i < results->size(); i++){
-		qDebug() << QString::number(results->at(i).getPValue());
-		qDebug() << QString::number(results->at(i).getStatValue());
-		qDebug() << results->at(i).getType();
-		qDebug() << results->at(i).getDate();
-		qDebug() << QString::number(results->at(i).getPeriod());
-		qDebug() << QString::number(results->at(i).getTimeLag());
-	}
 	ui->save->setEnabled(false);
+	ui->generate->setEnabled(true);
 }
 
 /**

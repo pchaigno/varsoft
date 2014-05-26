@@ -138,8 +138,8 @@
        </layout>
       </widget>
       <widget class="QWidget" name="tabReports">
-	   <attribute name="title">
-		<string>Reports and Graphs</string>
+       <attribute name="title">
+        <string>Reports and Graphs</string>
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
@@ -200,7 +200,6 @@
     <addaction name="separator"/>
     <addaction name="actionImport"/>
     <addaction name="separator"/>
-    <addaction name="actionImport_2"/>
     <addaction name="actionExport"/>
     <addaction name="separator"/>
     <addaction name="actionQuitter"/>
@@ -278,7 +277,7 @@
   </action>
   <action name="actionQuitter">
    <property name="text">
-	<string>Exit</string>
+    <string>Exit</string>
    </property>
   </action>
   <action name="actionGenerate_Stats_Report">
@@ -297,6 +296,12 @@
    </property>
    <property name="toolTip">
     <string>Generate Correlation Report</string>
+   </property>
+   <property name="visible">
+    <bool>true</bool>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
    </property>
   </action>
  </widget>

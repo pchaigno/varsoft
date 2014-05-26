@@ -45,11 +45,11 @@ FORMS += MainWindow.ui \
 		NewPortfolioWizard.ui \
 		SetWeightAssetWizardPage.ui \
 		ShowAssetsWizardPage.ui\
-		import.ui \
-		correlation.ui \
-		correlationRes.ui \
 		ReportWidget.ui \
-		DocxGenPathDialog.ui
+		DocxGenPathDialog.ui \
+    CorrelationRes.ui \
+    Correlation.ui \
+    Import.ui
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../quazip/quazip/release/ -lquazip
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../quazip/quazip/debug/ -lquazip
