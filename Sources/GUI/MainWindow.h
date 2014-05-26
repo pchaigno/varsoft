@@ -43,6 +43,8 @@
 #include "ui_MainWindow.h"
 #include "CreateAsset.h"
 #include "GetStartEndDates.h"
+#include "CorrelationDialog.h"
+#include "CorrelationReportFactory.h"
 #include "SessionSaver.h"
 #include "ImportManager.h"
 #include "ExportManager.h"
@@ -64,6 +66,7 @@ public:
 	void initResources();
 	void createFolderIfDoesnotExist(QString folder);
 	void closeEvent(QCloseEvent *event);
+	void generateCorrelationReport(Portfolio *port, QList<CorrelationResults> *results);
 
 private slots:
 	void docxGenPath();
@@ -71,6 +74,7 @@ private slots:
 	void showPortfolio(Portfolio* portfolio);
 	void setImportCSV();
 	void generateStatsReport();
+	void showCorrelationWindow();
 
 
 	void addPortfolio(Portfolio *);

@@ -52,7 +52,9 @@ SOURCES += \
 	qcustomplot.cpp \
 	ReportGenerator.cpp \
 	ReportException.cpp \
+	CorrelationResults.cpp \
 	Savable.cpp
+
 
 HEADERS +=\
 	Asset.h \
@@ -103,6 +105,8 @@ HEADERS +=\
 	CreateAssetException.h \
 	ExportException.h \
 	ImportException.h \
+	ReportAlreadyCreatedException.h \
+	CorrelationResults.h \
 	ReportAlreadyCreatedException.h \
 	Savable.h \
 	MathFunctions.h \

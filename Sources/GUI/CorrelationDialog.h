@@ -17,14 +17,35 @@
  */
 #pragma once
 
-#include <QProcess>
+#include "ui_correlation.h"
 #include "Portfolio.h"
-#include "GarchModel.h"
+#include "RInterface.h"
+#include "CorrelationResults.h"
+#include "CorrelationResultsDialog.h"
+#include <QDate>
+#include <QDialog>
+#include <QException>
 
-class MODELVARSHARED_EXPORT RInterface {
+namespace Ui {
+	class Correlation;
+}
+class Correlation : public QDialog
+{
+	Q_OBJECT
 public:
-	static QPair<double, double> checkCorrelation(const Portfolio& portfolio, int timeLag,const QDate& date, int period);
-	static QPair<double, double> checkSquareCorrelation(const Portfolio& portfolio, int timeLag,const QDate& date, int period);
-	static QPair<double, double> executeCorrelationScript(const Portfolio& portfolio, int timeLag,const QDate& date, int period, QString rScriptFilePath);
-	static GarchModel computeGarchModel(const Portfolio& portfolio);
+	Correlation(Portfolio *portfolio, QWidget *parent = 0);
+	~Correlation();
+private:
+	Ui::Correlation *ui;
+	QString fileName;
+	Portfolio *portfolio;
+	QList<CorrelationResults> *results;
+
+private slots:
+	void on_pushButton_clicked();
+	void on_pushButton_2_clicked();
+
+public slots:
+	void quit();
 };
+

@@ -46,6 +46,7 @@ private:
 
 public:
 	Portfolio();
+	//Portfolio(Portfolio &port);
 	Portfolio(Portfolio* parent, QString name, QMap<Asset*, int>& composition, QList<Report*>& reports);
 	Portfolio(QString name, QMap<Asset*, int>& composition, QList<Report*>& reports);
 	Portfolio(Portfolio* parent, int id, QString name, QMap<Asset*, int>& composition, QList<Report*>& reports);

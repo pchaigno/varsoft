@@ -24,6 +24,15 @@
 Portfolio::Portfolio(): Savable(false) {
 
 }
+/*
+Portfolio::Portfolio(Portfolio &port){
+	id = port.id;
+	name = port.name;
+	parent = port.parent;
+	composition = port.composition;
+	reports = port.reports;
+}
+*/
 
 /**
  * @brief Constructor with parent.
