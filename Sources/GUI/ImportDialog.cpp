@@ -66,12 +66,12 @@ void Import::on_pushButton_clicked() {
 		}
 
 		try {
-			QDir dir(SessionSaver::getSessionFolder()+"/Resources/Assets");
-			if (!dir.exists()) {
-				dir.mkpath(".");
+			QDir resourcesFolder(SessionSaver::getSessionFolder() + QDir::separator() + "Resources");
+			if (!resourcesFolder.exists("Assets")) {
+				resourcesFolder.mkpath("Assets");
 			}
 			QString namealea = ui->textEdit->text() + "_" + QString::number(QDateTime::currentMSecsSinceEpoch()) + ".csv";
-			QString assetPath = dir.absolutePath() + QDir::separator() + namealea;
+			QString assetPath = QString("Assets") + QDir::separator() + namealea;
 			Asset a = Asset(ui->textEdit->text(), assetPath, ui->comboBox->currentText(), ui->startDate->date(), ui->endDate->date());
 			algo.import(a, fileName);
 			SessionSaver::getInstance()->saveAsset(a);

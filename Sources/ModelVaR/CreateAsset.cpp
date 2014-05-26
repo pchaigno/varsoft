@@ -48,7 +48,7 @@ void CreateAsset::import(const Asset &asset, const QString& file) const {
 
 	//FILE CREATION OF IMPORTED DATA
 	// Do unique names
-	QFile fileCreated(asset.getFile());
+	QFile fileCreated(asset.getAbsolutePathToFile());
 	// The file is open in write-only mode and we check the opening
 	if (!fileCreated.open(QIODevice::WriteOnly | QIODevice::Text)) {
 		//throw CreateAssetException("Error while opening the file");

@@ -21,7 +21,7 @@
  * @brief Initializes a portfolio for the tests.
  */
 TestRInterface::TestRInterface() {
-	QString assetFolder = "../../Examples/";
+	QString assetFolder = "../Examples/";
 
 	// FIRST ASSET DEFINITION
 	QDate startDate(2014, 1, 2);

@@ -67,12 +67,9 @@ void TestSQLiteManagers::testSaveSession() {
 	QMap<QString, Asset*> assets = SessionBuilder::getInstance()->buildAssets();
 
 	// Checks that the assets are here:
-	qDebug() << "ok";
 	QVERIFY(assets.contains("Apple"));
 	QVERIFY(assets.contains("Google"));
-	qDebug() << "ok";
 	QVERIFY(*(assets["Apple"]) == this->apple);
-	qDebug() << "ok";
 	QVERIFY(*(assets["Google"]) == this->google);
 	QVERIFY(assets["Apple"]->isUpToDate());
 	QVERIFY(assets["Google"]->isUpToDate());
@@ -133,7 +130,7 @@ void TestSQLiteManagers::testSaveSession() {
  */
 void TestSQLiteManagers::testUpdateSession() {
 	// Modify the session:
-	/*this->apple.changeName("Pomme");
+	this->apple.changeName("Pomme");
 	this->portfolios[0]->changeName("Updated");
 	this->portfolios[0]->removeReport(this->varReport);
 	Report* statisticsReport = new StatisticsReport("somefolder/statisticsReport");
@@ -202,5 +199,5 @@ void TestSQLiteManagers::testUpdateSession() {
 
 	// Deletes the database file:
 	QFile databaseFile(SessionSaver::getInstance()->getDatabaseFile());
-	databaseFile.remove();*/
+	databaseFile.remove();
 }

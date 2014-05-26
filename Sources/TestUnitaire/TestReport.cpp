@@ -21,11 +21,11 @@
  * @brief Initializes a few reports for the tests.
  */
 TestReport::TestReport() {
-	this->var = new VaRReport("C:\\somefolder\\var");
-	this->garch = new GarchReport("C:\\somefolder\\garch");
-	this->correlation = new CorrelationReport("C:\\somefolder\\correlation");
-	this->backtesting = new BacktestingReport("C:\\somefolder\\backtesting");
-	this->statistics = new StatisticsReport("C:\\somefolder\\statistics");
+	this->var = new VaRReport("somefolder/var");
+	this->garch = new GarchReport("somefolder/garch");
+	this->correlation = new CorrelationReport("somefolder/correlation");
+	this->backtesting = new BacktestingReport("somefolder/backtesting");
+	this->statistics = new StatisticsReport("somefolder/statistics");
 }
 
 TestReport::~TestReport() {
