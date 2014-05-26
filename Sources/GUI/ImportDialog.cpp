@@ -17,8 +17,6 @@
  */
 #include "ImportDialog.h"
 
-#include <QDebug>
-
 /**
 * @brief Import Constructor
 * @param parent QDialog Widget to use

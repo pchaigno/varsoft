@@ -35,7 +35,7 @@ AssetsFactory::AssetsFactory() {
  * @return A pointer to the asset or null if the asset doesn't exist.
  */
 Asset* AssetsFactory::retrieveAsset(QString name) {
-	if(!this->assets.contains(name)) {
+	if(!this->assets.contains(name) || this->assets[name]==NULL) {
 		this->assets[name] = SessionBuilder::getInstance()->buildAsset(name);
 	}
 	return this->assets[name];

@@ -44,6 +44,8 @@
 #include "CreateAsset.h"
 #include "GetStartEndDates.h"
 #include "SessionSaver.h"
+#include "ImportManager.h"
+#include "ExportManager.h"
 
 namespace Ui {
 	class MainWindow;
@@ -90,6 +92,9 @@ private slots:
 	void enableGenerationButton();
 
 	void deleteReportGenerator();
+
+	void importArchive();
+	void exportArchive();
 
 private:
 	Portfolio *getCurrentPortfolio();

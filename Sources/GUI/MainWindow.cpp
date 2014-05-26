@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
 	this->path = "C:/";
 	//for the import button in the main window
 
-	connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(setImportCSV()));
+	connect(ui->actionCreateAsset, SIGNAL(triggered()), this, SLOT(setImportCSV()));
 
 	connect(ui->actionGenerate_Stats_Report,SIGNAL(triggered()),this,SLOT(generateStatsReport()));
 
@@ -35,6 +35,9 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
 	connect(ui->removePushButton, SIGNAL(clicked()), this, SLOT(removeSelectedPortfolio()));
 	connect(ui->listView,SIGNAL(portfolioSelected(Portfolio*)),this,SLOT(showPortfolio(Portfolio*)));
 	connect(ui->actionDocXGenerator_path,SIGNAL(triggered()),this,SLOT(docxGenPath()));
+
+	connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(importArchive()));
+	connect(ui->actionExport, SIGNAL(triggered()), this, SLOT(exportArchive()));
 
 	layoutReports = new FlowLayout;
 	ui->reportScrollArea->setLayout(layoutReports);
@@ -465,5 +468,34 @@ void MainWindow::saveAs() {
 	if(sessionFolder != "") {
 		SessionSaver::setSessionFolder(QDir(sessionFolder));
 		SessionSaver::getInstance()->saveSession(this->portfoliosModels.keys());
+	}
+}
+
+/**
+ * @brief Opens a dialog to ask the user for the location of the archive to export.
+ */
+void MainWindow::exportArchive() {
+	QString archivePath = QFileDialog::getSaveFileName(this, ("Export to an archive"), this->path, ("ZIP archive (*.zip)") );
+	if(archivePath != "") {
+		ExportManager exportManager = ExportManager(archivePath);
+		exportManager.exportArchive(this->portfoliosModels.keys());
+	}
+}
+
+/**
+ * @brief Opens a dialog to ask the user for the location of the archive to import.
+ */
+void MainWindow::importArchive() {
+	// Checks that a session folder has been defined first:
+	if(SQLiteManager::getSessionFolder() == "") {
+		QMessageBox::warning(0, "Warning", "Please choose a location to save the session first.");
+		this->saveAs();
+		return;
+	}
+
+	QString archivePath = QFileDialog::getOpenFileName(this, ("Import an archive"), this->path, ("ZIP archive (*.zip)") );
+	if(archivePath != "") {
+		ImportManager importManager = ImportManager(archivePath);
+		importManager.importArchive();
 	}
 }

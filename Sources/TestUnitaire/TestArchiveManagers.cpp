@@ -60,7 +60,7 @@ void TestArchiveManagers::testExportImportPortfolios() {
 	} catch(ImportException e) {
 		QFAIL(e.what());
 	}
-	QVector<Portfolio*> portfoliosImported = importManager.getPortfolios();
+	QList<Portfolio*> portfoliosImported = importManager.getPortfolios();
 
 	QCOMPARE(portfoliosImported.size(), this->portfolios.size());
 	foreach(Portfolio* portfolio, this->portfolios) {
