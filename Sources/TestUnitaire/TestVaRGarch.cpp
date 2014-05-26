@@ -5,7 +5,7 @@
  * The second one contains a single asset which returns are a sample resulting from normal distribution.
  */
 TestVaRGarch::TestVaRGarch() {
-	QString assetFolder = "../../CSV_examples/";
+	QString assetFolder = "../CSV_examples/";
 
 	// FIRST ASSET DEFINITION
 	QDate startDate1(2012, 1, 3);
