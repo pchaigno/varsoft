@@ -35,7 +35,6 @@
 #include "AssetsFactory.h"
 #include <QJsonArray>
 #include "NonexistentAssetException.h"
-#include <QtCore/qmath.h>
 
 class MODELVARSHARED_EXPORT Portfolio: public Savable {
 private:
