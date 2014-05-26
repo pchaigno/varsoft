@@ -71,7 +71,7 @@ void Import::on_pushButton_clicked() {
 				resourcesFolder.mkpath("Assets");
 			}
 			QString namealea = ui->textEdit->text() + "_" + QString::number(QDateTime::currentMSecsSinceEpoch()) + ".csv";
-			QString assetPath = QString("Assets") + QDir::separator() + namealea;
+			QString assetPath = QString("Resources/Assets") + QDir::separator() + namealea;
 			Asset a = Asset(ui->textEdit->text(), assetPath, ui->comboBox->currentText(), ui->startDate->date(), ui->endDate->date());
 			algo.import(a, fileName);
 			SessionSaver::getInstance()->saveAsset(a);
@@ -96,9 +96,8 @@ void Import::on_importButton_clicked(){
 	QVariant path = this->setting.value("path");
 	QFileInfo fileName = QFileDialog::getOpenFileName(this, ("Open file"), path.toString(), ("CSV Text (*.csv *.txt);;All files (*.*)") );
 	if(fileName.isFile()){
-		this->setting.setValue("path",fileName.absolutePath());
+		this->setting.setValue("path", fileName.absolutePath());
 		//get startDate and endDate before calling the import function
-		qDebug() << fileName.filePath();
 		GetStartEndDates* gsed = new GetStartEndDates();
 		gsed->retreiveDates(fileName.filePath());
 		QDate endDate = gsed->getEndDate();
@@ -112,6 +111,6 @@ void Import::on_importButton_clicked(){
 		ui->startDate->setMaximumDate(endDate);
 		ui->startDate->setDate(startDate);
 		ui->startDate->setCalendarPopup(true);
-		this->fileName=fileName.filePath();
+		this->fileName = fileName.filePath();
 	}
 }
