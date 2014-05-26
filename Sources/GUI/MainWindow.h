@@ -62,6 +62,10 @@ public:
 	void createFolderIfDoesnotExist(QString folder);
 	void closeEvent(QCloseEvent *event);
 
+public slots:
+	void save();
+	void saveAs();
+
 private slots:
 	void docxGenPath();
 	void newPortfolio();
@@ -69,9 +73,6 @@ private slots:
 	void setImportCSV();
 	void generateStatsReport();
 
-	void save();
-	void saveAs();
-	void saveAs(QString savePath);
 
 	void addPortfolio(Portfolio *);
 	void removeSelectedPortfolio();
@@ -104,7 +105,6 @@ private:
 	QString fileName;
 	QString origin;
 	QString path;
-	QString sessionFolder;
 	PortfolioItemModel * portfolioListModel;
 	QHash<Portfolio*, PortfolioViewModel*> portfoliosModels;
 	QHash<Portfolio*, QList<ReportWidget*> > portfolioReportWidgets;

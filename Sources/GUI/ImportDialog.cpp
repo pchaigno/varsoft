@@ -17,6 +17,8 @@
  */
 #include "ImportDialog.h"
 
+#include <QDebug>
+
 /**
 * @brief Import Constructor
 * @param parent QDialog Widget to use
@@ -41,24 +43,38 @@ void Import::on_pushButton_clicked() {
 	// TODO : check the field is not empty and print a message to force the user to give a name
 	CreateAsset algo = CreateAsset();
 	if(ui->startDate->dateTime() >= ui->endDate->dateTime()) {
-		QMessageBox::warning(0, "Warning", "Dates are not valid");
+		QMessageBox::warning(0, "Warning", "Dates are not valid.");
 		return;
 	}
 	if(ui->textEdit->text().trimmed().isEmpty()) {
-		QMessageBox::warning(0, "Warning", "Please provide a name");
+		QMessageBox::warning(0, "Warning", "Please provide a name.");
 		return;
 	}
+
+	// We need to make sure first that the session folder has been defined:
+	if(SQLiteManager::getSessionFolder() == "") {
+		QMessageBox::warning(0, "Warning", "Please choose a location to save the session first.");
+		qobject_cast<MainWindow*>(this->parentWidget())->saveAs();
+		return;
+	}
+
 	if(AssetsFactory::getInstance()->retrieveAsset(ui->textEdit->text()) != NULL) {
 		QMessageBox::warning(0, "Error", "This name is already used");
 		return;
 	} else {
+		// We need to make sure first that the session folder has been defined:
+		if(SQLiteManager::getSessionFolder() == "") {
+			qobject_cast<MainWindow*>(this->parentWidget())->saveAs();
+		}
+
 		try {
-			QDir dir(SessionSaver::getSessionFolder()+"/Resources/Assets/");
+			QDir dir(SessionSaver::getSessionFolder()+"/Resources/Assets");
 			if (!dir.exists()) {
 				dir.mkpath(".");
 			}
-			QString namealea = dir.absolutePath()+ui->textEdit->text()+"_"+QString::number(QDateTime::currentMSecsSinceEpoch())+".csv";
-			Asset a = Asset(ui->textEdit->text(), namealea, ui->comboBox->currentText(), ui->startDate->date(), ui->endDate->date());
+			QString namealea = ui->textEdit->text() + "_" + QString::number(QDateTime::currentMSecsSinceEpoch()) + ".csv";
+			QString assetPath = dir.absolutePath() + QDir::separator() + namealea;
+			Asset a = Asset(ui->textEdit->text(), assetPath, ui->comboBox->currentText(), ui->startDate->date(), ui->endDate->date());
 			algo.import(a, fileName);
 			SessionSaver::getInstance()->saveAsset(a);
 		} catch(CreateAssetException &e) {
