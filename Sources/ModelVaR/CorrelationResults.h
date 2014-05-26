@@ -15,16 +15,32 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 #pragma once
 
-#include <QProcess>
-#include "Portfolio.h"
-#include "GarchModel.h"
+#include <QString>
+#include <QPair>
+#include <QList>
+#include <QDate>
+#include "ModelVaR_global.h"
 
-class MODELVARSHARED_EXPORT RInterface {
+class MODELVARSHARED_EXPORT CorrelationResults{
+
 public:
-	static QPair<double, double> checkCorrelation(const Portfolio& portfolio, int timeLag,const QDate& date, int period);
-	static QPair<double, double> checkSquareCorrelation(const Portfolio& portfolio, int timeLag,const QDate& date, int period);
-	static QPair<double, double> executeCorrelationScript(const Portfolio& portfolio, int timeLag,const QDate& date, int period, QString rScriptFilePath);
-	static GarchModel computeGarchModel(const Portfolio& portfolio);
+	CorrelationResults(QString s, double st_v, double p_v, int lag, int per, QString d);
+	~CorrelationResults();
+	QString getType() const;
+	double getStatValue() const;
+	double getPValue() const;
+	int getTimeLag() const;
+	int getPeriod() const;
+	QString getDate() const;
+private:
+	QString testType;
+	double statValue;
+	double pValue;
+	int timeLag;
+	int period;
+	QString date;
 };
+

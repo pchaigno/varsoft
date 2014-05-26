@@ -25,7 +25,7 @@
  * @param period The number of returns
  * @return The statistical value and p-value couple
  */
-QPair<double, double> RInterface::checkCorrelation(const Portfolio& portfolio, int timeLag, QDate& date, int period) {
+QPair<double, double> RInterface::checkCorrelation(const Portfolio& portfolio, int timeLag,const QDate& date, int period) {
 	// Check the period parameter
 	if(timeLag > period - 2) {
 		throw std::invalid_argument("The timeLag parameter cannot be greater than period minus two");
@@ -42,7 +42,7 @@ QPair<double, double> RInterface::checkCorrelation(const Portfolio& portfolio, i
  * @param period The number of returns
  * @return The statistical value and p-value couple
  */
-QPair<double, double> RInterface::checkSquareCorrelation(const Portfolio& portfolio, int timeLag, QDate& date, int period) {
+QPair<double, double> RInterface::checkSquareCorrelation(const Portfolio& portfolio, int timeLag,const QDate& date, int period) {
 	// Check the period parameter
 	if(timeLag > period - 1) {
 		throw std::invalid_argument("The timeLag parameter cannot be greater than period minus one");
@@ -60,7 +60,7 @@ QPair<double, double> RInterface::checkSquareCorrelation(const Portfolio& portfo
  * @param rScriptFilePath R script file
  * @return The statistical value and p-value couple
  */
-QPair<double, double> RInterface::executeCorrelationScript(const Portfolio& portfolio, int timeLag, QDate& date, int period, QString rScriptFilePath) {
+QPair<double, double> RInterface::executeCorrelationScript(const Portfolio& portfolio, int timeLag,const QDate& date, int period, QString rScriptFilePath) {
 	// Check that parameters are correct
 	if(timeLag <= 0) {
 		throw std::invalid_argument("The timeLag parameter must be strictly positive");

@@ -15,16 +15,43 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#pragma once
 
-#include <QProcess>
-#include "Portfolio.h"
-#include "GarchModel.h"
+#include "CorrelationResults.h"
 
-class MODELVARSHARED_EXPORT RInterface {
-public:
-	static QPair<double, double> checkCorrelation(const Portfolio& portfolio, int timeLag,const QDate& date, int period);
-	static QPair<double, double> checkSquareCorrelation(const Portfolio& portfolio, int timeLag,const QDate& date, int period);
-	static QPair<double, double> executeCorrelationScript(const Portfolio& portfolio, int timeLag,const QDate& date, int period, QString rScriptFilePath);
-	static GarchModel computeGarchModel(const Portfolio& portfolio);
-};
+CorrelationResults::CorrelationResults(QString s, double st_v, double p_v, int lag, int per, QString d)
+{
+	testType = s;
+	statValue = st_v;
+	pValue = p_v;
+	timeLag = lag;
+	period = per;
+	date = d;
+}
+
+CorrelationResults::~CorrelationResults()
+{
+}
+
+QString CorrelationResults::getType()const{
+	return testType;
+}
+
+double CorrelationResults::getStatValue() const{
+	return statValue;
+}
+
+double CorrelationResults::getPValue() const{
+	return pValue;
+}
+int CorrelationResults::getTimeLag() const{
+	return timeLag;
+}
+int CorrelationResults::getPeriod() const{
+	return period;
+}
+QString CorrelationResults::getDate() const{
+	return date;
+}
+
+
+

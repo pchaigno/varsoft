@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Paramétrage de l'importation</string>
+   <string>Import Set Up</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
