@@ -45,6 +45,9 @@ ReportDataJson *CorrelationReportFactory::createJson() {
 	QDate endDate = portfolio->retrieveEndDate();
 	data->addText("dateFin",endDate.toString("dd/MM/yyyy"));
 	data->addText("date",startDate.toString("dd/MM/yyyy"));
+	QMap<QDate, double> valuesPortfolio = portfolio->retrieveValuesByDate();
+
+	data->addText("val",QString::number(valuesPortfolio[endDate]));
 
 	QList<QMap<QString,QString> > listResults;
 	for(int i =0; i < results->size(); i++) {
