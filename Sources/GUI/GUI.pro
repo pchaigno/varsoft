@@ -24,7 +24,7 @@ SOURCES += main.cpp\
 		ReportWidgetFactory.cpp \
 		DocxGenPathDialog.cpp \
 		ImportDialog.cpp \
-    CorrelationResultsDialog.cpp
+		CorrelationResultsDialog.cpp
 
 HEADERS += MainWindow.h \
 		NewPortfolioWizard.h \
@@ -39,7 +39,7 @@ HEADERS += MainWindow.h \
 		DocxGenPathDialog.h \
 		Constantes.h \
 		ImportDialog.h \
-    CorrelationResultsDialog.h
+		CorrelationResultsDialog.h
 
 FORMS += MainWindow.ui \
 		NewPortfolioWizard.ui \

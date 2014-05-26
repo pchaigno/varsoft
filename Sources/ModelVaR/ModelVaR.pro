@@ -53,7 +53,7 @@ SOURCES += \
 	ReportGenerator.cpp \
 	ReportException.cpp \
 	GetStartEndDates.cpp \
-    CorrelationResults.cpp
+	CorrelationResults.cpp
 
 HEADERS +=\
 	Asset.h \
@@ -106,7 +106,7 @@ HEADERS +=\
 	ImportException.h \
 	MathFunctions.h \
 	ReportAlreadyCreatedException.h \
-    CorrelationResults.h
+	CorrelationResults.h
 
 
 unix:!symbian {
