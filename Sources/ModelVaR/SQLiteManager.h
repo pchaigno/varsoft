@@ -21,9 +21,14 @@
 #include <QSqlQuery>
 #include <QSqlDatabase>
 #include <QFile>
+#include <QDir>
 #include "ModelVaR_global.h"
+#include "SessionFolderMissingException.h"
 
 class MODELVARSHARED_EXPORT SQLiteManager {
+private:
+	static QString sessionFolder;
+
 protected:
 	const QString databaseFile;
 	QSqlDatabase db;
@@ -34,6 +39,32 @@ protected:
 	void closeConnection();
 	bool createDatabase();
 
+	/**
+	 * @brief Builds the database file path from the session folder path.
+	 * @return The database file path.
+	 */
+	static QString buildDatabaseFilePath() {
+		if(sessionFolder == "") {
+			throw SessionFolderMissingException("No session folder has been defined.");
+		}
+		return sessionFolder + QDir::separator() + "session.db";
+	}
+
 public:
 	QString getDatabaseFile() const;
+
+	/**
+	 * @brief Sets the session folder.
+	 * @param folder The folder where the session will be saved.
+	 */
+	static void setSessionFolder(QDir folder) {
+		sessionFolder = folder.absolutePath();
+	}
+
+	/**
+	 * @return The session folder.
+	 */
+	static QString getSessionFolder() {
+		return sessionFolder;
+	}
 };

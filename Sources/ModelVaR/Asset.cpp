@@ -116,6 +116,14 @@ QString Asset::getFile() const {
 }
 
 /**
+ * @brief Accessor to the path to the file.
+ * @return The absolute path to the file.
+ */
+QString Asset::getAbsolutePathToFile() const {
+	return SQLiteManager::getSessionFolder() + QDir::separator() + this->file;
+}
+
+/**
  * @brief Accessor to name.
  * @return The name of the asset.
  */
@@ -208,9 +216,9 @@ QMap<QDate, double> Asset::retrieveValuesByDate(const QDate& startPeriod, const 
 	}
 
 	// Opens the file stream:
-	QFile inputFile(this->getFile());
+	QFile inputFile(this->getAbsolutePathToFile());
 	if(!inputFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
-		throw CannotOpenFileException("Could not open file: " + this->getFile().toStdString());
+		throw CannotOpenFileException("Could not open file: " + this->getAbsolutePathToFile().toStdString());
 	}
 	QTextStream in(&inputFile);
 

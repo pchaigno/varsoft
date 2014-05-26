@@ -46,6 +46,9 @@
 #include "CorrelationDialog.h"
 #include "CorrelationReportFactory.h"
 #include "SessionSaver.h"
+#include "ImportManager.h"
+#include "ExportManager.h"
+#include "SessionFolderDialog.h"
 
 namespace Ui {
 	class MainWindow;
@@ -73,9 +76,6 @@ private slots:
 	void generateStatsReport();
 	void showCorrelationWindow();
 
-	void save();
-	void saveAs();
-	void saveAs(QString savePath);
 
 	void addPortfolio(Portfolio *);
 	void removeSelectedPortfolio();
@@ -94,6 +94,11 @@ private slots:
 
 	void deleteReportGenerator();
 
+	void save();
+
+	void importArchive();
+	void exportArchive();
+
 private:
 	Portfolio *getCurrentPortfolio();
 	Report* buildReport(Portfolio * portfolio, ReportFactory * factory, bool deleteAfter=false);
@@ -108,7 +113,6 @@ private:
 	QString fileName;
 	QString origin;
 	QString path;
-	QString savePath;
 	PortfolioItemModel * portfolioListModel;
 	QHash<Portfolio*, PortfolioViewModel*> portfoliosModels;
 	QHash<Portfolio*, QList<ReportWidget*> > portfolioReportWidgets;

@@ -67,6 +67,8 @@ void TestSQLiteManagers::testSaveSession() {
 	QMap<QString, Asset*> assets = SessionBuilder::getInstance()->buildAssets();
 
 	// Checks that the assets are here:
+	QVERIFY(assets.contains("Apple"));
+	QVERIFY(assets.contains("Google"));
 	QVERIFY(*(assets["Apple"]) == this->apple);
 	QVERIFY(*(assets["Google"]) == this->google);
 	QVERIFY(assets["Apple"]->isUpToDate());

@@ -26,12 +26,12 @@
 class MODELVARSHARED_EXPORT ArchiveManager {
 protected:
 	QString archivePath;
-	QVector<Portfolio*> portfolios;
+	QList<Portfolio*> portfolios;
 
 public:
 	ArchiveManager(QString archivePath);
-	void addPortfolios(QVector<Portfolio*>& portfolios);
-	QVector<Portfolio*> getPortfolios() const;
+	void addPortfolios(QList<Portfolio*>& portfolios);
+	QList<Portfolio*> getPortfolios() const;
 
 protected:
 	static void moveFile(QString& originPath, QString& destPath);

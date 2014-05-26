@@ -110,6 +110,14 @@ QString Report::getFile() const {
 }
 
 /**
+ * @brief Accessor to the path to the file.
+ * @return The absolute path to the file.
+ */
+QString Report::getAbsolutePathToFile() const {
+	return SQLiteManager::getSessionFolder() + QDir::separator() + this->file;
+}
+
+/**
  * @brief This method says if the file are available on the disk
  * @return true if the files containing the report are available in the disk
  */

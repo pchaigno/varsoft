@@ -24,6 +24,7 @@ SOURCES += main.cpp\
 		ReportWidgetFactory.cpp \
 		DocxGenPathDialog.cpp \
 		ImportDialog.cpp \
+		SessionFolderDialog.cpp \
 		CorrelationResultsDialog.cpp
 
 HEADERS += MainWindow.h \
@@ -39,6 +40,7 @@ HEADERS += MainWindow.h \
 		DocxGenPathDialog.h \
 		Constantes.h \
 		ImportDialog.h \
+		SessionFolderDialog.h \
 		CorrelationResultsDialog.h
 
 FORMS += MainWindow.ui \
@@ -47,6 +49,7 @@ FORMS += MainWindow.ui \
 		ShowAssetsWizardPage.ui\
 		ReportWidget.ui \
 		DocxGenPathDialog.ui \
+		SessionFolderDialog.ui \
 		CorrelationRes.ui \
 		Correlation.ui \
 		Import.ui
@@ -54,6 +57,9 @@ FORMS += MainWindow.ui \
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../quazip/quazip/release/ -lquazip
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../quazip/quazip/debug/ -lquazip
 else:unix: LIBS += -L$$OUT_PWD/../quazip/quazip/ -lquazip
+
+INCLUDEPATH += $$PWD/../quazip/quazip
+DEPENDPATH += $$PWD/../quazip/quazip
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../ModelVaR/release/ -lModelVaR
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../ModelVaR/debug/ -lModelVaR
