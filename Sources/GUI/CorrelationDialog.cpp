@@ -29,10 +29,10 @@
 Correlation::Correlation(Portfolio *portfolio, QWidget *parent): QDialog(parent), ui(new Ui::Correlation) {
 	ui->setupUi(this);
 	this->portfolio = portfolio;
-	QDate date = portfolio->retrieveStartDate();
+	QDate date = portfolio->retrieveEndDate();
 	//souci avec le range de la date
-	ui->date->setMinimumDate(date);
-	ui->date->setMaximumDate(portfolio->retrieveEndDate());
+	ui->date->setMinimumDate(portfolio->retrieveStartDate());
+	ui->date->setMaximumDate(date);
 	ui->date->setDate(date);
 	ui->date->setCalendarPopup(true);
 	results = new QList<CorrelationResults>();
@@ -53,10 +53,17 @@ Correlation::~Correlation() {
 void Correlation::on_pushButton_clicked() {
 	QPair<double,double> res;
 	const QDate &date = (const QDate&)(ui->date->date());
-	if(ui->comboBox->currentText() == "Correlation")
-		res = RInterface::checkCorrelation(*this->portfolio,ui->timelag->value(),date,ui->period->value());
-	else
-		res = RInterface::checkSquareCorrelation(*this->portfolio,ui->timelag->value(),date,ui->period->value());
+	try{
+		if(ui->comboBox->currentText() == "Correlation")
+			res = RInterface::checkCorrelation(*this->portfolio,ui->timelag->value(),date,ui->period->value());
+		else
+			res = RInterface::checkSquareCorrelation(*this->portfolio,ui->timelag->value(),date,ui->period->value());
+	}
+	catch (std::exception &ex)
+	   {
+		   QMessageBox::warning(0, "Error", ex.what());
+		   return;
+	   }
 	CorrelationResultsDialog *cr = new CorrelationResultsDialog(this->portfolio,results, ui->comboBox->currentText(), res,ui->timelag->value(),date.toString("dd/MM/yyyy"),ui->period->value(), this);
 	cr->show();
 }
