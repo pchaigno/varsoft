@@ -104,7 +104,7 @@ private:
 	QString fileName;
 	QString origin;
 	QString path;
-	QString savePath;
+	QString sessionFolder;
 	PortfolioItemModel * portfolioListModel;
 	QHash<Portfolio*, PortfolioViewModel*> portfoliosModels;
 	QHash<Portfolio*, QList<ReportWidget*> > portfolioReportWidgets;

@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
 	ui->setupUi(this);
 	this->path = "C:/";
 	//for the import button in the main window
-	this->savePath = "";
+	this->sessionFolder = "";
 
 	connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(setImportCSV()));
 
@@ -451,10 +451,10 @@ void MainWindow::removeSelectedPortfolio() {
  * Ask for the location if none was selected before in a new window.
  */
 void MainWindow::save() {
-	if(this->savePath == "") {
+	if(this->sessionFolder == "") {
 		this->saveAs();
 	} else {
-		this->saveAs(this->savePath);
+		this->saveAs(this->sessionFolder);
 	}
 }
 
@@ -462,17 +462,18 @@ void MainWindow::save() {
  * @brief Opens a dialog to ask the user where he wants to save his portfolios. Then saves them.
  */
 void MainWindow::saveAs() {
-	this->savePath = QFileDialog::getSaveFileName(this, ("Save as"), this->path, ("Database file (*.db *.sqlite)"));
-	if(this->savePath != "") {
-		this->saveAs(this->savePath);
+	this->sessionFolder = QFileDialog::getExistingDirectory(this, ("Save in"), this->path, QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+	if(this->sessionFolder != "") {
+		this->saveAs(this->sessionFolder);
 	}
 }
 
 /**
  * @brief Saves the portfolios.
- * @param savePath The location of the database.
+ * @param savePath The session folder's path.
  */
-void MainWindow::saveAs(QString savePath) {
+void MainWindow::saveAs(QString sessionFolder) {
 	// TODO Change the folder where everything is saved.
+	SessionSaver::setSessionFolder(QDir(sessionFolder));
 	SessionSaver::getInstance()->saveSession(this->portfoliosModels.keys());
 }

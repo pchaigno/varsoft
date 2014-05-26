@@ -17,23 +17,23 @@
  */
 #pragma once
 
-#include "Report.h"
-#include "DocxGenerator.h"
-#include <QString>
-#include <QDir>
-#include "ReportAlreadyCreatedException.h"
-#include "ReportException.h"
-#include <QDebug>
-#include "SessionSaver.h"
+#include <exception>
+#include "ModelVaR_global.h"
 
-class MODELVARSHARED_EXPORT ReportFactory {
+class MODELVARSHARED_EXPORT SessionFolderMissingException: public std::exception {
 public:
-	ReportFactory();
+	SessionFolderMissingException(std::string msg) {
+		this->msg = msg;
+	}
 
-	Report *buildReport();
-protected:
-	virtual Report * createReport() =0;
-	virtual ReportDataJson* createJson() = 0;
-	QString getReportDir() const;
+	virtual ~SessionFolderMissingException() throw() {
 
+	}
+
+	virtual const char * what() const throw() {
+		return this->msg.c_str();
+	}
+
+private:
+	std::string msg;
 };

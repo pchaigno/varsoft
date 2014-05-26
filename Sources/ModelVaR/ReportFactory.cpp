@@ -42,7 +42,7 @@ Report *ReportFactory::buildReport() {
  * @return
  */
 QString ReportFactory::getReportDir() const {
-	QString path = QString("..")+QDir::separator()+QString("Resources")+QDir::separator()+QString("Reports")+QDir::separator();
+	QString path = SessionSaver::getSessionFolder()+QDir::separator()+QString("Resources")+QDir::separator()+QString("Reports")+QDir::separator();
 
 	if (!QDir(path).exists()) {
 		if (!QDir().mkpath(path))

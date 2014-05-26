@@ -105,7 +105,8 @@ HEADERS +=\
 	ImportException.h \
 	ReportAlreadyCreatedException.h \
 	Savable.h \
-	MathFunctions.h
+	MathFunctions.h \
+	SessionFolderMissingException.h
 
 unix:!symbian {
 	maemo5 {
