@@ -44,6 +44,7 @@
 #include "CreateAsset.h"
 #include "GetStartEndDates.h"
 #include "SessionSaver.h"
+#include "BacktestingDialog.h"
 
 namespace Ui {
 	class MainWindow;
@@ -89,6 +90,8 @@ private slots:
 	void enableGenerationButton();
 
 	void deleteReportGenerator();
+
+	void runBacktesting();
 
 private:
 	Portfolio *getCurrentPortfolio();

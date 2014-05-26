@@ -27,11 +27,11 @@ Backtesting::Backtesting(const Portfolio& portfolio, const VaRAlgorithm& varAlgo
 	portfolio(portfolio), varAlgo(varAlgo), backtestperiod(backtestperiod) {
 
 	if(backtestperiod.first <= portfolio.retrieveStartDate()) {
-		throw std::invalid_argument("The backtesting cannot performed before the portfolio start date or at the start date itself.");
+		throw std::invalid_argument("The backtesting cannot be performed before the portfolio start date or at the start date itself.");
 	}
 
 	if(backtestperiod.second > portfolio.retrieveEndDate().addDays(-varAlgo.getTimeHorizon()+1)) {
-		throw std::invalid_argument("The backtesting cannot performed after the portfolio end date. This may be because of a too large time horizon regarding the period end date.");
+		throw std::invalid_argument("The backtesting cannot be performed after the portfolio end date. This may be because of a too large time horizon regarding the period end date.");
 	}
 
 }
@@ -54,6 +54,11 @@ int Backtesting::compute() const {
 			}
 		}
 	}
+
+//	ReportFactory * factory = new BacktestingReportFactory(this);
+//	Report * report = factory->buildReport();
+//	ReportGenerator * generator = new DocxGenerator(report, "C:/Users/Ulysse/ProjetVaR/DocxGenerator/DocXGenerator.jar");
+//	generator->start();
 
 	return nbDaysLossGreaterThanVaR;
 }

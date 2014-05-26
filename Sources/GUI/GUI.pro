@@ -22,7 +22,8 @@ SOURCES += main.cpp\
 		FlowLayout.cpp \
 		ReportWidgetFactory.cpp \
 		DocxGenPathDialog.cpp \
-		ImportDialog.cpp
+		ImportDialog.cpp \
+    BacktestingDialog.cpp
 
 HEADERS += MainWindow.h \
 		NewPortfolioWizard.h \
@@ -35,7 +36,8 @@ HEADERS += MainWindow.h \
 		ReportWidgetFactory.h \
 		DocxGenPathDialog.h \
 		Constantes.h \
-		ImportDialog.h
+		ImportDialog.h \
+    BacktestingDialog.h
 
 FORMS += MainWindow.ui \
 		NewPortfolioWizard.ui \
@@ -43,7 +45,8 @@ FORMS += MainWindow.ui \
 		ShowAssetsWizardPage.ui\
 		import.ui \
 		ReportWidget.ui \
-		DocxGenPathDialog.ui
+		DocxGenPathDialog.ui \
+		BacktestingDialog.ui
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../quazip/quazip/release/ -lquazip
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../quazip/quazip/debug/ -lquazip

@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
 	connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(setImportCSV()));
 
 	connect(ui->actionGenerate_Stats_Report,SIGNAL(triggered()),this,SLOT(generateStatsReport()));
+	connect(ui->actionRun_Backtesting, SIGNAL(triggered()),this,SLOT(runBacktesting()));
 
 	ui->listView->setModel(portfolioListModel);
 	connect(ui->removePushButton, SIGNAL(clicked()), ui->listView, SLOT(removeSelectedPortfolio()));
@@ -475,4 +476,13 @@ void MainWindow::saveAs() {
 void MainWindow::saveAs(QString savePath) {
 	// TODO Change the folder where everything is saved.
 	SessionSaver::getInstance()->saveSession(this->portfoliosModels.keys());
+}
+
+void MainWindow::runBacktesting() {
+	try {
+		BacktestingDialog * backtestingDialog = new BacktestingDialog(this, getCurrentPortfolio());
+		backtestingDialog->show();
+	} catch (NoneSelectedPortfolioException& ) {
+		showError("No portfolio selected");
+	}
 }
