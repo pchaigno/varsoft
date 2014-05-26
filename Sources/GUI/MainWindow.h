@@ -24,6 +24,8 @@
 #include <QFile>
 #include <QFileDialog>
 #include <QTableWidgetItem>
+#include <QDate>
+#include <QMessageBox>
 #include "ImportDialog.h"
 #include "NewPortfolioWizard.h"
 #include "PortfolioItemModel.h"
@@ -34,14 +36,12 @@
 #include "PortfolioViewModel.h"
 #include "NoneSelectedPortfolioException.h"
 #include "ReportException.h"
-#include <QMessageBox>
 #include "FlowLayout.h"
 #include "ReportWidget.h"
 #include "ReportWidgetFactory.h"
 #include "DocxGenPathDialog.h"
 #include "ui_MainWindow.h"
-#include <QDate>
-#include "ImportNewData.h"
+#include "CreateAsset.h"
 #include "GetStartEndDates.h"
 #include "SessionSaver.h"
 
@@ -51,7 +51,7 @@ namespace Ui {
 
 class MainWindow: public QMainWindow {
 	Q_OBJECT
-	
+
 public:
 	explicit MainWindow(QWidget* parent = 0);
 	~MainWindow();

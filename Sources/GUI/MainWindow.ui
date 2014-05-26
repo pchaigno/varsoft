@@ -82,7 +82,7 @@
            </size>
           </property>
           <property name="text">
-           <string>edit</string>
+           <string>Edit</string>
           </property>
          </widget>
         </item>
@@ -138,8 +138,8 @@
        </layout>
       </widget>
       <widget class="QWidget" name="tabReports">
-       <attribute name="title">
-        <string>Reports</string>
+	   <attribute name="title">
+		<string>Reports and Graphs</string>
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
@@ -186,6 +186,9 @@
     </rect>
    </property>
    <widget class="QMenu" name="menuFichier">
+    <property name="locale">
+     <locale language="English" country="UnitedStates"/>
+    </property>
     <property name="title">
      <string>File</string>
     </property>
@@ -256,7 +259,7 @@
     <string>Create an asset</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+I</string>
+    <string>Ctrl+A</string>
    </property>
   </action>
   <action name="actionExport">
@@ -274,12 +277,7 @@
   </action>
   <action name="actionQuitter">
    <property name="text">
-    <string>Quit</string>
-   </property>
-  </action>
-  <action name="actionImport_2">
-   <property name="text">
-    <string>Import</string>
+	<string>Exit</string>
    </property>
   </action>
   <action name="actionGenerate_Stats_Report">

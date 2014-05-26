@@ -39,10 +39,10 @@ SOURCES += \
 	VaRReportFactory.cpp \
 	GarchReportFactory.cpp \
 	StatisticsReportFactory.cpp \
-	ImportNewData.cpp \
-	IImport.cpp \
 	PortfolioItemModel.cpp \
 	CorrelationReportFactory.cpp \
+	GetStartEndDates.cpp \
+	CreateAsset.cpp \
 	MathFunctions.cpp \
 	PortfolioViewModel.cpp \
 	ArchiveManager.cpp \
@@ -52,7 +52,6 @@ SOURCES += \
 	qcustomplot.cpp \
 	ReportGenerator.cpp \
 	ReportException.cpp \
-	GetStartEndDates.cpp \
 	Savable.cpp
 
 HEADERS +=\
@@ -86,9 +85,7 @@ HEADERS +=\
 	GarchReportFactory.h \
 	StatisticsReportFactory.h \
 	CorrelationReportFactory.h \
-	ImportNewData.h \
 	CannotOpenFileException.h \
-	IImport.h \
 	PortfolioItemModel.h \
 	PortfolioCalculationException.h \
 	GetStartEndDates.h \
@@ -97,6 +94,8 @@ HEADERS +=\
 	ReportDataJson.h \
 	ReportException.h \
 	InvalidDefinitionPeriodException.h \
+	CreateAsset.h \
+	CreateAssetException.h \
 	NonexistentAssetException.h \
 	ArchiveManager.h \
 	ExportManager.h \
