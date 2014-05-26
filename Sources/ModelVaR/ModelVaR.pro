@@ -39,17 +39,22 @@ SOURCES += \
 	VaRReportFactory.cpp \
 	GarchReportFactory.cpp \
 	StatisticsReportFactory.cpp \
-	ImportNewData.cpp \
-	IImport.cpp \
 	PortfolioItemModel.cpp \
 	CorrelationReportFactory.cpp \
+	GetStartEndDates.cpp \
+	CreateAsset.cpp \
 	MathFunctions.cpp \
 	PortfolioViewModel.cpp \
+	ArchiveManager.cpp \
+	ExportManager.cpp \
+	ImportManager.cpp \
 	ReportDataJson.cpp \
 	qcustomplot.cpp \
 	ReportGenerator.cpp \
 	ReportException.cpp \
-	GetStartEndDates.cpp
+	CorrelationResults.cpp \
+	Savable.cpp
+
 
 HEADERS +=\
 	Asset.h \
@@ -82,9 +87,7 @@ HEADERS +=\
 	GarchReportFactory.h \
 	StatisticsReportFactory.h \
 	CorrelationReportFactory.h \
-	ImportNewData.h \
 	CannotOpenFileException.h \
-	IImport.h \
 	PortfolioItemModel.h \
 	PortfolioCalculationException.h \
 	GetStartEndDates.h \
@@ -93,9 +96,20 @@ HEADERS +=\
 	ReportDataJson.h \
 	ReportException.h \
 	InvalidDefinitionPeriodException.h \
+	CreateAsset.h \
+	CreateAssetException.h \
+	NonexistentAssetException.h \
+	ArchiveManager.h \
+	ExportManager.h \
+	ImportManager.h \
+	CreateAssetException.h \
+	ExportException.h \
 	ImportException.h \
-	MathFunctions.h \
-	ReportAlreadyCreatedException.h
+	ReportAlreadyCreatedException.h \
+	CorrelationResults.h \
+	ReportAlreadyCreatedException.h \
+	Savable.h \
+	MathFunctions.h
 
 unix:!symbian {
 	maemo5 {
@@ -105,3 +119,10 @@ unix:!symbian {
 	}
 	INSTALLS += target
 }
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../quazip/quazip/release/ -lquazip
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../quazip/quazip/debug/ -lquazip
+else:unix: LIBS += -L$$OUT_PWD/../quazip/quazip/ -lquazip
+
+INCLUDEPATH += $$PWD/../quazip/quazip
+DEPENDPATH += $$PWD/../quazip/quazip

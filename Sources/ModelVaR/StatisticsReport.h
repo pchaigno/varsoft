@@ -26,6 +26,8 @@ public:
 	StatisticsReport();
 	StatisticsReport(QString file);
 	StatisticsReport(int id, QString file);
+	StatisticsReport(const QJsonObject& json);
+
 	virtual ReportType getType() const;
 	virtual QString getTemplateFile() const;
 };

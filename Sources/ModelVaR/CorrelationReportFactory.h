@@ -19,13 +19,17 @@
 
 #include "ReportFactory.h"
 #include "CorrelationReport.h"
+#include "CorrelationResults.h"
+#include "Portfolio.h"
 #include <QString>
 
 class MODELVARSHARED_EXPORT CorrelationReportFactory: public ReportFactory {
 public:
-	CorrelationReportFactory();
+	CorrelationReportFactory(Portfolio *port, QList<CorrelationResults> *results);
 
 protected:
 	virtual Report *createReport();
 	virtual ReportDataJson* createJson();
+	Portfolio *portfolio;
+	QList<CorrelationResults> *results;
 };

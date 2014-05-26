@@ -14,7 +14,6 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 SOURCES += \
-	TestImportNewData.cpp \
 	TestAsset.cpp \
 	TestPortfolio.cpp \
 	main.cpp \
@@ -22,6 +21,8 @@ SOURCES += \
 	TestSQLiteManagers.cpp \
 	TestPortfolioItemModel.cpp \
 	TestVaRHistorical.cpp \
+	TestCreateAsset.cpp \
+	TestArchiveManagers.cpp \
 	TestVaRRiskmetrics.cpp \
 	TestVaRGarch.cpp \
 	TestBacktesting.cpp \
@@ -29,13 +30,14 @@ SOURCES += \
 	TestRInterface.cpp
 
 HEADERS += \
-	TestImportNewData.h \
 	TestAsset.h \
 	TestReport.h \
 	TestPortfolio.h \
 	TestSQLiteManagers.h \
 	TestPortfolioItemModel.h \
 	TestVaRHistorical.h \
+	TestCreateAsset.h \
+	TestArchiveManagers.h \
 	TestVaRRiskmetrics.h \
 	TestVaRGarch.h \
 	TestBacktesting.h \
@@ -51,3 +53,11 @@ else:unix: LIBS += -L$$OUT_PWD/../ModelVaR/ -lModelVaR
 
 INCLUDEPATH += $$PWD/../ModelVaR
 DEPENDPATH += $$PWD/../ModelVaR
+
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../quazip/quazip/release/ -lquazip
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../quazip/quazip/debug/ -lquazip
+else:unix: LIBS += -L$$OUT_PWD/../quazip/quazip/ -lquazip
+
+INCLUDEPATH += $$PWD/../quazip/quazip
+DEPENDPATH += $$PWD/../quazip/quazip

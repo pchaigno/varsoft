@@ -22,6 +22,7 @@
 #include "Asset.h"
 #include "Report.h"
 #include <QVector>
+#include <QList>
 #include <QString>
 #include <QVariant>
 
@@ -31,7 +32,7 @@ private:
 
 public:
 	bool saveAsset(Asset& asset);
-	void saveSession(QVector<Portfolio>& portfolios);
+	void saveSession(QList<Portfolio*> portfolios);
 	/**
 	 * @brief Accessor to the only instance of SessionSaver.
 	 * @return The only instance of SessionSaver.
@@ -45,7 +46,13 @@ public:
 
 private:
 	SessionSaver(QString databaseFile);
-	void saveAssets(QVector<Asset*> &assets);
-	void savePortfolios(QVector<Portfolio>& portfolios);
-	void saveReports(const Portfolio& portfolio, const QList<Report*>& reports);
+	void saveAssets(QList<Asset*> &assets) const;
+	void updateAssets(QList<Asset*>& assets) const;
+	void savePortfolios(QList<Portfolio*> portfolios) const;
+	void updatePortfolios(QList<Portfolio*> portfolios) const;
+	QList<int> getPortfolios() const;
+	void removePortfolios(const QList<int> portfoliosID) const;
+	void saveReports(const Portfolio* portfolio, const QList<Report*>& reports) const;
+	QList<int> getReports(int portfolioID) const;
+	void removeReports(const QList<int> reportsID) const;
 };

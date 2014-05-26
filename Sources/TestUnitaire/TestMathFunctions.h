@@ -29,4 +29,5 @@ public:
 private Q_SLOTS:
 	void testNormalCDFInverse();
 	void testNormalCDFInverseUndefined();
+	void testCorrelation();
 };

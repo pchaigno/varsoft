@@ -21,9 +21,18 @@
  * @brief Empty constructor
  * Should only be used by Qt containers.
  */
-Portfolio::Portfolio() {
+Portfolio::Portfolio(): Savable(false) {
 
 }
+/*
+Portfolio::Portfolio(Portfolio &port){
+	id = port.id;
+	name = port.name;
+	parent = port.parent;
+	composition = port.composition;
+	reports = port.reports;
+}
+*/
 
 /**
  * @brief Constructor with parent.
@@ -32,7 +41,7 @@ Portfolio::Portfolio() {
  * @param composition The assets composing the portfolio.
  * @param reports The reports of the portfolio.
  */
-Portfolio::Portfolio(Portfolio* parent, QString name, QMap<Asset*, int>& composition, QList<Report*>& reports) {
+Portfolio::Portfolio(Portfolio* parent, QString name, QMap<Asset*, int>& composition, QList<Report*>& reports): Savable(false) {
 	this->init(parent, -1, name, composition, reports);
 }
 
@@ -42,7 +51,7 @@ Portfolio::Portfolio(Portfolio* parent, QString name, QMap<Asset*, int>& composi
  * @param composition The assets composing the portfolio.
  * @param reports The reports of the portfolio.
  */
-Portfolio::Portfolio(QString name, QMap<Asset*, int>& composition, QList<Report*>& reports) {
+Portfolio::Portfolio(QString name, QMap<Asset*, int>& composition, QList<Report*>& reports): Savable(false) {
 	this->init(NULL, -1, name, composition, reports);
 }
 
@@ -54,7 +63,7 @@ Portfolio::Portfolio(QString name, QMap<Asset*, int>& composition, QList<Report*
  * @param composition The assets composing the portfolio.
  * @param reports The reports of the portfolio.
  */
-Portfolio::Portfolio(Portfolio* parent, int id, QString name, QMap<Asset*, int>& composition, QList<Report*>& reports) {
+Portfolio::Portfolio(Portfolio* parent, int id, QString name, QMap<Asset*, int>& composition, QList<Report*>& reports): Savable(true) {
 	this->init(parent, id, name, composition, reports);
 }
 
@@ -65,11 +74,12 @@ Portfolio::Portfolio(Portfolio* parent, int id, QString name, QMap<Asset*, int>&
  * @param composition The assets composing the portfolio.
  * @param reports The reports of the portfolio.
  */
-Portfolio::Portfolio(int id, QString name, QMap<Asset*, int>& composition, QList<Report*>& reports) {
+Portfolio::Portfolio(int id, QString name, QMap<Asset*, int>& composition, QList<Report*>& reports): Savable(true) {
 	this->init(NULL, id, name, composition, reports);
 }
 
 Portfolio::~Portfolio() {
+
 }
 
 /**
@@ -86,6 +96,18 @@ void Portfolio::init(Portfolio* parent, int id, QString name, QMap<Asset*, int>&
 	this->name = name;
 	this->composition = composition;
 	this->reports = reports;
+}
+
+/**
+ * @brief Builds the portfolio from a JSON document.
+ * The assets must be deserialized and saved to the database before the portfolio.
+ * @param json The JSON document.
+ * @param portfoliosDeserialized The portfolios already deserialized; it will be completed.
+ * This last param should contain the parent portfolio if one is needed.
+ * Portfolios should be deserialized by id order so that for every portfolio, the parent will always be deserilized first.
+ */
+Portfolio::Portfolio(const QJsonObject& json, QMap<QString, Portfolio*>& deserializedPortfolios): Savable(false) {
+	this->fromJSON(json, deserializedPortfolios);
 }
 
 /**
@@ -115,6 +137,17 @@ void Portfolio::setId(int id) {
 		throw IdAlreadyAttributedException("An id has already been attributed to this portfolio.");
 	}
 	this->id = id;
+
+	// The portfolio has been saved to the database so it is up-to-date.
+	this->setStatusToUpToDate();
+}
+
+/**
+ * @brief Accessor to the parent portfolio.
+ * @return The parent portfolio or null if none exists.
+ */
+Portfolio* Portfolio::getParent() const {
+	return this->parent;
 }
 
 /**
@@ -142,6 +175,7 @@ QList<Report *> Portfolio::getReports() const {
  */
 void Portfolio::addReport(Report *report) {
 	this->reports.append(report);
+	this->setStatusToModified();
 }
 
 /**
@@ -152,14 +186,15 @@ void Portfolio::removeReport(Report *report) {
 	report->removeFiles();
 	this->reports.removeOne(report);
 	delete report;
+	this->setStatusToModified();
 }
 
 /**
  * @brief Accessor to the assets.
  * @return The assets composing the portfolio.
  */
-QVector<Asset*> Portfolio::getAssets() const {
-	QVector<Asset*> assets;
+QList<Asset*> Portfolio::getAssets() const {
+	QList<Asset*> assets;
 	for(QMap<Asset*, int>::const_iterator it=this->composition.begin(); it!=this->composition.end(); ++it) {
 		assets.append(it.key());
 	}
@@ -175,11 +210,21 @@ QMap<Asset*, int> Portfolio::getComposition() const {
 }
 
 /**
+ * @brief Accessor to the weight of an asset.
+ * @param asset The asset.
+ * @return The weight of the asset or -1 if this asset doesn't exist in the portfolio.
+ */
+int Portfolio::getWeight(Asset* const asset) const {
+	return this->composition.value(asset, -1);
+}
+
+/**
  * @brief Changes the name of the portfolio.
  * @param name The new name.
  */
 void Portfolio::changeName(QString name) {
 	this->name = name;
+	this->setStatusToModified();
 }
 
 /**
@@ -277,13 +322,13 @@ QMap<QDate, double> Portfolio::retrieveValuesByDate(const QDate& startPeriod, co
 		int weight = assetIt.value();
 
 		if(values.size() == 0) {
-		// First asset retrieved.
+			// First asset retrieved.
 			for(QMap<QDate, double>::const_iterator assetValuesIt=assetValues.begin(); assetValuesIt!=assetValues.end(); assetValuesIt++) {
 				values.insert(assetValuesIt.key(), assetValuesIt.value() * weight);
 			}
 
 		} else {
-		// Not the first asset retrieved.
+			// Not the first asset retrieved.
 
 			// All retrieveValuesBydate on assets should return the same number of values:
 			if(values.size() != assetValues.size()) {
@@ -466,6 +511,52 @@ double Portfolio::retrieveReturnHorizon(const QDate& date, int horizon) const {
 }
 
 /**
+ * @brief Computes the correlation matrix of the assets a the portfolio. Values used are the ones
+ * precised by the startDate and the endDate
+ * @param startDate The starting date to define the period used to compute the correlation
+ * @param endDate The ending date to define the period used to compute the correlation
+ * @return The correlation matrix
+ */
+QVector<QVector<double> > Portfolio::computeCorrelationMatrix(const QDate& startDate, const QDate& endDate) const {
+	if(startDate < this->retrieveStartDate()) {
+		throw std::invalid_argument("The startDate cannot be before the start date of the portfolio.");
+	}
+	if(endDate > this->retrieveEndDate()) {
+		throw std::invalid_argument("The endDate cannot be after the end date of the portfolio.");
+	}
+
+	QVector<QVector<double> > correlationMatrix = QVector< QVector<double> >(this->composition.size());
+
+	// Calculates the correlation between the assets, fills only the strict upper triangular part
+	// because the matrix is symetric
+	int i, j;
+	QMap<Asset*, int>::const_iterator assetIt1, assetIt2;
+	for(i=0, assetIt1=this->composition.begin(); assetIt1!=this->composition.end(); ++assetIt1, i++) {
+		QVector<double> assetValues1 = assetIt1.key()->retrieveValues(startDate, endDate);
+		correlationMatrix[i].resize(this->composition.size());
+		for(j=i+1, assetIt2=this->composition.begin()+j; assetIt2!=this->composition.end(), j<this->composition.size(); ++assetIt2, j++) {
+			QVector<double> assetValues2 = assetIt2.key()->retrieveValues(startDate, endDate);
+			correlationMatrix[i][j] = MathFunctions::correlation(assetValues1, assetValues2);
+		}
+	}
+
+	// The correlation of a asset with itself is always one
+	// Thus fills the diagonal of the matrix with 1
+	for(int i=0; i < correlationMatrix.size(); i++) {
+		correlationMatrix[i][i] = 1;
+	}
+
+	// Fills the strict lower triangular part by symetry
+	for(int i=1; i < correlationMatrix.size(); i++) {
+		for(j=0; j < i; j++) {
+			correlationMatrix[i][j] = correlationMatrix[j][i];
+		}
+	}
+
+	return correlationMatrix;
+}
+
+/**
  * @brief Checks if two portfolios are equal.
  * @param a The first portfolio.
  * @param b The second asset.
@@ -473,4 +564,90 @@ double Portfolio::retrieveReturnHorizon(const QDate& date, int horizon) const {
  */
 bool Portfolio::operator==(const Portfolio& portfolio) const {
 	return this->name == portfolio.name;
+}
+
+/**
+ * @brief Deserializes the portfolio from a JSON document.
+ * The assets must be deserialized and saved to the database before the portfolio.
+ * @param json The JSON document.
+ * @param portfoliosDeserialized The portfolios already deserialized; it will be completed.
+ * This last param should contain the parent portfolio if one is needed.
+ * Portfolios should be deserialized by id order so that for every portfolio, the parent will always be deserilized first.
+ */
+void Portfolio::fromJSON(const QJsonObject &json, QMap<QString, Portfolio*>& portfoliosDeserialized) {
+	this->id = -1;
+	this->name = json["name"].toString();
+	this->parent = portfoliosDeserialized[json["parent"].toString()];
+	// Deserializes the composition:
+	QVariantMap jsonComposition = json["composition"].toObject().toVariantMap();
+	Asset* asset;
+	foreach(const QString assetName, jsonComposition.keys()) {
+		asset = AssetsFactory::getInstance()->retrieveAsset(assetName);
+		// Throws an exception if asset non-deserialized yet.
+		if(asset == NULL) {
+			throw NonexistentAssetException("The asset named " + assetName + " doesn't exist in the database.");
+		}
+		this->composition[asset] = jsonComposition[assetName].toInt();
+	}
+	// Deserializes the reports:
+	this->reports.clear();
+	QJsonArray jsonReports = json["reports"].toArray();
+	for(int i=0; i<jsonReports.size(); i++) {
+		QJsonObject jsonReport = jsonReports[i].toObject();
+		Report* report;
+		switch((int)jsonReport["type"].toDouble()) {
+			case GARCH:
+				report = new GarchReport();
+				break;
+			case VAR:
+				report = new VaRReport();
+				break;
+			case STATISTICS:
+				report = new StatisticsReport();
+				break;
+			case CORRELATION:
+				report = new CorrelationReport();
+				break;
+			case BACKTESTING:
+				report = new BacktestingReport();
+				break;
+			default:
+				// TODO Throw exception?
+				break;
+		}
+		report->fromJSON(jsonReport);
+		this->reports.append(report);
+	}
+
+	portfoliosDeserialized[this->name] = this;
+}
+
+/**
+ * @brief Serializes the asset into a JSON document.
+ * @param json The JSON document.
+ */
+QJsonObject Portfolio::toJSON() const {
+	QJsonObject json;
+
+	json["name"] = this->name;
+	if(this->parent == NULL) {
+		json["parent"] = QString("");
+	} else {
+		json["parent"] = this->parent->getName();
+	}
+	// Serializes the composition:
+	QVariantMap jsonComposition;
+	foreach(Asset* asset, this->composition.keys()) {
+		jsonComposition[asset->getName()] = this->composition[asset];
+	}
+	json["composition"] = QJsonObject::fromVariantMap(jsonComposition);
+	// Serializes the reports:
+	QJsonArray jsonReports;
+	foreach(const Report* report, this->reports) {
+		QJsonObject jsonReport = report->toJSON();
+		jsonReports.append(jsonReport);
+	}
+	json["reports"] = jsonReports;
+
+	return json;
 }

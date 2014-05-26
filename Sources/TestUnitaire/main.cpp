@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#include "TestImportNewData.h"
+#include "TestCreateAsset.h"
 #include "TestAsset.h"
 #include "TestPortfolio.h"
 #include "TestVaRHistorical.h"
@@ -23,12 +23,17 @@
 #include "TestReport.h"
 #include "TestSQLiteManagers.h"
 #include "TestPortfolioItemModel.h"
+#include "TestArchiveManagers.h"
 #include "TestMathFunctions.h"
 #include "TestRInterface.h"
 #include "TestVaRGarch.h"
 #include "TestBacktesting.h"
 
 int main() {
+	// Deletes the database file before starting the tests (just to be sure):
+	QFile databaseFile(SessionSaver::getInstance()->getDatabaseFile());
+	databaseFile.remove();
+
 	int result = 0;
 	TestAsset asset;
 	result += QTest::qExec(&asset);
@@ -46,10 +51,12 @@ int main() {
 	result += QTest::qExec(&varGarch);
 	TestMathFunctions testMathFunctions;
 	result += QTest::qExec(&testMathFunctions);
-	TestImportNewData newdata;
+	TestCreateAsset newdata;
 	result += QTest::qExec(&newdata);
 	TestPortfolioItemModel portfolioModel;
 	result += QTest::qExec(&portfolioModel);
+	TestArchiveManagers archiveManager;
+	result += QTest::qExec(&archiveManager);
 	TestRInterface rInterface;
 	result += QTest::qExec(&rInterface);
 	TestBacktesting backtesting;

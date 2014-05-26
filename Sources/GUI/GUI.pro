@@ -18,34 +18,42 @@ SOURCES += main.cpp\
 		SetWeightAssetWizardPage.cpp \
 		ShowAssetsWizardPage.cpp \
 		PortfolioListView.cpp \
+		CorrelationDialog.cpp \
 		ReportWidget.cpp \
 		FlowLayout.cpp \
 		ReportWidgetFactory.cpp \
 		DocxGenPathDialog.cpp \
-		ImportDialog.cpp
+		ImportDialog.cpp \
+		CorrelationResultsDialog.cpp
 
 HEADERS += MainWindow.h \
 		NewPortfolioWizard.h \
 		SetWeightAssetWizardPage.h \
 		ShowAssetsWizardPage.h \
 		PortfolioListView.h \
+		CorrelationDialog.h \
 		NoneSelectedPortfolioException.h \
 		ReportWidget.h \
 		FlowLayout.h \
 		ReportWidgetFactory.h \
 		DocxGenPathDialog.h \
 		Constantes.h \
-		ImportDialog.h
+		ImportDialog.h \
+		CorrelationResultsDialog.h
 
 FORMS += MainWindow.ui \
 		NewPortfolioWizard.ui \
 		SetWeightAssetWizardPage.ui \
 		ShowAssetsWizardPage.ui\
-		import.ui \
 		ReportWidget.ui \
-		DocxGenPathDialog.ui
+		DocxGenPathDialog.ui \
+		CorrelationRes.ui \
+		Correlation.ui \
+		Import.ui
 
-
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../quazip/quazip/release/ -lquazip
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../quazip/quazip/debug/ -lquazip
+else:unix: LIBS += -L$$OUT_PWD/../quazip/quazip/ -lquazip
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../ModelVaR/release/ -lModelVaR
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../ModelVaR/debug/ -lModelVaR

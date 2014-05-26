@@ -17,18 +17,15 @@
  */
 #pragma once
 
-#include <QDate>
-#include <QString>
-#include <QFile>
-#include <QStringList>
-#include <QTableWidgetItem>
-#include "Asset.h"
-#include "ModelVaR_global.h"
+#include "AssetsFactory.h"
+#include "SessionBuilder.h"
+#include "SessionSaver.h"
+#include "CreateAsset.h"
+#include <QtTest>
 
-/**
-* @brief Import Strategy Interface
-*/
-class MODELVARSHARED_EXPORT IImport {
-public:
-	virtual void import(const Asset &asset, const QString &file) const =0;
+class TestCreateAsset: public QObject {
+	Q_OBJECT
+
+private Q_SLOTS:
+	void testImport();
 };

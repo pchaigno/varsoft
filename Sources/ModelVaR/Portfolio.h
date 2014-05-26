@@ -29,10 +29,15 @@
 #include "InvalidDefinitionPeriodException.h"
 #include "ModelVaR_global.h"
 #include "PortfolioCalculationException.h"
+#include "MathFunctions.h"
 #include <string>
 #include <sstream>
+#include "AssetsFactory.h"
+#include <QJsonArray>
+#include "NonexistentAssetException.h"
+#include <QtCore/qmath.h>
 
-class MODELVARSHARED_EXPORT Portfolio {
+class MODELVARSHARED_EXPORT Portfolio: public Savable {
 private:
 	int id;
 	QString name;
@@ -42,24 +47,28 @@ private:
 
 public:
 	Portfolio();
+	//Portfolio(Portfolio &port);
 	Portfolio(Portfolio* parent, QString name, QMap<Asset*, int>& composition, QList<Report*>& reports);
 	Portfolio(QString name, QMap<Asset*, int>& composition, QList<Report*>& reports);
 	Portfolio(Portfolio* parent, int id, QString name, QMap<Asset*, int>& composition, QList<Report*>& reports);
 	Portfolio(int id, QString name, QMap<Asset*, int>& composition, QList<Report*>& reports);
-	~Portfolio();
 	void init(Portfolio* parent, int id, QString name, QMap<Asset*, int>& composition, QList<Report*>& reports);
+	Portfolio(const QJsonObject& json, QMap<QString, Portfolio*>& deserializedPortfolios);
+	~Portfolio();
 
 	QString getName() const;
 	int getId() const;
 	void setId(int id);
+	Portfolio* getParent() const;
 	int getParentId() const;
 
 	QList<Report*> getReports() const;
 	void addReport(Report* report);
 	void removeReport(Report * report);
 
-	QVector<Asset*> getAssets() const;
+	QList<Asset*> getAssets() const;
 	QMap<Asset*, int> getComposition() const;
+	int getWeight(Asset* const asset) const;
 	void changeName(QString name);
 	QDate retrieveStartDate() const;
 	QDate retrieveEndDate() const;
@@ -73,6 +82,10 @@ public:
 	double retrieveReturnHorizon(const QDate& date, int horizon) const;
 	QVector<double> retrieveLogReturns(const QDate& startPeriod, const QDate& endPeriod) const;
 	QVector<double> retrieveLogReturns(const QDate& endPeriod, int nbValues) const;
+	QVector<QVector<double> > computeCorrelationMatrix(const QDate& startDate, const QDate& endDate) const;
 
 	bool operator==(const Portfolio& portfolio) const;
+
+	void fromJSON(const QJsonObject &json, QMap<QString, Portfolio*>& portfoliosDeserialized);
+	QJsonObject toJSON() const;
 };

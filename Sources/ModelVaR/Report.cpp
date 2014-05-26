@@ -21,7 +21,7 @@
  * @brief Empty constructor
  * Should only be used by Qt containers.
  */
-Report::Report() {
+Report::Report(): Savable(false) {
 
 }
 
@@ -30,7 +30,7 @@ Report::Report() {
  * @param docxPath The location of the DOCX file on the disk.
  * @param pdfPath The location of the PDF file on the disk.
  */
-Report::Report(QString file) {
+Report::Report(QString file): Savable(false) {
 	this->init(-1, file);
 }
 
@@ -40,7 +40,7 @@ Report::Report(QString file) {
  * @param docxPath The location of the DOCX file on the disk.
  * @param pdfPath The location of the PDF file on the disk.
  */
-Report::Report(int id, QString file) {
+Report::Report(int id, QString file): Savable(true) {
 	this->init(id, file);
 }
 
@@ -70,6 +70,14 @@ void Report::filesGenerationFinish() {
 }
 
 /**
+ * @brief Builds the report from a JSON document.
+ * @param json The JSON document.
+ */
+Report::Report(const QJsonObject& json): Savable(false) {
+	this->fromJSON(json);
+}
+
+/**
  * @brief Accessor to id.
  * @return The id of the report in the database.
  */
@@ -88,6 +96,9 @@ void Report::setId(int id) {
 		throw IdAlreadyAttributedException("An id has already been attributed to this report.");
 	}
 	this->id = id;
+
+	// The report has been saved to the database so it is up-to-date.
+	this->setStatusToUpToDate();
 }
 
 /**
@@ -107,7 +118,7 @@ bool Report::filesAvailable() {
 }
 
 /**
- * @brief Remove the report file on the disk
+ * @brief Removes the report files from the disk.
  */
 void Report::removeFiles() {
 	if (QFile::exists(this->file+".pdf"))
@@ -143,4 +154,24 @@ bool Report::operator==(const Report& report) const {
 		return this->file==report.file;
 	}
 	return this->id == report.id;
+}
+
+/**
+ * @brief Deserializes the report from a JSON document.
+ * @param json The JSON document.
+ */
+void Report::fromJSON(const QJsonObject &json) {
+	this->id = -1;
+	this->file = json["file"].toString();
+}
+
+/**
+ * @brief Serializes the report into a JSON document.
+ * @param json The JSON document.
+ */
+QJsonObject Report::toJSON() const {
+	QJsonObject json;
+	json["type"] = this->getType();
+	json["file"] = this->file;
+	return json;
 }

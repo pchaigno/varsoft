@@ -19,23 +19,11 @@
 
 /**
 * @brief Import Constructor
-* Ranges of dates are limited by the file's range dates
-* @param fileName The name of the asset file
-* @param startDate The oldest date in the file
-* @param endDate The latest date in the file
 * @param parent QDialog Widget to use
 */
-Import::Import(QString fileName, QDate startDate, QDate endDate, QWidget *parent): QDialog(parent), ui(new Ui::Import) {
+Import::Import(QWidget *parent): QDialog(parent), ui(new Ui::Import) {
 	ui->setupUi(this);
-	ui->endDate->setDate(endDate);
-	ui->endDate->setMaximumDate(endDate);
-	ui->endDate->setMinimumDate(startDate);
-	ui->endDate->setCalendarPopup(true);
-	ui->startDate->setMinimumDate(startDate);
-	ui->startDate->setMaximumDate(endDate);
-	ui->startDate->setDate(startDate);
-	ui->startDate->setCalendarPopup(true);
-	this->fileName=fileName;
+	this->setting.setValue("path","C:/");
 
 	//delete automatically the QDialog
 	this->setAttribute(Qt::WA_DeleteOnClose);
@@ -51,7 +39,7 @@ Import::~Import() {
 */
 void Import::on_pushButton_clicked() {
 	// TODO : check the field is not empty and print a message to force the user to give a name
-	ImportNewData algo = ImportNewData();
+	CreateAsset algo = CreateAsset();
 	if(ui->startDate->dateTime() >= ui->endDate->dateTime()) {
 		QMessageBox::warning(0, "Warning", "Dates are not valid");
 		return;
@@ -65,11 +53,15 @@ void Import::on_pushButton_clicked() {
 		return;
 	} else {
 		try {
-			QString namealea = ui->textEdit->text()+"_"+QString::number(QDateTime::currentMSecsSinceEpoch())+".csv";
+			QDir dir("../Resources/Assets/");
+			if (!dir.exists()) {
+				dir.mkpath(".");
+			}
+			QString namealea = "../Resources/Assets/"+ui->textEdit->text()+"_"+QString::number(QDateTime::currentMSecsSinceEpoch())+".csv";
 			Asset a = Asset(ui->textEdit->text(), namealea, ui->comboBox->currentText(), ui->startDate->date(), ui->endDate->date());
 			algo.import(a, fileName);
 			SessionSaver::getInstance()->saveAsset(a);
-		} catch(ImportException &e) {
+		} catch(CreateAssetException &e) {
 			const QString& mes = QString(e.what());
 			QMessageBox::warning(0, "Error", mes);
 			return;
@@ -84,4 +76,27 @@ void Import::on_pushButton_clicked() {
 */
 void Import::on_pushButton_2_clicked() {
 	this->close();
+}
+
+void Import::on_importButton_clicked(){
+	QVariant path = this->setting.value("path");
+	QFileInfo fileName = QFileDialog::getOpenFileName(this, ("Open file"), path.toString(), ("CSV Text (*.csv *.txt);;All files (*.*)") );
+	if(fileName.isFile()){
+		this->setting.setValue("path",fileName.absolutePath());
+		//get startDate and endDate before calling the import function
+		GetStartEndDates* gsed = new GetStartEndDates();
+		gsed->retreiveDates(fileName.filePath());
+		QDate endDate = gsed->getEndDate();
+		QDate startDate = gsed->getStartDate();
+		ui->filePath->setText(fileName.filePath());
+		ui->endDate->setDate(endDate);
+		ui->endDate->setMaximumDate(endDate);
+		ui->endDate->setMinimumDate(startDate);
+		ui->endDate->setCalendarPopup(true);
+		ui->startDate->setMinimumDate(startDate);
+		ui->startDate->setMaximumDate(endDate);
+		ui->startDate->setDate(startDate);
+		ui->startDate->setCalendarPopup(true);
+		this->fileName=fileName.filePath();
+	}
 }

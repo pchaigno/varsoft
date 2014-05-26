@@ -28,8 +28,10 @@
 #include "ModelVaR_global.h"
 #include "CannotOpenFileException.h"
 #include <QDate>
+#include "Savable.h"
+#include <QJsonObject>
 
-class MODELVARSHARED_EXPORT Asset {
+class MODELVARSHARED_EXPORT Asset: public Savable {
 private:
 	int id;
 	QString file;
@@ -43,6 +45,7 @@ public:
 	Asset(QString name, QString file, QString origin, QDate startDate, QDate endDate);
 	Asset(int id, QString name, QString file, QString origin, QDate startDate, QDate endDate);
 	void init(int id, QString name, QString file, QString origin, QDate startDate, QDate endDate);
+	Asset(const QJsonObject& json);
 	~Asset();
 
 	int getId() const;
@@ -58,4 +61,7 @@ public:
 	QMap<QDate, double> retrieveValuesByDate(const QDate& startPeriod, const QDate& endPeriod) const;
 
 	bool operator==(const Asset& asset) const;
+
+	void fromJSON(const QJsonObject &json);
+	QJsonObject toJSON() const;
 };

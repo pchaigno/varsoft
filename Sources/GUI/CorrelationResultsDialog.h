@@ -17,15 +17,37 @@
  */
 #pragma once
 
-#include "AssetsFactory.h"
-#include "SessionBuilder.h"
-#include "SessionSaver.h"
-#include "ImportNewData.h"
-#include <QtTest>
+#include "ui_correlationRes.h"
+#include "CorrelationResultsDialog.h"
+#include "CorrelationResults.h"
+#include "CorrelationDialog.h"
+#include "MainWindow.h"
+#include <QDialog>
+#include <QException>
 
-class TestImportNewData: public QObject {
+namespace Ui {
+	class CorrelationResultsDialog;
+}
+class CorrelationResultsDialog : public QDialog
+{
 	Q_OBJECT
+public:
+	explicit CorrelationResultsDialog(Portfolio *port,QList<CorrelationResults> *results, QString testType, QPair<double,double> res, int lag, QString date, int period, QWidget *parent = 0);
+	~CorrelationResultsDialog();
+private:
+	Ui::CorrelationResultsDialog *ui;
+	QList<CorrelationResults> *results;
+	QPair<double, double> pair;
+	QString type;
+	Portfolio *portfolio;
+	QString date;
+	int timeLag;
+	int period;
+private slots:
+	void on_generate_clicked();
+	void on_save_clicked();
+	void on_quit_clicked();
+	void on_testAgain_clicked();
 
-private Q_SLOTS:
-	void testImport();
 };
+
