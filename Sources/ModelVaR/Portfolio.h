@@ -36,7 +36,7 @@
 #include <QtCore/qmath.h>
 #include <QGenericMatrix>
 
-class MODELVARSHARED_EXPORT Portfolio {
+class MODELVARSHARED_EXPORT Portfolio: public Savable {
 private:
 	int id;
 	QString name;
@@ -65,7 +65,7 @@ public:
 	void addReport(Report* report);
 	void removeReport(Report * report);
 
-	QVector<Asset*> getAssets() const;
+	QList<Asset*> getAssets() const;
 	QMap<Asset*, int> getComposition() const;
 	int getWeight(Asset* const asset) const;
 	void changeName(QString name);

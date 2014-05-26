@@ -18,14 +18,19 @@
 #pragma once
 
 #include "ui_import.h"
-#include "ImportNewData.h"
+#include "CreateAsset.h"
 #include "SessionSaver.h"
 #include "SQLiteManager.h"
 #include "SessionBuilder.h"
 #include "AssetsFactory.h"
+#include "MainWindow.h"
 #include <QDateTime>
 #include <QDialog>
+#include <QDir>
 #include <QException>
+#include <QFileDialog>
+#include <QSettings>
+#include <QFileInfo>
 
 namespace Ui {
 	class Import;
@@ -38,14 +43,16 @@ class Import : public QDialog {
 	Q_OBJECT
 
 public:
-	explicit Import(QString fileName, QDate startDate, QDate endDate, QWidget *parent = 0);
+	explicit Import(QWidget *parent = 0);
 	~Import();
 
 private:
 	Ui::Import *ui;
 	QString fileName;
+	QSettings setting;
 
 private slots:
 	void on_pushButton_clicked();
 	void on_pushButton_2_clicked();
+	void on_importButton_clicked();
 };

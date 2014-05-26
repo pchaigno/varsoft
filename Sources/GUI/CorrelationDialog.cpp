@@ -29,10 +29,10 @@
 Correlation::Correlation(Portfolio *portfolio, QWidget *parent): QDialog(parent), ui(new Ui::Correlation) {
 	ui->setupUi(this);
 	this->portfolio = portfolio;
-	QDate date = portfolio->retrieveEndDate();
+	QDate date = portfolio->retrieveStartDate();
 	//souci avec le range de la date
 	ui->date->setMinimumDate(date);
-	ui->date->setMaximumDate(portfolio->retrieveStartDate());
+	ui->date->setMaximumDate(portfolio->retrieveEndDate());
 	ui->date->setDate(date);
 	ui->date->setCalendarPopup(true);
 	results = new QList<CorrelationResults>();

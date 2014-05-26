@@ -24,6 +24,8 @@
 #include <QFile>
 #include <QFileDialog>
 #include <QTableWidgetItem>
+#include <QDate>
+#include <QMessageBox>
 #include "ImportDialog.h"
 #include "NewPortfolioWizard.h"
 #include "PortfolioItemModel.h"
@@ -34,17 +36,16 @@
 #include "PortfolioViewModel.h"
 #include "NoneSelectedPortfolioException.h"
 #include "ReportException.h"
-#include <QMessageBox>
 #include "FlowLayout.h"
 #include "ReportWidget.h"
 #include "ReportWidgetFactory.h"
 #include "DocxGenPathDialog.h"
 #include "ui_MainWindow.h"
-#include <QDate>
-#include "ImportNewData.h"
+#include "CreateAsset.h"
 #include "GetStartEndDates.h"
 #include "CorrelationDialog.h"
 #include "CorrelationReportFactory.h"
+#include "SessionSaver.h"
 
 namespace Ui {
 	class MainWindow;
@@ -71,6 +72,10 @@ private slots:
 	void setImportCSV();
 	void generateStatsReport();
 	void showCorrelationWindow();
+
+	void save();
+	void saveAs();
+	void saveAs(QString savePath);
 
 	void addPortfolio(Portfolio *);
 	void removeSelectedPortfolio();
@@ -103,6 +108,7 @@ private:
 	QString fileName;
 	QString origin;
 	QString path;
+	QString savePath;
 	PortfolioItemModel * portfolioListModel;
 	QHash<Portfolio*, PortfolioViewModel*> portfoliosModels;
 	QHash<Portfolio*, QList<ReportWidget*> > portfolioReportWidgets;

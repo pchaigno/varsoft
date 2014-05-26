@@ -29,13 +29,16 @@ class TestSQLiteManagers: public QObject {
 	Q_OBJECT
 
 private:
-	QVector<Portfolio> portfolios;
+	QList<Portfolio*> portfolios;
 	Asset google;
 	Asset apple;
+	Report* garchReport;
+	Report* varReport;
 
 public:
 	TestSQLiteManagers();
 
 private Q_SLOTS:
 	void testSaveSession();
+	void testUpdateSession();
 };

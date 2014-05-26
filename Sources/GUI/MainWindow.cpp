@@ -20,18 +20,22 @@
 
 MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWindow), portfolioListModel(new PortfolioItemModel(this)) {
 	ui->setupUi(this);
-
+	this->path = "C:/";
 	//for the import button in the main window
+	this->savePath = "";
+
 	connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(setImportCSV()));
 
 	connect(ui->actionGenerate_Stats_Report,SIGNAL(triggered()),this,SLOT(generateStatsReport()));
 	connect(ui->actionGenerate_Correlation_Report,SIGNAL(triggered()),this,SLOT(showCorrelationWindow()));
 
 	ui->listView->setModel(portfolioListModel);
-	connect(ui->removePushButton, SIGNAL(clicked()), this, SLOT(removeSelectedPortfolio()));
-
+	connect(ui->removePushButton, SIGNAL(clicked()), ui->listView, SLOT(removeSelectedPortfolio()));
 	connect(ui->listView,SIGNAL(portfolioSelected(Portfolio*)),this,SLOT(showPortfolio(Portfolio*)));
-
+	connect(ui->actionSauvegarder, SIGNAL(triggered()), this, SLOT(save()));
+	connect(ui->actionSauvegarder_sous, SIGNAL(triggered()), this, SLOT(saveAs()));
+	connect(ui->removePushButton, SIGNAL(clicked()), this, SLOT(removeSelectedPortfolio()));
+	connect(ui->listView,SIGNAL(portfolioSelected(Portfolio*)),this,SLOT(showPortfolio(Portfolio*)));
 	connect(ui->actionDocXGenerator_path,SIGNAL(triggered()),this,SLOT(docxGenPath()));
 
 	layoutReports = new FlowLayout;
@@ -45,7 +49,6 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
 	readSettings();
 
 	initResources();
-
 }
 
 MainWindow::~MainWindow() {
@@ -446,22 +449,12 @@ void MainWindow::generateReport(ReportGenerator *gen) {
 * The last import path is saved when a new import is done
 */
 void MainWindow::setImportCSV() {
-	QString fileName;
-	if (this->path != "")
-		fileName = QFileDialog::getOpenFileName(this, ("Ouvrir fichier"), this->path, ("CSV Texte (*.csv *.txt);;Tous les fichiers (*.*)") );
-	else
-		fileName = QFileDialog::getOpenFileName(this, ("Ouvrir fichier"), "C:/", ("CSV Texte (*.csv *.txt);;Tous les fichiers (*.*)") );
-	if(fileName != "")
-		this->path = fileName.left(fileName.lastIndexOf("/"));
-	if (fileName != "") {
-		//get startDate and endDate before calling the import function
-		GetStartEndDates* gsed = new GetStartEndDates();
-		gsed->retreiveDates(fileName);
-		Import* importDialog = new Import(fileName,gsed->getStartDate(),gsed->getEndDate(),this);
-		importDialog->setAttribute(Qt::WA_DeleteOnClose);
-		importDialog->show();
-	}
+	Import* importDialog = new Import(this);
+	importDialog->setAttribute(Qt::WA_DeleteOnClose);
+	importDialog->show();
 }
+
+
 
 /**
  * @brief Add the portfolio to the ListView,
@@ -492,4 +485,35 @@ void MainWindow::removeSelectedPortfolio() {
 	} catch (NoneSelectedPortfolioException& ) {
 		QMessageBox::critical(this,"Error","None portfolio selected");
 	}
+}
+
+/**
+ * @brief Saves the portfolios to the last location used for the database.
+ * Ask for the location if none was selected before in a new window.
+ */
+void MainWindow::save() {
+	if(this->savePath == "") {
+		this->saveAs();
+	} else {
+		this->saveAs(this->savePath);
+	}
+}
+
+/**
+ * @brief Opens a dialog to ask the user where he wants to save his portfolios. Then saves them.
+ */
+void MainWindow::saveAs() {
+	this->savePath = QFileDialog::getSaveFileName(this, ("Save as"), this->path, ("Database file (*.db *.sqlite)"));
+	if(this->savePath != "") {
+		this->saveAs(this->savePath);
+	}
+}
+
+/**
+ * @brief Saves the portfolios.
+ * @param savePath The location of the database.
+ */
+void MainWindow::saveAs(QString savePath) {
+	// TODO Change the folder where everything is saved.
+	SessionSaver::getInstance()->saveSession(this->portfoliosModels.keys());
 }

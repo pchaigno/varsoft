@@ -39,10 +39,10 @@ SOURCES += \
 	VaRReportFactory.cpp \
 	GarchReportFactory.cpp \
 	StatisticsReportFactory.cpp \
-	ImportNewData.cpp \
-	IImport.cpp \
 	PortfolioItemModel.cpp \
 	CorrelationReportFactory.cpp \
+	GetStartEndDates.cpp \
+	CreateAsset.cpp \
 	MathFunctions.cpp \
 	PortfolioViewModel.cpp \
 	ArchiveManager.cpp \
@@ -52,8 +52,9 @@ SOURCES += \
 	qcustomplot.cpp \
 	ReportGenerator.cpp \
 	ReportException.cpp \
-	GetStartEndDates.cpp \
-	CorrelationResults.cpp
+	CorrelationResults.cpp \
+	Savable.cpp
+
 
 HEADERS +=\
 	Asset.h \
@@ -86,9 +87,7 @@ HEADERS +=\
 	GarchReportFactory.h \
 	StatisticsReportFactory.h \
 	CorrelationReportFactory.h \
-	ImportNewData.h \
 	CannotOpenFileException.h \
-	IImport.h \
 	PortfolioItemModel.h \
 	PortfolioCalculationException.h \
 	GetStartEndDates.h \
@@ -97,6 +96,8 @@ HEADERS +=\
 	ReportDataJson.h \
 	ReportException.h \
 	InvalidDefinitionPeriodException.h \
+	CreateAsset.h \
+	CreateAssetException.h \
 	NonexistentAssetException.h \
 	ArchiveManager.h \
 	ExportManager.h \
@@ -104,10 +105,11 @@ HEADERS +=\
 	CreateAssetException.h \
 	ExportException.h \
 	ImportException.h \
-	MathFunctions.h \
 	ReportAlreadyCreatedException.h \
-	CorrelationResults.h
-
+	CorrelationResults.h \
+	ReportAlreadyCreatedException.h \
+	Savable.h \
+	MathFunctions.h
 
 unix:!symbian {
 	maemo5 {

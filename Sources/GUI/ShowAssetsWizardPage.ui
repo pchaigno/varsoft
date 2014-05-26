@@ -22,7 +22,7 @@
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>Name : </string>
+        <string>Name: </string>
        </property>
       </widget>
      </item>
@@ -50,7 +50,7 @@
          <item>
           <widget class="QLabel" name="label_2">
            <property name="text">
-            <string>Assets available :</string>
+            <string>Assets available:</string>
            </property>
           </widget>
          </item>
@@ -163,7 +163,7 @@
          <item>
           <widget class="QLabel" name="label_4">
            <property name="text">
-            <string>Assets selected :</string>
+            <string>Assets selected:</string>
            </property>
           </widget>
          </item>
