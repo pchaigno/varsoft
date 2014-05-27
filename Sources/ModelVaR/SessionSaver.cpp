@@ -88,6 +88,7 @@ void SessionSaver::saveSession(QList<Portfolio*> portfolios) {
 			deletedPortfolios.append(portfolioID);
 		}
 	}
+	this->removePortfolios(deletedPortfolios);
 
 	// The reports are saved last because they have a reference to a portfolio:
 	foreach(Portfolio* portfolio, portfolios) {
