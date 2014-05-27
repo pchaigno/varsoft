@@ -80,10 +80,11 @@ void Import::on_pushButton_2_clicked() {
 }
 
 void Import::on_importButton_clicked(){
-	QString path = this->setting.value("path", "C:/").toString();
+
+	QString path = this->setting.value("createAssetFolder", "C:/").toString();
 	QFileInfo fileName = QFileDialog::getOpenFileName(this, ("Open file"), path, ("CSV Text (*.csv *.txt);;All files (*.*)") );
-	if(fileName.isFile()) {
-		this->setting.setValue("path", fileName.absolutePath());
+	if(fileName.isFile()){
+		this->setting.setValue("createAssetFolder", fileName.absolutePath());
 		//get startDate and endDate before calling the import function
 		GetStartEndDates* gsed = new GetStartEndDates();
 		gsed->retreiveDates(fileName.filePath());
