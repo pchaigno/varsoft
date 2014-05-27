@@ -47,8 +47,6 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
 	ui->tableView->setModel(dataModel);
 	portfolioViewMediator = new PortfolioViewMediator(ui->listView,dataModel,ui->reportScrollArea);
 
-	connect(ui->actionDocXGenerator_path,SIGNAL(triggered()),this,SLOT(openDocxGenPathDialog()));
-
 	connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(importArchive()));
 	connect(ui->actionExport, SIGNAL(triggered()), this, SLOT(exportArchive()));
 
