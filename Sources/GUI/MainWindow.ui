@@ -199,9 +199,6 @@
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionNouveau"/>
-    <addaction name="actionOuvrir"/>
-    <addaction name="separator"/>
     <addaction name="actionSauvegarder"/>
     <addaction name="separator"/>
     <addaction name="actionCreateAsset"/>
