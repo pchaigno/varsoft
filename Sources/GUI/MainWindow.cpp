@@ -20,6 +20,7 @@
 
 MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWindow), portfolioListModel(new PortfolioListModel(this)) {
 	ui->setupUi(this);
+
 	this->path = "C:/";
 
 	connect(ui->addPushButton,SIGNAL(clicked()),this,SLOT(openNewPortfolioDialog()));
@@ -155,7 +156,7 @@ void MainWindow::buildSession(QList<Portfolio *> listPorfolio)
 Portfolio *MainWindow::getCurrentPortfolio() const {
 	Portfolio * port = ui->listView->getCurrentPortfolio();
 	if (port==NULL)
-		throw NoneSelectedPortfolioException("None current portfolio.");
+		throw NoneSelectedPortfolioException("No current portfolio.");
 	return port;
 }
 
@@ -175,7 +176,7 @@ void MainWindow::generateStatsReport() {
 	} catch (ReportException & e) {
 		showError(e.what());
 	} catch (NoneSelectedPortfolioException& ) {
-		showError("None portfolio selected");
+		showError("No portfolio selected");
 	}
 }
 
@@ -188,7 +189,7 @@ void MainWindow::openVarDialog()
 		fen->setAttribute(Qt::WA_DeleteOnClose);
 		fen->show();
 	} catch (NoneSelectedPortfolioException& ) {
-		showError("None portfolio selected");
+		showError("No portfolio selected");
 	}
 }
 
@@ -207,7 +208,7 @@ void MainWindow::openCorrelationDialog(){
 	} catch (ReportException & e) {
 		showError(e.what());
 	} catch (NoneSelectedPortfolioException& ) {
-		showError("None portfolio selected");
+		showError("No portfolio selected");
 	}
 }
 

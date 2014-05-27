@@ -5,5 +5,6 @@
         <file alias="statsReport.png">Resources/Icons/statsReport.png</file>
         <file alias="word">Resources/Icons/word.png</file>
         <file alias="plus">Resources/Icons/plus.png</file>
+        <file>Resources/Icons/icon.png</file>
     </qresource>
 </RCC>
