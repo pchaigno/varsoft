@@ -122,7 +122,7 @@ QString Report::getAbsolutePathToFile() const {
  * @return true if the files containing the report are available in the disk
  */
 bool Report::filesAvailable() {
-	return QFile::exists(getAbsolutePathToFile()+".pdf") && QFile::exists(getAbsolutePathToFile()+".docx");
+	return this->file != "";
 }
 
 /**

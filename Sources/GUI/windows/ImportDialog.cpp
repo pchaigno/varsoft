@@ -80,6 +80,7 @@ void Import::on_pushButton_2_clicked() {
 }
 
 void Import::on_importButton_clicked(){
+
 	QString path = this->setting.value("createAssetFolder", "C:/").toString();
 	QFileInfo fileName = QFileDialog::getOpenFileName(this, ("Open file"), path, ("CSV Text (*.csv *.txt);;All files (*.*)") );
 	if(fileName.isFile()){

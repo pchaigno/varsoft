@@ -43,6 +43,7 @@ void SessionFolderDialog::on_cancelButton_clicked() {
 }
 
 void SessionFolderDialog::on_selectButton_clicked() {
+
 	QString path = this->setting.value("sessionFolder", "C:/").toString();
 	QFileInfo sessionFolder = QFileDialog::getExistingDirectory(this, ("Save in"), path, QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 	if(sessionFolder.isDir()) {
