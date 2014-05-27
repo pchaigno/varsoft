@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>289</width>
-    <height>254</height>
+    <height>276</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -71,14 +71,17 @@
    </item>
    <item>
     <widget class="QComboBox" name="comboBox">
+     <property name="currentText">
+      <string>Yahoo Finance</string>
+     </property>
      <item>
       <property name="text">
-       <string>Yahoo</string>
+       <string>Yahoo Finance</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>ProjectVaR</string>
+       <string>VaRSoft</string>
       </property>
      </item>
     </widget>
