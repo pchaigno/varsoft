@@ -199,10 +199,10 @@
     <addaction name="actionOuvrir"/>
     <addaction name="separator"/>
     <addaction name="actionSauvegarder"/>
-    <addaction name="actionSauvegarder_sous"/>
+    <addaction name="separator"/>
+    <addaction name="actionCreateAsset"/>
     <addaction name="separator"/>
     <addaction name="actionImport"/>
-    <addaction name="separator"/>
     <addaction name="actionExport"/>
     <addaction name="separator"/>
     <addaction name="actionQuitter"/>
@@ -258,7 +258,7 @@
     <string>Ctrl+Shift+S</string>
    </property>
   </action>
-  <action name="actionImport">
+  <action name="actionCreateAsset">
    <property name="text">
     <string>Create an asset</string>
    </property>
@@ -297,8 +297,17 @@
   <action name="actionGenerate_VaR">
    <property name="text">
     <string>Generate VaR</string>
+	</property>
+   </action>
+  <action name="actionImport">
+   <property name="text">
+    <string>Import</string>
    </property>
-  </action>
+   <property name="shortcut">
+	<string>Ctrl+I</string>
+	</property>
+	</action>
+
   <action name="actionGenerate_Correlation_Report">
    <property name="text">
     <string>Generate Correlation Report</string>

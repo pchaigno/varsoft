@@ -15,30 +15,32 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#include "ArchiveManager.h"
+#pragma once
 
-/**
- * @brief Constructor
- * @param archivePath The path to the archive file.
- */
-ArchiveManager::ArchiveManager(QString archivePath) {
-	this->archivePath = archivePath;
+#include <QDialog>
+#include <QFileDialog>
+#include "ui_SessionFolderDialog.h"
+#include <QSettings>
+#include "SessionSaver.h"
+#include <QMessageBox>
+
+namespace Ui {
+	class SessionFolderDialog;
 }
 
-/**
- * @brief Adds the specified portfolio to the archive.
- * @param portfolios The portfolios to add.
- */
-void ArchiveManager::addPortfolios(QList<Portfolio*>& portfolios) {
-	foreach(Portfolio* portfolio, portfolios) {
-		this->portfolios.append(portfolio);
-	}
-}
+class SessionFolderDialog : public QDialog {
+	Q_OBJECT
 
-/**
- * @brief Accessor to the portfolios.
- * @return The portfolios from the archive.
- */
-QList<Portfolio*> ArchiveManager::getPortfolios() const {
-	return this->portfolios;
-}
+public:
+	explicit SessionFolderDialog(QWidget *parent = 0);
+	~SessionFolderDialog();
+
+private slots:
+	void on_okButton_clicked();
+	void on_cancelButton_clicked();
+	void on_selectButton_clicked();
+
+private:
+	Ui::SessionFolderDialog *ui;
+	QSettings setting;
+};

@@ -21,12 +21,14 @@
 MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWindow), portfolioListModel(new PortfolioListModel(this)) {
 	ui->setupUi(this);
 	this->path = "C:/";
-	//for the import button in the main window
-	this->savePath = "";
 
 	connect(ui->addPushButton,SIGNAL(clicked()),this,SLOT(openNewPortfolioDialog()));
 
-	connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(openImportDialog()));
+	connect(ui->actionCreateAsset, SIGNAL(triggered()), this, SLOT(openImportDialog()));
+
+	SessionFolderDialog* sessionFolderDialog = new SessionFolderDialog(this);
+	sessionFolderDialog->setAttribute(Qt::WA_DeleteOnClose);
+	sessionFolderDialog->show();
 
 	connect(ui->actionGenerate_Stats_Report,SIGNAL(triggered()),this,SLOT(generateStatsReport()));
 	connect(ui->actionGenerate_Correlation_Report,SIGNAL(triggered()),this,SLOT(openCorrelationDialog()));
@@ -34,7 +36,6 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
 	ui->listView->setModel(portfolioListModel);
 	connect(ui->removePushButton, SIGNAL(clicked()), ui->listView, SLOT(removeSelectedPortfolio()));
 	connect(ui->actionSauvegarder, SIGNAL(triggered()), this, SLOT(save()));
-	connect(ui->actionSauvegarder_sous, SIGNAL(triggered()), this, SLOT(saveAs()));
 
 	connect(ui->actionGenerate_VaR,SIGNAL(triggered()),this,SLOT(openVarDialog()));
 
@@ -44,6 +45,10 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
 	ui->tableView->setModel(dataModel);
 	portfolioViewMediator = new PortfolioViewMediator(ui->listView,dataModel,ui->reportScrollArea);
 
+	connect(ui->actionDocXGenerator_path,SIGNAL(triggered()),this,SLOT(openDocxGenPathDialog()));
+
+	connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(importArchive()));
+	connect(ui->actionExport, SIGNAL(triggered()), this, SLOT(exportArchive()));
 
 	//for QSettings
 	QCoreApplication::setOrganizationName("INSA Rennes");
@@ -214,28 +219,29 @@ void MainWindow::showError(const QString &errorMsg)
  * Ask for the location if none was selected before in a new window.
  */
 void MainWindow::save() {
-	if(this->savePath == "") {
-		this->saveAs();
-	} else {
-		this->saveAs(this->savePath);
-	}
-}
-
-/**
- * @brief Opens a dialog to ask the user where he wants to save his portfolios. Then saves them.
- */
-void MainWindow::saveAs() {
-	this->savePath = QFileDialog::getSaveFileName(this, ("Save as"), this->path, ("Database file (*.db *.sqlite)"));
-	if(this->savePath != "") {
-		this->saveAs(this->savePath);
-	}
-}
-
-/**
- * @brief Saves the portfolios.
- * @param savePath The location of the database.
- */
-void MainWindow::saveAs(QString savePath) {
-	// TODO Change the folder where everything is saved.
 	SessionSaver::getInstance()->saveSession(this->portfolioListModel->getPortfolios());
+}
+
+/**
+ * @brief Opens a dialog to ask the user for the location of the archive to export.
+ */
+void MainWindow::exportArchive() {
+	QString archivePath = QFileDialog::getSaveFileName(this, ("Export to an archive"), this->path, ("ZIP archive (*.zip)") );
+	if(archivePath != "") {
+		ExportManager exportManager = ExportManager(archivePath);
+		exportManager.exportArchive(this->portfolioListModel->getPortfolios());
+	}
+}
+
+void MainWindow::importArchive() {
+	QString archivePath = QFileDialog::getOpenFileName(this, ("Import an archive"), this->path, ("ZIP archive (*.zip)") );
+	if(archivePath != "") {
+		ImportManager importManager = ImportManager(archivePath);
+		importManager.importArchive();
+
+		foreach(Portfolio * portfolio, importManager.getPortfolios())
+		{
+			portfolioListModel->addPortfolio(portfolio);
+		}
+	}
 }

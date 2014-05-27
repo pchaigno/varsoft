@@ -27,8 +27,12 @@
 #include "TestRInterface.h"
 #include "TestVaRGarch.h"
 #include "TestBacktesting.h"
+#include "SessionSaver.h"
 
 int main() {
+	// Defines the session folder for the tests:
+	SessionSaver::setSessionFolder(QDir(".."));
+
 	// Deletes the database file before starting the tests (just to be sure):
 	QFile databaseFile(SessionSaver::getInstance()->getDatabaseFile());
 	databaseFile.remove();

@@ -17,7 +17,7 @@
  */
 #include "SessionSaver.h"
 
-SessionSaver* SessionSaver::instance;
+SessionSaver* SessionSaver::instance = NULL;
 
 /**
  * @brief Constructor
@@ -294,7 +294,7 @@ void SessionSaver::saveReports(const Portfolio* portfolio, const QList<Report*>&
 	foreach(Report* report, reports) {
 		if(report->isAbsent()) {
 			query.bindValue(":portfolio", portfolio->getId());
-			query.bindValue(":file", report->getFile());
+			query.bindValue(":file", report->getAbsolutePathToFile());
 			query.bindValue(":type", report->getType());
 			query.exec();
 			report->setId(query.lastInsertId().toInt());

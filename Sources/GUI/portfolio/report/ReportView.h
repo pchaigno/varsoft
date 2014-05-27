@@ -41,7 +41,6 @@ public:
 	~ReportView();
 
 	void removeReport(Report * report);
-	void deleteAll();
 
 
 public slots:
@@ -55,7 +54,6 @@ private slots:
 
 private:
 	void addToLayout(ReportWidget * reportWidget);
-	void updateLayout();
 	void clearLayout(bool deleteWidgets=false);
 	void clearLayout(QLayout* layout,bool deleteWidgets=false);
 	
@@ -63,7 +61,7 @@ private:
 	Ui::ReportListScrollArea *ui;
 	FlowLayout * layout;
 	Portfolio * current;
-	QHash<Portfolio*, QList<ReportWidget*> > portfolioReportWidgets;
+	//QHash<Portfolio*, QList<ReportWidget*> > portfolioReportWidgets;
 };
 
 #endif // REPORTLISTSCROLLAREA_H

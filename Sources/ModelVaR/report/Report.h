@@ -24,6 +24,8 @@
 #include <QJsonObject>
 #include "ReportDataJson.h"
 #include "Savable.h"
+#include "SQLiteManager.h"
+#include <QDebug>
 
 enum ReportType {
 	NONE = 0,
@@ -59,7 +61,8 @@ public:
 	int getId() const;
 	void setId(int id);
 
-	QString getFile() const;
+	QString getFilename() const;
+	QString getAbsolutePathToFile() const;
 	bool filesAvailable();
 	void removeFiles();
 

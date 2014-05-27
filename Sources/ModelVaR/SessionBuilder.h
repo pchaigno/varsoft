@@ -30,6 +30,7 @@
 #include <QVector>
 #include "AssetsFactory.h"
 #include <QVariant>
+#include "SessionSaver.h"
 
 class Portfolio;
 
@@ -47,7 +48,8 @@ public:
 	 */
 	static SessionBuilder* getInstance() {
 		if(instance == NULL) {
-			instance = new SessionBuilder("session.db");
+			QString databaseFile = SQLiteManager::buildDatabaseFilePath();
+			instance = new SessionBuilder(databaseFile);
 		}
 		return instance;
 	}

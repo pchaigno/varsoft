@@ -60,7 +60,7 @@ void TestArchiveManagers::testExportImportPortfolios() {
 	} catch(ImportException e) {
 		QFAIL(e.what());
 	}
-	QVector<Portfolio*> portfoliosImported = importManager.getPortfolios();
+	QList<Portfolio*> portfoliosImported = importManager.getPortfolios();
 
 	QCOMPARE(portfoliosImported.size(), this->portfolios.size());
 	foreach(Portfolio* portfolio, this->portfolios) {
@@ -95,7 +95,7 @@ void TestArchiveManagers::testMissingArchive() {
  * @brief Very simple test which tries to open a missing archive.
  */
 void TestArchiveManagers::testEmptyArchive() {
-	ImportManager importManager = ImportManager("../../Examples/nodescriptor.zip");
+	ImportManager importManager = ImportManager("../Examples/nodescriptor.zip");
 	try {
 		importManager.importArchive();
 		QFAIL("ImportManager should have thrown an exception since the archive is empty.");

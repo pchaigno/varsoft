@@ -105,8 +105,16 @@ void Report::setId(int id) {
  * @brief Accessor to the file without the extension
  * @return
  */
-QString Report::getFile() const {
+QString Report::getFilename() const {
 	return this->file;
+}
+
+/**
+ * @brief Accessor to the path to the file.
+ * @return The absolute path to the file.
+ */
+QString Report::getAbsolutePathToFile() const {
+	return SQLiteManager::getSessionFolder() + QDir::separator() + this->file;
 }
 
 /**
@@ -114,18 +122,18 @@ QString Report::getFile() const {
  * @return true if the files containing the report are available in the disk
  */
 bool Report::filesAvailable() {
-	return QFile::exists(this->file+".pdf") && QFile::exists(this->file+".docx");
+	return QFile::exists(getAbsolutePathToFile()+".pdf") && QFile::exists(getAbsolutePathToFile()+".docx");
 }
 
 /**
  * @brief Removes the report files from the disk.
  */
 void Report::removeFiles() {
-	if (QFile::exists(this->file+".pdf"))
-		QFile::remove(this->file+".pdf");
+	if (QFile::exists(this->getAbsolutePathToFile()+".pdf"))
+		QFile::remove(this->getAbsolutePathToFile()+".pdf");
 
-	if (QFile::exists(this->file+".docx"))
-		QFile::remove(this->file+".docx");
+	if (QFile::exists(this->getAbsolutePathToFile()+".docx"))
+		QFile::remove(this->getAbsolutePathToFile()+".docx");
 }
 
 /**

@@ -21,7 +21,7 @@
  * @brief Initializes a few portfolio for the tests.
  */
 TestPortfolio::TestPortfolio() {
-	QString assetFolder = "../../Examples/";
+	QString assetFolder = "../Examples/";
 
 	// FIRST ASSET DEFINITION
 	QDate startDate1 = QDate(2014, 1, 1);
@@ -385,7 +385,7 @@ void TestPortfolio::comparePortfolios(Portfolio* serializedPortfolio, Portfolio*
 	foreach(const Report* serializedReport, serializedPortfolio->getReports()) {
 		bool reportFound = false;
 		foreach(const Report* report, portfolio->getReports()) {
-			if(report->getFile() == serializedReport->getFile()) {
+			if(report->getAbsolutePathToFile() == serializedReport->getAbsolutePathToFile()) {
 				QCOMPARE(serializedReport->getType(), report->getType());
 				reportFound = true;
 				break;

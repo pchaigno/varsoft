@@ -200,7 +200,6 @@ void Portfolio::removeReport(Report &report)
 			rep->removeFiles();
 		}
 	}
-	report.removeFiles();
 
 	emit reportRemoved();
 	this->setStatusToModified();

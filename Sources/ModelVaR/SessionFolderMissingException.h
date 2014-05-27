@@ -15,30 +15,25 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#include "ArchiveManager.h"
+#pragma once
 
-/**
- * @brief Constructor
- * @param archivePath The path to the archive file.
- */
-ArchiveManager::ArchiveManager(QString archivePath) {
-	this->archivePath = archivePath;
-}
+#include <exception>
+#include "ModelVaR_global.h"
 
-/**
- * @brief Adds the specified portfolio to the archive.
- * @param portfolios The portfolios to add.
- */
-void ArchiveManager::addPortfolios(QList<Portfolio*>& portfolios) {
-	foreach(Portfolio* portfolio, portfolios) {
-		this->portfolios.append(portfolio);
+class MODELVARSHARED_EXPORT SessionFolderMissingException: public std::exception {
+public:
+	SessionFolderMissingException(std::string msg) {
+		this->msg = msg;
 	}
-}
 
-/**
- * @brief Accessor to the portfolios.
- * @return The portfolios from the archive.
- */
-QList<Portfolio*> ArchiveManager::getPortfolios() const {
-	return this->portfolios;
-}
+	virtual ~SessionFolderMissingException() throw() {
+
+	}
+
+	virtual const char * what() const throw() {
+		return this->msg.c_str();
+	}
+
+private:
+	std::string msg;
+};

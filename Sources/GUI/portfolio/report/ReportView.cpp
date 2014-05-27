@@ -34,23 +34,9 @@ ReportView::~ReportView()
 
 void ReportView::removeReport(Report *report)
 {
-	foreach(ReportWidget * repWid, portfolioReportWidgets[current])
-	{
-		Report * rep = repWid->getReport();
-		if (*report==*rep)
-		{
-			removeReportWidget(repWid);
-		}
-	}
+	current->removeReport(*report);
 }
 
-void ReportView::deleteAll()
-{
-	foreach(ReportWidget * repWid, portfolioReportWidgets[current])
-	{
-		removeReportWidget(repWid);
-	}
-}
 
 /**
  * @brief Initialize the layout with the report of the portfolio given.
@@ -65,7 +51,7 @@ void ReportView::setCurrent(Portfolio *portfolio)
 	}
 	clearLayout();
 	current=portfolio;
-	updateLayout();
+	updateReportWidgetList();
 	connect(portfolio,SIGNAL(reportAdded(Report*)),this,SLOT(addReport(Report*)));
 	connect(portfolio,SIGNAL(reportRemoved()),this,SLOT(updateReportWidgetList()));
 }
@@ -78,7 +64,6 @@ void ReportView::addReport(Report *report)
 {
 	ReportWidget * reportWidget = ReportWidgetFactory::buildReportWidget(report);
 	connect(reportWidget,SIGNAL(deleteRequest()),this,SLOT(removeReportWidget()));
-	portfolioReportWidgets[current].append(reportWidget);
 	addToLayout(reportWidget);
 }
 
@@ -94,10 +79,9 @@ void ReportView::removeReportWidget()
  */
 void ReportView::removeReportWidget(ReportWidget *reportWidget)
 {
-	portfolioReportWidgets[current].removeOne(reportWidget);
 	Report * report = reportWidget->getReport();
-	current->removeReport(report);
-	updateLayout();
+	current->removeReport(*report);
+	updateReportWidgetList();
 }
 
 /**
@@ -109,23 +93,10 @@ void ReportView::addToLayout(ReportWidget *reportWidget)
 	layout->addWidget(reportWidget);
 }
 
-/**
- * @brief Clear the layout and load the ReportWidget of the current Portfolio
- */
-void ReportView::updateLayout()
-{
-	clearLayout(false);
-	QList<ReportWidget*> listReportCurrentPortfolio = portfolioReportWidgets[current];
-	foreach(ReportWidget* repWid,listReportCurrentPortfolio)
-	{
-		addToLayout(repWid);
-	}
-}
 
 void ReportView::updateReportWidgetList()
 {
 	clearLayout(true);
-	portfolioReportWidgets[current].clear();
 	foreach(Report * report, current->getReports())
 	{
 		addReport(report);

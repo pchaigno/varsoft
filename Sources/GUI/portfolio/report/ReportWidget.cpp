@@ -10,6 +10,8 @@ ReportWidget::ReportWidget(Report *report, QWidget *parent):
 
 	connect(report,SIGNAL(filesOk()),this,SLOT(generationFinish()));
 	connect(report,SIGNAL(filesNotOk()),this,SIGNAL(deleteRequest()));
+
+	report->filesGenerationFinish();
 }
 
 ReportWidget::~ReportWidget() {
@@ -20,7 +22,7 @@ ReportWidget::~ReportWidget() {
  * @brief Open the report in the PDF format with the usual software for reading PDF of the user.
  */
 void ReportWidget::openPDF() {
-	QFileInfo file(report->getFile()+".pdf");
+	QFileInfo file(report->getAbsolutePathToFile()+".pdf");
 	QUrl url(file.absoluteFilePath());
 	url.setScheme("file");
 	QDesktopServices::openUrl(url);
@@ -30,7 +32,7 @@ void ReportWidget::openPDF() {
  * @brief Open the report in the Docx format with the usual software for reading Docx of the user.
  */
 void ReportWidget::openDocx() {
-	QFileInfo file(report->getFile()+".docx");
+	QFileInfo file(report->getAbsolutePathToFile()+".docx");
 	QUrl url(file.absoluteFilePath());
 	url.setScheme("file");
 	QDesktopServices::openUrl(url);

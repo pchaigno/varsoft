@@ -40,7 +40,7 @@ DocxGenerator::DocxGenerator(Report *report, QString progPath) : ReportGenerator
 void DocxGenerator::generate() {
 	if (QFile::exists(prog) && QFile::exists(report->getTemplateFile())) {
 		QProcess  docx;
-		docx.start("java", QStringList() << "-jar" << prog << report->getTemplateFile() << report->getFile());
+		docx.start("java", QStringList() << "-jar" << prog << report->getTemplateFile() << report->getAbsolutePathToFile());
 		if(!docx.waitForStarted())
 		{
 			manageError(docx.error());

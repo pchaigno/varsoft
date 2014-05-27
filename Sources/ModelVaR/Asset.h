@@ -30,6 +30,7 @@
 #include <QDate>
 #include "Savable.h"
 #include <QJsonObject>
+#include "SQLiteManager.h"
 
 class MODELVARSHARED_EXPORT Asset: public Savable {
 private:
@@ -51,6 +52,7 @@ public:
 	int getId() const;
 	void setId(int id);
 	QString getFile() const;
+	QString getAbsolutePathToFile() const;
 	QString getName() const;
 	QString getOrigin() const;
 	QDate getStartDate() const;

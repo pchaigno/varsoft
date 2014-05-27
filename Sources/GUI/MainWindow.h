@@ -48,6 +48,9 @@
 #include "SessionSaver.h"
 #include "windows/VarDialog.h"
 #include "Constantes.h"
+#include "ImportManager.h"
+#include "ExportManager.h"
+#include "SessionFolderDialog.h"
 
 namespace Ui {
 	class MainWindow;
@@ -75,13 +78,15 @@ private slots:
 	void openDocxGenPathDialog();
 	void openNewPortfolioDialog();
 
-	void save();
-	void saveAs();
-	void saveAs(QString savePath);
 
 
 	void showError(const QString& errorMsg);
 
+
+	void save();
+
+	void importArchive();
+	void exportArchive();
 
 private:
 	Portfolio *getCurrentPortfolio() const;

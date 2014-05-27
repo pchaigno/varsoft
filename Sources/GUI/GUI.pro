@@ -31,6 +31,7 @@ SOURCES += main.cpp\
 		windows/CorrelationResultsDialog.cpp \
 		windows/CorrelationDialog.cpp \
 		ReportCreatorSingleton.cpp \
+		SessionFolderDialog.cpp \
 		windows/VaRResultsDialog.cpp
 
 HEADERS += MainWindow.h \
@@ -53,6 +54,7 @@ HEADERS += MainWindow.h \
 		windows/CorrelationResultsDialog.h \
 		windows/CorrelationDialog.h \
 		ReportCreatorSingleton.h \
+		SessionFolderDialog.h \
 		windows/VaRResultsDialog.h
 
 FORMS += MainWindow.ui \
@@ -66,12 +68,16 @@ FORMS += MainWindow.ui \
 		windows/VarDialog.ui \
 		windows/correlationRes.ui \
 		windows/correlation.ui \
+		SessionFolderDialog.ui \
 		windows/VaRResultsDialog.ui
 
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../quazip/quazip/release/ -lquazip
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../quazip/quazip/debug/ -lquazip
 else:unix: LIBS += -L$$OUT_PWD/../quazip/quazip/ -lquazip
+
+INCLUDEPATH += $$PWD/../quazip/quazip
+DEPENDPATH += $$PWD/../quazip/quazip
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../ModelVaR/release/ -lModelVaR
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../ModelVaR/debug/ -lModelVaR
