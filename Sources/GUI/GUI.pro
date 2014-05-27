@@ -75,11 +75,19 @@ FORMS += MainWindow.ui \
 		windows/VaRResultsDialog.ui
 
 
-INCLUDEPATH += $$PWD/../quazip/quazip
-DEPENDPATH += $$PWD/../quazip/quazip
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../qcustomplot/release/ -lqcustomplotd
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../qcustomplot/debug/ -lqcustomplotd
+else:unix: LIBS += -L$$OUT_PWD/../qcustomplot/ -lqcustomplotd
 
 INCLUDEPATH += $$PWD/../qcustomplot
 DEPENDPATH += $$PWD/../qcustomplot
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../quazip/quazip/release/ -lquazip
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../quazip/quazip/debug/ -lquazip
+else:unix: LIBS += -L$$OUT_PWD/../quazip/quazip/ -lquazip
+
+INCLUDEPATH += $$PWD/../quazip/quazip
+DEPENDPATH += $$PWD/../quazip/quazip
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../ModelVaR/release/ -lModelVaR
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../ModelVaR/debug/ -lModelVaR
