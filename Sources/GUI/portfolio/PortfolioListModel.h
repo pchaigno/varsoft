@@ -25,7 +25,7 @@
 	class TestPortfolioItemModel;
 #endif
 
-class MODELVARSHARED_EXPORT PortfolioListModel : public QAbstractListModel {
+class  PortfolioListModel : public QAbstractListModel {
 	Q_OBJECT
 public:
 	explicit PortfolioListModel(QObject *parent = 0);
