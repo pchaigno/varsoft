@@ -268,17 +268,17 @@ QMap<QDate, double> Asset::retrieveValuesByDate(const QDate& startPeriod, const 
 				}
 				lastMissingDay = lastMissingDay.addDays(-1);
 			}
-		}
-
-		// Fills the days missing if there are any:
-		// If lastDate is null it means that we still are on the first date.
-		// Therefore there aren't any missing days...
-		while(!lastDate.isNull() && lastDate.addDays(-1)!=date) {
-			if(lastDate.addDays(-1).dayOfWeek() < 6) {
-			// It's a weekday.
-				values.insert(lastDate.addDays(-1), value.toDouble());
+		} else {
+			// Fills the days missing if there are any:
+			// If lastDate is null it means that we still are on the first date.
+			// Therefore there aren't any missing days...
+			while(!lastDate.isNull() && lastDate.addDays(-1)!=date) {
+				if(lastDate.addDays(-1).dayOfWeek() < 6) {
+				// It's a weekday.
+					values.insert(lastDate.addDays(-1), value.toDouble());
+				}
+				lastDate = lastDate.addDays(-1);
 			}
-			lastDate = lastDate.addDays(-1);
 		}
 
 		if(date.dayOfWeek() < 6) {
