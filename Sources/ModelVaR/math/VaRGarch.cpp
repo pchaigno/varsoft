@@ -118,13 +118,13 @@ void VaRGarch::setParamJson(ReportDataJson * data)
 	QList<QMap<QString,QString> > listParam;
 
 	QMap<QString,QString> param;
-	param["Title"]="Number of scenario";
-	param["Value"]=nbScenarios;
+	param["Title"]="Number of scenarios";
+	param["Value"]=QString::number(nbScenarios);
 	listParam.append(param);
 
 	QMap<QString,QString> param2;
-	param2["Title"]="Number of iteration";
-	param2["Value"]=nbInitIterations;
+	param2["Title"]="Number of iterations";
+	param2["Value"]=QString::number(nbInitIterations);
 	listParam.append(param2);
 
 	data->addList("params",listParam);

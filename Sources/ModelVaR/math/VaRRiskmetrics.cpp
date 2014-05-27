@@ -73,7 +73,7 @@ void VaRRiskmetrics::setParamJson(ReportDataJson * data)
 	QList<QMap<QString,QString> > listParam;
 	QMap<QString,QString> param;
 	param["Title"]="Initial period";
-	param["Value"]=initPeriod;
+	param["Value"]=QString::number(initPeriod);
 	listParam.append(param);
 	data->addList("params",listParam);
 }

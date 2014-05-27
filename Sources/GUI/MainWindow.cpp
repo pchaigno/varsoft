@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
 	connect(ui->actionCreateAsset, SIGNAL(triggered()), this, SLOT(openImportDialog()));
 
 	SessionFolderDialog* sessionFolderDialog = new SessionFolderDialog(this);
+	connect(sessionFolderDialog,SIGNAL(sessionBuild(QList<Portfolio*>)),this,SLOT(buildSession(QList<Portfolio*>)));
 	sessionFolderDialog->setAttribute(Qt::WA_DeleteOnClose);
 	sessionFolderDialog->show();
 
@@ -131,6 +132,14 @@ void MainWindow::openNewPortfolioDialog() {
 	connect(fen,SIGNAL(newPortfolioCreated(Portfolio*)),portfolioListModel,SLOT(addPortfolio(Portfolio*)));
 	fen->setAttribute(Qt::WA_DeleteOnClose);
 	fen->show();
+}
+
+void MainWindow::buildSession(QList<Portfolio *> listPorfolio)
+{
+	foreach(Portfolio * portfolio, listPorfolio)
+	{
+		portfolioListModel->addPortfolio(portfolio);
+	}
 }
 
 /**
@@ -238,10 +247,6 @@ void MainWindow::importArchive() {
 	if(archivePath != "") {
 		ImportManager importManager = ImportManager(archivePath);
 		importManager.importArchive();
-
-		foreach(Portfolio * portfolio, importManager.getPortfolios())
-		{
-			portfolioListModel->addPortfolio(portfolio);
-		}
+		buildSession(importManager.getPortfolios());
 	}
 }

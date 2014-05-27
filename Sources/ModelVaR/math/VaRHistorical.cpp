@@ -84,7 +84,7 @@ void VaRHistorical::setParamJson(ReportDataJson * data)
 	QList<QMap<QString,QString> > listParam;
 	QMap<QString,QString> param;
 	param["Title"]="Period";
-	param["Value"]=period;
+	param["Value"]=QString::number(period);
 	listParam.append(param);
 	data->addList("params",listParam);
 }

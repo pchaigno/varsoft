@@ -294,7 +294,7 @@ void SessionSaver::saveReports(const Portfolio* portfolio, const QList<Report*>&
 	foreach(Report* report, reports) {
 		if(report->isAbsent()) {
 			query.bindValue(":portfolio", portfolio->getId());
-			query.bindValue(":file", report->getAbsolutePathToFile());
+			query.bindValue(":file", report->getFilename());
 			query.bindValue(":type", report->getType());
 			query.exec();
 			report->setId(query.lastInsertId().toInt());

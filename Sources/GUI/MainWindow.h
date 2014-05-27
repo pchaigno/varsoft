@@ -78,7 +78,7 @@ private slots:
 	void openDocxGenPathDialog();
 	void openNewPortfolioDialog();
 
-
+	void buildSession(QList<Portfolio*> listPorfolio);
 
 	void showError(const QString& errorMsg);
 

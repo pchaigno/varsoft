@@ -33,6 +33,8 @@ void SessionFolderDialog::on_okButton_clicked() {
 	}
 
 	SessionSaver::setSessionFolder(QDir(ui->filePath->text()));
+	QList<Portfolio*> list = SessionBuilder::getInstance()->buildSession();
+	emit sessionBuild(list);
 	this->close();
 }
 
