@@ -21,7 +21,7 @@
 #include "Asset.h"
 #include "Portfolio.h"
 
-class MODELVARSHARED_EXPORT DataModel: public QAbstractTableModel {
+class DataModel: public QAbstractTableModel {
 	Q_OBJECT
 public:
 	explicit DataModel(QObject *parent = 0);
