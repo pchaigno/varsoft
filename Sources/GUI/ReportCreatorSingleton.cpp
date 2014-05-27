@@ -24,7 +24,7 @@ ReportCreatorSingleton::ReportCreatorSingleton()
 }
 
 
-void ReportCreatorSingleton::generate(ReportFactory *factory, Portfolio *portfolio)
+void ReportCreatorSingleton::generate(ReportFactory *factory)
 {
 	Report * report;
 	try
@@ -37,7 +37,7 @@ void ReportCreatorSingleton::generate(ReportFactory *factory, Portfolio *portfol
 		int button = QMessageBox::information(NULL,"Report already created","This report has already been created.\nDo you want to regenerate it ?",QMessageBox::Yes|QMessageBox::No,QMessageBox::No);
 		if (button==QMessageBox::Yes)
 		{
-			portfolio->removeReport(*(e.getReport()));
+			factory->getPortfolio()->removeReport(*(e.getReport()));
 			report = factory->buildReport();
 		}
 		else
@@ -46,7 +46,7 @@ void ReportCreatorSingleton::generate(ReportFactory *factory, Portfolio *portfol
 		}
 	}
 
-	portfolio->addReport(report);
+	factory->getPortfolio()->addReport(report);
 
 	QSettings settings;
 	DocxGenerator * generator = new DocxGenerator(report,settings.value("DocXGenPath","../Resources/DocxGenerator/DocXGenerator.jar").toString());

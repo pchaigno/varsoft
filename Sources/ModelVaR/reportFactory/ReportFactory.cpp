@@ -20,8 +20,8 @@
 /**
  * @brief ReportFactory::ReportFactory
  */
-ReportFactory::ReportFactory() {
-
+ReportFactory::ReportFactory(Portfolio *portfolio) {
+	this->portfolio=portfolio;
 }
 
 /**
@@ -34,6 +34,11 @@ Report *ReportFactory::buildReport() {
 		throw ReportAlreadyCreatedException(report,"Report files are available on the disk, maybe this report has already been created before.");
 	report->setDataJson(createJson());
 	return report;
+}
+
+Portfolio *ReportFactory::getPortfolio() const
+{
+	return portfolio;
 }
 
 /**

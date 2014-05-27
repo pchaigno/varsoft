@@ -20,8 +20,8 @@
 /**
  * @brief Constructor
  */
-StatisticsReportFactory::StatisticsReportFactory(Portfolio * portfolio): ReportFactory() {
-	this->portfolio=portfolio;
+StatisticsReportFactory::StatisticsReportFactory(Portfolio * portfolio): ReportFactory(portfolio) {
+
 }
 
 /**

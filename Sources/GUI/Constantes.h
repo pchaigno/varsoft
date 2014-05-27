@@ -25,4 +25,4 @@
 
 #include "ReportCreatorSingleton.h"
 
-#define GenerateReport(factory,port) ReportCreatorSingleton::get()->generate(factory,port)
+#define GenerateReport(factory) ReportCreatorSingleton::get()->generate(factory)

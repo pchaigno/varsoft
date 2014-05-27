@@ -31,6 +31,5 @@ protected:
 	virtual ReportDataJson* createJson();
 
 private:
-	Portfolio * portfolio;
 	GarchModel garchModel;
 };

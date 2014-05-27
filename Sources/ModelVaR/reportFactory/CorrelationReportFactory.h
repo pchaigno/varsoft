@@ -30,6 +30,5 @@ public:
 protected:
 	virtual Report *createReport();
 	virtual ReportDataJson* createJson();
-	Portfolio *portfolio;
 	QList<CorrelationResults> *results;
 };

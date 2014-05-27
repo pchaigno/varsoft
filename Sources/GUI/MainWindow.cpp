@@ -168,7 +168,7 @@ void MainWindow::generateStatsReport() {
 		// get the current portfolio
 		Portfolio * port = this->getCurrentPortfolio();
 
-		GenerateReport(new StatisticsReportFactory(port),port);
+		GenerateReport(new StatisticsReportFactory(port));
 
 	} catch (ReportAlreadyCreatedException & e) {
 

@@ -23,7 +23,7 @@
  * @param pdfPath The location of the PDF file on the disk.
  */
 CorrelationReportFactory::CorrelationReportFactory(Portfolio *port, QList<CorrelationResults> *results):
-	ReportFactory() {
+	ReportFactory(portfolio) {
 	this->portfolio = port;
 	this->results = results;
 }

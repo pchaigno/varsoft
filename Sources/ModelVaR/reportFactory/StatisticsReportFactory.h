@@ -41,7 +41,5 @@ protected:
 	double getMin(QVector<double> values);
 	double getKurtosis(QVector<double> values);
 
-	Portfolio * portfolio;
-
 
 };

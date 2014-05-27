@@ -64,10 +64,10 @@ void VarDialog::accept()
 		double var = algo->execute(date);
 		if (QMessageBox::question(this,"Value-at-risk","Value-at-risk :"+QString::number(var)+"\n Do you want to generate the report ?")==QMessageBox::Yes)
 		{
-			GenerateReport(new VaRReportFactory(portfolio,var,algo,date),portfolio);
+			GenerateReport(new VaRReportFactory(portfolio,var,algo,date));
 			if (currentMethod==GARCHMETHOD)
 			{
-				GenerateReport(new GarchReportFactory(portfolio,*model),portfolio);
+				GenerateReport(new GarchReportFactory(portfolio,*model));
 			}
 		}
 		this->QDialog::accept();

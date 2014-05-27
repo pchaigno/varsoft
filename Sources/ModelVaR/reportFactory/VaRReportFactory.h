@@ -32,7 +32,6 @@ protected:
 	virtual ReportDataJson* createJson();
 
 private:
-	Portfolio * portfolio;
 	double var;
 	VaRAlgorithm * varAlgo;
 	QDate date;

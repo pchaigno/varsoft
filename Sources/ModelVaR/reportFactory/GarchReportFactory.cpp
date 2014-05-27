@@ -22,7 +22,7 @@
  * @param docxPath The location of the DOCX file on the disk.
  * @param pdfPath The location of the PDF file on the disk.
  */
-GarchReportFactory::GarchReportFactory(Portfolio *portfolio, GarchModel &garch): ReportFactory(), garchModel(garch) {
+GarchReportFactory::GarchReportFactory(Portfolio *portfolio, GarchModel &garch): ReportFactory(portfolio), garchModel(garch) {
 	this->portfolio=portfolio;
 }
 

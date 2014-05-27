@@ -25,15 +25,19 @@
 #include "exceptions/ReportException.h"
 #include <QDebug>
 #include "SessionSaver.h"
+#include "Portfolio.h"
 
 class MODELVARSHARED_EXPORT ReportFactory {
 public:
-	ReportFactory();
+	ReportFactory(Portfolio * porftolio);
 
 	Report *buildReport();
+
+	Portfolio * getPortfolio() const;
 protected:
 	virtual Report * createReport() =0;
 	virtual ReportDataJson* createJson() = 0;
 	QString getReportDir() const;
+	Portfolio * portfolio;
 
 };

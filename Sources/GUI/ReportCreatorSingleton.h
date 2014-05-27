@@ -43,7 +43,7 @@ public:
 		return instance;
 	}
 
-	void generate(ReportFactory * factory, Portfolio * portfolio);
+	void generate(ReportFactory * factory);
 
 signals:
 

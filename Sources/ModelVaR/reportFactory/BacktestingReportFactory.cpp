@@ -20,7 +20,7 @@
 /**
  * @brief Constructor
  */
-BacktestingReportFactory::BacktestingReportFactory(/*Backtesting *backtesting*/): ReportFactory() {
+BacktestingReportFactory::BacktestingReportFactory(/*Backtesting *backtesting*/): ReportFactory(NULL) {
 //	this->backtesting = backtesting;
 }
 

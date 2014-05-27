@@ -20,7 +20,7 @@
 /**
  * @brief Constructor
  */
-VaRReportFactory::VaRReportFactory(Portfolio *portfolio, double var, VaRAlgorithm * varAlgo, QDate date): ReportFactory() {
+VaRReportFactory::VaRReportFactory(Portfolio *portfolio, double var, VaRAlgorithm * varAlgo, QDate date): ReportFactory(portfolio) {
 	this->portfolio=portfolio;
 	this->var=var;
 	this->varAlgo=varAlgo;

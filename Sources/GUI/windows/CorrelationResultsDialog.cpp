@@ -78,7 +78,7 @@ void CorrelationResultsDialog::on_testAgain_clicked() {
 */
 void CorrelationResultsDialog::on_generate_clicked() {
 	//generer le rapport
-	GenerateReport(new CorrelationReportFactory(portfolio, results),portfolio);
+	GenerateReport(new CorrelationReportFactory(portfolio, results));
 	this->close();
 }
 
