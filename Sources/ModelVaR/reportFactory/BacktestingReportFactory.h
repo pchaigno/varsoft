@@ -22,9 +22,11 @@
 
 class MODELVARSHARED_EXPORT BacktestingReportFactory: public ReportFactory {
 public:
-	BacktestingReportFactory();
+	BacktestingReportFactory(/*Backtesting * backtesting*/);
 
 protected:
 	virtual Report *createReport();
 	virtual ReportDataJson* createJson();
+
+//	Backtesting * backtesting;
 };

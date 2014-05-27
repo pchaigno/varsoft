@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT += testlib sql
+QT += testlib sql printsupport
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = main

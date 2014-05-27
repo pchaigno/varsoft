@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tab_3">
       <attribute name="title">
@@ -228,7 +228,7 @@
             <number>1</number>
            </property>
            <property name="maximum">
-            <number>999999999</number>
+            <number>9999999</number>
            </property>
           </widget>
          </item>
@@ -295,7 +295,11 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QSpinBox" name="scenario_garch"/>
+          <widget class="QSpinBox" name="scenario_garch">
+           <property name="maximum">
+            <number>9999999</number>
+           </property>
+          </widget>
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="label_15">
@@ -305,7 +309,11 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QSpinBox" name="iteration_garch"/>
+          <widget class="QSpinBox" name="iteration_garch">
+           <property name="maximum">
+            <number>9999999</number>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>

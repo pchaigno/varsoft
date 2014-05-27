@@ -32,7 +32,12 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
 	sessionFolderDialog->show();
 
 	connect(ui->actionGenerate_Stats_Report,SIGNAL(triggered()),this,SLOT(generateStatsReport()));
+
 	connect(ui->actionGenerate_Correlation_Report,SIGNAL(triggered()),this,SLOT(openCorrelationDialog()));
+
+
+	connect(ui->actionRun_Backtesting, SIGNAL(triggered()),this,SLOT(runBacktesting()));
+
 
 	ui->listView->setModel(portfolioListModel);
 	connect(ui->removePushButton, SIGNAL(clicked()), ui->listView, SLOT(removeSelectedPortfolio()));
@@ -248,5 +253,14 @@ void MainWindow::importArchive() {
 		ImportManager importManager = ImportManager(archivePath);
 		importManager.importArchive();
 		buildSession(importManager.getPortfolios());
+	}
+}
+
+void MainWindow::runBacktesting() {
+	try {
+		BacktestingDialog * backtestingDialog = new BacktestingDialog(this, getCurrentPortfolio());
+		backtestingDialog->show();
+	} catch (NoneSelectedPortfolioException& ) {
+		showError("No portfolio selected");
 	}
 }

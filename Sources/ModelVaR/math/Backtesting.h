@@ -19,10 +19,13 @@
 
 #include "Portfolio.h"
 #include "VaRAlgorithm.h"
+#include <Report>
+#include <ReportFactory>
 #include <QPair>
 #include <QDate>
+#include <QThread>
 
-class MODELVARSHARED_EXPORT Backtesting {
+class MODELVARSHARED_EXPORT Backtesting : public QThread {
 private:
 	const Portfolio& portfolio;
 	const VaRAlgorithm& varAlgo;
@@ -31,4 +34,6 @@ private:
 public:
 	Backtesting(const Portfolio& portfolio, const VaRAlgorithm& varAlgo, const QPair<QDate, QDate>& backtestperiod);
 	int compute() const;
+
+	void run();
 };

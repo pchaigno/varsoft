@@ -32,6 +32,7 @@ SOURCES += main.cpp\
 		windows/CorrelationDialog.cpp \
 		ReportCreatorSingleton.cpp \
 		SessionFolderDialog.cpp \
+		BacktestingDialog.cpp \
 		windows/VaRResultsDialog.cpp
 
 HEADERS += MainWindow.h \
@@ -54,6 +55,7 @@ HEADERS += MainWindow.h \
 		windows/CorrelationResultsDialog.h \
 		windows/CorrelationDialog.h \
 		ReportCreatorSingleton.h \
+		BacktestingDialog.h \
 		SessionFolderDialog.h \
 		windows/VaRResultsDialog.h
 
@@ -69,6 +71,7 @@ FORMS += MainWindow.ui \
 		windows/correlationRes.ui \
 		windows/correlation.ui \
 		SessionFolderDialog.ui \
+		BacktestingDialog.ui \
 		windows/VaRResultsDialog.ui
 
 

@@ -48,6 +48,7 @@
 #include "SessionSaver.h"
 #include "windows/VarDialog.h"
 #include "Constantes.h"
+#include "BacktestingDialog.h"
 #include "ImportManager.h"
 #include "ExportManager.h"
 #include "SessionFolderDialog.h"
@@ -87,6 +88,8 @@ private slots:
 
 	void importArchive();
 	void exportArchive();
+	
+	void runBacktesting();
 
 private:
 	Portfolio *getCurrentPortfolio() const;

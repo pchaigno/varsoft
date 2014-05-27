@@ -20,8 +20,8 @@
 /**
  * @brief Constructor
  */
-BacktestingReportFactory::BacktestingReportFactory(): ReportFactory() {
-
+BacktestingReportFactory::BacktestingReportFactory(/*Backtesting *backtesting*/): ReportFactory() {
+//	this->backtesting = backtesting;
 }
 
 /**
@@ -29,7 +29,13 @@ BacktestingReportFactory::BacktestingReportFactory(): ReportFactory() {
  * @return a pointer to the backtesting report juste created
  */
 Report *BacktestingReportFactory::createReport() {
-	return new BacktestingReport();
+//	QString file = this->getReportDir()+QString("backtestingReport");
+//	QString portfolio = this->backtesting->getPortfolio().getName();
+//	QString varAlgo = QString(typeid(this->backtesting->getVarAlgo()).name());
+//	QString backtestingStartDate = this->backtesting->getBacktestperiod().first.toString("dd-MM-yy");
+//	QString backtestingEndDate = this->backtesting->getBacktestperiod().second.toString("dd-MM-yy");
+//	file += "_"+portfolio+"_"+varAlgo+"_"+backtestingStartDate+"_"+backtestingEndDate;
+//	return new BacktestingReport(file);
 }
 
 /**
@@ -37,5 +43,8 @@ Report *BacktestingReportFactory::createReport() {
  * @return
  */
 ReportDataJson *BacktestingReportFactory::createJson() {
+	ReportDataJson* data = new ReportDataJson();
+//	data->addText("portefeuilleName", backtesting->getPortfolio().getName());
 
+	return data;
 }

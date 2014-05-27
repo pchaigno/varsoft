@@ -232,6 +232,7 @@
    <addaction name="actionGenerate_Stats_Report"/>
    <addaction name="actionGenerate_VaR"/>
    <addaction name="actionGenerate_Correlation_Report"/>
+   <addaction name="actionRun_Backtesting"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionOuvrir">
@@ -299,6 +300,14 @@
     <string>Generate VaR</string>
 	</property>
    </action>
+  <action name="actionRun_Backtesting">
+   <property name="text">
+    <string>Run Backtesting</string>
+   </property>
+   <property name="toolTip">
+    <string>Run Backtesting</string>
+   </property>
+  </action>
   <action name="actionImport">
    <property name="text">
     <string>Import</string>
