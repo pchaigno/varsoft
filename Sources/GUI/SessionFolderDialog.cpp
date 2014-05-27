@@ -19,7 +19,6 @@
 
 SessionFolderDialog::SessionFolderDialog(QWidget *parent): QDialog(parent), ui(new Ui::SessionFolderDialog) {
 	ui->setupUi(this);
-	this->setting.setValue("path", "C:/");
 }
 
 SessionFolderDialog::~SessionFolderDialog() {
@@ -44,10 +43,10 @@ void SessionFolderDialog::on_cancelButton_clicked() {
 }
 
 void SessionFolderDialog::on_selectButton_clicked() {
-	QString path = this->setting.value("path").toString();
+	QString path = this->setting.value("sessionFolder", "C:/").toString();
 	QFileInfo sessionFolder = QFileDialog::getExistingDirectory(this, ("Save in"), path, QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 	if(sessionFolder.isDir()) {
-		this->setting.setValue("path", sessionFolder.absolutePath());
+		this->setting.setValue("sessionFolder", sessionFolder.filePath());
 		ui->filePath->setText(sessionFolder.filePath());
 	}
 }

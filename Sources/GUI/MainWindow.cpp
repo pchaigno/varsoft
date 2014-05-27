@@ -27,11 +27,6 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
 
 	connect(ui->actionCreateAsset, SIGNAL(triggered()), this, SLOT(openImportDialog()));
 
-	SessionFolderDialog* sessionFolderDialog = new SessionFolderDialog(this);
-	connect(sessionFolderDialog,SIGNAL(sessionBuild(QList<Portfolio*>)),this,SLOT(buildSession(QList<Portfolio*>)));
-	sessionFolderDialog->setAttribute(Qt::WA_DeleteOnClose);
-	sessionFolderDialog->show();
-
 	connect(ui->actionGenerate_Stats_Report,SIGNAL(triggered()),this,SLOT(generateStatsReport()));
 
 	connect(ui->actionGenerate_Correlation_Report,SIGNAL(triggered()),this,SLOT(openCorrelationDialog()));
@@ -63,6 +58,11 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
 	QCoreApplication::setApplicationName("VaRSoft");
 
 	readSettings();
+
+	SessionFolderDialog* sessionFolderDialog = new SessionFolderDialog(this);
+	connect(sessionFolderDialog,SIGNAL(sessionBuild(QList<Portfolio*>)),this,SLOT(buildSession(QList<Portfolio*>)));
+	sessionFolderDialog->setAttribute(Qt::WA_DeleteOnClose);
+	sessionFolderDialog->show();
 
 	initResources();
 }
