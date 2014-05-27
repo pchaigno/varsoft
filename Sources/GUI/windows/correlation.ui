@@ -70,6 +70,12 @@
      <property name="minimum">
       <number>1</number>
      </property>
+     <property name="maximum">
+      <number>999999</number>
+     </property>
+     <property name="singleStep">
+      <number>10</number>
+     </property>
     </widget>
    </item>
    <item>
@@ -84,8 +90,14 @@
      <property name="minimum">
       <number>1</number>
      </property>
-     <property name="value">
+     <property name="maximum">
+      <number>999999</number>
+     </property>
+     <property name="singleStep">
       <number>10</number>
+     </property>
+     <property name="value">
+      <number>100</number>
      </property>
     </widget>
    </item>

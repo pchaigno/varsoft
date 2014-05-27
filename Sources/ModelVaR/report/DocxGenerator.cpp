@@ -73,7 +73,7 @@ void DocxGenerator::generate() {
 		}
 	} else {
 		if (!QFile::exists(prog))
-			throw std::invalid_argument("DocXGenerator does not exists on the disk.");
+			throw std::invalid_argument("DocXGenerator does not exists on disk.");
 		else if (!QFile::exists(report->getTemplateFile()))
 			throw std::invalid_argument("Template report ("+report->getTemplateFile().toStdString()+") does not exist.");
 	}
@@ -88,16 +88,16 @@ void DocxGenerator::manageError(QProcess::ProcessError error)
 			message="The process failed to start. Please try again or contact the administrator.";
 			break;
 		case QProcess::Crashed:
-			message="The program DocxGenerator has crashed. Please try again or contact the administrator.";
+			message="The program DocXGenerator has crashed. Please try again or contact the administrator.";
 			break;
 		case QProcess::Timedout:
-			message="The program DocxGenerator took too long to execute. Please try again or contact the administrator.";
+			message="A timeout was reached while waiting for DocXGenerator. Please try again or contact the administrator.";
 			break;
 		case QProcess::WriteError:
-			message="The program DocxGenerator got a error during the writing in the input. Please try again or contact the administrator.";
+			message="The program DocXGenerator errored while writing the reports. Please try again or contact the administrator.";
 			break;
 		case QProcess::ReadError:
-			message="The program DocxGenerator got a error during reading. Please try again or contact the administrator.";
+			message="The program DocXGenerator errored while reading input data. Please try again or contact the administrator.";
 			break;
 		case QProcess::UnknownError:
 		default:
