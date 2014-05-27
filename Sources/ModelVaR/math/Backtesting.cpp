@@ -62,8 +62,3 @@ int Backtesting::compute() const {
 
 	return nbDaysLossGreaterThanVaR;
 }
-
-void Backtesting::run()
-{
-	compute();
-}
