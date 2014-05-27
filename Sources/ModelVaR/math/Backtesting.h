@@ -19,11 +19,8 @@
 
 #include "Portfolio.h"
 #include "VaRAlgorithm.h"
-#include <Report>
-#include <ReportFactory>
 #include <QPair>
 #include <QDate>
-#include <QThread>
 
 class MODELVARSHARED_EXPORT Backtesting{
 private:

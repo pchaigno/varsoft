@@ -2,7 +2,14 @@
 
 #include <QDialog>
 #include <QMessageBox>
-#include <Math>
+#include "Portfolio.h"
+#include "math/GarchModel.h"
+#include "math/VaRAlgorithm.h"
+#include "math/VaRGarch.h"
+#include "math/VaRHistorical.h"
+#include "math/VaRRiskmetrics.h"
+#include "math/RInterface.h"
+#include "math/Backtesting.h"
 
 namespace Ui {
 	class BacktestingDialog;

@@ -97,10 +97,11 @@ void ReportView::addToLayout(ReportWidget *reportWidget)
 void ReportView::updateReportWidgetList()
 {
 	clearLayout(true);
-	foreach(Report * report, current->getReports())
-	{
-		addReport(report);
-	}
+	if (current!=NULL)
+		foreach(Report * report, current->getReports())
+		{
+			addReport(report);
+		}
 }
 
 /**

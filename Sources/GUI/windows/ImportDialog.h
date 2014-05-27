@@ -23,7 +23,7 @@
 #include "SQLiteManager.h"
 #include "SessionBuilder.h"
 #include "AssetsFactory.h"
-#include "MainWindow.h"
+#include "import/GetStartEndDates.h"
 #include <QDateTime>
 #include <QDialog>
 #include <QDir>

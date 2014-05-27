@@ -21,10 +21,16 @@
 
 #include <QDialog>
 #include "Portfolio.h"
-#include <Math>
 #include "QMessageBox"
 #include "Constantes.h"
-#include "ReportFactory"
+#include "reportFactory/VaRReportFactory.h"
+#include "reportFactory/GarchReportFactory.h"
+#include "math/GarchModel.h"
+#include "math/VaRAlgorithm.h"
+#include "math/VaRGarch.h"
+#include "math/VaRHistorical.h"
+#include "math/VaRRiskmetrics.h"
+#include "math/RInterface.h"
 
 namespace Ui {
 class VarDialog;

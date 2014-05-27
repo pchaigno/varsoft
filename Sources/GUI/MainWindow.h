@@ -24,29 +24,31 @@
 #include <QFile>
 #include <QFileDialog>
 #include <QTableWidgetItem>
-#include <ReportFactory>
-#include <Report>
-#include <Import>
+#include <QDate>
+#include <QMessageBox>
+
+#include "reportFactory/StatisticsReportFactory.h"
+
+#include "report/Report.h"
+#include "report/ReportGenerator.h"
+
 #include "windows/ImportDialog.h"
 #include "windows/NewPortfolioWizard.h"
-#include "portfolio/PortfolioListModel.h"
-#include "report/ReportGenerator.h"
-#include "portfolio/DataModel.h"
-#include "exceptions/NoneSelectedPortfolioException.h"
-#include "exceptions/ReportException.h"
-#include <QMessageBox>
-#include "FlowLayout.h"
-#include "portfolio/report/ReportWidget.h"
-#include "portfolio/report/ReportWidgetFactory.h"
 #include "windows/DocxGenPathDialog.h"
-#include "ui_MainWindow.h"
-#include <QDate>
+#include "windows/CorrelationDialog.h"
+#include "windows/VarDialog.h"
+
+#include "portfolio/PortfolioListModel.h"
+#include "portfolio/DataModel.h"
 #include "portfolio/report/ReportView.h"
 #include "portfolio/PortfolioViewMediator.h"
+
+#include "exceptions/NoneSelectedPortfolioException.h"
+#include "exceptions/ReportException.h"
+
+#include "ui_MainWindow.h"
 #include "CreateAsset.h"
-#include "windows/CorrelationDialog.h"
 #include "SessionSaver.h"
-#include "windows/VarDialog.h"
 #include "Constantes.h"
 #include "BacktestingDialog.h"
 #include "ImportManager.h"

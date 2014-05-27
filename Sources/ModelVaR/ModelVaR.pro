@@ -114,10 +114,6 @@ HEADERS +=\
 	exceptions/ExportException.h \
 	exceptions/ReportException.h \
 	exceptions/ReportAlreadyCreatedException.h \
-	ReportFactory \
-	Import \
-	Math \
-	Report \
 	Savable.h \
 	CorrelationResults.h \
 	Savable.h \

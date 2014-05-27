@@ -16,8 +16,12 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #pragma once
-
-#include <Report>
+#include "report/Report.h"
+#include "report/BacktestingReport.h"
+#include "report/CorrelationReport.h"
+#include "report/GarchReport.h"
+#include "report/StatisticsReport.h"
+#include "report/VaRReport.h"
 #include <QtTest>
 
 class TestReport: public QObject {

@@ -23,7 +23,7 @@
 #include "CorrelationDialog.h"
 #include "MainWindow.h"
 #include "Constantes.h"
-#include <ReportFactory>
+#include "reportFactory/CorrelationReportFactory.h"
 #include <QDialog>
 #include <QException>
 

@@ -18,11 +18,12 @@
 
 #pragma once
 
-#include <Report>
-#include <ReportFactory>
+#include "report/Report.h"
+#include "reportFactory/ReportFactory.h"
 #include <QObject>
 #include "Portfolio.h"
 #include <QMessageBox>
+#include <QSettings>
 
 class ReportCreatorSingleton : public QObject
 {

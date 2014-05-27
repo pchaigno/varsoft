@@ -19,7 +19,6 @@
 #pragma once
 
 #include <QtTest>
-#include <Math>
 #include "Portfolio.h"
 #include <QDir>
 #include <QMap>

@@ -20,7 +20,7 @@
 #include <QWidget>
 #include <QPainter>
 #include <QDesktopServices>
-#include <Report>
+#include "report/Report.h"
 #include <QMessageBox>
 #include <QFileInfo>
 
