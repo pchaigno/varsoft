@@ -21,11 +21,11 @@
 #include <QString>
 #include "Portfolio.h"
 #include "Asset.h"
-#include "GarchReport.h"
-#include "VaRReport.h"
-#include "StatisticsReport.h"
-#include "CorrelationReport.h"
-#include "BacktestingReport.h"
+#include "report/GarchReport.h"
+#include "report/VaRReport.h"
+#include "report/StatisticsReport.h"
+#include "report/CorrelationReport.h"
+#include "report/BacktestingReport.h"
 #include <QDate>
 #include <QVector>
 #include "AssetsFactory.h"

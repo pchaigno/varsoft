@@ -19,7 +19,7 @@ script:
   - cd Sources/build
   - qmake QMAKE_CXX=$CXX CONFIG+=$CONFIG ../ProjetVaR.pro
   - make
-  - export LD_LIBRARY_PATH="ModelVaR;quazip/quazip"
+  - export LD_LIBRARY_PATH="ModelVaR;quazip/quazip;qcustomplot"
   - TestUnitaire/main
   - cd ../..
   - python Travis/conventions.py Sources/ModelVaR/ Sources/TestUnitaire/ Sources/GUI/

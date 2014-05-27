@@ -22,6 +22,7 @@
 #include "ui_SessionFolderDialog.h"
 #include <QSettings>
 #include "SessionSaver.h"
+#include "SessionBuilder.h"
 #include <QMessageBox>
 
 namespace Ui {
@@ -30,6 +31,9 @@ namespace Ui {
 
 class SessionFolderDialog : public QDialog {
 	Q_OBJECT
+
+signals:
+	void sessionBuild(QList<Portfolio*>);
 
 public:
 	explicit SessionFolderDialog(QWidget *parent = 0);

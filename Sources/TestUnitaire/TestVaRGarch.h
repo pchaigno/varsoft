@@ -19,14 +19,14 @@
 
 #include <QtTest>
 #include "TestRInterface.h"
-#include "VaRGarch.h"
+#include "math/VaRGarch.h"
 
 class TestVaRGarch: public QObject {
 	Q_OBJECT
 
 private:
-	Portfolio father;
-	Portfolio uncle;
+	Portfolio* father;
+	Portfolio* uncle;
 
 public:
 	TestVaRGarch();

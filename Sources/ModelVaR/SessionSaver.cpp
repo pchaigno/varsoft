@@ -58,6 +58,7 @@ bool SessionSaver::saveAsset(Asset& asset) {
  * @param portfolios The portfolios of the session.
  */
 void SessionSaver::saveSession(QList<Portfolio*> portfolios) {
+
 	this->openConnection();
 
 	// The assets must be saved first:
@@ -147,6 +148,7 @@ void SessionSaver::savePortfolios(QList<Portfolio*> portfolios) const {
 	QSqlQuery queryWeights(this->db);
 	queryPortfolios.prepare("INSERT INTO portfolios(id, name, parent) VALUES(NULL, :name, :parent);");
 	queryWeights.prepare("INSERT INTO weights(asset, portfolio, weight) VALUES(:asset, :portfolio, :weight);");
+
 	foreach(Portfolio* portfolio, portfolios) {
 		if(portfolio->isAbsent()) {
 			queryPortfolios.bindValue(":name", portfolio->getName());
@@ -292,7 +294,7 @@ void SessionSaver::saveReports(const Portfolio* portfolio, const QList<Report*>&
 	foreach(Report* report, reports) {
 		if(report->isAbsent()) {
 			query.bindValue(":portfolio", portfolio->getId());
-			query.bindValue(":file", report->getFile());
+			query.bindValue(":file", report->getFilename());
 			query.bindValue(":type", report->getType());
 			query.exec();
 			report->setId(query.lastInsertId().toInt());

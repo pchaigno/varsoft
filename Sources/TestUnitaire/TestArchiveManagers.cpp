@@ -68,7 +68,7 @@ void TestArchiveManagers::testExportImportPortfolios() {
 		foreach(Portfolio* portfolioImported, portfoliosImported) {
 			if(*portfolio == *portfolioImported) {
 				found = true;
-				TestPortfolio::comparePortfolios(*portfolioImported, *portfolio);
+				TestPortfolio::comparePortfolios(portfolioImported, portfolio);
 			}
 		}
 		QVERIFY(found);

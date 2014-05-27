@@ -24,28 +24,30 @@
 #include <QFile>
 #include <QFileDialog>
 #include <QTableWidgetItem>
-#include <QDate>
+#include <ReportFactory>
+#include <Report>
+#include <Import>
+#include "windows/ImportDialog.h"
+#include "windows/NewPortfolioWizard.h"
+#include "portfolio/PortfolioListModel.h"
+#include "report/ReportGenerator.h"
+#include "portfolio/DataModel.h"
+#include "exceptions/NoneSelectedPortfolioException.h"
+#include "exceptions/ReportException.h"
 #include <QMessageBox>
-#include "ImportDialog.h"
-#include "NewPortfolioWizard.h"
-#include "PortfolioItemModel.h"
-#include "ReportFactory.h"
-#include "ReportGenerator.h"
-#include "StatisticsReportFactory.h"
-#include "DocxGenerator.h"
-#include "PortfolioViewModel.h"
-#include "NoneSelectedPortfolioException.h"
-#include "ReportException.h"
 #include "FlowLayout.h"
-#include "ReportWidget.h"
-#include "ReportWidgetFactory.h"
-#include "DocxGenPathDialog.h"
+#include "portfolio/report/ReportWidget.h"
+#include "portfolio/report/ReportWidgetFactory.h"
+#include "windows/DocxGenPathDialog.h"
 #include "ui_MainWindow.h"
+#include <QDate>
+#include "portfolio/report/ReportView.h"
+#include "portfolio/PortfolioViewMediator.h"
 #include "CreateAsset.h"
-#include "GetStartEndDates.h"
-#include "CorrelationDialog.h"
-#include "CorrelationReportFactory.h"
+#include "windows/CorrelationDialog.h"
 #include "SessionSaver.h"
+#include "windows/VarDialog.h"
+#include "Constantes.h"
 #include "BacktestingDialog.h"
 #include "ImportManager.h"
 #include "ExportManager.h"
@@ -67,33 +69,20 @@ public:
 	void initResources();
 	void createFolderIfDoesnotExist(QString folder);
 	void closeEvent(QCloseEvent *event);
-	void generateCorrelationReport(Portfolio *port, QList<CorrelationResults> *results);
 
 private slots:
-	void docxGenPath();
-	void newPortfolio();
-	void showPortfolio(Portfolio* portfolio);
-	void setImportCSV();
 	void generateStatsReport();
-	void showCorrelationWindow();
 
+	void openVarDialog();
+	void openCorrelationDialog();
+	void openImportDialog();
+	void openDocxGenPathDialog();
+	void openNewPortfolioDialog();
 
-	void addPortfolio(Portfolio *);
-	void removeSelectedPortfolio();
-	void reportGenerationDone();
-	void updateReportWidgets();
-	void updateReportWidgets(Portfolio * portfolio);
-	void addReportWidget(Portfolio * portfolio, ReportWidget * reportWidget);
-	void deleteReportWidget();
-	void deleteReportWidget(ReportWidget* reportWidget);
-	void clearReportWidgets(Portfolio * portfolio);
+	void buildSession(QList<Portfolio*> listPorfolio);
 
-	void showError(const QString&errorMsg);
+	void showError(const QString& errorMsg);
 
-	void disableGenerationButton();
-	void enableGenerationButton();
-
-	void deleteReportGenerator();
 
 	void save();
 
@@ -103,11 +92,7 @@ private slots:
 	void runBacktesting();
 
 private:
-	Portfolio *getCurrentPortfolio();
-	Report* buildReport(Portfolio * portfolio, ReportFactory * factory, bool deleteAfter=false);
-	void generateReport(ReportGenerator * gen);
-	void clearLayout(QLayout* layout, bool deleteWidgets = true);
-	ReportWidget *getReportWidgetFromReport(Report * report, Portfolio * portfolio=NULL);
+	Portfolio *getCurrentPortfolio() const;
 
 	Ui::MainWindow *ui;
 	QString stockName;
@@ -116,8 +101,8 @@ private:
 	QString fileName;
 	QString origin;
 	QString path;
-	PortfolioItemModel * portfolioListModel;
-	QHash<Portfolio*, PortfolioViewModel*> portfoliosModels;
-	QHash<Portfolio*, QList<ReportWidget*> > portfolioReportWidgets;
-	FlowLayout * layoutReports;
+	PortfolioListModel * portfolioListModel;
+	DataModel * dataModel;
+	PortfolioViewMediator* portfolioViewMediator;
+	QString savePath;
 };

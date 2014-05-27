@@ -21,13 +21,13 @@ TestVaRGarch::TestVaRGarch() {
 	QMap<Asset*, int> assets1;
 	assets1.insert(asset1, 1);
 	QList<Report*> reports1;
-	this->father = Portfolio("Father", assets1, reports1);
+	this->father = new Portfolio("Father", assets1, reports1);
 
 	// TEST PORTFOLIO DEFINITION
 	QMap<Asset*, int> assets2;
 	assets2.insert(asset2, 1);
 	QList<Report*> reports2;
-	this->uncle = Portfolio("Uncle", assets2, reports2);
+	this->uncle = new Portfolio("Uncle", assets2, reports2);
 }
 
 /**
@@ -46,10 +46,10 @@ void TestVaRGarch::testExecute() {
 	period.second = QDate(2013,12,30);
 
 	// Garch model computation
-	GarchModel garchModel = RInterface::computeGarchModel(this->father, period);
+	GarchModel garchModel = RInterface::computeGarchModel(*father, period);
 
 	// VaR value varies from one execution to another
-	VaRGarch varGarch(this->father, risk, timeHorizon, garchModel, scenarios, nbInitIterations);
+	VaRGarch varGarch(*father, risk, timeHorizon, garchModel, scenarios, nbInitIterations);
 	double var = varGarch.execute(QDate(2014, 04, 18));
 	// In any case VaR should not be negative
 	QVERIFY(var >= 0);
@@ -73,10 +73,10 @@ void TestVaRGarch::testExecuteThreeDaysHorizon() {
 	period.second = QDate(2013,12,30);
 
 	// Garch model computation
-	GarchModel garchModel = RInterface::computeGarchModel(this->father, period);
+	GarchModel garchModel = RInterface::computeGarchModel(*father, period);
 
 	// VaR value varies from one execution to another
-	VaRGarch varGarch(this->father, risk, timeHorizon, garchModel, scenarios, nbInitIterations);
+	VaRGarch varGarch(*father, risk, timeHorizon, garchModel, scenarios, nbInitIterations);
 	double var = varGarch.execute(QDate(2014, 04, 18));
 	// In any case VaR should not be negative
 	QVERIFY(var >= 0);
@@ -96,15 +96,15 @@ void TestVaRGarch::testExecuteNormalReturns() {
 
 	// Garch model parameters
 	QPair<QDate, QDate> period;
-	period.first = this->uncle.retrieveStartDate();
-	period.second = this->uncle.retrieveEndDate();
+	period.first = this->uncle->retrieveStartDate();
+	period.second = this->uncle->retrieveEndDate();
 
 	// Garch model computation
-	GarchModel garchModel = RInterface::computeGarchModel(this->uncle, period);
+	GarchModel garchModel = RInterface::computeGarchModel(*uncle, period);
 
 	// VaR value varies from one execution to another
 	// It should be around the 0.95-order quantile which is 1.644
-	VaRGarch varGarch(this->uncle, risk, timeHorizon, garchModel, scenarios, nbInitIterations);
+	VaRGarch varGarch(*uncle, risk, timeHorizon, garchModel, scenarios, nbInitIterations);
 	double var = varGarch.execute(QDate(2014, 1, 1));
 	// In any case VaR should not be negative
 	QVERIFY(var >= 0);

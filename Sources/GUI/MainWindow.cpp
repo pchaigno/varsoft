@@ -18,40 +18,48 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 
-MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWindow), portfolioListModel(new PortfolioItemModel(this)) {
+MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWindow), portfolioListModel(new PortfolioListModel(this)) {
 	ui->setupUi(this);
 	this->path = "C:/";
 
+	connect(ui->addPushButton,SIGNAL(clicked()),this,SLOT(openNewPortfolioDialog()));
+
+	connect(ui->actionCreateAsset, SIGNAL(triggered()), this, SLOT(openImportDialog()));
+
 	SessionFolderDialog* sessionFolderDialog = new SessionFolderDialog(this);
+	connect(sessionFolderDialog,SIGNAL(sessionBuild(QList<Portfolio*>)),this,SLOT(buildSession(QList<Portfolio*>)));
 	sessionFolderDialog->setAttribute(Qt::WA_DeleteOnClose);
 	sessionFolderDialog->show();
 
-	connect(ui->actionCreateAsset, SIGNAL(triggered()), this, SLOT(setImportCSV()));
-
 	connect(ui->actionGenerate_Stats_Report,SIGNAL(triggered()),this,SLOT(generateStatsReport()));
+
+	connect(ui->actionGenerate_Correlation_Report,SIGNAL(triggered()),this,SLOT(openCorrelationDialog()));
+
 
 	connect(ui->actionRun_Backtesting, SIGNAL(triggered()),this,SLOT(runBacktesting()));
 
-	connect(ui->actionGenerate_Correlation_Report,SIGNAL(triggered()),this,SLOT(showCorrelationWindow()));
 
 	ui->listView->setModel(portfolioListModel);
 	connect(ui->removePushButton, SIGNAL(clicked()), ui->listView, SLOT(removeSelectedPortfolio()));
-	connect(ui->listView,SIGNAL(portfolioSelected(Portfolio*)),this,SLOT(showPortfolio(Portfolio*)));
 	connect(ui->actionSauvegarder, SIGNAL(triggered()), this, SLOT(save()));
-	connect(ui->removePushButton, SIGNAL(clicked()), this, SLOT(removeSelectedPortfolio()));
-	connect(ui->listView,SIGNAL(portfolioSelected(Portfolio*)),this,SLOT(showPortfolio(Portfolio*)));
-	connect(ui->actionDocXGenerator_path,SIGNAL(triggered()),this,SLOT(docxGenPath()));
+
+	connect(ui->actionGenerate_VaR,SIGNAL(triggered()),this,SLOT(openVarDialog()));
+
+	connect(ui->actionDocXGenerator_path,SIGNAL(triggered()),this,SLOT(openDocxGenPathDialog()));
+
+	dataModel = new DataModel();
+	ui->tableView->setModel(dataModel);
+	portfolioViewMediator = new PortfolioViewMediator(ui->listView,dataModel,ui->reportScrollArea);
+
+	connect(ui->actionDocXGenerator_path,SIGNAL(triggered()),this,SLOT(openDocxGenPathDialog()));
 
 	connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(importArchive()));
 	connect(ui->actionExport, SIGNAL(triggered()), this, SLOT(exportArchive()));
 
-	layoutReports = new FlowLayout;
-	ui->reportScrollArea->setLayout(layoutReports);
-
 	//for QSettings
 	QCoreApplication::setOrganizationName("INSA Rennes");
 	QCoreApplication::setOrganizationDomain("insa-rennes.fr");
-	QCoreApplication::setApplicationName("Projet VaR");
+	QCoreApplication::setApplicationName("VaRSoft");
 
 	readSettings();
 
@@ -61,10 +69,6 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
 MainWindow::~MainWindow() {
 	delete ui;
 	delete portfolioListModel;
-	foreach (Portfolio *portfolio, portfoliosModels.keys()) {
-		delete portfoliosModels[portfolio];
-		delete portfolio;
-	}
 }
 
 /**
@@ -119,7 +123,7 @@ void MainWindow::closeEvent(QCloseEvent *event) {
 /**
  * @brief Open the window to change the DocXGenerator path
  */
-void MainWindow::docxGenPath() {
+void MainWindow::openDocxGenPathDialog() {
 	DocxGenPathDialog * fen = new DocxGenPathDialog(this);
 	fen->setAttribute(Qt::WA_DeleteOnClose);
 	fen->show();
@@ -128,185 +132,19 @@ void MainWindow::docxGenPath() {
 /**
  * @brief MainWindow::newPortfolio open the PortfolioWizard
  */
-void MainWindow::newPortfolio() {
+void MainWindow::openNewPortfolioDialog() {
 	NewPortfolioWizard * fen = new NewPortfolioWizard(this);
-	connect(fen,SIGNAL(newPortfolioCreated(Portfolio*)),this,SLOT(addPortfolio(Portfolio*)));
+	connect(fen,SIGNAL(newPortfolioCreated(Portfolio*)),portfolioListModel,SLOT(addPortfolio(Portfolio*)));
 	fen->setAttribute(Qt::WA_DeleteOnClose);
 	fen->show();
 }
 
-/**
- * @brief Set the model of the specified portfolio to the TableView to display it.
- * @param portfolio
- */
-void MainWindow::showPortfolio(Portfolio * portfolio) {
-	// set the model
-	ui->tableView->setModel(portfoliosModels[portfolio]);
-	updateReportWidgets(portfolio);
-}
-
-/**
- * @brief Display a message in the status bar when the generating of a report is done
- * and delete the reportGenerator which called this slot.
- */
-void MainWindow::reportGenerationDone() {
-	this->statusBar()->showMessage("Generation done.",1500);
-}
-
-/**
- * Clear all the ReportWidget in the Report tab
- * and fill it with the ReportWidget of the current portfolio
- */
-void MainWindow::updateReportWidgets() {
-	updateReportWidgets(getCurrentPortfolio());
-}
-
-/**
- * @brief Same as updateReportWidgets() but with the ReportWidgets of the given portfolio
- * @param portfolio
- */
-void MainWindow::updateReportWidgets(Portfolio *portfolio) {
-	//remove all the reportWidget in the layout
-	clearLayout(layoutReports,false);
-
-	//add the
-	QList<ReportWidget*> listReportWidget = portfolioReportWidgets[portfolio];
-	foreach(ReportWidget * reportWidget, listReportWidget) {
-		layoutReports->addWidget(reportWidget);
-	}
-}
-
-/**
- * @brief add a ReportWidget to the given portfolio
- * @param portfolio
- * @param reportWidget
- */
-void MainWindow::addReportWidget(Portfolio *portfolio, ReportWidget *reportWidget) {
-	portfolioReportWidgets[portfolio].append(reportWidget);
-	reportWidget->setParent(NULL);
-	layoutReports->addWidget(reportWidget);
-	if (ui->tabWidget->currentWidget()!=ui->tabReports)
-		updateReportWidgets(portfolio);
-	connect(reportWidget,SIGNAL(deleteRequest()),this,SLOT(deleteReportWidget()));
-}
-
-/**
- * @brief same as deleteReportWidget(ReportWidget* reportWidget) but
- * called by a signal emit by a ReportWidget. If the sender of the signal is not a ReportWidget*
- * the slot does nothing.
- */
-void MainWindow::deleteReportWidget() {
-	ReportWidget * obj = qobject_cast<ReportWidget*>(sender());
-	if (obj)
-		deleteReportWidget(obj);
-}
-
-/**
- * @brief delete the given ReportWidget and update the list of ReportWidget
- * @param reportWidget
- */
-void MainWindow::deleteReportWidget(ReportWidget* reportWidget) {
-	Report * report = reportWidget->getReport();
-	portfolioReportWidgets[getCurrentPortfolio()].removeOne(reportWidget);
-	getCurrentPortfolio()->removeReport(report);
-	updateReportWidgets();
-	delete reportWidget;
-}
-
-/**
- * @brief Remove all the ReportWidget of the current selected portfolio
- * @param portfolio
- */
-void MainWindow::clearReportWidgets(Portfolio *portfolio) {
-	foreach(ReportWidget * reportWidget, portfolioReportWidgets[portfolio]) {
-		deleteReportWidget(reportWidget);
-	}
-	portfolioReportWidgets[portfolio].clear();
-	portfolioReportWidgets.remove(portfolio);
-}
-
-/**
- * @brief Show a QMessageBox with the given message
- * @param errorMsg the message to be displayed in the QMessageBox
- */
-void MainWindow::showError(const QString & errorMsg) {
-	QMessageBox::critical(this,"Error",errorMsg);
-}
-
-/**
- * @brief Clear all the item in the given layout
- * @param layout
- * @param deleteWidgets
- */
-void MainWindow::clearLayout(QLayout* layout, bool deleteWidgets) {
-	while (QLayoutItem* item = layout->takeAt(0)) {
-		if (deleteWidgets) {
-			if (QWidget* widget = item->widget())
-				delete widget;
-		} else
-			item->widget()->setParent(NULL);
-		if (QLayout* childLayout = item->layout())
-			clearLayout(childLayout, deleteWidgets);
-		delete item;
-	}
-}
-
-/**
- * @brief Return the ReportWidget associate with the given Report and the given Portfolio (optional).
- * If the portfolio is not given, the algo will search in the entiere structure (may be a bit long...).
- * @param report
- * @param portfolio (optional)
- * @return
- */
-ReportWidget *MainWindow::getReportWidgetFromReport(Report *report, Portfolio *portfolio)
+void MainWindow::buildSession(QList<Portfolio *> listPorfolio)
 {
-	if (portfolio==NULL)
+	foreach(Portfolio * portfolio, listPorfolio)
 	{
-		foreach(QList<ReportWidget*> list, portfolioReportWidgets)
-		{
-			foreach(ReportWidget* widget, list)
-			{
-				if (*(widget->getReport())==*report)
-					return widget;
-			}
-		}
+		portfolioListModel->addPortfolio(portfolio);
 	}
-	else
-	{
-		foreach(ReportWidget* widget, portfolioReportWidgets[portfolio])
-		{
-			if (*(widget->getReport())==*report)
-				return widget;
-		}
-
-	}
-	return NULL;
-}
-
-/**
- * @brief Disable all the buttons that generate report
- * (only statistic report for now)
- */
-void MainWindow::disableGenerationButton() {
-	ui->actionGenerate_Stats_Report->setEnabled(false);
-}
-
-/**
- * @brief Enable all the buttons that generate report
- * (only statistic report for now)
- */
-void MainWindow::enableGenerationButton() {
-	ui->actionGenerate_Stats_Report->setEnabled(true);
-}
-
-/**
- * @brief Delete the ReportGenerator which call this slot. (Does nothing if it's not a ReportGenerator
- * which call this slot)
- */
-void MainWindow::deleteReportGenerator() {
-	ReportGenerator* gen = qobject_cast<ReportGenerator*>(sender());
-	if (gen)
-		delete gen;
 }
 
 /**
@@ -314,7 +152,7 @@ void MainWindow::deleteReportGenerator() {
  * Throw a NoneSelectedPortfolioException if none portfolio has been selected.
  * @return the current portfolio
  */
-Portfolio *MainWindow::getCurrentPortfolio() {
+Portfolio *MainWindow::getCurrentPortfolio() const {
 	Portfolio * port = ui->listView->getCurrentPortfolio();
 	if (port==NULL)
 		throw NoneSelectedPortfolioException("None current portfolio.");
@@ -328,15 +166,10 @@ Portfolio *MainWindow::getCurrentPortfolio() {
 void MainWindow::generateStatsReport() {
 	try {
 		// get the current portfolio
-
 		Portfolio * port = this->getCurrentPortfolio();
 
-		// build the stats report
-		Report * report = buildReport(port, new StatisticsReportFactory(port));
+		GenerateReport(new StatisticsReportFactory(port),port);
 
-		// generate it in Docx format
-		QSettings settings;
-		generateReport(new DocxGenerator(report, settings.value("DocXGenPath","../Resources/DocxGenerator/DocXGenerator.jar").toString()));
 	} catch (ReportAlreadyCreatedException & e) {
 
 	} catch (ReportException & e) {
@@ -346,36 +179,28 @@ void MainWindow::generateStatsReport() {
 	}
 }
 
-/**
- * @brief Generates the correlation report of the selected portfolio and add it to the vector
- * of report of the selected portfolio.
- * @param port The Portfolio owner of the report
- * @param results The Results of the preceeding correlation tests
- */
-void MainWindow::generateCorrelationReport(Portfolio *port, QList<CorrelationResults> *results) {
-	try {
-		// build the stats report
-		Report * report = buildReport(port, new CorrelationReportFactory(port, results));
-
-		// generate it in Docx format
-		QSettings settings;
-		generateReport(new DocxGenerator(report, settings.value("DocXGenPath","../Resources/DocxGenerator/DocXGenerator.jar").toString()));
-	} catch (ReportAlreadyCreatedException & e) {
-
-	} catch (ReportException & e) {
-		showError(e.what());
+void MainWindow::openVarDialog()
+{
+	try
+	{
+		Portfolio * port = this->getCurrentPortfolio();
+		VarDialog * fen = new VarDialog(port);
+		fen->setAttribute(Qt::WA_DeleteOnClose);
+		fen->show();
+	} catch (NoneSelectedPortfolioException& ) {
+		showError("None portfolio selected");
 	}
 }
 
 /** Display the window to set up the correlation test
  * @brief MainWindow::showCorrelationWindow
  */
-void MainWindow::showCorrelationWindow(){
+void MainWindow::openCorrelationDialog(){
 	try {
 		// get the current portfolio
 		Portfolio * port = this->getCurrentPortfolio();
 
-		Correlation* correlationDialog = new Correlation(port,this);
+		CorrelationDialog* correlationDialog = new CorrelationDialog(port,this);
 		correlationDialog->setAttribute(Qt::WA_DeleteOnClose);
 		correlationDialog->show();
 
@@ -386,112 +211,21 @@ void MainWindow::showCorrelationWindow(){
 	}
 }
 
-/**
- * @brief Build a report with the specified factory and delete the factory if deleteAfter is false (by default).
- * The report is added to the porttoflio and to the portfolioReportWidgets for the given portfolio, and emit the signal newReportCreated().
- * @param portfolio the owner of the report
- * @param factory the factory which will be used to make the report
- * @param deleteAfter delete the ReportFactory if false (by default), otherwise the factory is not deleted
- * @return The report created by the given factory
- */
-Report *MainWindow::buildReport(Portfolio *portfolio, ReportFactory * factory, bool deleteAfter) {
-	Report * report;
-	try
-	{
-		//build the report
-		report = factory->buildReport();
-	}
-	catch (ReportAlreadyCreatedException & e)
-	{
-		int button = QMessageBox::information(this,"Report already created","This report has already been created.\nDo you want to regenerate it ?",QMessageBox::Yes|QMessageBox::No,QMessageBox::No);
-		if (button==QMessageBox::Yes)
-		{
-			this->deleteReportWidget(getReportWidgetFromReport(e.getReport()));
-			e.getReport()->removeFiles();
-			report = factory->buildReport();
-		}
-		else
-		{
-			throw e;
-		}
-	}
-
-	// add it to the portfolio
-	portfolio->addReport(report);
-
-	//create the ReportWidget for the portfolio
-	ReportWidget * reportWidget = ReportWidgetFactory::buildReportWidget(report);
-	//add the ReportWidget to the layout
-	addReportWidget(portfolio,reportWidget);
-
-	if (!deleteAfter) // delete the factory if it's necessary
-		delete factory;
-	return report;
-}
-
-/**
- * @brief Generate the report file with the specified ReportGenerator.
- * This slot starts a thread for the generating.
- * Show a message in the display bar and connect the finish signal of the thread
- * to the slot reportGenerationDone of MainWindow.
- * @param gen
- */
-void MainWindow::generateReport(ReportGenerator *gen) {
-	disableGenerationButton();
-	this->statusBar()->showMessage("Generation of the report ...",0);
-
-	//notify the report that the generation has been finished
-	connect(gen,SIGNAL(finished()),this,SLOT(enableGenerationButton()));
-	connect(gen,SIGNAL(finished()),this,SLOT(deleteReportGenerator()));
-	//display an error in dialog
-	connect(gen,SIGNAL(error(QString)),this,SLOT(showError(QString)));
-	//display a message in the status bar if the generation was good
-	connect(gen->getReport(),SIGNAL(filesOk()),this,SLOT(reportGenerationDone()));
-	gen->start();
-}
 
 /**
 * @brief Allows to browse the computer to select the file to import
 * Shows the window to set up the import file
 * The last import path is saved when a new import is done
 */
-void MainWindow::setImportCSV() {
+void MainWindow::openImportDialog() {
 	Import* importDialog = new Import(this);
 	importDialog->setAttribute(Qt::WA_DeleteOnClose);
 	importDialog->show();
 }
 
-
-
-/**
- * @brief Add the portfolio to the ListView,
- * create the TableModel, and add it to the Map "portfoliosModels"
- * @param portfolio
- */
-void MainWindow::addPortfolio(Portfolio * portfolio) {
-	portfoliosModels[portfolio] = new PortfolioViewModel(portfolio);
-	portfolioListModel->addPortfolio(portfolio);
-	portfolioReportWidgets[portfolio] = QList<ReportWidget*>();
-}
-
-/**
- * @brief Remove the portfolio selected from the PortfolioListView, delete its PortfolioViewModel
- * and all its ReportWidgets
- */
-void MainWindow::removeSelectedPortfolio() {
-	try {
-		//get the current portfolio
-		Portfolio * portfolio = this->getCurrentPortfolio();
-		//delete its ReportWidget
-		clearReportWidgets(portfolio);
-		//remove the portfolio in the ListView
-		ui->listView->removeSelectedPortfolio();
-		//delete the model
-		delete portfoliosModels[portfolio];
-		portfoliosModels.remove(portfolio);
-	} catch (NoneSelectedPortfolioException& ) {
-		QMessageBox::critical(this,"Error","None portfolio selected");
-	}
+void MainWindow::showError(const QString &errorMsg)
+{
+	QMessageBox::critical(this,"Error",errorMsg);
 }
 
 /**
@@ -499,7 +233,7 @@ void MainWindow::removeSelectedPortfolio() {
  * Ask for the location if none was selected before in a new window.
  */
 void MainWindow::save() {
-	SessionSaver::getInstance()->saveSession(this->portfoliosModels.keys());
+	SessionSaver::getInstance()->saveSession(this->portfolioListModel->getPortfolios());
 }
 
 /**
@@ -509,18 +243,16 @@ void MainWindow::exportArchive() {
 	QString archivePath = QFileDialog::getSaveFileName(this, ("Export to an archive"), this->path, ("ZIP archive (*.zip)") );
 	if(archivePath != "") {
 		ExportManager exportManager = ExportManager(archivePath);
-		exportManager.exportArchive(this->portfoliosModels.keys());
+		exportManager.exportArchive(this->portfolioListModel->getPortfolios());
 	}
 }
 
-/**
- * @brief Opens a dialog to ask the user for the location of the archive to import.
- */
 void MainWindow::importArchive() {
 	QString archivePath = QFileDialog::getOpenFileName(this, ("Import an archive"), this->path, ("ZIP archive (*.zip)") );
 	if(archivePath != "") {
 		ImportManager importManager = ImportManager(archivePath);
 		importManager.importArchive();
+		buildSession(importManager.getPortfolios());
 	}
 }
 

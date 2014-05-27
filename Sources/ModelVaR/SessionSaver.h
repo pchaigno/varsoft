@@ -20,7 +20,7 @@
 #include "SQLiteManager.h"
 #include "Portfolio.h"
 #include "Asset.h"
-#include "Report.h"
+#include "report/Report.h"
 #include <QVector>
 #include <QList>
 #include <QString>

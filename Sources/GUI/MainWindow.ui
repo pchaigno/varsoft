@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>826</width>
-    <height>440</height>
+    <width>1005</width>
+    <height>577</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -49,6 +49,12 @@
         </item>
         <item>
          <widget class="QPushButton" name="addPushButton">
+          <property name="minimumSize">
+           <size>
+            <width>30</width>
+            <height>30</height>
+           </size>
+          </property>
           <property name="maximumSize">
            <size>
             <width>50</width>
@@ -56,12 +62,22 @@
            </size>
           </property>
           <property name="text">
-           <string>+</string>
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="Resources.qrc">
+            <normaloff>:/icons/plus</normaloff>:/icons/plus</iconset>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QPushButton" name="removePushButton">
+          <property name="minimumSize">
+           <size>
+            <width>30</width>
+            <height>30</height>
+           </size>
+          </property>
           <property name="maximumSize">
            <size>
             <width>50</width>
@@ -69,20 +85,11 @@
            </size>
           </property>
           <property name="text">
-           <string>-</string>
+           <string/>
           </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="editPushButton">
-          <property name="maximumSize">
-           <size>
-            <width>50</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Edit</string>
+          <property name="icon">
+           <iconset resource="Resources.qrc">
+            <normaloff>:/icons/delete</normaloff>:/icons/delete</iconset>
           </property>
          </widget>
         </item>
@@ -125,7 +132,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tabData">
        <attribute name="title">
@@ -143,7 +150,7 @@
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
-         <widget class="QScrollArea" name="reportScrollArea">
+         <widget class="ReportView" name="reportScrollArea">
           <property name="styleSheet">
            <string notr="true">#scrollAreaWidgetContents
 {
@@ -158,15 +165,11 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>518</width>
-             <height>312</height>
+             <width>699</width>
+             <height>438</height>
             </rect>
            </property>
-           <layout class="QVBoxLayout" name="verticalLayout_2">
-            <item>
-             <layout class="QVBoxLayout" name="reportsLayout"/>
-            </item>
-           </layout>
+           <layout class="QVBoxLayout" name="verticalLayout_2"/>
           </widget>
          </widget>
         </item>
@@ -181,8 +184,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>826</width>
-     <height>21</height>
+     <width>1005</width>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFichier">
@@ -227,6 +230,7 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionGenerate_Stats_Report"/>
+   <addaction name="actionGenerate_VaR"/>
    <addaction name="actionGenerate_Correlation_Report"/>
    <addaction name="actionRun_Backtesting"/>
   </widget>
@@ -291,6 +295,11 @@
     <string>DocXGenerator path...</string>
    </property>
   </action>
+  <action name="actionGenerate_VaR">
+   <property name="text">
+    <string>Generate VaR</string>
+	</property>
+   </action>
   <action name="actionRun_Backtesting">
    <property name="text">
     <string>Run Backtesting</string>
@@ -304,9 +313,10 @@
     <string>Import</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+I</string>
-   </property>
-  </action>
+	<string>Ctrl+I</string>
+	</property>
+	</action>
+
   <action name="actionGenerate_Correlation_Report">
    <property name="text">
     <string>Generate Correlation Report</string>
@@ -327,31 +337,22 @@
   <customwidget>
    <class>PortfolioListView</class>
    <extends>QListView</extends>
-   <header>PortfolioListView.h</header>
+   <header>portfolio/PortfolioListView.h</header>
    <slots>
     <slot>removeSelectedPortfolio()</slot>
    </slots>
   </customwidget>
+  <customwidget>
+   <class>ReportView</class>
+   <extends>QScrollArea</extends>
+   <header>portfolio/report/ReportView.h</header>
+   <container>1</container>
+  </customwidget>
  </customwidgets>
- <resources/>
- <connections>
-  <connection>
-   <sender>addPushButton</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>newPortfolio()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>81</x>
-     <y>59</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>412</x>
-     <y>219</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <resources>
+  <include location="Resources.qrc"/>
+ </resources>
+ <connections/>
  <slots>
   <slot>newPortfolio()</slot>
  </slots>

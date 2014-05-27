@@ -17,7 +17,7 @@
  */
 #pragma once
 
-#include "IdAlreadyAttributedException.h"
+#include "exceptions/IdAlreadyAttributedException.h"
 #include <QFile>
 #include <QRegExp>
 #include <QString>
@@ -26,7 +26,7 @@
 #include <QVector>
 #include <stdexcept>
 #include "ModelVaR_global.h"
-#include "CannotOpenFileException.h"
+#include "exceptions/CannotOpenFileException.h"
 #include <QDate>
 #include "Savable.h"
 #include <QJsonObject>

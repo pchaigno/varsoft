@@ -31,16 +31,16 @@ class TestPortfolio: public QObject {
 	Q_OBJECT
 
 private:
-	Portfolio father;
-	Portfolio son;
-	Portfolio uncle;
-	Portfolio auntie;
-	Portfolio weekends;
-	Portfolio correlation;
+	Portfolio* father;
+	Portfolio* son;
+	Portfolio* uncle;
+	Portfolio* auntie;
+	Portfolio* weekends;
+	Portfolio* correlation;
 
 public:
 	TestPortfolio();
-	static void comparePortfolios(Portfolio& serializedPortfolio, Portfolio& portfolio);
+	static void comparePortfolios(Portfolio *serializedPortfolio, Portfolio *portfolio);
 
 private Q_SLOTS:
 	void testId();

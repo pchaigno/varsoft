@@ -24,7 +24,7 @@
 #include <QJsonDocument>
 #include "ModelVaR_global.h"
 #include <QDirIterator>
-#include "ExportException.h"
+#include "exceptions/ExportException.h"
 
 class MODELVARSHARED_EXPORT ExportManager: public ArchiveManager {
 public:

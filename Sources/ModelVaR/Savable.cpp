@@ -36,7 +36,8 @@ bool Savable::isAbsent() const {
  * @brief Sets the object as modified compared to the copy in the database.
  */
 void Savable::setStatusToModified() {
-	this->saveStatus = MODIFIED;
+	if (this->saveStatus!=ABSENT)
+		this->saveStatus = MODIFIED;
 }
 
 /**

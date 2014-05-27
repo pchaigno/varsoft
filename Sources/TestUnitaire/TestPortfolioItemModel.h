@@ -20,7 +20,6 @@
 #include <QObject>
 #include <QtTest>
 #include <exception>
-#include "PortfolioItemModel.h"
 
 class TestPortfolioItemModel : public QObject {
 	Q_OBJECT
@@ -38,6 +37,6 @@ private Q_SLOTS:
 	void testData();
 
 private:
-	PortfolioItemModel * model;
+//	PortfolioListModel * model;
 
 };

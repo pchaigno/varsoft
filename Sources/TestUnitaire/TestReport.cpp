@@ -72,6 +72,6 @@ void TestReport::testSerialize() {
 	StatisticsReport test(json);
 
 	QCOMPARE(test.getId(), -1);
-	QCOMPARE(test.getFile(), this->statistics->getFile());
+	QCOMPARE(test.getAbsolutePathToFile(), this->statistics->getAbsolutePathToFile());
 	QCOMPARE(test.getType(), this->statistics->getType());
 }

@@ -18,7 +18,7 @@
 #pragma once
 
 #include "ModelVaR_global.h"
-#include "CreateAssetException.h"
+#include "exceptions/CreateAssetException.h"
 #include <QMessageBox>
 #include <QDate>
 #include <QString>

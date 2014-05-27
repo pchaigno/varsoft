@@ -20,8 +20,8 @@
 #include <QtTest>
 #include "Portfolio.h"
 #include "Asset.h"
-#include "GarchReport.h"
-#include "VaRReport.h"
+#include "report/GarchReport.h"
+#include "report/VaRReport.h"
 #include "SessionSaver.h"
 #include "SessionBuilder.h"
 

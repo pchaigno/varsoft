@@ -21,8 +21,8 @@
 #include <QTest>
 #include "Asset.h"
 #include "Portfolio.h"
-#include "Report.h"
-#include "VaRHistorical.h"
+#include "report/Report.h"
+#include "math/VaRHistorical.h"
 
 class TestVaRHistorical: public QObject {
 	Q_OBJECT
@@ -31,7 +31,7 @@ public:
 	TestVaRHistorical();
 
 private:
-	Portfolio daxPortfolio;
+	Portfolio* daxPortfolio;
 
 private Q_SLOTS:
 	void testVaRHistoricalConstructor();

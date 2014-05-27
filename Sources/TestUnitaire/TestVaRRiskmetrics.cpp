@@ -32,7 +32,7 @@ TestVaRRiskmetrics::TestVaRRiskmetrics() {
 	QMap<Asset*, int> assets;
 	assets.insert(dax, 1);
 	QList<Report*> reports;
-	this->daxPortfolio = Portfolio("daxPortfolio", assets, reports);
+	this->daxPortfolio = new Portfolio("daxPortfolio", assets, reports);
 }
 
 /**
@@ -45,7 +45,7 @@ void TestVaRRiskmetrics::testConstructor() {
 	int initPeriod = 0;
 
 	try {
-		VaRRiskmetrics riskMetricsAlgo(this->daxPortfolio, risk, timeHorizon, initPeriod);
+		VaRRiskmetrics riskMetricsAlgo(*daxPortfolio, risk, timeHorizon, initPeriod);
 		QFAIL("VaRRiskmetrics constructor should have failed given the incorrect initPeriod");
 	} catch(std::invalid_argument& e) {}
 }
@@ -58,7 +58,7 @@ void TestVaRRiskmetrics::testExecuteCorrect1() {
 	double risk = 0.05;
 	int timeHorizon = 1;
 	int initPeriod = 20;
-	VaRRiskmetrics riskMetricsAlgo(this->daxPortfolio, risk, timeHorizon, initPeriod);
+	VaRRiskmetrics riskMetricsAlgo(*daxPortfolio, risk, timeHorizon, initPeriod);
 
 	double var = riskMetricsAlgo.execute(QDate(2014, 3, 12));
 	QCOMPARE(var, 165.7452256572);
@@ -73,7 +73,7 @@ void TestVaRRiskmetrics::testExecuteCorrect2() {
 	double risk = 0.05;
 	int timeHorizon = 3;
 	int initPeriod = 20;
-	VaRRiskmetrics riskMetricsAlgo(this->daxPortfolio, risk, timeHorizon, initPeriod);
+	VaRRiskmetrics riskMetricsAlgo(*daxPortfolio, risk, timeHorizon, initPeriod);
 
 	double var = riskMetricsAlgo.execute(QDate(2014, 3, 12));
 	QCOMPARE(var, 287.0791519502);

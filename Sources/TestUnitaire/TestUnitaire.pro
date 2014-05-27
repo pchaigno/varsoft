@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT += testlib sql
+QT += testlib sql printsupport
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = main
@@ -19,7 +19,7 @@ SOURCES += \
 	main.cpp \
 	TestReport.cpp \
 	TestSQLiteManagers.cpp \
-	TestPortfolioItemModel.cpp \
+	#TestPortfolioItemModel.cpp \
 	TestVaRHistorical.cpp \
 	TestCreateAsset.cpp \
 	TestArchiveManagers.cpp \
@@ -34,7 +34,7 @@ HEADERS += \
 	TestReport.h \
 	TestPortfolio.h \
 	TestSQLiteManagers.h \
-	TestPortfolioItemModel.h \
+	#TestPortfolioItemModel.h \
 	TestVaRHistorical.h \
 	TestCreateAsset.h \
 	TestArchiveManagers.h \
@@ -54,6 +54,12 @@ else:unix: LIBS += -L$$OUT_PWD/../ModelVaR/ -lModelVaR
 INCLUDEPATH += $$PWD/../ModelVaR
 DEPENDPATH += $$PWD/../ModelVaR
 
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../qcustomplot/release/ -lqcustomplotd
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../qcustomplot/debug/ -lqcustomplotd
+else:unix: LIBS += -L$$OUT_PWD/../qcustomplot/ -lqcustomplotd
+
+INCLUDEPATH += $$PWD/../qcustomplot
+DEPENDPATH += $$PWD/../qcustomplot
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../quazip/quazip/release/ -lquazip
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../quazip/quazip/debug/ -lquazip

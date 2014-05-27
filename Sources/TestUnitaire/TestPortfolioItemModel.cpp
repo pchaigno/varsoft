@@ -25,7 +25,7 @@ TestPortfolioItemModel::TestPortfolioItemModel(): QObject() {
  * @brief Create a model before each tests.
  */
 void TestPortfolioItemModel::init() {
-	model = new PortfolioItemModel();
+	model = new PortfolioListModel();
 }
 
 /**

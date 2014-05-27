@@ -19,18 +19,18 @@
 #pragma once
 
 #include <QtTest>
-#include "GarchModel.h"
+#include <Math>
 #include "Portfolio.h"
-#include "RInterface.h"
 #include <QDir>
 #include <QMap>
 #include <QVector>
+#include "math/RInterface.h"
 
 class TestRInterface: public QObject {
 	Q_OBJECT
 
 private:
-	Portfolio father;
+	Portfolio* father;
 
 public:
 	TestRInterface();

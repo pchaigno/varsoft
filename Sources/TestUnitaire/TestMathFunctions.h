@@ -18,7 +18,7 @@
 #pragma once
 
 #include <QtTest>
-#include "MathFunctions.h"
+#include "math/MathFunctions.h"
 
 class TestMathFunctions : public QObject {
 	Q_OBJECT

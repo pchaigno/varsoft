@@ -32,7 +32,7 @@ TestVaRHistorical::TestVaRHistorical() {
 	QMap<Asset*, int> assets;
 	assets.insert(dax, 1);
 	QList<Report*> reports;
-	this->daxPortfolio = Portfolio("daxPortfolio", assets, reports);
+	this->daxPortfolio = new Portfolio("daxPortfolio", assets, reports);
 }
 
 /**
@@ -45,7 +45,7 @@ void TestVaRHistorical::testVaRHistoricalConstructor() {
 	int returnsPeriod = 0; // INTENDED INCORRECT VALUE
 
 	try {
-		VaRHistorical daxVaR(daxPortfolio, risk, timeHorizon, returnsPeriod);
+		VaRHistorical daxVaR(*daxPortfolio, risk, timeHorizon, returnsPeriod);
 		QFAIL("VaRHistorical constructor succeeded despite wrong returnsPeriod parameter");
 	} catch(std::invalid_argument& e) {
 
@@ -54,7 +54,7 @@ void TestVaRHistorical::testVaRHistoricalConstructor() {
 	// ANOTHER IMPOSSIBLE CASE
 	returnsPeriod = -3;
 	try {
-		VaRHistorical daxVaR(daxPortfolio, risk, timeHorizon, returnsPeriod);
+		VaRHistorical daxVaR(*daxPortfolio, risk, timeHorizon, returnsPeriod);
 		QFAIL("VaRHistorical constructor succeeded despite wrong returnsPeriod parameter");
 	} catch(std::invalid_argument& e) {
 
@@ -64,7 +64,7 @@ void TestVaRHistorical::testVaRHistoricalConstructor() {
 	returnsPeriod = 10;
 	risk = 0;
 	try {
-		VaRHistorical daxVaR(daxPortfolio, risk, timeHorizon, returnsPeriod);
+		VaRHistorical daxVaR(*daxPortfolio, risk, timeHorizon, returnsPeriod);
 		QFAIL("VaRHistorical constructor succeeded despite wrong risk parameter");
 	} catch(std::invalid_argument& e) {
 
@@ -72,7 +72,7 @@ void TestVaRHistorical::testVaRHistoricalConstructor() {
 
 	risk = 1;
 	try {
-		VaRHistorical daxVaR(daxPortfolio, risk, timeHorizon, returnsPeriod);
+		VaRHistorical daxVaR(*daxPortfolio, risk, timeHorizon, returnsPeriod);
 		QFAIL("VaRHistorical constructor succeeded despite wrong risk parameter");
 	} catch(std::invalid_argument& e) {
 
@@ -80,7 +80,7 @@ void TestVaRHistorical::testVaRHistoricalConstructor() {
 
 	risk = 1.5;
 	try {
-		VaRHistorical daxVaR(daxPortfolio, risk, timeHorizon, returnsPeriod);
+		VaRHistorical daxVaR(*daxPortfolio, risk, timeHorizon, returnsPeriod);
 		QFAIL("VaRHistorical constructor succeeded despite wrong risk parameter");
 	} catch(std::invalid_argument& e) {
 
@@ -90,7 +90,7 @@ void TestVaRHistorical::testVaRHistoricalConstructor() {
 	risk = 0.05;
 	timeHorizon = 0;
 	try {
-		VaRHistorical daxVaR(daxPortfolio, risk, timeHorizon, returnsPeriod);
+		VaRHistorical daxVaR(*daxPortfolio, risk, timeHorizon, returnsPeriod);
 		QFAIL("VaRHistorical constructor succeeded despite wrong timeHorizon parameter");
 	} catch(std::invalid_argument& e) {
 
@@ -98,7 +98,7 @@ void TestVaRHistorical::testVaRHistoricalConstructor() {
 
 	timeHorizon = -1;
 	try {
-		VaRHistorical daxVaR(daxPortfolio, risk, timeHorizon, returnsPeriod);
+		VaRHistorical daxVaR(*daxPortfolio, risk, timeHorizon, returnsPeriod);
 		QFAIL("VaRHistorical constructor succeeded despite wrong timeHorizon parameter");
 	} catch(std::invalid_argument& e) {
 
@@ -113,7 +113,7 @@ void TestVaRHistorical::testExecute() {
 	double risk = 0.05;
 	int timeHorizon = 1;
 	int returnsPeriod = 45;
-	VaRHistorical daxVaR(this->daxPortfolio, risk, timeHorizon, returnsPeriod);
+	VaRHistorical daxVaR(*daxPortfolio, risk, timeHorizon, returnsPeriod);
 
 	try {
 		double var = daxVaR.execute(QDate(2014, 3, 12));
@@ -133,7 +133,7 @@ void TestVaRHistorical::testExecuteThreeDaysTimeHorizon() {
 	double risk = 0.05;
 	int timeHorizon = 3;
 	int returnsPeriod = 45;
-	VaRHistorical daxVaR(this->daxPortfolio, risk, timeHorizon, returnsPeriod);
+	VaRHistorical daxVaR(*daxPortfolio, risk, timeHorizon, returnsPeriod);
 
 	try {
 		double var = daxVaR.execute(QDate(2014, 3, 12));
@@ -154,7 +154,7 @@ void TestVaRHistorical::testExecuteOnMonday() {
 	double risk = 0.20;
 	int timeHorizon = 1;
 	int returnsPeriod = 10;
-	VaRHistorical daxVaR(this->daxPortfolio, risk, timeHorizon, returnsPeriod);
+	VaRHistorical daxVaR(*daxPortfolio, risk, timeHorizon, returnsPeriod);
 
 	try {
 		double var = daxVaR.execute(QDate(2014, 3, 10));
@@ -174,7 +174,7 @@ void TestVaRHistorical::testExecuteOnWeekend() {
 	double risk = 0.20;
 	int timeHorizon = 1;
 	int returnsPeriod = 10;
-	VaRHistorical daxVaR(this->daxPortfolio, risk, timeHorizon, returnsPeriod);
+	VaRHistorical daxVaR(*daxPortfolio, risk, timeHorizon, returnsPeriod);
 
 	try {
 		daxVaR.execute(QDate(2014, 3, 8));
@@ -199,7 +199,7 @@ void TestVaRHistorical::testInvalidFutureDate() {
 	double risk = 0.05;
 	int timeHorizon = 1;
 	int returnsPeriod = 45;
-	VaRHistorical daxVaR(this->daxPortfolio, risk, timeHorizon, returnsPeriod);
+	VaRHistorical daxVaR(*daxPortfolio, risk, timeHorizon, returnsPeriod);
 
 	try {
 		daxVaR.execute(QDate(2014, 3, 13));
@@ -219,7 +219,7 @@ void TestVaRHistorical::testInvalidPastDate() {
 	double risk = 0.05;
 	int timeHorizon = 10;
 	int returnsPeriod = 1;
-	VaRHistorical daxVaR(this->daxPortfolio, risk, timeHorizon, returnsPeriod);
+	VaRHistorical daxVaR(*daxPortfolio, risk, timeHorizon, returnsPeriod);
 
 	try {
 		daxVaR.execute(QDate(2014, 1, 2));
@@ -244,7 +244,7 @@ void TestVaRHistorical::testFirstValidDate() {
 	double risk = 0.05;
 	int timeHorizon = 1;
 	int returnsPeriod = 1;
-	VaRHistorical daxVaR(this->daxPortfolio, risk, timeHorizon, returnsPeriod);
+	VaRHistorical daxVaR(*daxPortfolio, risk, timeHorizon, returnsPeriod);
 
 	try {
 		double var = daxVaR.execute(QDate(2014, 1, 6));
@@ -265,7 +265,7 @@ void TestVaRHistorical::testTooLargeReturnsPeriod() {
 	int timeHorizon = 1;
 	int returnsPeriod = 100;
 
-	VaRHistorical incorrectDaxVaR(this->daxPortfolio, risk, timeHorizon, returnsPeriod);
+	VaRHistorical incorrectDaxVaR(*daxPortfolio, risk, timeHorizon, returnsPeriod);
 	try {
 		incorrectDaxVaR.execute(QDate(2014, 3, 12));
 		QFAIL("execute() succeeded despite too large returnsPeriod parameter");
@@ -283,7 +283,7 @@ void TestVaRHistorical::testExecuteNoNegativeReturns() {
 	double risk = 0.05;
 	int timeHorizon = 1;
 	int returnsPeriod = 4;
-	VaRHistorical daxVaR(this->daxPortfolio, risk, timeHorizon, returnsPeriod);
+	VaRHistorical daxVaR(*daxPortfolio, risk, timeHorizon, returnsPeriod);
 
 	try {
 		double var = daxVaR.execute(QDate(2014, 2, 17));

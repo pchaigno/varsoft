@@ -22,7 +22,7 @@
 #include "SessionSaver.h"
 #include <QJsonDocument>
 #include "ModelVaR_global.h"
-#include "ImportException.h"
+#include "exceptions/ImportException.h"
 #include <QDir>
 
 class MODELVARSHARED_EXPORT ImportManager: public ArchiveManager {

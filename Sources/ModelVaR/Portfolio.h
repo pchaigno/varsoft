@@ -19,30 +19,35 @@
 
 #include <QString>
 #include <QVector>
-#include "Report.h"
+#include "report/Report.h"
 #include <QMap>
 #include "Asset.h"
 #include <QDate>
+#include "exceptions/IdAlreadyAttributedException.h"
+#include "exceptions/InvalidDefinitionPeriodException.h"
 #include <QDebug>
 #include <QtCore/qmath.h>
-#include "IdAlreadyAttributedException.h"
-#include "InvalidDefinitionPeriodException.h"
 #include "ModelVaR_global.h"
-#include "PortfolioCalculationException.h"
-#include "MathFunctions.h"
+#include "exceptions/PortfolioCalculationException.h"
+#include "math/MathFunctions.h"
 #include <string>
 #include <sstream>
 #include "AssetsFactory.h"
 #include <QJsonArray>
-#include "NonexistentAssetException.h"
+#include "exceptions/NonexistentAssetException.h"
 
-class MODELVARSHARED_EXPORT Portfolio: public Savable {
+class MODELVARSHARED_EXPORT Portfolio : public QObject, public Savable {
+		Q_OBJECT
 private:
 	int id;
 	QString name;
 	Portfolio* parent;
 	QMap<Asset*, int> composition;
 	QList<Report*> reports;
+
+signals:
+	void reportAdded(Report*);
+	void reportRemoved();
 
 public:
 	Portfolio();
@@ -64,6 +69,7 @@ public:
 	QList<Report*> getReports() const;
 	void addReport(Report* report);
 	void removeReport(Report * report);
+	void removeReport(Report&report);
 
 	QList<Asset*> getAssets() const;
 	QMap<Asset*, int> getComposition() const;
