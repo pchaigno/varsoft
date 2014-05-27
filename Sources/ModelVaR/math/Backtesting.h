@@ -25,7 +25,7 @@
 #include <QDate>
 #include <QThread>
 
-class MODELVARSHARED_EXPORT Backtesting : public QThread {
+class MODELVARSHARED_EXPORT Backtesting{
 private:
 	const Portfolio& portfolio;
 	const VaRAlgorithm& varAlgo;
@@ -34,6 +34,4 @@ private:
 public:
 	Backtesting(const Portfolio& portfolio, const VaRAlgorithm& varAlgo, const QPair<QDate, QDate>& backtestperiod);
 	int compute() const;
-
-	void run();
 };
