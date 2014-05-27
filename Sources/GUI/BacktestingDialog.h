@@ -1,5 +1,4 @@
-#ifndef BACKTESTINGDIALOG_H
-#define BACKTESTINGDIALOG_H
+#pragma once
 
 #include <QDialog>
 #include <QMessageBox>
@@ -26,6 +25,6 @@ private:
 private slots:
 	void on_pushButton_run_backtesting_historical_clicked();
 	void on_pushButton_run_backtesting_riskmetrics_clicked();
+	void on_pushButton_cancel_1_clicked();
+	void on_pushButton_cancel_2_clicked();
 };
-
-#endif // BACKTESTINGDIALOG_H

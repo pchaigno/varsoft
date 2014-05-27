@@ -25,7 +25,7 @@
  * @param period The number of returns
  * @return The statistical value and p-value couple
  */
-QPair<double, double> RInterface::checkCorrelation(const Portfolio& portfolio, int timeLag, QDate& date, int period) {
+QPair<double, double> RInterface::checkCorrelation(const Portfolio& portfolio, int timeLag,const QDate& date, int period) {
 	// Check the period parameter
 	if(timeLag > period - 2) {
 		throw std::invalid_argument("The timeLag parameter cannot be greater than period minus two");
@@ -42,7 +42,7 @@ QPair<double, double> RInterface::checkCorrelation(const Portfolio& portfolio, i
  * @param period The number of returns
  * @return The statistical value and p-value couple
  */
-QPair<double, double> RInterface::checkSquareCorrelation(const Portfolio& portfolio, int timeLag, QDate& date, int period) {
+QPair<double, double> RInterface::checkSquareCorrelation(const Portfolio& portfolio, int timeLag,const QDate& date, int period) {
 	// Check the period parameter
 	if(timeLag > period - 1) {
 		throw std::invalid_argument("The timeLag parameter cannot be greater than period minus one");
@@ -60,7 +60,7 @@ QPair<double, double> RInterface::checkSquareCorrelation(const Portfolio& portfo
  * @param rScriptFilePath R script file
  * @return The statistical value and p-value couple
  */
-QPair<double, double> RInterface::executeCorrelationScript(const Portfolio& portfolio, int timeLag, QDate& date, int period, QString rScriptFilePath) {
+QPair<double, double> RInterface::executeCorrelationScript(const Portfolio& portfolio, int timeLag,const QDate& date, int period, QString rScriptFilePath) {
 	// Check that parameters are correct
 	if(timeLag <= 0) {
 		throw std::invalid_argument("The timeLag parameter must be strictly positive");
@@ -117,9 +117,72 @@ QPair<double, double> RInterface::executeCorrelationScript(const Portfolio& port
 /**
  * @brief Call the R script to compute the GARCH model of a portfolio.
  * @param portfolio The portfolio.
- * @return The GARCH model.
+ * @param period Pair of QDate in chronological order defining the interval on which
+ * to perform the Garch model computation
+ * @return The Garch model.
  */
-GarchModel RInterface::computeGarchModel(const Portfolio& portfolio) {
-	// TODO
-	return GarchModel();
+GarchModel RInterface::computeGarchModel(const Portfolio& portfolio, const QPair<QDate, QDate> &period) {
+
+	// The only command line argument passed to Rscript is
+	// the R script file
+	QStringList arguments;
+	QString rScriptFilePath = "../../R_scripts/garch.r";
+	arguments << rScriptFilePath;
+
+	// Makes the string that will be sent to the Rscript standard input
+	// Made of a single line containing the log-returns separated by space characters
+	QVector<double> logReturns = portfolio.retrieveLogReturns(period.first, period.second);
+	if(logReturns.size() <= 2) {
+		throw std::invalid_argument("The period argument must be larger than specified to perform garch model computation");
+	}
+	QString parameters;
+	for(QVector<double>::const_iterator it=logReturns.begin(); it!=logReturns.end(); ++it) {
+		parameters += QString::number(*it) + " ";
+	}
+
+	// Launch Rscript
+	QProcess process;
+	process.start("Rscript", arguments);
+	// Writes to Rscript standard input the previously created string
+	process.write(parameters.toStdString().c_str());
+	process.closeWriteChannel();
+	process.waitForFinished();
+
+	// Reads R output
+	QByteArray rawOutput = process.readAllStandardOutput();
+
+	// Convert it to QString
+	QString output = QString::fromUtf8(rawOutput);
+
+	// Splits the output by newline
+	// Removes empty lines as well
+	QStringList lines = output.split(QRegExp("[\r\n]"),QString::SkipEmptyParts);
+
+	// Retrieves the coefficient from the right line
+	QStringList coefficients = lines.value(1).split(QRegExp("\\s"), QString::SkipEmptyParts);
+
+	// Gets the coefficient values
+	double omega = coefficients.value(0).toDouble();
+	double alpha = coefficients.value(1).toDouble();
+	double beta = coefficients.value(2).toDouble();
+
+	// Retrieves the residuals (eta) from Rscript output
+	QVector<double> residuals;
+	QStringList residualsList;
+	int line;
+	bool residual = true;
+	for(line=3; residual; line++) {
+		residualsList = lines.value(line).split(QRegExp("\\s"), QString::SkipEmptyParts);
+		if(residualsList.value(1) == "\"stddev\"") {
+			residual = false;
+		}
+		if(residual) {
+			// Process the line itself
+			for(int i=1; i < residualsList.size(); i++) {
+				residuals.push_back(residualsList.value(i).toDouble());
+			}
+		}
+	}
+
+	return GarchModel(omega, alpha, beta, residuals);
 }

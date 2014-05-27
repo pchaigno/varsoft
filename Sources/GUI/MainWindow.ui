@@ -196,10 +196,10 @@
     <addaction name="actionOuvrir"/>
     <addaction name="separator"/>
     <addaction name="actionSauvegarder"/>
-    <addaction name="actionSauvegarder_sous"/>
+    <addaction name="separator"/>
+    <addaction name="actionCreateAsset"/>
     <addaction name="separator"/>
     <addaction name="actionImport"/>
-    <addaction name="separator"/>
     <addaction name="actionExport"/>
     <addaction name="separator"/>
     <addaction name="actionQuitter"/>
@@ -227,6 +227,7 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionGenerate_Stats_Report"/>
+   <addaction name="actionGenerate_Correlation_Report"/>
    <addaction name="actionRun_Backtesting"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
@@ -254,7 +255,7 @@
     <string>Ctrl+Shift+S</string>
    </property>
   </action>
-  <action name="actionImport">
+  <action name="actionCreateAsset">
    <property name="text">
     <string>Create an asset</string>
    </property>
@@ -297,7 +298,26 @@
    <property name="toolTip">
     <string>Run Backtesting</string>
    </property>
+  </action>
+  <action name="actionImport">
+   <property name="text">
+    <string>Import</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+I</string>
+   </property>
+  </action>
+  <action name="actionGenerate_Correlation_Report">
+   <property name="text">
+    <string>Generate Correlation Report</string>
+   </property>
+   <property name="toolTip">
+    <string>Generate Correlation Report</string>
+   </property>
    <property name="visible">
+    <bool>true</bool>
+   </property>
+   <property name="iconVisibleInMenu">
     <bool>true</bool>
    </property>
   </action>

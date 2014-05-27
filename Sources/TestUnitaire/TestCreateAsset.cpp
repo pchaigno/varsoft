@@ -16,19 +16,20 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #include "TestCreateAsset.h"
+
 /**
-* @brief Tests import of ImportNewData.
-*/
+ * @brief Tests import of ImportNewData.
+ */
 void TestCreateAsset::testImport() {
 	QDate startDate = QDate::fromString("2014-01-01", "yyyy-MM-dd");
 	QDate endDate = QDate::fromString("2014-02-01", "yyyy-MM-dd");
-	Asset b = Asset("Gogolea", "../../Examples/Gogolea_test.csv", "Yahoo", startDate, endDate);
+	Asset b = Asset("Gogolea", "../Examples/Gogolea_test.csv", "Yahoo", startDate, endDate);
 	CreateAsset algo = CreateAsset();
 	algo.import(b, "../../Examples/table.csv");
 	SessionSaver::getInstance()->saveAsset(b);
 
 	QString data;
-	QFile importedCSV("../../Examples/Gogolea_test.csv");
+	QFile importedCSV(b.getAbsolutePathToFile());
 	QStringList dataRows;
 	QStringList dataRow;
 
@@ -46,7 +47,7 @@ void TestCreateAsset::testImport() {
 	QVERIFY(startDate <= QDate::fromString(dataRow[0], "yyyy-MM-dd"));
 
 	Asset *a = SessionBuilder::getInstance()->buildAsset("Gogolea");
-	QVERIFY(a->getFile() == "../../Examples/Gogolea_test.csv");
+	QVERIFY(a->getFile() == "../Examples/Gogolea_test.csv");
 	QVERIFY(a->getStartDate() == startDate);
 	QVERIFY(a->getEndDate() == endDate);
 	QVERIFY(a->getName() == "Gogolea");

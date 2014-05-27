@@ -42,12 +42,13 @@ Report *ReportFactory::buildReport() {
  * @return
  */
 QString ReportFactory::getReportDir() const {
-	QString path = QString("..")+QDir::separator()+QString("Resources")+QDir::separator()+QString("Reports")+QDir::separator();
+	QString resourcesFolder = SessionSaver::getSessionFolder()+QDir::separator()+QString("Resources");
+	QString path = resourcesFolder + QDir::separator() + QString("Reports");
 
 	if (!QDir(path).exists()) {
-		if (!QDir().mkpath(path))
+		if (!QDir(resourcesFolder).mkpath("Reports"))
 			throw ReportException("Error when creating the Report directory.");
 	}
 
-	return path;
+	return QString("Resources/Reports");
 }

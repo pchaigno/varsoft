@@ -24,6 +24,7 @@
 #include "ReportAlreadyCreatedException.h"
 #include "ReportException.h"
 #include <QDebug>
+#include "SessionSaver.h"
 
 class MODELVARSHARED_EXPORT ReportFactory {
 public:

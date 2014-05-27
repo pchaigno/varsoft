@@ -17,6 +17,8 @@
  */
 #include "SQLiteManager.h"
 
+QString SQLiteManager::sessionFolder = "";
+
 /**
  * @brief Constructor.
  * @param databaseFile The location of the database file on the disk.

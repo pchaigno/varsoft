@@ -25,7 +25,7 @@ ExportManager::ExportManager(QString archivePath): ArchiveManager(archivePath) {
  * @brief Exports the portfolios to the archive.
  * @param porfolios The portfolios to export.
  */
-void ExportManager::exportArchive(QVector<Portfolio*>& portfolios) {
+void ExportManager::exportArchive(QList<Portfolio*> portfolios) {
 	this->addPortfolios(portfolios);
 	this->exportArchive();
 }
@@ -51,8 +51,9 @@ void ExportManager::exportArchive() {
 	archivedFile.close();
 
 	// Adds the reports and assets' files to the archive:
-	addToArchive(QDir("Resources\\Reports"), archivedFile);
-	addToArchive(QDir("Resources\\Assets"), archivedFile);
+	QDir resourcesFolder(SQLiteManager::getSessionFolder() + QDir::separator() + "Resources");
+	addToArchive(resourcesFolder, "Reports", archivedFile);
+	addToArchive(resourcesFolder, "Assets", archivedFile);
 
 	zip.close();
 	if(zip.getZipError() != 0) {
@@ -62,10 +63,12 @@ void ExportManager::exportArchive() {
 
 /**
  * @brief Adds the content of a folder to the archive.
- * @param folder Folder to add to the archive.
+ * @param resourcesFolder Resources' folder.
+ * @param folderName Folder to add to the archive.
  * @param archivedFile The archive file opened with QuaZip.
  */
-void ExportManager::addToArchive(QDir folder, QuaZipFile& archivedFile) {
+void ExportManager::addToArchive(QDir resourcesFolder, QString folderName, QuaZipFile& archivedFile) {
+	QDir folder = resourcesFolder.absolutePath() + QDir::separator() + folderName;
 	QDirIterator it(folder.absolutePath());
 	while(it.hasNext()) {
 		QString filePath = it.next();
@@ -81,7 +84,7 @@ void ExportManager::addToArchive(QDir folder, QuaZipFile& archivedFile) {
 
 		// Creates the file in the archive:
 		QString filePathInArchive = filePath;
-		filePathInArchive.remove(0, QDir("Resources").absolutePath().size()+1); // Removes 'Resources/'.
+		filePathInArchive.remove(0, resourcesFolder.absolutePath().size()+1); // Removes '[..]/Resources/'.
 		if(!archivedFile.open(QIODevice::WriteOnly, QuaZipNewInfo(filePathInArchive))) {
 			throw ExportException("Cannot create file "+filePathInArchive+" in archive.");
 		}

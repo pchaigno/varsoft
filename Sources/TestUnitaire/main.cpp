@@ -26,9 +26,14 @@
 #include "TestArchiveManagers.h"
 #include "TestMathFunctions.h"
 #include "TestRInterface.h"
+#include "TestVaRGarch.h"
 #include "TestBacktesting.h"
+#include "SessionSaver.h"
 
 int main() {
+	// Defines the session folder for the tests:
+	SessionSaver::setSessionFolder(QDir(".."));
+
 	// Deletes the database file before starting the tests (just to be sure):
 	QFile databaseFile(SessionSaver::getInstance()->getDatabaseFile());
 	databaseFile.remove();
@@ -46,6 +51,8 @@ int main() {
 	result += QTest::qExec(&testVaRHistorical);
 	TestVaRRiskmetrics TestVaRRiskmetrics;
 	result += QTest::qExec(&TestVaRRiskmetrics);
+	TestVaRGarch varGarch;
+	result += QTest::qExec(&varGarch);
 	TestMathFunctions testMathFunctions;
 	result += QTest::qExec(&testMathFunctions);
 	TestCreateAsset newdata;

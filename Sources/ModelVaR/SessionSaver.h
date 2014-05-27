@@ -24,7 +24,11 @@
 #include <QVector>
 #include <QList>
 #include <QString>
+#include <QDir>
 #include <QVariant>
+#include "ModelVaR_global.h"
+
+class Portfolio;
 
 class MODELVARSHARED_EXPORT SessionSaver: public SQLiteManager {
 private:
@@ -33,13 +37,15 @@ private:
 public:
 	bool saveAsset(Asset& asset);
 	void saveSession(QList<Portfolio*> portfolios);
+
 	/**
 	 * @brief Accessor to the only instance of SessionSaver.
 	 * @return The only instance of SessionSaver.
 	 */
 	static SessionSaver* getInstance() {
 		if(instance == NULL) {
-			instance = new SessionSaver("session.db");
+			QString databaseFile = SQLiteManager::buildDatabaseFilePath();
+			instance = new SessionSaver(databaseFile);
 		}
 		return instance;
 	}

@@ -29,7 +29,7 @@ ArchiveManager::ArchiveManager(QString archivePath) {
  * @brief Adds the specified portfolio to the archive.
  * @param portfolios The portfolios to add.
  */
-void ArchiveManager::addPortfolios(QVector<Portfolio*>& portfolios) {
+void ArchiveManager::addPortfolios(QList<Portfolio*>& portfolios) {
 	foreach(Portfolio* portfolio, portfolios) {
 		this->portfolios.append(portfolio);
 	}
@@ -39,6 +39,6 @@ void ArchiveManager::addPortfolios(QVector<Portfolio*>& portfolios) {
  * @brief Accessor to the portfolios.
  * @return The portfolios from the archive.
  */
-QVector<Portfolio*> ArchiveManager::getPortfolios() const {
+QList<Portfolio*> ArchiveManager::getPortfolios() const {
 	return this->portfolios;
 }

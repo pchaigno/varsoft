@@ -17,7 +17,7 @@
  */
 #include "SessionSaver.h"
 
-SessionSaver* SessionSaver::instance;
+SessionSaver* SessionSaver::instance = NULL;
 
 /**
  * @brief Constructor

@@ -32,7 +32,7 @@ void ImportManager::importArchive() {
 	}
 
 	// Creates folders:
-	QDir resourcesFolder("Resources");
+	QDir resourcesFolder(SQLiteManager::getSessionFolder() + QDir::separator() + "Resources");
 	resourcesFolder.mkdir("Assets");
 	resourcesFolder.mkdir("Reports");
 
@@ -57,7 +57,7 @@ void ImportManager::importArchive() {
 			containsDescriptor = true;
 		} else {
 		// Copies the files from the archive to the disk:
-			QFile destFile("Resources/"+filePath);
+			QFile destFile(resourcesFolder.absolutePath() + QDir::separator() + filePath);
 			if(!destFile.open(QIODevice::WriteOnly)) {
 				throw ImportException("Cannot create file "+filePath+" in Resources.");
 			}

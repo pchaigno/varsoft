@@ -52,7 +52,9 @@ SOURCES += \
 	qcustomplot.cpp \
 	ReportGenerator.cpp \
 	ReportException.cpp \
+	CorrelationResults.cpp \
 	Savable.cpp
+
 
 HEADERS +=\
 	Asset.h \
@@ -104,8 +106,11 @@ HEADERS +=\
 	ExportException.h \
 	ImportException.h \
 	ReportAlreadyCreatedException.h \
+	CorrelationResults.h \
+	ReportAlreadyCreatedException.h \
 	Savable.h \
-	MathFunctions.h
+	MathFunctions.h \
+	SessionFolderMissingException.h
 
 unix:!symbian {
 	maemo5 {

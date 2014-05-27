@@ -23,8 +23,9 @@ SOURCES += \
 	TestVaRHistorical.cpp \
 	TestCreateAsset.cpp \
 	TestArchiveManagers.cpp \
-	TestBacktesting.cpp \
 	TestVaRRiskmetrics.cpp \
+	TestVaRGarch.cpp \
+	TestBacktesting.cpp \
 	TestMathFunctions.cpp \
 	TestRInterface.cpp
 
@@ -37,8 +38,9 @@ HEADERS += \
 	TestVaRHistorical.h \
 	TestCreateAsset.h \
 	TestArchiveManagers.h \
-	TestBacktesting.h \
 	TestVaRRiskmetrics.h \
+	TestVaRGarch.h \
+	TestBacktesting.h \
 	TestMathFunctions.h \
 	TestRInterface.h
 

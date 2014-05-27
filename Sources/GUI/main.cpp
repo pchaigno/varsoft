@@ -20,6 +20,8 @@
 
 #include "RInterface.h"
 
+#include "RInterface.h"
+
 int main(int argc, char *argv[]) {
 	QApplication a(argc, argv);
 	MainWindow w;

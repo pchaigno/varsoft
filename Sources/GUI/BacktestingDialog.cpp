@@ -62,3 +62,11 @@ void BacktestingDialog::on_pushButton_run_backtesting_riskmetrics_clicked() {
 	msgBox.setText("Number of day(s) on which the loss was greater than the Value-at-Risk: "+QString::number(nbDaysLossGreaterThanVaR));
 	msgBox.exec();
 }
+
+void BacktestingDialog::on_pushButton_cancel_1_clicked() {
+	this->close();
+}
+
+void BacktestingDialog::on_pushButton_cancel_2_clicked() {
+	this->close();
+}

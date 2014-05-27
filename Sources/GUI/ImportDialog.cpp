@@ -41,24 +41,26 @@ void Import::on_pushButton_clicked() {
 	// TODO : check the field is not empty and print a message to force the user to give a name
 	CreateAsset algo = CreateAsset();
 	if(ui->startDate->dateTime() >= ui->endDate->dateTime()) {
-		QMessageBox::warning(0, "Warning", "Dates are not valid");
+		QMessageBox::warning(0, "Warning", "Dates are not valid.");
 		return;
 	}
 	if(ui->textEdit->text().trimmed().isEmpty()) {
-		QMessageBox::warning(0, "Warning", "Please provide a name");
+		QMessageBox::warning(0, "Warning", "Please provide a name.");
 		return;
 	}
+
 	if(AssetsFactory::getInstance()->retrieveAsset(ui->textEdit->text()) != NULL) {
 		QMessageBox::warning(0, "Error", "This name is already used");
 		return;
 	} else {
 		try {
-			QDir dir("../Resources/Assets/");
-			if (!dir.exists()) {
-				dir.mkpath(".");
+			QDir resourcesFolder(SessionSaver::getSessionFolder() + QDir::separator() + "Resources");
+			if (!resourcesFolder.exists("Assets")) {
+				resourcesFolder.mkpath("Assets");
 			}
-			QString namealea = "../Resources/Assets/"+ui->textEdit->text()+"_"+QString::number(QDateTime::currentMSecsSinceEpoch())+".csv";
-			Asset a = Asset(ui->textEdit->text(), namealea, ui->comboBox->currentText(), ui->startDate->date(), ui->endDate->date());
+			QString namealea = ui->textEdit->text() + "_" + QString::number(QDateTime::currentMSecsSinceEpoch()) + ".csv";
+			QString assetPath = QString("Resources/Assets") + QDir::separator() + namealea;
+			Asset a = Asset(ui->textEdit->text(), assetPath, ui->comboBox->currentText(), ui->startDate->date(), ui->endDate->date());
 			algo.import(a, fileName);
 			SessionSaver::getInstance()->saveAsset(a);
 		} catch(CreateAssetException &e) {
@@ -82,9 +84,8 @@ void Import::on_importButton_clicked(){
 	QVariant path = this->setting.value("path");
 	QFileInfo fileName = QFileDialog::getOpenFileName(this, ("Open file"), path.toString(), ("CSV Text (*.csv *.txt);;All files (*.*)") );
 	if(fileName.isFile()){
-		this->setting.setValue("path",fileName.absolutePath());
+		this->setting.setValue("path", fileName.absolutePath());
 		//get startDate and endDate before calling the import function
-		qDebug() << fileName.filePath();
 		GetStartEndDates* gsed = new GetStartEndDates();
 		gsed->retreiveDates(fileName.filePath());
 		QDate endDate = gsed->getEndDate();
@@ -98,6 +99,6 @@ void Import::on_importButton_clicked(){
 		ui->startDate->setMaximumDate(endDate);
 		ui->startDate->setDate(startDate);
 		ui->startDate->setCalendarPopup(true);
-		this->fileName=fileName.filePath();
+		this->fileName = fileName.filePath();
 	}
 }

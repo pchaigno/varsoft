@@ -21,7 +21,7 @@
  * @brief Creates the portfolio to perform Value-at-Risk computation on it
  */
 TestVaRHistorical::TestVaRHistorical() {
-	QString assetFolder = "../../Examples/";
+	QString assetFolder = "../Examples/";
 
 	// ASSET DEFINITION
 	QDate startDate(QDate(2014, 1, 2));
@@ -48,7 +48,7 @@ void TestVaRHistorical::testVaRHistoricalConstructor() {
 		VaRHistorical daxVaR(daxPortfolio, risk, timeHorizon, returnsPeriod);
 		QFAIL("VaRHistorical constructor succeeded despite wrong returnsPeriod parameter");
 	} catch(std::invalid_argument& e) {
-		qDebug() << e.what();
+
 	}
 
 	// ANOTHER IMPOSSIBLE CASE
@@ -57,7 +57,7 @@ void TestVaRHistorical::testVaRHistoricalConstructor() {
 		VaRHistorical daxVaR(daxPortfolio, risk, timeHorizon, returnsPeriod);
 		QFAIL("VaRHistorical constructor succeeded despite wrong returnsPeriod parameter");
 	} catch(std::invalid_argument& e) {
-		qDebug() << e.what();
+
 	}
 
 	// INCORRECT RISK
@@ -67,7 +67,7 @@ void TestVaRHistorical::testVaRHistoricalConstructor() {
 		VaRHistorical daxVaR(daxPortfolio, risk, timeHorizon, returnsPeriod);
 		QFAIL("VaRHistorical constructor succeeded despite wrong risk parameter");
 	} catch(std::invalid_argument& e) {
-		qDebug() << e.what();
+
 	}
 
 	risk = 1;
@@ -75,7 +75,7 @@ void TestVaRHistorical::testVaRHistoricalConstructor() {
 		VaRHistorical daxVaR(daxPortfolio, risk, timeHorizon, returnsPeriod);
 		QFAIL("VaRHistorical constructor succeeded despite wrong risk parameter");
 	} catch(std::invalid_argument& e) {
-		qDebug() << e.what();
+
 	}
 
 	risk = 1.5;
@@ -83,7 +83,7 @@ void TestVaRHistorical::testVaRHistoricalConstructor() {
 		VaRHistorical daxVaR(daxPortfolio, risk, timeHorizon, returnsPeriod);
 		QFAIL("VaRHistorical constructor succeeded despite wrong risk parameter");
 	} catch(std::invalid_argument& e) {
-		qDebug() << e.what();
+
 	}
 
 	// INCORRECT TIME HORIZON
@@ -93,7 +93,7 @@ void TestVaRHistorical::testVaRHistoricalConstructor() {
 		VaRHistorical daxVaR(daxPortfolio, risk, timeHorizon, returnsPeriod);
 		QFAIL("VaRHistorical constructor succeeded despite wrong timeHorizon parameter");
 	} catch(std::invalid_argument& e) {
-		qDebug() << e.what();
+
 	}
 
 	timeHorizon = -1;
@@ -101,7 +101,7 @@ void TestVaRHistorical::testVaRHistoricalConstructor() {
 		VaRHistorical daxVaR(daxPortfolio, risk, timeHorizon, returnsPeriod);
 		QFAIL("VaRHistorical constructor succeeded despite wrong timeHorizon parameter");
 	} catch(std::invalid_argument& e) {
-		qDebug() << e.what();
+
 	}
 }
 
@@ -120,8 +120,8 @@ void TestVaRHistorical::testExecute() {
 		// Compares the computed VaR matches with the manually found one
 		QCOMPARE(var, 239.02);
 	} catch(std::exception& e) {
-		qDebug() << e.what();
 		QFAIL("Value-at-Risk should have been successfuly computed.");
+		qDebug() << e.what();
 	}
 }
 
@@ -140,8 +140,8 @@ void TestVaRHistorical::testExecuteThreeDaysTimeHorizon() {
 		// Compares the computed VaR matches with the manually found one
 		QCOMPARE(var, 413.994784025);
 	} catch(std::exception& e) {
-		qDebug() << e.what();
 		QFAIL("Value-at-Risk should have been successfuly computed.");
+		qDebug() << e.what();
 	}
 }
 
@@ -161,8 +161,8 @@ void TestVaRHistorical::testExecuteOnMonday() {
 		// Compares the computed VaR matches with the manually found one
 		QCOMPARE(var, 192.12);
 	} catch(std::exception& e) {
-		qDebug() << e.what();
 		QFAIL("Value-at-Risk should have been successfuly computed.");
+		qDebug() << e.what();
 	}
 }
 
@@ -187,7 +187,7 @@ void TestVaRHistorical::testExecuteOnWeekend() {
 		daxVaR.execute(QDate(2014, 3, 9));
 		QFAIL("Value-at-Risk should not have been computed on a weekend day.");
 	} catch(std::exception& e) {
-		qDebug() << e.what();
+
 	}
 }
 
@@ -205,7 +205,7 @@ void TestVaRHistorical::testInvalidFutureDate() {
 		daxVaR.execute(QDate(2014, 3, 13));
 		QFAIL("Computation of Value-at-Risk at an undefined future date");
 	} catch(std::invalid_argument& e) {
-		qDebug() << e.what();
+
 	}
 }
 
@@ -232,7 +232,7 @@ void TestVaRHistorical::testInvalidPastDate() {
 		daxVaR.execute(QDate(2014, 1, 3));
 		QFAIL("Computation of Value-at-Risk at an undefined past date");
 	} catch(std::exception& e) {
-		qDebug() << e.what();
+
 	}
 }
 
@@ -269,9 +269,8 @@ void TestVaRHistorical::testTooLargeReturnsPeriod() {
 	try {
 		incorrectDaxVaR.execute(QDate(2014, 3, 12));
 		QFAIL("execute() succeeded despite too large returnsPeriod parameter");
-
 	} catch(std::range_error& e) {
-		qDebug() << e.what();
+
 	}
 }
 
@@ -290,7 +289,7 @@ void TestVaRHistorical::testExecuteNoNegativeReturns() {
 		double var = daxVaR.execute(QDate(2014, 2, 17));
 		QCOMPARE(var, 0.0);
 	} catch(std::exception &e) {
-		qDebug() << e.what();
 		QFAIL("Computation of Value-at-Risk failed");
+		qDebug() << e.what();
 	}
 }
