@@ -24,6 +24,7 @@ SOURCES += main.cpp\
 		ReportWidgetFactory.cpp \
 		DocxGenPathDialog.cpp \
 		ImportDialog.cpp \
+		BacktestingDialog.cpp \
 		SessionFolderDialog.cpp \
 		CorrelationResultsDialog.cpp
 
@@ -40,6 +41,7 @@ HEADERS += MainWindow.h \
 		DocxGenPathDialog.h \
 		Constantes.h \
 		ImportDialog.h \
+		BacktestingDialog.h \
 		SessionFolderDialog.h \
 		CorrelationResultsDialog.h
 
@@ -49,6 +51,7 @@ FORMS += MainWindow.ui \
 		ShowAssetsWizardPage.ui\
 		ReportWidget.ui \
 		DocxGenPathDialog.ui \
+		BacktestingDialog.ui \
 		SessionFolderDialog.ui \
 		CorrelationRes.ui \
 		Correlation.ui \

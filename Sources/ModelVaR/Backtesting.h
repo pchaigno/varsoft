@@ -19,6 +19,8 @@
 
 #include "Portfolio.h"
 #include "VaRAlgorithm.h"
+#include "ReportFactory.h"
+#include "BacktestingReportFactory.h"
 #include <QPair>
 #include <QDate>
 

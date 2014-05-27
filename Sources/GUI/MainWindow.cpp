@@ -29,6 +29,9 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
 	connect(ui->actionCreateAsset, SIGNAL(triggered()), this, SLOT(setImportCSV()));
 
 	connect(ui->actionGenerate_Stats_Report,SIGNAL(triggered()),this,SLOT(generateStatsReport()));
+
+	connect(ui->actionRun_Backtesting, SIGNAL(triggered()),this,SLOT(runBacktesting()));
+
 	connect(ui->actionGenerate_Correlation_Report,SIGNAL(triggered()),this,SLOT(showCorrelationWindow()));
 
 	ui->listView->setModel(portfolioListModel);
@@ -518,5 +521,14 @@ void MainWindow::importArchive() {
 	if(archivePath != "") {
 		ImportManager importManager = ImportManager(archivePath);
 		importManager.importArchive();
+	}
+}
+
+void MainWindow::runBacktesting() {
+	try {
+		BacktestingDialog * backtestingDialog = new BacktestingDialog(this, getCurrentPortfolio());
+		backtestingDialog->show();
+	} catch (NoneSelectedPortfolioException& ) {
+		showError("No portfolio selected");
 	}
 }
