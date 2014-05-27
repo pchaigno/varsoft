@@ -23,7 +23,6 @@
 */
 Import::Import(QWidget *parent): QDialog(parent), ui(new Ui::Import) {
 	ui->setupUi(this);
-	this->setting.setValue("path","C:/");
 
 	//delete automatically the QDialog
 	this->setAttribute(Qt::WA_DeleteOnClose);
@@ -81,9 +80,9 @@ void Import::on_pushButton_2_clicked() {
 }
 
 void Import::on_importButton_clicked(){
-	QVariant path = this->setting.value("path");
-	QFileInfo fileName = QFileDialog::getOpenFileName(this, ("Open file"), path.toString(), ("CSV Text (*.csv *.txt);;All files (*.*)") );
-	if(fileName.isFile()){
+	QString path = this->setting.value("path", "C:/").toString();
+	QFileInfo fileName = QFileDialog::getOpenFileName(this, ("Open file"), path, ("CSV Text (*.csv *.txt);;All files (*.*)") );
+	if(fileName.isFile()) {
 		this->setting.setValue("path", fileName.absolutePath());
 		//get startDate and endDate before calling the import function
 		GetStartEndDates* gsed = new GetStartEndDates();

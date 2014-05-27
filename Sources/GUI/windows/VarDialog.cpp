@@ -62,7 +62,7 @@ void VarDialog::accept()
 			break;
 		}
 		double var = algo->execute(date);
-		if (QMessageBox::question(this,"Value-at-risk","Value-at-risk :"+QString::number(var)+"\n Do you want to generate the report ?")==QMessageBox::Yes)
+		if (QMessageBox::question(this, "Value-at-risk", "Value-at-risk: "+QString::number(var)+"\n Do you want to generate the report ?")==QMessageBox::Yes)
 		{
 			GenerateReport(new VaRReportFactory(portfolio,var,algo,date));
 			if (currentMethod==GARCHMETHOD)
