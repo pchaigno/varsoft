@@ -30,6 +30,9 @@ private:
 private slots:
 	void on_pushButton_run_backtesting_historical_clicked();
 	void on_pushButton_run_backtesting_riskmetrics_clicked();
+	void on_pushButton_run_backtesting_garch_clicked();
 	void on_pushButton_cancel_1_clicked();
 	void on_pushButton_cancel_2_clicked();
+	void on_pushButton_cancel_3_clicked();
+	void initDates();
 };

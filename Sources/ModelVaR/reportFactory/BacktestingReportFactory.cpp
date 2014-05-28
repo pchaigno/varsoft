@@ -35,7 +35,7 @@ Report *BacktestingReportFactory::createReport() {
 //	QString backtestingStartDate = this->backtesting->getBacktestperiod().first.toString("dd-MM-yy");
 //	QString backtestingEndDate = this->backtesting->getBacktestperiod().second.toString("dd-MM-yy");
 //	file += "_"+portfolio+"_"+varAlgo+"_"+backtestingStartDate+"_"+backtestingEndDate;
-//	return new BacktestingReport(file);
+	return new BacktestingReport();
 }
 
 /**
