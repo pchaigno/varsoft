@@ -59,5 +59,5 @@ ReportType StatisticsReport::getType() const {
  * @return a QString of the template path
  */
 QString StatisticsReport::getTemplateFile() const {
-	return QString("../Resources/ReportTemplate/statisticTemplate.docx");
+	return RES_FOLDER + "/ReportTemplate/statisticTemplate.docx";
 }

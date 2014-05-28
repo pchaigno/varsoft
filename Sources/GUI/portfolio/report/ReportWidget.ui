@@ -72,7 +72,7 @@ background-color: rgb(240, 240, 240);
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap>../Resources/Icons/statsReport.png</pixmap>
+        <pixmap>Resources/Icons/statsReport.png</pixmap>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>

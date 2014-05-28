@@ -65,5 +65,5 @@ ReportType BacktestingReport::getType() const {
  * @return a string with the path of the templateFile
  */
 QString BacktestingReport::getTemplateFile() const {
-	return "../Resources/ReportTemplate/backtestingTemplate.docx";
+	return RES_FOLDER + "/ReportTemplate/backtestingTemplate.docx";
 }

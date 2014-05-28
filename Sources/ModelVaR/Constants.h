@@ -17,12 +17,7 @@
  */
 #pragma once
 
-
-#define RES_FOLDER QString("../Resources")
+#define RES_FOLDER QString("Resources")
 #define TEMPLATE_FOLDER RES_FOLDER+QString("/ReportTemplate")
 #define REPORT_FOLDER RES_FOLDER+QString("/Reports")
 #define DOCXSETTINGS "DocXGenPath"
-
-#include "ReportCreatorSingleton.h"
-
-#define GenerateReport(factory) ReportCreatorSingleton::get()->generate(factory)

@@ -49,7 +49,7 @@ void ReportCreatorSingleton::generate(ReportFactory *factory)
 	factory->getPortfolio()->addReport(report);
 
 	QSettings settings;
-	DocxGenerator * generator = new DocxGenerator(report,settings.value("DocXGenPath","../Resources/DocxGenerator/DocXGenerator.jar").toString());
+	DocxGenerator * generator = new DocxGenerator(report,settings.value("DocXGenPath","Resources/DocxGenerator/DocXGenerator.jar").toString());
 	connect(generator,SIGNAL(finished()),this,SLOT(deleteGenerator()));
 	connect(generator,SIGNAL(error(QString)),this,SLOT(showError(QString)));
 	generator->start();

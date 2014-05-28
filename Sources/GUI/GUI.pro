@@ -36,7 +36,6 @@ SOURCES += main.cpp\
 		windows/VaRResultsDialog.cpp
 
 HEADERS += MainWindow.h \
-		Constantes.h \
 		FlowLayout.h \
 		windows/NewPortfolioWizard.h \
 		windows/SetWeightAssetWizardPage.h \
@@ -57,7 +56,8 @@ HEADERS += MainWindow.h \
 		ReportCreatorSingleton.h \
 		BacktestingDialog.h \
 		SessionFolderDialog.h \
-		windows/VaRResultsDialog.h
+		windows/VaRResultsDialog.h \
+    ConstantsGUI.h
 
 FORMS += MainWindow.ui \
 		windows/NewPortfolioWizard.ui \

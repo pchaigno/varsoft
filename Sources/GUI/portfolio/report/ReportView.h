@@ -15,9 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
-#ifndef REPORTLISTSCROLLAREA_H
-#define REPORTLISTSCROLLAREA_H
+#pragma once
 
 #include <QScrollArea>
 #include "FlowLayout.h"
@@ -63,5 +61,3 @@ private:
 	Portfolio * current;
 	//QHash<Portfolio*, QList<ReportWidget*> > portfolioReportWidgets;
 };
-
-#endif // REPORTLISTSCROLLAREA_H

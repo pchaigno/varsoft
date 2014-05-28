@@ -61,5 +61,5 @@ ReportType VaRReport::getType() const {
 }
 
 QString VaRReport::getTemplateFile() const {
-	return "../Resources/ReportTemplate/varTemplate.docx";
+	return RES_FOLDER + "/ReportTemplate/varTemplate.docx";
 }

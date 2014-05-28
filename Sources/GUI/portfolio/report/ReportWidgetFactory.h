@@ -17,7 +17,6 @@
  */
 #pragma once
 
-#include "Constantes.h"
 #include "ReportWidget.h"
 
 class ReportWidgetFactory {

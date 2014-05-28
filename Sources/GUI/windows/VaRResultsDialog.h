@@ -15,9 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
-#ifndef VARRESULTSDIALOG_H
-#define VARRESULTSDIALOG_H
+#pragma once
 
 #include <QDialog>
 
@@ -36,5 +34,3 @@ public:
 private:
 	Ui::VaRResultsDialog *ui;
 };
-
-#endif // VARRESULTSDIALOG_H

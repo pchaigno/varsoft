@@ -17,6 +17,8 @@
  */
 #pragma once
 
+#include "ConstantsGUI.h"
+
 #include <QMainWindow>
 #include <QDialog>
 #include <QComboBox>
@@ -49,7 +51,6 @@
 #include "ui_MainWindow.h"
 #include "CreateAsset.h"
 #include "SessionSaver.h"
-#include "Constantes.h"
 #include "BacktestingDialog.h"
 #include "ImportManager.h"
 #include "ExportManager.h"

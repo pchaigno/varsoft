@@ -36,45 +36,38 @@ VarDialog::~VarDialog()
 	delete ui;
 }
 
-void VarDialog::accept()
-{
+void VarDialog::accept() {
 	int currentMethod = ui->tabWidget->currentIndex();
 	VaRAlgorithm * algo;
 	QDate date;
 	GarchModel *model=NULL;
-	try
-	{
-		switch(currentMethod)
-		{
-		case HISTORICAL:
-			date = ui->date_historical->date();
-			algo = new VaRHistorical(*portfolio,ui->risk_historical->value(),ui->timeHorizon_historical->value(),ui->period_historical->value());
-			break;
-		case RISKMETRICS:
-			date = ui->date_riskmetrics->date();
-			algo = new VaRRiskmetrics(*portfolio,ui->risk_riskmetrics->value(),ui->timeHorizon_riskmetrics->value(),ui->period__riskmetrics->value());
-			break;
-		case GARCHMETHOD:
-			date = ui->date_garch->date();
-			GarchModel modelR = RInterface::computeGarchModel(*portfolio, qMakePair(ui->startdate_garch->date(),ui->enddate_garch->date()));
-			model = &modelR;
-			algo = new VaRGarch(*portfolio,ui->risk_garch->value(),ui->timeHorizon_garch->value(),modelR, ui->scenario_garch->value(),ui->iteration_garch->value());
-			break;
+	try {
+		switch(currentMethod) {
+			case HISTORICAL:
+				date = ui->date_historical->date();
+				algo = new VaRHistorical(*portfolio,ui->risk_historical->value(),ui->timeHorizon_historical->value(),ui->period_historical->value());
+				break;
+			case RISKMETRICS:
+				date = ui->date_riskmetrics->date();
+				algo = new VaRRiskmetrics(*portfolio,ui->risk_riskmetrics->value(),ui->timeHorizon_riskmetrics->value(),ui->period__riskmetrics->value());
+				break;
+			case GARCHMETHOD:
+				date = ui->date_garch->date();
+				GarchModel modelR = RInterface::computeGarchModel(*portfolio, qMakePair(ui->startdate_garch->date(),ui->enddate_garch->date()));
+				model = &modelR;
+				algo = new VaRGarch(*portfolio,ui->risk_garch->value(),ui->timeHorizon_garch->value(),modelR, ui->scenario_garch->value(),ui->iteration_garch->value());
+				break;
 		}
 		double var = algo->execute(date);
 
-		if (QMessageBox::question(this,"Value-at-risk","Value-at-risk: "+QString::number(var)+"\n Do you want to generate the report ?")==QMessageBox::Yes)
-		{
+		if (QMessageBox::question(this,"Value-at-risk","Value-at-risk: "+QString::number(var)+"\n Do you want to generate the report ?")==QMessageBox::Yes) {
 			GenerateReport(new VaRReportFactory(portfolio,var,algo,date));
-			if (currentMethod==GARCHMETHOD)
-			{
+			if (currentMethod==GARCHMETHOD) {
 				GenerateReport(new GarchReportFactory(portfolio,*model));
 			}
 		}
 		this->QDialog::accept();
-	}
-	catch(std::exception & e)
-	{
+	} catch(std::exception & e) {
 		QMessageBox::warning(this,"Error",e.what());
 	}
 }

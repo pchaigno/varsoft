@@ -15,14 +15,11 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
-#ifndef VARDIALOG_H
-#define VARDIALOG_H
+#pragma once
 
 #include <QDialog>
 #include "Portfolio.h"
 #include "QMessageBox"
-#include "Constantes.h"
 #include "reportFactory/VaRReportFactory.h"
 #include "reportFactory/GarchReportFactory.h"
 #include "math/GarchModel.h"
@@ -31,6 +28,7 @@
 #include "math/VaRHistorical.h"
 #include "math/VaRRiskmetrics.h"
 #include "math/RInterface.h"
+#include "ConstantsGUI.h"
 
 namespace Ui {
 class VarDialog;
@@ -52,5 +50,3 @@ private:
 	Ui::VarDialog *ui;
 	Portfolio * portfolio;
 };
-
-#endif // VARDIALOG_H

@@ -19,9 +19,21 @@
 #include "ui_MainWindow.h"
 
 MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWindow), portfolioListModel(new PortfolioListModel(this)) {
-	ui->setupUi(this);
-
 	this->path = "C:/";
+
+	//for QSettings
+	QCoreApplication::setOrganizationName("INSA Rennes");
+	QCoreApplication::setOrganizationDomain("insa-rennes.fr");
+	QCoreApplication::setApplicationName("VaRSoft");
+
+	readSettings();
+
+	SessionFolderDialog* sessionFolderDialog = new SessionFolderDialog(this);
+	connect(sessionFolderDialog,SIGNAL(sessionBuild(QList<Portfolio*>)),this,SLOT(buildSession(QList<Portfolio*>)));
+	sessionFolderDialog->setAttribute(Qt::WA_DeleteOnClose);
+	sessionFolderDialog->show();
+
+	ui->setupUi(this);
 
 	connect(ui->addPushButton,SIGNAL(clicked()),this,SLOT(openNewPortfolioDialog()));
 
@@ -49,18 +61,6 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), ui(new Ui::MainWin
 
 	connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(importArchive()));
 	connect(ui->actionExport, SIGNAL(triggered()), this, SLOT(exportArchive()));
-
-	//for QSettings
-	QCoreApplication::setOrganizationName("INSA Rennes");
-	QCoreApplication::setOrganizationDomain("insa-rennes.fr");
-	QCoreApplication::setApplicationName("VaRSoft");
-
-	readSettings();
-
-	SessionFolderDialog* sessionFolderDialog = new SessionFolderDialog(this);
-	connect(sessionFolderDialog,SIGNAL(sessionBuild(QList<Portfolio*>)),this,SLOT(buildSession(QList<Portfolio*>)));
-	sessionFolderDialog->setAttribute(Qt::WA_DeleteOnClose);
-	sessionFolderDialog->show();
 
 	initResources();
 }

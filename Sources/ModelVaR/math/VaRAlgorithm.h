@@ -24,7 +24,6 @@
 #include <QDebug>
 #include "report/ReportDataJson.h"
 
-
 #define HISTORICAL 0
 #define RISKMETRICS 1
 #define GARCHMETHOD 2

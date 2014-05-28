@@ -26,6 +26,7 @@
 #include "Savable.h"
 #include "SQLiteManager.h"
 #include <QDebug>
+#include "Constants.h"
 
 enum ReportType {
 	NONE = 0,

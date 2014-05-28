@@ -117,7 +117,8 @@ HEADERS +=\
 	Savable.h \
 	CorrelationResults.h \
 	Savable.h \
-	SessionFolderMissingException.h
+	SessionFolderMissingException.h \
+    Constants.h
 
 unix:!symbian {
 	maemo5 {

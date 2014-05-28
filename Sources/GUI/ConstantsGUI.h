@@ -17,26 +17,11 @@
  */
 #pragma once
 
-#include <QDialog>
-#include <QSettings>
-#include <QFileDialog>
-#include "ConstantsGUI.h"
+#define RES_FOLDER QString("Resources")
+#define TEMPLATE_FOLDER RES_FOLDER+QString("/ReportTemplate")
+#define REPORT_FOLDER RES_FOLDER+QString("/Reports")
+#define DOCXSETTINGS "DocXGenPath"
 
-namespace Ui {
-	class DocxGenPathDialog;
-}
+#include "ReportCreatorSingleton.h"
 
-class DocxGenPathDialog : public QDialog {
-	Q_OBJECT
-
-public:
-	explicit DocxGenPathDialog(QWidget *parent = 0);
-	~DocxGenPathDialog();
-
-public slots:
-	void browse();
-	void accept();
-
-private:
-	Ui::DocxGenPathDialog *ui;
-};
+#define GenerateReport(factory) ReportCreatorSingleton::get()->generate(factory)
